@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: i9-defence-service
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: i9.defence.platform
+Build-Jdk: 1.7.0_79
+Built-By: vinohsueh
+Created-By: Maven Integration for Eclipse
+
