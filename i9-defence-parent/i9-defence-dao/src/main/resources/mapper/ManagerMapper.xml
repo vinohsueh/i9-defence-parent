@@ -95,7 +95,7 @@
     from t_manager
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.List" >
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List" >
     delete from t_manager
     where id in
     <foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
