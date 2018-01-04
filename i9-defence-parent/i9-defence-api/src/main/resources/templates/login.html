@@ -9,21 +9,23 @@
 </head>
 <body>
 	<div class="title">和继电器</div>
-	<form th:action="@{/login}" method="post" th:object="${manager}" id="loginForm">
+	<form th:action="@{/login}" method="post" th:object="${managerLoginDto}" id="loginData">
 		<input type="text" placeholder='请输入您的账号' th:field="*{username}">
-		<input type="text" placeholder='请输入您的密码' th:field="*{password}">
+		<input type="password" placeholder='请输入您的密码' th:field="*{password}">
 	</form>
 	<button type='button' id='submitBtn'>登录</button>
-	<p class='mb-10' id='forgetData'><span>忘记密码？</span></p>
-	<p>还没有一个账户？</p>
+	<!-- <p class='mb-10' id='forgetData'><span></span></p> -->
+	<p class="loginAlert mb-10" style="color: red" th:text="(${exception} == null)?'':${exception.errorMessage}"></p>
+	<!-- <p>还没有一个账户？</p> -->
 	<button type='button' id='jumpPage' onclick='register()'>创建账户</button>
 </body>
+<script src="vendor/jquery/jquery.min.js"></script>
 <script>
 	function register() {
 		window.location.href = './register.html';
 	}
     $("#submitBtn").click(function(){
-        $("#loginForm").submit();
+        $("#loginData").submit();
     })
 </script>
 </html>

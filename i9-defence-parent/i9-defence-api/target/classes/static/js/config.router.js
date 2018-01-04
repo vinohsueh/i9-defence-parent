@@ -24,23 +24,23 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html'
               })
-              /*.state('app.school', {
-                  url: '/school',
-                  templateUrl: '/proj/school/school.html',
-              	  controller : "schoolNgControl",
+              .state('app.manager', {
+                  url: '/manager',
+                  templateUrl: 'proj/manager/manager.html',
+              	  controller : "managerNgControl",
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                     	return $ocLazyLoad.load({
-            				name : 'schoolNgModule',
+            				name : 'managerNgModule',
             				insertBefore : '#ng_load_plugins_before',
             				files : [
-            				    'proj/school/school.js',
+            				    'proj/manager/manager.js',
             				]
             			})
                     }]
                   }
-              })*/
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: '/tpl/app_dashboard_v1.html',

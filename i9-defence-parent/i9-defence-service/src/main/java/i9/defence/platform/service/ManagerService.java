@@ -66,12 +66,18 @@ public interface ManagerService {
      * @param pageSize
      * @return
      */
-    PageBounds<Manager> selectByLimitPage(ManagerSearchDto managerSearchDto,
-            int currectPage, int pageSize) throws BusinessException;
+    PageBounds<Manager> selectByLimitPage(ManagerSearchDto managerSearchDto) throws BusinessException;
     
     /**
      * 管理员登录
      * @param manager
      */
     void login(ManagerLoginDto manager) throws BusinessException;
+    
+    /**
+     * 获取当前登录对象
+     * @return
+     * @throws BusinessException
+     */
+    Manager getLoginManager() throws BusinessException;
 }

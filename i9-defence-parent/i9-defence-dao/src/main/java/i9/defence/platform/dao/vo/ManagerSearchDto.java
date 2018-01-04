@@ -5,7 +5,7 @@ package i9.defence.platform.dao.vo;
  * @version  
  * 
  */
-public class ManagerSearchDto {
+public class ManagerSearchDto extends PageListDto{
     
     private String startTimeString;
     

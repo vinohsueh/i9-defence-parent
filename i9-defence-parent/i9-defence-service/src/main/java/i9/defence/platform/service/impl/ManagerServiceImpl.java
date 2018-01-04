@@ -9,6 +9,7 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.StringUtil;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -38,7 +39,12 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public void addManager(Manager manager) throws BusinessException {
         try {
-            managerDao.addManager(manager);
+            if(manager.getId() != null) {
+                managerDao.updateManager(manager);
+            }else{
+                manager.setCreateTime(new Date());
+                managerDao.addManager(manager);
+            }
         } catch (Exception e) {
             throw new BusinessException("添加管理员失败",e.getMessage());
         }
@@ -91,11 +97,10 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public PageBounds<Manager> selectByLimitPage(
-            ManagerSearchDto managerSearchDto, int currectPage, int pageSize)
+    public PageBounds<Manager> selectByLimitPage(ManagerSearchDto managerSearchDto)
             throws BusinessException {
         try {
-            return managerDao.selectByLimitPage(managerSearchDto,currectPage,pageSize);
+            return managerDao.selectByLimitPage(managerSearchDto,managerSearchDto.getCurrentPage(),managerSearchDto.getPageSize());
         } catch (Exception e) {
             throw new BusinessException("分页查询管理员失败",e.getMessage());
         }
@@ -122,6 +127,14 @@ public class ManagerServiceImpl implements ManagerService{
         } catch (Exception e) {
             throw new BusinessException("查询失败");
         }
+    }
+
+    @Override
+    public Manager getLoginManager() throws BusinessException {
+        Subject subject = SecurityUtils.getSubject();
+        Session shiroSession = subject.getSession();
+        Manager loginUser = (Manager) shiroSession.getAttribute("loginUser");
+        return loginUser;
     }
 
 }

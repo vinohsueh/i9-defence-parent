@@ -39,30 +39,11 @@ angular.module('app')
         }
       }
       
-      /*$.get('./currentUser', function(data) {  
-    	var user = data.user;
-    	if (user.realName.length>0){
-    		user.showname = user.realName;
-    	}else {
-    		user.showname = user.username;
-    	}
-    	
-    	if (user.head_pic != null){
-    		user.showhead = $scope.app.picturePrefix +user.head_pic;
-    	}else {
-    		user.showhead = "/img/a0.jpg";
-    	}
+      $.get('./currentUser', function(data) {  
+    	var user = data.data.data;
       	$scope.app.user = user; 
-      	$scope.app.user.roles = [];
-      	$scope.app.user.permissions = [];
-      	for(var i=0;i<data.roles.length;i++){
-      		$scope.app.user.roles.push(data.roles[i].code);
-      	}
-      	for(var i=0;i<data.permissions.length;i++){
-      		$scope.app.user.permissions.push(data.permissions[i].code);
-      	}
       	console.log($scope.app.user);
-      }); */
+      });
       
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
@@ -123,24 +104,36 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 //	var options = {
 //			url : '',
 //			data: '',
-//			successMsg: '',
-//			errorMsg: ''
+//			showSuccessMsg: '',
 //	};
 	service.get = function(options){
-		
 		var deferred = $q.defer();
-		//$window.location.origin + 
 		var accessUrl = options.url;
-		
 		$http.get(accessUrl)
 			.success(function (data) {
-				deferred.resolve(data);
+				if (data.result == 1){
+					if(options.showSuccessMsg==true){
+						$.toaster({
+							title : "Success",
+							priority : "success",
+							message : "成功"
+						});
+					}
+					deferred.resolve(data);
+				}else{
+					$.toaster({
+						title : "Error",
+						priority : "danger",
+						message : data.errorMsg
+					});
+				}
 			})
 			.error(function(msg){
-				
-				if(options.errorMsg) toaster.pop('error', '失败', options.errorMsg + msg);
-				else toaster.pop('error', '失败', msg);
-				
+				$.toaster({
+					title : "Error",
+					priority : "danger",
+					message : "失败！"
+				});
 				deferred.reject(msg);
 			});
 		return deferred.promise;
@@ -152,18 +145,30 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 		
 		$http.post(accessUrl, options.data)
 			.success(function (data) {
-				if(!(options.showSuccessMsg===false)){
-					if(options.successMsg) toaster.pop('success', '成功', options.successMsg);
-					else toaster.pop('success', '成功', '操作成功！');
+				if (data.result == 1){
+					if(options.showSuccessMsg==true){
+						$.toaster({
+							title : "Success",
+							priority : "success",
+							message : "成功"
+						});
+					}
+					deferred.resolve(data);
+				}else{
+					$.toaster({
+						title : "Error",
+						priority : "danger",
+						message : data.errorMsg
+					});
 				}
 				
-				deferred.resolve(data);
 			})
 			.error(function(msg){
-				
-				if(options.errorMsg) toaster.pop('error', '失败', options.errorMsg + msg);
-				else toaster.pop('error', '失败', msg);
-				
+				$.toaster({
+					title : "Error",
+					priority : "danger",
+					message : "失败！"
+				});
 				deferred.reject(msg);
 			});
 		return deferred.promise;
@@ -171,13 +176,3 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 	
 	return service;
 }]);
-app.service('checkRole', function($scope) {
-    this.checkRole = function (x) {
-    	for(var i=0;i<$scope.app.user.roles.length;i++){
-    		if (x == $scope.app.user.roles[i]){
-    			return true;
-    		}
-    	}
-        return false;
-    }
-});	
