@@ -17,7 +17,7 @@ import i9.defence.platform.utils.PageBounds;
  * @author  lby
  * @version  
  * 
- */m
+ */
 @Repository
 public class ManagerDaoImpl implements ManagerDao{
     
