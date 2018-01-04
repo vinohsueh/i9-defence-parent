@@ -24,7 +24,7 @@
         </javaTypeResolver>
         
         <!-- 数据库表对应的model -->
-        <javaModelGenerator targetPackage="i9.defence.platform.dao.model" targetProject="i9-defence-dao">
+        <javaModelGenerator targetPackage="i9.defence.platform.model" targetProject="i9-defence-dao">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>

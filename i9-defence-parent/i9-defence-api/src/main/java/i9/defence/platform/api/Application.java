@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-@ComponentScan("i9.defence.platform.api")
+@ComponentScan("i9.defence.platform")
 @ServletComponentScan // 扫描使用注解方式的servlet 
 public class Application extends SpringBootServletInitializer{
     public static void main(String[] args) {

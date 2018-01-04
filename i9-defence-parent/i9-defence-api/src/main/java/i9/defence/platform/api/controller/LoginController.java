@@ -1,39 +1,26 @@
 package i9.defence.platform.api.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import i9.defence.platform.dao.vo.ManagerLoginDto;
+import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.utils.BusinessException;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.vino.tiku.dto.AlertNum;
-import com.vino.tiku.dto.UserDto;
-import com.vino.tiku.dto.UserInfoDto;
-import com.vino.tiku.dto.UserSign;
-import com.vino.tiku.entity.Permission;
-import com.vino.tiku.entity.Role;
-import com.vino.tiku.entity.User;
-import com.vino.tiku.service.PermissionService;
-import com.vino.tiku.service.RoleService;
-import com.vino.tiku.service.UserService;
-import com.vino.tiku.utils.BusinessException;
 
 @Controller
 @RequestMapping("")
 public class LoginController {
 	
+    @Autowired
+    private ManagerService managerService;
+    
 	@RequestMapping("/index.html")
 	public String index() {
 		return "index";
@@ -46,28 +33,21 @@ public class LoginController {
     }
 	
 	@RequestMapping("/login.html")
-	public String toLogin(@ModelAttribute User user) {
+	public String toLogin(@ModelAttribute ManagerLoginDto manager) {
 		return "login";
 	}
 	
 	
-	/*@RequestMapping(value="/login",method = RequestMethod.POST)
-    public ModelAndView login(@ModelAttribute User user){
+	@RequestMapping(value="/login",method = RequestMethod.POST)
+    public ModelAndView login(@ModelAttribute @Valid ManagerLoginDto manager,BindingResult bindingResult){
         try {
-            User currentUser = userService.login(user);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date now=new Date();
-            String date = sdf.format(now);
-            UserSign userSign = new UserSign();
-            userSign.setUser_id(currentUser.getId());
-            userSign.setDate_day(date);
-            userService.addUserSign(userSign);
+            managerService.login(manager);
             return new ModelAndView("redirect:index.html");
         } catch (BusinessException e) {
             return new ModelAndView("login").addObject("exception", e);
         }
         
-    }*/
+    }
 	
 
 	@RequestMapping("/regist.html")

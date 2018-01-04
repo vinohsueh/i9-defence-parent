@@ -1,5 +1,6 @@
 package i9.defence.platform.api.intercepter;
 
+import i9.defence.platform.utils.BindingResultException;
 import i9.defence.platform.utils.BusinessException;
 
 import java.util.HashMap;
@@ -66,8 +67,13 @@ public class LogRecordAspect {
             result.put("errorCode", exception.getErrorCode());
             exception.printStackTrace();
             logger.error("error, message: {}, errorMessage: {}, exception: {}",exception.getMessage(),exception.getErrorMessage(),exception.getExceptionMessage());
-        }
-        catch (Exception e) {
+        } catch (BindingResultException exception) {
+            result = new HashMap<String, Object>();
+            result.put("result", 0);
+            result.put("errorMsg", exception.toErrors());
+            exception.printStackTrace();
+            logger.error(exception.getMessage());
+        } catch (Exception e) {
             result = new HashMap<String, Object>();
             result.put("result", 0);
             result.put("errorMsg", "系统错误");
