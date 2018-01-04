@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+	<link rel="stylesheet" href="css/login.css">	
+</head>
+<body>
+	<div class="title">和继电器</div>
+	<form action="" id='loginData'>
+		<input type="text" placeholder='请输入您的账号' id='phoneNum'>
+		<input type="text" placeholder='请输入您的密码' id='password'>
+	</form>
+	<button type='button' id='submitBtn'>登录</button>
+	<p class='mb-10' id='forgetData'><span>忘记密码？</span></p>
+	<p>还没有一个账户？</p>
+	<button type='button' id='jumpPage' onclick='register()'>创建账户</button>
+</body>
+<script>
+	function register() {
+		window.location.href = './register.html';
+	}
+</script>
+</html>

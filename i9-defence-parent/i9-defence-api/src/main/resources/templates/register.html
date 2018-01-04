@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<link rel="stylesheet" href="css/login.css">	
+</head>
+<body>
+	<div class="title">和继电器</div>
+	<form action="" id='loginData'>
+		<input type="text" placeholder='请输入标题' id='name'>
+		<input type="text" placeholder='请输入密码' id='password'>
+		<input type="text" placeholder='请确认密码' id='rePassword'>
+		<input type="text" placeholder='请输入邮箱' id='email'>
+		<input type="text" placeholder='请输入联系电话' id='phoneNum'>
+	</form>
+	<select name="" id="jurisdiction">
+		<option value="">超级管理员</option>
+		<option value="">管理员</option>
+		<option value="">省级经销商</option>
+		<option value="">市级经销商</option>
+	</select>
+	<button type='button' id='submitBtn'>确认</button>
+	<p class='pt-10'>已经有账户了？</p>
+	<button type='button' id='jumpPage' onclick='login()'>去登陆</button>
+</body>
+<script>
+	function login() {
+		window.location.href = './login.html';
+	}
+</script>
+</html>
