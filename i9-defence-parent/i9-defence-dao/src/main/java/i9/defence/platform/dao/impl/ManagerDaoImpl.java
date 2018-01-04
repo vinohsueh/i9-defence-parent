@@ -17,11 +17,11 @@ import i9.defence.platform.utils.PageBounds;
  * @author  lby
  * @version  
  * 
- */
+ */m
 @Repository
 public class ManagerDaoImpl implements ManagerDao{
     
-    @Autowired
+    @Autowired(required=false)  
     private ManagerMapper managerMapper;
     
     @Override
