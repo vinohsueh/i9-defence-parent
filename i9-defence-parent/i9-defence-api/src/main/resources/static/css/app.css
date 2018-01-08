@@ -5152,3 +5152,10 @@ a.text-#000000:hover {
     display: inline-block;
     vertical-align: middle;
 }
+.required {
+	color: #f05050;
+    padding-top: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}

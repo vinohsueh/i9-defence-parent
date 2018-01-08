@@ -41,6 +41,40 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.permission', {
+                  url: '/permission',
+                  templateUrl: 'proj/permission/permission.html',
+              	  controller : "permissionNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'permissionNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/permission/permission.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.role', {
+                  url: '/role',
+                  templateUrl: 'proj/role/role.html',
+              	  controller : "roleNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'roleNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/role/role.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: '/tpl/app_dashboard_v1.html',
