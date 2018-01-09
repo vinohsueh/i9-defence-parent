@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="i9.defence.platform.dao.mapper.EquipmentMapper">
+  <resultMap id="BaseResultMap" type="i9.defence.platform.model.Equipment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="equipmentName" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="equipmentNum" jdbcType="INTEGER" property="equipmentNum" />
+    <result column="equipmentIdentifier" jdbcType="INTEGER" property="equipmentIdentifier" />
+    <result column="equipmentPosition" jdbcType="VARCHAR" property="equipmentPosition" />
+    <result column="equipmentDate" jdbcType="TIMESTAMP" property="equipmentDate" />
+    <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks" />
+    <result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
+    <association column="eqId" javaType="i9.defence.platform.model.EquipmentMonitor" property="" select="org.i9.hospital.platform.dao.mapper.HospitalMapper.selectByPrimaryKey" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, equipmentDate, 
+    equipmentRemarks, equipmentCategoryId
+  </sql>
+  <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_equipment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_equipment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="i9.defence.platform.model.EquipmentExample">
+    delete from t_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="i9.defence.platform.model.Equipment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_equipment (equipmentName, equipmentNum, equipmentIdentifier, 
+      equipmentPosition, equipmentDate, equipmentRemarks, 
+      equipmentCategoryId)
+    values (#{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, #{equipmentIdentifier,jdbcType=INTEGER}, 
+      #{equipmentPosition,jdbcType=VARCHAR}, #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, 
+      #{equipmentCategoryId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_equipment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipmentName != null">
+        equipmentName,
+      </if>
+      <if test="equipmentNum != null">
+        equipmentNum,
+      </if>
+      <if test="equipmentIdentifier != null">
+        equipmentIdentifier,
+      </if>
+      <if test="equipmentPosition != null">
+        equipmentPosition,
+      </if>
+      <if test="equipmentDate != null">
+        equipmentDate,
+      </if>
+      <if test="equipmentRemarks != null">
+        equipmentRemarks,
+      </if>
+      <if test="equipmentCategoryId != null">
+        equipmentCategoryId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipmentName != null">
+        #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentNum != null">
+        #{equipmentNum,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentIdentifier != null">
+        #{equipmentIdentifier,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentPosition != null">
+        #{equipmentPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentDate != null">
+        #{equipmentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentRemarks != null">
+        #{equipmentRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentCategoryId != null">
+        #{equipmentCategoryId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultType="java.lang.Long">
+    select count(*) from t_equipment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_equipment
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentName != null">
+        equipmentName = #{record.equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentNum != null">
+        equipmentNum = #{record.equipmentNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentIdentifier != null">
+        equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmentPosition != null">
+        equipmentPosition = #{record.equipmentPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentDate != null">
+        equipmentDate = #{record.equipmentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.equipmentRemarks != null">
+        equipmentRemarks = #{record.equipmentRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentCategoryId != null">
+        equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_equipment
+    set id = #{record.id,jdbcType=INTEGER},
+      equipmentName = #{record.equipmentName,jdbcType=VARCHAR},
+      equipmentNum = #{record.equipmentNum,jdbcType=INTEGER},
+      equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=INTEGER},
+      equipmentPosition = #{record.equipmentPosition,jdbcType=VARCHAR},
+      equipmentDate = #{record.equipmentDate,jdbcType=TIMESTAMP},
+      equipmentRemarks = #{record.equipmentRemarks,jdbcType=VARCHAR},
+      equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="i9.defence.platform.model.Equipment">
+    update t_equipment
+    <set>
+      <if test="equipmentName != null">
+        equipmentName = #{equipmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentNum != null">
+        equipmentNum = #{equipmentNum,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentIdentifier != null">
+        equipmentIdentifier = #{equipmentIdentifier,jdbcType=INTEGER},
+      </if>
+      <if test="equipmentPosition != null">
+        equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentDate != null">
+        equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentRemarks != null">
+        equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentCategoryId != null">
+        equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.Equipment">
+    update t_equipment
+    set equipmentName = #{equipmentName,jdbcType=VARCHAR},
+      equipmentNum = #{equipmentNum,jdbcType=INTEGER},
+      equipmentIdentifier = #{equipmentIdentifier,jdbcType=INTEGER},
+      equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
+      equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
+      equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
+      equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
