@@ -6,6 +6,7 @@ import i9.defence.platform.service.ManagerService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
@@ -65,6 +66,10 @@ public class UserRealm extends AuthorizingRealm{
         Manager manager = managerService.getManagerByUsername(username);
         if (manager == null) {
             throw new UnknownAccountException();
+        }
+        if (1 != manager.getStatus()){
+            // 用户被管理员锁定抛出异常
+            throw new LockedAccountException();
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 manager.getUsername(), manager.getPassword(), getName());

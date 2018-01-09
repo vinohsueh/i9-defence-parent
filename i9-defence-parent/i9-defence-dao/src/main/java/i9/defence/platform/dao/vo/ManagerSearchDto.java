@@ -13,6 +13,66 @@ public class ManagerSearchDto extends PageListDto{
     
     private String orderByClause;
 
+    private Short type;
+    
+    /**
+     * 邮箱
+     */
+    private String email;
+    
+    /**
+     * 电话
+     */
+    private String phone;
+    /**
+     * 账户名称
+     */
+    private String name;
+    /**
+     * 用户名
+     */
+    private String username;
+    
+    public Short getType() {
+        return type;
+    }
+
+    public void setType(Short type) {
+        this.type = type;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getStartTimeString() {
         return startTimeString;
     }

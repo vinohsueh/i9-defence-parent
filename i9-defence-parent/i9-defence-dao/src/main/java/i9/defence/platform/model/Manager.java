@@ -38,6 +38,84 @@ public class Manager {
      * 创建时间
      */
     private Date createTime;
+    /**
+     * 账户名称
+     */
+    private String name;
+    
+    /**
+     * 账户类型 (0:网站账户,1:账户)
+     */
+    private Byte type;
+    
+    /**
+     * 地域
+     */
+    private String area;
+    
+    /**
+     * 地址
+     */
+    private String address;
+    
+    /**
+     * 是否安全责任人(0:否 1:是)
+     */
+    private Byte securitier;
+    
+    /**
+     * 开启状态(0:关 1:开)
+     */
+    private Byte status;
+    
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Byte getSecuritier() {
+        return securitier;
+    }
+
+    public void setSecuritier(Byte securitier) {
+        this.securitier = securitier;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;

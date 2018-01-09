@@ -8,6 +8,12 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="securitier" jdbcType="SMALLINT" property="securitier" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,11 +75,12 @@
   </sql>
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-    
+        <if test="example"></if>
     </trim>
   </sql>
   <sql id="Base_Column_List" >
-    id, username, password, email, phone, createTime
+    id, username, password, email, phone, createTime, name, type, area, address, securitier, 
+    status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="i9.defence.platform.model.ManagerExample" >
     select
@@ -111,9 +118,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_manager (username, password, email, 
-      phone, createTime)
+      phone, createTime, name, 
+      type, area, address, 
+      securitier, status)
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+      #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=SMALLINT}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{securitier,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Manager" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -136,6 +147,24 @@
       <if test="createTime != null" >
         createTime,
       </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="area != null and area != ''">
+        area,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="securitier != null">
+        securitier,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="username != null" >
@@ -152,6 +181,24 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="area != null and area != ''">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="securitier != null">
+        #{securitier,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
       </if>
     </trim>
   </insert>
@@ -182,6 +229,24 @@
       <if test="record.createTime != null" >
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+       <if test="record.name != null and record.name != ''">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=SMALLINT},
+      </if>
+      <if test="record.area != null and record.area != ''">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null and record.address != ''">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.securitier != null">
+        securitier = #{record.securitier,jdbcType=SMALLINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,7 +259,13 @@
       password = #{record.password,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      createTime = #{record.createTime,jdbcType=TIMESTAMP}
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=SMALLINT},
+      area = #{record.area,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      securitier = #{record.securitier,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -217,6 +288,24 @@
       <if test="createTime != null" >
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="area != null and area != ''">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="securitier != null">
+        securitier = #{securitier,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -226,7 +315,13 @@
       password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      createTime = #{createTime,jdbcType=TIMESTAMP}
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=SMALLINT},
+      area = #{area,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      securitier = #{securitier,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
