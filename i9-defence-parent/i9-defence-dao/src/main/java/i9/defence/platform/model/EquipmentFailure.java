@@ -1,13 +1,30 @@
 package i9.defence.platform.model;
 
+/**
+ * 设备故障统计
+* @ClassName: EquipmentFailure 
+* @Description: TODO
+* @author luobo
+* @date 2018年1月8日 下午5:10:58 
+*
+ */
 public class EquipmentFailure {
     private Integer id;
-
+    
+    /**
+     * 处理人
+     */
     private String conductor;
-
+    
+    /**
+     * 处理状态（0：未处理,1：已处理)
+     */
     private Integer dealState;
-
-    private Integer eqmonitorId;
+    
+    /**
+     * 设备监控
+     */
+    private EquipmentMonitor equipmentMonitor;
 
     public Integer getId() {
         return id;
@@ -33,11 +50,13 @@ public class EquipmentFailure {
         this.dealState = dealState;
     }
 
-    public Integer getEqmonitorId() {
-        return eqmonitorId;
-    }
+	public EquipmentMonitor getEquipmentMonitor() {
+		return equipmentMonitor;
+	}
 
-    public void setEqmonitorId(Integer eqmonitorId) {
-        this.eqmonitorId = eqmonitorId;
-    }
+	public void setEquipmentMonitor(EquipmentMonitor equipmentMonitor) {
+		this.equipmentMonitor = equipmentMonitor;
+	}
+
+ 
 }
