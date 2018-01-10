@@ -82,4 +82,16 @@ public class PermissionController {
         permissionService.deletePermission(ids);
         return result;
     }
+    
+    /**
+     * 获取全部权限
+     * @return
+     */
+    @RequestMapping("/getAll")
+    public HashMap<String, Object> getAll() {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<Permission> list = permissionService.findAllPermission();
+        result.put("data",list);
+        return result;
+    }
 }

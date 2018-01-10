@@ -42,7 +42,6 @@ angular.module('app')
       $.get('./currentUser', function(data) {  
     	var user = data.data.data;
       	$scope.app.user = user; 
-      	console.log($scope.app.user);
       });
       
       // save settings to local storage

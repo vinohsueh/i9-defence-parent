@@ -2,9 +2,11 @@ package i9.defence.platform.dao;
 
 import i9.defence.platform.model.Permission;
 import i9.defence.platform.model.PermissionExample;
+import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
+import java.util.Set;
 
 /** 
  * 创建时间：2018年1月4日 上午9:47:35
@@ -72,4 +74,12 @@ public interface PermissionDao {
      * @return
      */
     Permission selectPermissionByCode(String code) throws Exception;
+    
+    /**
+     * 通过用户id查找权限
+     * @param managerId
+     * @return
+     * @throws BusinessException
+     */
+    Set<Permission> getPermissionByManagerId(Integer managerId) throws Exception;
 }

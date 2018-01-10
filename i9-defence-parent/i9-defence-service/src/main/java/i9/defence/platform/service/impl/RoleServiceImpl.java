@@ -1,6 +1,7 @@
 package i9.defence.platform.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,11 +38,17 @@ public class RoleServiceImpl implements RoleService{
                     throw new BusinessException("角色代码重复!");
                 }
                 roleDao.updateRole(role);
+                //删除角色已有权限
+                roleDao.deletePermissionByRole(role.getId());
             }else{
                 if (roleByName != null || roleByCode != null) {
                     throw new BusinessException("角色名称或代码重复!");
                 }
                 roleDao.addRole(role);
+            }
+            //添加角色权限
+            if (role.getPermissionIds().size() > 0) {
+                roleDao.addRolePermissions(role.getId(),role.getPermissionIds());
             }
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorMessage());
@@ -93,6 +100,16 @@ public class RoleServiceImpl implements RoleService{
             return roleDao.selectByLimitPage(roleExample, currectPage, pageSize);
         } catch (Exception e) {
             throw new BusinessException("分页查询角色失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public Set<Role> getRoleByManagerId(Integer managerId)
+            throws BusinessException {
+        try {
+            return roleDao.getRoleByManagerId(managerId);
+        } catch (Exception e) {
+            throw new BusinessException("查询用户角色失败",e.getMessage());
         }
     }
 

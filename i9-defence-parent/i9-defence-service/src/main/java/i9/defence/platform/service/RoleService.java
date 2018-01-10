@@ -6,6 +6,7 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
+import java.util.Set;
 
 /** 
  * 创建时间：2018年1月4日 上午9:47:35
@@ -60,4 +61,12 @@ public interface RoleService {
      */
     PageBounds<Role> selectByLimitPage(RoleExample roleExample,
             int currectPage, int pageSize) throws BusinessException;
+    
+    /**
+     * 通过用户id查找角色
+     * @param managerId
+     * @return
+     * @throws BusinessException
+     */
+    Set<Role> getRoleByManagerId(Integer managerId) throws BusinessException;
 }

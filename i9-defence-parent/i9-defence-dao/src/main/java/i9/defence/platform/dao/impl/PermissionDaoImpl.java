@@ -1,6 +1,7 @@
 package i9.defence.platform.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -80,6 +81,12 @@ public class PermissionDaoImpl implements PermissionDao{
             return list.get(0);
         }
         return null;
+    }
+
+    @Override
+    public Set<Permission> getPermissionByManagerId(Integer managerId)
+            throws Exception {
+        return permissionMapper.getPermissionByManagerId(managerId);
     }
 
 }

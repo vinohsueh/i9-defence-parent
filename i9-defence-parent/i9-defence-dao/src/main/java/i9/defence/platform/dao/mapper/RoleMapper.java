@@ -4,6 +4,7 @@ import i9.defence.platform.model.Role;
 import i9.defence.platform.model.RoleExample;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,10 @@ public interface RoleMapper {
     int updateByPrimaryKey(Role record);
     
     List<Role> selectByLimitPage(@Param("example") RoleExample example, @Param("offset") int offset, @Param("limit") int pageSize);
+
+    Set<Role> getRoleByManagerId(Integer managerId);
+
+    void deletePermissionByRole(Integer roleId);
+
+    void addRolePermissions(@Param("roleId") Integer roleId,@Param("permissionIds") List<Integer> permissions);
 }

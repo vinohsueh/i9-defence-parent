@@ -8,6 +8,7 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,6 +96,16 @@ public class PermissionServiceImpl implements PermissionService{
             return permissionDao.selectByLimitPage(permissionExample, currectPage, pageSize);
         } catch (Exception e) {
             throw new BusinessException("分页查询权限失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public Set<Permission> getPermissionByManagerId(Integer managerId)
+            throws BusinessException {
+        try {
+            return permissionDao.getPermissionByManagerId(managerId);
+        } catch (Exception e) {
+            throw new BusinessException("查询用户权限失败",e.getMessage());
         }
     }
 

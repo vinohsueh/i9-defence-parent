@@ -1,29 +1,54 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal"
 		ng-click="closeBtn()" aria-hidden="true">&times;</button>
-	<h4 class="modal-title" id="myModalLabel">添加角色</h4>
+	<!-- <h4 class="modal-title" id="myModalLabel">添加角色</h4> -->
+	<ul id="myTab" class="nav nav-tabs">
+		<li id="homeli" ng-class="{true:'active'}[tab=='role']" ng-click="changeTab('role')"><a href="" data-toggle="tab">
+				添加角色 </a></li>
+		<li ng-class="{true:'active'}[tab=='permission']" ng-click="changeTab('permission')"><a href="" data-toggle="tab">分配权限</a></li>
+	</ul>
 </div>
 <div class="modal-body">
-	<form class="form-horizontal" role="form">
-		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>角色名称</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" id="name" ng-model="role.name" placeholder="">
-			</div>
+	<div id="myTabContent" class="tab-content">
+		<div ng-if="tab=='role'">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-md-2 control-label"><span
+						class="required">*</span>角色名称</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="name"
+							ng-model="role.name" placeholder="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label"><span
+						class="required">*</span>角色代码</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="password"
+							ng-model="role.code" placeholder="">
+					</div>
+				</div>
+				<div class="form-group" style="display: none;">
+					<label class="col-md-2 control-label">id</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="id" ng-model="role.id"
+							placeholder="">
+					</div>
+				</div>
+			</form>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>角色代码</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" id="password" ng-model="role.code" placeholder="">
-			</div>
+		<div ng-if="tab=='permission'">
+			<form role="form" name="form" class="form-horizontal">
+				<div class="form-group">
+				    <div class="col-sm-3" ng-repeat="permission in permissions">
+				      <label class="i-checks m-b-none" id="checkLabel">
+		                <input type="checkbox" class="ckbox" data-id="{{permission.id}}" ng-checked="permission.checked"><i></i>{{permission.name}}
+		              </label>
+		            </div>
+				</div>
+			</form>
 		</div>
-		<div class="form-group" style="display: none;">
-            <label class="col-md-2 control-label">id</label>
-            <div class="col-md-8">
-                <input type="text" class="form-control" id="id" ng-model="role.id" placeholder="">
-            </div>
-        </div>
-	</form>
+	</div>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" ng-click="closeBtn()"

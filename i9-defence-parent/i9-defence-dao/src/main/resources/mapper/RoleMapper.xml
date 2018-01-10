@@ -6,6 +6,9 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="code" property="code" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="DetailResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Role" >
+    <collection property="permissions" column="id" ofType="i9.defence.platform.model.Permisison" select="selectPermissions"></collection>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -81,7 +84,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="DetailResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_role
@@ -186,5 +189,22 @@
         order by ${example.orderByClause}
       </if>
       limit #{offset},#{limit}
+  </select>
+  <select id="getRoleByManagerId" parameterType="int" resultType="i9.defence.platform.model.Role">
+    select r.* from t_role r left join t_manager_role mr on mr.roleId = r.id left join t_manager m on m.id = mr.managerId where m.id = #{id}
+  </select>
+  
+  <!-- 角色权限 -->
+  <delete id="deletePermissionByRole" parameterType="int">
+    delete from t_role_permission where roleId = #{id}
+  </delete>
+  <insert id="addRolePermissions">
+    insert into t_role_permission(roleId,permissionId) values
+    <foreach collection="permissionIds" item="permissionId" separator=",">
+        (#{roleId},#{permissionId})
+    </foreach>
+  </insert>
+  <select id="selectPermissions" parameterType="int" resultType="i9.defence.platform.model.Permission">
+    select p.* from t_permission p left join t_role_permission rp on p.id = rp.permissionId where rp.roleId = #{id}
   </select>
 </mapper>

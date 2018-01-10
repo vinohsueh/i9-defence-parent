@@ -187,4 +187,7 @@
       </if>
       limit #{offset},#{limit}
   </select>
+  <select id="getPermissionByManagerId" parameterType="int" resultType="i9.defence.platform.model.Permission">
+    select p.* from t_permission p left join t_role_permission rp on p.id = rp.permissionId left join t_role r on r.id = rp.roleId left join t_manager_role mr on mr.roleId = r.id  where mr.managerId = #{id};
+  </select>
 </mapper>

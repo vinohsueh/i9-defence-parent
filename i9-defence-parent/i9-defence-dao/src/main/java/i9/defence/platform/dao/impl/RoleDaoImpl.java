@@ -7,6 +7,7 @@ import i9.defence.platform.model.RoleExample;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -79,6 +80,22 @@ public class RoleDaoImpl implements RoleDao{
             return list.get(0);
         }
         return null;
+    }
+
+    @Override
+    public Set<Role> getRoleByManagerId(Integer managerId) throws Exception {
+        return roleMapper.getRoleByManagerId(managerId);
+    }
+
+    @Override
+    public void deletePermissionByRole(Integer roleId) throws Exception {
+        roleMapper.deletePermissionByRole(roleId);
+    }
+
+    @Override
+    public void addRolePermissions(Integer roleId, List<Integer> permissions)
+            throws Exception {
+        roleMapper.addRolePermissions(roleId,permissions);
     }
 
 }
