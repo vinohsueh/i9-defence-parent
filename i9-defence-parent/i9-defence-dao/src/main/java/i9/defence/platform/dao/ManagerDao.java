@@ -66,4 +66,17 @@ public interface ManagerDao {
      */
     PageBounds<Manager> selectByLimitPage(ManagerSearchDto managerSearchDto,
             int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 根据账户id删除角色信息
+     * @param id
+     */
+    void delManagerRole(Integer managerId) throws Exception;
+    
+    /**
+     * 添加用户角色信息
+     * @param id
+     * @param roleId
+     */
+    void addManagerRole(Integer id, Integer roleId) throws Exception;
 }

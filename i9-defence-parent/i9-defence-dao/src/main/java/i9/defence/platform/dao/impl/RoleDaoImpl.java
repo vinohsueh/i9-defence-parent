@@ -1,15 +1,15 @@
 package i9.defence.platform.dao.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import i9.defence.platform.dao.RoleDao;
 import i9.defence.platform.dao.mapper.RoleMapper;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.model.RoleExample;
 import i9.defence.platform.utils.PageBounds;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /** 
  * 创建时间：2018年1月8日 下午2:44:18
@@ -57,6 +57,28 @@ public class RoleDaoImpl implements RoleDao{
         List<Role> list = roleMapper.selectByLimitPage(roleExample, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
         return pageBounds;
+    }
+
+    @Override
+    public Role getRoleByName(String roleName) throws Exception {
+        RoleExample example = new RoleExample();
+        example.createCriteria().andNameEqualTo(roleName);
+        List<Role> list = roleMapper.selectByExample(example);
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public Role selectRoleByCode(String code) throws Exception {
+        RoleExample example = new RoleExample();
+        example.createCriteria().andCodeEqualTo(code);
+        List<Role> list = roleMapper.selectByExample(example);
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
     }
 
 }

@@ -8,7 +8,10 @@ import i9.defence.platform.utils.PageBounds;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +31,7 @@ public class ManagerController {
     
     
     /**
-     * 分页查询管理员
+     * 分页查询网站管理员
      * @param managerSearchDto
      * @param currectPage
      * @param pageSize
@@ -37,20 +40,22 @@ public class ManagerController {
     @RequestMapping("/pageManager")
     public HashMap<String, Object> pageManager(@RequestBody ManagerSearchDto managerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
+        managerSearchDto.setType((byte)0);
         PageBounds<Manager> pageBounds = managerService.selectByLimitPage(managerSearchDto);
         result.put("data",pageBounds);
         return result;
     }
     
    /**
-    * 添加管理员
+    * 添加网站管理员
     * @param manager
     * @return
     */
-    @RequestMapping("/addManager")
-    public HashMap<String, Object> pageManager(@RequestBody Manager manager) {
+    @RequestMapping("/addNetManager")
+    public HashMap<String, Object> addNetManager(@Valid @RequestBody Manager manager,BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        managerService.addManager(manager);
+        manager.setType((byte)0);
+        managerService.addNetManager(manager);
         return result;
     }
     

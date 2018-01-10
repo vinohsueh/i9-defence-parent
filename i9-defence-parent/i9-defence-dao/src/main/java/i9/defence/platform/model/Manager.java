@@ -2,6 +2,12 @@ package i9.defence.platform.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 管理员
  * 
@@ -17,21 +23,35 @@ public class Manager {
     /**
      * 用户名
      */
+    @NotBlank(message="用户名不能为空")
+    @Length(max=30,min=5,message="用户名长度在5-20之间")
     private String username;
     
     /**
      * 密码
      */
+    @NotBlank(message="密码不能为空")
+    @Length(max=40,min=5,message="密码长度在5-40之间")
     private String password;
+    
+    /**
+     * 确认密码
+     */
+    @NotBlank(message="确认密码不能为空")
+    @Length(max=40,min=5,message="确认密码长度在5-40之间")
+    private String confirmPwd;
     
     /**
      * 邮箱
      */
+    @Pattern(regexp="\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}",message="请输入正确的邮箱格式")
     private String email;
     
     /**
      * 电话
      */
+    @NotBlank(message="电话号码不能为空")
+    @Pattern(regexp="^1[3|4|5|7|8][0-9]\\d{8}$",message="请输入正确的手机号")
     private String phone;
     
     /**
@@ -68,7 +88,26 @@ public class Manager {
      */
     private Byte status;
     
+    @NotNull(message="权限不能为空")
+    private Role role;
     
+    public String getConfirmPwd() {
+        return confirmPwd;
+    }
+
+    public void setConfirmPwd(String confirmPwd) {
+        this.confirmPwd = confirmPwd;
+    }
+
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }

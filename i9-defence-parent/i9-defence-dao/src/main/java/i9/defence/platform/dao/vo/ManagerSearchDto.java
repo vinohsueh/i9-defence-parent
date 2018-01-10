@@ -13,7 +13,7 @@ public class ManagerSearchDto extends PageListDto{
     
     private String orderByClause;
 
-    private Short type;
+    private Byte type;
     
     /**
      * 邮箱
@@ -33,11 +33,11 @@ public class ManagerSearchDto extends PageListDto{
      */
     private String username;
     
-    public Short getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(Short type) {
+    public void setType(Byte type) {
         this.type = type;
     }
 

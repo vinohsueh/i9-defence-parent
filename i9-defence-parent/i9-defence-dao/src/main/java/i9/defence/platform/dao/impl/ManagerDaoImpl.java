@@ -73,4 +73,14 @@ public class ManagerDaoImpl implements ManagerDao{
         return pageBounds;
     }
 
+    @Override
+    public void delManagerRole(Integer managerId) {
+        managerMapper.delManagerRole(managerId);
+    }
+
+    @Override
+    public void addManagerRole(Integer id, Integer roleId) throws Exception {
+        managerMapper.addManagerRole(id,roleId);
+    }
+
 }

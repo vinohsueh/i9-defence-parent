@@ -58,4 +58,20 @@ public interface RoleDao {
      */
     PageBounds<Role> selectByLimitPage(RoleExample roleExample,
             int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 根据角色名称查找角色
+     * @param role
+     * @return
+     * @throws Exception
+     */
+    Role getRoleByName(String roleName) throws Exception;
+    
+    /**
+     * 通过角色代码查找角色
+     * @param code
+     * @return
+     * @throws Exception
+     */
+    Role selectRoleByCode(String code) throws Exception;
 }

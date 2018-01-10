@@ -58,4 +58,18 @@ public interface PermissionDao {
      */
     PageBounds<Permission> selectByLimitPage(PermissionExample permissionExample,
             int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 通过权限名称查找权限
+     * @param name
+     * @return
+     */
+    Permission selectPermissionByName(String name) throws Exception;
+    
+    /**
+     * 通过权限代码查找权限
+     * @param code
+     * @return
+     */
+    Permission selectPermissionByCode(String code) throws Exception;
 }

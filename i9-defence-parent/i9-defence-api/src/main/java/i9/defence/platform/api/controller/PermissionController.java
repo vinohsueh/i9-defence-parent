@@ -9,6 +9,8 @@ import i9.defence.platform.utils.PageBounds;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +52,7 @@ public class PermissionController {
     * @return
     */
     @RequestMapping("/addPermission")
-    public HashMap<String, Object> pagepermission(@RequestBody Permission permission) {
+    public HashMap<String, Object> pagepermission(@Valid @RequestBody Permission permission) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         permissionService.addPermission(permission);
         return result;

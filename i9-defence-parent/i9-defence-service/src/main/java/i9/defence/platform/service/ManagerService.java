@@ -16,11 +16,11 @@ import java.util.List;
  */
 public interface ManagerService {
     /**
-     * 添加管理员
+     * 添加网站管理员
      * @param manager
      * @throws BusinessException
      */
-    void addManager(Manager manager) throws BusinessException;
+    void addNetManager(Manager manager) throws BusinessException;
     
     /**
      * 更新管理员

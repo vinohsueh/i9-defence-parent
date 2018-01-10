@@ -27,11 +27,24 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public void addRole(Role role) throws BusinessException {
         try {
+            Role roleByName = roleDao.getRoleByName(role.getName());
+            Role roleByCode = roleDao.selectRoleByCode(role.getCode());
             if (role.getId() != null) {
+                if (roleByName != null && roleByName.getId() != role.getId()) {
+                    throw new BusinessException("角色名称重复!");
+                }
+                if (roleByCode != null && roleByCode.getId() != role.getId()) {
+                    throw new BusinessException("角色代码重复!");
+                }
                 roleDao.updateRole(role);
             }else{
+                if (roleByName != null || roleByCode != null) {
+                    throw new BusinessException("角色名称或代码重复!");
+                }
                 roleDao.addRole(role);
             }
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
         } catch (Exception e) {
             throw new BusinessException("添加角色失败",e.getMessage());
         }
