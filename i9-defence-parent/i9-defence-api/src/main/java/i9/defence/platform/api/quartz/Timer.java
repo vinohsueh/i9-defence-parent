@@ -29,7 +29,7 @@ public class Timer {
 	
 	//每7天查询一下 设备 如果有隐患或者报警的  生成待处理记录
 	@Scheduled(cron="0 0 0 1/7 * ? ") //7天执行一次
-	public void stepTimer(){  
+	public void stepTimer(){
 		//查询有问题的设备 标识
 		List<String> list = hiddenDangerService.selectErrorEquipmentIds();
 		//批量处理问题设备
