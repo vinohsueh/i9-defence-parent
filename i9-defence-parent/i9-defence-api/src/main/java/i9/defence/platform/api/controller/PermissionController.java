@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,7 +78,7 @@ public class PermissionController {
     * @return
     */
     @RequestMapping("/delPermission")
-    public HashMap<String, Object> delpermission(@RequestBody List<Integer> ids) {
+    public HashMap<String, Object> delPermission(@Valid @NotEmpty(message = "至少选择一个") @RequestBody List<Integer> ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         permissionService.deletePermission(ids);
         return result;

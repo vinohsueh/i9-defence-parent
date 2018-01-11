@@ -9,6 +9,9 @@ import i9.defence.platform.utils.PageBounds;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +53,7 @@ public class RoleController {
     * @return
     */
     @RequestMapping("/addRole")
-    public HashMap<String, Object> pageRole(@RequestBody Role role) {
+    public HashMap<String, Object> addRole(@RequestBody Role role) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         roleService.addRole(role);
         return result;
@@ -62,7 +65,7 @@ public class RoleController {
      * @return
      */
     @RequestMapping("/getRole")
-    public HashMap<String, Object> pageRole(@RequestBody Integer roleId) {
+    public HashMap<String, Object> getRole(@RequestBody Integer roleId) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Role role = roleService.getRoleById(roleId);
         result.put("data",role);
@@ -75,7 +78,7 @@ public class RoleController {
     * @return
     */
     @RequestMapping("/delRole")
-    public HashMap<String, Object> delRole(@RequestBody List<Integer> ids) {
+    public HashMap<String, Object> delRole(@Valid @NotEmpty(message = "至少选择一个")@RequestBody List<Integer> ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         roleService.deleteRole(ids);
         return result;
