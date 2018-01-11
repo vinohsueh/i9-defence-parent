@@ -4,8 +4,8 @@
 <div class="wrapper-md">  
   <div class="panel panel-default">
     <div class="panel-heading">
-        <button class="btn m-b-xs w-xs btn-success btn-rounded addNetManager" ng-click="add()">新增</button>
-        <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetManager" ng-click="del()">删除</button>
+        <button class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="add()">新增</button>
+        <button class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="del()">删除</button>
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
@@ -39,18 +39,12 @@
               </label>
             </th>
             <th>用户名</th>
-            <th>用户类型</th>
-            <th>联系方式</th>
-            <th>EMAIL</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="manager in managers">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{manager.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td ng-click="edit({{manager.id}})">{{manager.username}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.role.name}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.phone}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.email}}</td>
           </tr>
         </tbody>
       </table>

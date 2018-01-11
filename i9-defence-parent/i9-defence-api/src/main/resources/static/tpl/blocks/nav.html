@@ -1,6 +1,5 @@
 <!-- list -->
 <ul class="nav">
-  <div controlled-rescode>
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span>　</span>
   </li>
@@ -9,6 +8,28 @@
       <i class="glyphicon glyphicon-calendar icon icon-home"></i>
       <span class="font-bold">首页</span>
     </a>
+  </li>
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+      <span class="font-bold">项目管理</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span translate="aside.nav.DASHBOARD">项目管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.project">
+          <span>项目列表</span>
+        </a>
+      </li>
+    </ul>
   </li>
   <li>
     <a href class="auto">      
@@ -421,6 +442,5 @@
       <span translate="aside.nav.your_stuff.DOCUMENTS">Documents</span>
     </a>
   </li>
-  </div>
 </ul>
 <!-- / list -->

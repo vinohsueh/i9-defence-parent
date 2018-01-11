@@ -41,6 +41,23 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.project', {
+                  url: '/project',
+                  templateUrl: 'proj/project/project.html',
+              	  controller : "projectNgControl",
+              	  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'projectNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/project/project.js',
+            				    ]
+            			})
+                    }]
+                  }
+              })
               .state('app.permission', {
                   url: '/permission',
                   templateUrl: 'proj/permission/permission.html',

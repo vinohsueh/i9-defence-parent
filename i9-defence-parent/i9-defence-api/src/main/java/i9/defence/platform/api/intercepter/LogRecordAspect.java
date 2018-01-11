@@ -69,7 +69,7 @@ public class LogRecordAspect {
             logger.error("error, message: {}, errorMessage: {}, exception: {}",exception.getMessage(),exception.getErrorMessage(),exception.getExceptionMessage());
         } catch (BindingResultException exception) {
             result = new HashMap<String, Object>();
-            result.put("result", -1);
+            result.put("result", 0);
             result.put("errorMsg", exception.toErrors());
             exception.printStackTrace();
             logger.error(exception.getMessage());

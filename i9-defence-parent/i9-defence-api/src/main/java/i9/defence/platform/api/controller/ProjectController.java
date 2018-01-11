@@ -3,7 +3,12 @@ package i9.defence.platform.api.controller;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +50,7 @@ public class ProjectController {
 	    * @return
 	    */
 	    @RequestMapping("/addProject")
-	    public HashMap<String, Object> pageProject(@RequestBody Project project) {
+	    public HashMap<String, Object> pageProject(@Valid @RequestBody Project project,BindingResult bindingResult) {
 	        HashMap<String, Object> result = new HashMap<String, Object>();
 	        projectService.addProject(project);
 	        return result;
@@ -57,7 +62,7 @@ public class ProjectController {
 	     * @return
 	     */
 	    @RequestMapping("/getProject")
-	    public HashMap<String, Object> getProject(@RequestBody Integer projectId) {
+	    public HashMap<String, Object> getProject(@Valid @NotNull(message="项目ID不能为空") @RequestBody Integer projectId) {
 	        HashMap<String, Object> result = new HashMap<String, Object>();
 	        Project project = projectService.getProjectById(projectId);
 	        result.put("data",project);
@@ -70,7 +75,7 @@ public class ProjectController {
 	    * @return
 	    */
 	    @RequestMapping("/delProject")
-	    public HashMap<String, Object> delProject(@RequestBody Integer[] ids) {
+	    public HashMap<String, Object> delProject(@Valid @NotEmpty(message="项目IDS不能为空") @RequestBody Integer[] ids) {
 	        HashMap<String, Object> result = new HashMap<String, Object>();
 	        projectService.deleteProject(Arrays.asList(ids));
 	        return result;

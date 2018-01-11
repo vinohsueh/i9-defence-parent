@@ -42,6 +42,7 @@ angular.module('app')
       $.get('./currentUser', function(data) {  
     	var user = data.data.data;
       	$scope.app.user = user; 
+      	console.log($scope.app.user);
       });
       
       // save settings to local storage
@@ -119,12 +120,6 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 						});
 					}
 					deferred.resolve(data);
-				}else if(data.result == -1){
-					$.toaster({
-						title : "Error",
-						priority : "danger",
-						message : data.errorMsg[Object.keys(data.errorMsg)[0]]
-					});
 				}else{
 					$.toaster({
 						title : "Error",
@@ -159,12 +154,6 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 						});
 					}
 					deferred.resolve(data);
-				}else if(data.result == -1){
-					$.toaster({
-						title : "Error",
-						priority : "danger",
-						message : data.errorMsg[Object.keys(data.errorMsg)[0]]
-					});
 				}else{
 					$.toaster({
 						title : "Error",
