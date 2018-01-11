@@ -589,52 +589,52 @@ public class ManagerExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(Byte value) {
+        public Criteria andTypeEqualTo(Short value) {
             addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(Byte value) {
+        public Criteria andTypeNotEqualTo(Short value) {
             addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(Byte value) {
+        public Criteria andTypeGreaterThan(Short value) {
             addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(Byte value) {
+        public Criteria andTypeGreaterThanOrEqualTo(Short value) {
             addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(Byte value) {
+        public Criteria andTypeLessThan(Short value) {
             addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(Byte value) {
+        public Criteria andTypeLessThanOrEqualTo(Short value) {
             addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<Byte> values) {
+        public Criteria andTypeIn(List<Short> values) {
             addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<Byte> values) {
+        public Criteria andTypeNotIn(List<Short> values) {
             addCriterion("type not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(Byte value1, Byte value2) {
+        public Criteria andTypeBetween(Short value1, Short value2) {
             addCriterion("type between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(Byte value1, Byte value2) {
+        public Criteria andTypeNotBetween(Short value1, Short value2) {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
@@ -789,52 +789,52 @@ public class ManagerExample {
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierEqualTo(Byte value) {
+        public Criteria andSecuritierEqualTo(Short value) {
             addCriterion("securitier =", value, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierNotEqualTo(Byte value) {
+        public Criteria andSecuritierNotEqualTo(Short value) {
             addCriterion("securitier <>", value, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierGreaterThan(Byte value) {
+        public Criteria andSecuritierGreaterThan(Short value) {
             addCriterion("securitier >", value, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierGreaterThanOrEqualTo(Byte value) {
+        public Criteria andSecuritierGreaterThanOrEqualTo(Short value) {
             addCriterion("securitier >=", value, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierLessThan(Byte value) {
+        public Criteria andSecuritierLessThan(Short value) {
             addCriterion("securitier <", value, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierLessThanOrEqualTo(Byte value) {
+        public Criteria andSecuritierLessThanOrEqualTo(Short value) {
             addCriterion("securitier <=", value, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierIn(List<Byte> values) {
+        public Criteria andSecuritierIn(List<Short> values) {
             addCriterion("securitier in", values, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierNotIn(List<Byte> values) {
+        public Criteria andSecuritierNotIn(List<Short> values) {
             addCriterion("securitier not in", values, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierBetween(Byte value1, Byte value2) {
+        public Criteria andSecuritierBetween(Short value1, Short value2) {
             addCriterion("securitier between", value1, value2, "securitier");
             return (Criteria) this;
         }
 
-        public Criteria andSecuritierNotBetween(Byte value1, Byte value2) {
+        public Criteria andSecuritierNotBetween(Short value1, Short value2) {
             addCriterion("securitier not between", value1, value2, "securitier");
             return (Criteria) this;
         }
@@ -849,52 +849,52 @@ public class ManagerExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Byte value) {
+        public Criteria andStatusEqualTo(Short value) {
             addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Byte value) {
+        public Criteria andStatusNotEqualTo(Short value) {
             addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Byte value) {
+        public Criteria andStatusGreaterThan(Short value) {
             addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Byte value) {
+        public Criteria andStatusGreaterThanOrEqualTo(Short value) {
             addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Byte value) {
+        public Criteria andStatusLessThan(Short value) {
             addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Byte value) {
+        public Criteria andStatusLessThanOrEqualTo(Short value) {
             addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Byte> values) {
+        public Criteria andStatusIn(List<Short> values) {
             addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Byte> values) {
+        public Criteria andStatusNotIn(List<Short> values) {
             addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Byte value1, Byte value2) {
+        public Criteria andStatusBetween(Short value1, Short value2) {
             addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Byte value1, Byte value2) {
+        public Criteria andStatusNotBetween(Short value1, Short value2) {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }

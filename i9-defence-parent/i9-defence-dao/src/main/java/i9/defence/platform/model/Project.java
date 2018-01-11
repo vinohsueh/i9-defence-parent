@@ -1,6 +1,12 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import i9.defence.platform.utils.StringUtil;
 /**
  * 项目实体类
  * @author 姜哲
@@ -10,26 +16,37 @@ public class Project {
 	//项目主键
     private Integer id;
     //项目名称
+    @NotBlank(message="项目名称不能为空")
     private String projectName;
     //项目地址
+    @NotBlank(message="项目地址不能为空")
     private String projectAddress;
     //项目坐标-经度
+    @NotNull(message="项目坐标-经度不能为空")
     private Double projectLongitude;
     //项目坐标-纬度
+    @NotNull(message="项目坐标-纬度不能为空")
     private Double projectLatitude;
     //项目创建日期
+    @NotNull(message="项目创建日期不能为空")
     private Date projectDate;
     //建筑面积
+    @NotNull(message="建筑面积不能为空")
     private Integer projectArea;
     //项目负责人Id
+    @NotNull(message="项目负责人Id不能为空")
     private Integer dutyManId;
     //经销商Id
+    @NotNull(message="经销商Id不能为空")
     private Integer distributorId;
     //项目安全责任人Id
+    @NotNull(message="项目安全责任人Id不能为空")
     private Integer safetyManId;
     //备注
+    @NotBlank(message="备注不能为空")
     private String remarks;
     //开关 0-关，1-开
+    @NotNull(message="开关 0-关，1-开不能为空")
     private Integer projectState;
     //项目负责人(一对一关系)
     private Manager dutyMan;
@@ -84,6 +101,13 @@ public class Project {
 
     public void setProjectDate(Date projectDate) {
         this.projectDate = projectDate;
+    }
+    
+    public String getProjectDateStr() {
+    	if(projectDate != null) {
+    		return StringUtil.dateToString(projectDate);
+    	}
+    	return "";
     }
 
     public Integer getProjectArea() {

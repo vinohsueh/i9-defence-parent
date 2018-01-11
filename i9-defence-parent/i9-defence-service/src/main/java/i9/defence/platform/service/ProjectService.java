@@ -3,6 +3,7 @@ package i9.defence.platform.service;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.ProjectSearchDto;
+import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
@@ -58,4 +59,25 @@ public interface ProjectService {
      * @return
      */
     PageBounds<Project> selectByLimitPage(ProjectSearchDto projectSearchDto) throws BusinessException;
+
+    /**
+     * 获取全部的项目的主键ID和项目名称
+     * @return
+     * @throws BusinessException
+     */
+    List<ProjectSelectDto> selectAllProjectName(ProjectSearchDto projectSearchDto) throws BusinessException;
+
+    /**
+     * 向项目-设备表 增加  设备ID
+     * @param kid
+     * @throws Exception
+     */
+    void saveProjectEquipment(Integer projectId,List<Integer> equipmentIds) throws BusinessException;
+
+    /**
+     * 获取当前项目下的全部设备ID
+     * @return
+     * @throws Exception
+     */
+    List<Integer> selectAllEquipmentIds(Integer projectId) throws BusinessException;
 }

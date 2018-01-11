@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.mapper.ManagerMapper;
 import i9.defence.platform.dao.vo.ManagerSearchDto;
+import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerExample;
 import i9.defence.platform.utils.PageBounds;
@@ -73,14 +74,9 @@ public class ManagerDaoImpl implements ManagerDao{
         return pageBounds;
     }
 
-    @Override
-    public void delManagerRole(Integer managerId) {
-        managerMapper.delManagerRole(managerId);
-    }
-
-    @Override
-    public void addManagerRole(Integer id, Integer roleId) throws Exception {
-        managerMapper.addManagerRole(id,roleId);
-    }
+	@Override
+	public List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws Exception {
+		return managerMapper.selectConditionMan(managerSearchDto);
+	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import i9.defence.platform.dao.ProjectDao;
 import i9.defence.platform.dao.mapper.ProjectMapper;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
+import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.model.ProjectExample;
 import i9.defence.platform.utils.PageBounds;
@@ -58,6 +59,24 @@ public class ProjectDaoImpl implements ProjectDao{
         List<Project> list = projectMapper.selectByLimitPage(projectSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
         return pageBounds;
+	}
+
+	@Override
+	public List<ProjectSelectDto> selectAllProjectName(ProjectSearchDto projectSearchDto) throws Exception {
+		/*ProjectExample example = new ProjectExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andDistributorIdEqualTo(1);*/
+		return projectMapper.selectAllProjectName(projectSearchDto);
+	}
+
+	@Override
+	public void saveProjectEquipment(Integer projectId, List<Integer> equipmentIds) throws Exception {
+		projectMapper.insertProjectEquipment(projectId, equipmentIds);
+	}
+
+	@Override
+	public List<Integer> selectAllEquipmentIds(Integer projectId) throws Exception {
+		return projectMapper.selectAllEquipmentIds(projectId);
 	}
 
 }

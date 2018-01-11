@@ -1,43 +1,11 @@
 package i9.defence.platform.model;
 
-import java.util.List;
-
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 public class Role {
     private Integer id;
-    
-    @NotBlank(message="角色名称不能为空")
-    @Size(max=10,min=2,message="角色名称长度2-10")
+
     private String name;
-    
-    @NotBlank(message="角色代码不能为空")
-    @Size(max=20,min=2,message="角色代码长度2-20")
+
     private String code;
-    
-    private List<Integer> permissionIds;
-    
-    private List<Permission> permissions;
-
-    
-
-    public List<Integer> getPermissionIds() {
-        return permissionIds;
-    }
-
-    public void setPermissionIds(List<Integer> permissionIds) {
-        this.permissionIds = permissionIds;
-    }
-
-    public List<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
-    }
 
     public Integer getId() {
         return id;

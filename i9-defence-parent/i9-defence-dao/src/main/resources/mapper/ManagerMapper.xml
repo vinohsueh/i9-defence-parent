@@ -9,14 +9,11 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
     <result column="area" jdbcType="VARCHAR" property="area" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="securitier" jdbcType="TINYINT" property="securitier" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-  </resultMap>
-  <resultMap id="DetailResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Manager" >
-    <collection property="role" column="id" ofType="i9.defence.platform.model.Role" select="selectRole"></collection>
+    <result column="securitier" jdbcType="SMALLINT" property="securitier" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,21 +75,7 @@
   </sql>
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-        <if test="example.username != null and example.username != ''">
-            OR (username LIKE CONCAT(CONCAT('%','${example.username}'),'%' )
-        </if>
-        <if test="example.name != null and example.name != ''">
-            OR name LIKE CONCAT(CONCAT('%','${example.name}'),'%' )
-        </if>
-        <if test="example.phone != null and example.phone != ''">
-            OR phone LIKE CONCAT(CONCAT('%','${example.phone}'),'%' )
-        </if>
-        <if test="example.email != null and example.email != ''">
-            OR email LIKE CONCAT(CONCAT('%','${example.email}'),'%' ))
-        </if>
-        <if test="example.type != null and example.type != ''">
-            AND type = #{example.type}
-        </if>
+        <if test="example"></if>
     </trim>
   </sql>
   <sql id="Base_Column_List" >
@@ -113,7 +96,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="DetailResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_manager
@@ -140,8 +123,8 @@
       securitier, status)
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
-      #{type,jdbcType=TINYINT}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{securitier,jdbcType=TINYINT}, #{status,jdbcType=TINYINT})
+      #{type,jdbcType=SMALLINT}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{securitier,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Manager" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -203,19 +186,19 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
-        #{type,jdbcType=TINYINT},
+        #{type,jdbcType=SMALLINT},
       </if>
-      <if test="area != null">
+      <if test="area != null and area != ''">
         #{area,jdbcType=VARCHAR},
       </if>
-      <if test="address != null">
+      <if test="address != null and address != ''">
         #{address,jdbcType=VARCHAR},
       </if>
       <if test="securitier != null">
-        #{securitier,jdbcType=TINYINT},
+        #{securitier,jdbcType=SMALLINT},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=SMALLINT},
       </if>
     </trim>
   </insert>
@@ -250,7 +233,7 @@
         name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null">
-        type = #{record.type,jdbcType=TINYINT},
+        type = #{record.type,jdbcType=SMALLINT},
       </if>
       <if test="record.area != null and record.area != ''">
         area = #{record.area,jdbcType=VARCHAR},
@@ -259,10 +242,10 @@
         address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.securitier != null">
-        securitier = #{record.securitier,jdbcType=TINYINT},
+        securitier = #{record.securitier,jdbcType=SMALLINT},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
+        status = #{record.status,jdbcType=SMALLINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -278,11 +261,11 @@
       phone = #{record.phone,jdbcType=VARCHAR},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       name = #{record.name,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=TINYINT},
+      type = #{record.type,jdbcType=SMALLINT},
       area = #{record.area,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
-      securitier = #{record.securitier,jdbcType=TINYINT},
-      status = #{record.status,jdbcType=TINYINT}
+      securitier = #{record.securitier,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -309,7 +292,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+        type = #{type,jdbcType=SMALLINT},
       </if>
       <if test="area != null and area != ''">
         area = #{area,jdbcType=VARCHAR},
@@ -318,10 +301,10 @@
         address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="securitier != null">
-        securitier = #{securitier,jdbcType=TINYINT},
+        securitier = #{securitier,jdbcType=SMALLINT},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=SMALLINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -334,14 +317,14 @@
       phone = #{phone,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       name = #{name,jdbcType=VARCHAR},
-      type = #{type,jdbcType=TINYINT},
+      type = #{type,jdbcType=SMALLINT},
       area = #{area,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      securitier = #{securitier,jdbcType=TINYINT},
-      status = #{status,jdbcType=TINYINT}
+      securitier = #{securitier,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByLimitPage" resultMap="DetailResultMap">
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from t_manager 
         <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
@@ -350,16 +333,12 @@
           order by ${example.orderByClause}
         </if>
         limit #{offset},#{limit}
-   </select>
-    
-   <!-- 用户角色 -->
-   <delete id="delManagerRole" parameterType="int">
-    delete from t_manager_role where managerId = #{managerId};
-   </delete> 
-   <insert id="addManagerRole">
-    insert into t_manager_role(managerId,roleId) values(#{managerId},#{roleId});
-   </insert>
-   <select id="selectRole" parameterType="int" resultType="i9.defence.platform.model.Role">
-    select r.* from t_role r left join t_manager_role m on r.id = m.roleId where m.managerId = #{id}
-   </select>
+  </select>
+  <!--  获取全部的管理员之新建项目时选择---责任人、经销商、安全责任人 -->
+  <select id="selectConditionMan" resultType="i9.defence.platform.dao.vo.ManagerSelectDto">
+  		select id,username from t_manager 
+  		<if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+  </select>
 </mapper>

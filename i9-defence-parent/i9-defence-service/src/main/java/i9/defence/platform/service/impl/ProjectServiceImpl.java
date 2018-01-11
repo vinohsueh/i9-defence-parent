@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import i9.defence.platform.dao.ProjectDao;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
+import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.BusinessException;
@@ -84,6 +85,34 @@ public class ProjectServiceImpl implements ProjectService{
 			return projectDao.selectByLimitPage(projectSearchDto, projectSearchDto.getCurrentPage(), projectSearchDto.getPageSize());
 		} catch (Exception e) {
 			throw new BusinessException("分页查询项目失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ProjectSelectDto> selectAllProjectName(ProjectSearchDto projectSearchDto) throws BusinessException {
+		try {
+			return projectDao.selectAllProjectName(projectSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询全部项目ID和名称失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public void saveProjectEquipment(Integer projectId, List<Integer> equipmentIds) throws BusinessException {
+		try {
+			projectDao.saveProjectEquipment(projectId, equipmentIds);
+		} catch (Exception e) {
+			throw new BusinessException("增加项目和设备关系ID失败",e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public List<Integer> selectAllEquipmentIds(Integer projectId) throws BusinessException {
+		try {
+			return projectDao.selectAllEquipmentIds(projectId);
+		} catch (Exception e) {
+			throw new BusinessException("获取当前项目下的全部设备ID",e.getMessage());
 		}
 	}
 

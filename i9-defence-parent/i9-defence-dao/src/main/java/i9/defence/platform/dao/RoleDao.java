@@ -5,7 +5,6 @@ import i9.defence.platform.model.RoleExample;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
-import java.util.Set;
 
 /** 
  * 创建时间：2018年1月4日 上午9:47:35
@@ -59,41 +58,4 @@ public interface RoleDao {
      */
     PageBounds<Role> selectByLimitPage(RoleExample roleExample,
             int currectPage, int pageSize) throws Exception;
-    
-    /**
-     * 根据角色名称查找角色
-     * @param role
-     * @return
-     * @throws Exception
-     */
-    Role getRoleByName(String roleName) throws Exception;
-    
-    /**
-     * 通过角色代码查找角色
-     * @param code
-     * @return
-     * @throws Exception
-     */
-    Role selectRoleByCode(String code) throws Exception;
-    
-    /**
-     * 查询用户角色
-     * @param managerId
-     * @return
-     */
-    Set<Role> getRoleByManagerId(Integer managerId) throws Exception;
-    
-    /**
-     * 删除角色的权限
-     * @param id
-     * @throws Exception
-     */
-    void deletePermissionByRole(Integer roleId) throws Exception;
-    
-    /**
-     * 添加角色权限
-     * @param id
-     * @param permissions
-     */
-    void addRolePermissions(Integer roleId, List<Integer> permissions)  throws Exception;
 }

@@ -4,7 +4,6 @@ import i9.defence.platform.model.Permission;
 import i9.defence.platform.model.PermissionExample;
 
 import java.util.List;
-import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -32,6 +31,4 @@ public interface PermissionMapper {
     int updateByPrimaryKey(Permission record);
     
     List<Permission> selectByLimitPage(@Param("example") PermissionExample example, @Param("offset") int offset, @Param("limit") int pageSize);
-
-    Set<Permission> getPermissionByManagerId(Integer managerId);
 }
