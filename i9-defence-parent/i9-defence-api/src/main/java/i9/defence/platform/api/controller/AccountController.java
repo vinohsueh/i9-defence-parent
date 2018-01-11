@@ -39,7 +39,9 @@ public class AccountController {
     @RequestMapping("/pageAcount")
     public HashMap<String, Object> pageAcount(@RequestBody ManagerSearchDto managerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        managerSearchDto.setTypes(Arrays.asList(Constants.S_ACCOUNT));
+        if (managerSearchDto.getTypes() == null) {
+            managerSearchDto.setTypes(Arrays.asList(Constants.S_ACCOUNT));
+        }
         PageBounds<Manager> pageBounds = managerService.selectByLimitPage(managerSearchDto);
         result.put("data",pageBounds);
         return result;
