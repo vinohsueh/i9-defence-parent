@@ -1,4 +1,7 @@
 package i9.defence.platform.dao.vo;
+
+import java.util.List;
+
 /** 
  * 创建时间：2018年1月4日 上午10:14:06
  * @author  lby
@@ -13,7 +16,7 @@ public class ManagerSearchDto extends PageListDto{
     
     private String orderByClause;
 
-    private Byte type;
+    private List<Byte> types;
     
     /**
      * 邮箱
@@ -33,12 +36,13 @@ public class ManagerSearchDto extends PageListDto{
      */
     private String username;
     
-    public Byte getType() {
-        return type;
+
+    public List<Byte> getTypes() {
+        return types;
     }
 
-    public void setType(Byte type) {
-        this.type = type;
+    public void setTypes(List<Byte> types) {
+        this.types = types;
     }
 
     public String getEmail() {
