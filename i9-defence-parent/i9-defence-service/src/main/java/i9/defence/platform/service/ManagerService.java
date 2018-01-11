@@ -2,7 +2,6 @@ package i9.defence.platform.service;
 
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.dao.vo.ManagerSearchDto;
-import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
@@ -17,11 +16,11 @@ import java.util.List;
  */
 public interface ManagerService {
     /**
-     * 添加管理员
+     * 添加网站管理员
      * @param manager
      * @throws BusinessException
      */
-    void addManager(Manager manager) throws BusinessException;
+    void addNetManager(Manager manager) throws BusinessException;
     
     /**
      * 更新管理员
@@ -81,12 +80,4 @@ public interface ManagerService {
      * @throws BusinessException
      */
     Manager getLoginManager() throws BusinessException;
-    
-    /**
-     *获取全部的管理员之新建项目时选择---责任人、经销商、安全责任人
-     * @return
-     * @throws Exception
-     */
-    List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws BusinessException;
-    
 }

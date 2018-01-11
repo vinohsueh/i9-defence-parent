@@ -36,7 +36,7 @@ public interface ProjectMapper {
     
     List<ProjectSelectDto> selectAllProjectName(@Param("example") ProjectSearchDto projectSearchDto);
     
-    int insertProjectEquipment(@Param("projectId") Integer projectId,@Param("equipmentIds") List<Integer> equipmentIds);
+    void insertProjectEquipment(@Param("projectId") Integer projectId,@Param("equipmentIds") List<Integer> equipmentIds);
 
     List<Integer> selectAllEquipmentIds(Integer projectId);
 }

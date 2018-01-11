@@ -24,23 +24,6 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html'
               })
-              .state('app.manager', {
-                  url: '/manager',
-                  templateUrl: 'proj/manager/manager.html',
-              	  controller : "managerNgControl",
-                  resolve: {
-                    deps: ['$ocLazyLoad',
-                      function( $ocLazyLoad ){
-                    	return $ocLazyLoad.load({
-            				name : 'managerNgModule',
-            				insertBefore : '#ng_load_plugins_before',
-            				files : [
-            				    'proj/manager/manager.js',
-            				]
-            			})
-                    }]
-                  }
-              })
               .state('app.project', {
                   url: '/project',
                   templateUrl: 'proj/project/project.html',
@@ -54,6 +37,23 @@ angular.module('app')
             				files : [
             				    'proj/project/project.js',
             				    ]
+            			})
+                    }]
+                  }
+              })
+              .state('app.manager', {
+                  url: '/manager',
+                  templateUrl: 'proj/manager/manager.html',
+              	  controller : "managerNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'managerNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/manager/manager.js',
+            				]
             			})
                     }]
                   }

@@ -33,7 +33,19 @@ public interface ManagerMapper {
     int updateByPrimaryKey(Manager record);
     
     List<Manager> selectByLimitPage(@Param("example") ManagerSearchDto managerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
-
+    
     List<ManagerSelectDto> selectConditionMan(@Param("example") ManagerSearchDto managerSearchDto);
     
+    /**
+     * 删除用户的角色信息
+     * @param managerId
+     */
+    void delManagerRole(Integer managerId);
+    
+    /**
+     * 添加用户角色信息
+     * @param id
+     * @param roleId
+     */
+    void addManagerRole(@Param("managerId") Integer managerId,@Param("roleId") Integer roleId);
 }

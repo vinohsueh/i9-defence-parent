@@ -5,6 +5,7 @@ import i9.defence.platform.model.PermissionExample;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
+import java.util.Set;
 
 /** 
  * 创建时间：2018年1月4日 上午9:47:35
@@ -58,4 +59,20 @@ public interface PermissionDao {
      */
     PageBounds<Permission> selectByLimitPage(PermissionExample permissionExample,
             int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 通过权限名称查找权限
+     * @param name
+     * @return
+     */
+    Permission selectPermissionByName(String name) throws Exception;
+    
+    /**
+     * 通过权限代码查找权限
+     * @param code
+     * @return
+     */
+    Permission selectPermissionByCode(String code) throws Exception;
+
+    Set<Permission> getPermissionByManagerId(Integer managerId) throws Exception;
 }

@@ -342,13 +342,13 @@
         </if>
         limit #{offset},#{limit}
    </select>
-   <select id="selectAllProjectName" resultType="i9.defence.platform.dao.vo.ProjectSelect">
+   <select id="selectAllProjectName" resultType="i9.defence.platform.dao.vo.ProjectSelectDto">
    		select id,projectName from t_project 
    		<if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
         </if>
    </select>
-   <insert id="insertProjectEquipment" resultType="java.lang.Integer">
+   <insert id="insertProjectEquipment">
 		insert into t_project_equipment(projectId,equipmentId) values
         <foreach collection ="equipmentIds" item="equipmentId" index= "index" separator =",">
             (
