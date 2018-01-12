@@ -103,4 +103,11 @@ public interface RoleDao {
      * @throws Exception
      */
     void deletePermissionByRoles(List<Integer> ids) throws Exception;
+
+    /**
+     * 获取除了管理员以外的角色
+     * @return
+     * @throws Exception
+     */
+    List<Role> selectPartRole() throws Exception;
 }

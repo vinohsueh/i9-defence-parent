@@ -88,4 +88,11 @@ public interface ManagerService {
      * @throws Exception
      */
     List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws BusinessException;
+
+    /**
+     * 修改账户开启状态Status
+     * @return
+     * @throws Exception
+     */
+    void updateStatus(Manager manager) throws BusinessException;
 }

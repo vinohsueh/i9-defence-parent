@@ -88,4 +88,5 @@ public class ManagerDaoImpl implements ManagerDao{
     public List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws Exception {
         return managerMapper.selectConditionMan(managerSearchDto);
     }
+
 }
