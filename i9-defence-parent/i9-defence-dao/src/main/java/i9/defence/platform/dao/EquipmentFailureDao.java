@@ -1,11 +1,10 @@
 package i9.defence.platform.dao;
 
-import java.util.List;
-
-import i9.defence.platform.dao.vo.EquipmentFailureDto;
 import i9.defence.platform.model.EquipmentFailure;
 import i9.defence.platform.model.EquipmentFailureExample;
 import i9.defence.platform.utils.PageBounds;
+
+import java.util.List;
 
 /**
  * 设备故障Dao
