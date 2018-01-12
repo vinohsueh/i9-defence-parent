@@ -87,4 +87,5 @@ public interface ManagerDao {
      * @throws Exception
      */
     List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws Exception;
+
 }

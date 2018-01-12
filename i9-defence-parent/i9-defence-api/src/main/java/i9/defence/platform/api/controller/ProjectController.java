@@ -55,7 +55,7 @@ public class ProjectController {
      * @return
      */
     @RequestMapping("/addProject")
-    public HashMap<String, Object> pageProject(
+    public HashMap<String, Object> addProject(
             @Valid @RequestBody Project project, BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         projectService.addProject(project);

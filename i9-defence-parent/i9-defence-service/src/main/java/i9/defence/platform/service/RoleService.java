@@ -69,4 +69,11 @@ public interface RoleService {
      * @throws BusinessException
      */
     Set<Role> getRoleByManagerId(Integer managerId) throws BusinessException;
+
+    /**
+     * 获取除了管理员以外的角色
+     * @return
+     * @throws Exception
+     */
+    List<Role> selectPartRole() throws BusinessException;
 }
