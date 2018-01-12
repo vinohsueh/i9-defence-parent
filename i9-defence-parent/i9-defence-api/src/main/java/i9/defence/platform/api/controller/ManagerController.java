@@ -4,7 +4,9 @@ import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.Constants;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class ManagerController {
     @RequestMapping("/pageManager")
     public HashMap<String, Object> pageManager(@RequestBody ManagerSearchDto managerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        managerSearchDto.setType((byte)0);
+        managerSearchDto.setTypes(Arrays.asList(Constants.S_NET_MANAGER));
         PageBounds<Manager> pageBounds = managerService.selectByLimitPage(managerSearchDto);
         result.put("data",pageBounds);
         return result;

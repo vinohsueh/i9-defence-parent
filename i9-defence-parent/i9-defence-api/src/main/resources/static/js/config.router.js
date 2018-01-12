@@ -109,6 +109,23 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.account', {
+                  url: '/account',
+                  templateUrl: 'proj/account/account.html',
+              	  controller : "accountNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'accountNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/account/account.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: '/tpl/app_dashboard_v1.html',

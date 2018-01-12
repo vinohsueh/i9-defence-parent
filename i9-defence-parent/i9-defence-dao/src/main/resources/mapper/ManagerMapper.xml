@@ -90,8 +90,11 @@
         <if test="example.email != null and example.email != ''">
             OR email LIKE CONCAT(CONCAT('%','${example.email}'),'%' ))
         </if>
-        <if test="example.type != null and example.type != ''">
-            AND type = #{example.type}
+        <if test="example.types != null">
+            AND type in
+            <foreach collection="example.types" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
         </if>
     </trim>
   </sql>

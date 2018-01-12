@@ -8,6 +8,8 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import i9.defence.platform.utils.StringUtil;
+
 /**
  * 管理员
  * 
@@ -42,7 +44,7 @@ public class Manager {
     private String confirmPwd;
     
     /**
-     * 邮箱
+     * 邮箱 @Pattern定义正则表达式
      */
     @Pattern(regexp="\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}",message="请输入正确的邮箱格式")
     private String email;
@@ -88,7 +90,7 @@ public class Manager {
      */
     private Byte status;
     
-    @NotNull(message="权限不能为空")
+    @NotNull(message="角色不能为空")
     private Role role;
     
     public String getConfirmPwd() {
@@ -202,5 +204,12 @@ public class Manager {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+    
+    public String getCreateTimeStr() {
+    	if(createTime != null) {
+    		return StringUtil.dateToString(createTime);
+    	}
+        return "";
     }
 }

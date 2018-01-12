@@ -4,6 +4,7 @@ import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.RoleDao;
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.dao.vo.ManagerSearchDto;
+import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
@@ -164,5 +165,30 @@ public class ManagerServiceImpl implements ManagerService{
         Manager loginUser = (Manager) shiroSession.getAttribute("loginUser");
         return loginUser;
     }
+    
+    @Override
+    public List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws BusinessException {
+        try {
+            return managerDao.selectConditionMan(managerSearchDto);
+        } catch (Exception e) {
+            throw new BusinessException("获取全部的管理员之新建项目时选择---责任人、经销商、安全责任人失败",e.getMessage());
+        }
+        
+    }
+
+	@Override
+	public void updateStatus(Manager manager) throws BusinessException {
+		Byte status = manager.getStatus();
+		try {
+			if(status == 0) {
+				manager.setStatus((byte) 1);
+			}else {
+				manager.setStatus((byte) 0);
+			}
+			managerDao.updateManager(manager);
+		} catch (Exception e) {
+			throw new BusinessException("修改账户开启状态Status失败",e.getMessage());
+		}
+	}
 
 }

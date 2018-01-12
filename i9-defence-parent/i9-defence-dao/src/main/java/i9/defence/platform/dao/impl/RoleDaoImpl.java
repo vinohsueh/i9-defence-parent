@@ -4,6 +4,7 @@ import i9.defence.platform.dao.RoleDao;
 import i9.defence.platform.dao.mapper.RoleMapper;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.model.RoleExample;
+import i9.defence.platform.model.RoleExample.Criteria;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
@@ -102,5 +103,13 @@ public class RoleDaoImpl implements RoleDao{
     public void deletePermissionByRoles(List<Integer> ids) throws Exception {
         roleMapper.deletePermissionByRoles(ids);
     }
+
+	@Override
+	public List<Role> selectPartRole() throws Exception {
+		RoleExample example = new RoleExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdGreaterThanOrEqualTo(3);
+		return roleMapper.selectByExample(example);
+	}
 
 }
