@@ -49,6 +49,18 @@ public class StringUtil {
         }else {
             return "";
         }
-        
+    }
+    /**
+     * 日期转换
+     * @param date
+     * @return
+     */
+    public static String dateToStringWithoutTime(Date date) {
+        if (null != date) {
+            SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
+            return sdm.format(date);
+        } else {
+            return "";
+        }
     }
 }

@@ -17,6 +17,33 @@
 				<input type="password" class="form-control" id="password" ng-model="manager.password" placeholder="">
 			</div>
 		</div>
+		<div class="form-group">
+            <label class="col-md-2 control-label"><span class="required">*</span>确认密码</label>
+            <div class="col-md-8">
+                <input type="password" class="form-control" id="confirmPwd" ng-model="manager.confirmPwd" placeholder="">
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-md-2 control-label">EMAIL</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="email" ng-model="manager.email" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label"><span class="required">*</span>联系电话</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="phone" ng-model="manager.phone" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label"><span class="required">*</span>权限</label>
+            <div class="col-md-8">
+                <select class="form-control" ng-model="manager.role.name">
+			      <option value="超级管理员">超级管理员</option>
+			      <option value="普通管理员">普通管理员</option>
+			    </select>
+            </div>
+        </div>
 		<div class="form-group" style="display: none;">
             <label class="col-md-2 control-label">id</label>
             <div class="col-md-8">

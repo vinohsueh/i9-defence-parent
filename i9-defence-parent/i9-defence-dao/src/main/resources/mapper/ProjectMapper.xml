@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="i9.defence.platform.dao.mapper.ProjectMapper">
+  <resultMap id="BaseResultMap" type="i9.defence.platform.model.Project">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="projectName" jdbcType="VARCHAR" property="projectName" />
+    <result column="projectAddress" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="projectLongitude" jdbcType="DOUBLE" property="projectLongitude" />
+    <result column="projectLatitude" jdbcType="DOUBLE" property="projectLatitude" />
+    <result column="projectDate" jdbcType="TIMESTAMP" property="projectDate" />
+    <result column="projectArea" jdbcType="INTEGER" property="projectArea" />
+    <result column="dutyManId" jdbcType="INTEGER" property="dutyManId" />
+    <result column="distributorId" jdbcType="INTEGER" property="distributorId" />
+    <result column="safetyManId" jdbcType="INTEGER" property="safetyManId" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="projectState" jdbcType="INTEGER" property="projectState" />
+  	<association property="dutyMan" column="dutyManId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<association property="safetyMan" column="safetyManId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+    	<if test="example.projectName != null and example.projectName != ''">
+            OR (projectName like CONCAT('%',CONCAT('${example.projectName}','%'))
+        </if>
+        <if test="example.projectAddress != null and example.projectAddress != ''">
+          OR projectAddress LIKE CONCAT('%',CONCAT('${example.projectAddress}','%')))
+        </if>
+    </trim>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, projectName, projectAddress, projectLongitude, projectLatitude, projectDate, 
+    projectArea, dutyManId, distributorId, safetyManId, remarks, projectState
+  </sql>
+  <select id="selectByExample" parameterType="i9.defence.platform.model.ProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List">
+    delete from t_project
+    where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  </delete>
+  <delete id="deleteByExample" parameterType="i9.defence.platform.model.ProjectExample">
+    delete from t_project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="i9.defence.platform.model.Project">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_project (projectName, projectAddress, projectLongitude, 
+      projectLatitude, projectDate, projectArea, 
+      dutyManId, distributorId, safetyManId, 
+      remarks, projectState)
+    values (#{projectName,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, #{projectLongitude,jdbcType=DOUBLE}, 
+      #{projectLatitude,jdbcType=DOUBLE}, #{projectDate,jdbcType=TIMESTAMP}, #{projectArea,jdbcType=INTEGER}, 
+      #{dutyManId,jdbcType=INTEGER}, #{distributorId,jdbcType=INTEGER}, #{safetyManId,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="i9.defence.platform.model.Project">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectName != null">
+        projectName,
+      </if>
+      <if test="projectAddress != null">
+        projectAddress,
+      </if>
+      <if test="projectLongitude != null">
+        projectLongitude,
+      </if>
+      <if test="projectLatitude != null">
+        projectLatitude,
+      </if>
+      <if test="projectDate != null">
+        projectDate,
+      </if>
+      <if test="projectArea != null">
+        projectArea,
+      </if>
+      <if test="dutyManId != null">
+        dutyManId,
+      </if>
+      <if test="distributorId != null">
+        distributorId,
+      </if>
+      <if test="safetyManId != null">
+        safetyManId,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="projectState != null">
+        projectState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAddress != null">
+        #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="projectLongitude != null">
+        #{projectLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="projectLatitude != null">
+        #{projectLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="projectDate != null">
+        #{projectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectArea != null">
+        #{projectArea,jdbcType=INTEGER},
+      </if>
+      <if test="dutyManId != null">
+        #{dutyManId,jdbcType=INTEGER},
+      </if>
+      <if test="distributorId != null">
+        #{distributorId,jdbcType=INTEGER},
+      </if>
+      <if test="safetyManId != null">
+        #{safetyManId,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="projectState != null">
+        #{projectState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer">
+    select count(*) from t_project
+    <if test="_parameter != null" >
+      <include refid="Query_By_Dto_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_project
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectName != null">
+        projectName = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectAddress != null">
+        projectAddress = #{record.projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectLongitude != null">
+        projectLongitude = #{record.projectLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.projectLatitude != null">
+        projectLatitude = #{record.projectLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.projectDate != null">
+        projectDate = #{record.projectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.projectArea != null">
+        projectArea = #{record.projectArea,jdbcType=INTEGER},
+      </if>
+      <if test="record.dutyManId != null">
+        dutyManId = #{record.dutyManId,jdbcType=INTEGER},
+      </if>
+      <if test="record.distributorId != null">
+        distributorId = #{record.distributorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.safetyManId != null">
+        safetyManId = #{record.safetyManId,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectState != null">
+        projectState = #{record.projectState,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_project
+    set id = #{record.id,jdbcType=INTEGER},
+      projectName = #{record.projectName,jdbcType=VARCHAR},
+      projectAddress = #{record.projectAddress,jdbcType=VARCHAR},
+      projectLongitude = #{record.projectLongitude,jdbcType=DOUBLE},
+      projectLatitude = #{record.projectLatitude,jdbcType=DOUBLE},
+      projectDate = #{record.projectDate,jdbcType=TIMESTAMP},
+      projectArea = #{record.projectArea,jdbcType=INTEGER},
+      dutyManId = #{record.dutyManId,jdbcType=INTEGER},
+      distributorId = #{record.distributorId,jdbcType=INTEGER},
+      safetyManId = #{record.safetyManId,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      projectState = #{record.projectState,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="i9.defence.platform.model.Project">
+    update t_project
+    <set>
+      <if test="projectName != null">
+        projectName = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAddress != null">
+        projectAddress = #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="projectLongitude != null">
+        projectLongitude = #{projectLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="projectLatitude != null">
+        projectLatitude = #{projectLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="projectDate != null">
+        projectDate = #{projectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectArea != null">
+        projectArea = #{projectArea,jdbcType=INTEGER},
+      </if>
+      <if test="dutyManId != null">
+        dutyManId = #{dutyManId,jdbcType=INTEGER},
+      </if>
+      <if test="distributorId != null">
+        distributorId = #{distributorId,jdbcType=INTEGER},
+      </if>
+      <if test="safetyManId != null">
+        safetyManId = #{safetyManId,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="projectState != null">
+        projectState = #{projectState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.Project">
+    update t_project
+    set projectName = #{projectName,jdbcType=VARCHAR},
+      projectAddress = #{projectAddress,jdbcType=VARCHAR},
+      projectLongitude = #{projectLongitude,jdbcType=DOUBLE},
+      projectLatitude = #{projectLatitude,jdbcType=DOUBLE},
+      projectDate = #{projectDate,jdbcType=TIMESTAMP},
+      projectArea = #{projectArea,jdbcType=INTEGER},
+      dutyManId = #{dutyManId,jdbcType=INTEGER},
+      distributorId = #{distributorId,jdbcType=INTEGER},
+      safetyManId = #{safetyManId,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      projectState = #{projectState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_project 
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
+   <select id="selectAllProjectName" resultType="i9.defence.platform.dao.vo.ProjectSelectDto">
+   		select id,projectName from t_project 
+   		<if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+   </select>
+   <insert id="insertProjectEquipment">
+		insert into t_project_equipment(projectId,equipmentId) values
+        <foreach collection ="equipmentIds" item="equipmentId" index= "index" separator =",">
+            (
+            #{projectId}, #{equipmentId}
+            )
+        </foreach >
+   </insert>
+   <select id="selectAllEquipmentIds" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+   		select equipmentId from t_project_equipment where projectId = #{projectId}
+   </select>
+</mapper>

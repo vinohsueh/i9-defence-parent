@@ -24,6 +24,40 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html'
               })
+              .state('app.project', {
+                  url: '/project',
+                  templateUrl: 'proj/project/project.html',
+              	  controller : "projectNgControl",
+              	  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'projectNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/project/project.js',
+            				    ]
+            			})
+                    }]
+                  }
+              })  
+              .state('app.client', {
+                  url: '/app.client',
+                  templateUrl: 'proj/client/client.html',
+              	  controller : "clientControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'clientModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/client/client.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
               .state('app.manager', {
                   url: '/manager',
                   templateUrl: 'proj/manager/manager.html',
@@ -36,6 +70,57 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/manager/manager.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.permission', {
+                  url: '/permission',
+                  templateUrl: 'proj/permission/permission.html',
+              	  controller : "permissionNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'permissionNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/permission/permission.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.role', {
+                  url: '/role',
+                  templateUrl: 'proj/role/role.html',
+              	  controller : "roleNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'roleNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/role/role.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.account', {
+                  url: '/account',
+                  templateUrl: 'proj/account/account.html',
+              	  controller : "accountNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'accountNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/account/account.js',
             				]
             			})
                     }]

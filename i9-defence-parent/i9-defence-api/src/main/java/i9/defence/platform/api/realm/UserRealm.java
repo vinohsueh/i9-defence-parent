@@ -1,11 +1,19 @@
 package i9.defence.platform.api.realm;
 
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.Permission;
+import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.service.PermissionService;
+import i9.defence.platform.service.RoleService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
@@ -25,10 +33,10 @@ public class UserRealm extends AuthorizingRealm{
     
     @Autowired
     private ManagerService managerService;
-    /* @Autowired
+    @Autowired
     private RoleService roleService;
     @Autowired
-    private PermissionService permissionService;*/
+    private PermissionService permissionService;
     
     
     @Override
@@ -37,7 +45,7 @@ public class UserRealm extends AuthorizingRealm{
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Manager manager = managerService.getManagerByUsername(currentLoginName);
         if (manager != null) {
-            /*List<Role> roles = roleService.getRolesByUser(user.getId());
+            Set<Role> roles = roleService.getRoleByManagerId(manager.getId());
             Set<String> roleNames = new HashSet<String>();
             for (Role role : roles) {
                 roleNames.add(role.getCode());
@@ -45,13 +53,13 @@ public class UserRealm extends AuthorizingRealm{
             // 将角色名称提供给info
             authorizationInfo.setRoles(roleNames);
             
-            Set<Permission> permissions = permissionService.getPermissionByUserId(user.getId());
+            Set<Permission> permissions = permissionService.getPermissionByManagerId(manager.getId());
             Set<String> permissionNames = new HashSet<String>();
             for (Permission permission : permissions) {
                 permissionNames.add(permission.getCode());
             }
             // 将权限名称提供给info
-            authorizationInfo.setStringPermissions(permissionNames);*/
+            authorizationInfo.setStringPermissions(permissionNames);
         }else{
             throw new AuthorizationException();  
         }
@@ -65,6 +73,10 @@ public class UserRealm extends AuthorizingRealm{
         Manager manager = managerService.getManagerByUsername(username);
         if (manager == null) {
             throw new UnknownAccountException();
+        }
+        if (1 != manager.getStatus()){
+            // 用户被管理员锁定抛出异常
+            throw new LockedAccountException();
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 manager.getUsername(), manager.getPassword(), getName());

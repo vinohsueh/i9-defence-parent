@@ -1,9 +1,12 @@
 package i9.defence.platform.service.impl;
 
 import i9.defence.platform.dao.ManagerDao;
+import i9.defence.platform.dao.RoleDao;
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.dao.vo.ManagerSearchDto;
+import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
@@ -35,16 +38,42 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Autowired
     private ManagerDao managerDao;
-    
+    @Autowired
+    private RoleDao roleDao;
     @Override
-    public void addManager(Manager manager) throws BusinessException {
+    public void addNetManager(Manager manager) throws BusinessException {
+        if (!manager.getConfirmPwd().equals(manager.getPassword())){
+            throw new BusinessException("前后密码不一致!");
+        }
         try {
+            Manager existManager = managerDao.getManagerByUsername(manager.getUsername());
             if(manager.getId() != null) {
+                if (existManager.getId() != manager.getId()) {
+                    throw new BusinessException("用户名已存在!");
+                }
+                //更新密码
+                Manager eManager = managerDao.getManagerById(manager.getId());
+                if (!eManager.getPassword().endsWith(manager.getPassword())) {
+                    manager.setPassword(StringUtil.MD5(manager.getPassword()));
+                }
                 managerDao.updateManager(manager);
+                //删除用户角色
+                managerDao.delManagerRole(manager.getId());
             }else{
+                if (existManager != null){
+                    throw new BusinessException("用户名已存在!");
+                }
                 manager.setCreateTime(new Date());
+                manager.setPassword(StringUtil.MD5(manager.getPassword()));
                 managerDao.addManager(manager);
             }
+            Role role = roleDao.getRoleByName(manager.getRole().getName());
+            if (role != null) {
+                //添加用户角色
+                managerDao.addManagerRole(manager.getId(),role.getId());
+            }
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
         } catch (Exception e) {
             throw new BusinessException("添加管理员失败",e.getMessage());
         }
@@ -136,5 +165,30 @@ public class ManagerServiceImpl implements ManagerService{
         Manager loginUser = (Manager) shiroSession.getAttribute("loginUser");
         return loginUser;
     }
+    
+    @Override
+    public List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws BusinessException {
+        try {
+            return managerDao.selectConditionMan(managerSearchDto);
+        } catch (Exception e) {
+            throw new BusinessException("获取全部的管理员之新建项目时选择---责任人、经销商、安全责任人失败",e.getMessage());
+        }
+        
+    }
+
+	@Override
+	public void updateStatus(Manager manager) throws BusinessException {
+		Byte status = manager.getStatus();
+		try {
+			if(status == 0) {
+				manager.setStatus((byte) 1);
+			}else {
+				manager.setStatus((byte) 0);
+			}
+			managerDao.updateManager(manager);
+		} catch (Exception e) {
+			throw new BusinessException("修改账户开启状态Status失败",e.getMessage());
+		}
+	}
 
 }

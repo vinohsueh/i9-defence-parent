@@ -6,6 +6,7 @@ var managerEditCtrl = managerEditNgModule.controller('managerEditCtrl', function
 		manager,httpService) {
 	
 	$scope.manager = manager;
+	$scope.manager.confirmPwd = $scope.manager.password;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
@@ -27,7 +28,7 @@ var managerEditCtrl = managerEditNgModule.controller('managerEditCtrl', function
 			});
 			return false;
 		}
-		httpService.post({url:'./manager/addManager',data:$scope.manager,showSuccessMsg:true}).then(function(data) {  
+		httpService.post({url:'./manager/addNetManager',data:$scope.manager,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})
 	};

@@ -1,6 +1,7 @@
 package i9.defence.platform.dao;
 
 import i9.defence.platform.dao.vo.ManagerSearchDto;
+import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.utils.PageBounds;
 
@@ -68,4 +69,25 @@ public interface ManagerDao {
      */
     PageBounds<Manager> selectByLimitPage(ManagerSearchDto managerSearchDto,
             int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 根据账户id删除角色信息
+     * @param id
+     */
+    void delManagerRole(Integer managerId) throws Exception;
+    
+    /**
+     * 添加用户角色信息
+     * @param id
+     * @param roleId
+     */
+    void addManagerRole(Integer id, Integer roleId) throws Exception;
+    
+    /**
+     * 获取全部的管理员之新建项目时选择---责任人、经销商、安全责任人
+     * @return
+     * @throws Exception
+     */
+    List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws Exception;
+
 }

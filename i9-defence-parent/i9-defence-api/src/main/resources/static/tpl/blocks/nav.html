@@ -1,5 +1,6 @@
 <!-- list -->
 <ul class="nav">
+  <div controlled-rescode>
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span>　</span>
   </li>
@@ -8,6 +9,60 @@
       <i class="glyphicon glyphicon-calendar icon icon-home"></i>
       <span class="font-bold">首页</span>
     </a>
+  </li>
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+      <span class="font-bold">项目管理</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span translate="aside.nav.DASHBOARD">项目管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.project">
+          <span>项目列表</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.client">
+          <span>客户列表</span>
+        </a>
+      </li> 
+    </ul>
+  </li>
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+      <span class="font-bold">账户管理</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span translate="aside.nav.DASHBOARD">账户管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.account">
+          <span>账户列表</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.applyaccount">
+          <span>待审核账户</span>
+        </a>
+      </li>
+    </ul>
   </li>
   <li>
     <a href class="auto">      
@@ -27,6 +82,16 @@
       <li ui-sref-active="active">
         <a ui-sref="app.manager">
           <span>网站账户管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.role">
+          <span>角色管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.permission">
+          <span>权限管理</span>
         </a>
       </li>
     </ul>
@@ -410,5 +475,6 @@
       <span translate="aside.nav.your_stuff.DOCUMENTS">Documents</span>
     </a>
   </li>
+  </div>
 </ul>
 <!-- / list -->
