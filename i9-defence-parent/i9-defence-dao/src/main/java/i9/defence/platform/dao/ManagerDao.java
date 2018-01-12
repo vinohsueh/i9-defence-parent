@@ -48,6 +48,7 @@ public interface ManagerDao {
      * @return
      * @throws Exception
      */
+  
     Manager getManagerByUsername(String username) throws Exception;
     
     /**
@@ -55,6 +56,7 @@ public interface ManagerDao {
      * @return
      * @throws Exception
      */
+    
     List<Manager> findAllManager() throws Exception;
     
     /**
