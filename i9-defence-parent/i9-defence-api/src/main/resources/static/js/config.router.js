@@ -40,7 +40,7 @@ angular.module('app')
             			})
                     }]
                   }
-              })
+              }) 
               .state('app.client', {
                   url: '/app.client',
                   templateUrl: 'proj/client/client.html',
