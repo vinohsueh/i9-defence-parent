@@ -36,8 +36,33 @@ public class ManagerSearchDto extends PageListDto{
      */
     private String username;
     
+    /**
+     * 角色名
+     */
+    private String roleName;
+    
+    /**
+     * 地域
+     */
+    private String area;
+    
+    public String getArea() {
+		return area;
+	}
 
-    public List<Byte> getTypes() {
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public List<Byte> getTypes() {
         return types;
     }
 

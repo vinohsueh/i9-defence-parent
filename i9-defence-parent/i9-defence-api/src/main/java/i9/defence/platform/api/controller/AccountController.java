@@ -2,6 +2,7 @@ package i9.defence.platform.api.controller;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.service.RoleService;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
@@ -31,7 +34,8 @@ public class AccountController {
     @Autowired
     private ManagerService managerService;
     
-    
+    @Autowired
+    private RoleService roleService;
     
     /**
      * 分页查询账户
@@ -77,10 +81,24 @@ public class AccountController {
         return result;
     }
     
+    /**
+     * 修改账户开启状态Status
+     */
     @RequestMapping("/updateStatus")
     public HashMap<String, Object> updateStatus(@RequestBody Manager manager) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         managerService.updateStatus(manager);
+        return result;
+    }
+    
+    /**
+     * 查询部分用户角色
+     */
+    @RequestMapping("/selectPartRole")
+    public HashMap<String, Object> selectPartRole() {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<Role> roles = roleService.selectPartRole();
+        result.put("data", roles);
         return result;
     }
 }

@@ -87,6 +87,12 @@
         <if test="example.phone != null and example.phone != ''">
             OR phone LIKE CONCAT(CONCAT('%','${example.phone}'),'%' )
         </if>
+        <if test="example.area != null and example.area != ''">
+            OR area LIKE CONCAT(CONCAT('%','${example.area}'),'%' )
+        </if>
+        <if test="example.roleName != null and example.roleName != ''">
+            OR id in(select managerId from t_manager_role mr left join t_role r on mr.roleId = r.id where r.name=#{example.roleName})
+        </if>
         <if test="example.email != null and example.email != ''">
             OR email LIKE CONCAT(CONCAT('%','${example.email}'),'%' ))
         </if>
