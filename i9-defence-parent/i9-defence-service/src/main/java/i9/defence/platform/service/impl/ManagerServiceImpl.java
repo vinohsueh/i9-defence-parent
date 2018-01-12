@@ -176,4 +176,19 @@ public class ManagerServiceImpl implements ManagerService{
         
     }
 
+	@Override
+	public void updateStatus(Manager manager) throws BusinessException {
+		Byte status = manager.getStatus();
+		try {
+			if(status == 0) {
+				manager.setStatus((byte) 1);
+			}else {
+				manager.setStatus((byte) 0);
+			}
+			managerDao.updateManager(manager);
+		} catch (Exception e) {
+			throw new BusinessException("修改账户开启状态Status失败",e.getMessage());
+		}
+	}
+
 }

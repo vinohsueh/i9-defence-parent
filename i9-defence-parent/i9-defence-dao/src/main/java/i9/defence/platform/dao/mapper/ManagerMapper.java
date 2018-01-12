@@ -48,4 +48,5 @@ public interface ManagerMapper {
      * @param roleId
      */
     void addManagerRole(@Param("managerId") Integer managerId,@Param("roleId") Integer roleId);
+
 }

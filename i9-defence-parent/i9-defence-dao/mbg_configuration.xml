@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry location="D:\eclip\i9-defence-parent\i9-defence-parent\i9-defence-dao\mysql-connector-java-5.1.1.jar" />
+    <classPathEntry location="F:\Project\i9-defence-parent\i9-defence-parent\i9-defence-dao\mysql-connector-java-5.1.1.jar" />
     
     <context id="mybatisDemoForMysql" targetRuntime="MyBatis3">
         <!-- 控制注释 -->
@@ -40,7 +40,7 @@
             <property name="methodNameCalculator" value="extended" />
         </javaClientGenerator>
         
-        <table schema="defence" tableName="t_manager" domainObjectName="Manager">
+        <table schema="defence" tableName="t_client" domainObjectName="Client">
             <property name="useActualColumnNames" value="true" />
             <generatedKey column="id" sqlStatement="mysql" identity="true" />
         </table>

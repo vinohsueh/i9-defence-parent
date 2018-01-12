@@ -115,4 +115,13 @@ public class RoleServiceImpl implements RoleService{
         }
     }
 
+	@Override
+	public List<Role> selectPartRole() throws BusinessException {
+		try {
+			return roleDao.selectPartRole();
+		} catch (Exception e) {
+			throw new BusinessException("查询部分用户角色失败",e.getMessage());
+		}
+	}
+
 }
