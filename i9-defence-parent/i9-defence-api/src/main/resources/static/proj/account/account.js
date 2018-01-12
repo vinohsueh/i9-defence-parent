@@ -29,6 +29,8 @@ var accountNgControl=accountNgModule.controller('accountNgControl',function($roo
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
+				roleName : $scope.selectRoleName,
+				area : text,
 			};
 		
 		httpService.post({url:'./account/pageAccount',data:pageParam,showSuccessMsg:false}).then(function(data) {  
@@ -44,6 +46,10 @@ var accountNgControl=accountNgModule.controller('accountNgControl',function($roo
 		})
 	};
 	$scope.initTable();
+	//查询部分用户角色
+	httpService.post({url:'./account/selectPartRole',showSuccessMsg:false}).then(function(data) {  
+		$scope.roles=data.data.data;
+	});
 	//修改分页大小
 	$scope.changePageSize = function(){
 		$scope.currentPage = 1;
