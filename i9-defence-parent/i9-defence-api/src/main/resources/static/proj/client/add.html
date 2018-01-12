@@ -1,0 +1,85 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<!-- <h4 class="modal-title" id="myModalLabel">添加角色</h4> -->
+	<ul id="myTab" class="nav nav-tabs">
+		<li id="homeli" ng-class="{true:'active'}[tab=='client']" ng-click="changeTab('client')"><a href="" data-toggle="tab">
+				添加客户 </a></li>
+	</ul>
+</div>
+<div class="modal-body">
+	<div id="myTabContent" class="tab-content">
+		<div ng-if="tab=='client'">
+			<form class="form-horizontal" client="form">
+				<div class="form-group">
+					<label class="col-md-2 control-label"><span
+						class="required">*</span>客户姓名</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="name"
+							ng-model="client.name" placeholder="">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label"><span
+						class="required">*</span>负责地域</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="territory"
+							ng-model="client.territory" placeholder="">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label"><span
+						class="required">*</span>联系方式</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="phone"
+							ng-model="client.phone" placeholder="">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label"><span
+						class="required">*</span>地址</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="address"
+							ng-model="client.address" placeholder="">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-md-2 control-label"><span
+						class="required">*</span>Email</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="mail"
+							ng-model="client.mail" placeholder="">
+					</div>
+				</div>
+				
+				<div class="form-group" style="display: none;">
+					<label class="col-md-2 control-label">id</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="id" ng-model="client.id"
+							placeholder="">
+					</div>
+				</div>
+			</form>
+		</div>
+		<div ng-if="tab=='permission'">
+			<form client="form" name="form" class="form-horizontal">
+				<div class="form-group">
+				    <div class="col-sm-3" ng-repeat="permission in permissions">
+				      <label class="i-checks m-b-none" id="checkLabel">
+		                <input type="checkbox" class="ckbox" data-id="{{permission.id}}" ng-checked="permission.checked"><i></i>{{permission.name}}
+		              </label>
+		            </div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()"
+		data-dismiss="modal">取消</button>
+	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+</div>
