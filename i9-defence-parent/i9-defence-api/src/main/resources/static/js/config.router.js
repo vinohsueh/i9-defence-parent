@@ -57,7 +57,7 @@ angular.module('app')
             			})
                     }]
                   }
-              })
+              }) 
               .state('app.manager', {
                   url: '/manager',
                   templateUrl: 'proj/manager/manager.html',
