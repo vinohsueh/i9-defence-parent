@@ -45,7 +45,7 @@ angular.module('app')
                   url: '/app.client',
                   templateUrl: 'proj/client/client.html',
               	  controller : "clientControl",
-              	  resolve: {
+              	  resolve: { 
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                     	return $ocLazyLoad.load({
