@@ -19,7 +19,12 @@ import i9.defence.platform.utils.PageBounds;
  */
 @Repository
 public class ManagerApplyDaoImpl implements ManagerApplyDao{
-
+    
+    /**
+     * 用户申请被拒绝的标记
+     */
+    private static final byte S_REFUSE_FLAG = (byte)-1;
+    
     @Autowired
     private ManagerApplyMapper managerApplyMapper;
     
@@ -52,6 +57,18 @@ public class ManagerApplyDaoImpl implements ManagerApplyDao{
         List<ManagerApply> list = managerApplyMapper.selectByLimitPage(managerApplyExample, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
         return pageBounds;
+    }
+
+    @Override
+    public ManagerApply getUnRefusedManagerApplyByUsername(String username)
+            throws Exception {
+        ManagerApplyExample example = new ManagerApplyExample();
+        example.createCriteria().andUsernameEqualTo(username).andAgreeFlagNotEqualTo(S_REFUSE_FLAG);
+        List<ManagerApply> list = managerApplyMapper.selectByExample(example);
+        if (list.size() > 0 ){
+            return list.get(0);
+        }
+        return null;
     }
 
 }

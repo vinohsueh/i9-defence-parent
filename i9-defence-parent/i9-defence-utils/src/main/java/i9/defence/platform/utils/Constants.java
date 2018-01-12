@@ -17,4 +17,14 @@ public class Constants {
      * 用户的type
      */
     public static final Byte [] S_ACCOUNT = {(byte)1,(byte)2};
+    
+    /**
+     * 登录url
+     */
+    public static final String S_LOGIN_URL = "/login";
+    
+    /**
+     * 注册url
+     */
+    public static final String S_REGIST_URL = "/regist";
 }

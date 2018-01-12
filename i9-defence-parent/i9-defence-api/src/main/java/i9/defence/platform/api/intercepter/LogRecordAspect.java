@@ -2,6 +2,7 @@ package i9.defence.platform.api.intercepter;
 
 import i9.defence.platform.utils.BindingResultException;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
 
 import java.util.HashMap;
 
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * aop
@@ -73,6 +75,11 @@ public class LogRecordAspect {
             result.put("errorMsg", exception.toErrors());
             exception.printStackTrace();
             logger.error(exception.getMessage());
+            if (uri.equals(Constants.S_LOGIN_URL)) {
+                return new ModelAndView(Constants.S_LOGIN_URL).addObject("exception", exception);
+            }else if (uri.equals(Constants.S_REGIST_URL)) {
+                return new ModelAndView(Constants.S_REGIST_URL).addObject("exception", exception);
+            }
         } catch (Exception e) {
             result = new HashMap<String, Object>();
             result.put("result", 0);

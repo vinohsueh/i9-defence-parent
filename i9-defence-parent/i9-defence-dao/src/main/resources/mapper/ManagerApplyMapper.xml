@@ -16,6 +16,8 @@
     <result column="agreeFlag" property="agreeFlag" jdbcType="TINYINT" />
     <result column="refuseContent" property="refuseContent" jdbcType="VARCHAR" />
     <result column="projectId" property="projectId" jdbcType="INTEGER" />
+    <result column="operaterId" jdbcType="INTEGER" property="operaterId" />
+    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, username, password, email, phone, createTime, name, type, area, address, securitier, 
-    agreeFlag, refuseContent, projectId
+     id, username, password, email, phone, createTime, name, type, area, address, securitier, 
+    agreeFlag, refuseContent, projectId, operaterId, roleName
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="i9.defence.platform.model.ManagerApplyExample" >
     select
@@ -117,12 +119,14 @@
       phone, createTime, name, 
       type, area, address, 
       securitier, agreeFlag, refuseContent, 
-      projectId)
+      projectId, operaterId, roleName
+      )
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
       #{type,jdbcType=TINYINT}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{securitier,jdbcType=TINYINT}, #{agreeFlag,jdbcType=TINYINT}, #{refuseContent,jdbcType=VARCHAR}, 
-      #{projectId,jdbcType=INTEGER})
+      #{projectId,jdbcType=INTEGER}, #{operaterId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.ManagerApply" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -169,6 +173,12 @@
       <if test="projectId != null" >
         projectId,
       </if>
+       <if test="operaterId != null">
+        operaterId,
+      </if>
+      <if test="roleName != null and roleName != ''">
+        roleName,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="username != null and username != ''" >
@@ -209,6 +219,12 @@
       </if>
       <if test="projectId != null" >
         #{projectId,jdbcType=INTEGER},
+      </if>
+       <if test="operaterId != null">
+        #{operaterId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null and roleName != ''">
+        #{roleName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -263,6 +279,12 @@
       <if test="record.projectId != null" >
         projectId = #{record.projectId,jdbcType=INTEGER},
       </if>
+      <if test="record.operaterId != null">
+        operaterId = #{record.operaterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleName != null and record.roleName != ''">
+        roleName = #{record.roleName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -283,7 +305,9 @@
       securitier = #{record.securitier,jdbcType=TINYINT},
       agreeFlag = #{record.agreeFlag,jdbcType=TINYINT},
       refuseContent = #{record.refuseContent,jdbcType=VARCHAR},
-      projectId = #{record.projectId,jdbcType=INTEGER}
+      projectId = #{record.projectId,jdbcType=INTEGER},
+      operaterId = #{record.operaterId,jdbcType=INTEGER},
+      roleName = #{record.roleName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -330,6 +354,12 @@
       <if test="projectId != null" >
         projectId = #{projectId,jdbcType=INTEGER},
       </if>
+      <if test="operaterId != null">
+        operaterId = #{operaterId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null and roleName != ''">
+        roleName = #{roleName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -347,7 +377,9 @@
       securitier = #{securitier,jdbcType=TINYINT},
       agreeFlag = #{agreeFlag,jdbcType=TINYINT},
       refuseContent = #{refuseContent,jdbcType=VARCHAR},
-      projectId = #{projectId,jdbcType=INTEGER}
+      projectId = #{projectId,jdbcType=INTEGER},
+      operaterId = #{operaterId,jdbcType=INTEGER},
+      roleName = #{roleName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

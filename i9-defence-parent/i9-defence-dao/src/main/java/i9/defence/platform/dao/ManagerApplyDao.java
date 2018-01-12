@@ -52,4 +52,11 @@ public interface ManagerApplyDao {
     PageBounds<ManagerApply> selectByLimitPage(ManagerApplyExample managerApplyExample,
             int currectPage, int pageSize) throws Exception;
     
+    /**
+     * 通过用户名查找未被拒绝的用户申请
+     * @param username
+     * @return
+     */
+    ManagerApply getUnRefusedManagerApplyByUsername(String username) throws Exception;
+    
 }
