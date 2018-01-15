@@ -91,16 +91,20 @@ public class ManagerApplyExample {
             criteria.add(new Criterion(condition));
         }
 
-        protected void addCriterion(String condition, Object value, String property) {
+        protected void addCriterion(String condition, Object value,
+                String property) {
             if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
+                throw new RuntimeException("Value for " + property
+                        + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
         }
 
-        protected void addCriterion(String condition, Object value1, Object value2, String property) {
+        protected void addCriterion(String condition, Object value1,
+                Object value2, String property) {
             if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
+                throw new RuntimeException("Between values for " + property
+                        + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
@@ -956,12 +960,14 @@ public class ManagerApplyExample {
         }
 
         public Criteria andRefuseContentBetween(String value1, String value2) {
-            addCriterion("refuseContent between", value1, value2, "refuseContent");
+            addCriterion("refuseContent between", value1, value2,
+                    "refuseContent");
             return (Criteria) this;
         }
 
         public Criteria andRefuseContentNotBetween(String value1, String value2) {
-            addCriterion("refuseContent not between", value1, value2, "refuseContent");
+            addCriterion("refuseContent not between", value1, value2,
+                    "refuseContent");
             return (Criteria) this;
         }
 
@@ -1024,10 +1030,139 @@ public class ManagerApplyExample {
             addCriterion("projectId not between", value1, value2, "projectId");
             return (Criteria) this;
         }
+
+        public Criteria andOperaterIdIsNull() {
+            addCriterion("operaterId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdIsNotNull() {
+            addCriterion("operaterId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdEqualTo(Integer value) {
+            addCriterion("operaterId =", value, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdNotEqualTo(Integer value) {
+            addCriterion("operaterId <>", value, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdGreaterThan(Integer value) {
+            addCriterion("operaterId >", value, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("operaterId >=", value, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdLessThan(Integer value) {
+            addCriterion("operaterId <", value, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdLessThanOrEqualTo(Integer value) {
+            addCriterion("operaterId <=", value, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdIn(List<Integer> values) {
+            addCriterion("operaterId in", values, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdNotIn(List<Integer> values) {
+            addCriterion("operaterId not in", values, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdBetween(Integer value1, Integer value2) {
+            addCriterion("operaterId between", value1, value2, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andOperaterIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("operaterId not between", value1, value2, "operaterId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameIsNull() {
+            addCriterion("roleName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameIsNotNull() {
+            addCriterion("roleName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameEqualTo(String value) {
+            addCriterion("roleName =", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameNotEqualTo(String value) {
+            addCriterion("roleName <>", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameGreaterThan(String value) {
+            addCriterion("roleName >", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameGreaterThanOrEqualTo(String value) {
+            addCriterion("roleName >=", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameLessThan(String value) {
+            addCriterion("roleName <", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameLessThanOrEqualTo(String value) {
+            addCriterion("roleName <=", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameLike(String value) {
+            addCriterion("roleName like", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameNotLike(String value) {
+            addCriterion("roleName not like", value, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameIn(List<String> values) {
+            addCriterion("roleName in", values, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameNotIn(List<String> values) {
+            addCriterion("roleName not in", values, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameBetween(String value1, String value2) {
+            addCriterion("roleName between", value1, value2, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleNameNotBetween(String value1, String value2) {
+            addCriterion("roleName not between", value1, value2, "roleName");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }
@@ -1035,19 +1170,12 @@ public class ManagerApplyExample {
 
     public static class Criterion {
         private String condition;
-
         private Object value;
-
         private Object secondValue;
-
         private boolean noValue;
-
         private boolean singleValue;
-
         private boolean betweenValue;
-
         private boolean listValue;
-
         private String typeHandler;
 
         public String getCondition() {
@@ -1105,7 +1233,8 @@ public class ManagerApplyExample {
             this(condition, value, null);
         }
 
-        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
+        protected Criterion(String condition, Object value, Object secondValue,
+                String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;

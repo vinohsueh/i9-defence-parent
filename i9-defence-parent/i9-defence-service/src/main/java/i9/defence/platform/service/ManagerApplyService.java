@@ -1,7 +1,8 @@
-package i9.defence.platform.dao;
+package i9.defence.platform.service;
 
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
+import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
@@ -12,35 +13,35 @@ import java.util.List;
  * @version  
  * 
  */
-public interface ManagerApplyDao {
+public interface ManagerApplyService {
     /**
      * 添加账户
      * @param ManagerApply
-     * @throws Exception
+     * @throws BusinessException
      */
-    void addManagerApply(ManagerApply managerApply) throws Exception;
+    void addManagerApply(ManagerApply managerApply) throws BusinessException;
     
     /**
      * 更新账户
      * @param ManagerApply
-     * @throws Exception
+     * @throws BusinessException
      */
-    void updateManagerApply(ManagerApply managerApply) throws Exception;
+    void updateManagerApply(ManagerApply managerApply) throws BusinessException;
     
     /**
      * 删除账户
      * @param kid
-     * @throws Exception
+     * @throws BusinessException
      */
-    void deleteManagerApply(List<Integer> ids) throws Exception;
+    void deleteManagerApply(List<Integer> ids) throws BusinessException;
     
     /**
      * 根据ID获取账户
      * @param kid
      * @return
-     * @throws Exception
+     * @throws BusinessException
      */
-    ManagerApply getManagerApplyById(int id) throws Exception;
+    ManagerApply getManagerApplyById(int id) throws BusinessException;
     
     /**
      * 分页查询账户
@@ -50,13 +51,6 @@ public interface ManagerApplyDao {
      * @return
      */
     PageBounds<ManagerApply> selectByLimitPage(ManagerApplyExample managerApplyExample,
-            int currectPage, int pageSize) throws Exception;
-    
-    /**
-     * 通过用户名查找未被拒绝的用户申请
-     * @param username
-     * @return
-     */
-    ManagerApply getUnRefusedManagerApplyByUsername(String username) throws Exception;
+            int currectPage, int pageSize) throws BusinessException;
     
 }

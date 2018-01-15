@@ -2,7 +2,10 @@ package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.ManagerApply;
+import i9.defence.platform.service.ManagerApplyService;
 import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.utils.BindingResultException;
 import i9.defence.platform.utils.BusinessException;
 
 import java.util.HashMap;
@@ -31,23 +34,65 @@ public class LoginController {
     @Autowired
     private ManagerService managerService;
     
+    @Autowired
+    private ManagerApplyService managerApplyService;
+    /**
+     * 首页
+     * @return
+     */
     @RequestMapping("/index.html")
     public String index() {
         return "index";
     }
     
+    /**
+     * 注册
+     * @return
+     */
+    @RequestMapping("/regist.html")
+    public String regist(@ModelAttribute ManagerApply managerApply) {
+        return "regist";
+    }
     
+    
+    /**
+     * 用户注册
+     * @param managerApply
+     * @return
+     */
+     @ResponseBody
+     @RequestMapping("/regist")
+     public HashMap<String, Object> addManagerApply(@ModelAttribute @Valid ManagerApply managerApply,BindingResult bindingResult) {
+         HashMap<String, Object> result = new HashMap<String, Object>();
+         managerApplyService.addManagerApply(managerApply);
+         return result;
+     }
+    
+    /**
+     * 默认跳转
+     * @return
+     */
     @RequestMapping("/")
     public String defaultPage() {
         return "redirect:/index.html";
     }
     
+    /**
+     * 登录页面
+     * @param managerLoginDto
+     * @return
+     */
     @RequestMapping("/login.html")
     public String toLogin(@ModelAttribute ManagerLoginDto managerLoginDto) {
         return "login";
     }
     
-    
+    /**
+     * 登录
+     * @param manager
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value="/login",method = RequestMethod.POST)
     public ModelAndView login(@ModelAttribute @Valid ManagerLoginDto manager,BindingResult bindingResult){
         try {
@@ -55,16 +100,16 @@ public class LoginController {
             return new ModelAndView("redirect:index.html");
         } catch (BusinessException e) {
             return new ModelAndView("login").addObject("exception", e);
+        } catch (BindingResultException e) {
+            return new ModelAndView("login").addObject("exception", e.toErrors());
         }
         
     }
     
-
-    @RequestMapping("/regist.html")
-    public String toRegist() {
-        return "regist";
-    }
-    
+    /**
+     * 当前登录用户
+     * @return
+     */
     @RequestMapping("/currentUser")
     @ResponseBody
     public HashMap<String, Object> current() {

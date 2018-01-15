@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<link rel="stylesheet" href="css/login.css">	
+</head>
+<body>
+	<div class="title">和继电器</div>
+	<form th:action="@{/regist}" method="post" th:object="${managerApply}" id="loginData">
+		<input type="text" placeholder='请输入用户名' th:field="*{username}">
+        <input type="password" placeholder='请输入您的密码' th:field="*{password}">
+        <input type="password" placeholder='请输入确认密码' th:field="*{confirmPwd}">
+        <input type="text" placeholder='请输入账户名称' th:field="*{name}">
+        <input type="text" placeholder='请输入手机号' th:field="*{phone}">
+		<input type="text" placeholder='请输入邮箱' th:field="*{email}">
+		<input type="text" placeholder='请输入地域' th:field="*{area}">
+		<input type="text" placeholder='请输入地址' th:field="*{address}">
+	</form>
+	<select name="" id="jurisdiction">
+		<option value="">超级管理员</option>
+		<option value="">管理员</option>
+		<option value="">省级经销商</option>
+		<option value="">市级经销商</option>
+	</select>
+	<button type='button' id='submitBtn'>确认</button>
+	<p class='pt-10'>已经有账户了？</p>
+	<button type='button' id='jumpPage' onclick='login()'>去登陆</button>
+</body>
+<script>
+	function login() {
+		window.location.href = './login.html';
+	}
+</script>
+</html>

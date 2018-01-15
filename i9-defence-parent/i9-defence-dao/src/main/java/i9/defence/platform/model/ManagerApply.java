@@ -2,7 +2,6 @@ package i9.defence.platform.model;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -102,8 +101,13 @@ public class ManagerApply {
      */
     private Integer projectId;
     
-    @NotNull(message="权限不能为空")
-    private Role role;
+    /**
+     * 操作人id
+     */
+    private Integer operaterId;
+    
+    @NotBlank(message="权限不能为空")
+    private String roleName;
     
     public Integer getId() {
         return id;
@@ -224,19 +228,30 @@ public class ManagerApply {
     public void setConfirmPwd(String confirmPwd) {
         this.confirmPwd = confirmPwd;
     }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
     
+    public Integer getOperaterId() {
+        return operaterId;
+    }
+
+    public void setOperaterId(Integer operaterId) {
+        this.operaterId = operaterId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
     public Manager getManager(){
         Manager manager = new Manager();
         BeanUtils.copyProperties(this, manager);
+        Role role = new Role();
+        role.setName(roleName);
         manager.setId(null);
+        manager.setRole(role);
         return manager;
     }
     

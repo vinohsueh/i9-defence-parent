@@ -93,6 +93,17 @@ public class Manager {
     @NotNull(message="角色不能为空")
     private Role role;
     
+    private Integer projectId;
+    
+    
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
     public String getConfirmPwd() {
         return confirmPwd;
     }
