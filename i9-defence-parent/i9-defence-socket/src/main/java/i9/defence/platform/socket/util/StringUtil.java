@@ -1,4 +1,4 @@
-package org.gather.develop.service.util;
+package i9.defence.platform.socket.util;
 
 public class StringUtil {
 

@@ -1,11 +1,11 @@
-package org.gather.develop.service.netty.codec;
+package i9.defence.platform.socket.netty.codec;
 
-import org.apache.log4j.Logger;
-import org.gather.develop.service.netty.util.CRC16;
-
+import i9.defence.platform.socket.netty.util.CRC16;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+
+import org.apache.log4j.Logger;
 
 public class CRCEncoder extends MessageToByteEncoder<ByteBuf> {
     

@@ -1,4 +1,4 @@
-package org.gather.develop.service.netty.util;
+package i9.defence.platform.socket.netty.util;
 
 import java.io.UnsupportedEncodingException;
 

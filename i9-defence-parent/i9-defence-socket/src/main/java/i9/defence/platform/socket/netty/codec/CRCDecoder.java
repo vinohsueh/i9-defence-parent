@@ -1,13 +1,12 @@
-package org.gather.develop.service.netty.codec;
+package i9.defence.platform.socket.netty.codec;
 
+import i9.defence.platform.socket.netty.util.CRC16;
+import i9.defence.platform.socket.util.StringUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
-
-import org.gather.develop.service.netty.util.CRC16;
-import org.gather.develop.service.util.StringUtil;
 
 public class CRCDecoder extends ByteToMessageDecoder {
 
