@@ -2,7 +2,6 @@ package i9.defence.platform.service.impl;
 
 import i9.defence.platform.dao.ManagerApplyDao;
 import i9.defence.platform.dao.ManagerDao;
-import i9.defence.platform.dao.RoleDao;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
@@ -45,9 +44,6 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
     
     @Autowired
     private ManagerDao managerDao;
-    
-    @Autowired
-    private RoleDao roleDao;
     
     @Override
     public void addManagerApply(ManagerApply managerApply)

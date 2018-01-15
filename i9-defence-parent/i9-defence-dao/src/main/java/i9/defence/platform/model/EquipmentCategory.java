@@ -1,15 +1,16 @@
 package i9.defence.platform.model;
 /**
- * 设备分类实体类
+ * 设备分类实体
  * 
  * 
  * @author 
  *
- * @create 2017年12月26日
+ * @create 
  *
  */
 public class EquipmentCategory {
-    private Integer id;
+
+	private Integer id;
     /**
      * 设备分类名称
      */

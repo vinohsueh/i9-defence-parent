@@ -1,0 +1,96 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">设备</h1>
+</div>
+<div class="wrapper-md">  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <button class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="add()">新增</button>
+        <button class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="del()">删除</button>
+    </div>
+    <div class="row wrapper">
+      <div class="col-sm-5 m-b-xs">
+        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
+      </div>
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search">
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+        <thead>
+          <tr>
+            <th style="width:20px;">
+              <label class="i-checks m-b-none" id="checkLabel">
+                <input type="checkbox" id="totalCheck"><i></i>
+              </label>
+            </th>
+            <th>设备名称</th>
+            <th>设备数量</th>
+            <th>设备编号</th>
+            <th>设备位置</th>
+            <th>设备创建时间</th>
+            <th>设备备注</th>
+            <th>设备分类</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="equipment in equipments">
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td >{{equipment.equipmentName}}</td>
+            <td >{{equipment.equipmentNum}}</td>
+            <td >{{equipment.equipmentIdentifier}}</td>
+            <td >{{equipment.equipmentPosition}}</td>
+            <td >{{equipment.equipmentDateStr}}</td>
+            <td >{{equipment.equipmentRemarks}}</td>
+            <td >{{equipment.equipmentCategory.eqCategoryName}}</td>
+            <td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <footer class="panel-footer">
+      <div class="row">
+        <!-- <div class="col-sm-4 hidden-xs">
+          <select class="input-sm form-control w-sm inline v-middle">
+            <option value="0">删除</option>
+          </select>
+          <button class="btn btn-sm btn-default">Apply</button>                  
+        </div> -->
+        <div class="col-sm-4">
+          <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
+        </div>
+        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
+          <ul class="pagination pagination-sm m-t-none m-b-none">
+            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
+            <li ng-if="hasNext"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+<script>
+$("#checkLabel").click(function(){
+    if($("#totalCheck").prop("checked") == true){
+        $(".o-checks").prop("checked",true);
+    }else{
+        $(".o-checks").prop("checked",false);
+    }
+    
+})
+</script>

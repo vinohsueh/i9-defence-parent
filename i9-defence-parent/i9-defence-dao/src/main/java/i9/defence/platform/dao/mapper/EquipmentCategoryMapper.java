@@ -1,16 +1,17 @@
 package i9.defence.platform.dao.mapper;
 
+import i9.defence.platform.dao.vo.EqCategorySearchDto;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.EquipmentCategoryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentCategoryMapper {
-    long countByExample(EquipmentCategoryExample example);
+	int countByExample(@Param("example") EqCategorySearchDto eqCategorySearchDto);
 
     int deleteByExample(EquipmentCategoryExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(List<Integer> ids);
 
     int insert(EquipmentCategory record);
 
@@ -27,4 +28,7 @@ public interface EquipmentCategoryMapper {
     int updateByPrimaryKeySelective(EquipmentCategory record);
 
     int updateByPrimaryKey(EquipmentCategory record);
+    
+    List<EquipmentCategory> selectByLimitPage(@Param("example") EqCategorySearchDto eqCategorySearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+
 }
