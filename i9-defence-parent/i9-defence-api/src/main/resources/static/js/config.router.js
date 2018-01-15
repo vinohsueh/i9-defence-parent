@@ -75,6 +75,40 @@ angular.module('app')
                     }]
                   }
               })
+               .state('app.equipment', {
+                  url: '/equipment',
+                  templateUrl: 'proj/equipment/equipment.html',
+              	  controller : "equipmentNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'equipmentNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/equipment/equipment.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+               .state('app.eqCategory', {
+                  url: '/eqCategory',
+                  templateUrl: 'proj/eqCategory/eqCategory.html',
+              	  controller : "eqCategoryNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'eqCategoryNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/eqCategory/eqCategory.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.permission', {
                   url: '/permission',
                   templateUrl: 'proj/permission/permission.html',

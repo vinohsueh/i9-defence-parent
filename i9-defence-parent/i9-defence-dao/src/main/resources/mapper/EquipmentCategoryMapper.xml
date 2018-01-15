@@ -86,9 +86,10 @@
     from t_equipment_category
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List" >
     delete from t_equipment_category
-    where id = #{id,jdbcType=INTEGER}
+    where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
   </delete>
   <delete id="deleteByExample" parameterType="i9.defence.platform.model.EquipmentCategoryExample">
     delete from t_equipment_category
@@ -119,10 +120,10 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="i9.defence.platform.model.EquipmentCategoryExample" resultType="java.lang.Long">
+  <select id="countByExample"  resultType="java.lang.Integer">
     select count(*) from t_equipment_category
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Query_By_Dto_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -161,4 +162,21 @@
     set eqCategoryName = #{eqCategoryName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.eqCategoryName != null and example.eqCategoryName != ''">
+            OR (eqCategoryName LIKE CONCAT(CONCAT('%','${example.eqCategoryName}'),'%' )
+        </if>
+    </trim>
+  </sql>
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_equipment_category
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
 </mapper>

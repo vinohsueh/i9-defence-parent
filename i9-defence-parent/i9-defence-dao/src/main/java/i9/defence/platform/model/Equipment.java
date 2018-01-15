@@ -1,17 +1,19 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+
+import i9.defence.platform.utils.StringUtil;
 /**
- * 设备实体类
- * 
+ * 设备实体
  * 
  * @author 
  *
- * @create 2017年12月26日
+ * @create 
  *
  */
 public class Equipment {
-    private Integer id;
+
+	private Integer id;
     /**
      * 设备名称
      */
@@ -23,7 +25,7 @@ public class Equipment {
     /**
      * 设备编号
      */
-    private Integer equipmentIdentifier;
+    private String equipmentIdentifier;
     /**
      * 设备位置
      */
@@ -40,8 +42,20 @@ public class Equipment {
      * 设备分类id
      */
     private Integer equipmentCategoryId;
+    /**
+     * 设备分类(一对一)
+     */
+    private EquipmentCategory equipmentCategory;
 
-    public Integer getId() {
+	public EquipmentCategory getEquipmentCategory() {
+		return equipmentCategory;
+	}
+
+	public void setEquipmentCategory(EquipmentCategory equipmentCategory) {
+		this.equipmentCategory = equipmentCategory;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -65,15 +79,15 @@ public class Equipment {
         this.equipmentNum = equipmentNum;
     }
 
-    public Integer getEquipmentIdentifier() {
-        return equipmentIdentifier;
-    }
+	public String getEquipmentIdentifier() {
+		return equipmentIdentifier;
+	}
 
-    public void setEquipmentIdentifier(Integer equipmentIdentifier) {
-        this.equipmentIdentifier = equipmentIdentifier;
-    }
+	public void setEquipmentIdentifier(String equipmentIdentifier) {
+		this.equipmentIdentifier = equipmentIdentifier;
+	}
 
-    public String getEquipmentPosition() {
+	public String getEquipmentPosition() {
         return equipmentPosition;
     }
 
@@ -89,6 +103,13 @@ public class Equipment {
         this.equipmentDate = equipmentDate;
     }
 
+    public String getEquipmentDateStr() {
+    	if(equipmentDate!=null) {
+    		return StringUtil.dateToString(equipmentDate);
+    	}
+        return "";
+    }
+    
     public String getEquipmentRemarks() {
         return equipmentRemarks;
     }

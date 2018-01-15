@@ -5,12 +5,12 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="equipmentName" jdbcType="VARCHAR" property="equipmentName" />
     <result column="equipmentNum" jdbcType="INTEGER" property="equipmentNum" />
-    <result column="equipmentIdentifier" jdbcType="INTEGER" property="equipmentIdentifier" />
+    <result column="equipmentIdentifier" jdbcType="VARCHAR" property="equipmentIdentifier" />
     <result column="equipmentPosition" jdbcType="VARCHAR" property="equipmentPosition" />
     <result column="equipmentDate" jdbcType="TIMESTAMP" property="equipmentDate" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks" />
     <result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
-    <association column="eqId" javaType="i9.defence.platform.model.EquipmentMonitor" property="" select="org.i9.hospital.platform.dao.mapper.HospitalMapper.selectByPrimaryKey" />
+    <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -94,9 +94,10 @@
     from t_equipment
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List" >
     delete from t_equipment
-    where id = #{id,jdbcType=INTEGER}
+    where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
   </delete>
   <delete id="deleteByExample" parameterType="i9.defence.platform.model.EquipmentExample">
     delete from t_equipment
@@ -111,7 +112,7 @@
     insert into t_equipment (equipmentName, equipmentNum, equipmentIdentifier, 
       equipmentPosition, equipmentDate, equipmentRemarks, 
       equipmentCategoryId)
-    values (#{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, #{equipmentIdentifier,jdbcType=INTEGER}, 
+    values (#{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, #{equipmentIdentifier,jdbcType=VARCHAR}, 
       #{equipmentPosition,jdbcType=VARCHAR}, #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, 
       #{equipmentCategoryId,jdbcType=INTEGER})
   </insert>
@@ -151,7 +152,7 @@
         #{equipmentNum,jdbcType=INTEGER},
       </if>
       <if test="equipmentIdentifier != null">
-        #{equipmentIdentifier,jdbcType=INTEGER},
+        #{equipmentIdentifier,jdbcType=VARCHAR},
       </if>
       <if test="equipmentPosition != null">
         #{equipmentPosition,jdbcType=VARCHAR},
@@ -167,10 +168,10 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultType="java.lang.Long">
+  <select id="countByExample"  resultType="java.lang.Integer">
     select count(*) from t_equipment
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Query_By_Dto_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -186,7 +187,7 @@
         equipmentNum = #{record.equipmentNum,jdbcType=INTEGER},
       </if>
       <if test="record.equipmentIdentifier != null">
-        equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=INTEGER},
+        equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=VARCHAR},
       </if>
       <if test="record.equipmentPosition != null">
         equipmentPosition = #{record.equipmentPosition,jdbcType=VARCHAR},
@@ -210,7 +211,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       equipmentName = #{record.equipmentName,jdbcType=VARCHAR},
       equipmentNum = #{record.equipmentNum,jdbcType=INTEGER},
-      equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=INTEGER},
+      equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=VARCHAR},
       equipmentPosition = #{record.equipmentPosition,jdbcType=VARCHAR},
       equipmentDate = #{record.equipmentDate,jdbcType=TIMESTAMP},
       equipmentRemarks = #{record.equipmentRemarks,jdbcType=VARCHAR},
@@ -229,7 +230,7 @@
         equipmentNum = #{equipmentNum,jdbcType=INTEGER},
       </if>
       <if test="equipmentIdentifier != null">
-        equipmentIdentifier = #{equipmentIdentifier,jdbcType=INTEGER},
+        equipmentIdentifier = #{equipmentIdentifier,jdbcType=VARCHAR},
       </if>
       <if test="equipmentPosition != null">
         equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
@@ -250,11 +251,34 @@
     update t_equipment
     set equipmentName = #{equipmentName,jdbcType=VARCHAR},
       equipmentNum = #{equipmentNum,jdbcType=INTEGER},
-      equipmentIdentifier = #{equipmentIdentifier,jdbcType=INTEGER},
+      equipmentIdentifier = #{equipmentIdentifier,jdbcType=VARCHAR},
       equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
       equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
       equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
       equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.equipmentName != null and example.equipmentName != ''">
+            OR (equipmentName LIKE CONCAT(CONCAT('%','${example.equipmentName}'),'%' )
+        </if>
+        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
+            OR equipmentIdentifier LIKE CONCAT(CONCAT('%','${example.equipmentIdentifier}'),'%' )
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+            OR equipmentPosition LIKE CONCAT(CONCAT('%','${example.equipmentPosition}'),'%' )
+        </if>
+    </trim>
+  </sql>
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_equipment
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
 </mapper>
