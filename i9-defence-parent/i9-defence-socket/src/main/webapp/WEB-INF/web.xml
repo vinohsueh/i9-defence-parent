@@ -9,11 +9,11 @@
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext.xml</param-value>
+        <param-value>classpath:beans.xml</param-value>
     </context-param>
     <context-param>
         <param-name>webAppRootKey</param-name>
-        <param-value>gather-service</param-value>
+        <param-value>i9-defence-socket</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
@@ -26,21 +26,9 @@
     </listener>
     <servlet>
         <servlet-name>BootStrap</servlet-name>
-        <servlet-class>org.gather.develop.service.bootstrap.BootStrap</servlet-class>
+        <servlet-class>i9.defence.platform.socket.bootstrap.BootStrap</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <error-page>
-        <error-code>404</error-code>
-        <location>/404.jsp</location>
-    </error-page>
-    <error-page>
-        <error-code>500</error-code>
-        <location>/500.jsp</location>
-    </error-page>
-    <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/error.jsp</location>
-    </error-page>
     <session-config>
         <session-timeout>0</session-timeout>
     </session-config>
