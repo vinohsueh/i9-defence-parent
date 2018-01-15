@@ -136,6 +136,16 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.dashboard-v2', {
+                  url: '/dashboard-v2',
+                  templateUrl: '/tpl/app_dashboard_v2.html',
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load(['js/controllers/chart.js']);
+                    }]
+                  }
+              })
               .state('app.ui', {
                   url: '/ui',
                   template: '<div ui-view class="fade-in-up"></div>'

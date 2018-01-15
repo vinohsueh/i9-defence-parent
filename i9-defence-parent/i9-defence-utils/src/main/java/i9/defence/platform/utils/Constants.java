@@ -27,4 +27,14 @@ public class Constants {
      * 注册url
      */
     public static final String S_REGIST_URL = "/regist";
+    
+    /**
+     * 经销商列表
+     */
+    public static final String [] S_AGENCY = {"省级经销商","地市级经销商"};
+    
+    /**
+     * 项目管理员列表
+     */
+    public static final String [] S_PROJ_MANAGER = {"主管领导","值班人员","管理人员"};
 }

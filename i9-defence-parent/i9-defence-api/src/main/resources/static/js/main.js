@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('app')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window',
-    function(              $scope,   $translate,   $localStorage,   $window ) {
+  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window','$cookieStore','$http',
+    function(              $scope,   $translate,   $localStorage,   $window, $cookieStore,$http) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
@@ -43,6 +43,13 @@ angular.module('app')
     	var user = data.data.data;
       	$scope.app.user = user; 
       });
+      
+      /**
+       * 获取用户权限
+       */
+      $http.get('./security/noAllowedAuth').then(function (resp) {
+	    $cookieStore.put('noAllowedAuthList',resp.data.data.data);
+	  });
       
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
