@@ -2,10 +2,13 @@ package i9.defence.platform.socket.netty.handler;
 
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
+import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.message.MessageDecodeConvert;
+import i9.defence.platform.socket.message.ans.SimpleRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 import i9.defence.platform.socket.service.impl.LoginService;
+import i9.defence.platform.socket.util.ErrorCode;
 import i9.defence.platform.socket.util.ServiceMapping;
 import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.channel.ChannelHandlerContext;
@@ -24,15 +27,29 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         Message message = (Message) msg;
         logger.info("netty 服务器，客户端Id : " + channelId + "发送消息 [type : " + message.getType() + "]");
         MessageDecodeConvert messageDecodeConvert = message.getMessage();
-        if (message.getType() == 0x00) {
-            ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
-            LoginService loginService = SpringBeanService.getBean(LoginService.class);
-            loginService.doPost(messageDecodeConvert, channelPacker);
+        try {
+            if (message.getType() == 0x00) {
+                ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
+                LoginService loginService = SpringBeanService.getBean(LoginService.class);
+                loginService.doPost(messageDecodeConvert, channelPacker);
+            }
+            else {
+                ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
+                if (channelPacker == null) {
+                }
+                ICoreService coreService = serviceMapping.getCoreService(message.getType());
+                coreService.doPost(messageDecodeConvert, channelPacker);
+            }
         }
-        else {
-            ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
-            ICoreService coreService = serviceMapping.getCoreService(message.getType());
-            coreService.doPost(messageDecodeConvert, channelPacker);
+        catch (BusinessException businessException) {
+            int errorCode = businessException.getErrorCode();
+            SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
+            ctx.channel().writeAndFlush(simpleRespMessage.encode());
+        }
+        catch (Exception exception) {
+            int errorCode = ErrorCode.UNKOWN;
+            SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
+            ctx.channel().writeAndFlush(simpleRespMessage.encode());
         }
     }
     

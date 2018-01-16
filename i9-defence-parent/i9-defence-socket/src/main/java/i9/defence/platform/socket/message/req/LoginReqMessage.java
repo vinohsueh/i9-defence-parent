@@ -1,8 +1,7 @@
 package i9.defence.platform.socket.message.req;
 
-import java.nio.ByteBuffer;
-
 import i9.defence.platform.socket.message.MessageDecodeConvert;
+import io.netty.buffer.ByteBuf;
 
 public class LoginReqMessage implements MessageDecodeConvert {
     
@@ -11,9 +10,16 @@ public class LoginReqMessage implements MessageDecodeConvert {
     public byte[] data;
 
     @Override
-    public void decode(ByteBuffer byteBuffer) {
-        this.dataLen = byteBuffer.get();
+    public void decode(ByteBuf buf) {
+        this.dataLen = buf.readByte();
         this.data = new byte[this.dataLen];
-        byteBuffer.get(this.data);
+        buf.readBytes(this.data);
     }
+
+    @Override
+    public byte getType() {
+        return type;
+    }
+    
+    public byte type;
 }

@@ -1,14 +1,14 @@
 package i9.defence.platform.socket.message.req;
 
-import java.nio.ByteBuffer;
+import i9.defence.platform.socket.message.MessageDecodeConvert;
+import i9.defence.platform.socket.util.EncryptUtils;
+import io.netty.buffer.ByteBuf;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.util.EncryptUtils;
 
 public class UplinkReqMessage implements MessageDecodeConvert {
 
@@ -27,32 +27,34 @@ public class UplinkReqMessage implements MessageDecodeConvert {
     public char dataLen;
 
     public List<DataMessage> data = new ArrayList<DataMessage>();
-
+    
+    public byte type;
+    
     @Override
-    public void decode(ByteBuffer byteBuffer) {
+    public void decode(ByteBuf buf) {
         {
             byte[] dst = new byte[2];
-            byteBuffer.get(dst);
+            buf.readBytes(dst);
             this.systemType = EncryptUtils.bytesToHexString(dst);
         }
         {
             byte[] dst = new byte[6];
-            byteBuffer.get(dst);
+            buf.readBytes(dst);
             this.systemId = EncryptUtils.bytesToHexString(dst);
         }
-        this.source = byteBuffer.get();
-        this.loop = byteBuffer.get();
+        this.source = buf.readByte();
+        this.loop = buf.readByte();
         {
             byte[] dst = new byte[4];
-            byteBuffer.get(dst);
+            buf.readBytes(dst);
             this.deviceAddress = EncryptUtils.bytesToHexString(dst);
         }
-        this.unit = byteBuffer.get();
-        this.dataLen = byteBuffer.getChar();
+        this.unit = buf.readByte();
+        this.dataLen = buf.readChar();
         this.printInfo();
         for (char c = 0; c < dataLen; c++) {
             DataMessage dataMessage = new DataMessage();
-            dataMessage.decode(byteBuffer);
+            dataMessage.decode(buf);
             this.data.add(dataMessage);
         }
     }
@@ -63,4 +65,9 @@ public class UplinkReqMessage implements MessageDecodeConvert {
     }
 
     private final static Logger logger = LoggerFactory.getLogger(UplinkReqMessage.class);
+
+    @Override
+    public byte getType() {
+        return type;
+    }
 }

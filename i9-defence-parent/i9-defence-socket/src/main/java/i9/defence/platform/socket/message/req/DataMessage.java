@@ -2,8 +2,7 @@ package i9.defence.platform.socket.message.req;
 
 import i9.defence.platform.socket.message.MessageDecodeConvert;
 import i9.defence.platform.socket.util.EncryptUtils;
-
-import java.nio.ByteBuffer;
+import io.netty.buffer.ByteBuf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +20,15 @@ public class DataMessage implements MessageDecodeConvert {
     public byte[] data;
 
     @Override
-    public void decode(ByteBuffer byteBuffer) {
-        this.channel = byteBuffer.get();
-        this.type = byteBuffer.getChar();
+    public void decode(ByteBuf buf) {
+        this.channel = buf.readByte();
+        this.type = buf.readChar();
         byte[] dst = new byte[6];
-        byteBuffer.get(dst);
+        buf.readBytes(dst);
         this.datetime = dst[0] + "-" + dst[1] + "-" + dst[2] + "#" + dst[3] + ":" + dst[4] + ":" + dst[5];
-        this.len = byteBuffer.get();
+        this.len = buf.readByte();
         this.data = new byte[this.len];
-        byteBuffer.get(this.data);
+        buf.readBytes(this.data);
         this.printInfo();
     }
     
@@ -38,5 +37,10 @@ public class DataMessage implements MessageDecodeConvert {
     public void printInfo() {
         logger.info("解码, 设备通道 : {}, 数据类型 : {}, 产生时间 : {}, 数据长度 : {}, 数据 : {}", 
                 this.channel, this.type, this.datetime, this.len, EncryptUtils.bytesToHexString(this.data));
+    }
+
+    @Override
+    public byte getType() {
+        return 0;
     }
 }

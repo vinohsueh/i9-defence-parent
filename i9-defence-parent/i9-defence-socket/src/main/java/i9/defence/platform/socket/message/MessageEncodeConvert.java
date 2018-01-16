@@ -2,10 +2,9 @@ package i9.defence.platform.socket.message;
 
 import io.netty.buffer.ByteBuf;
 
+public interface MessageEncodeConvert {
 
-public interface MessageDecodeConvert {
-
-    public void decode(ByteBuf buf);
+    public ByteBuf encode();
     
     public byte getType();
 }

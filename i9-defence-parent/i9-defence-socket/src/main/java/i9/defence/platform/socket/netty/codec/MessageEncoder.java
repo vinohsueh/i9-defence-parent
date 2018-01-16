@@ -11,7 +11,6 @@ public class MessageEncoder extends MessageToByteEncoder<ByteBuf> {
         // 处理通信编码
         byte[] dst = new byte[msg.readableBytes()];
         msg.readBytes(dst);
-        String str = new String(dst);
-        buf.writeBytes(str.getBytes());
+        buf.writeBytes(dst);
     }
 }

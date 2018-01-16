@@ -6,10 +6,10 @@ import i9.defence.platform.socket.message.req.LoginReqMessage;
 import i9.defence.platform.socket.message.req.UplinkReqMessage;
 import i9.defence.platform.socket.netty.Message;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
-import java.nio.ByteBuffer;
 import java.util.List;
 
 public class MessageDecoder extends ByteToMessageDecoder {
@@ -25,6 +25,9 @@ public class MessageDecoder extends ByteToMessageDecoder {
         byte[] dst = new byte[len - 2];
         buf.readBytes(dst);
         
+        buf.readByte();
+        buf.readByte();
+        
         MessageDecodeConvert messageDecodeConvert = null;
         if (type == 0x00) {
             messageDecodeConvert = new LoginReqMessage();
@@ -35,8 +38,10 @@ public class MessageDecoder extends ByteToMessageDecoder {
         else {
             messageDecodeConvert = new UplinkReqMessage();
         }
-        
-        messageDecodeConvert.decode(ByteBuffer.wrap(dst));
+
+        ByteBuf buf0 = Unpooled.buffer(len);
+        buf0.writeBytes(dst);
+        messageDecodeConvert.decode(buf0);
         Message message = new Message(type, messageDecodeConvert);
         list.add(message);
     }
