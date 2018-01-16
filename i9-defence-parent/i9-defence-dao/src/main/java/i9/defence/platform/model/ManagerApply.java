@@ -1,5 +1,7 @@
 package i9.defence.platform.model;
 
+import i9.defence.platform.utils.StringUtil;
+
 import java.util.Date;
 
 import javax.validation.constraints.Pattern;
@@ -253,6 +255,13 @@ public class ManagerApply {
         manager.setId(null);
         manager.setRole(role);
         return manager;
+    }
+    
+    public String getCreateTimeStr(){
+        if(createTime != null) {
+            return StringUtil.dateToStringWithoutTime(createTime);
+        }
+        return "";
     }
     
 }

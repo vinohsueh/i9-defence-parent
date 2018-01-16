@@ -72,8 +72,22 @@ button{
 	cursor:pointer;
 }
 #jurisdiction{
-	display: block;
-	width:350px;
-	margin:0 auto 20px;
-	padding: 10px 0;
+    display: block;
+    width:350px;
+    margin:0 auto;
+    padding: 10px 0;
 }
+#productSecurity{
+    width:350px;
+    margin:15px auto;
+    text-align: left;
+}
+#productSecurity label{
+    cursor:pointer;
+    margin-right: 10px;
+}
+#productSecurity input{
+    cursor:pointer;
+    width:auto!important;
+}
+

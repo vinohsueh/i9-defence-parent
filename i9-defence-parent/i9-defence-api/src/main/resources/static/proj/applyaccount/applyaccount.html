@@ -1,12 +1,12 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">管理员</h1>
+  <h1 class="m-n font-thin h3">待审核账户</h1>
 </div>
 <div controlled-rescode>
 <div class="wrapper-md">  
   <div class="panel panel-default">
     <div class="panel-heading">
-        <button class="btn m-b-xs w-xs btn-success btn-rounded addNetManager" ng-click="add()">新增</button>
-        <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetManager" ng-click="del()">删除</button>
+        <button class="btn m-b-xs w-xs btn-success btn-rounded " ng-click="agree()">同意</button>
+        <button class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="refuse()">拒绝</button>
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
@@ -17,18 +17,19 @@
           <option value="50">50</option>
           <option value="100">100</option>
         </select>
-        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
       </div>
-      <div class="col-sm-4">
+      <!-- <div class="col-sm-4">
+      	<span>用户类型: </span>
+		<select ng-model='selectRoleName' ng-change="search()">
+			<option value="">-- 请选择 --</option>
+			<option ng-repeat='i in roles' value="{{i.name}}">{{i.name}}</option>
+		</select>
       </div>
       <div class="col-sm-3">
         <div class="input-group">
-          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search">
-          <!-- <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
-          </span> -->
+          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="输入“地域”模糊查询"/>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
@@ -39,19 +40,30 @@
                 <input type="checkbox" id="totalCheck"><i></i>
               </label>
             </th>
+            <th>注册时间</th>
             <th>用户名</th>
-            <th>用户类型</th>
+            <th>账户名称</th>
+            <th>账户类型</th>
+            <th>地域</th>
             <th>联系方式</th>
-            <th>EMAIL</th>
+            <th>地址</th>
+            <th>Email</th>
+            <th>项目安全责任人</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="manager in managers">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{manager.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td ng-click="edit({{manager.id}})">{{manager.username}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.role.name}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.phone}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.email}}</td>
+          <tr ng-repeat="applyAccount in applyAccounts">
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{applyAccount.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td>{{applyAccount.createTimeStr}}</td>
+            <td>{{applyAccount.username}}</td>
+            <td>{{applyAccount.name}}</td>
+            <td>{{applyAccount.roleName}}</td>
+            <td>{{applyAccount.area}}</td>
+            <td>{{applyAccount.phone}}</td>
+            <td>{{applyAccount.address}}</td>
+            <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{applyAccount.email}}</td>
+            <td ng-if="applyAccount.securitier==0">否</td>
+            <td ng-if="applyAccount.securitier==1">是</td>
           </tr>
         </tbody>
       </table>
