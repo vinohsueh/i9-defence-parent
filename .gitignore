@@ -4,4 +4,4 @@
 .idea/workspace.xml
 *.jar
 *.iml
-/i9-defence-parent/i9-defence-dao/mbg_configuration.xml
+.idea/artifacts/
