@@ -34,6 +34,9 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
                 loginService.doPost(message, channelPacker);
             }
             else {
+                if (channelPacker == null) {
+                    throw new BusinessException(ErrorCode.UNAUTHORIZED);
+                }
                 ICoreService coreService = serviceMapping.getCoreService(message.getType());
                 coreService.doPost(message, channelPacker);
             }
