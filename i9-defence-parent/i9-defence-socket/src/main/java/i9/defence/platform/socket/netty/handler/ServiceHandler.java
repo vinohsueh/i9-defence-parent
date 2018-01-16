@@ -4,7 +4,7 @@ import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
 import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.message.ans.SimpleRespMessage;
+import i9.defence.platform.socket.message.resp.SimpleRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 import i9.defence.platform.socket.service.impl.LoginService;

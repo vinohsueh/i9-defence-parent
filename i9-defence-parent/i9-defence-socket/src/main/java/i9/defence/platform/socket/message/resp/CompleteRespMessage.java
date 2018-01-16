@@ -1,25 +1,23 @@
-package i9.defence.platform.socket.message.ans;
+package i9.defence.platform.socket.message.resp;
 
 import i9.defence.platform.socket.message.MessageEncodeConvert;
+import i9.defence.platform.socket.util.ErrorCode;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class SimpleRespMessage implements MessageEncodeConvert {
-
-    public int result;
-
-    public byte type;
-
-    public SimpleRespMessage(byte type, int result) {
-        this.result = result;
+public class CompleteRespMessage implements MessageEncodeConvert {
+    
+    public CompleteRespMessage(byte type) {
         this.type = type;
     }
+    
+    private byte type;
 
     @Override
     public ByteBuf encode() {
         ByteBuf buf = Unpooled.buffer(2);
         buf.writeByte((byte) 1);
-        buf.writeByte((byte) result);
+        buf.writeByte((byte) ErrorCode.SUCCESS);
         return buf;
     }
 
