@@ -3,6 +3,20 @@ package i9.defence.platform.socket.util;
 
 public class EncryptUtils {
 
+    public static byte[] SumCheck(byte[] buf) {
+        int length = 8;
+        long sum = 0;
+        byte[] mByte = new byte[length];
+        for (byte b : buf) {
+            long num = ((long) b >= 0) ? (long) b : ((long) b + 256);
+            sum += num;
+        }
+        for (int count = 0; count < length; count++) {
+            mByte[length - count - 1] = (byte) (sum >> (count * 8) & 0xff);
+        }
+        return mByte;
+    }
+
     public static String bytesToHexString(byte[] buf) {
         StringBuilder stringBuilder = new StringBuilder("");
         if (buf == null || buf.length <= 0) {

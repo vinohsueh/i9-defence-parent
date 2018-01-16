@@ -47,12 +47,12 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         catch (BusinessException businessException) {
             int errorCode = businessException.getErrorCode();
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            ctx.channel().writeAndFlush(simpleRespMessage.encode());
+            channelPacker.writeAndFlush(simpleRespMessage);
         }
         catch (Exception exception) {
             int errorCode = ErrorCode.UNKOWN;
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            ctx.channel().writeAndFlush(simpleRespMessage.encode());
+            channelPacker.writeAndFlush(simpleRespMessage);
         }
     }
     
