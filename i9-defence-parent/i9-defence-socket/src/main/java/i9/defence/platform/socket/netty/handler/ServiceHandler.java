@@ -75,6 +75,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         String channelId = ctx.channel().id().asLongText();
+        channelPackerServerContext.removeChannelPacker(channelId);
         logger.info("netty 服务器，客户端断开连接 : " + channelId);
     }
     
