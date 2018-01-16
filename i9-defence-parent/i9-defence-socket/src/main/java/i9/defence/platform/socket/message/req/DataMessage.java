@@ -43,4 +43,8 @@ public class DataMessage implements MessageDecodeConvert {
     public byte getType() {
         return 0;
     }
+
+    @Override
+    public void setType(byte type) {
+    }
 }

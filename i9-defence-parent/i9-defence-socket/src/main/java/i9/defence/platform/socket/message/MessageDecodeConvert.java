@@ -8,4 +8,6 @@ public interface MessageDecodeConvert {
     public void decode(ByteBuf buf);
     
     public byte getType();
+    
+    public void setType(byte type);
 }

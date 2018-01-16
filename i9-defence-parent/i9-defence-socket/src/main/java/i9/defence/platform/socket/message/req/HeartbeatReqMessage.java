@@ -15,4 +15,9 @@ public class HeartbeatReqMessage implements MessageDecodeConvert {
     }
     
     public byte type;
+
+    @Override
+    public void setType(byte type) {
+        this.type = type;
+    }
 }

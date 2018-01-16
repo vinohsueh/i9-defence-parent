@@ -70,4 +70,9 @@ public class UplinkReqMessage implements MessageDecodeConvert {
     public byte getType() {
         return type;
     }
+
+    @Override
+    public void setType(byte type) {
+        this.type = type;
+    }
 }
