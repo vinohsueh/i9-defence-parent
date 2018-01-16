@@ -38,9 +38,10 @@ public class MessageDecoder extends ByteToMessageDecoder {
         else {
             messageDecodeConvert = new UplinkReqMessage();
         }
-        messageDecodeConvert.setType(type);
         ByteBuf buf0 = Unpooled.buffer(len);
         buf0.writeBytes(dst);
+        
+        messageDecodeConvert.setType(type);
         messageDecodeConvert.decode(buf0);
         
         Message message = new Message();
