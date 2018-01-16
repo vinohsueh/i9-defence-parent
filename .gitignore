@@ -1,19 +1,7 @@
-/i9-defence-parent/i9-defence-utils/target
-/i9-defence-parent/i9-defence-utils/.project
-/i9-defence-parent/i9-defence-utils/.settings
-/i9-defence-parent/i9-defence-utils/.classpath
-/i9-defence-parent/i9-defence-service/target
-/i9-defence-parent/i9-defence-service/.classpath
-/i9-defence-parent/i9-defence-service/.project
-/i9-defence-parent/i9-defence-service/.settings
-/i9-defence-parent/i9-defence-dao/.classpath
-/i9-defence-parent/i9-defence-dao/.project
-/i9-defence-parent/i9-defence-dao/.settings
-/i9-defence-parent/i9-defence-dao/target
-/i9-defence-parent/i9-defence-api/.project
-/i9-defence-parent/i9-defence-api/.settings
-/i9-defence-parent/i9-defence-api/target
-/i9-defence-parent/i9-defence-api/.classpath
-/i9-defence-parent/.project
-/i9-defence-parent/.settings
-/i9-defence-parent/.classpath
+# Created by .ignore support plugin (hsz.mobi)
+.idea/inspectionProfiles/
+.idea/vcs.xml
+.idea/workspace.xml
+*.jar
+*.iml
+/i9-defence-parent/i9-defence-dao/mbg_configuration.xml
