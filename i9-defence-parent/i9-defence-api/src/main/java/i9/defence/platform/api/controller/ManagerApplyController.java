@@ -13,9 +13,9 @@ import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /** 
  * 用户申请controller
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version  
  * 
  */
-@Controller
+@RestController
 @RequestMapping("managerApply")
 public class ManagerApplyController {
     
