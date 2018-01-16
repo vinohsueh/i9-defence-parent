@@ -42,7 +42,10 @@ public class MessageDecoder extends ByteToMessageDecoder {
         ByteBuf buf0 = Unpooled.buffer(len);
         buf0.writeBytes(dst);
         messageDecodeConvert.decode(buf0);
-        Message message = new Message(type, messageDecodeConvert);
+        
+        Message message = new Message();
+        message.setType(type);
+        message.setMessageDecodeConvert(messageDecodeConvert);
         list.add(message);
     }
 }

@@ -1,6 +1,7 @@
 package i9.defence.platform.socket.netty;
 
 import i9.defence.platform.socket.message.MessageDecodeConvert;
+import i9.defence.platform.socket.message.MessageEncodeConvert;
 
 public class Message implements java.io.Serializable {
 
@@ -8,18 +9,34 @@ public class Message implements java.io.Serializable {
 
     private byte type;
 
-    private MessageDecodeConvert message;
+    private MessageDecodeConvert messageDecodeConvert;
+    
+    private MessageEncodeConvert messageEncodeConvert;
 
     public byte getType() {
         return type;
     }
-
-    public MessageDecodeConvert getMessage() {
-        return message;
+    
+    public Message() {
+    }
+    
+    public void setType(byte type) {
+        this.type = type;
     }
 
-    public Message(byte type, MessageDecodeConvert message) {
-        this.type = type;
-        this.message = message;
+    public MessageDecodeConvert getMessageDecodeConvert() {
+        return messageDecodeConvert;
+    }
+
+    public void setMessageDecodeConvert(MessageDecodeConvert messageDecodeConvert) {
+        this.messageDecodeConvert = messageDecodeConvert;
+    }
+
+    public MessageEncodeConvert getMessageEncodeConvert() {
+        return messageEncodeConvert;
+    }
+
+    public void setMessageEncodeConvert(MessageEncodeConvert messageEncodeConvert) {
+        this.messageEncodeConvert = messageEncodeConvert;
     }
 }
