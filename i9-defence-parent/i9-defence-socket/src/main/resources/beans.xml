@@ -16,6 +16,4 @@
     <context:component-scan base-package="i9.defence.platform.socket.*"></context:component-scan>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
-
-    <import resource="dataSources.xml" />
 </beans>
