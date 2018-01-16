@@ -1,5 +1,7 @@
-package org.gather.develop.service.netty.handler;
+package i9.defence.platform.socket.netty.handler;
 
+import i9.defence.platform.socket.exception.BusinessException;
+import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -9,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.gather.develop.service.exception.BusinessException;
-import org.gather.develop.service.util.SpringBeanService;
 
 import com.esotericsoftware.reflectasm.MethodAccess;
 

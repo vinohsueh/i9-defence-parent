@@ -1,5 +1,6 @@
-package org.gather.develop.service.bootstrap;
+package i9.defence.platform.socket.bootstrap;
 
+import i9.defence.platform.socket.netty.SocketServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -14,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
-import org.gather.develop.service.netty.SocketServerInitializer;
 
 @SuppressWarnings("serial")
 public class BootStrap extends HttpServlet {

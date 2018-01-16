@@ -1,13 +1,12 @@
-package org.gather.develop.service.netty;
+package i9.defence.platform.socket.netty;
 
+import i9.defence.platform.socket.netty.codec.CRCDecoder;
+import i9.defence.platform.socket.netty.codec.CRCEncoder;
+import i9.defence.platform.socket.netty.handler.ServiceHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import org.gather.develop.service.netty.codec.CRCDecoder;
-import org.gather.develop.service.netty.codec.CRCEncoder;
-import org.gather.develop.service.netty.handler.ServiceHandler;
 
 public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
     

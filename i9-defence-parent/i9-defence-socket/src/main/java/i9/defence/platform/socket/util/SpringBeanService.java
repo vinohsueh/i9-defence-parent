@@ -1,4 +1,4 @@
-package org.gather.develop.service.util;
+package i9.defence.platform.socket.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.core.env.Environment;

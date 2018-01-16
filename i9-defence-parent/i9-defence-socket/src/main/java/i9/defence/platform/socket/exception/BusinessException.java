@@ -1,5 +1,4 @@
-package org.gather.develop.service.exception;
-
+package i9.defence.platform.socket.exception;
 
 @SuppressWarnings("serial")
 public class BusinessException extends RuntimeException {
