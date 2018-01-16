@@ -1,7 +1,6 @@
 package i9.defence.platform.socket.netty.handler;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
@@ -26,6 +25,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         String channelId = ctx.channel().id().asLongText();
         Message message = (Message) msg;
         logger.info("netty 服务器，客户端Id : " + channelId + "发送消息 [type : " + message.getType() + "]");
+        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
         ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         try {
             if (message.getType() == 0x00) {
@@ -37,6 +37,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
                 if (channelPacker == null) {
                     throw new BusinessException(ErrorCode.UNAUTHORIZED);
                 }
+                ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
                 ICoreService coreService = serviceMapping.getCoreService(message.getType());
                 coreService.doPost(message, channelPacker);
             }
@@ -56,11 +57,11 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         }
     }
     
-    @Autowired
-    private ServiceMapping serviceMapping;
-    
-    @Autowired
-    private ChannelPackerServerContext channelPackerServerContext;
+//    @Autowired
+//    private ServiceMapping serviceMapping;
+//    
+//    @Autowired
+//    private ChannelPackerServerContext channelPackerServerContext;
     
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
@@ -78,6 +79,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         String channelId = ctx.channel().id().asLongText();
+        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
         channelPackerServerContext.removeChannelPacker(channelId);
         logger.info("netty 服务器，客户端断开连接 : " + channelId);
     }
