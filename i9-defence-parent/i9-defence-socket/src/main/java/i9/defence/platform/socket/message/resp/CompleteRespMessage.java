@@ -5,24 +5,17 @@ import i9.defence.platform.socket.util.ErrorCode;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class CompleteRespMessage implements MessageEncodeConvert {
+public class CompleteRespMessage extends MessageEncodeConvert {
     
     public CompleteRespMessage(byte type) {
-        this.type = type;
+        this.setType(type);
     }
     
-    private byte type;
-
     @Override
     public ByteBuf encode() {
         ByteBuf buf = Unpooled.buffer(2);
         buf.writeByte((byte) 1);
         buf.writeByte((byte) ErrorCode.SUCCESS);
         return buf;
-    }
-
-    @Override
-    public byte getType() {
-        return type;
     }
 }

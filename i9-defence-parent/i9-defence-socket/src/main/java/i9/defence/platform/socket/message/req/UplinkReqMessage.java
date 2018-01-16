@@ -10,7 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UplinkReqMessage implements MessageDecodeConvert {
+public class UplinkReqMessage extends MessageDecodeConvert {
 
     public String systemType;// 系统类型(十六进制)
 
@@ -65,14 +65,4 @@ public class UplinkReqMessage implements MessageDecodeConvert {
     }
 
     private final static Logger logger = LoggerFactory.getLogger(UplinkReqMessage.class);
-
-    @Override
-    public byte getType() {
-        return type;
-    }
-
-    @Override
-    public void setType(byte type) {
-        this.type = type;
-    }
 }

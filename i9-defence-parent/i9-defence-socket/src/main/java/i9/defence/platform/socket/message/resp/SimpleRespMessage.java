@@ -4,15 +4,13 @@ import i9.defence.platform.socket.message.MessageEncodeConvert;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class SimpleRespMessage implements MessageEncodeConvert {
+public class SimpleRespMessage extends MessageEncodeConvert {
 
     public int result;
 
-    public byte type;
-
     public SimpleRespMessage(byte type, int result) {
         this.result = result;
-        this.type = type;
+        this.setType(type);
     }
 
     @Override
@@ -21,10 +19,5 @@ public class SimpleRespMessage implements MessageEncodeConvert {
         buf.writeByte((byte) 1);
         buf.writeByte((byte) result);
         return buf;
-    }
-
-    @Override
-    public byte getType() {
-        return type;
     }
 }

@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DataMessage implements MessageDecodeConvert {
+public class DataMessage extends MessageDecodeConvert {
 
     public byte channel;
     
@@ -37,14 +37,5 @@ public class DataMessage implements MessageDecodeConvert {
     public void printInfo() {
         logger.info("解码, 设备通道 : {}, 数据类型 : {}, 产生时间 : {}, 数据长度 : {}, 数据 : {}", 
                 this.channel, this.type, this.datetime, this.len, EncryptUtils.bytesToHexString(this.data));
-    }
-
-    @Override
-    public byte getType() {
-        return 0;
-    }
-
-    @Override
-    public void setType(byte type) {
     }
 }

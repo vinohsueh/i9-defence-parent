@@ -3,7 +3,7 @@ package i9.defence.platform.socket.message.req;
 import i9.defence.platform.socket.message.MessageDecodeConvert;
 import io.netty.buffer.ByteBuf;
 
-public class LoginReqMessage implements MessageDecodeConvert {
+public class LoginReqMessage extends MessageDecodeConvert {
     
     public byte dataLen;
     
@@ -14,17 +14,5 @@ public class LoginReqMessage implements MessageDecodeConvert {
         this.dataLen = buf.readByte();
         this.data = new byte[this.dataLen];
         buf.readBytes(this.data);
-    }
-
-    @Override
-    public byte getType() {
-        return type;
-    }
-    
-    public byte type;
-
-    @Override
-    public void setType(byte type) {
-        this.type = type;
     }
 }

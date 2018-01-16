@@ -41,6 +41,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
                 coreService.doPost(message, channelPacker);
             }
             MessageEncodeConvert messageEncodeConvert = message.getMessageEncodeConvert();
+            messageEncodeConvert.setType(message.getType());
             channelPacker.writeAndFlush(messageEncodeConvert);
         }
         catch (BusinessException businessException) {
