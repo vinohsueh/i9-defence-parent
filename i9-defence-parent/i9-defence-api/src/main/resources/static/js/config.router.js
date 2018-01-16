@@ -160,6 +160,23 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.applyaccount', {
+                  url: '/applyaccount',
+                  templateUrl: 'proj/applyaccount/applyaccount.html',
+              	  controller : "applyAccountNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'applyAccountNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/applyaccount/applyaccount.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: '/tpl/app_dashboard_v1.html',

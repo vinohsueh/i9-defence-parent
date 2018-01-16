@@ -219,7 +219,7 @@ public class Manager {
     
     public String getCreateTimeStr() {
     	if(createTime != null) {
-    		return StringUtil.dateToString(createTime);
+    		return StringUtil.dateToStringWithoutTime(createTime);
     	}
         return "";
     }
