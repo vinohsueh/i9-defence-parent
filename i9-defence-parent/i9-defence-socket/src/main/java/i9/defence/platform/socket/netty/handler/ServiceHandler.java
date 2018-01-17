@@ -1,18 +1,20 @@
 package i9.defence.platform.socket.netty.handler;
 
-import i9.defence.platform.socket.exception.BusinessException;
-import i9.defence.platform.socket.util.SpringBeanService;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
-import com.esotericsoftware.reflectasm.MethodAccess;
+import i9.defence.platform.socket.context.ChannelPacker;
+import i9.defence.platform.socket.context.ChannelPackerServerContext;
+import i9.defence.platform.socket.exception.BusinessException;
+import i9.defence.platform.socket.message.MessageEncodeConvert;
+import i9.defence.platform.socket.message.resp.SimpleRespMessage;
+import i9.defence.platform.socket.netty.Message;
+import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.socket.service.impl.LoginService;
+import i9.defence.platform.socket.util.ErrorCode;
+import i9.defence.platform.socket.util.ServiceMapping;
+import i9.defence.platform.socket.util.SpringBeanService;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class ServiceHandler extends ChannelInboundHandlerAdapter {
     
@@ -20,36 +22,46 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
 
     // 客户端每次发送消息接收
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        String data = (String) msg;
-        logger.info("设备 : " + ctx.channel().id().asLongText() + ", 接收数据 : " + data);
-        List<String> values = new ArrayList<String>();
+        String channelId = ctx.channel().id().asLongText();
+        Message message = (Message) msg;
+        logger.info("netty 服务器，客户端Id : " + channelId + "发送消息 [type : " + message.getType() + "]");
+        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
+        ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         try {
-            String[] args = data.split(",");
-            values.add(args[0]);
-            Object springBeanObject = SpringBeanService.getBean(args[0]);
-            MethodAccess methodAccess = MethodAccess.get(springBeanObject.getClass());
-            List<String> params000 = new ArrayList<String>();
-            for (int index = 1; index <= args.length - 1; index ++) {
-                params000.add(args[index]);
+            if (message.getType() == 0x00) {
+                channelPacker = new ChannelPacker(ctx.channel());
+                LoginService loginService = SpringBeanService.getBean(LoginService.class);
+                loginService.doPost(message, channelPacker);
             }
-            for (String s : (String[]) methodAccess.invoke(springBeanObject, "execute", params000)) {
-                values.add(s);
+            else {
+                if (channelPacker == null) {
+                    throw new BusinessException(ErrorCode.UNAUTHORIZED);
+                }
+                ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
+                ICoreService coreService = serviceMapping.getCoreService(message.getType());
+                coreService.doPost(message, channelPacker);
             }
-//            values.add("MSGOK");
+            MessageEncodeConvert messageEncodeConvert = message.getMessageEncodeConvert();
+            messageEncodeConvert.setType(message.getType());
+            channelPacker.writeAndFlush(messageEncodeConvert);
         }
-        catch (BusinessException exception) {
-//            values.clear();
-//            values.add("MSGOK");
+        catch (BusinessException businessException) {
+            int errorCode = businessException.getErrorCode();
+            SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
+            channelPacker.writeAndFlush(simpleRespMessage);
         }
-        StringBuffer stringBuffer = new StringBuffer();
-        for (String string : values) {
-            stringBuffer.append(",").append(string);
+        catch (Exception exception) {
+            int errorCode = ErrorCode.UNKOWN;
+            SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
+            channelPacker.writeAndFlush(simpleRespMessage);
         }
-        byte[] dst = stringBuffer.substring(1).getBytes();
-        ByteBuf buf = Unpooled.buffer(dst.length);
-        buf.writeBytes(dst);
-        ctx.channel().writeAndFlush(buf);
     }
+    
+//    @Autowired
+//    private ServiceMapping serviceMapping;
+//    
+//    @Autowired
+//    private ChannelPackerServerContext channelPackerServerContext;
     
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
@@ -59,11 +71,17 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     // 客户端连接消息
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
+        String channelId = ctx.channel().id().asLongText();
+        logger.info("netty 服务器，客户端连接 : " + channelId);
     }
     
     // 客户端断开连接消息
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
+        String channelId = ctx.channel().id().asLongText();
+        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
+        channelPackerServerContext.removeChannelPacker(channelId);
+        logger.info("netty 服务器，客户端断开连接 : " + channelId);
     }
     
     // 异常通知
