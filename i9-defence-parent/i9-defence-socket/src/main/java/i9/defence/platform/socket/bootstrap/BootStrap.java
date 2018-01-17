@@ -1,6 +1,8 @@
 package i9.defence.platform.socket.bootstrap;
 
 import i9.defence.platform.socket.netty.SocketServerInitializer;
+import i9.defence.platform.socket.service.ProducerService;
+import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -10,6 +12,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 import java.net.InetSocketAddress;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,5 +44,20 @@ public class BootStrap extends HttpServlet {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
+        new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        ProducerService producerService = SpringBeanService.getBean(ProducerService.class);
+                        producerService.sendMessage(UUID.randomUUID().toString());
+                        Thread.sleep(3000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 }
