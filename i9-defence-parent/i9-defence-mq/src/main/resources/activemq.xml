@@ -23,7 +23,7 @@
     </bean>
 
     <!-- 定义消息队列（Queue） -->
-    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">
         <!-- 设置消息队列的名字 -->
         <constructor-arg>
             <value>i9.que</value>
@@ -36,6 +36,6 @@
         <property name="defaultDestination" ref="destination" />
         <property name="receiveTimeout" value="10000" />
         <!-- true是topic，false是queue，默认是false，此处显示写出false -->
-        <property name="pubSubDomain" value="false" />
+        <property name="pubSubDomain" value="true" />
     </bean>
 </beans>
