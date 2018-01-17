@@ -1,16 +1,5 @@
 package i9.defence.platform.socket.bootstrap;
 
-import i9.defence.platform.socket.netty.SocketServerInitializer;
-import i9.defence.platform.socket.service.ProducerService;
-import i9.defence.platform.socket.util.SpringBeanService;
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
-
 import java.net.InetSocketAddress;
 import java.util.UUID;
 
@@ -19,6 +8,17 @@ import javax.servlet.http.HttpServlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import i9.defence.platform.mq.libraries.ProducerService;
+import i9.defence.platform.socket.netty.SocketServerInitializer;
+import i9.defence.platform.socket.util.SpringBeanService;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 @SuppressWarnings("serial")
 public class BootStrap extends HttpServlet {

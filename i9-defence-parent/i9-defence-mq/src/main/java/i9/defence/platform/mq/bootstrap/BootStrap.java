@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import i9.defence.platform.mq.service.ConsumerService;
+import i9.defence.platform.mq.libraries.ConsumerService;
 import i9.defence.platform.mq.utils.SpringBeanService;
 
 @SuppressWarnings("serial")

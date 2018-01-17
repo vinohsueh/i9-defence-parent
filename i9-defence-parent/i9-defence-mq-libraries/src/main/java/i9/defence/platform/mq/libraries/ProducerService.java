@@ -1,4 +1,4 @@
-package i9.defence.platform.socket.service;
+package i9.defence.platform.mq.libraries;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
