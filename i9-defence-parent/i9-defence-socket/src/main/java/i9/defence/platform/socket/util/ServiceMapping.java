@@ -15,13 +15,21 @@ import org.springframework.stereotype.Component;
 public class ServiceMapping {
 
     public HashMap<Byte, Class<?>> dataMap = new HashMap<Byte, Class<?>>();
+    
+    public static final byte LOGIN_EVENT = 0x00;
+    
+    public static final byte POST_DATA_EVENT_0 = 0x01;
+
+    public static final byte POST_DATA_EVENT_1 = 0x03;
+
+    public static final byte HEARTBEAT_EVENT = (byte) 0xFF;
 
     @PostConstruct
     public void init() {
-        dataMap.put((byte) 0x00, LoginService.class);
-        dataMap.put((byte) 0x01, PostDataService.class);
-        dataMap.put((byte) 0x03, PostDataService.class);
-        dataMap.put((byte) 0xFF, HeartbeatService.class);
+        dataMap.put((byte) LOGIN_EVENT, LoginService.class);
+        dataMap.put((byte) POST_DATA_EVENT_0, PostDataService.class);
+        dataMap.put((byte) POST_DATA_EVENT_1, PostDataService.class);
+        dataMap.put((byte) HEARTBEAT_EVENT, HeartbeatService.class);
     }
     
     public ICoreService getCoreService(byte type) {
