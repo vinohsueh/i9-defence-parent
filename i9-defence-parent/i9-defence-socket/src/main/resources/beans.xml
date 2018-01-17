@@ -17,5 +17,5 @@
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     
-    <import resource="activemq.xml"/>
+    <import resource="classpath:activemq.xml"/>
 </beans>
