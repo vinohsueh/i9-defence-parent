@@ -17,6 +17,11 @@ public class Constants {
      * 用户的type
      */
     public static final Byte [] S_ACCOUNT = {(byte)1,(byte)2};
+
+    /**
+     * 经销商的type
+     */
+    public static final Byte [] S_AGENCY_TYPE = {(byte)1};
     
     /**
      * 登录url

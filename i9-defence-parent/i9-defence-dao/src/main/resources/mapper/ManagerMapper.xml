@@ -15,9 +15,10 @@
     <result column="securitier" jdbcType="TINYINT" property="securitier" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="projectId" jdbcType="INTEGER" property="projectId" />
+    <association property="role" column="id" javaType="i9.defence.platform.model.Role" select="selectRole"></association>
   </resultMap>
-  <resultMap id="DetailResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Manager" >
-    <collection property="role" column="id" ofType="i9.defence.platform.model.Role" select="selectRole"></collection>
+  <resultMap id="AgencyResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Manager" >
+    <collection property="agencyList" column="id" ofType="i9.defence.platform.model.Manager" select="selectAgency"></collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -123,7 +124,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="DetailResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_manager
@@ -367,7 +368,7 @@
       projectId = #{projectId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByLimitPage" resultMap="DetailResultMap">
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from t_manager 
         <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
@@ -395,4 +396,13 @@
    <select id="selectRole" parameterType="int" resultType="i9.defence.platform.model.Role">
     select r.* from t_role r left join t_manager_role m on r.id = m.roleId where m.managerId = #{id}
    </select>
+  <select id="selectAgency" parameterType="int" resultMap="AgencyResultMap">
+    SELECT <include refid="Base_Column_List" /> from t_manager AS m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE mg.parentId = #{id}
+  </select>
+  <select id="selectAllAgency" resultMap="AgencyResultMap">
+    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND (mg.managerId is null or (mg.managerId is not null and mg.parentId is null))
+  </select>
+  <select id="selectPartAgency" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null
+  </select>
 </mapper>

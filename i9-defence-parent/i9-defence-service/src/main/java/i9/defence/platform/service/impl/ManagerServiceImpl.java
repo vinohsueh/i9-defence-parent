@@ -191,4 +191,13 @@ public class ManagerServiceImpl implements ManagerService{
 		}
 	}
 
+    @Override
+    public List<Manager> selectAllAgency() throws BusinessException {
+        try {
+            return managerDao.selectAllAgency();
+        } catch (Exception e) {
+            throw new BusinessException("查询经销商列表失败",e.getMessage());
+        }
+    }
+
 }

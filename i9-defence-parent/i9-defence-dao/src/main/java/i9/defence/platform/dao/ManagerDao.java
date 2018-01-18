@@ -90,4 +90,13 @@ public interface ManagerDao {
      */
     List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws Exception;
 
+    /**
+     * 查询经销商列表(此查询是  查询的已经有下级  和为一级的  经销商)
+     */
+    List<Manager> selectAllAgency() throws Exception;
+
+    /**
+     * 查询经销商列表(此查询是 无等级关系的  等待分配的经销商  操作模态框的左侧)
+     */
+    List<Manager> selectPartAgency() throws Exception;
 }

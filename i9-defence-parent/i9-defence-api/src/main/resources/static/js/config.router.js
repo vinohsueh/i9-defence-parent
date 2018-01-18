@@ -177,6 +177,23 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.agency', {
+                  url: '/agency',
+                  templateUrl: 'proj/agency/agency.html',
+                  controller : "agencyNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'agencyNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/agency/agency.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: '/tpl/app_dashboard_v1.html',

@@ -89,4 +89,14 @@ public class ManagerDaoImpl implements ManagerDao{
         return managerMapper.selectConditionMan(managerSearchDto);
     }
 
+    @Override
+    public List<Manager> selectAllAgency() throws Exception {
+        return managerMapper.selectAllAgency();
+    }
+
+    @Override
+    public List<Manager> selectPartAgency() throws Exception {
+        return managerMapper.selectPartAgency();
+    }
+
 }
