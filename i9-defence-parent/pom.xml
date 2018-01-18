@@ -10,13 +10,13 @@
 	<name>i9-defence-parent</name>
 	<url>http://maven.apache.org</url>
 
-
 	<modules>
 		<module>i9-defence-api</module>
 		<module>i9-defence-dao</module>
 		<module>i9-defence-service</module>
 		<module>i9-defence-utils</module>
 	</modules>
+    
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tomcat.version>7.0.69</tomcat.version>
