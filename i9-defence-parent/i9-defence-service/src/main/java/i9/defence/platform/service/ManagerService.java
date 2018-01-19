@@ -95,4 +95,9 @@ public interface ManagerService {
      * @throws Exception
      */
     void updateStatus(Manager manager) throws BusinessException;
+
+    /**
+     * 查询经销商列表
+     */
+    List<Manager> selectAllAgency() throws BusinessException;
 }

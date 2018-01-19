@@ -13,9 +13,9 @@
 
     <context:annotation-config />
 
-    <context:component-scan base-package="i9.defence.platform.socket.*"></context:component-scan>
+    <context:component-scan base-package="i9.defence.platform.*"></context:component-scan>
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
-
-    <import resource="dataSources.xml" />
+    
+    <import resource="classpath:activemq.xml"/>
 </beans>
