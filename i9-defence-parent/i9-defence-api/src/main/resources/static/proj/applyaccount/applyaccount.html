@@ -49,6 +49,7 @@
             <th>地址</th>
             <th>Email</th>
             <th>项目安全责任人</th>
+            <th>是否同意</th>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +65,9 @@
             <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{applyAccount.email}}</td>
             <td ng-if="applyAccount.securitier==0">否</td>
             <td ng-if="applyAccount.securitier==1">是</td>
+            <td ng-if="applyAccount.securitier==null"></td>
+            <td ng-if="applyAccount.agreeFlag==0">否</td>
+            <td ng-if="applyAccount.agreeFlag==1">是</td>
           </tr>
         </tbody>
       </table>
