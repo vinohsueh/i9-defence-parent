@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import i9.defence.platform.dao.ManagerApplyDao;
 import i9.defence.platform.dao.mapper.ManagerApplyMapper;
+import i9.defence.platform.dao.vo.ApplyRefuseDto;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
 import i9.defence.platform.utils.PageBounds;
@@ -69,6 +70,24 @@ public class ManagerApplyDaoImpl implements ManagerApplyDao{
             return list.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<ManagerApply> selectApplysByIds(List<Integer> ids)
+            throws Exception {
+        return managerApplyMapper.selectApplysByIds(ids);
+    }
+
+    @Override
+    public void updateBatchManagerApplys(List<ManagerApply> managerApplys,Integer managerId)
+            throws Exception {
+        managerApplyMapper.updateBatchManagerApplys(managerApplys,managerId);
+    }
+
+    @Override
+    public void refuseManagerApply(ApplyRefuseDto applyRefuseDto,
+            Integer managerId) {
+        managerApplyMapper.refuseManagerApply(applyRefuseDto,managerId);
     }
 
 }

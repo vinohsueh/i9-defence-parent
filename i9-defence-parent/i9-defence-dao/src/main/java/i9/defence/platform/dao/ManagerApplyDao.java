@@ -1,5 +1,6 @@
 package i9.defence.platform.dao;
 
+import i9.defence.platform.dao.vo.ApplyRefuseDto;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
 import i9.defence.platform.utils.PageBounds;
@@ -59,4 +60,24 @@ public interface ManagerApplyDao {
      */
     ManagerApply getUnRefusedManagerApplyByUsername(String username) throws Exception;
     
+    /**
+     * 通过id查询申请
+     * @param ids
+     * @return
+     * @throws Exception
+     */
+    List<ManagerApply> selectApplysByIds(List<Integer> ids) throws Exception;
+    
+    /**
+     * 同意账户申请后批量更新申请
+     * @param managerApplys
+     */
+    void updateBatchManagerApplys(List<ManagerApply> managerApplys,Integer managerId) throws Exception;
+    
+    /**
+     * 拒绝申请
+     * @param applyRefuseDto
+     * @param managerId
+     */
+    void refuseManagerApply(ApplyRefuseDto applyRefuseDto, Integer managerId);
 }

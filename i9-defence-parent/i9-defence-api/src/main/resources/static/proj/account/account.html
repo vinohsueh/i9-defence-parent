@@ -63,6 +63,7 @@
             <td>{{account.phone}}</td>
             <td>{{account.address}}</td>
             <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{account.email}}</td>
+            <td ng-if="account.securitier==null"></td>
             <td ng-if="account.securitier==0">否</td>
             <td ng-if="account.securitier==1">是</td>
             <td ng-if="account.status==0">

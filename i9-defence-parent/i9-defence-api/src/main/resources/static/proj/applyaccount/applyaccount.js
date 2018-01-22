@@ -73,24 +73,71 @@ var applyAccountNgControl=applyAccountNgModule.controller('applyAccountNgControl
 	$scope.search = function(){
 		$scope.initTable();
 	}
-	
-	$scope.add = function () {  
-        var modalInstance = $modal.open({  
-            templateUrl: 'proj/applyAccount/add.html',  
-            controller: 'applyAccountEditCtrl', 
+    
+    $scope.agree = function(){
+    	$scope.agreeArray = [];
+    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+    		if(angular.element(dom).prop("checked") == true){
+    			$scope.agreeArray.push(angular.element(dom).attr("data-id"))
+    		}
+		});
+    	confirm("确定同意吗?", "", function (isConfirm) {
+            if (isConfirm) {
+            	httpService.post({url:'./managerApply/agreeManagerApply',data:$scope.agreeArray,showSuccessMsg:true}).then(function(data) {  
+            		$scope.initTable();
+            	})
+            } else {
+            }
+        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
+    }
+    
+    
+    $scope.del = function(){
+    	$scope.agreeArray = [];
+    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+    		if(angular.element(dom).prop("checked") == true){
+    			$scope.agreeArray.push(angular.element(dom).attr("data-id"))
+    		}
+		});
+    	confirm("确定删除吗?", "", function (isConfirm) {
+            if (isConfirm) {
+            	httpService.post({url:'./managerApply/delManagerApply',data:$scope.agreeArray,showSuccessMsg:true}).then(function(data) {  
+            		$scope.initTable();
+            	})
+            } else {
+            }
+        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
+    }
+    
+    $scope.refuse = function(){
+    	$scope.agreeArray = [];
+    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+    		if(angular.element(dom).prop("checked") == true){
+    			$scope.agreeArray.push(angular.element(dom).attr("data-id"))
+    		}
+		});
+    	var modalInstance = $modal.open({  
+            templateUrl: 'proj/applyaccount/add.html',  
+            controller: 'applyaccountEditCtrl', 
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
             resolve: {  
             	deps : ['$ocLazyLoad',function($ocLazyLoad) {
         			return $ocLazyLoad.load({
-        				name : 'applyAccountEditNgModule',
+        				name : 'applyaccountEditNgModule',
         				insertBefore : '#ng_load_plugins_before',
         				files : [
-        				         'proj/applyAccount/add.js',
+        				         'proj/applyaccount/add.js',
         				]
         			});
         		}],
-        		applyAccount: function () {  
-                    return {};  
+        		ids: function () {  
+                    return $scope.agreeArray;  
+                },
+                content: function () {  
+                    return null;  
+                },
+                edit: function () {  
+                    return 0;  
                 },
             }  
         }); 
@@ -99,32 +146,36 @@ var applyAccountNgControl=applyAccountNgModule.controller('applyAccountNgControl
         },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
         	$scope.initTable();
         });
-         
-    };  
-    $scope.del = function(){
-    	$scope.delArray = [];
-    	angular.forEach(angular.element.find(".o-checks"), function(dom){
-    		if(angular.element(dom).prop("checked") == true){
-    			$scope.delArray.push(angular.element(dom).attr("data-id"))
-    		}
-		});
-    	confirm("确定删除吗?", "", function (isConfirm) {
-            if (isConfirm) {
-            	httpService.post({url:'./applyAccount/delapplyAccount',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
-            		$scope.initTable();
-            	})
-            } else {
-            }
-        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
     
-    $scope.changeStatus = function(id,status) {
-    	var pageParam = {
-    		 id : id,
-    		 status : status,
-    	};
-    	httpService.post({url:'./applyAccount/updateStatus',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-    		$scope.initTable();
+    $scope.reason = function(id){
+    	httpService.post({url:'./managerApply/getManagerApply',data:id,showSuccessMsg:false}).then(function(data) {  
+    		var modalInstance = $modal.open({  
+                templateUrl: 'proj/applyaccount/add.html',  
+                controller: 'applyaccountEditCtrl', 
+                backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+                resolve: {  
+                	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+            			return $ocLazyLoad.load({
+            				name : 'applyaccountEditNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				         'proj/applyaccount/add.js',
+            				]
+            			});
+            		}],
+            		content: function () {  
+                        return data.data.data.refuseContent;  
+                    },
+                    ids: function () {  
+                        return null;  
+                    },
+                    edit: function () {  
+                        return 1;  
+                    },
+                }  
+            });
+    		
     	})
-	}
+    }
 })

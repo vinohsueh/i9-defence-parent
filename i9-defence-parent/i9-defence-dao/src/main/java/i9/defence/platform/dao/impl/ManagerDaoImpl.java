@@ -99,4 +99,14 @@ public class ManagerDaoImpl implements ManagerDao{
         return managerMapper.selectPartAgency();
     }
 
+    @Override
+    public void addBatchManagers(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagers(managers);
+    }
+
+    @Override
+    public void addBatchManagerRole(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagerRole(managers);
+    }
+
 }

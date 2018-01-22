@@ -99,4 +99,17 @@ public interface ManagerDao {
      * 查询经销商列表(此查询是 无等级关系的  等待分配的经销商  操作模态框的左侧)
      */
     List<Manager> selectPartAgency() throws Exception;
+    
+    /**
+     * 批量添加账户
+     * @param managers
+     * @throws Exception
+     */
+    void addBatchManagers(List<Manager> managers) throws Exception;
+    
+    /**
+     * 批量添加用户角色
+     * @param mrs
+     */
+    void addBatchManagerRole(List<Manager> managers) throws Exception;
 }
