@@ -6,7 +6,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
         <button class="btn m-b-xs w-xs btn-success btn-rounded " ng-click="agree()">同意</button>
-        <button class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="refuse()">拒绝</button>
+        <button class="btn m-b-xs w-xs btn-warning btn-rounded" ng-click="refuse()">拒绝</button>
+        <button class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="del()">删除</button>
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
@@ -49,6 +50,7 @@
             <th>地址</th>
             <th>Email</th>
             <th>项目安全责任人</th>
+            <th>是否同意</th>
           </tr>
         </thead>
         <tbody>
@@ -61,9 +63,14 @@
             <td>{{applyAccount.area}}</td>
             <td>{{applyAccount.phone}}</td>
             <td>{{applyAccount.address}}</td>
-            <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{applyAccount.email}}</td>
-            <td ng-if="applyAccount.securitier==0">否</td>
-            <td ng-if="applyAccount.securitier==1">是</td>
+            <td>{{applyAccount.email}}</td>
+            <td ng-if="applyAccount.securitier==0" style="text-align: center">否</td>
+            <td ng-if="applyAccount.securitier==1" style="text-align: center">是</td>
+            <td ng-if="applyAccount.securitier==null"></td>
+            <td ng-if="applyAccount.agreeFlag==-1" style="cursor: pointer;" ng-click="reason({{applyAccount.id}})">已拒绝</td>
+            <p style="display: none">{{applyAccount.refuseContent}}</p>
+            <td ng-if="applyAccount.agreeFlag==0">未操作</td>
+            <td ng-if="applyAccount.agreeFlag==1">已同意</td>
           </tr>
         </tbody>
       </table>

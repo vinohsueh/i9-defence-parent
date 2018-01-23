@@ -91,13 +91,12 @@ public interface ManagerDao {
     List<ManagerSelectDto> selectConditionMan(ManagerSearchDto managerSearchDto) throws Exception;
 
     /**
-     * 查询经销商列表(此查询是 查询默认的经销商及还没有建立关系的等待被分配的经销商
-     * 或者  查询已经有下级  自己为一级的 无parentId（父ID）的 经销商)
+     * 查询经销商列表(此查询是  查询的已经有下级  和为一级的  经销商)
      */
     List<Manager> selectAllAgency() throws Exception;
 
     /**
-     * 查询经销商列表(此查询是 无等级关系的  等待分配的默认经销商  操作模态框的左侧)
+     * 查询经销商列表(此查询是 无等级关系的  等待分配的经销商  操作模态框的左侧)
      */
     List<Manager> selectPartAgency() throws Exception;
 
@@ -130,4 +129,17 @@ public interface ManagerDao {
      * 撤销（删除）一级下的二级或者二级下的三级     右侧---->左侧(一个一个地撤销  因为会对二级判断)
      * */
     void deleteAgencyById(Integer managerId, Integer parentId) throws Exception;
+
+    /**
+     * 批量添加账户
+     * @param managers
+     * @throws Exception
+     */
+    void addBatchManagers(List<Manager> managers) throws Exception;
+
+    /**
+     * 批量添加用户角色
+     * @param mrs
+     */
+    void addBatchManagerRole(List<Manager> managers) throws Exception;
 }

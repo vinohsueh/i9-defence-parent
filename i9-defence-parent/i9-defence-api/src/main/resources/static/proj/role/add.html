@@ -40,7 +40,7 @@
 		<div ng-if="tab=='permission'">
 			<form role="form" name="form" class="form-horizontal">
 				<div class="form-group">
-				    <div class="col-sm-3" ng-repeat="permission in permissions">
+				    <div class="col-sm-4" style="margin-bottom: 10px;" ng-repeat="permission in permissions">
 				      <label class="i-checks m-b-none" id="checkLabel">
 		                <input type="checkbox" class="ckbox" data-id="{{permission.id}}" ng-checked="permission.checked"><i></i>{{permission.name}}
 		              </label>

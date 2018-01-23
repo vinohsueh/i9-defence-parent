@@ -238,6 +238,21 @@
       </if>
     </trim>
   </insert>
+  <insert id="addBatchManagers" useGeneratedKeys="true"
+    keyProperty="id">
+    insert into t_manager(username, password, email, 
+      phone, createTime, name, 
+      type, area, address, 
+      securitier, status, projectId
+      ) values 
+      <foreach collection="list" item="item" separator=",">
+      (#{item.username,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, 
+      #{item.phone,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.name,jdbcType=VARCHAR}, 
+      #{item.type,jdbcType=TINYINT}, #{item.area,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}, 
+      #{item.securitier,jdbcType=TINYINT}, #{item.status,jdbcType=TINYINT}, #{item.projectId,jdbcType=INTEGER}
+      )
+      </foreach>
+  </insert>
   <select id="countByExample" parameterType="i9.defence.platform.model.ManagerExample" resultType="java.lang.Integer" >
     select count(*) from t_manager
     <if test="_parameter != null" >
@@ -396,6 +411,13 @@
    <select id="selectRole" parameterType="int" resultType="i9.defence.platform.model.Role">
     select r.* from t_role r left join t_manager_role m on r.id = m.roleId where m.managerId = #{id}
    </select>
+   <insert id="addBatchManagerRole" parameterType="java.util.List">
+     insert into t_manager_role(managerId,roleId) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},(select id from t_role where name = #{item.role.name}) )
+        </foreach>
+   </insert>
+   <!--  -->
   <select id="selectAgency" parameterType="int" resultMap="AgencyResultMap">
     SELECT <include refid="Base_Column_List" /> from t_manager AS m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE mg.parentId = #{id}
   </select>

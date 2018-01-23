@@ -2,6 +2,7 @@ package i9.defence.platform.service.impl;
 
 import i9.defence.platform.dao.ManagerApplyDao;
 import i9.defence.platform.dao.ManagerDao;
+import i9.defence.platform.dao.vo.ApplyRefuseDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
@@ -11,6 +12,7 @@ import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.StringUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ManagerApplyServiceImpl implements ManagerApplyService{
+    
+    /**
+     * manager默认状态
+     */
+    private static final Byte  S_STATUS =(byte)1;
     
     /**
      * 经销商byte
@@ -80,7 +87,7 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
         try {
             managerApplyDao.updateManagerApply(managerApply);
         } catch (Exception e) {
-            throw new BusinessException("更新账户申请失败");
+            throw new BusinessException("更新账户申请失败",e.getMessage());
         }
     }
 
@@ -89,7 +96,7 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
         try {
             managerApplyDao.deleteManagerApply(ids);
         } catch (Exception e) {
-            throw new BusinessException("删除账户申请失败");
+            throw new BusinessException("删除账户申请失败",e.getMessage());
         }
     }
 
@@ -98,7 +105,7 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
         try {
             return managerApplyDao.getManagerApplyById(id);
         } catch (Exception e) {
-            throw new BusinessException("查询账户申请失败");
+            throw new BusinessException("查询账户申请失败",e.getMessage());
         }
     }
 
@@ -109,7 +116,59 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
         try {
             return managerApplyDao.selectByLimitPage(managerApplyExample, currectPage, pageSize);
         } catch (Exception e) {
-            throw new BusinessException("分页查询账户申请失败");
+            throw new BusinessException("分页查询账户申请失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void agreeManagerApply(List<Integer> ids,Integer managerId) throws BusinessException {
+        try {
+            //申请账户
+            List<ManagerApply> managerApplys = managerApplyDao.selectApplysByIds(ids);
+            //要同意的账户列表
+            List<Manager> managers = new ArrayList<Manager>();
+            //要同意的账户列表对应的角色
+            for (ManagerApply managerApply : managerApplys) {
+                if (Arrays.asList(Constants.S_ADMIN).contains(managerApply.getRoleName())){
+                    throw new BusinessException("不允许添加该角色!");
+                }
+                if (managerApply.getAgreeFlag() != 0){
+                    throw new BusinessException("只能同意未操作的!");
+                }
+                managerApply.setCreateTime(new Date());
+                Manager manager = managerApply.getManager();
+                manager.setStatus(S_STATUS);
+                managers.add(manager);
+            }
+            //更新申请的状态
+            managerApplyDao.updateBatchManagerApplys(managerApplys,managerId);
+            //将申请的角色添加到用户表里
+            managerDao.addBatchManagers(managers);
+            //添加用户的角色
+            managerDao.addBatchManagerRole(managers);
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
+        } catch (Exception e) {
+            throw new BusinessException("同意账户申请失败",e.getMessage());
+        }
+        
+    }
+
+    @Override
+    public void refuseManagerApply(ApplyRefuseDto applyRefuseDto,Integer managerId) throws BusinessException {
+         //申请账户
+        try {
+            List<ManagerApply> managerApplys = managerApplyDao.selectApplysByIds(applyRefuseDto.getIds());
+            for (ManagerApply managerApply : managerApplys) {
+                if (managerApply.getAgreeFlag() != 0){
+                    throw new BusinessException("只能拒绝未操作的!");
+                }
+            }
+            managerApplyDao.refuseManagerApply(applyRefuseDto,managerId);
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
+        } catch (Exception e) {
+            throw new BusinessException("拒绝账户申请失败",e.getMessage());
         }
     }
 

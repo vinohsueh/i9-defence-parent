@@ -129,4 +129,14 @@ public class ManagerDaoImpl implements ManagerDao{
         managerMapper.deleteAgencyById(managerId,parentId);
     }
 
+    @Override
+    public void addBatchManagers(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagers(managers);
+    }
+
+    @Override
+    public void addBatchManagerRole(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagerRole(managers);
+    }
+
 }

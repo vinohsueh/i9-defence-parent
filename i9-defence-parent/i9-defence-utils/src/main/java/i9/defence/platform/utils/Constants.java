@@ -36,6 +36,11 @@ public class Constants {
     /**
      * 经销商列表
      */
+    public static final String [] S_ADMIN = {"超级管理员","普通管理员"};
+    
+    /**
+     * 经销商列表
+     */
     public static final String [] S_AGENCY = {"省级经销商","地市级经销商"};
     
     /**

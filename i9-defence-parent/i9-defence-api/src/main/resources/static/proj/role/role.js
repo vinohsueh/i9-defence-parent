@@ -76,6 +76,7 @@ var roleNgControl=roleNgModule.controller('roleNgControl',function($rootScope, $
         var modalInstance = $modal.open({  
             templateUrl: 'proj/role/add.html',  
             controller: 'roleEditCtrl', 
+            size: 'lg', //大小配置
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
             resolve: {  
             	deps : ['$ocLazyLoad',function($ocLazyLoad) {

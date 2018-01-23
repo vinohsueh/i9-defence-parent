@@ -88,4 +88,16 @@ public interface ManagerMapper {
      * 撤销（删除）一级下的二级或者二级下的三级     右侧---->左侧(一个一个地撤销  因为会对二级判断)
      * */
     void deleteAgencyById(@Param("managerId") Integer managerId,@Param("parentId") Integer parentId);
+
+    /**
+     * 批量添加用户
+     * @param managers
+     */
+    void addBatchManagers(List<Manager> managers);
+
+    /**
+     * 批量添加用户角色
+     * @param mrs
+     */
+    void addBatchManagerRole(List<Manager> managers);
 }
