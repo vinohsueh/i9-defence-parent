@@ -3,15 +3,19 @@ package i9.defence.platform.api.controller;
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
+import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerApplyService;
 import i9.defence.platform.service.ManagerService;
-import i9.defence.platform.utils.BindingResultException;
+import i9.defence.platform.service.RoleService;
 import i9.defence.platform.utils.BusinessException;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,9 +35,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("")
 public class LoginController {
     
+    private static final Logger S_LOGGER = LoggerFactory.getLogger(LoginController.class);
+    
     @Autowired
     private ManagerService managerService;
-    
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private ManagerApplyService managerApplyService;
     /**
@@ -50,8 +57,11 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/regist.html")
-    public String regist(@ModelAttribute ManagerApply managerApply) {
-        return "regist";
+    public ModelAndView regist(@ModelAttribute ManagerApply managerApply) {
+        ModelAndView modelAndView = new ModelAndView("regist");
+        List<Role> roles = roleService.selectPartRole();
+        modelAndView.addObject("roles", roles);
+        return modelAndView;
     }
     
     
@@ -62,10 +72,16 @@ public class LoginController {
      */
      @ResponseBody
      @RequestMapping("/regist")
-     public HashMap<String, Object> addManagerApply(@ModelAttribute @Valid ManagerApply managerApply,BindingResult bindingResult) {
-         HashMap<String, Object> result = new HashMap<String, Object>();
-         managerApplyService.addManagerApply(managerApply);
-         return result;
+     public ModelAndView addManagerApply(@ModelAttribute @Valid ManagerApply managerApply,BindingResult bindingResult) {
+         try {
+             managerApplyService.addManagerApply(managerApply);
+             List<Role> roles = roleService.selectPartRole();
+             return new ModelAndView("regist").addObject("success", "注册成功,请等待审批").addObject("roles", roles);
+         } catch (BusinessException exception) {
+             S_LOGGER.error("error, message: {}, errorMessage: {}, exception: {}",exception.getMessage(),exception.getErrorMessage(),exception.getExceptionMessage());
+             List<Role> roles = roleService.selectPartRole();
+             return new ModelAndView("regist").addObject("exception", exception).addObject("roles", roles);
+         }
      }
     
     /**
@@ -100,8 +116,6 @@ public class LoginController {
             return new ModelAndView("redirect:index.html");
         } catch (BusinessException e) {
             return new ModelAndView("login").addObject("exception", e);
-        } catch (BindingResultException e) {
-            return new ModelAndView("login").addObject("exception", e.toErrors());
         }
         
     }

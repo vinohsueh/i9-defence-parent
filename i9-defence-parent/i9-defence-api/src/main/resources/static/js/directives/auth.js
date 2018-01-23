@@ -1,12 +1,21 @@
 angular.module('app')
-.directive('controlledRescode', ['$http', 'removeElement', function ($http, removeElement) {
+.directive('controlledRescode', ['$http', 'removeElement','$cookieStore', function ($http, removeElement,$cookieStore) {
     return{
     	scope: {
     		callBack: '&'
         },
         restrict: 'A',
         link: function (scope, element, attributes) {
-            $http.get('./security/noAllowedAuth').then(function (resp) {
+        	var noAllowedAuthList = $cookieStore.get('noAllowedAuthList');
+			if(noAllowedAuthList != null){
+	            for (i = 0; i < noAllowedAuthList.length; i++) {
+	                var element = angular.element("."+noAllowedAuthList[i]);
+	                removeElement(element);
+	            }
+			}
+            /*$http.get('./security/noAllowedAuth').then(function (resp) {
+            	$cookieStore.put('name','lanveer');
+            	console.log($cookieStore.get('name'));
             	var noAllowedAuthList = resp.data.data.data;
 				//如果有回调函数，调用回调函数
 				if(attributes.callBack != null){
@@ -21,11 +30,10 @@ angular.module('app')
 		            }
 				}
 				
-			});
+			});*/
             
         },
         controller: function ($scope, $element, $attrs, $transclude) { 
-        	
             // var opts = $($element).datagrid('options');
             // console.info(opts);
             

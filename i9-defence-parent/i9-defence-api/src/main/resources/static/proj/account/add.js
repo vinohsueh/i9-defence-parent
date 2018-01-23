@@ -19,7 +19,7 @@ var accountEditCtrl = accountEditNgModule.controller('accountEditCtrl', function
 			});
 			return false;
 		}
-		httpService.post({url:'./account/addAccount',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
+		httpService.post({url:'./account/addAccount',data:$scope.account,showSuccessMsg:true}).then(function(data) {
 			$modalInstance.dismiss('cancel')
 		})
 	};

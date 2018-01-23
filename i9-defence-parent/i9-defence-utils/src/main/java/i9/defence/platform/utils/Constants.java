@@ -17,6 +17,11 @@ public class Constants {
      * 用户的type
      */
     public static final Byte [] S_ACCOUNT = {(byte)1,(byte)2};
+
+    /**
+     * 经销商的type
+     */
+    public static final Byte [] S_AGENCY_TYPE = {(byte)1};
     
     /**
      * 登录url
@@ -27,4 +32,19 @@ public class Constants {
      * 注册url
      */
     public static final String S_REGIST_URL = "/regist";
+    
+    /**
+     * 经销商列表
+     */
+    public static final String [] S_ADMIN = {"超级管理员","普通管理员"};
+    
+    /**
+     * 经销商列表
+     */
+    public static final String [] S_AGENCY = {"省级经销商","地市级经销商"};
+    
+    /**
+     * 项目管理员列表
+     */
+    public static final String [] S_PROJ_MANAGER = {"主管领导","值班人员","管理人员"};
 }

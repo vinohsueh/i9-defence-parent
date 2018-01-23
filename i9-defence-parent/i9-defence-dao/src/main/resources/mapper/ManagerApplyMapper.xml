@@ -101,9 +101,12 @@
     from t_manager_apply
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List" >
     delete from t_manager_apply
-    where id = #{id,jdbcType=INTEGER}
+    where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+        #{item}
+    </foreach>
   </delete>
   <delete id="deleteByExample" parameterType="i9.defence.platform.model.ManagerApplyExample" >
     delete from t_manager_apply
@@ -231,7 +234,7 @@
   <select id="countByExample" parameterType="i9.defence.platform.model.ManagerApplyExample" resultType="java.lang.Integer" >
     select count(*) from t_manager_apply
     <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+      <include refid="Update_By_Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
@@ -382,4 +385,37 @@
       roleName = #{roleName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateBatchManagerApplys">
+    update t_manager_apply 
+      set agreeFlag = 1,operaterId = #{managerId}
+      where id in 
+      <foreach collection="applys" item="item" open="(" close=")" separator=",">
+        #{item.id}
+      </foreach>   
+  </update>
+  <update id="refuseManagerApply">
+    update t_manager_apply
+        set agreeFlag = -1,operaterId = #{managerId},refuseContent=#{dto.content}
+    where id in 
+      <foreach collection="dto.ids" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach> 
+  </update>
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List" /> from t_manager_apply 
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+      <if test="example.orderByClause != null" >
+        order by ${example.orderByClause}
+      </if>
+      limit #{offset},#{limit}
+  </select>
+  <select id="selectApplysByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List" /> from t_manager_apply 
+      where id in
+      <foreach collection="list" item="item" separator="," open="(" close=")">
+        #{item}
+      </foreach>
+  </select>
 </mapper>

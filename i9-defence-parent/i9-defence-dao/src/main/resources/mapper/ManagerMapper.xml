@@ -15,9 +15,10 @@
     <result column="securitier" jdbcType="TINYINT" property="securitier" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="projectId" jdbcType="INTEGER" property="projectId" />
+    <association property="role" column="id" javaType="i9.defence.platform.model.Role" select="selectRole"></association>
   </resultMap>
-  <resultMap id="DetailResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Manager" >
-    <collection property="role" column="id" ofType="i9.defence.platform.model.Role" select="selectRole"></collection>
+  <resultMap id="AgencyResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Manager" >
+    <collection property="agencyList" column="id" ofType="i9.defence.platform.model.Manager" select="selectAgency"></collection>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -123,7 +124,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="DetailResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="AgencyResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_manager
@@ -236,6 +237,21 @@
         #{projectId,jdbcType=INTEGER},
       </if>
     </trim>
+  </insert>
+  <insert id="addBatchManagers" useGeneratedKeys="true"
+    keyProperty="id">
+    insert into t_manager(username, password, email, 
+      phone, createTime, name, 
+      type, area, address, 
+      securitier, status, projectId
+      ) values 
+      <foreach collection="list" item="item" separator=",">
+      (#{item.username,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, 
+      #{item.phone,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.name,jdbcType=VARCHAR}, 
+      #{item.type,jdbcType=TINYINT}, #{item.area,jdbcType=VARCHAR}, #{item.address,jdbcType=VARCHAR}, 
+      #{item.securitier,jdbcType=TINYINT}, #{item.status,jdbcType=TINYINT}, #{item.projectId,jdbcType=INTEGER}
+      )
+      </foreach>
   </insert>
   <select id="countByExample" parameterType="i9.defence.platform.model.ManagerExample" resultType="java.lang.Integer" >
     select count(*) from t_manager
@@ -367,7 +383,7 @@
       projectId = #{projectId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByLimitPage" resultMap="DetailResultMap">
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from t_manager 
         <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
@@ -395,4 +411,44 @@
    <select id="selectRole" parameterType="int" resultType="i9.defence.platform.model.Role">
     select r.* from t_role r left join t_manager_role m on r.id = m.roleId where m.managerId = #{id}
    </select>
+   <insert id="addBatchManagerRole" parameterType="java.util.List">
+     insert into t_manager_role(managerId,roleId) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},(select id from t_role where name = #{item.role.name}) )
+        </foreach>
+   </insert>
+   <!--  -->
+  <select id="selectAgency" parameterType="int" resultMap="AgencyResultMap">
+    SELECT <include refid="Base_Column_List" /> from t_manager AS m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE mg.parentId = #{id}
+  </select>
+  <select id="selectAllAgency" resultMap="AgencyResultMap">
+    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND (mg.managerId is null or (mg.managerId is not null and mg.parentId is null))
+  </select>
+  <select id="selectPartAgency" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null
+  </select>
+  <insert id="insertManagerGrade">
+    INSERT INTO t_manager_grade(managerId,parentId) VALUES
+    <foreach collection="managerIdS" item="item" index="index" separator="," >
+      (#{item},#{parentId})
+    </foreach>
+  </insert>
+  <select id="selectAagency" resultMap="AgencyResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 AND (mg.managerId IS NOT NULL AND mg.parentId IS NULL)
+  </select>
+  <select id="selectBagency" resultMap="AgencyResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 AND mg.managerId IS NOT #{agencyId} AND (mg.managerId IS NOT NULL AND mg.parentId IN(SELECT mg2.managerId from t_manager_grade AS mg2 WHERE mg2.parentId IS NULL))
+  </select>
+  <update id="updateBagency">
+    UPDATE t_manager_grade SET parentId = #{newParentId} WHERE managerId = #{agencyId}
+  </update>
+  <update id="updateCagency">
+    UPDATE t_manager_grade SET parentId = #{newParentId} WHERE managerId IN
+    <foreach collection="managerIds" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+  <delete id="deleteAgencyById">
+    DELETE FROM t_manager_grade WHERE managerId = #{managerId} AND parentId = #{parentId}
+  </delete>
 </mapper>

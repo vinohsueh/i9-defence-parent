@@ -40,9 +40,11 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+                    <!--
                     <version>3.0</version>
                     <source>1.7</source>
                     <target>1.7</target>
+                    -->
                 </configuration>
             </plugin>
             <plugin>

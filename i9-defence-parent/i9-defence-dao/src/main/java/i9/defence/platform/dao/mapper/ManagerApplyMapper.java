@@ -1,5 +1,6 @@
 package i9.defence.platform.dao.mapper;
 
+import i9.defence.platform.dao.vo.ApplyRefuseDto;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
 
@@ -31,4 +32,15 @@ public interface ManagerApplyMapper {
     int updateByPrimaryKey(ManagerApply record);
     
     List<ManagerApply> selectByLimitPage(@Param("example") ManagerApplyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
+
+    List<ManagerApply> selectApplysByIds(List<Integer> ids);
+
+    void updateBatchManagerApplys(@Param("applys") List<ManagerApply> managerApplys,@Param("managerId")Integer managerId);
+    
+    /**
+     * 拒绝申请
+     * @param applyRefuseDto
+     * @param managerId
+     */
+    void refuseManagerApply(@Param("dto") ApplyRefuseDto applyRefuseDto,@Param("managerId") Integer managerId);
 }

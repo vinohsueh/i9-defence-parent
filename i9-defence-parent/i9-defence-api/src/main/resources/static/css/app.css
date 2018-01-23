@@ -5159,3 +5159,191 @@ a.text-#000000:hover {
     vertical-align: middle;
     margin-right: 5px;
 }
+.oneLever{
+  background-color: #595959!important;
+  color: #FFFFFF;
+}
+.twoLever{
+  background-color: #A6A6A6!important;
+}
+.threeLever{
+  background-color: #D9D9D9!important;
+}
+.sico {
+  display: block;
+  width: 20px;
+  height: 18px;
+}
+.sico.ico-select-m {
+  width: 19px;
+  height: 16px;
+  background: url("../images/select_m.png") center center no-repeat;
+}
+.sico.ico-cancle-m {
+  width: 19px;
+  height: 16px;
+  background: url("../images/cancle_m.png") center center no-repeat;
+}
+.box.border {
+  border-radius: 3px 3px 0 0;
+  border: 1px solid #ddd;
+}
+.box .box-header {
+  background-color: #5e84ab;
+  padding: 8px 10px 8px 10px;
+  border-bottom: 1px solid #fff;
+}
+.box .box-header.secondary {
+  background-color: #d2dbe4;
+}
+.box .box-header.secondary .name {
+  color: #666;
+}
+.box .box-header .ico {
+  float: left;
+  margin-right: 4px;
+}
+.box .box-header .name {
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+}
+.box .box-header .tool {
+  float: right;
+}
+.box .box-header .tool .sico {
+  margin-left: 4px;
+  display: inline-block;
+  filter: alpha(opacity=80);
+  opacity: .8;
+}
+.box .box-header .tool .sico:hover {
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+.box .box-header .tool .more-btn {
+  display: inline-block;
+}
+.box .box-header .tool .more-btn .childs {
+  min-width: 80px;
+  top: 30px;
+  right: 30px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  margin: 0;
+  position: absolute;
+}
+.box .box-header .tool .more-btn .childs li {
+  text-align: left;
+  line-height: 30px;
+  color: #598fc8;
+  cursor: pointer;
+  padding-left: 6px;
+}
+.box .box-header .tool .more-btn .childs li:hover {
+  background-color: #598fc8;
+  color: #fff;
+}
+.box .box-header .tool .select {
+  margin-top: -3px;
+  margin-right: 6px;
+}
+.box .box-header .tool .select .select-head-text {
+  line-height: 12px;
+  font-size: 13px;
+}
+.box .box-header .tool .select .ico-select {
+  top: 3px;
+}
+.box .box-header .tool .select .select-body {
+  top: 25px;
+}
+.box .box-header .tool .select .select-body li {
+  font-size: 13px;
+}
+.box .box-body {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+}
+.box.extend .box-header {
+  cursor: pointer;
+}
+.box.extend .box-header .select-top {
+  margin-top: -13px;
+}/*标签页tab*/
+.list li {
+  position: relative;
+  border-bottom: 1px solid #ddd;
+  padding: 8px 4px;
+}
+.list li .sico {
+  position: absolute;
+  cursor: pointer;
+  top: 8px;
+  opacity: .3;
+  right: 4px;
+}
+.list li:hover,
+.list li.active {
+  background-color: #ddd;
+}
+.list li:hover .sico,
+.list li.active .sico {
+  opacity: 1;
+}
+.list.oper li {
+  padding: 8px 30px 8px 4px;
+}
+.list.cursor:hover {
+  cursor: pointer;
+}.move {
+   zoom: 1;
+ }
+.move::after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+  font-size: 0;
+}
+.move .move-left {
+  width: 40%;
+  float: left;
+}
+.move .move-left.move-sm {
+  width: 30%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.move .move-right-border {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  width: 70%;
+  border: 1px solid #dddddd;
+  padding: 10px;
+}
+.move .move-center {
+  width: 40%;
+  float: left;
+}
+.move .move-oper {
+  width: 20%;
+  display: inline-block;
+}
+.move .move-oper .move-pic {
+  margin: 80px auto;
+}
+.move .move-oper .move-pic i {
+  display: block;
+  margin: 40px auto;
+  cursor: pointer;
+}
+.move .move-right {
+  width: 40%;
+  float: right;
+}

@@ -89,4 +89,54 @@ public class ManagerDaoImpl implements ManagerDao{
         return managerMapper.selectConditionMan(managerSearchDto);
     }
 
+    @Override
+    public List<Manager> selectAllAgency() throws Exception {
+        return managerMapper.selectAllAgency();
+    }
+
+    @Override
+    public List<Manager> selectPartAgency() throws Exception {
+        return managerMapper.selectPartAgency();
+    }
+
+    @Override
+    public void insertManagerGrade(List<Integer> managerIdS, Integer parentId) throws Exception {
+        managerMapper.insertManagerGrade(managerIdS,parentId);
+    }
+
+    @Override
+    public List<Manager> selectAagency() throws Exception {
+        return managerMapper.selectAagency();
+    }
+
+    @Override
+    public List<Manager> selectBagency(Integer agencyId) throws Exception {
+        return managerMapper.selectBagency(agencyId);
+    }
+
+    @Override
+    public void updateBagency(Integer agencyId, Integer newParentId) throws Exception {
+        managerMapper.updateBagency(agencyId,newParentId);
+    }
+
+    @Override
+    public void updateCagency(List<Integer> managerIds, Integer newParentId) throws Exception {
+        managerMapper.updateCagency(managerIds,newParentId);
+    }
+
+    @Override
+    public void deleteAgencyById(Integer managerId, Integer parentId) throws Exception {
+        managerMapper.deleteAgencyById(managerId,parentId);
+    }
+
+    @Override
+    public void addBatchManagers(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagers(managers);
+    }
+
+    @Override
+    public void addBatchManagerRole(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagerRole(managers);
+    }
+
 }
