@@ -32,7 +32,6 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public void updateProject(Project project) throws Exception {
 		projectMapper.updateByPrimaryKeySelective(project);
-		
 	}
 
 	@Override

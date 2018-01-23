@@ -1,9 +1,13 @@
 package i9.defence.platform.api.intercepter;
 
+import i9.defence.platform.model.Role;
+import i9.defence.platform.service.RoleService;
 import i9.defence.platform.utils.BindingResultException;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,11 +17,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * aop
@@ -33,6 +39,8 @@ public class LogRecordAspect {
    
     private static final Logger logger = LoggerFactory.getLogger(LogRecordAspect.class);
     
+    @Autowired
+    private RoleService roleService;
     @Pointcut("execution(* i9.defence.platform.api.controller..*(..))")
     public void excudeService() {
     }
@@ -72,7 +80,13 @@ public class LogRecordAspect {
             result.put("result", -1);
             result.put("errorMsg", exception.toErrors());
             exception.printStackTrace();
-            logger.error(exception.getMessage());
+            logger.error(exception.getErrorMessage());
+            if (uri.equals(Constants.S_LOGIN_URL)) {
+                return new ModelAndView(Constants.S_LOGIN_URL).addObject("exception", exception);
+            }else if (uri.equals(Constants.S_REGIST_URL)) {
+                List<Role> roles = roleService.selectPartRole();
+                return new ModelAndView(Constants.S_REGIST_URL).addObject("exception", exception).addObject("roles", roles);
+            }
         } catch (Exception e) {
             result = new HashMap<String, Object>();
             result.put("result", 0);

@@ -75,6 +75,40 @@ angular.module('app')
                     }]
                   }
               })
+               .state('app.equipment', {
+                  url: '/equipment',
+                  templateUrl: 'proj/equipment/equipment.html',
+              	  controller : "equipmentNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'equipmentNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/equipment/equipment.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+               .state('app.eqCategory', {
+                  url: '/eqCategory',
+                  templateUrl: 'proj/eqCategory/eqCategory.html',
+              	  controller : "eqCategoryNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'eqCategoryNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/eqCategory/eqCategory.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.permission', {
                   url: '/permission',
                   templateUrl: 'proj/permission/permission.html',
@@ -126,9 +160,53 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.applyaccount', {
+                  url: '/applyaccount',
+                  templateUrl: 'proj/applyaccount/applyaccount.html',
+              	  controller : "applyAccountNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'applyAccountNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/applyaccount/applyaccount.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.agency', {
+                  url: '/agency',
+                  templateUrl: 'proj/agency/agency.html',
+                  controller : "agencyNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'agencyNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/agency/agency.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: '/tpl/app_dashboard_v1.html',
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load(['js/controllers/chart.js']);
+                    }]
+                  }
+              })
+              .state('app.dashboard-v2', {
+                  url: '/dashboard-v2',
+                  templateUrl: '/tpl/app_dashboard_v2.html',
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){

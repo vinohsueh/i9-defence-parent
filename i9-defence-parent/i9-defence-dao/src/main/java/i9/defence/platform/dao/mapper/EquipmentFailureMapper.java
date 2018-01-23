@@ -1,6 +1,5 @@
 package i9.defence.platform.dao.mapper;
 
-import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.model.EquipmentFailure;
 import i9.defence.platform.model.EquipmentFailureExample;
 

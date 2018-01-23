@@ -13,6 +13,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -83,7 +84,7 @@ public class ManagerController {
     */
     @RequiresPermissions("delNetManager")
     @RequestMapping("/delManager")
-    public HashMap<String, Object> delManager(@RequestBody List<Integer> ids) {
+    public HashMap<String, Object> delManager(@Valid @NotEmpty(message = "请至少选择一个") @RequestBody List<Integer> ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         managerService.deleteManager(ids);
         return result;

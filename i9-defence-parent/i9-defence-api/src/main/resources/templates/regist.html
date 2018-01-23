@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<link rel="stylesheet" href="css/login.css">	
+</head>
+<body>
+	<div class="title">和继电器</div>
+	<form th:action="@{/regist}" method="post" th:object="${managerApply}" id="loginData">
+		<input type="text" placeholder='*请输入用户名' th:field="*{username}">
+        <input type="password" placeholder='*请输入您的密码' th:field="*{password}">
+        <input type="password" placeholder='*请输入确认密码' th:field="*{confirmPwd}">
+        <input type="text" placeholder='*请输入账户名称' th:field="*{name}">
+        <input type="text" placeholder='*请输入手机号' th:field="*{phone}">
+		<input type="text" placeholder='请输入邮箱' th:field="*{email}">
+		<input type="text" placeholder='请输入地域' th:field="*{area}">
+		<input type="text" placeholder='请输入地址' th:field="*{address}">
+		<select name="" id="jurisdiction" th:field="*{roleName}" onchange="changeRole()">
+	        <option th:each="role,roleStat : ${roles}" th:value="${role.name}" th:text="${role.name}"></option>
+	    </select>
+	    <div id='productSecurity' style="display: none">
+	        <span>项目安全责任人：</span>
+	        <input type="radio" name='securitier' th:field="*{securitier}" value="1" id='security-y'>
+	        <label for="security-y">是</label>
+	        <input type="radio" name='securitier' th:field="*{securitier}" value="0" id='security-n'>
+	        <label for="security-n">否</label>
+	    </div>
+	    
+	</form>
+	
+	<button type='button' id='submitBtn'>确认</button>
+	<p class="loginAlert mb-10" style="color: red" th:text="(${exception} == null)?'':${exception.errorMessage}"></p>
+	<p class="loginAlert mb-10" style="color: green" th:text="(${success} == null)?'':${success}"></p>
+	<p class='pt-10'>已经有账户了?</p>
+	<button type='button' id='jumpPage' onclick='login()'>去登陆</button>
+</body>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script>
+	function login() {
+		window.location.href = './login.html';
+	}
+	$("#submitBtn").click(function(){
+		$("#loginData").submit();
+	})
+	function changeRole(){
+		if($("#jurisdiction").val() != "省级经销商" && $("#jurisdiction").val() != "地市级经销商"){
+	        $("#productSecurity").show();
+	    }else{
+	        $("#productSecurity").hide();
+	    }
+	}
+	
+</script>
+</html>

@@ -89,4 +89,24 @@ public class ManagerDaoImpl implements ManagerDao{
         return managerMapper.selectConditionMan(managerSearchDto);
     }
 
+    @Override
+    public List<Manager> selectAllAgency() throws Exception {
+        return managerMapper.selectAllAgency();
+    }
+
+    @Override
+    public List<Manager> selectPartAgency() throws Exception {
+        return managerMapper.selectPartAgency();
+    }
+
+    @Override
+    public void addBatchManagers(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagers(managers);
+    }
+
+    @Override
+    public void addBatchManagerRole(List<Manager> managers) throws Exception {
+        managerMapper.addBatchManagerRole(managers);
+    }
+
 }

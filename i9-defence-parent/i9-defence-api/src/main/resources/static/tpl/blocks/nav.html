@@ -25,16 +25,31 @@
           <span translate="aside.nav.DASHBOARD">项目管理</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="projectList" ui-sref-active="active">
         <a ui-sref="app.project">
           <span>项目列表</span>
         </a>
       </li>
       <li ui-sref-active="active">
+        <a ui-sref="app.equipment">
+          <span>设备管理</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.eqCategory">
+          <span>设备分类管理</span>
+        </a>
+      </li>
+      <li class="customerList" ui-sref-active="active">
         <a ui-sref="app.client">
           <span>客户列表</span>
         </a>
-      </li> 
+      </li>
+      <li class="agencyList" ui-sref-active="active">
+        <a ui-sref="app.agency">
+          <span>经销商列表</span>
+        </a>
+      </li>
     </ul>
   </li>
   <li>
@@ -79,17 +94,17 @@
           <span translate="aside.nav.DASHBOARD">系统设置</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="netManagerPage" ui-sref-active="active">
         <a ui-sref="app.manager">
           <span>网站账户管理</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="rolePage" ui-sref-active="active">
         <a ui-sref="app.role">
           <span>角色管理</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="permissionPage" ui-sref-active="active">
         <a ui-sref="app.permission">
           <span>权限管理</span>
         </a>

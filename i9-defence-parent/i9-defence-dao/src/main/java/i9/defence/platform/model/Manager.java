@@ -1,6 +1,7 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -93,6 +94,29 @@ public class Manager {
     @NotNull(message="角色不能为空")
     private Role role;
     
+    private Integer projectId;
+
+    /**
+     * 对于一级经销 此list存的二级经销商    对于二级经销商存的三级经销商
+     * */
+    private List<Manager> agencyList;
+
+    public List<Manager> getAgencyList() {
+        return agencyList;
+    }
+
+    public void setAgencyList(List<Manager> agencyList) {
+        this.agencyList = agencyList;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
     public String getConfirmPwd() {
         return confirmPwd;
     }
@@ -208,7 +232,7 @@ public class Manager {
     
     public String getCreateTimeStr() {
     	if(createTime != null) {
-    		return StringUtil.dateToString(createTime);
+    		return StringUtil.dateToStringWithoutTime(createTime);
     	}
         return "";
     }
