@@ -99,4 +99,34 @@ public class ManagerDaoImpl implements ManagerDao{
         return managerMapper.selectPartAgency();
     }
 
+    @Override
+    public void insertManagerGrade(List<Integer> managerIdS, Integer parentId) throws Exception {
+        managerMapper.insertManagerGrade(managerIdS,parentId);
+    }
+
+    @Override
+    public List<Manager> selectAagency() throws Exception {
+        return managerMapper.selectAagency();
+    }
+
+    @Override
+    public List<Manager> selectBagency(Integer agencyId) throws Exception {
+        return managerMapper.selectBagency(agencyId);
+    }
+
+    @Override
+    public void updateBagency(Integer agencyId, Integer newParentId) throws Exception {
+        managerMapper.updateBagency(agencyId,newParentId);
+    }
+
+    @Override
+    public void updateCagency(List<Integer> managerIds, Integer newParentId) throws Exception {
+        managerMapper.updateCagency(managerIds,newParentId);
+    }
+
+    @Override
+    public void deleteAgencyById(Integer managerId, Integer parentId) throws Exception {
+        managerMapper.deleteAgencyById(managerId,parentId);
+    }
+
 }

@@ -124,7 +124,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="AgencyResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_manager
@@ -405,4 +405,28 @@
   <select id="selectPartAgency" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null
   </select>
+  <insert id="insertManagerGrade">
+    INSERT INTO t_manager_grade(managerId,parentId) VALUES
+    <foreach collection="managerIdS" item="item" index="index" separator="," >
+      (#{item},#{parentId})
+    </foreach>
+  </insert>
+  <select id="selectAagency" resultMap="AgencyResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 AND (mg.managerId IS NOT NULL AND mg.parentId IS NULL)
+  </select>
+  <select id="selectBagency" resultMap="AgencyResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 AND mg.managerId IS NOT #{agencyId} AND (mg.managerId IS NOT NULL AND mg.parentId IN(SELECT mg2.managerId from t_manager_grade AS mg2 WHERE mg2.parentId IS NULL))
+  </select>
+  <update id="updateBagency">
+    UPDATE t_manager_grade SET parentId = #{newParentId} WHERE managerId = #{agencyId}
+  </update>
+  <update id="updateCagency">
+    UPDATE t_manager_grade SET parentId = #{newParentId} WHERE managerId IN
+    <foreach collection="managerIds" item="item" index="index" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+  <delete id="deleteAgencyById">
+    DELETE FROM t_manager_grade WHERE managerId = #{managerId} AND parentId = #{parentId}
+  </delete>
 </mapper>
