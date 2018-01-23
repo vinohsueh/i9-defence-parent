@@ -43,14 +43,11 @@ angular.module('app')
     	var user = data.data.data;
       	$scope.app.user = user; 
       });
-      
-      /**
-       * 获取用户权限
-       */
-      $http.get('./security/noAllowedAuth').then(function (resp) {
-	    $cookieStore.put('noAllowedAuthList',resp.data.data.data);
-	  });
-      
+     /* $http.get('./security/noAllowedAuth').then(function (resp) {
+    	  $cookieStore.put('noAllowedAuthList',resp.data.data.data);
+    	  console.log(2);
+	  });*/
+      //$scope.$apply;
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
         $scope.app.settings = $localStorage.settings;
@@ -105,6 +102,26 @@ app.config([
         });
     }
 ]);
+/* Setup Layout Part - Sidebar */
+app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement', function($scope, $http,$cookieStore,removeElement) {
+    $scope.$on('$includeContentLoaded', function() {
+    	/**
+         * 获取用户权限
+         */
+      	  $http.get('./security/noAllowedAuth').then(function (resp) {
+      		    //var noAllowedAuthList = $cookieStore.get('noAllowedAuthList');
+  		        var noAllowedAuthList = resp.data.data.data;
+  		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
+  		        $scope.noAllowedAuthList = noAllowedAuthList;
+      		    if(noAllowedAuthList != null){
+	  	            for (var i = 0; i < noAllowedAuthList.length; i++) {
+	  	                var element = angular.element("."+noAllowedAuthList[i]);
+	  	                removeElement(element);
+	  	            }
+	  			}
+  		  });
+    });
+}]);
 var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster', function($http, $q, $window, toaster){
 	var service = {};
 //	var options = {
@@ -141,11 +158,19 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 				}
 			})
 			.error(function(msg){
-				$.toaster({
-					title : "Error",
-					priority : "danger",
-					message : "失败！"
-				});
+				if (msg.exception == "org.apache.shiro.authz.UnauthorizedException") {
+					$.toaster({
+						title : "Error",
+						priority : "danger",
+						message : "没有权限！"
+					});
+				}else{
+					$.toaster({
+						title : "Error",
+						priority : "danger",
+						message : "失败！"
+					});
+				}
 				deferred.reject(msg);
 			});
 		return deferred.promise;
@@ -182,11 +207,19 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 				
 			})
 			.error(function(msg){
-				$.toaster({
-					title : "Error",
-					priority : "danger",
-					message : "失败！"
-				});
+				if (msg.exception == "org.apache.shiro.authz.UnauthorizedException") {
+					$.toaster({
+						title : "Error",
+						priority : "danger",
+						message : "没有权限！"
+					});
+				}else{
+					$.toaster({
+						title : "Error",
+						priority : "danger",
+						message : "失败！"
+					});
+				}
 				deferred.reject(msg);
 			});
 		return deferred.promise;

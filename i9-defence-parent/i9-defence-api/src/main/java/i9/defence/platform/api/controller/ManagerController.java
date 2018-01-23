@@ -41,6 +41,7 @@ public class ManagerController {
      * @param pageSize
      * @return
      */
+    @RequiresPermissions("netManagerPage")
     @RequestMapping("/pageManager")
     public HashMap<String, Object> pageManager(@RequestBody ManagerSearchDto managerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -69,6 +70,7 @@ public class ManagerController {
      * @param managerId
      * @return
      */
+    @RequiresPermissions("netManagerPage")
     @RequestMapping("/getManager")
     public HashMap<String, Object> pageManager(@RequestBody Integer managerId) {
         HashMap<String, Object> result = new HashMap<String, Object>();
