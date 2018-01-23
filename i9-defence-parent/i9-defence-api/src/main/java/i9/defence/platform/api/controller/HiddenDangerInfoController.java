@@ -1,16 +1,15 @@
 package i9.defence.platform.api.controller;
 
+import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
+import i9.defence.platform.model.HiddenDangerInfo;
+import i9.defence.platform.service.HiddenDangerInfoService;
+import i9.defence.platform.utils.PageBounds;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
-import i9.defence.platform.model.HiddenDangerInfo;
-import i9.defence.platform.service.HiddenDangerInfoService;
-import i9.defence.platform.utils.PageBounds;
 
 /**
  * 隐患提醒类型具体信息Controller
