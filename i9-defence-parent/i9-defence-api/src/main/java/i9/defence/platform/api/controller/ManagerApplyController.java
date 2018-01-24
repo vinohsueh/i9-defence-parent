@@ -1,12 +1,12 @@
 package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.ApplyRefuseDto;
-import i9.defence.platform.dao.vo.PageListDto;
+import i9.defence.platform.dao.vo.ManagerApplyDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
-import i9.defence.platform.model.ManagerApplyExample;
 import i9.defence.platform.service.ManagerApplyService;
 import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
@@ -51,21 +51,25 @@ public class ManagerApplyController {
     @Autowired
     private ManagerService managerService;
     
+    @Autowired
+    private ProjectService projectService;
+    
     /**
      * 分页查询用户申请
      * @param pageListDto
      * @return
      */
     @RequestMapping("/pageManagerApply")
-    public HashMap<String, Object> pageManagerApply(@RequestBody PageListDto pageListDto) {
+    public HashMap<String, Object> pageManagerApply(@RequestBody ManagerApplyDto managerApplyDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        ManagerApplyExample example = new ManagerApplyExample();
         Manager manager = managerService.getLoginManager();
+        //经销商只能看到他自己的项目管理人员的申请
         if (Arrays.asList(Constants.S_AGENCY).contains(manager.getRole().getName())){
-            example.createCriteria().andTypeEqualTo(S_PROJ_MANAGER_TYPE);
+            managerApplyDto.setType(S_PROJ_MANAGER_TYPE);
+            managerApplyDto.setDistributorId(manager.getId());
         }
-        example.setOrderByClause(S_ORDER_BY_CLAUSE);
-        PageBounds<ManagerApply> pageBounds = managerApplyService.selectByLimitPage(example, pageListDto.getCurrentPage(), pageListDto.getPageSize());
+        managerApplyDto.setOrderByClause(S_ORDER_BY_CLAUSE);
+        PageBounds<ManagerApply> pageBounds = managerApplyService.selectByLimitPage(managerApplyDto, managerApplyDto.getCurrentPage(), managerApplyDto.getPageSize());
         result.put("data",pageBounds);
         return result;
     }
@@ -118,4 +122,5 @@ public class ManagerApplyController {
          managerApplyService.deleteManagerApply(ids);
          return result;
      }
-}
+     
+}   

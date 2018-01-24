@@ -100,7 +100,17 @@ public class Manager {
      * 对于一级经销 此list存的二级经销商    对于二级经销商存的三级经销商
      * */
     private List<Manager> agencyList;
+    
+    private String projectName;
+    
+    public String getProjectName() {
+        return projectName;
+    }
 
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+    
     public List<Manager> getAgencyList() {
         return agencyList;
     }

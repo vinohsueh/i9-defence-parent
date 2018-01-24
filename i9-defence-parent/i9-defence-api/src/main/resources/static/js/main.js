@@ -119,6 +119,12 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
 	  	                removeElement(element);
 	  	            }
 	  			}
+      		    angular.forEach(angular.element.find(".auto"), function(dom){
+          		  /*if(angular.element(dom).next()){
+          			  $scope.delArray.push(angular.element(dom).attr("data-id"))
+          		  }*/
+      		    	console.log(angular.element(dom).next())
+	      		});
   		  });
     });
 }]);
@@ -227,3 +233,13 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 	
 	return service;
 }]);
+
+/*$http({
+    method: 'POST',
+    url: './managerApply/ceshi',
+    data: $.param($scope.formData), // pass in data as strings
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' } // set the headers so angular passing info as form data (not request payload)
+})
+.success(function(data) {
+    console.log(data);
+});*/
