@@ -9,6 +9,11 @@ import java.util.List;
  */
 public class AgencyParamDto implements Serializable{
 
+    /**
+     * <code>serialVersionUID</code> - 
+     */
+    private static final long serialVersionUID = 6284929290549655304L;
+
     private List<Integer> managerIdS;
 
     private Integer parentId;
