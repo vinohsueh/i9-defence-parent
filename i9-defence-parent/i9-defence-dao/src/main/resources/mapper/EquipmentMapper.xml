@@ -11,6 +11,7 @@
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks" />
     <result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
     <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
+    <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

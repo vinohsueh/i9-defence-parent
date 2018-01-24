@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +39,7 @@ public class RoleController {
      * @param pageSize
      * @return
      */
+    @RequiresPermissions("rolePage")
     @RequestMapping("/pageRole")
     public HashMap<String, Object> pageRole(@RequestBody PageListDto pageListDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -52,6 +54,7 @@ public class RoleController {
     * @param Role
     * @return
     */
+    @RequiresPermissions("addRole")
     @RequestMapping("/addRole")
     public HashMap<String, Object> addRole(@RequestBody Role role) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -64,6 +67,7 @@ public class RoleController {
      * @param RoleId
      * @return
      */
+    @RequiresPermissions("rolePage")
     @RequestMapping("/getRole")
     public HashMap<String, Object> getRole(@RequestBody Integer roleId) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -77,6 +81,7 @@ public class RoleController {
     * @param ids
     * @return
     */
+    @RequiresPermissions("delRole")
     @RequestMapping("/delRole")
     public HashMap<String, Object> delRole(@Valid @NotEmpty(message = "至少选择一个")@RequestBody List<Integer> ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();

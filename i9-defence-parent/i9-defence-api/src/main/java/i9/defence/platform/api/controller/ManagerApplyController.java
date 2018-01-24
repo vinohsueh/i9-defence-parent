@@ -2,17 +2,21 @@ package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.ApplyRefuseDto;
 import i9.defence.platform.dao.vo.PageListDto;
+import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
 import i9.defence.platform.service.ManagerApplyService;
 import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -28,10 +32,18 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  */
 @RestController
+@RequiresPermissions("managerApply")
 @RequestMapping("managerApply")
 public class ManagerApplyController {
-    
+    /**
+     * 排序方式
+     */
     private static final String S_ORDER_BY_CLAUSE = "createTime desc";
+     
+    /**
+     * 项目管理员的类型
+     */
+    private static final Byte S_PROJ_MANAGER_TYPE = (byte)2;
     
     @Autowired
     private ManagerApplyService managerApplyService;
@@ -41,15 +53,17 @@ public class ManagerApplyController {
     
     /**
      * 分页查询用户申请
-     * @param managerSearchDto
-     * @param currectPage
-     * @param pageSize
+     * @param pageListDto
      * @return
      */
     @RequestMapping("/pageManagerApply")
     public HashMap<String, Object> pageManagerApply(@RequestBody PageListDto pageListDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         ManagerApplyExample example = new ManagerApplyExample();
+        Manager manager = managerService.getLoginManager();
+        if (Arrays.asList(Constants.S_AGENCY).contains(manager.getRole().getName())){
+            example.createCriteria().andTypeEqualTo(S_PROJ_MANAGER_TYPE);
+        }
         example.setOrderByClause(S_ORDER_BY_CLAUSE);
         PageBounds<ManagerApply> pageBounds = managerApplyService.selectByLimitPage(example, pageListDto.getCurrentPage(), pageListDto.getPageSize());
         result.put("data",pageBounds);

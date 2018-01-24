@@ -1,11 +1,12 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">权限管理</h1>
 </div>
+<div controlled-rescode>
 <div class="wrapper-md">  
   <div class="panel panel-default">
     <div class="panel-heading">
-        <button class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="add()">新增</button>
-        <button class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="del()">删除</button>
+        <button class="btn m-b-xs w-xs btn-success btn-rounded addPermission" ng-click="add()">新增</button>
+        <button class="btn m-b-xs w-xs btn-danger btn-rounded delPermission" ng-click="del()">删除</button>
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
@@ -74,6 +75,7 @@
       </div>
     </footer>
   </div>
+</div>
 </div>
 <script>
 $("#checkLabel").click(function(){
