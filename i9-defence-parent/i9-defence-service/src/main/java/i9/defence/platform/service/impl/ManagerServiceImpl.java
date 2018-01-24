@@ -192,9 +192,9 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
     @Override
-    public List<Manager> selectAllAgency() throws BusinessException {
+    public List<Manager> selectAllAgency(Integer partentId) throws BusinessException {
         try {
-            return managerDao.selectAllAgency();
+            return managerDao.selectAllAgency(partentId);
         } catch (Exception e) {
             throw new BusinessException("查询无建立默认或者已经建立关系并且自己为一级经销商列表失败",e.getMessage());
         }

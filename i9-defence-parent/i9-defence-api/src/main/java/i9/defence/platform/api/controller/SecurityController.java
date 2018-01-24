@@ -39,6 +39,7 @@ public class SecurityController {
         boolean flag = false;
         // 用于保存用户没有的权限字
         ArrayList<String> noHaveCodes = new ArrayList<String>();
+        //Shiro的subject实质上是当前执行用户的特定视图。
         Subject currenUser = SecurityUtils.getSubject();
         // 遍历所有权限字，将用户没有的权限字保存到list
         for (Permission permission : permissions) {

@@ -62,15 +62,34 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
         var arrays=[];
         $('.choice-list-n>li').each(function () {
             if($(this).hasClass('active')){
-                arrays.push($(this).attr('data-id'));
+                console.log($(this).find("span").attr('data-id'));
+                arrays.push($(this).find("span").attr('data-id'));
+                console.log(JSON.stringify(arrays));
+                var params = {
+                    'managerIdS' : arrays,
+                    'parentId' : param,
+                };
+                console.log(JSON.stringify(params));
+                httpService.post({url:'./agency/insertAgency',data:params,showSuccessMsg:true}).then(function(data) {
+                    console.log(JSON.stringify(data.data.data));
+                });
                 $(this).appendTo($('.choice-list-y')).removeClass('active');
             }
         })
     });
 
     $(document).on('click','.ico-cancle-m',function () {
+        var managerId = "";
         $('.choice-list-y>li').each(function () {
             if($(this).hasClass('active')){
+                managerId = $(this).find("span").attr('data-id');
+                var params = {
+                    'managerId' : managerId,
+                    'parentId' : param,
+                };
+                httpService.post({url:'./agency/deleteAgencyById',data:params,showSuccessMsg:true}).then(function(data) {
+                    console.log(JSON.stringify(data.data.data));
+                });
                 $(this).appendTo($('.choice-list-n')).removeClass('active');
             }
         })
