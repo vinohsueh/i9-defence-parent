@@ -97,7 +97,7 @@ public interface ManagerService {
      * 查询经销商列表(此查询是 查询默认的经销商即还没有建立关系的等待被分配的经销商
      * 或者  查询已经有下级  自己为老大一级的 无parentId（父ID）的 经销商)
      */
-    List<Manager> selectAllAgency() throws BusinessException;
+    List<Manager> selectAllAgency(Integer partentId) throws BusinessException;
 
     /**
      * 查询经销商列表(此查询是 无等级关系的  等待被分配的默认经销商  操作模态框的左侧)

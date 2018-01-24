@@ -422,7 +422,13 @@
     SELECT <include refid="Base_Column_List" /> from t_manager AS m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE mg.parentId = #{id}
   </select>
   <select id="selectAllAgency" resultMap="AgencyResultMap">
-    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND (mg.managerId is null or (mg.managerId is not null and mg.parentId is null))
+    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1
+    <if test="partentId != null">
+      AND mg.parentId = #{partentId}
+    </if>
+    <if test="partentId == null">
+      AND (mg.managerId is null or (mg.managerId is not null and mg.parentId is null))
+    </if>
   </select>
   <select id="selectPartAgency" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null

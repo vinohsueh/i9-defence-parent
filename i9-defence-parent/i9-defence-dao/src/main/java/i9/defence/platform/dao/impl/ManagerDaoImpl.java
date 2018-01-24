@@ -90,8 +90,8 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public List<Manager> selectAllAgency() throws Exception {
-        return managerMapper.selectAllAgency();
+    public List<Manager> selectAllAgency(Integer partentId) throws Exception {
+        return managerMapper.selectAllAgency(partentId);
     }
 
     @Override

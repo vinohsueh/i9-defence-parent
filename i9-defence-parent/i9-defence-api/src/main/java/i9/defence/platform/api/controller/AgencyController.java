@@ -2,7 +2,9 @@ package i9.defence.platform.api.controller;
 
 
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +32,13 @@ public class AgencyController {
     @RequestMapping("/pageAgency")
     public HashMap<String, Object> pageAgency() {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        List<Manager> agencys = managerService.selectAllAgency();
+        Manager loginManager = managerService.getLoginManager();
+        Role role = loginManager.getRole();
+        Integer partentId = null;
+        if(Arrays.asList(Constants.S_AGENCY).contains(role.getName())){
+            partentId = loginManager.getId();
+        }
+        List<Manager> agencys = managerService.selectAllAgency(partentId);
         for(Manager manager:agencys){
             System.out.println("1--"+manager.getUsername());
             if(manager.getAgencyList()!=null){
