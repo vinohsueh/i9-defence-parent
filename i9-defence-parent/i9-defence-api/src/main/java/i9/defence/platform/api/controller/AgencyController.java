@@ -1,6 +1,7 @@
 package i9.defence.platform.api.controller;
 
 
+import i9.defence.platform.dao.vo.AgencyParamDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 姜哲 on 2018/1/16--11:24
@@ -76,13 +78,13 @@ public class AgencyController {
     }
 
     /**
+     * Integer[] managerIdS,Integer parentId
     * 往经销商关系表中增加关系分配二级三级经销商   左侧---->右侧（可以批量增加）
     */
     @RequestMapping("/insertAgency")
-    public HashMap<String,Object> insertAgency(@RequestBody Integer[] managerIdS,@RequestBody Integer parentId){
+    public HashMap<String,Object> insertAgency(@RequestBody AgencyParamDto agencyParamDto){
         HashMap<String,Object> result = new HashMap<String, Object>();
-        List<Integer> managerIds = Arrays.asList(managerIdS);
-        managerService.insertManagerGrade(managerIds,parentId);
+        managerService.insertManagerGrade(agencyParamDto.getManagerIdS(),agencyParamDto.getParentId());
         return result;
     }
 
@@ -91,9 +93,9 @@ public class AgencyController {
      * 撤销一级下的二级或者二级下的三级     右侧---->左侧(一个一个地撤销  因为会对二级判断)
      * */
     @RequestMapping("/deleteAgencyById")
-    public HashMap<String,Object> deleteAgencyById(@RequestParam Integer managerId,@RequestParam Integer parentId){
+    public HashMap<String,Object> deleteAgencyById(@RequestBody AgencyParamDto agencyParamDto){
         HashMap<String,Object> result = new HashMap<String,Object>();
-        managerService.deleteAgencyById(managerId,parentId);
+        managerService.deleteAgencyById(agencyParamDto.getManagerId(),agencyParamDto.getParentId());
         return result;
     }
 
