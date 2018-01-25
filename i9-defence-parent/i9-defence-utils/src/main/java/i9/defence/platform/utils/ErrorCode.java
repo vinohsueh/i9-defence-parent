@@ -22,4 +22,9 @@ public class ErrorCode {
      */
     public static final int CRUD_ERROR = 10003;
     
+    /**
+     * 用户未登录
+     */
+    public static final int USER_LOGIN_ERROR = 9999;
+    
 }

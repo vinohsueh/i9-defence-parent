@@ -1,7 +1,8 @@
 package i9.defence.platform.service;
 
+import i9.defence.platform.dao.vo.ApplyRefuseDto;
+import i9.defence.platform.dao.vo.ManagerApplyDto;
 import i9.defence.platform.model.ManagerApply;
-import i9.defence.platform.model.ManagerApplyExample;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
@@ -50,7 +51,20 @@ public interface ManagerApplyService {
      * @param pageSize
      * @return
      */
-    PageBounds<ManagerApply> selectByLimitPage(ManagerApplyExample managerApplyExample,
+    PageBounds<ManagerApply> selectByLimitPage(ManagerApplyDto managerApplyDto,
             int currectPage, int pageSize) throws BusinessException;
+    
+    /**
+     * 同意申请
+     * @param ids
+     */
+    void agreeManagerApply(List<Integer> ids,Integer managerId) throws BusinessException;
+    
+    /**
+     * 拒绝申请
+     * @param ids
+     * @throws BusinessException
+     */
+    void refuseManagerApply(ApplyRefuseDto applyRefuseDto,Integer managerId) throws BusinessException;
     
 }

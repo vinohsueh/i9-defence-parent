@@ -1,18 +1,5 @@
 package i9.defence.platform.api.controller;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.validation.Valid;
-
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Role;
@@ -21,6 +8,20 @@ import i9.defence.platform.service.RoleService;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /** 
  * 创建时间：2018年1月11日 下午3:29:17
  * @author  lby
@@ -28,6 +29,7 @@ import i9.defence.platform.utils.PageBounds;
  * 
  */
 @RestController
+@RequiresPermissions("accountList")
 @RequestMapping("account")
 public class AccountController {
     
@@ -36,7 +38,6 @@ public class AccountController {
     
     @Autowired
     private RoleService roleService;
-    
     /**
      * 分页查询账户
      * @param managerSearchDto
@@ -49,6 +50,11 @@ public class AccountController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         if (managerSearchDto.getTypes() == null) {
             managerSearchDto.setTypes(Arrays.asList(Constants.S_ACCOUNT));
+        }
+        Manager manager = managerService.getLoginManager();
+        //经销商只能看到他自己的项目管理人员和他的下面的经销商
+        if (Arrays.asList(Constants.S_AGENCY).contains(manager.getRole().getName())){
+            managerSearchDto.setDistributorId(manager.getId());
         }
         PageBounds<Manager> pageBounds = managerService.selectByLimitPage(managerSearchDto);
         result.put("data",pageBounds);

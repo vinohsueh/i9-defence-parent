@@ -80,4 +80,5 @@ public interface ProjectDao {
      * @throws Exception
      */
     List<Integer> selectAllEquipmentIds(Integer projectId) throws Exception;
+    
 }

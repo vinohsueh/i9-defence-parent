@@ -14,7 +14,26 @@ public class ProjectSearchDto extends PageListDto implements Serializable{
     private String projectName;
     //项目地址
     private String projectAddress;
-    
+	//经销商Id
+	private Integer distributorId;
+	//项目管理人员ID
+	private Integer projectManagerId;
+
+	public Integer getProjectManagerId() {
+		return projectManagerId;
+	}
+
+	public void setProjectManagerId(Integer projectManagerId) {
+		this.projectManagerId = projectManagerId;
+	}
+
+	public Integer getDistributorId() {
+		return distributorId;
+	}
+
+	public void setDistributorId(Integer distributorId) {
+		this.distributorId = distributorId;
+	}
 	public String getOrderByClause() {
 		return orderByClause;
 	}

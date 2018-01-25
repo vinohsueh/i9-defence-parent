@@ -29,9 +29,19 @@ public class Constants {
     public static final String S_LOGIN_URL = "/login";
     
     /**
+     * 登录页面url
+     */
+    public static final String S_LOGIN_PAGE = "/login.html";
+    
+    /**
      * 注册url
      */
     public static final String S_REGIST_URL = "/regist";
+    
+    /**
+     * 经销商列表
+     */
+    public static final String [] S_ADMIN = {"超级管理员","普通管理员"};
     
     /**
      * 经销商列表

@@ -48,6 +48,7 @@
             <th>联系方式</th>
             <th>地址</th>
             <th>Email</th>
+            <th>项目名称</th>
             <th>项目安全责任人</th>
             <th>开关</th>
           </tr>
@@ -63,6 +64,9 @@
             <td>{{account.phone}}</td>
             <td>{{account.address}}</td>
             <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{account.email}}</td>
+            <td ng-if="account.projectName != null">{{account.projectName}}</td>
+            <td ng-if="account.projectName == null"></td>
+            <td ng-if="account.securitier==null"></td>
             <td ng-if="account.securitier==0">否</td>
             <td ng-if="account.securitier==1">是</td>
             <td ng-if="account.status==0">

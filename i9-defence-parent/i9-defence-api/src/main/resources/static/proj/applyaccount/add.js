@@ -1,27 +1,39 @@
-var accountEditNgModule = angular.module('accountEditNgModule', [ 'ngResource',
+var applyaccountEditNgModule = angular.module('applyaccountEditNgModule', [ 'ngResource',
 		'ngCookies', 'ui.bootstrap', 'toaster', 'app' ]);
 
-var accountEditCtrl = accountEditNgModule.controller('accountEditCtrl', function($scope,
+var applyaccountEditCtrl = applyaccountEditNgModule.controller('applyaccountEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		account,httpService) {
+		ids,content,edit,httpService) {
 	
-	$scope.account = account;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
+	if (content != null) {
+		$scope.content = content;
+	}
+	$scope.edit = edit;
 	// 确认添加
 	$scope.confirmAdd = function() {
-		if ($scope.account.username ==null ||$scope.account.username ==0) {
+		if ($scope.content ==null ||$scope.content.length ==0 ||$scope.content.length>200) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
-				message : "账户名不能为空!"
+				message : "拒绝理由不能为空且在200字内!"
 			});
 			return false;
 		}
-		httpService.post({url:'./account/addAccount',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
-			$modalInstance.dismiss('cancel')
-		})
+		var applyRefuseDto = {
+			ids : ids,
+			content : $scope.content
+		};
+		confirm("确定拒绝吗?", "", function (isConfirm) {
+	        if (isConfirm) {
+	        	httpService.post({url:'./managerApply/refuseManagerApply',data:applyRefuseDto,showSuccessMsg:true}).then(function(data) {  
+	        		$modalInstance.dismiss('cancel');
+	        	})
+	        } else {
+	        }
+	    }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
 	};
 	
 });

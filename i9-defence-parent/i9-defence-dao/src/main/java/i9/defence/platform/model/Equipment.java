@@ -46,6 +46,28 @@ public class Equipment {
      * 设备分类(一对一)
      */
     private EquipmentCategory equipmentCategory;
+    
+    /**
+     * 项目id
+     */
+    private Integer projectId;
+    /**
+     * 项目(一对一)
+     */
+    private Project project;
+
+	/**
+	 * @return the projectId
+	 */
+	
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
 	public EquipmentCategory getEquipmentCategory() {
 		return equipmentCategory;
@@ -125,4 +147,11 @@ public class Equipment {
     public void setEquipmentCategoryId(Integer equipmentCategoryId) {
         this.equipmentCategoryId = equipmentCategoryId;
     }
+    public Integer getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
 }

@@ -13,6 +13,10 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 		$scope.equCategorys = data.data.data;
 		console.log(JSON.stringify(data));
 	}) 
+	httpService.post({url:'./project/serchEqCategory',showSuccessMsg:false}).then(function(data) {  
+		$scope.equCategorys = data.data.data;
+		console.log(JSON.stringify(data));
+	}) 
 	// 确认添加
 	$scope.confirmAdd = function() {
 		if ($scope.equipment.equipmentName ==null ||$scope.equipment.equipmentName ==0) {

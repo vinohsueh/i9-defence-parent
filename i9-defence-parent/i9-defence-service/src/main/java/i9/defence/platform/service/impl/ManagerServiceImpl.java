@@ -192,11 +192,74 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
     @Override
-    public List<Manager> selectAllAgency() throws BusinessException {
+    public List<Manager> selectAllAgency(Integer partentId) throws BusinessException {
         try {
-            return managerDao.selectAllAgency();
+            return managerDao.selectAllAgency(partentId);
         } catch (Exception e) {
-            throw new BusinessException("查询经销商列表失败",e.getMessage());
+            throw new BusinessException("查询无建立默认或者已经建立关系并且自己为一级经销商列表失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Manager> selectPartAgency() throws BusinessException {
+        try {
+            return managerDao.selectPartAgency();
+        } catch (Exception e) {
+            throw new BusinessException("查询无分配无建立关系的等待被分配的经销商列表失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void insertManagerGrade(List<Integer> managerIdS, Integer parentId) throws BusinessException {
+        try{
+            managerDao.insertManagerGrade(managerIdS,parentId);
+        }catch (Exception e){
+            throw new BusinessException("往经销商关系表中增加关系分配二级三级经销商失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Manager> selectAagency() throws BusinessException {
+        try{
+            return managerDao.selectAagency();
+        }catch (Exception e){
+            throw new BusinessException("查询已经建立关系的一级经销商们失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Manager> selectBagency(Integer agencyId) throws BusinessException {
+        try{
+            return managerDao.selectBagency(agencyId);
+        }catch (Exception e){
+            throw new BusinessException("查询已经建立关系的二级经销商们失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateBagency(Integer agencyId, Integer newParentId) throws BusinessException {
+        try{
+            managerDao.updateBagency(agencyId,newParentId);
+        }catch (Exception e){
+            throw new BusinessException("把此二级经销商的parentId 修改为新一级经销商ID失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateCagency(List<Integer> managerIds, Integer newParentId) throws BusinessException {
+        try{
+            managerDao.updateCagency(managerIds,newParentId);
+        }catch (Exception e){
+            throw new BusinessException("把此二级经销商下的全部下属三级经销商的parentId修改为新的二级经销商ID失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteAgencyById(Integer managerId, Integer parentId) throws BusinessException {
+        try{
+            managerDao.deleteAgencyById(managerId,parentId);
+        }catch (Exception e){
+            throw new BusinessException("撤销（删除）一级下的二级或者二级下的三级,右侧---->左侧失败",e.getMessage());
         }
     }
 

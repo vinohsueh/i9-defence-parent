@@ -1,12 +1,19 @@
 package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.ProjectSearchDto;
+import i9.defence.platform.dao.vo.ProjectSelectDto;
+import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Project;
+import i9.defence.platform.model.Role;
+import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.ShareCodeUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -30,19 +37,26 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private ManagerService managerService;
 
     /**
      * 分页查询项目列表
      * 
      * @param projectSearchDto
-     * @param currectPage
-     * @param pageSize
      * @return
      */
     @RequestMapping("/pageProject")
     public HashMap<String, Object> pageProject(
             @RequestBody ProjectSearchDto projectSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
+        Manager manager = managerService.getLoginManager();
+        Role role = manager.getRole();
+        if(Arrays.asList(Constants.S_AGENCY).contains(role.getName())){
+            projectSearchDto.setDistributorId(manager.getId());
+        }else if(Arrays.asList(Constants.S_PROJ_MANAGER).contains(role.getName())){
+            projectSearchDto.setProjectManagerId(manager.getId());
+        }
         PageBounds<Project> pageBounds = projectService
                 .selectByLimitPage(projectSearchDto);
         result.put("data", pageBounds);
@@ -50,8 +64,6 @@ public class ProjectController {
     }
     /**
      * 添加项目
-     * 
-     * @param manager
      * @return
      */
     @RequestMapping("/addProject")
@@ -64,8 +76,6 @@ public class ProjectController {
 
     /**
      * id查找项目
-     * 
-     * @param managerId
      * @return
      */
     @RequestMapping("/getProject")
@@ -74,6 +84,21 @@ public class ProjectController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Project project = projectService.getProjectById(projectId);
         result.put("data", project);
+        return result;
+    }
+
+    /**
+     * 查找当前登录人的全部项目
+     * @return
+     */
+    @RequestMapping("/findAllProjectById")
+    public HashMap<String, Object> findAllProjectById() {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Manager manager = managerService.getLoginManager();
+        ProjectSearchDto projectSearchDto = new ProjectSearchDto();
+        projectSearchDto.setDistributorId(manager.getId());
+        List<ProjectSelectDto> projects = projectService.selectAllProjectName(projectSearchDto);
+        result.put("data", projects);
         return result;
     }
 
@@ -88,6 +113,19 @@ public class ProjectController {
             @Valid @NotEmpty(message = "项目IDS不能为空") @RequestBody Integer[] ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         projectService.deleteProject(Arrays.asList(ids));
+        return result;
+    }
+    
+    /**
+     * 生成邀请码
+     * @param id
+     * @return
+     */
+    @RequestMapping("/getCode")
+    public HashMap<String, Object> getCode(@Valid @NotNull(message = "请至少选择一个!")@RequestBody Integer id) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        String code = ShareCodeUtil.toSerialCode(id);
+        result.put("data", code);
         return result;
     }
 }

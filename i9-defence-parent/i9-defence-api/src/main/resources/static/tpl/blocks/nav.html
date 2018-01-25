@@ -1,6 +1,5 @@
 <!-- list -->
 <ul class="nav">
-  <div controlled-rescode>
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span>　</span>
   </li>
@@ -25,7 +24,7 @@
           <span translate="aside.nav.DASHBOARD">项目管理</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="projectList" ui-sref-active="active">
         <a ui-sref="app.project">
           <span>项目列表</span>
         </a>
@@ -40,12 +39,12 @@
           <span>设备分类管理</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="customerList" ui-sref-active="active">
         <a ui-sref="app.client">
           <span>客户列表</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="agencyList" ui-sref-active="active">
         <a ui-sref="app.agency">
           <span>经销商列表</span>
         </a>
@@ -68,11 +67,11 @@
         </a>
       </li>
       <li ui-sref-active="active">
-        <a ui-sref="app.account">
+        <a class="accountList" ui-sref="app.account">
           <span>账户列表</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="managerApply" ui-sref-active="active">
         <a ui-sref="app.applyaccount">
           <span>待审核账户</span>
         </a>
@@ -94,17 +93,17 @@
           <span translate="aside.nav.DASHBOARD">系统设置</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="netManagerPage" ui-sref-active="active">
         <a ui-sref="app.manager">
           <span>网站账户管理</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="rolePage" ui-sref-active="active">
         <a ui-sref="app.role">
           <span>角色管理</span>
         </a>
       </li>
-      <li ui-sref-active="active">
+      <li class="permissionPage" ui-sref-active="active">
         <a ui-sref="app.permission">
           <span>权限管理</span>
         </a>
@@ -490,6 +489,5 @@
       <span translate="aside.nav.your_stuff.DOCUMENTS">Documents</span>
     </a>
   </li>
-  </div>
 </ul>
 <!-- / list -->
