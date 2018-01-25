@@ -109,7 +109,6 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
          * 获取用户权限
          */
       	  $http.get('./security/noAllowedAuth').then(function (resp) {
-      		    //var noAllowedAuthList = $cookieStore.get('noAllowedAuthList');
   		        var noAllowedAuthList = resp.data.data.data;
   		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
   		        $scope.noAllowedAuthList = noAllowedAuthList;
@@ -118,13 +117,13 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
 	  	                var element = angular.element("."+noAllowedAuthList[i]);
 	  	                removeElement(element);
 	  	            }
+	  	            angular.forEach(angular.element.find(".auto"), function(dom){
+	      		    	if(angular.element(dom).next().children().length == 1){
+	      		    		removeElement(angular.element(dom));
+	      		    	}
+		      		});
 	  			}
-      		    angular.forEach(angular.element.find(".auto"), function(dom){
-          		  /*if(angular.element(dom).next()){
-          			  $scope.delArray.push(angular.element(dom).attr("data-id"))
-          		  }*/
-      		    	console.log(angular.element(dom).next())
-	      		});
+      		    angular.element('#load').remove();
   		  });
     });
 }]);

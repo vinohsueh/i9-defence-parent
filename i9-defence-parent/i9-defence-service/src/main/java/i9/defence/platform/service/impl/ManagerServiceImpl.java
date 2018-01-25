@@ -1,17 +1,21 @@
 package i9.defence.platform.service.impl;
 
+import i9.defence.platform.dao.ManagerApplyDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.RoleDao;
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.StringUtil;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,11 +39,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ManagerServiceImpl implements ManagerService{
-
+    /**
+     * 项目管理员byte
+     */
+    private static final Byte  S_PROJ_MANAGER =(byte)2;
     @Autowired
     private ManagerDao managerDao;
     @Autowired
     private RoleDao roleDao;
+    @Autowired
+    private ManagerApplyDao managerApplyDao;
     @Override
     public void addNetManager(Manager manager) throws BusinessException {
         if (!manager.getConfirmPwd().equals(manager.getPassword())){
@@ -260,6 +269,38 @@ public class ManagerServiceImpl implements ManagerService{
             managerDao.deleteAgencyById(managerId,parentId);
         }catch (Exception e){
             throw new BusinessException("撤销（删除）一级下的二级或者二级下的三级,右侧---->左侧失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void addProjectManager(Manager manager) throws BusinessException {
+        if (!manager.getConfirmPwd().equals(manager.getPassword())){
+            throw new BusinessException("前后密码不一致!");
+        }
+        if (manager.getProjectId() == null){
+            throw new BusinessException("请选择项目!");
+        }
+        //判断用户注册申请的角色
+        if(Arrays.asList(Constants.S_PROJ_MANAGER).contains(manager.getRole().getName())){
+            manager.setType(S_PROJ_MANAGER);
+        } else {
+            throw new BusinessException("用户权限错误,请选择正确的权限");
+        }
+        try {
+            Manager existManager = managerDao.getManagerByUsername(manager.getUsername());
+            ManagerApply existManagerApply = managerApplyDao.getUnRefusedManagerApplyByUsername(manager.getUsername());
+            if (existManager != null || existManagerApply != null){
+                throw new BusinessException("用户名已存在!");
+            }
+            manager.setCreateTime(new Date());
+            manager.setPassword(StringUtil.MD5(manager.getPassword()));
+            managerDao.addManager(manager);
+            //添加角色
+            managerDao.addBatchManagerRole(Arrays.asList(manager));
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
+        } catch (Exception e1) {
+            throw new BusinessException("添加账户申请失败",e1.getMessage());
         }
     }
 

@@ -20,14 +20,14 @@ public interface RoleService {
      * @param Role
      * @throws BusinessException
      */
-    void addRole(Role role) throws BusinessException;
+    Role addRole(Role role) throws BusinessException;
     
     /**
      * 更新角色
      * @param Role
      * @throws BusinessException
      */
-    void updateRole(Role role) throws BusinessException;
+    Role updateRole(Role role) throws BusinessException;
     
     /**
      * 删除角色
