@@ -66,11 +66,12 @@ public class AccountController {
      * @param manager
      * @return
      */
+    @RequiresPermissions("addProjectManager")
     @RequestMapping("/addAccount")
     public HashMap<String, Object> addAccount(
             @Valid @RequestBody Manager manager, BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        managerService.addNetManager(manager);
+        managerService.addProjectManager(manager);
         return result;
     }
     

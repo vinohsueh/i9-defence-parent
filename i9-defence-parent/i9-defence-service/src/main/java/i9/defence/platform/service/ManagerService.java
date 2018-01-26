@@ -133,4 +133,10 @@ public interface ManagerService {
      * 撤销（删除）一级下的二级或者二级下的三级     右侧---->左侧(一个一个地撤销  因为会对二级判断)
      * */
     void deleteAgencyById(Integer managerId, Integer parentId) throws BusinessException;
+    
+    /**
+     * 经销商添加项目管理员
+     * @param manager
+     */
+    void addProjectManager(Manager manager) throws BusinessException;
 }
