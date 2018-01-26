@@ -9,6 +9,7 @@ import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.ShareCodeUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -112,6 +113,19 @@ public class ProjectController {
             @Valid @NotEmpty(message = "项目IDS不能为空") @RequestBody Integer[] ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         projectService.deleteProject(Arrays.asList(ids));
+        return result;
+    }
+    
+    /**
+     * 生成邀请码
+     * @param id
+     * @return
+     */
+    @RequestMapping("/getCode")
+    public HashMap<String, Object> getCode(@Valid @NotNull(message = "请至少选择一个!")@RequestBody Integer id) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        String code = ShareCodeUtil.toSerialCode(id);
+        result.put("data", code);
         return result;
     }
 }

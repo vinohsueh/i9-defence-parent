@@ -1,8 +1,8 @@
 package i9.defence.platform.dao;
 
 import i9.defence.platform.dao.vo.ApplyRefuseDto;
+import i9.defence.platform.dao.vo.ManagerApplyDto;
 import i9.defence.platform.model.ManagerApply;
-import i9.defence.platform.model.ManagerApplyExample;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public interface ManagerApplyDao {
      * @param pageSize
      * @return
      */
-    PageBounds<ManagerApply> selectByLimitPage(ManagerApplyExample managerApplyExample,
+    PageBounds<ManagerApply> selectByLimitPage(ManagerApplyDto managerApplyDto,
             int currectPage, int pageSize) throws Exception;
     
     /**

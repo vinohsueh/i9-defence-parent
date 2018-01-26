@@ -131,6 +131,48 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	        });
     	})
     };  
+    
+    
+    //邀请码
+    $scope.shareCode = function () { 
+    	$scope.delArray = [];
+    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+    		if(angular.element(dom).prop("checked") == true){
+    			$scope.delArray.push(angular.element(dom).attr("data-id"))
+    		}
+		});
+    	if ($scope.delArray.length != 1){
+    		$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "请选择一个!"
+			});
+    		return false;
+    	}
+    	httpService.post({url:'./project/getCode',data:$scope.delArray[0],showSuccessMsg:false}).then(function(data) {  
+    		$scope.code = data.data.data;
+			var modalInstance = $modal.open({  
+	            templateUrl: 'proj/project/code.html',  
+	            controller: 'projectCodeCtrl', 
+	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+	            resolve: {  
+	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+	        			return $ocLazyLoad.load({
+	        				name : 'projectCodeNgModule',
+	        				insertBefore : '#ng_load_plugins_before',
+	        				files : [
+	        				         'proj/project/code.js',
+	        				]
+	        			});
+	        		}],
+	            	code: function () {  
+	                    return $scope.code;  
+	                },
+	            }  
+	        });
+    	})
+    };  
+    
     $scope.del = function(){
     	$scope.delArray = [];
     	angular.forEach(angular.element.find(".o-checks"), function(dom){

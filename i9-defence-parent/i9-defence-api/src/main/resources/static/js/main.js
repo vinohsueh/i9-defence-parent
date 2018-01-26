@@ -109,7 +109,6 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
          * 获取用户权限
          */
       	  $http.get('./security/noAllowedAuth').then(function (resp) {
-      		    //var noAllowedAuthList = $cookieStore.get('noAllowedAuthList');
   		        var noAllowedAuthList = resp.data.data.data;
   		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
   		        $scope.noAllowedAuthList = noAllowedAuthList;
@@ -118,7 +117,13 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
 	  	                var element = angular.element("."+noAllowedAuthList[i]);
 	  	                removeElement(element);
 	  	            }
+	  	            angular.forEach(angular.element.find(".auto"), function(dom){
+	      		    	if(angular.element(dom).next().children().length == 1){
+	      		    		removeElement(angular.element(dom));
+	      		    	}
+		      		});
 	  			}
+      		    angular.element('#load').remove();
   		  });
     });
 }]);
@@ -227,3 +232,13 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 	
 	return service;
 }]);
+
+/*$http({
+    method: 'POST',
+    url: './managerApply/ceshi',
+    data: $.param($scope.formData), // pass in data as strings
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' } // set the headers so angular passing info as form data (not request payload)
+})
+.success(function(data) {
+    console.log(data);
+});*/

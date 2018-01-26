@@ -16,6 +16,7 @@
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="projectId" jdbcType="INTEGER" property="projectId" />
     <association property="role" column="id" javaType="i9.defence.platform.model.Role" select="selectRole"></association>
+    <association property="projectName" column="projectId" javaType="string" select="i9.defence.platform.dao.mapper.ManagerApplyMapper.selectProjNameById"></association>
   </resultMap>
   <resultMap id="AgencyResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Manager" >
     <collection property="agencyList" column="id" ofType="i9.defence.platform.model.Manager" select="selectAgency"></collection>
@@ -103,6 +104,11 @@
             <foreach collection="example.types" item="item" open="(" close=")" separator=",">
                 #{item}
             </foreach>
+        </if>
+        <if test="example.distributorId != null">
+            AND (projectId in (select id from t_project where distributorId = #{example.distributorId}) 
+            OR id in (select managerId from t_manager_grade where parentId = #{example.distributorId}) 
+            OR id in (select managerId from t_manager_grade where parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId}))) 
         </if>
     </trim>
   </sql>
