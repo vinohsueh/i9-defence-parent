@@ -42,7 +42,7 @@ angular.module('app')
                   }
               })  
               .state('app.client', {
-                  url: '/app.client',
+                  url: '/client',
                   templateUrl: 'proj/client/client.html',
               	  controller : "clientControl",
               	  resolve: { 
