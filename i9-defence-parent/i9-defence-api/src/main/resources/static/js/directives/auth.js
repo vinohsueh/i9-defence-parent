@@ -7,7 +7,6 @@ angular.module('app')
         restrict: 'A',
         link: function (scope, element, attributes) {
         	var noAllowedAuthList = $cookieStore.get('noAllowedAuthList');
-        	console.log(noAllowedAuthList)
 			if(noAllowedAuthList != null){
 	            for (i = 0; i < noAllowedAuthList.length; i++) {
 	                var element = angular.element("."+noAllowedAuthList[i]);
