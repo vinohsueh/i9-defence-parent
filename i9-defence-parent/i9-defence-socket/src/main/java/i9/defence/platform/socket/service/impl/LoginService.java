@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
+import i9.defence.platform.socket.message.req.LoginReqMessage;
 import i9.defence.platform.socket.message.resp.CompleteRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
@@ -15,6 +16,9 @@ public class LoginService implements ICoreService {
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
         channelPackerServerContext.addChannelPacker(channelPacker);
+        LoginReqMessage loginReqMessage = (LoginReqMessage) message.getMessageDecodeConvert();
+        byte data[] = loginReqMessage.data;
+        
         CompleteRespMessage completeRespMessage = new CompleteRespMessage(message.getType());
         message.setMessageEncodeConvert(completeRespMessage);
     }
