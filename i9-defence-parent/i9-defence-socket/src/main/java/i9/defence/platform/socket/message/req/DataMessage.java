@@ -29,12 +29,12 @@ public class DataMessage extends MessageDecodeConvert {
         this.len = buf.readByte();
         this.data = new byte[this.len];
         buf.readBytes(this.data);
-        this.printInfo();
+        this.showInfo();
     }
     
     private final static Logger logger = LoggerFactory.getLogger(DataMessage.class);
 
-    public void printInfo() {
+    public void showInfo() {
         logger.info("解码, 设备通道 : {}, 数据类型 : {}, 产生时间 : {}, 数据长度 : {}, 数据 : {}", 
                 this.channel, this.type, this.datetime, this.len, EncryptUtils.bytesToHexString(this.data));
     }

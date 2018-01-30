@@ -13,5 +13,6 @@ public class PostDataService implements ICoreService {
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
         UplinkReqMessage uplinkReqMessage = (UplinkReqMessage) message.getMessageDecodeConvert();
+        uplinkReqMessage.showInfo();
     }
 }
