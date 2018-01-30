@@ -9,6 +9,7 @@ import i9.defence.platform.socket.message.req.LoginReqMessage;
 import i9.defence.platform.socket.message.resp.CompleteRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.socket.util.AES256;
 
 @Service
 public class LoginService implements ICoreService {
@@ -17,8 +18,8 @@ public class LoginService implements ICoreService {
     public void doPost(Message message, ChannelPacker channelPacker) {
         channelPackerServerContext.addChannelPacker(channelPacker);
         LoginReqMessage loginReqMessage = (LoginReqMessage) message.getMessageDecodeConvert();
-        byte data[] = loginReqMessage.data;
-        
+        String password = "00000000";
+        byte[] devIDData = AES256.encrypt(loginReqMessage.data, password.getBytes());
         CompleteRespMessage completeRespMessage = new CompleteRespMessage(message.getType());
         message.setMessageEncodeConvert(completeRespMessage);
     }

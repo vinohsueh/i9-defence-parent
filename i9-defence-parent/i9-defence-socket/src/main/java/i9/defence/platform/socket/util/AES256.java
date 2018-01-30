@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
-import java.util.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -76,24 +75,16 @@ public class AES256 {
 
     public static void main(String[] args) {
 
-        String content = "000001";
-        String password = "000001";
+        byte[] data = EncryptUtils.intToByteArray(1);
+        String password = "00000000";
         
-        System.out.println("明文：" + content);
-        System.out.println("：" + password);
-        
-//        byte[] data0 = Base64.getDecoder().decode(content.getBytes());
-//        System.out.println("密文：" + EncryptUtils.bytesToHexString(data0));
-//        
-//        byte[] data1 = Base64.getDecoder().decode(password.getBytes());
-//        System.out.println("密文：" + EncryptUtils.bytesToHexString(data1));
+        System.out.println("明文：" + EncryptUtils.bytesToHexString(data));
+        System.out.println("密码：" + password);
 
-        byte[] encryptResult = AES256.encrypt(content.getBytes(), password.getBytes());
+        byte[] encryptResult = AES256.encrypt(data, password.getBytes());
         System.out.println("密文：" + EncryptUtils.bytesToHexString(encryptResult));
 
         byte[] decryptResult = AES256.decrypt(encryptResult, password.getBytes());
         System.out.println("解密：" + EncryptUtils.bytesToHexString(decryptResult));
-        
-//        System.out.println(EncryptUtils.bytesToHexString(AES256.tohash256Deal("0")));
     }
 }
