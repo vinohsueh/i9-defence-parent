@@ -29,7 +29,6 @@ public class DataMessage extends MessageDecodeConvert {
         this.len = buf.readByte();
         this.data = new byte[this.len];
         buf.readBytes(this.data);
-        this.showInfo();
     }
     
     private final static Logger logger = LoggerFactory.getLogger(DataMessage.class);

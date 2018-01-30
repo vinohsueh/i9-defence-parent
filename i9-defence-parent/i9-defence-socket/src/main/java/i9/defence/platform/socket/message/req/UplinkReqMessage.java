@@ -51,7 +51,6 @@ public class UplinkReqMessage extends MessageDecodeConvert {
         }
         this.unit = buf.readByte();
         this.dataLen = buf.readChar();
-        this.showInfo();
         for (char c = 0; c < dataLen; c++) {
             DataMessage dataMessage = new DataMessage();
             dataMessage.decode(buf);
