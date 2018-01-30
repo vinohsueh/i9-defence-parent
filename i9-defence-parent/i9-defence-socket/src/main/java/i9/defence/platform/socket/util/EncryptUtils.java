@@ -1,8 +1,5 @@
 package i9.defence.platform.socket.util;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-
 public class EncryptUtils {
 
     public static byte[] SumCheck(byte[] buf) {
@@ -52,39 +49,5 @@ public class EncryptUtils {
 
     private static byte charToByte(char c) {
         return (byte) "0123456789ABCDEF".indexOf(c);
-    }
-    
-    public static void main(String[] args) {
-        byte[] data = new byte[] { 0, 0, 0, 0 };
-        byte[] key = new byte[] { 0, 0, 0 };
-        byte[] dst = Aes256Encode(data, key);
-        
-    }
-
-    public static byte[] Aes256Encode(byte[] data, byte[] key) {
-        byte[] result = null;
-        try {
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding", "BC");
-            SecretKeySpec keySpec = new SecretKeySpec(key, "AES"); // 生成加密解密需要的Key
-            cipher.init(Cipher.ENCRYPT_MODE, keySpec);
-            result = cipher.doFinal(data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public static String Aes256Decode(byte[] data, byte[] key) {
-        String result = null;
-        try {
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding", "BC");
-            SecretKeySpec keySpec = new SecretKeySpec(key, "AES"); // 生成加密解密需要的Key
-            cipher.init(Cipher.DECRYPT_MODE, keySpec);
-            byte[] decoded = cipher.doFinal(data);
-            result = new String(decoded, "UTF-8");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 }
