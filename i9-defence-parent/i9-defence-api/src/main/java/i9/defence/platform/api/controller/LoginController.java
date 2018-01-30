@@ -3,17 +3,22 @@ package i9.defence.platform.api.controller;
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
+import i9.defence.platform.model.Permission;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerApplyService;
 import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.service.PermissionService;
 import i9.defence.platform.service.RoleService;
 import i9.defence.platform.utils.BusinessException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,8 @@ public class LoginController {
     private RoleService roleService;
     @Autowired
     private ManagerApplyService managerApplyService;
+    @Autowired
+    private PermissionService permissionService;
     /**
      * 首页
      * @return
@@ -130,24 +137,25 @@ public class LoginController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Manager manager = managerService.getLoginManager();
         result.put("data", manager);
+        // 查找全部权限字
+        List<Permission> permissions = permissionService.findAllPermission();
+
+        // 过滤出当前登录用户没有的权限字
+        boolean flag = false;
+        // 用于保存用户没有的权限字
+        ArrayList<String> noHaveCodes = new ArrayList<String>();
+        //Shiro的subject实质上是当前执行用户的特定视图。
+        Subject currenUser = SecurityUtils.getSubject();
+        // 遍历所有权限字，将用户没有的权限字保存到list
+        for (Permission permission : permissions) {
+            flag = currenUser.isPermitted(permission.getCode());
+            if (!flag) {
+                noHaveCodes.add(permission.getCode());
+            }
+        }
+        result.put("noHaveCodes", noHaveCodes);
         return result;
     }
-    
-    /*@RequestMapping(value = "/regist.zhtml", method = RequestMethod.POST)
-    public ModelAndView regist(@Valid UserDto userDto, Errors errors,HttpSession session) {
-        if (errors.hasErrors()) {
-            List<ObjectError> list = errors.getAllErrors();
-            String errorString = list.get(list.size()-1).getDefaultMessage();
-            return new ModelAndView("regist").addObject("exception",new BusinessException(errorString));
-        }
-        try {
-            userService.regist(userDto,session);
-        } catch (BusinessException e) {
-            return new ModelAndView("regist").addObject("exception",e);
-        }
-        
-        return new ModelAndView("regist").addObject("exception",new BusinessException("注册成功"));
-    }*/
 
 }
 

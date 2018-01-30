@@ -39,10 +39,6 @@ angular.module('app')
         }
       }
       
-      $.get('./currentUser', function(data) {  
-    	var user = data.data.data;
-      	$scope.app.user = user; 
-      });
      /* $http.get('./security/noAllowedAuth').then(function (resp) {
     	  $cookieStore.put('noAllowedAuthList',resp.data.data.data);
     	  console.log(2);
@@ -105,10 +101,31 @@ app.config([
 /* Setup Layout Part - Sidebar */
 app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement', function($scope, $http,$cookieStore,removeElement) {
     $scope.$on('$includeContentLoaded', function() {
+    	$.get('./currentUser', function(data) {  
+        	var user = data.data.data;
+          	$scope.app.user = user; 
+          	
+          	
+          	var noAllowedAuthList = data.data.noHaveCodes;
+		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
+		        $scope.noAllowedAuthList = noAllowedAuthList;
+  		    if(noAllowedAuthList != null){
+  	            for (var i = 0; i < noAllowedAuthList.length; i++) {
+  	                var element = angular.element("."+noAllowedAuthList[i]);
+  	                removeElement(element);
+  	            }
+  	            angular.forEach(angular.element.find(".auto"), function(dom){
+      		    	if(angular.element(dom).next().children().length == 1){
+      		    		removeElement(angular.element(dom));
+      		    	}
+	      		});
+  			}
+  		    angular.element('#load').remove();
+        });
     	/**
          * 获取用户权限
          */
-      	  $http.get('./security/noAllowedAuth').then(function (resp) {
+      	  /*$http.get('./security/noAllowedAuth').then(function (resp) {
   		        var noAllowedAuthList = resp.data.data.data;
   		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
   		        $scope.noAllowedAuthList = noAllowedAuthList;
@@ -124,7 +141,7 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
 		      		});
 	  			}
       		    angular.element('#load').remove();
-  		  });
+  		  });*/
     });
 }]);
 var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster', function($http, $q, $window, toaster){
