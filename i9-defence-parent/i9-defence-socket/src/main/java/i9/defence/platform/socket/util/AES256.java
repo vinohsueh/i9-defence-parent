@@ -76,10 +76,17 @@ public class AES256 {
 
     public static void main(String[] args) {
 
-        String content = "0";
-        String password = "z";
+        String content = "000001";
+        String password = "000001";
+        
         System.out.println("明文：" + content);
-        System.out.println("key：" + password);
+        System.out.println("：" + password);
+        
+//        byte[] data0 = Base64.getDecoder().decode(content.getBytes());
+//        System.out.println("密文：" + EncryptUtils.bytesToHexString(data0));
+//        
+//        byte[] data1 = Base64.getDecoder().decode(password.getBytes());
+//        System.out.println("密文：" + EncryptUtils.bytesToHexString(data1));
 
         byte[] encryptResult = AES256.encrypt(content.getBytes(), password.getBytes());
         System.out.println("密文：" + EncryptUtils.bytesToHexString(encryptResult));
@@ -87,6 +94,6 @@ public class AES256 {
         byte[] decryptResult = AES256.decrypt(encryptResult, password.getBytes());
         System.out.println("解密：" + EncryptUtils.bytesToHexString(decryptResult));
         
-        System.out.println(EncryptUtils.bytesToHexString(AES256.tohash256Deal("0")));
+//        System.out.println(EncryptUtils.bytesToHexString(AES256.tohash256Deal("0")));
     }
 }
