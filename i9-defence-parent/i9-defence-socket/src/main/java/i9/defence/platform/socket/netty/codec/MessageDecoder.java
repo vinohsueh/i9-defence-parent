@@ -16,17 +16,24 @@ public class MessageDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
+        if (buf.readableBytes() < 1 + 1 + 1 + 4 + 1 + 1) {
+            return;
+        }
+        buf.markReaderIndex();
         buf.skipBytes(2);
 
         byte type = buf.readByte();
-        buf.readByte();
+        buf.readInt();
         
         int len = buf.readableBytes();
-        byte[] dst = new byte[len - 2];
-        buf.readBytes(dst);
         
-        buf.readByte();
-        buf.readByte();
+        if (buf.readableBytes() <= (1 + 1)) { //读到的消息体长度如果小于我们传送过来的消息长度，则resetReaderIndex. 这个配合markReaderIndex使用的。把readIndex重置到mark的地方
+            buf.resetReaderIndex();
+            return;
+        }
+        
+        byte[] dst = new byte[len - 1 - 1];
+        buf.readBytes(dst);
         
         MessageDecodeConvert messageDecodeConvert = null;
         if (type == 0x00) {
@@ -38,6 +45,10 @@ public class MessageDecoder extends ByteToMessageDecoder {
         else {
             messageDecodeConvert = new UplinkReqMessage();
         }
+        
+        buf.readByte();
+        buf.readByte();
+        
         ByteBuf buf0 = Unpooled.buffer(len);
         buf0.writeBytes(dst);
         
