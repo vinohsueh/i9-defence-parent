@@ -18,7 +18,7 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(new IdleStateHandler(3600, 3600, 3600));
         ByteBuf delimiter = Unpooled.copiedBuffer("#".getBytes());
-        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048,delimiter));    
+        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
         // 字符串解码 和 编码
         pipeline.addLast("decoder", new MessageDecoder());
         pipeline.addLast("encoder", new MessageEncoder());

@@ -18,32 +18,31 @@ import org.slf4j.LoggerFactory;
 
 public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(MessageDecoder.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageDecoder.class);
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
+//System.out.println(buf.readableBytes());
         byte start = buf.readByte();
         byte version = buf.readByte();
 
         byte type = buf.readByte();
         int index = buf.readInt();
-
+//System.out.println(buf.readableBytes());
         int len = buf.readableBytes();
 
-        len -= 2;
-        byte[] dst = new byte[len];
+        byte[] dst = new byte[len - 1];
         buf.readBytes(dst);
 
         byte sumcheck = buf.readByte();
-        byte end = buf.readByte();
+        byte end = 0;
 
         logger.info(
                 "解码, 起始符 : {}, 协议版本号 : {}, 消息类型 : {}, 消息索引 : {}, data : {}, 校验和 : {}, 结束符 : {}",
                 String.format("%02X", start), String.format("%02X", version),
                 String.format("%02X", type), index,
                 EncryptUtils.bytesToHexString(dst),
-                String.format("", sumcheck), String.format("%02X", end));
+                String.format("%02X", sumcheck), String.format("%02X", end));
 
         MessageDecodeConvert messageDecodeConvert = null;
         if (type == 0x00) {
