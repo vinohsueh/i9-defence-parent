@@ -11,27 +11,53 @@ import i9.defence.platform.socket.util.EncryptUtils;
 public class MessageTest {
 
     public static void main(String[] args) throws UnknownHostException, IOException {
-        String hex = "BAF204C78E089916FFAEFF04C5FD092F";
-        byte[] data = EncryptUtils.hexStringToBytes(hex);
-        
-        ByteBuffer byteBuffer = ByteBuffer.allocate(data.length + 10);
-        byteBuffer.put((byte) 0x40);
-        byteBuffer.put((byte) 0x10);
-        byteBuffer.put((byte) 0x00);
-        byteBuffer.putInt(1);
 
+        byte[] data = new byte[] { 1, 2, 3, 4 };
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1 + 2 + 6 + 1 + data.length);
+        byteBuffer.put((byte) 100);
+        byteBuffer.putShort((short) 99);
+        byteBuffer.put((byte) 18);
+        byteBuffer.put((byte) 2);
+        byteBuffer.put((byte) 8);
+        byteBuffer.put((byte) 0);
+        byteBuffer.put((byte) 0);
+        byteBuffer.put((byte) 0);
         byteBuffer.put((byte) data.length);
         byteBuffer.put(data);
+        byte[] data0 = byteBuffer.array();
         
-        byteBuffer.put((byte) 0x00);
-        byteBuffer.put((byte) 0x23);
+        int len = data0.length * 10 + 1 + 1 + 1 + 4 + 2 + 6 + 1 + 1 + 4 + 1 + 1 + 1 + 1;
+        ByteBuffer byteBuffer2 = ByteBuffer.allocate(len);
+        byteBuffer2.put((byte) 0x40);
+        byteBuffer2.put((byte) 0x10);
+        byteBuffer2.put((byte) 0x01);
+        byteBuffer2.putInt(1);
+        byteBuffer2.putShort((short) 1);
+        byte[] data1 = new byte[] { 1, 2, 3, 4, 5, 6 };
+        byteBuffer2.put(data1);
+        byteBuffer2.put((byte) 1);
+        byteBuffer2.put((byte) 2);
+        byteBuffer2.putInt(100);
         
-        System.out.println("send" + byteBuffer.array().length);
+        byteBuffer2.put((byte) 10);
+        byteBuffer2.put((byte) ((byte) data0.length * 10));
         
+        for (int i = 0; i < 10; i ++) {
+            byteBuffer2.put(data0);
+        }
+        
+        byteBuffer2.put((byte) 0x00);
+        byteBuffer2.put((byte) 0x23);
+        
+        byte[] data2 = byteBuffer2.array();
+        
+        System.out.println(data2.length + " " + len);
+
         @SuppressWarnings("resource")
         Socket socket = new Socket("127.0.0.1", 9000);
         while (true) {
             try {
+                
                 OutputStream outputStream = socket.getOutputStream();
                 outputStream.write(byteBuffer.array());
                 outputStream.flush();
