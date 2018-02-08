@@ -6,6 +6,13 @@ import io.netty.buffer.ByteBuf;
 public class HeartbeatReqMessage extends MessageDecodeConvert {
 
     @Override
-    public void decode(ByteBuf buf) {
+    public boolean decode(ByteBuf buf) {
+        return false;
+    }
+
+    @Override
+    public byte[] getByteArray() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
