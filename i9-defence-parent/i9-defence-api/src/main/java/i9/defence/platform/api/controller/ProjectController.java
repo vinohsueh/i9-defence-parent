@@ -18,6 +18,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -46,6 +47,7 @@ public class ProjectController {
      * @param projectSearchDto
      * @return
      */
+    @RequiresPermissions("proj_list")
     @RequestMapping("/pageProject")
     public HashMap<String, Object> pageProject(
             @RequestBody ProjectSearchDto projectSearchDto) {
@@ -66,6 +68,7 @@ public class ProjectController {
      * 添加项目
      * @return
      */
+    @RequiresPermissions("proj_add")
     @RequestMapping("/addProject")
     public HashMap<String, Object> addProject(
             @Valid @RequestBody Project project, BindingResult bindingResult) {
@@ -78,6 +81,7 @@ public class ProjectController {
      * id查找项目
      * @return
      */
+    @RequiresPermissions("proj_list")
     @RequestMapping("/getProject")
     public HashMap<String, Object> getProject(
             @Valid @NotNull(message = "项目ID不能为空") @RequestBody Integer projectId) {
@@ -91,6 +95,7 @@ public class ProjectController {
      * 查找当前登录人的全部项目
      * @return
      */
+    @RequiresPermissions("proj_list")
     @RequestMapping("/findAllProjectById")
     public HashMap<String, Object> findAllProjectById() {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -108,6 +113,7 @@ public class ProjectController {
      * @param ids
      * @return
      */
+    @RequiresPermissions("del_proj")
     @RequestMapping("/delProject")
     public HashMap<String, Object> delProject(
             @Valid @NotEmpty(message = "项目IDS不能为空") @RequestBody Integer[] ids) {
@@ -121,6 +127,7 @@ public class ProjectController {
      * @param id
      * @return
      */
+    @RequiresPermissions("invite_code")
     @RequestMapping("/getCode")
     public HashMap<String, Object> getCode(@Valid @NotNull(message = "请至少选择一个!")@RequestBody Integer id) {
         HashMap<String, Object> result = new HashMap<String, Object>();

@@ -91,6 +91,9 @@ var roleNgControl=roleNgModule.controller('roleNgControl',function($rootScope, $
         		role: function () {  
                     return {};  
                 },
+                pageIds: function () {  
+                	return [];  
+                },
             }  
         }); 
         modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -120,6 +123,13 @@ var roleNgControl=roleNgModule.controller('roleNgControl',function($rootScope, $
 	        		}],
 	            	role: function () {  
 	                    return $scope.role;  
+	                },
+	                pageIds: function () {  
+	                	var pageIds = [];
+	                	for(var i=0;i<data.data.pages.length;i++){
+	                		pageIds.push(data.data.pages[i].id);
+	                	}
+	                    return pageIds;  
 	                },
 	            }  
 	        });

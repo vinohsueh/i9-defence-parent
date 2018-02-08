@@ -39,11 +39,10 @@ angular.module('app')
         }
       }
       
-     /* $http.get('./security/noAllowedAuth').then(function (resp) {
-    	  $cookieStore.put('noAllowedAuthList',resp.data.data.data);
-    	  console.log(2);
-	  });*/
-      //$scope.$apply;
+      $.get('./currentUser', function(data) {  
+      	var user = data.data.data;
+        	$scope.app.user = user; 
+      });
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
         $scope.app.settings = $localStorage.settings;
@@ -101,30 +100,25 @@ app.config([
 /* Setup Layout Part - Sidebar */
 app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement', function($scope, $http,$cookieStore,removeElement) {
     $scope.$on('$includeContentLoaded', function() {
-    	$.get('./currentUser', function(data) {  
-        	var user = data.data.data;
-          	$scope.app.user = user; 
-          	
-          	
-          	var noAllowedAuthList = data.data.noHaveCodes;
-		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
-		        $scope.noAllowedAuthList = noAllowedAuthList;
-  		    if(noAllowedAuthList != null){
-  	            for (var i = 0; i < noAllowedAuthList.length; i++) {
-  	                var element = angular.element("."+noAllowedAuthList[i]);
-  	                removeElement(element);
-  	            }
-  	            angular.forEach(angular.element.find(".auto"), function(dom){
-      		    	if(angular.element(dom).next().children().length == 1){
-      		    		removeElement(angular.element(dom));
-      		    	}
-	      		});
-  			}
-  		    angular.element('#load').remove();
-        });
     	/**
          * 获取用户权限
          */
+    	if ($cookieStore.get("pages") == null) {
+    		$http.post('./page/getPages').then(function (data) {
+			  $cookieStore.put("pages",data.data.data.urls);
+       		  $scope.pages = data.data.data.urls;
+   		  });
+    	}else{
+    		$scope.pages = $cookieStore.get("pages");
+    	}
+    	 
+    	 
+    	if ($cookieStore.get("noAllowedAuthList") == null) {
+    		$http.get('./security/noAllowedAuth').then(function (resp) {
+           		$cookieStore.put("noAllowedAuthList",resp.data.data.data);
+           	})
+    	}
+	    
       	  /*$http.get('./security/noAllowedAuth').then(function (resp) {
   		        var noAllowedAuthList = resp.data.data.data;
   		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
@@ -142,6 +136,10 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
 	  			}
       		    angular.element('#load').remove();
   		  });*/
+    });
+}]);
+app.controller('HeaderController', ['$scope', '$http','$cookieStore', function($scope, $http,$cookieStore) {
+    $scope.$on('$includeContentLoaded', function() {
     });
 }]);
 var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster', function($http, $q, $window, toaster){

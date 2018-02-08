@@ -109,6 +109,24 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.pageUrl', {
+                  url: '/pageUrl',
+                  templateUrl: '/proj/page/page.html',
+              	  controller : "pageUrlNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'pageUrlNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				         'proj/page/page.js',
+            				         'css/child.css',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.permission', {
                   url: '/permission',
                   templateUrl: 'proj/permission/permission.html',

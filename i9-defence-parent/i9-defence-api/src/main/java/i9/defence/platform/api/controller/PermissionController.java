@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  */
 @RestController
-@RequiresPermissions("permissionPage")
+@RequiresPermissions("permission_crud")
 @RequestMapping("permission")
 public class PermissionController {
     @Autowired
