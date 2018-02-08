@@ -6,8 +6,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
-import i9.defence.platform.socket.util.EncryptUtils;
-
 public class MessageTest {
 
     public static void main(String[] args) throws UnknownHostException, IOException {
