@@ -1,7 +1,6 @@
 package i9.defence.platform.socket.bootstrap;
 
 import java.net.InetSocketAddress;
-import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import i9.defence.platform.mq.libraries.ProducerService;
 import i9.defence.platform.socket.netty.SocketServerInitializer;
-import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -44,7 +41,7 @@ public class BootStrap extends HttpServlet {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             
             @Override
             public void run() {
@@ -58,6 +55,6 @@ public class BootStrap extends HttpServlet {
                     }
                 }
             }
-        }).start();
+        }).start();*/
     }
 }

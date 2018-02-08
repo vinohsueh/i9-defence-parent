@@ -6,6 +6,7 @@ import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
 import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.message.MessageEncodeConvert;
+import i9.defence.platform.socket.message.resp.CompleteRespMessage;
 import i9.defence.platform.socket.message.resp.SimpleRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
@@ -42,8 +43,14 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
                 coreService.doPost(message, channelPacker);
             }
             MessageEncodeConvert messageEncodeConvert = message.getMessageEncodeConvert();
-            messageEncodeConvert.setType(message.getType());
-            channelPacker.writeAndFlush(messageEncodeConvert);
+            if (messageEncodeConvert == null) {
+                CompleteRespMessage completeRespMessage = new CompleteRespMessage(message.getType());
+                channelPacker.writeAndFlush(completeRespMessage);
+            }
+            else {
+                messageEncodeConvert.setType(message.getType());
+                channelPacker.writeAndFlush(messageEncodeConvert);
+            }
         }
         catch (BusinessException businessException) {
             int errorCode = businessException.getErrorCode();

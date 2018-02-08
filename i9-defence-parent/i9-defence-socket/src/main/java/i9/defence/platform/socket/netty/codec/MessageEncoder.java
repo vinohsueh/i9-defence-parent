@@ -2,15 +2,16 @@ package i9.defence.platform.socket.netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
+import io.netty.handler.codec.MessageToMessageEncoder;
 
-public class MessageEncoder extends MessageToByteEncoder<ByteBuf> {
+import java.util.List;
+
+public class MessageEncoder extends MessageToMessageEncoder<ByteBuf> {
     
     @Override
-    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, ByteBuf buf) throws Exception {
-        // 处理通信编码
+    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
         byte[] dst = new byte[msg.readableBytes()];
         msg.readBytes(dst);
-        buf.writeBytes(dst);
+        out.add(dst);
     }
 }
