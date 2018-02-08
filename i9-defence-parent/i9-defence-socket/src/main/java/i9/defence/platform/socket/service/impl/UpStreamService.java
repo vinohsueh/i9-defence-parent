@@ -9,7 +9,7 @@ import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 
 @Service
-public class PostDataService implements ICoreService {
+public class UpStreamService implements ICoreService {
 
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
