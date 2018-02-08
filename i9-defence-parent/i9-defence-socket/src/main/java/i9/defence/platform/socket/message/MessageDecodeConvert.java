@@ -5,5 +5,7 @@ import io.netty.buffer.ByteBuf;
 
 public abstract class MessageDecodeConvert {
 
-    public abstract void decode(ByteBuf buf);
+    public abstract boolean decode(ByteBuf buf);
+
+    public abstract byte[] getByteArray();
 }

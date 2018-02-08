@@ -1,5 +1,7 @@
 package i9.defence.platform.socket.message.req;
 
+import java.nio.ByteBuffer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +16,17 @@ public class LoginReqMessage extends MessageDecodeConvert {
     public byte[] data;
 
     @Override
-    public void decode(ByteBuf buf) {
+    public boolean decode(ByteBuf buf) {
+        if (buf.readableBytes() < 1) {
+            return true;
+        }
         this.dataLen = buf.readByte();
+        if (buf.readableBytes() < this.dataLen) {
+            return true;
+        }
         this.data = new byte[this.dataLen];
         buf.readBytes(this.data);
+        return false;
     }
 
     public void showInfo() {
@@ -25,4 +34,12 @@ public class LoginReqMessage extends MessageDecodeConvert {
     }
     
     private static final Logger logger = LoggerFactory.getLogger(LoginReqMessage.class);
+
+    @Override
+    public byte[] getByteArray() {
+        ByteBuffer buffer = ByteBuffer.allocate(dataLen + 1);
+        buffer.put(this.dataLen);
+        buffer.put(this.data);
+        return buffer.array();
+    }
 }

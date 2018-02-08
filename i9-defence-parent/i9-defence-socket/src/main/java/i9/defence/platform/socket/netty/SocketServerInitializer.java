@@ -3,12 +3,9 @@ package i9.defence.platform.socket.netty;
 import i9.defence.platform.socket.netty.codec.MessageDecoder;
 import i9.defence.platform.socket.netty.codec.MessageEncoder;
 import i9.defence.platform.socket.netty.handler.ServiceHandler;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
@@ -17,8 +14,8 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(new IdleStateHandler(3600, 3600, 3600));
-        ByteBuf delimiter = Unpooled.copiedBuffer("#".getBytes());
-        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
+//        ByteBuf delimiter = Unpooled.copiedBuffer("#".getBytes());
+//        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
         // 字符串解码 和 编码
         pipeline.addLast("decoder", new MessageDecoder());
         pipeline.addLast("encoder", new MessageEncoder());
