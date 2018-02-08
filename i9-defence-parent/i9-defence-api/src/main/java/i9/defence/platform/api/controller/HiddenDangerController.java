@@ -8,10 +8,9 @@ import i9.defence.platform.utils.PageBounds;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 隐患提醒类型Controller
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author: luobo
  * @date: 2018年1月10日 上午11:47:26
  */
-@Controller
+@RestController
 @RequestMapping("/hiddendanger")
 public class HiddenDangerController {
 	
@@ -34,7 +33,6 @@ public class HiddenDangerController {
      * @param pageSize
      * @return
      */
-	@ResponseBody
 	@RequestMapping("/pageHiddendanger")
 	public HashMap<String, Object> pageHiddendanger(@RequestBody HiddenDangerDto hiddenDangerDto){
 	HashMap<String,Object> result = new HashMap<String, Object>();

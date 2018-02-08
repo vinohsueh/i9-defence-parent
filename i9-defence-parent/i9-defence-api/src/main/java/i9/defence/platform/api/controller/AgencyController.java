@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class AgencyController {
      * 初始化查询经销商
      * @return
      */
+    @RequiresPermissions("agency_list")
     @RequestMapping("/pageAgency")
     public HashMap<String, Object> pageAgency() {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -66,6 +68,7 @@ public class AgencyController {
      * （左侧）    (右侧)----为此ID下此经销商的下属们
      * @return
      */
+    @RequiresPermissions("agency_list_manager")
     @RequestMapping("/allotAgency")
     public HashMap<String,Object> allotAgency(@RequestBody Integer agencyId){
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -80,6 +83,7 @@ public class AgencyController {
      * Integer[] managerIdS,Integer parentId
     * 往经销商关系表中增加关系分配二级三级经销商   左侧---->右侧（可以批量增加）
     */
+    @RequiresPermissions("agency_list_manager")
     @RequestMapping("/insertAgency")
     public HashMap<String,Object> insertAgency(@RequestBody AgencyParamDto agencyParamDto){
         HashMap<String,Object> result = new HashMap<String, Object>();
@@ -91,6 +95,7 @@ public class AgencyController {
     /**
      * 撤销一级下的二级或者二级下的三级     右侧---->左侧(一个一个地撤销  因为会对二级判断)
      * */
+    @RequiresPermissions("agency_list_manager")
     @RequestMapping("/deleteAgencyById")
     public HashMap<String,Object> deleteAgencyById(@RequestBody AgencyParamDto agencyParamDto){
         HashMap<String,Object> result = new HashMap<String,Object>();
@@ -102,6 +107,7 @@ public class AgencyController {
     /**
      * 根据经销商ID查询经销商实体类
      * */
+    @RequiresPermissions("agency_list")
     @RequestMapping("/selectByAgencyId")
     public HashMap<String,Object> selectByAgencyId(@RequestBody Integer agencyId){
         HashMap<String, Object> result = new HashMap<String, Object>();

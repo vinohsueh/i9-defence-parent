@@ -1,0 +1,44 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">保存页签</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>页面名称</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="name" ng-model="page.name" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+            <label class="col-md-2 control-label">页面代码</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="code" ng-model="page.code" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">父级id</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="parentId" ng-model="page.parentId" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">页面图标</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="icon" ng-model="page.icon" placeholder="">
+            </div>
+        </div>
+		<div class="form-group" style="display: none;">
+			<label class="col-md-2 control-label">id</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="id" ng-model="page.id" placeholder="">
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()"
+		data-dismiss="modal">取消</button>
+	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+</div>
