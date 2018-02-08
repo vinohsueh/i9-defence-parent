@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="i9.defence.platform.dao.mapper.PageUrlMapper" >
+  <resultMap id="BaseResultMap" type="i9.defence.platform.model.PageUrl" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentId" jdbcType="INTEGER" />
+    <result column="orderNumber" property="orderNumber" jdbcType="INTEGER" />
+    <result column="ifSingle" property="ifSingle" jdbcType="TINYINT" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+  <resultMap id="DetailResultMap" extends="BaseResultMap" type="i9.defence.platform.model.PageUrl" >
+    <collection property="items" column="id" ofType="i9.defence.platform.model.PageUrl" select="selectNodes"></collection>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, code, parentId, orderNumber, ifSingle, icon
+  </sql>
+  <select id="selectNodes" parameterType="int" resultMap="BaseResultMap">
+    select * from t_page_url where parentId = #{id}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="i9.defence.platform.model.PageUrlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_page_url
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_page_url
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_page_url
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="i9.defence.platform.model.PageUrlExample" >
+    delete from t_page_url
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="i9.defence.platform.model.PageUrl" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_page_url (name, code, parentId, 
+      orderNumber, ifSingle, icon
+      )
+    values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{orderNumber,jdbcType=INTEGER}, #{ifSingle,jdbcType=TINYINT}, #{icon,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="i9.defence.platform.model.PageUrl" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_page_url
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="orderNumber != null" >
+        orderNumber,
+      </if>
+      <if test="ifSingle != null" >
+        ifSingle,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ifSingle != null" >
+        #{ifSingle,jdbcType=TINYINT},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="i9.defence.platform.model.PageUrlExample" resultType="java.lang.Integer" >
+    select count(*) from t_page_url
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_page_url
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parentId = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNumber != null" >
+        orderNumber = #{record.orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.ifSingle != null" >
+        ifSingle = #{record.ifSingle,jdbcType=TINYINT},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_page_url
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      parentId = #{record.parentId,jdbcType=INTEGER},
+      orderNumber = #{record.orderNumber,jdbcType=INTEGER},
+      ifSingle = #{record.ifSingle,jdbcType=TINYINT},
+      icon = #{record.icon,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="i9.defence.platform.model.PageUrl" >
+    update t_page_url
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parentId = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        orderNumber = #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="ifSingle != null" >
+        ifSingle = #{ifSingle,jdbcType=TINYINT},
+      </if>
+       <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.PageUrl" >
+     update t_page_url
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      parentId = #{parentId,jdbcType=INTEGER},
+      orderNumber = #{orderNumber,jdbcType=INTEGER},
+      ifSingle = #{ifSingle,jdbcType=TINYINT},
+      icon = #{icon,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllFirstPages" resultMap="DetailResultMap">
+    select * from t_page_url where parentId is null;
+  </select>
+  <delete id="delPagesByRoleId" parameterType="int">
+        delete from t_role_page WHERE roleId = #{roleId} 
+    </delete>
+    
+  <insert id="addPageByRoleId" parameterType="java.util.Map">
+      insert into t_role_page(roleId,pageId) values
+       <foreach collection="pageIds" item="p" separator=",">
+          (${roleId},${p})
+       </foreach> 
+  </insert>
+  <select id="getPageByRoleId" parameterType="int" resultType="i9.defence.platform.model.PageUrl">
+    select pu.* from t_page_url pu left join t_role_page rp on pu.id = rp.pageId where rp.roleId = #{id}
+  </select>
+</mapper>

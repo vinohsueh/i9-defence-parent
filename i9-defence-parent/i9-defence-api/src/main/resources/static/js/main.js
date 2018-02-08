@@ -103,21 +103,23 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
     	/**
          * 获取用户权限
          */
-    	if ($cookieStore.get("pages") == null) {
+    	/*if ($cookieStore.get("pages") == null) {
     		$http.post('./page/getPages').then(function (data) {
 			  $cookieStore.put("pages",data.data.data.urls);
        		  $scope.pages = data.data.data.urls;
    		  });
     	}else{
     		$scope.pages = $cookieStore.get("pages");
-    	}
+    	}*/
+    	$http.post('./page/getPages').then(function (data) {
+     		  $scope.pages = data.data.data.urls;
+ 		  });
     	 
-    	 
-    	if ($cookieStore.get("noAllowedAuthList") == null) {
+    	//if ($cookieStore.get("noAllowedAuthList") == null) {
     		$http.get('./security/noAllowedAuth').then(function (resp) {
            		$cookieStore.put("noAllowedAuthList",resp.data.data.data);
            	})
-    	}
+    	//}
 	    
       	  /*$http.get('./security/noAllowedAuth').then(function (resp) {
   		        var noAllowedAuthList = resp.data.data.data;

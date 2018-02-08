@@ -21,7 +21,17 @@ public class Role {
     
     private List<Permission> permissions;
 
+    private List<Integer> pageIds;
     
+    
+    public List<Integer> getPageIds() {
+        return pageIds;
+    }
+
+    public void setPageIds(List<Integer> pageIds) {
+        this.pageIds = pageIds;
+    }
+
     public List<Integer> getPermissionIds() {
         return permissionIds;
     }
