@@ -52,7 +52,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
             buf.resetReaderIndex();
             return;
         }
-        byte sumcheck = buf.readByte(); //读取校验和
+        byte sumcheck = buf.readByte(); // 读取校验和
         byte end = buf.readByte();      // 读取结束符
         
         logger.info(
