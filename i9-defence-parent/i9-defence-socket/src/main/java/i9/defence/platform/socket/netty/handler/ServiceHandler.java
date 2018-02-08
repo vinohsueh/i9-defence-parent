@@ -35,9 +35,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
                 loginService.doPost(message, channelPacker);
             }
             else {
-                if (channelPacker == null) {
-                    throw new BusinessException(ErrorCode.UNAUTHORIZED);
-                }
+                channelPacker = new ChannelPacker(ctx.channel());
                 ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
                 ICoreService coreService = serviceMapping.getCoreService(message.getType());
                 coreService.doPost(message, channelPacker);
