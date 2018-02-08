@@ -26,7 +26,7 @@ public class MessageTest {
         byteBuffer.put(data);
         byte[] data0 = byteBuffer.array();
         
-        int len = data0.length * 10 + 1 + 1 + 1 + 4 + 2 + 6 + 1 + 1 + 4 + 1 + 1 + 1 + 1;
+        int len = data0.length * 10 + 1 + 1 + 1 + 4 + 2 + 6 + 1 + 1 + 4 + 1 + 2 + 1 + 1;
         ByteBuffer byteBuffer2 = ByteBuffer.allocate(len);
         byteBuffer2.put((byte) 0x40);
         byteBuffer2.put((byte) 0x10);
@@ -40,7 +40,7 @@ public class MessageTest {
         byteBuffer2.putInt(100);
         
         byteBuffer2.put((byte) 10);
-        byteBuffer2.put((byte) ((byte) data0.length * 10));
+        byteBuffer2.putShort((short) ((short) data0.length * 10));
         
         for (int i = 0; i < 10; i ++) {
             byteBuffer2.put(data0);
@@ -57,9 +57,8 @@ public class MessageTest {
         Socket socket = new Socket("127.0.0.1", 9000);
         while (true) {
             try {
-                
                 OutputStream outputStream = socket.getOutputStream();
-                outputStream.write(byteBuffer.array());
+                outputStream.write(data2);
                 outputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
