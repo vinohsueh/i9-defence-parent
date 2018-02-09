@@ -9,7 +9,20 @@ import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class DataMessage extends MessageDecodeConvert {
+
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("channel", this.channel);
+        jsonObject.put("type", this.type);
+        jsonObject.put("datetime", this.datetime);
+        jsonObject.put("len", this.len);
+        jsonObject.put("data", EncryptUtils.bytesToHexString(this.data));
+        return jsonObject;
+    }
 
     public byte channel;
     
