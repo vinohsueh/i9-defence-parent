@@ -11,7 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UplinkReqMessage extends MessageDecodeConvert {
+public class UpStreamReqMessage extends MessageDecodeConvert {
 
     public short systemType;// 系统类型(十六进制)
 
@@ -67,7 +67,7 @@ public class UplinkReqMessage extends MessageDecodeConvert {
                 this.systemType, this.systemId, this.source, this.loop, this.deviceAddress, this.unit, this.dataLen);
     }
 
-    private final static Logger logger = LoggerFactory.getLogger(UplinkReqMessage.class);
+    private final static Logger logger = LoggerFactory.getLogger(UpStreamReqMessage.class);
 
     @Override
     public byte[] getByteArray() {
