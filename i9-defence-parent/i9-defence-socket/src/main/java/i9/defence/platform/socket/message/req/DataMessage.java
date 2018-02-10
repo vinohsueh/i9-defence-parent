@@ -17,20 +17,20 @@ public class DataMessage extends MessageDecodeConvert {
     public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("channel", this.channel);
-        jsonObject.put("type", this.type);
+        jsonObject.put("dataType", this.dataType);
         jsonObject.put("datetime", this.datetime);
-        jsonObject.put("len", this.len);
+        jsonObject.put("dataLen", this.dataLen);
         jsonObject.put("data", EncryptUtils.bytesToHexString(this.data));
         return jsonObject;
     }
 
     public byte channel;
     
-    public short type;
+    public short dataType;
     
     public String datetime;
     
-    public byte len;
+    public byte dataLen;
     
     public byte[] data;
     
@@ -52,7 +52,7 @@ public class DataMessage extends MessageDecodeConvert {
             return true;
         }
         this.channel = buf.readByte();
-        this.type = buf.readShort();
+        this.dataType = buf.readShort();
         byte[] dst = new byte[6];
         buf.readBytes(dst);
         this.datetime  = String.format("%02d-%02d-%02d#%02d:%02d:%02d", dst[0], dst[1], dst[2], dst[3], dst[4], dst[5]);
@@ -62,11 +62,11 @@ public class DataMessage extends MessageDecodeConvert {
         this.H = dst[3];
         this.m = dst[4];
         this.S = dst[5];
-        this.len = buf.readByte();
-        if (buf.readableBytes() < this.len) {
+        this.dataLen = buf.readByte();
+        if (buf.readableBytes() < this.dataLen) {
             return true;
         }
-        this.data = new byte[this.len];
+        this.data = new byte[this.dataLen];
         buf.readBytes(this.data);
         return false;
     }
@@ -75,21 +75,21 @@ public class DataMessage extends MessageDecodeConvert {
 
     public void showInfo() {
         logger.info("解码, 设备通道 : {}, 数据类型 : {}, 产生时间 : {}, 数据长度 : {}, 数据 : {}", 
-                this.channel, this.type, this.datetime, this.len, EncryptUtils.bytesToHexString(this.data));
+                this.channel, this.dataType, this.datetime, this.dataLen, EncryptUtils.bytesToHexString(this.data));
     }
     
     @Override
     public byte[] getByteArray() {
         ByteBuffer byteBuffer = ByteBuffer.allocate(1 + 2 + 6 + 1 + this.data.length);
         byteBuffer.put(this.channel);
-        byteBuffer.putShort(this.type);
+        byteBuffer.putShort(this.dataType);
         byteBuffer.put(this.Y);
         byteBuffer.put(this.M);
         byteBuffer.put(this.D);
         byteBuffer.put(this.H);
         byteBuffer.put(this.m);
         byteBuffer.put(this.S);
-        byteBuffer.put(this.len);
+        byteBuffer.put(this.dataLen);
         byteBuffer.put(this.data);
         return byteBuffer.array();
     }
