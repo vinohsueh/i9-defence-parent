@@ -33,6 +33,7 @@ var applyNgControl=applyNgModule.controller('applyNgControl',function($rootScope
 			};
 		
 		httpService.post({url:'./apply/pageApply',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(data.data.data.pageList)
 			$scope.applys = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;

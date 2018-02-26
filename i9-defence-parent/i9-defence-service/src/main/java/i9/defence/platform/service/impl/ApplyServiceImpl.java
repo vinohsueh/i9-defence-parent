@@ -3,6 +3,7 @@ package i9.defence.platform.service.impl;
 import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
+import i9.defence.platform.model.ApplyExample.Criteria;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.service.ApplyService;
 import i9.defence.platform.service.EquipmentService;
@@ -42,13 +43,18 @@ public class ApplyServiceImpl implements ApplyService {
 		try { 
 			//获得当前登录用户
 			Manager manager = managerService.getLoginManager();
+			Criteria criteria = applyExample.createCriteria();
+			criteria.andConductorIdEqualTo(manager.getId());
+			if(null != state){
+				criteria.andStateEqualTo(state);
+			}
 			//创建一个当前登录人管理的列表集合
-			List<Apply> listLogin = new ArrayList<Apply>(); 
+			//List<Apply> listLogin = new ArrayList<Apply>(); 
 			//获得当前所有记录List集合
 			PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);
 			List<Apply> listAll =pageBounds.getPageList();
 			//把当前登录人所管理的列表全部放到listLogin集合中
-			for(Apply apply:listAll){
+			/*for(Apply apply:listAll){
 				if(null==state){
 					if(apply.getConductorId()!=null){	
 						if(manager.getId()==apply.getConductorId()){
@@ -64,8 +70,8 @@ public class ApplyServiceImpl implements ApplyService {
 						}
 					}
 				}
-			}
-			pageBounds.setPageList(listLogin); 
+			}*/
+			pageBounds.setPageList(listAll); 
 			return pageBounds;
 		} catch (Exception e) {
 	    	 throw new BusinessException("分页查询删除设备，项目申请表失败",e.getMessage());
