@@ -11,7 +11,28 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UplinkReqMessage extends MessageDecodeConvert {
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+public class UpStreamReqMessage extends MessageDecodeConvert {
+    
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("systemType", systemType);
+        jsonObject.put("systemId", systemId);
+        jsonObject.put("source", source);
+        jsonObject.put("loop", loop);
+        jsonObject.put("deviceAddress", deviceAddress);
+        jsonObject.put("unit", unit);
+        jsonObject.put("dataLen", dataLen);
+        JSONArray tmpList = new JSONArray();
+        for (DataMessage dataMessage : this.dataList) {
+            tmpList.add(dataMessage.toJSONObject());
+        }
+        jsonObject.put("dataList", tmpList);
+        return jsonObject;
+    }
 
     public short systemType;// 系统类型(十六进制)
 
@@ -27,9 +48,7 @@ public class UplinkReqMessage extends MessageDecodeConvert {
 
     public short dataLen;
 
-    public List<DataMessage> data = new ArrayList<DataMessage>();
-    
-    public byte type;
+    public List<DataMessage> dataList = new ArrayList<DataMessage>();
     
     @Override
     public boolean decode(ByteBuf buf) {
@@ -51,28 +70,28 @@ public class UplinkReqMessage extends MessageDecodeConvert {
         }
         this.unit = buf.readByte();
         this.dataLen = buf.readShort();
-        for (char c = 0; c < dataLen; c++) {
+        for (char c = 0; c < unit; c++) {
             DataMessage dataMessage = new DataMessage();
             boolean can = dataMessage.decode(buf);
             if (can) {
                 return true;
             }
-            this.data.add(dataMessage);
+            this.dataList.add(dataMessage);
         }
         return false;
     }
     
     public void showInfo() {
-        logger.info("解码, [系统类型 : {}, 系统编号 : {}, 来源使用情况 : {}, 回路 : {}, 设备地址 : {}, 数据单元数 : {}, 数据总长度 : {}]", 
+        logger.info("解码, 系统类型 : {}, 系统编号 : {}, 来源使用情况 : {}, 回路 : {}, 设备地址 : {}, 数据单元数 : {}, 数据总长度 : {}", 
                 this.systemType, this.systemId, this.source, this.loop, this.deviceAddress, this.unit, this.dataLen);
     }
 
-    private final static Logger logger = LoggerFactory.getLogger(UplinkReqMessage.class);
+    private final static Logger logger = LoggerFactory.getLogger(UpStreamReqMessage.class);
 
     @Override
     public byte[] getByteArray() {
         int len = 0;
-        for (DataMessage dataMessage : this.data) {
+        for (DataMessage dataMessage : this.dataList) {
             len += dataMessage.getByteArray().length;
         }
         ByteBuffer byteBuffer = ByteBuffer.allocate(2 + 1 + 4 + 1 + 1 + 6 + 2 + len);
@@ -87,7 +106,7 @@ public class UplinkReqMessage extends MessageDecodeConvert {
         byteBuffer.put(this.unit);
         byteBuffer.putShort(this.dataLen);
         
-        for (DataMessage dataMessage : this.data) {
+        for (DataMessage dataMessage : this.dataList) {
             byteBuffer.put(dataMessage.getByteArray());
         }
         return byteBuffer.array();

@@ -99,5 +99,10 @@
             <artifactId>bcprov-jdk16</artifactId>
             <version>1.45</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.44</version>
+        </dependency>
     </dependencies>
 </project>

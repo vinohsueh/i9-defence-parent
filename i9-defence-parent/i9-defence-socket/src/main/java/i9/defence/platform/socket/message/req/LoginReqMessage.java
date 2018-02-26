@@ -5,11 +5,21 @@ import java.nio.ByteBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+
 import i9.defence.platform.socket.message.MessageDecodeConvert;
 import i9.defence.platform.socket.util.EncryptUtils;
 import io.netty.buffer.ByteBuf;
 
 public class LoginReqMessage extends MessageDecodeConvert {
+
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("dataLen", dataLen);
+        jsonObject.put("data", EncryptUtils.bytesToHexString(this.data));
+        return jsonObject;
+    }
     
     public byte dataLen;
     

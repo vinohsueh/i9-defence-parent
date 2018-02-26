@@ -3,7 +3,7 @@ package i9.defence.platform.socket.netty.codec;
 import i9.defence.platform.socket.message.MessageDecodeConvert;
 import i9.defence.platform.socket.message.req.HeartbeatReqMessage;
 import i9.defence.platform.socket.message.req.LoginReqMessage;
-import i9.defence.platform.socket.message.req.UplinkReqMessage;
+import i9.defence.platform.socket.message.req.UpStreamReqMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.util.EncryptUtils;
 import io.netty.buffer.ByteBuf;
@@ -38,7 +38,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         } else if (type == 0xFF) {
             messageDecodeConvert = new HeartbeatReqMessage();
         } else {
-            messageDecodeConvert = new UplinkReqMessage();
+            messageDecodeConvert = new UpStreamReqMessage();
         }
         boolean canReset = messageDecodeConvert.decode(buf);
         if (canReset) {
