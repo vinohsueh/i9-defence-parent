@@ -31,7 +31,7 @@ var hiddendangerInfoNgControl=hiddendangerInfoNgModule.controller('hiddendangerI
 				//username : $scope.searchText
 			};
 		
-		httpService.post({url:'./hiddendangerInfo/pageHiddendangerInfo',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./hiddenDangerInfo/pageHiddenDangerInfo',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddendangerInfos = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;

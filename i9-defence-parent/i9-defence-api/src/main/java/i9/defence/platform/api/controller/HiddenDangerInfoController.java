@@ -1,7 +1,6 @@
 package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
-import i9.defence.platform.dao.vo.PageListDto;
 import i9.defence.platform.model.HiddenDangerInfo;
 import i9.defence.platform.model.HiddenDangerInfoExample;
 import i9.defence.platform.service.HiddenDangerInfoService;
@@ -39,10 +38,10 @@ public class HiddenDangerInfoController {
 	 */
  
 	@RequestMapping("/pageHiddenDangerInfo")
-	public HashMap<String, Object> pageHiddenDangerInfo(HiddenDangerInfoDto hiddenDangerInfoDto,PageListDto pageListDto){
+	public HashMap<String, Object> pageHiddenDangerInfo(@RequestBody HiddenDangerInfoDto hiddenDangerInfoDto){
 	HashMap<String, Object> result = new HashMap<String, Object>();
 		HiddenDangerInfoExample example = new HiddenDangerInfoExample();
-	PageBounds<HiddenDangerInfo> pageBounds = hiddenDangerInfoService.selectByLimitPage(example,pageListDto.getCurrentPage(),pageListDto.getPageSize());
+	PageBounds<HiddenDangerInfo> pageBounds = hiddenDangerInfoService.selectByLimitPage(example,hiddenDangerInfoDto.getCurrentPage(),hiddenDangerInfoDto.getPageSize());
 	result.put("data", pageBounds);
 	return result;
 	}
