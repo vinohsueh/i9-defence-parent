@@ -30,9 +30,9 @@ public class HiddenDangerServiceImpl implements HiddenDangerService {
 	public void addHiddenDanger(HiddenDanger hiddenDanger)
 			throws BusinessException {
 			try {
-				if(hiddenDanger.getId()!=null){
-					
-				}else{
+				if (hiddenDanger.getId()!=null) {
+					hiddenDangerDao.updateHiddenDanger(hiddenDanger); 
+				}else {
 					hiddenDangerDao.addHiddenDanger(hiddenDanger);
 				}
 			} catch (Exception e) {
@@ -49,9 +49,26 @@ public class HiddenDangerServiceImpl implements HiddenDangerService {
 		try {
 			return  hiddenDangerDao.selectByLimitPage(hiddenDangerDto,hiddenDangerDto.getCurrentPage(),hiddenDangerDto.getPageSize());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			  throw new BusinessException("分页查询隐患类型失败",e.getMessage());
 		}
+	}
+
+	/**
+	 * 根据id查询
+	 */
+	@Override
+	public HiddenDanger getHiddenDanger(int id) throws BusinessException {
+		try {
+			return hiddenDangerDao.getHiddenDanger(id);
+		} catch (Exception e) {
+			 throw new BusinessException("根据id查询隐患类型失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -80,4 +80,13 @@ public interface ProjectService {
      * @throws Exception
      */
     List<Integer> selectAllEquipmentIds(Integer projectId) throws BusinessException;
+    
+    /**
+     * 申请删除项目集合
+    * @Title: applyDelProject 
+    * @Description: TODO
+    * @param ids
+    * @throws BusinessException
+     */
+    public void  applyDelProject(List<Integer> ids) throws BusinessException;
 }

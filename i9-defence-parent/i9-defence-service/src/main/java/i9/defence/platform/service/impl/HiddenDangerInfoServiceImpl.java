@@ -1,8 +1,8 @@
 package i9.defence.platform.service.impl;
 
 import i9.defence.platform.dao.HiddenDangerInfoDao;
-import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
 import i9.defence.platform.model.HiddenDangerInfo;
+import i9.defence.platform.model.HiddenDangerInfoExample;
 import i9.defence.platform.service.HiddenDangerInfoService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
@@ -40,13 +40,28 @@ public class HiddenDangerInfoServiceImpl implements HiddenDangerInfoService {
 
 	@Override
 	public PageBounds<HiddenDangerInfo> selectByLimitPage(
-			HiddenDangerInfoDto hiddenDangerInfoInfoDto) throws BusinessException {
+			HiddenDangerInfoExample hiddenDangerInfoExample,int currectPage, int pageSize) throws BusinessException {
 		try {
-			return hiddenDangerInfoDao.selectByLimitPage(hiddenDangerInfoInfoDto,hiddenDangerInfoInfoDto.getCurrentPage(),hiddenDangerInfoInfoDto.getPageSize());
+			return hiddenDangerInfoDao.selectByLimitPage(hiddenDangerInfoExample,currectPage,pageSize);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new BusinessException("分页查询隐患类型具体信息失败",e.getMessage());
 		}
 	}
+	
+	/**
+	 * 根据id查询
+	 */
+	@Override
+	public HiddenDangerInfo selectById(int id) throws BusinessException {
+		try {
+			return hiddenDangerInfoDao.selectById(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new BusinessException("根据id查询查询隐患类型具体信息失败",e.getMessage());
+		} 
+	}
+
+ 
 
 }
