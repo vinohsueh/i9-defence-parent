@@ -63,9 +63,6 @@ public class ProjectDaoImpl implements ProjectDao{
 
 	@Override
 	public List<ProjectSelectDto> selectAllProjectName(ProjectSearchDto projectSearchDto) throws Exception {
-		/*ProjectExample example = new ProjectExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andDistributorIdEqualTo(1);*/
 		return projectMapper.selectAllProjectName(projectSearchDto);
 	}
 

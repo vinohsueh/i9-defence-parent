@@ -6,11 +6,12 @@
 		<li id="homeli" ng-class="{true:'active'}[tab=='role']" ng-click="changeTab('role')"><a href="" data-toggle="tab">
 				添加角色 </a></li>
 		<li ng-class="{true:'active'}[tab=='permission']" ng-click="changeTab('permission')"><a href="" data-toggle="tab">分配权限</a></li>
+		<li ng-class="{true:'active'}[tab=='page']" ng-click="changeTab('page')"><a href="" data-toggle="tab">分配页签</a></li>
 	</ul>
 </div>
 <div class="modal-body">
 	<div id="myTabContent" class="tab-content">
-		<div ng-if="tab=='role'">
+		<div ng-show="tab=='role'">
 			<form class="form-horizontal" role="form">
 				<div class="form-group">
 					<label class="col-md-2 control-label"><span
@@ -37,17 +38,28 @@
 				</div>
 			</form>
 		</div>
-		<div ng-if="tab=='permission'">
+		<div ng-show="tab=='permission'">
 			<form role="form" name="form" class="form-horizontal">
 				<div class="form-group">
 				    <div class="col-sm-4" style="margin-bottom: 10px;" ng-repeat="permission in permissions">
 				      <label class="i-checks m-b-none" id="checkLabel">
-		                <input type="checkbox" class="ckbox" data-id="{{permission.id}}" ng-checked="permission.checked"><i></i>{{permission.name}}
+		                <input type="checkbox" class="ckbox" ng-value="{{permission.id}}" ng-checked="permission.checked"><i></i>{{permission.name}}
 		              </label>
 		            </div>
 				</div>
 			</form>
 		</div>
+		<div ng-show="tab=='page'">
+            <form role="form" name="form" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-4" style="margin-bottom: 10px;" ng-repeat="page in pages">
+                      <label class="i-checks m-b-none" id="checkLabel">
+                        <input type="checkbox" class="cp" ng-value="{{page.id}}" ng-checked="page.checked"><i></i>{{page.name}}
+                      </label>
+                    </div>
+                </div>
+            </form>
+        </div>
 	</div>
 </div>
 <div class="modal-footer">

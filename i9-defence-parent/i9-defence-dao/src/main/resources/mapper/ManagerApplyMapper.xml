@@ -18,6 +18,7 @@
     <result column="projectId" property="projectId" jdbcType="INTEGER" />
     <result column="operaterId" jdbcType="INTEGER" property="operaterId" />
     <result column="roleName" jdbcType="VARCHAR" property="roleName" />
+    <association property="projectName" column="projectId" javaType="string" select="selectProjNameById"></association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,6 +77,16 @@
         </if>
       </foreach>
     </where>
+  </sql>
+  <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.type != null">
+            and type = #{example.type}
+        </if>
+        <if test="example.distributorId != null">
+            and projectId in (select id from t_project where distributorId = #{example.distributorId})
+        </if>
+    </trim>
   </sql>
   <sql id="Base_Column_List" >
      id, username, password, email, phone, createTime, name, type, area, address, securitier, 
@@ -234,7 +245,7 @@
   <select id="countByExample" parameterType="i9.defence.platform.model.ManagerApplyExample" resultType="java.lang.Integer" >
     select count(*) from t_manager_apply
     <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
+      <include refid="Query_By_Dto_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
@@ -404,7 +415,7 @@
   <select id="selectByLimitPage" resultMap="BaseResultMap">
       select <include refid="Base_Column_List" /> from t_manager_apply 
       <if test="_parameter != null" >
-        <include refid="Update_By_Example_Where_Clause" />
+        <include refid="Query_By_Dto_Where_Clause" />
       </if>
       <if test="example.orderByClause != null" >
         order by ${example.orderByClause}
@@ -417,5 +428,8 @@
       <foreach collection="list" item="item" separator="," open="(" close=")">
         #{item}
       </foreach>
+  </select>
+  <select id="selectProjNameById" parameterType="int" resultType="string">
+    select projectName from t_project where id = #{id}
   </select>
 </mapper>

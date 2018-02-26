@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +35,7 @@ public class ClientController {
     /*
      *分页查询
      */
+    @RequiresPermissions("client_list")
     @RequestMapping("/pageClient")
     public HashMap<String, Object> pageManager(@RequestBody ClientSearchDto clientSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -44,6 +46,7 @@ public class ClientController {
     /*
      * 添加或者更新
      */
+    @RequiresPermissions("client_add")
      @RequestMapping("/updateAndAdd")
      public HashMap<String, Object> updateAndAdd(@Valid @RequestBody Client client,BindingResult bindingResult) {
          HashMap<String, Object> result = new HashMap<String, Object>();
@@ -53,6 +56,7 @@ public class ClientController {
      /**
       * 删除
       */
+    @RequiresPermissions("client_del")
       @RequestMapping("/deleteBatch")
       public HashMap<String, Object> deleteBatch(@RequestBody List<Integer> ids) {
           HashMap<String, Object> result = new HashMap<String, Object>();
@@ -62,6 +66,7 @@ public class ClientController {
       /**
       * id查找
       */
+      @RequiresPermissions("client_list")
      @RequestMapping("/getClientById")
      public HashMap<String, Object> getClientById(@RequestBody Integer id) {
          HashMap<String, Object> result = new HashMap<String, Object>();

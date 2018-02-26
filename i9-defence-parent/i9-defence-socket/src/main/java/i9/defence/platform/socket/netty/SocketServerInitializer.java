@@ -13,9 +13,13 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast("idleStateHandler", new IdleStateHandler(3600, 3600, 3600));
-        pipeline.addLast("crcDecoder", new MessageDecoder());
-        pipeline.addLast("transferServerHandler", new ServiceHandler());
-        pipeline.addLast("crcEncoder", new MessageEncoder());
+        pipeline.addLast(new IdleStateHandler(3600, 3600, 3600));
+//        ByteBuf delimiter = Unpooled.copiedBuffer("#".getBytes());
+//        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
+        // 字符串解码 和 编码
+        pipeline.addLast("decoder", new MessageDecoder());
+        pipeline.addLast("encoder", new MessageEncoder());
+        // 自己的逻辑Handler
+        pipeline.addLast("handler", new ServiceHandler());
     }
 }

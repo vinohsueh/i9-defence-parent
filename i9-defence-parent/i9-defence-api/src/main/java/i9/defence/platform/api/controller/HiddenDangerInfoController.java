@@ -1,5 +1,6 @@
 package i9.defence.platform.api.controller;
 
+import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
 import i9.defence.platform.dao.vo.PageListDto;
 import i9.defence.platform.model.HiddenDangerInfo;
 import i9.defence.platform.model.HiddenDangerInfoExample;
@@ -9,10 +10,9 @@ import i9.defence.platform.utils.PageBounds;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 隐患提醒类型具体信息Controller
@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author: luobo
  * @date: 2018年1月10日 下午5:04:09
  */
-@Controller
-@RequestMapping("/hiddendangerInfo")
+@RestController
+@RequestMapping("/hiddenDangerInfo")
 public class HiddenDangerInfoController {
 
 	@Autowired 
@@ -37,9 +37,9 @@ public class HiddenDangerInfoController {
 	* @return:HashMap<String,Object> 
 	* throws
 	 */
-	@ResponseBody
-	@RequestMapping("/pageHiddendangerInfo")
-	public HashMap<String, Object> pageHiddenDangerInfo(@RequestBody PageListDto pageListDto){
+ 
+	@RequestMapping("/pageHiddenDangerInfo")
+	public HashMap<String, Object> pageHiddenDangerInfo(HiddenDangerInfoDto hiddenDangerInfoDto,PageListDto pageListDto){
 	HashMap<String, Object> result = new HashMap<String, Object>();
 		HiddenDangerInfoExample example = new HiddenDangerInfoExample();
 	PageBounds<HiddenDangerInfo> pageBounds = hiddenDangerInfoService.selectByLimitPage(example,pageListDto.getCurrentPage(),pageListDto.getPageSize());

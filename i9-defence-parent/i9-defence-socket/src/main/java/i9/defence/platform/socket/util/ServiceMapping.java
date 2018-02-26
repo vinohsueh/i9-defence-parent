@@ -3,7 +3,7 @@ package i9.defence.platform.socket.util;
 import i9.defence.platform.socket.service.ICoreService;
 import i9.defence.platform.socket.service.impl.HeartbeatService;
 import i9.defence.platform.socket.service.impl.LoginService;
-import i9.defence.platform.socket.service.impl.PostDataService;
+import i9.defence.platform.socket.service.impl.UpStreamService;
 
 import java.util.HashMap;
 
@@ -18,17 +18,17 @@ public class ServiceMapping {
     
     public static final byte LOGIN_EVENT = 0x00;
     
-    public static final byte POST_DATA_EVENT_0 = 0x01;
+    public static final byte UPSTREAM_EVENT_0 = 0x01;
 
-    public static final byte POST_DATA_EVENT_1 = 0x03;
+    public static final byte UPSTREAM_EVENT_1 = 0x03;
 
     public static final byte HEARTBEAT_EVENT = (byte) 0xFF;
 
     @PostConstruct
     public void init() {
         dataMap.put((byte) LOGIN_EVENT, LoginService.class);
-        dataMap.put((byte) POST_DATA_EVENT_0, PostDataService.class);
-        dataMap.put((byte) POST_DATA_EVENT_1, PostDataService.class);
+        dataMap.put((byte) UPSTREAM_EVENT_0, UpStreamService.class);
+        dataMap.put((byte) UPSTREAM_EVENT_1, UpStreamService.class);
         dataMap.put((byte) HEARTBEAT_EVENT, HeartbeatService.class);
     }
     

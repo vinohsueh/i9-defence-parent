@@ -1,6 +1,7 @@
 package i9.defence.platform.dao.mapper;
 
 import i9.defence.platform.dao.vo.ApplyRefuseDto;
+import i9.defence.platform.dao.vo.ManagerApplyDto;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.ManagerApplyExample;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ManagerApplyMapper {
-    int countByExample(@Param("example") ManagerApplyExample example);
+    int countByExample(@Param("example") ManagerApplyDto example);
 
     int deleteByExample(ManagerApplyExample example);
 
@@ -31,7 +32,7 @@ public interface ManagerApplyMapper {
 
     int updateByPrimaryKey(ManagerApply record);
     
-    List<ManagerApply> selectByLimitPage(@Param("example") ManagerApplyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
+    List<ManagerApply> selectByLimitPage(@Param("example") ManagerApplyDto example, @Param("offset") int offset, @Param("limit") int pageSize);
 
     List<ManagerApply> selectApplysByIds(List<Integer> ids);
 

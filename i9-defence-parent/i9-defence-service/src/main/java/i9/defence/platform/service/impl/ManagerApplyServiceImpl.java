@@ -2,14 +2,17 @@ package i9.defence.platform.service.impl;
 
 import i9.defence.platform.dao.ManagerApplyDao;
 import i9.defence.platform.dao.ManagerDao;
+import i9.defence.platform.dao.ProjectDao;
 import i9.defence.platform.dao.vo.ApplyRefuseDto;
+import i9.defence.platform.dao.vo.ManagerApplyDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
-import i9.defence.platform.model.ManagerApplyExample;
+import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ManagerApplyService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.ShareCodeUtil;
 import i9.defence.platform.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,18 +56,25 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
     @Autowired
     private ManagerDao managerDao;
     
+    @Autowired
+    private ProjectDao projectDao;
+    
     @Override
     public void addManagerApply(ManagerApply managerApply)
             throws BusinessException {
         if (!managerApply.getConfirmPwd().equals(managerApply.getPassword())){
             throw new BusinessException("前后密码不一致!");
         }
+        //判断用户注册申请的角色
         if (Arrays.asList(Constants.S_AGENCY).contains(managerApply.getRoleName())){
             managerApply.setType(S_AGENCY);
         } else if(Arrays.asList(Constants.S_PROJ_MANAGER).contains(managerApply.getRoleName())){
             managerApply.setType(S_PROJ_MANAGER);
         } else {
             throw new BusinessException("用户权限错误,请选择正确的权限");
+        }
+        if (2 == managerApply.getType() && StringUtils.isBlank(managerApply.getShareCode())){
+            throw new BusinessException("请输入邀请码");
         }
         try {
             Manager existManager = managerDao.getManagerByUsername(managerApply.getUsername());
@@ -73,6 +84,15 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
             }
             managerApply.setCreateTime(new Date());
             managerApply.setPassword(StringUtil.MD5(managerApply.getPassword()));
+            //如果用户申请的是项目管理人员等 需要输入邀请码
+            if (2 == managerApply.getType()){
+                Long projectId = ShareCodeUtil.codeToId(managerApply.getShareCode());
+                Project project = projectDao.getProjectById(projectId.intValue());
+                if (project == null) {
+                    throw new BusinessException("邀请码错误!");
+                }
+                managerApply.setProjectId(projectId.intValue());
+            }
             managerApplyDao.addManagerApply(managerApply);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorMessage());
@@ -111,10 +131,10 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
 
     @Override
     public PageBounds<ManagerApply> selectByLimitPage(
-            ManagerApplyExample managerApplyExample, int currectPage,
+            ManagerApplyDto managerApplyDto, int currectPage,
             int pageSize) throws BusinessException {
         try {
-            return managerApplyDao.selectByLimitPage(managerApplyExample, currectPage, pageSize);
+            return managerApplyDao.selectByLimitPage(managerApplyDto, currectPage, pageSize);
         } catch (Exception e) {
             throw new BusinessException("分页查询账户申请失败",e.getMessage());
         }

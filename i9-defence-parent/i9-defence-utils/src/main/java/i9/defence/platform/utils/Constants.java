@@ -29,6 +29,11 @@ public class Constants {
     public static final String S_LOGIN_URL = "/login";
     
     /**
+     * 登录页面url
+     */
+    public static final String S_LOGIN_PAGE = "/login.html";
+    
+    /**
      * 注册url
      */
     public static final String S_REGIST_URL = "/regist";

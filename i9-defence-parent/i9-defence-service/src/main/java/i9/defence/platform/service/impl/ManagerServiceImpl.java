@@ -1,17 +1,21 @@
 package i9.defence.platform.service.impl;
 
+import i9.defence.platform.dao.ManagerApplyDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.RoleDao;
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.StringUtil;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,11 +39,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class ManagerServiceImpl implements ManagerService{
-
+    /**
+     * 项目管理员byte
+     */
+    private static final Byte  S_PROJ_MANAGER =(byte)2;
     @Autowired
     private ManagerDao managerDao;
     @Autowired
     private RoleDao roleDao;
+    @Autowired
+    private ManagerApplyDao managerApplyDao;
     @Override
     public void addNetManager(Manager manager) throws BusinessException {
         if (!manager.getConfirmPwd().equals(manager.getPassword())){
@@ -192,11 +201,106 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
     @Override
-    public List<Manager> selectAllAgency() throws BusinessException {
+    public List<Manager> selectAllAgency(Integer partentId) throws BusinessException {
         try {
-            return managerDao.selectAllAgency();
+            return managerDao.selectAllAgency(partentId);
         } catch (Exception e) {
-            throw new BusinessException("查询经销商列表失败",e.getMessage());
+            throw new BusinessException("查询无建立默认或者已经建立关系并且自己为一级经销商列表失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Manager> selectPartAgency() throws BusinessException {
+        try {
+            return managerDao.selectPartAgency();
+        } catch (Exception e) {
+            throw new BusinessException("查询无分配无建立关系的等待被分配的经销商列表失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void insertManagerGrade(List<Integer> managerIdS, Integer parentId) throws BusinessException {
+        try{
+            managerDao.insertManagerGrade(managerIdS,parentId);
+        }catch (Exception e){
+            throw new BusinessException("往经销商关系表中增加关系分配二级三级经销商失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Manager> selectAagency() throws BusinessException {
+        try{
+            return managerDao.selectAagency();
+        }catch (Exception e){
+            throw new BusinessException("查询已经建立关系的一级经销商们失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Manager> selectBagency(Integer agencyId) throws BusinessException {
+        try{
+            return managerDao.selectBagency(agencyId);
+        }catch (Exception e){
+            throw new BusinessException("查询已经建立关系的二级经销商们失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateBagency(Integer agencyId, Integer newParentId) throws BusinessException {
+        try{
+            managerDao.updateBagency(agencyId,newParentId);
+        }catch (Exception e){
+            throw new BusinessException("把此二级经销商的parentId 修改为新一级经销商ID失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateCagency(List<Integer> managerIds, Integer newParentId) throws BusinessException {
+        try{
+            managerDao.updateCagency(managerIds,newParentId);
+        }catch (Exception e){
+            throw new BusinessException("把此二级经销商下的全部下属三级经销商的parentId修改为新的二级经销商ID失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteAgencyById(Integer managerId, Integer parentId) throws BusinessException {
+        try{
+            managerDao.deleteAgencyById(managerId,parentId);
+        }catch (Exception e){
+            throw new BusinessException("撤销（删除）一级下的二级或者二级下的三级,右侧---->左侧失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void addProjectManager(Manager manager) throws BusinessException {
+        if (!manager.getConfirmPwd().equals(manager.getPassword())){
+            throw new BusinessException("前后密码不一致!");
+        }
+        if (manager.getProjectId() == null){
+            throw new BusinessException("请选择项目!");
+        }
+        //判断用户注册申请的角色
+        if(Arrays.asList(Constants.S_PROJ_MANAGER).contains(manager.getRole().getName())){
+            manager.setType(S_PROJ_MANAGER);
+        } else {
+            throw new BusinessException("用户权限错误,请选择正确的权限");
+        }
+        try {
+            Manager existManager = managerDao.getManagerByUsername(manager.getUsername());
+            ManagerApply existManagerApply = managerApplyDao.getUnRefusedManagerApplyByUsername(manager.getUsername());
+            if (existManager != null || existManagerApply != null){
+                throw new BusinessException("用户名已存在!");
+            }
+            manager.setCreateTime(new Date());
+            manager.setPassword(StringUtil.MD5(manager.getPassword()));
+            managerDao.addManager(manager);
+            //添加角色
+            managerDao.addBatchManagerRole(Arrays.asList(manager));
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
+        } catch (Exception e1) {
+            throw new BusinessException("添加账户申请失败",e1.getMessage());
         }
     }
 

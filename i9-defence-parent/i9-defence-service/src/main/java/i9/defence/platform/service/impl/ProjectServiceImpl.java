@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.ProjectDao;
@@ -25,6 +26,7 @@ import i9.defence.platform.utils.PageBounds;
  * @create 2018年1月8日
  */
 @Service
+@Transactional
 public class ProjectServiceImpl implements ProjectService{
 
 	@Autowired

@@ -1,8 +1,10 @@
 package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.PageListDto;
+import i9.defence.platform.model.PageUrl;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.model.RoleExample;
+import i9.defence.platform.service.PageUrlService;
 import i9.defence.platform.service.RoleService;
 import i9.defence.platform.utils.PageBounds;
 
@@ -11,6 +13,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  */
 @RestController
+@RequiresPermissions("role_crud")
 @RequestMapping("role")
 public class RoleController {
     @Autowired
     private RoleService roleService;
-    
+    @Autowired
+    private PageUrlService pageUrlService;
     
     /**
      * 分页查询角色
@@ -68,6 +73,8 @@ public class RoleController {
     public HashMap<String, Object> getRole(@RequestBody Integer roleId) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Role role = roleService.getRoleById(roleId);
+        List<PageUrl> pagesList = pageUrlService.getPageByRoleId(role.getId());
+        result.put("pages", pagesList);
         result.put("data",role);
         return result;
     }

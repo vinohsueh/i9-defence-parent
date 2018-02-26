@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  */
 @RestController
+@RequiresPermissions("net_manager_crud")
 @RequestMapping("manager")
 public class ManagerController {
     @Autowired
@@ -55,7 +56,6 @@ public class ManagerController {
     * @param manager
     * @return
     */
-    @RequiresPermissions("addNetManager")
     @RequestMapping("/addNetManager")
     public HashMap<String, Object> addNetManager(@Valid @RequestBody Manager manager,BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -82,7 +82,6 @@ public class ManagerController {
     * @param ids
     * @return
     */
-    @RequiresPermissions("delNetManager")
     @RequestMapping("/delManager")
     public HashMap<String, Object> delManager(@Valid @NotEmpty(message = "请至少选择一个") @RequestBody List<Integer> ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();

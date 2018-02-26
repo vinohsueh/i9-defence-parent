@@ -55,6 +55,12 @@
         <if test="example.projectAddress != null and example.projectAddress != ''">
           OR projectAddress LIKE CONCAT('%',CONCAT('${example.projectAddress}','%')))
         </if>
+        <if test="example.distributorId != null and example.distributorId != ''">
+          AND distributorId = #{example.distributorId}
+        </if>
+        <if test="example.projectManagerId != null and example.projectManagerId != ''">
+          AND dutyManId = #{example.projectManagerId}
+        </if>
     </trim>
   </sql>
   <sql id="Update_By_Example_Where_Clause">

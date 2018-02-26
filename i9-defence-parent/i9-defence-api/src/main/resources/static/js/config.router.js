@@ -42,7 +42,7 @@ angular.module('app')
                   }
               })  
               .state('app.client', {
-                  url: '/app.client',
+                  url: '/client',
                   templateUrl: 'proj/client/client.html',
               	  controller : "clientControl",
               	  resolve: { 
@@ -121,6 +121,24 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/eqCategory/eqCategory.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.pageUrl', {
+                  url: '/pageUrl',
+                  templateUrl: '/proj/page/page.html',
+              	  controller : "pageUrlNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'pageUrlNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				         'proj/page/page.js',
+            				         'css/child.css',
             				]
             			})
                     }]

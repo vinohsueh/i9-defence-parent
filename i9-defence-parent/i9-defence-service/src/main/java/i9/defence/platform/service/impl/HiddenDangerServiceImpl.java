@@ -9,6 +9,7 @@ import i9.defence.platform.utils.PageBounds;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 隐患类型提醒ServiceImpl
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 *
  */
 @Service
+@Transactional
 public class HiddenDangerServiceImpl implements HiddenDangerService {
 	
 	@Autowired

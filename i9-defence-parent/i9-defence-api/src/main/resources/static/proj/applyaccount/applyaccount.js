@@ -177,5 +177,5 @@ var applyAccountNgControl=applyAccountNgModule.controller('applyAccountNgControl
             });
     		
     	})
-    }
+    };
 })

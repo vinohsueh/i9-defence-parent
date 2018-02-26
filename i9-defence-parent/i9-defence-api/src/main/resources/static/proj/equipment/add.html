@@ -54,13 +54,22 @@
 						<option ng-repeat='i in equCategorys' value="{{i.id}}">{{i.eqCategoryName}}</option>
 					</select>
 	          	</div>
+           </div>
+           <div class="form-group">
+				<label class="col-md-2 control-label"><span class="required">*</span>所属项目</label>
+	            	<div class="col-md-8">
+	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='equipment.equipmentCategoryId'>
+	            		<option value=""> ----请选择---- </option>
+						<option ng-repeat='i in equCategorys' value="{{i.id}}">{{i.eqCategoryName}}</option>
+					</select>
+	          	</div>
           </div>
-		<div class="form-group" style="display: none;">
-            <label class="col-md-2 control-label">id</label>
-            <div class="col-md-8">
-                <input type="text" class="form-control" id="id" ng-model="equipment.id" placeholder="">
-            </div>
-        </div>
+		  <div class="form-group" style="display: none;">
+               <label class="col-md-2 control-label">id</label>
+                    <div class="col-md-8">
+                		<input type="text" class="form-control" id="id" ng-model="equipment.id" placeholder="">
+            		</div>
+          </div>
 	</form>
 </div>
 <div class="modal-footer">

@@ -1,8 +1,15 @@
 package i9.defence.platform.socket.util;
 
-
 public class EncryptUtils {
 
+    public static byte[] intToByteArray(int a) {
+        return new byte[] {
+                (byte) ((a >> 24) & 0xFF),
+                (byte) ((a >> 16) & 0xFF),
+                (byte) ((a >> 8) & 0xFF),
+                (byte) (a & 0xFF)};
+    }
+    
     public static byte[] SumCheck(byte[] buf) {
         int length = 8;
         long sum = 0;

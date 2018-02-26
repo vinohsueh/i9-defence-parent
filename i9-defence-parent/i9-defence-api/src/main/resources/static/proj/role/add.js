@@ -3,7 +3,7 @@ var roleEditNgModule = angular.module('roleEditNgModule', [ 'ngResource',
 
 var roleEditCtrl = roleEditNgModule.controller('roleEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		role,httpService) {
+		role,httpService,pageIds) {
 	
 	$scope.role = role;
 	$scope.closeBtn = function() {
@@ -20,10 +20,19 @@ var roleEditCtrl = roleEditNgModule.controller('roleEditCtrl', function($scope,
 		$scope.permissionArray = [];
     	angular.forEach(angular.element.find(".ckbox"), function(dom){
     		if(angular.element(dom).prop("checked") == true){
-    			$scope.permissionArray.push(angular.element(dom).attr("data-id"))
+    			$scope.permissionArray.push($(dom).val())
     		}
 		});
+    	
+    	var aIds = [];
+		$(".cp").each(function(){
+			if($(this)[0].checked == true){
+				aIds.push($(this).val())
+			}
+		})
+    	
     	$scope.role.permissionIds = $scope.permissionArray;
+		$scope.role.pageIds = aIds;
 		if ($scope.role.name == null ||$scope.role.name == 0) {
 			$.toaster({
 				title : "Error",
@@ -40,13 +49,21 @@ var roleEditCtrl = roleEditNgModule.controller('roleEditCtrl', function($scope,
 			});
 			return false;
 		}
-		console.log($scope.role)
 		httpService.post({url:'./role/addRole',data:$scope.role,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})
 	};
 	
-	
+	httpService.post({url:'./page/getAllPages',showSuccessMsg:false}).then(function(data) {  
+		$scope.pages = data.data.urls;
+		for(var i=0;i<$scope.pages.length;i++){
+			if($.inArray($scope.pages[i].id, pageIds)>-1){
+				$scope.pages[i].checked = true;
+			}else{
+				$scope.pages[i].checked = false;
+			}
+		}
+	})
 	httpService.post({url:'./permission/getAll',showSuccessMsg:false}).then(function(data) {  
 		var permissionIds = [];
 		if (role.id != null) {

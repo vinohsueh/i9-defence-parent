@@ -111,6 +111,26 @@ public class ManagerApply {
     @NotBlank(message="权限不能为空")
     private String roleName;
     
+    private String shareCode;
+    
+    private String projectName;
+    
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getShareCode() {
+        return shareCode;
+    }
+
+    public void setShareCode(String shareCode) {
+        this.shareCode = shareCode;
+    }
+
     public Integer getId() {
         return id;
     }

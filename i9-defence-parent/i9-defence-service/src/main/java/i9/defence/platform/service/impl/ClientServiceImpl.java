@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.ClientDao;
 import i9.defence.platform.dao.vo.ClientSearchDto;
@@ -19,6 +20,7 @@ import i9.defence.platform.utils.PageBounds;
 * 客户service实现类
 */
 @Service
+@Transactional
 public class ClientServiceImpl implements ClientService{
 
     @Autowired

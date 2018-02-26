@@ -1,16 +1,17 @@
 package i9.defence.platform.dao.impl;
 
+import i9.defence.platform.dao.ManagerApplyDao;
+import i9.defence.platform.dao.mapper.ManagerApplyMapper;
+import i9.defence.platform.dao.vo.ApplyRefuseDto;
+import i9.defence.platform.dao.vo.ManagerApplyDto;
+import i9.defence.platform.model.ManagerApply;
+import i9.defence.platform.model.ManagerApplyExample;
+import i9.defence.platform.utils.PageBounds;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import i9.defence.platform.dao.ManagerApplyDao;
-import i9.defence.platform.dao.mapper.ManagerApplyMapper;
-import i9.defence.platform.dao.vo.ApplyRefuseDto;
-import i9.defence.platform.model.ManagerApply;
-import i9.defence.platform.model.ManagerApplyExample;
-import i9.defence.platform.utils.PageBounds;
 
 /** 
  * 创建时间：2018年1月11日 下午4:48:59
@@ -51,11 +52,11 @@ public class ManagerApplyDaoImpl implements ManagerApplyDao{
 
     @Override
     public PageBounds<ManagerApply> selectByLimitPage(
-            ManagerApplyExample managerApplyExample, int currectPage,
+            ManagerApplyDto managerApplyDto, int currectPage,
             int pageSize) throws Exception {
-        final int totalSize = managerApplyMapper.countByExample(managerApplyExample);
+        final int totalSize = managerApplyMapper.countByExample(managerApplyDto);
         PageBounds<ManagerApply> pageBounds = new PageBounds<ManagerApply>(currectPage, totalSize, pageSize);
-        List<ManagerApply> list = managerApplyMapper.selectByLimitPage(managerApplyExample, pageBounds.getOffset(), pageBounds.getPageSize());
+        List<ManagerApply> list = managerApplyMapper.selectByLimitPage(managerApplyDto, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
         return pageBounds;
     }
