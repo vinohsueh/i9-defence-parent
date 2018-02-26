@@ -68,7 +68,7 @@
   </sql>
     <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-    
+    	
     </trim>
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.HiddenDangerExample" resultMap="BaseResultMap">

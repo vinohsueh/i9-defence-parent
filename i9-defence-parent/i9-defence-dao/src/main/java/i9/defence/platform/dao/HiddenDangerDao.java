@@ -2,6 +2,7 @@ package i9.defence.platform.dao;
 
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.HiddenDanger;
+import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -30,5 +31,23 @@ public interface HiddenDangerDao {
 	 */
 	PageBounds<HiddenDanger> selectByLimitPage(HiddenDangerDto hiddenDangerDto,
 			 int currectPage, int pageSize)throws Exception;
+	/**
+	 * 根据id查询
+	* @Title: getHiddenDanger 
+	* @Description: TODO
+	* @param id
+	* @return HiddenDanger
+	* @throws BusinessException
+	 */
+	HiddenDanger getHiddenDanger(int id)throws Exception; 
+	
+	/**
+	* 更新
+	* @Title: hiddenDanger 
+	* @Description: TODO
+	* @param hiddenDanger
+	* @throws Exception
+	 */
+	void  updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception;
 	
 }

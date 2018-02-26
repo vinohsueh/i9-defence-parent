@@ -9,8 +9,19 @@ public class PageListDto {
     private int pageSize;
     
     private int currentPage;
+    
+    private Integer state;
 
-    public int getPageSize() {
+    
+    public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public int getPageSize() {
         return pageSize;
     }
 

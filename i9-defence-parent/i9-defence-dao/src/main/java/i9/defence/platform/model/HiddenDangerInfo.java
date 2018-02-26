@@ -20,6 +20,11 @@ public class HiddenDangerInfo {
      * 隐患名称ID
      */
     private Integer hid;
+    
+    /**
+     * 隐患名称（一对一关系）
+     */
+    private HiddenDanger hiddenDanger;
 
     /**
      * 电压/电流：最高/最低值
@@ -41,10 +46,7 @@ public class HiddenDangerInfo {
      */
     private String value;
     
-    /**
-     * 隐患名称（一对一关系）
-     */
-    private HiddenDanger hiddenDanger;
+
     
     public Integer getId() {
         return id;

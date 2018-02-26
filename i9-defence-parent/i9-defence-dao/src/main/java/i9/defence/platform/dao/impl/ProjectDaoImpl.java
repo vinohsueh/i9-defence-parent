@@ -11,6 +11,7 @@ import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.model.ProjectExample;
+import i9.defence.platform.model.ProjectExample.Criteria;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -76,6 +77,14 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public List<Integer> selectAllEquipmentIds(Integer projectId) throws Exception {
 		return projectMapper.selectAllEquipmentIds(projectId);
+	}
+
+	@Override
+	public List<Project> getProjectByIds(List<Integer> ids) throws Exception {
+		ProjectExample example = new ProjectExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdIn(ids);
+		return projectMapper.selectByExample(example);
 	}
 
 }

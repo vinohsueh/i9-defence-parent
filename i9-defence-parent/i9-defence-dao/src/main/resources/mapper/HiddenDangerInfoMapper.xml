@@ -74,7 +74,12 @@
   </sql>
    <sql id="Query_By_Dto_Where_Clause">
 	  <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-	  
+		  	<if test="example.name != null and example.name != ''">
+	            OR (name LIKE CONCAT(CONCAT('%','${example.name}'),'%' )
+	        </if>
+	        <if test="example.value != null and example.value != ''">
+	            OR value LIKE CONCAT(CONCAT('%','${example.value}'),'%' )
+	        </if>
 	  </trim>
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.HiddenDangerInfoExample" resultMap="BaseResultMap">
@@ -167,7 +172,7 @@
   <select id="countByExample" parameterType="i9.defence.platform.model.HiddenDangerInfoExample" resultType="java.lang.Integer">
     select count(*) from t_hidden_dangerinfo
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Update_By_Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -249,7 +254,7 @@
       <select id="selectByLimitPage" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from t_hidden_dangerinfo 
         <if test="_parameter != null" >
-          <include refid="Query_By_Dto_Where_Clause" />
+          <include refid="Update_By_Example_Where_Clause" />
         </if>
         <if test="example.orderByClause != null" >
           order by ${example.orderByClause}
