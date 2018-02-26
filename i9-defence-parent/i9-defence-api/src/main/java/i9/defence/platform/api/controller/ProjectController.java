@@ -7,6 +7,7 @@ import i9.defence.platform.utils.PageBounds;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -88,6 +89,13 @@ public class ProjectController {
             @Valid @NotEmpty(message = "项目IDS不能为空") @RequestBody Integer[] ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         projectService.deleteProject(Arrays.asList(ids));
+        return result;
+    }
+    
+    @RequestMapping("/applyDelProject")
+    public HashMap<String, Object> applyDelProject(@RequestBody List<Integer> ids){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        projectService.applyDelProject(ids);
         return result;
     }
 }

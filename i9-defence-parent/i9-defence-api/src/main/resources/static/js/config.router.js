@@ -58,6 +58,23 @@ angular.module('app')
                     }]
                   }
               }) 
+            .state('app.apply', {
+                  url: '/apply',
+                  templateUrl: 'proj/apply/apply.html',
+              	  controller : "applyNgControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'applyNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/apply/apply.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
               .state('app.manager', {
                   url: '/manager',
                   templateUrl: 'proj/manager/manager.html',
@@ -143,6 +160,45 @@ angular.module('app')
                     }]
                   }
               })
+            .state('app.hiddendanger', {
+			      url: '/hiddendanger',
+			      templateUrl: 'proj/hiddendanger/hiddendanger.html',
+			  	  controller : "hiddendangerNgControl",
+			      resolve: {
+			        deps: ['$ocLazyLoad',
+			          function( $ocLazyLoad ){
+			        	return $ocLazyLoad.load({
+							name : 'hiddendangerNgModule',
+							insertBefore : '#ng_load_plugins_before',
+							files : [
+							    'proj/hiddendanger/hiddendanger.js',
+							]
+	        			})
+	                }]
+	              }
+	          })
+	         
+	                .state('app.hiddendangerInfo', {
+			      url: '/hiddendangerInfo',
+			      templateUrl: 'proj/hiddendangerInfo/hiddendangerInfo.html',
+			  	  controller : "hiddendangerInfoNgControl",
+			      resolve: {
+			        deps: ['$ocLazyLoad',
+			          function( $ocLazyLoad ){
+			        	return $ocLazyLoad.load({
+							name : 'hiddendangerInfoNgModule',
+							insertBefore : '#ng_load_plugins_before',
+							files : [
+							    'proj/hiddendangerInfo/hiddendangerInfo.js',
+							]
+	        			})
+	                }]
+	              }
+	          })
+	         
+	          
+	          
+	          
               .state('app.account', {
                   url: '/account',
                   templateUrl: 'proj/account/account.html',

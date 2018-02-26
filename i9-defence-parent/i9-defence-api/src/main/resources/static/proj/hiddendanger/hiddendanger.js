@@ -1,5 +1,5 @@
-var projectNgModule=angular.module('projectNgModule',['ngAnimate','ui.bootstrap','app']);
-var projectService = projectNgModule.factory('projectService',
+var hiddendangerNgModule=angular.module('hiddendangerNgModule',['ngAnimate','ui.bootstrap','app']);
+var hiddendangerService = hiddendangerNgModule.factory('hiddendangerService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -19,28 +19,26 @@ var projectService = projectNgModule.factory('projectService',
 			});
 			return resource;
 	}]);
-var projectNgControl=projectNgModule.controller('projectNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,projectService,httpService){
+var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,hiddendangerService,httpService){
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
-		var text = $scope.searchText;
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				projectName : text,
-				projectAddress : text,
+				//username : $scope.searchText
 			};
 		
-		httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.projects = data.data.data.pageList;
+		httpService.post({url:'./hiddendanger/pageHiddendanger',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.hiddendangers = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
 			$scope.total = data.data.data.totalSize;
 			$scope.start = data.data.data.offset+1;
-			$scope.end = data.data.data.offset+$scope.projects.length;
+			$scope.end = data.data.data.offset+$scope.hiddendangers.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
 		})
@@ -76,20 +74,20 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	
 	$scope.add = function () {  
         var modalInstance = $modal.open({  
-            templateUrl: 'proj/project/add.html',  
-            controller: 'projectEditCtrl', 
+            templateUrl: 'proj/hiddendanger/add.html',  
+            controller: 'hiddendangerEditCtrl', 
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
             resolve: {  
             	deps : ['$ocLazyLoad',function($ocLazyLoad) {
         			return $ocLazyLoad.load({
-        				name : 'projectEditNgModule',
+        				name : 'hiddendangerEditNgModule',
         				insertBefore : '#ng_load_plugins_before',
         				files : [
-        				         'proj/project/add.js',
+        				         'proj/hiddendanger/add.js',
         				]
         			});
         		}],
-        		project: function () {  
+        		hiddendanger: function () {  
                     return {};  
                 },
             }  
@@ -101,26 +99,26 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
         });
          
     };  
-    //编辑
+  /*//编辑 
     $scope.edit = function (id) { 
-    	httpService.post({url:'./project/getProject',data:id,showSuccessMsg:false}).then(function(data) {  
-    		$scope.project = data.data.data;
+    	httpService.post({url:'./hiddendanger/getHiddendanger',data:id,showSuccessMsg:false}).then(function(data) {  
+    		$scope.hiddendanger = data.data.data;
 			var modalInstance = $modal.open({  
-	            templateUrl: 'proj/project/add.html',  
-	            controller: 'projectEditCtrl', 
+	            templateUrl: 'proj/hiddendanger/add.html',  
+	            controller: 'hiddendangerEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'projectEditNgModule',
+	        				name : 'hiddendangerEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
-	        				         'proj/project/add.js',
+	        				         'proj/hiddendanger/add.js',
 	        				]
 	        			});
 	        		}],
-	            	project: function () {  
-	                    return $scope.project;  
+	        		hiddendanger: function () {  
+	                    return $scope.hiddendanger;  
 	                },
 	            }  
 	        });
@@ -130,21 +128,5 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	        	$scope.initTable();
 	        });
     	})
-    };  
-    $scope.del = function(){
-    	$scope.delArray = [];
-    	angular.forEach(angular.element.find(".o-checks"), function(dom){
-    		if(angular.element(dom).prop("checked") == true){
-    			$scope.delArray.push(angular.element(dom).attr("data-id"))
-    		}
-		});
-    	confirm("确定删除吗?", "", function (isConfirm) {
-            if (isConfirm) {
-            	httpService.post({url:'./project/applyDelProject',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
-            		$scope.initTable();
-            	})
-            } else {
-            }
-        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
-    }
+    }; */ 
 })
