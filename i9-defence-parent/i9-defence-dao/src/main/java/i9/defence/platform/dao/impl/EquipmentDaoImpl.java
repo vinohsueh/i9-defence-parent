@@ -9,6 +9,8 @@ import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.EquipmentExample;
+import i9.defence.platform.model.EquipmentExample.Criteria;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -50,6 +52,15 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	@Override
 	public void deleteEquipment(List<Integer> ids) throws Exception {
 		equipmentMapper.deleteByPrimaryKey(ids);
+	}
+
+	@Override
+	public List<Equipment> getEquipmentByIds(List<Integer> ids)
+			throws Exception {
+		EquipmentExample example = new EquipmentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdIn(ids);
+		return equipmentMapper.selectByExample(example);
 	}
 
 }

@@ -1,0 +1,72 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">添加隐患类型详细信息</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-md-2 control-label"><span class="required">*</span>阀值类型</label>
+	            	<div class="col-md-8">
+	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.type'>
+	            		<option value=""> ----请选择---- </option>
+						<option value="">---隐患阀值---</option>
+						<option value="">---报警阀值---</option>
+					</select>
+	          	  </div>
+          </div>
+		  <div class="form-group">
+				<label class="col-md-2 control-label"><span class="required">*</span>隐患类型名称</label>
+	            	<div class="col-md-8">
+	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.hid'>
+	            		<option value=""> ----请选择---- </option>
+						<option ng-repeat='i in hiddendangers' value="{{i.id}}">{{i.name}}</option>
+					</select>
+	          	</div>
+          </div>
+  		 <div class="form-group">
+				<label class="col-md-2 control-label"><span class="required">*</span>电压/电流，最高/最低</label>
+	            	<div class="col-md-8">
+	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.name'>
+	            		<option value=""> ----请选择---- </option>
+						<option value="电压最高值">---电压最高值---</option>
+						<option value="电压最低值">---电压最低值---</option>
+						<option value="电流最高值">---电流最高值---</option>
+						<option value="电流最低值">---电流最低值---</option>
+					</select>
+	          	  </div>
+          </div>
+  		  <div class="form-group">
+				<label class="col-md-2 control-label"><span class="required">*</span>类型</label>
+	            	<div class="col-md-8">
+	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.keyName'>
+	            		<option value=""> ----请选择---- </option>
+						<option value="electricity">---electricity---</option>
+						<option value="voltage">---voltage---</option>
+					</select>
+	          	  </div>
+          </div>  
+           <div class="form-group">
+				<label class="col-md-2 control-label"><span class="required">*</span>最高/最低</label>
+	            	<div class="col-md-8">
+	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.MaxOrMin'>
+	            		<option value=""> ----请选择---- </option>
+						<option value="Max">---Max---</option>
+						<option value="Min">---Min---</option>
+					</select>
+	          	  </div>
+          </div>
+          <div class="form-group">
+				<label class="col-md-2 control-label"><span class="required">*</span>电压/电流值</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" id="value" ng-model="hiddendangerInfo.value" placeholder="">
+				</div>
+          </div>  
+
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()"
+		data-dismiss="modal">取消</button>
+	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+</div>

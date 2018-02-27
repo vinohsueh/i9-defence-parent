@@ -25,7 +25,7 @@ public class HiddenDangerController {
 	
 	@Autowired
 	private HiddenDangerService hiddernDangerService;
-	
+	 
     /**
      * 分页查询隐患提醒类型
      * @param managerSearchDto
@@ -46,10 +46,20 @@ public class HiddenDangerController {
 	 * 
 	 */
 	 @RequestMapping("/addHiddendanger")
-	 public HashMap<String, Object> addHiddendanger(HiddenDanger hiddenDanger){
+	 public HashMap<String, Object> addHiddendanger(@RequestBody HiddenDanger hiddenDanger){
 	 HashMap<String,Object> result = new HashMap<String, Object>();
 	 hiddernDangerService.addHiddenDanger(hiddenDanger);
 	 return result;
 	 }
 	
+	 /**
+	  * 根据id查询隐患提醒类型
+	  */
+	  @RequestMapping("/getHiddendanger")
+	  public HashMap<String, Object> getHiddendanger(@RequestBody Integer hiddenDangerId){
+	  HashMap<String,Object> result = new HashMap<String, Object>();
+	  HiddenDanger hiddenDanger2 = hiddernDangerService.getHiddenDanger(hiddenDangerId);
+	  result.put("data", hiddenDanger2);
+	  return result;
+	  }
 }

@@ -30,4 +30,24 @@ public interface HiddenDangerService {
 	 * @throws Excepiton
 	 */
 	PageBounds<HiddenDanger> selectByLimitPage(HiddenDangerDto hiddenDangerDto)throws BusinessException;
+	
+	/**
+	 * 根据id查询
+	* @Title: getHiddenDanger 
+	* @Description: TODO
+	* @param id
+	* @return HiddenDanger
+	* @throws BusinessException
+	 */
+	HiddenDanger getHiddenDanger(int id)throws BusinessException;
+	
+	
+	/**
+	* 更新
+	* @Title: hiddenDanger 
+	* @Description: TODO
+	* @param hiddenDanger
+	* @throws Exception
+	 */
+	void  updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception; 
 }

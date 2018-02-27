@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AgencyController {
     @Autowired
     private ManagerService managerService;
-
+ 
     /**
      * 初始化查询经销商
      * @return

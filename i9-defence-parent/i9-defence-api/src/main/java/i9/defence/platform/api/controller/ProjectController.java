@@ -122,6 +122,12 @@ public class ProjectController {
         return result;
     }
     
+    @RequestMapping("/applyDelProject")
+    public HashMap<String, Object> applyDelProject(@RequestBody List<Integer> ids){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        projectService.applyDelProject(ids);
+        return result;
+    }
     /**
      * 生成邀请码
      * @param id

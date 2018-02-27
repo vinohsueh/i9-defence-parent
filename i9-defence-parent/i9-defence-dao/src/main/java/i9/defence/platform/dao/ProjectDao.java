@@ -1,11 +1,11 @@
 package i9.defence.platform.dao;
 
-import java.util.List;
-
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.utils.PageBounds;
+
+import java.util.List;
 
 /**
  * 项目Dao
@@ -80,5 +80,15 @@ public interface ProjectDao {
      * @throws Exception
      */
     List<Integer> selectAllEquipmentIds(Integer projectId) throws Exception;
+    
+    /**
+     * 根据IDS获取项目
+    * @Title: getProjectByIds 
+    * @Description: TODO
+    * @param ids
+    * @return
+    * @throws Exception
+     */
+    List<Project> getProjectByIds(List<Integer> ids) throws Exception;
     
 }

@@ -45,7 +45,15 @@ public interface EquipmentDao {
     Equipment getEquipmentById(int id) throws Exception;
     
     /**
-     * 删除项目
+     * 根据IDS获取设备
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    List<Equipment> getEquipmentByIds(List<Integer> ids) throws Exception;
+    
+    /**
+     * 删除设备
      * @param id
      * @throws Exception
      */

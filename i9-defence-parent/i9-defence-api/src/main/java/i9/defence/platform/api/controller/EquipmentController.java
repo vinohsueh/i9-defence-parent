@@ -1,18 +1,21 @@
 package i9.defence.platform.api.controller;
 
+import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.model.Equipment;
+import i9.defence.platform.service.ApplyService;
+import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.utils.PageBounds;
+
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import i9.defence.platform.dao.vo.EquipmentSearchDto;
-import i9.defence.platform.model.Equipment;
-import i9.defence.platform.service.EquipmentService;
-import i9.defence.platform.utils.PageBounds;
 
 /**
  * 创建时间：2018年1月9日
@@ -23,6 +26,17 @@ import i9.defence.platform.utils.PageBounds;
 @RestController
 @RequestMapping("equipment")
 public class EquipmentController {
+	
+	@Autowired
+	private EquipmentService equipmentService;
+	@Autowired
+	private ApplyService applyService;
+	@Autowired
+	private ManagerService managerService;
+	
+	/**
+     * 分页查询项目列表
+=======
 
     @Autowired
     private EquipmentService equipmentService;
@@ -30,6 +44,7 @@ public class EquipmentController {
     /**
      * 分页查询设备列表
      * 
+>>>>>>> branch 'master' of https://github.com/vinohsueh/i9-defence-parent.git
      * @param equipmentSearchDto
      * @param currectPage
      * @param pageSize
@@ -60,7 +75,32 @@ public class EquipmentController {
     }
 
     /**
-     * id查找设备
+	    * 删除项目
+	    * @param ids
+	    * @return
+	    */ 
+/*	    @RequestMapping("/delEquipment")
+	    public HashMap<String, Object> delEquipment(@RequestBody Integer[] ids) {
+	        HashMap<String, Object> result = new HashMap<String, Object>();
+		    equipmentService.deleteEquipment(Arrays.asList(ids));
+	        return result;
+	    }*/
+	    
+	    /**
+	     * 申请删除设备
+	    * @Title: applyDelEquipment 
+	    * @Description: TODO
+	    * @param ids
+	    * @return
+	     */
+	    @RequestMapping("/applyDelEquipment")
+	    public HashMap<String, Object> applyDelEquipment(@RequestBody List<Integer> ids){
+	    	 HashMap<String, Object> result = new HashMap<String, Object>();
+	    	 equipmentService.applyDelEquipment(ids);
+	    	 return result;
+	    }
+    /*
+	    * id查找设备
      * 
      * @param equipmentId
      * @return
