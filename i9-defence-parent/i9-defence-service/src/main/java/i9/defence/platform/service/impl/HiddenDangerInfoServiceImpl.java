@@ -42,11 +42,10 @@ public class HiddenDangerInfoServiceImpl implements HiddenDangerInfoService {
 
 	@Override
 	public PageBounds<HiddenDangerInfo> selectByLimitPage(
-			HiddenDangerInfoExample hiddenDangerInfoExample,int currectPage, int pageSize) throws BusinessException {
+			HiddenDangerInfoExample hiddenDangerInfoExample,int currentPage,int pageSize) throws BusinessException {
 		try {
-			return hiddenDangerInfoDao.selectByLimitPage(hiddenDangerInfoExample,currectPage,pageSize);
+			return hiddenDangerInfoDao.selectByLimitPage(hiddenDangerInfoExample,currentPage,pageSize); 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			throw new BusinessException("分页查询隐患类型具体信息失败",e.getMessage());
 		}
 	}

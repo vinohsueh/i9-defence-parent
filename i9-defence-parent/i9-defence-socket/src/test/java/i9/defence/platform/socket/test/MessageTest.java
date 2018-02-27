@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
+import i9.defence.platform.socket.util.EncryptUtils;
+
 public class MessageTest {
 
     public static void main(String[] args) throws UnknownHostException, IOException {
@@ -51,12 +53,14 @@ public class MessageTest {
         
         System.out.println(data2.length + " " + len);
 
+        byte[] data3 = EncryptUtils.hexStringToBytes("4010000000000110BAF204C78E08991623AEFF04C5FD092FFB23");
+        
         @SuppressWarnings("resource")
         Socket socket = new Socket("127.0.0.1", 9000);
         while (true) {
             try {
                 OutputStream outputStream = socket.getOutputStream();
-                outputStream.write(data2);
+                outputStream.write(data3);
                 outputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();

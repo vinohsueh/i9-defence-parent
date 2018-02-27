@@ -36,8 +36,7 @@ public interface HiddenDangerInfoService {
 	* @throws Exception 
 	* @return PageBounds<HiddenDangerInfo> 
 	 */
-	PageBounds<HiddenDangerInfo>  selectByLimitPage(HiddenDangerInfoExample hiddenDangerInfoExample, int currectPage,
-			int pageSize)throws BusinessException;
+	PageBounds<HiddenDangerInfo>  selectByLimitPage(HiddenDangerInfoExample hiddenDangerInfoExample,int currentPage,int pageSize)throws BusinessException;
 	
 	/**
 	 * 根据id查询
@@ -48,6 +47,7 @@ public interface HiddenDangerInfoService {
 	* @throws Exception
 	 */
 	HiddenDangerInfo  selectById(int id) throws BusinessException;
+ 
 
  
 }

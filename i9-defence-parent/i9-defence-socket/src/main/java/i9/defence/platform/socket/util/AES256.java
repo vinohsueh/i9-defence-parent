@@ -18,7 +18,7 @@ public class AES256 {
         try {
             // "AES"：请求的密钥算法的标准名称
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            // 256：密钥生成参数；securerandom：密钥生成器的随机源
+            // 128：密钥生成参数；securerandom：密钥生成器的随机源
             SecureRandom securerandom = new SecureRandom(password);
             kgen.init(128, securerandom);
             // 生成秘密（对称）密钥
