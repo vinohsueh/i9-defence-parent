@@ -111,7 +111,7 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 		});
     	confirm("确定删除吗?", "", function (isConfirm) {
             if (isConfirm) {
-            	httpService.post({url:'./equipment/delEquipment',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
+            	httpService.post({url:'./equipment/applyDelEquipment',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
             		$scope.initTable();
             	})
             } else {

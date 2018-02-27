@@ -1,12 +1,12 @@
 package i9.defence.platform.dao.impl;
 
-import java.util.List;
-
 import i9.defence.platform.dao.HiddenDangerInfoDao;
 import i9.defence.platform.dao.mapper.HiddenDangerInfoMapper;
-import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
 import i9.defence.platform.model.HiddenDangerInfo;
+import i9.defence.platform.model.HiddenDangerInfoExample;
 import i9.defence.platform.utils.PageBounds;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,13 +38,23 @@ public class HiddenDangerInfoDaoImpl implements HiddenDangerInfoDao {
 	 */
 	@Override
 	public PageBounds<HiddenDangerInfo> selectByLimitPage(
-			HiddenDangerInfoDto hiddenDangerInfoInfoDto, int currectPage,
+			HiddenDangerInfoExample hiddenDangerInfoExample, int currectPage,
 			int pageSize) throws Exception {
-		final	int totalSize = hiddenDangerInfoMapper.countByExample(hiddenDangerInfoInfoDto);
+		final	int totalSize = hiddenDangerInfoMapper.countByExample(hiddenDangerInfoExample); 
 		PageBounds<HiddenDangerInfo> pageBounds = new PageBounds<HiddenDangerInfo>(currectPage, totalSize, pageSize);
-		List<HiddenDangerInfo> list = hiddenDangerInfoMapper.selectByLimitPage(hiddenDangerInfoInfoDto, pageBounds.getOffset(),pageBounds.getPageSize());
+		List<HiddenDangerInfo> list = hiddenDangerInfoMapper.selectByLimitPage(hiddenDangerInfoExample, pageBounds.getOffset(),pageBounds.getPageSize());
 		pageBounds.setPageList(list);
 		return pageBounds;
 	}
+	
+	/**
+	 * 根据id查询
+	 */
+	@Override
+	public HiddenDangerInfo selectById(int id) throws Exception {
+		return hiddenDangerInfoMapper.selectByPrimaryKey(id);
+	}
+
+ 
 
 }

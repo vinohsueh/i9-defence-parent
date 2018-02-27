@@ -2,14 +2,16 @@ package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
 import i9.defence.platform.model.HiddenDangerInfo;
+import i9.defence.platform.model.HiddenDangerInfoExample;
 import i9.defence.platform.service.HiddenDangerInfoService;
 import i9.defence.platform.utils.PageBounds;
+
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 隐患提醒类型具体信息Controller
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author: luobo
  * @date: 2018年1月10日 下午5:04:09
  */
-@Controller
+@RestController
 @RequestMapping("/hiddenDangerInfo")
 public class HiddenDangerInfoController {
 
@@ -34,11 +36,12 @@ public class HiddenDangerInfoController {
 	* @return:HashMap<String,Object> 
 	* throws
 	 */
-	@ResponseBody
+ 
 	@RequestMapping("/pageHiddenDangerInfo")
-	public HashMap<String, Object> pageHiddenDangerInfo(HiddenDangerInfoDto hiddenDangerInfoDto){
+	public HashMap<String, Object> pageHiddenDangerInfo(@RequestBody HiddenDangerInfoDto hiddenDangerInfoDto){
 	HashMap<String, Object> result = new HashMap<String, Object>();
-	PageBounds<HiddenDangerInfo> pageBounds = hiddenDangerInfoService.selectByLimitPage(hiddenDangerInfoDto);
+		HiddenDangerInfoExample example = new HiddenDangerInfoExample();
+	PageBounds<HiddenDangerInfo> pageBounds = hiddenDangerInfoService.selectByLimitPage(example,hiddenDangerInfoDto.getCurrentPage(),hiddenDangerInfoDto.getPageSize());
 	result.put("data", pageBounds);
 	return result;
 	}
@@ -48,9 +51,20 @@ public class HiddenDangerInfoController {
 	 * 
 	 */
 	@RequestMapping("/addHiddenDangerInfo")
-	public HashMap<String, Object> addHiddenDangerInfo(HiddenDangerInfo hiddenDangerInfo){
+	public HashMap<String, Object> addHiddenDangerInfo(@RequestBody HiddenDangerInfo hiddenDangerInfo){
 	HashMap<String, Object> result = new HashMap<String, Object>();
 	hiddenDangerInfoService.addHiddenDangerInfo(hiddenDangerInfo);
 	return result;
 	}
+	
+	/**
+	 * 根据id查询
+	 */
+	 @RequestMapping("/getHiddenDangerInfo") 
+	 public  HiddenDangerInfo getHiddenDangerInfo(@RequestBody Integer id){
+//	 HashMap<String, Object> result = new HashMap<String, Object>(); 
+	 HiddenDangerInfo hiddenDangerInfo = hiddenDangerInfoService.selectById(id);
+	 System.out.println(hiddenDangerInfo); 
+	 return hiddenDangerInfo;
+	 }
 }

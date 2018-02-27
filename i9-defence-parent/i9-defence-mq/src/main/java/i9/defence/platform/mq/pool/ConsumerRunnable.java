@@ -15,12 +15,20 @@ public class ConsumerRunnable implements Runnable {
         while (true) {
             try {
                 TextMessage textMessage = consumerService.receive();
+                // 如果数据为空就延迟3秒钟
                 if (textMessage == null) {
                     Thread.sleep(3000);
                     continue;
                 }
+                // TODO 在这里处理数据库逻辑操作
+                
+                
+                
+                
+                
             }
             catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

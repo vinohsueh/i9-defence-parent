@@ -1,11 +1,11 @@
 package i9.defence.platform.service;
 
-import java.util.List;
-
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
+
+import java.util.List;
 
 /**
  * 项目Service
@@ -50,4 +50,14 @@ public interface EquipmentService {
      * @throws Exception
      */
     void deleteEquipment(List<Integer> ids) throws BusinessException;
+    
+    /**
+     * 申请删除设备集合
+    * @Title: applyEquipment 
+    * @Description: TODO
+    * @param ids
+    * @throws BusinessException
+     */
+    public void  applyDelEquipment(List<Integer> ids) throws BusinessException;
+ 
 }

@@ -45,4 +45,22 @@ public class HiddenDangerDaoImpl implements HiddenDangerDao {
 	   pageBounds.setPageList(list); 
 	   return pageBounds; 
 	}
+	
+	/**
+	 * 根据id查询
+	 */
+	@Override
+	public HiddenDanger getHiddenDanger(int id) throws Exception {
+		return hiddenDangerMapper.selectByPrimaryKey(id); 
+	}
+	
+	/**
+	 * 更新
+	 */
+	@Override
+	public void updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception {
+		hiddenDangerMapper.updateByPrimaryKey(hiddenDanger);
+	}
+	
+ 
 }

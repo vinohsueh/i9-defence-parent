@@ -40,14 +40,9 @@ angular.module('app')
       }
       
       $.get('./currentUser', function(data) {  
-    	var user = data.data.data;
-      	$scope.app.user = user; 
+      	var user = data.data.data;
+        	$scope.app.user = user; 
       });
-     /* $http.get('./security/noAllowedAuth').then(function (resp) {
-    	  $cookieStore.put('noAllowedAuthList',resp.data.data.data);
-    	  console.log(2);
-	  });*/
-      //$scope.$apply;
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
         $scope.app.settings = $localStorage.settings;
@@ -108,7 +103,25 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
     	/**
          * 获取用户权限
          */
-      	  $http.get('./security/noAllowedAuth').then(function (resp) {
+    	/*if ($cookieStore.get("pages") == null) {
+    		$http.post('./page/getPages').then(function (data) {
+			  $cookieStore.put("pages",data.data.data.urls);
+       		  $scope.pages = data.data.data.urls;
+   		  });
+    	}else{
+    		$scope.pages = $cookieStore.get("pages");
+    	}*/
+    	$http.post('./page/getPages').then(function (data) {
+     		  $scope.pages = data.data.data.urls;
+ 		  });
+    	 
+    	//if ($cookieStore.get("noAllowedAuthList") == null) {
+    		$http.get('./security/noAllowedAuth').then(function (resp) {
+           		$cookieStore.put("noAllowedAuthList",resp.data.data.data);
+           	})
+    	//}
+	    
+      	  /*$http.get('./security/noAllowedAuth').then(function (resp) {
   		        var noAllowedAuthList = resp.data.data.data;
   		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
   		        $scope.noAllowedAuthList = noAllowedAuthList;
@@ -124,7 +137,11 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement
 		      		});
 	  			}
       		    angular.element('#load').remove();
-  		  });
+  		  });*/
+    });
+}]);
+app.controller('HeaderController', ['$scope', '$http','$cookieStore', function($scope, $http,$cookieStore) {
+    $scope.$on('$includeContentLoaded', function() {
     });
 }]);
 var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster', function($http, $q, $window, toaster){

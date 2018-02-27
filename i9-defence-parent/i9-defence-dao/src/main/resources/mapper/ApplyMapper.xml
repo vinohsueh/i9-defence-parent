@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="i9.defence.platform.dao.mapper.ApplyMapper">
+  <resultMap id="BaseResultMap" type="i9.defence.platform.model.Apply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="applyId" jdbcType="INTEGER" property="applyId" />
+    <result column="applyDate" jdbcType="TIMESTAMP" property="applyDate" />
+    <result column="conductorId" jdbcType="INTEGER" property="conductorId" />
+    <result column="conductDate" jdbcType="TIMESTAMP" property="conductDate" />
+    <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
+    <result column="projectId" jdbcType="INTEGER" property="projectId" />
+    <association property="applyManager" column="applyId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
+    <association property="conductorManager" column="conductorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
+    <association property="equipment" column="equipmentId" select="i9.defence.platform.dao.mapper.EquipmentMapper.selectByPrimaryKey"></association>
+    <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association> 
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, type, state, applyId, applyDate, conductorId, conductDate, equipmentId, projectId
+  </sql>
+  <select id="selectByExample" parameterType="i9.defence.platform.model.ApplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List">
+    delete from t_apply
+    where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  </delete>
+  <delete id="deleteByExample" parameterType="i9.defence.platform.model.ApplyExample">
+    delete from t_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="i9.defence.platform.model.Apply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_apply (type, state, applyId, 
+      applyDate, conductorId, conductDate, 
+      equipmentId, projectId)
+    values (#{type,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, 
+      #{applyDate,jdbcType=TIMESTAMP}, #{conductorId,jdbcType=INTEGER}, #{conductDate,jdbcType=TIMESTAMP}, 
+      #{equipmentId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="i9.defence.platform.model.Apply">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        type,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="applyId != null">
+        applyId,
+      </if>
+      <if test="applyDate != null">
+        applyDate,
+      </if>
+      <if test="conductorId != null">
+        conductorId,
+      </if>
+      <if test="conductDate != null">
+        conductDate,
+      </if>
+      <if test="equipmentId != null">
+        equipmentId,
+      </if>
+      <if test="projectId != null">
+        projectId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null">
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="conductorId != null">
+        #{conductorId,jdbcType=INTEGER},
+      </if>
+      <if test="conductDate != null">
+        #{conductDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentId != null">
+        #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="i9.defence.platform.model.ApplyExample" resultType="java.lang.Integer">
+    select count(*) from t_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_apply
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyId != null">
+        applyId = #{record.applyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyDate != null">
+        applyDate = #{record.applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.conductorId != null">
+        conductorId = #{record.conductorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.conductDate != null">
+        conductDate = #{record.conductDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.equipmentId != null">
+        equipmentId = #{record.equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        projectId = #{record.projectId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_apply
+    set id = #{record.id,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      applyId = #{record.applyId,jdbcType=INTEGER},
+      applyDate = #{record.applyDate,jdbcType=TIMESTAMP},
+      conductorId = #{record.conductorId,jdbcType=INTEGER},
+      conductDate = #{record.conductDate,jdbcType=TIMESTAMP},
+      equipmentId = #{record.equipmentId,jdbcType=INTEGER},
+      projectId = #{record.projectId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="i9.defence.platform.model.Apply">
+    update t_apply
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="applyId != null">
+        applyId = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null">
+        applyDate = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="conductorId != null">
+        conductorId = #{conductorId,jdbcType=INTEGER},
+      </if>
+      <if test="conductDate != null">
+        conductDate = #{conductDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentId != null">
+        equipmentId = #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        projectId = #{projectId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.Apply">
+    update t_apply
+    set type = #{type,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      applyId = #{applyId,jdbcType=INTEGER},
+      applyDate = #{applyDate,jdbcType=TIMESTAMP},
+      conductorId = #{conductorId,jdbcType=INTEGER},
+      conductDate = #{conductDate,jdbcType=TIMESTAMP},
+      equipmentId = #{equipmentId,jdbcType=INTEGER},
+      projectId = #{projectId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+      <select id="selectByLimitPage" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List" /> from t_apply
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+      <if test="example.orderByClause != null" >
+        order by ${example.orderByClause}
+      </if>
+      limit #{offset},#{limit}
+  </select>
+  <insert id="insertEquipmentApplys">
+  	insert into t_apply(type,state,applyId,applyDate,equipmentId,conductorId) values 
+    <foreach collection="applies" item="item" index="index" separator=",">
+       (#{item.type},#{item.state},#{item.applyId},#{item.applyDate},#{item.equipmentId},#{item.conductorId})
+    </foreach>
+  </insert>
+   <insert id="insertProjectApplys">
+  	insert into t_apply(type,state,applyId,applyDate,projectId,conductorId) values 
+    <foreach collection="applies" item="item" index="index" separator=",">
+       (#{item.type},#{item.state},#{item.applyId},#{item.applyDate},#{item.projectId},#{item.conductorId})
+    </foreach>
+  </insert>
+  <update id="updateApplys" parameterType="java.util.List">
+	update  t_apply
+	<trim prefix="set" suffixOverrides=",">
+		<trim prefix="conductDate =case" suffix="end,">
+			<foreach collection="applies" item="item">
+				when id=#{item.id} then #{item.conductDate}
+			</foreach>
+		</trim>
+		<trim prefix="state =case" suffix="end,">
+			<foreach collection="applies" item="item">
+				when id=#{item.id} then #{item.state}
+			</foreach>
+		</trim>
+	</trim>
+	<where>
+		<foreach collection="applies" separator="or" item="item" >
+			id=#{item.id}
+		</foreach>
+	</where>
+  </update>
+</mapper>

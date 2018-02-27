@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  */
 @RestController
-@RequiresPermissions("accountList")
 @RequestMapping("account")
 public class AccountController {
     
@@ -45,6 +44,7 @@ public class AccountController {
      * @param pageSize
      * @return
      */
+    @RequiresPermissions("account_list")
     @RequestMapping("/pageAccount")
     public HashMap<String, Object> pageAcount(@RequestBody ManagerSearchDto managerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -66,7 +66,7 @@ public class AccountController {
      * @param manager
      * @return
      */
-    @RequiresPermissions("addProjectManager")
+    @RequiresPermissions("account_add")
     @RequestMapping("/addAccount")
     public HashMap<String, Object> addAccount(
             @Valid @RequestBody Manager manager, BindingResult bindingResult) {
@@ -80,6 +80,7 @@ public class AccountController {
      * @param ids
      * @return
      */
+    @RequiresPermissions("account_del")
     @RequestMapping("/delAccount")
     public HashMap<String, Object> delAccount(
             @Valid @NotEmpty(message = "账户IDS不能为空") @RequestBody Integer[] ids) {
@@ -91,6 +92,7 @@ public class AccountController {
     /**
      * 修改账户开启状态Status
      */
+    @RequiresPermissions("account_list")
     @RequestMapping("/updateStatus")
     public HashMap<String, Object> updateStatus(@RequestBody Manager manager) {
         HashMap<String, Object> result = new HashMap<String, Object>();

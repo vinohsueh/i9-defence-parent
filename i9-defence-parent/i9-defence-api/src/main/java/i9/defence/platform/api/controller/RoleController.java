@@ -1,8 +1,10 @@
 package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.PageListDto;
+import i9.defence.platform.model.PageUrl;
 import i9.defence.platform.model.Role;
 import i9.defence.platform.model.RoleExample;
+import i9.defence.platform.service.PageUrlService;
 import i9.defence.platform.service.RoleService;
 import i9.defence.platform.utils.PageBounds;
 
@@ -26,11 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
  * 
  */
 @RestController
+@RequiresPermissions("role_crud")
 @RequestMapping("role")
 public class RoleController {
     @Autowired
     private RoleService roleService;
-    
+    @Autowired
+    private PageUrlService pageUrlService;
     
     /**
      * 分页查询角色
@@ -39,7 +43,6 @@ public class RoleController {
      * @param pageSize
      * @return
      */
-    @RequiresPermissions("rolePage")
     @RequestMapping("/pageRole")
     public HashMap<String, Object> pageRole(@RequestBody PageListDto pageListDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -54,7 +57,6 @@ public class RoleController {
     * @param Role
     * @return
     */
-    @RequiresPermissions("addRole")
     @RequestMapping("/addRole")
     public HashMap<String, Object> addRole(@RequestBody Role role) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -67,11 +69,12 @@ public class RoleController {
      * @param RoleId
      * @return
      */
-    @RequiresPermissions("rolePage")
     @RequestMapping("/getRole")
     public HashMap<String, Object> getRole(@RequestBody Integer roleId) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Role role = roleService.getRoleById(roleId);
+        List<PageUrl> pagesList = pageUrlService.getPageByRoleId(role.getId());
+        result.put("pages", pagesList);
         result.put("data",role);
         return result;
     }
@@ -81,7 +84,6 @@ public class RoleController {
     * @param ids
     * @return
     */
-    @RequiresPermissions("delRole")
     @RequestMapping("/delRole")
     public HashMap<String, Object> delRole(@Valid @NotEmpty(message = "至少选择一个")@RequestBody List<Integer> ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();

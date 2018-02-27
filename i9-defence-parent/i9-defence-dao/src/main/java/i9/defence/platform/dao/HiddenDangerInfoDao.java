@@ -1,7 +1,7 @@
 package i9.defence.platform.dao;
 
-import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
 import i9.defence.platform.model.HiddenDangerInfo;
+import i9.defence.platform.model.HiddenDangerInfoExample;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -36,6 +36,17 @@ public interface HiddenDangerInfoDao {
 	* @throws Exception 
 	* @return PageBounds<HiddenDangerInfo> 
 	 */
-	PageBounds<HiddenDangerInfo>  selectByLimitPage(HiddenDangerInfoDto hiddenDangerInfoInfoDto,
+	PageBounds<HiddenDangerInfo>  selectByLimitPage(HiddenDangerInfoExample hiddenDangerInfoExample,
 			 int currectPage, int pageSize)throws Exception;
+	
+	/**
+	 * 根据id查询
+	* @Title: selectById 
+	* @Description: TODO
+	* @param id
+	* @return
+	* @throws Exception
+	 */
+	HiddenDangerInfo  selectById(int id) throws Exception;
+
 }

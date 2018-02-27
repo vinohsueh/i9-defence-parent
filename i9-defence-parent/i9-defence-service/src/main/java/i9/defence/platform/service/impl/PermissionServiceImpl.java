@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /** 
  * 创建时间：2018年1月8日 下午3:18:46
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
  * 
  */
 @Service
+@Transactional
 public class PermissionServiceImpl implements PermissionService{
     /**
      * 缓存的key
@@ -112,7 +114,6 @@ public class PermissionServiceImpl implements PermissionService{
     }
 
     @Override
-    @Cacheable(value = PERMISSION_CACHE, key = "'manager'+#managerId")
     public Set<Permission> getPermissionByManagerId(Integer managerId)
             throws BusinessException {
         try {

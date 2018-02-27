@@ -1,9 +1,15 @@
 package i9.defence.platform.socket.message;
 
+import com.alibaba.fastjson.JSONObject;
+
 import io.netty.buffer.ByteBuf;
 
 
 public abstract class MessageDecodeConvert {
 
-    public abstract void decode(ByteBuf buf);
+    public abstract boolean decode(ByteBuf buf);
+
+    public abstract byte[] getByteArray();
+    
+    public abstract JSONObject toJSONObject();
 }

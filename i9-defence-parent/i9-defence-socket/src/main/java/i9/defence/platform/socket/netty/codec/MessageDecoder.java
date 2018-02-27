@@ -3,46 +3,68 @@ package i9.defence.platform.socket.netty.codec;
 import i9.defence.platform.socket.message.MessageDecodeConvert;
 import i9.defence.platform.socket.message.req.HeartbeatReqMessage;
 import i9.defence.platform.socket.message.req.LoginReqMessage;
-import i9.defence.platform.socket.message.req.UplinkReqMessage;
+import i9.defence.platform.socket.message.req.UpStreamReqMessage;
 import i9.defence.platform.socket.netty.Message;
+import i9.defence.platform.socket.util.EncryptUtils;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
+import io.netty.handler.codec.MessageToMessageDecoder;
 
 import java.util.List;
 
-public class MessageDecoder extends ByteToMessageDecoder {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
+
+    private static final Logger logger = LoggerFactory.getLogger(MessageDecoder.class);
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
-        buf.skipBytes(2);
+        // 如果包体小于起始符 + 版本号 + 消息类型 + 消息索引，表示不为完整包
+        if (buf.readableBytes() < 1 + 1 + 1 + 4) {
+            return;
+        }
+        buf.markReaderIndex();
 
-        byte type = buf.readByte();
-        buf.readByte();
-        
-        int len = buf.readableBytes();
-        byte[] dst = new byte[len - 2];
-        buf.readBytes(dst);
-        
-        buf.readByte();
-        buf.readByte();
-        
+        byte start = buf.readByte();    // 读取起始符
+        byte version = buf.readByte();  // 读取版本号
+        byte type = buf.readByte();     // 读取消息类型
+        int index = buf.readInt();      // 读取消息索引
+
         MessageDecodeConvert messageDecodeConvert = null;
         if (type == 0x00) {
             messageDecodeConvert = new LoginReqMessage();
-        }
-        else if (type == 0xFF) {
+        } else if (type == 0xFF) {
             messageDecodeConvert = new HeartbeatReqMessage();
+        } else {
+            messageDecodeConvert = new UpStreamReqMessage();
         }
-        else {
-            messageDecodeConvert = new UplinkReqMessage();
+        boolean canReset = messageDecodeConvert.decode(buf);
+        if (canReset) {
+            buf.resetReaderIndex();
+            return;
         }
-        ByteBuf buf0 = Unpooled.buffer(len);
-        buf0.writeBytes(dst);
+        // 读取消息体内容
+        byte[] dst = messageDecodeConvert.getByteArray();
+        // 如果包体小于检验和 + 结束符，表示不为完整包
+        if (buf.readableBytes() < 1 + 1) {
+            buf.resetReaderIndex();
+            return;
+        }
+        byte sumcheck = buf.readByte(); // 读取校验和
+        byte end = buf.readByte();      // 读取结束符
         
-        messageDecodeConvert.decode(buf0);
-        
+        logger.info(
+                "解码, 起始符 : {}, 协议版本号 : {}, 消息类型 : {}, 消息索引 : {}, data : {}, 校验和 : {}, 结束符 : {}",
+                String.format("%02X", start),
+                String.format("%02X", version),
+                String.format("%02X", type),
+                index,
+                EncryptUtils.bytesToHexString(dst),
+                String.format("%02X", sumcheck),
+                String.format("%02X", end));
+
         Message message = new Message();
         message.setType(type);
         message.setMessageDecodeConvert(messageDecodeConvert);
