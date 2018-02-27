@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
+import i9.defence.platform.socket.message.RespMessageBuilder;
+import i9.defence.platform.socket.message.resp.CompleteRespMessage;
 import i9.defence.platform.socket.util.EncryptUtils;
 
 public class MessageTest {
@@ -55,7 +57,14 @@ public class MessageTest {
 
         byte[] data3 = EncryptUtils.hexStringToBytes("4010000000000110BAF204C78E08991623AEFF04C5FD092FFB23");
         
-        @SuppressWarnings("resource")
+        
+        
+        CompleteRespMessage completeRespMessage = new CompleteRespMessage((byte) 0);
+        byte[] data000 = RespMessageBuilder.wrapper(completeRespMessage, 0).array();
+        String string = EncryptUtils.bytesToHexString(data000);
+        System.out.println(string);
+        
+        /*@SuppressWarnings("resource")
         Socket socket = new Socket("127.0.0.1", 9000);
         while (true) {
             try {
@@ -70,6 +79,6 @@ public class MessageTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 }
