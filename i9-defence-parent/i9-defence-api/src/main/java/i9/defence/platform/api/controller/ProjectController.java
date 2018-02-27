@@ -141,4 +141,16 @@ public class ProjectController {
         result.put("data", code);
         return result;
     }
+    
+    /**
+     * 获取所有项目
+     */
+    @RequestMapping("/getAllProject") 
+    public HashMap<String, Object> getAllProject(){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	List<Project> list = projectService.findAllProject();
+    	result.put("data", list);
+    	return result; 
+    }
+ 
 }

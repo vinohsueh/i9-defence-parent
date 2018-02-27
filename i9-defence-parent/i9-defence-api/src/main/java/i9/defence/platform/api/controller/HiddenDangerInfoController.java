@@ -1,6 +1,5 @@
 package i9.defence.platform.api.controller;
 
-import i9.defence.platform.dao.vo.HiddenDangerInfoDto;
 import i9.defence.platform.dao.vo.PageListDto;
 import i9.defence.platform.model.HiddenDangerInfo;
 import i9.defence.platform.model.HiddenDangerInfoExample;
@@ -37,13 +36,12 @@ public class HiddenDangerInfoController {
 	* @return:HashMap<String,Object> 
 	* throws
 	 */
- 
 	@RequestMapping("/pageHiddenDangerInfo")
-	public HashMap<String, Object> pageHiddenDangerInfo(HiddenDangerInfoDto hiddenDangerInfoDto,PageListDto pageListDto){
+	public HashMap<String, Object> pageHiddenDangerInfo(@RequestBody  PageListDto pageListDto){
 	HashMap<String, Object> result = new HashMap<String, Object>();
-		HiddenDangerInfoExample example = new HiddenDangerInfoExample();
+	HiddenDangerInfoExample example = new HiddenDangerInfoExample();
 	PageBounds<HiddenDangerInfo> pageBounds = hiddenDangerInfoService.selectByLimitPage(example,pageListDto.getCurrentPage(),pageListDto.getPageSize());
-	result.put("data", pageBounds);
+	result.put("data", pageBounds); 
 	return result;
 	}
 	
@@ -51,10 +49,10 @@ public class HiddenDangerInfoController {
 	 * 添加展示隐患提醒类型具体信息
 	 * 
 	 */
-	@RequestMapping("/addHiddenDangerInfo")
+	@RequestMapping("/addHiddenDangerInfo") 
 	public HashMap<String, Object> addHiddenDangerInfo(@RequestBody HiddenDangerInfo hiddenDangerInfo){
 	HashMap<String, Object> result = new HashMap<String, Object>();
-	hiddenDangerInfoService.addHiddenDangerInfo(hiddenDangerInfo);
+	hiddenDangerInfoService.addHiddenDangerInfo(hiddenDangerInfo); 
 	return result;
 	}
 	
