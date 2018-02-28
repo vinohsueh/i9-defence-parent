@@ -242,6 +242,7 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 						message : "失败！"
 					});
 				}
+				console.log(msg)
 				deferred.reject(msg);
 			});
 		return deferred.promise;

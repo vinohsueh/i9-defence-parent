@@ -6,6 +6,7 @@ import i9.defence.platform.service.HiddenDangerService;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +61,17 @@ public class HiddenDangerController {
 	  HashMap<String,Object> result = new HashMap<String, Object>();
 	  HiddenDanger hiddenDanger2 = hiddernDangerService.getHiddenDanger(hiddenDangerId);
 	  result.put("data", hiddenDanger2);
+	  return result;
+	  }
+	  
+	  /**
+	   * 获取所有隐患 提醒类型
+	   */
+	  @RequestMapping("/getAllHiddendanger")
+	  public HashMap<String, Object> getAllHiddendanger(){
+	  HashMap<String,Object> result = new HashMap<String, Object>();
+	  List<HiddenDanger> list = hiddernDangerService.getAllHidenDangers();
+	  result.put("data", list); 
 	  return result;
 	  }
 }

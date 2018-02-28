@@ -36,24 +36,23 @@ public class HiddenDangerInfoController {
 	* @return:HashMap<String,Object> 
 	* throws
 	 */
- 
 	@RequestMapping("/pageHiddenDangerInfo")
 	public HashMap<String, Object> pageHiddenDangerInfo(@RequestBody HiddenDangerInfoDto hiddenDangerInfoDto){
 	HashMap<String, Object> result = new HashMap<String, Object>();
-		HiddenDangerInfoExample example = new HiddenDangerInfoExample();
+	HiddenDangerInfoExample example = new HiddenDangerInfoExample();
 	PageBounds<HiddenDangerInfo> pageBounds = hiddenDangerInfoService.selectByLimitPage(example,hiddenDangerInfoDto.getCurrentPage(),hiddenDangerInfoDto.getPageSize());
 	result.put("data", pageBounds);
 	return result;
 	}
-	
+	 
 	/**
 	 * 添加展示隐患提醒类型具体信息
 	 * 
 	 */
-	@RequestMapping("/addHiddenDangerInfo")
+	@RequestMapping("/addHiddenDangerInfo") 
 	public HashMap<String, Object> addHiddenDangerInfo(@RequestBody HiddenDangerInfo hiddenDangerInfo){
 	HashMap<String, Object> result = new HashMap<String, Object>();
-	hiddenDangerInfoService.addHiddenDangerInfo(hiddenDangerInfo);
+	hiddenDangerInfoService.addHiddenDangerInfo(hiddenDangerInfo); 
 	return result;
 	}
 	

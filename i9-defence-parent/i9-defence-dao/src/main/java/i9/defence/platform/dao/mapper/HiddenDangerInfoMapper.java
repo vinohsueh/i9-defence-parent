@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface HiddenDangerInfoMapper {
-    int countByExample(@Param("example")HiddenDangerInfoExample hiddenDangerInfoExample); 
+    int countByExample(@Param("example")HiddenDangerInfoExample hiddenDangerInfoExample);   
 
     int deleteByExample(HiddenDangerInfoExample example);
 
@@ -32,6 +32,6 @@ public interface HiddenDangerInfoMapper {
     
     /**
      * 分页查询 
-     */
-    List<HiddenDangerInfo> selectByLimitPage(@Param("example") HiddenDangerInfoExample hiddenDangerInfoExample, @Param("offset") int offset, @Param("limit") int pageSize);
+     */  
+    List<HiddenDangerInfo> selectByLimitPage(@Param("example") HiddenDangerInfoExample example, @Param("offset") int offset, @Param("limit") int pageSize);
 }

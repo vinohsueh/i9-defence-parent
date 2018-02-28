@@ -1,5 +1,7 @@
 package i9.defence.platform.dao;
 
+import java.util.List;
+
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.utils.BusinessException;
@@ -49,5 +51,14 @@ public interface HiddenDangerDao {
 	* @throws Exception
 	 */
 	void  updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception;
+	
+	/**
+	 * 获取所有隐患类型
+	* @Title: getAllHidenDangers 
+	* @Description: TODO
+	* @return
+	* @throws Exception
+	 */
+	List<HiddenDanger> getAllHidenDangers() throws Exception;
 	
 }

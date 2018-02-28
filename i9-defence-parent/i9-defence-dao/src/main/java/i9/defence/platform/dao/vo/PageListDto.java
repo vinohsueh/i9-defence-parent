@@ -10,14 +10,14 @@ public class PageListDto {
     
     private int currentPage;
     
-    private Integer state;
-
+    private int state;
     
-    public Integer getState() {
+
+	public int getState() {
 		return state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 

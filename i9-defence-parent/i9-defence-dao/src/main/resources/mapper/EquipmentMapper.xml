@@ -42,6 +42,19 @@
       </foreach>
     </where>
   </sql>
+    <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.equipmentName != null and example.equipmentName != ''">
+         OR equipmentName LIKE CONCAT('%',CONCAT('${example.equipmentName}','%'))
+        </if>
+        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
+          OR equipmentIdentifier LIKE CONCAT('%',CONCAT('${example.equipmentIdentifier}','%'))
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+        </if>
+    </trim>
+  </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -259,19 +272,6 @@
       equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <sql id="Query_By_Dto_Where_Clause">
-    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-        <if test="example.equipmentName != null and example.equipmentName != ''">
-            OR (equipmentName LIKE CONCAT(CONCAT('%','${example.equipmentName}'),'%' )
-        </if>
-        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
-            OR equipmentIdentifier LIKE CONCAT(CONCAT('%','${example.equipmentIdentifier}'),'%' )
-        </if>
-        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
-            OR equipmentPosition LIKE CONCAT(CONCAT('%','${example.equipmentPosition}'),'%' )
-        </if>
-    </trim>
-  </sql>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from t_equipment
         <if test="_parameter != null" >

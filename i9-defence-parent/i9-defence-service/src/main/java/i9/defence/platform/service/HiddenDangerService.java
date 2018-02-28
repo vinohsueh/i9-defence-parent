@@ -1,5 +1,7 @@
 package i9.defence.platform.service;
 
+import java.util.List;
+
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.utils.BusinessException;
@@ -49,5 +51,14 @@ public interface HiddenDangerService {
 	* @param hiddenDanger
 	* @throws Exception
 	 */
-	void  updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception; 
+	void  updateHiddenDanger(HiddenDanger hiddenDanger) throws BusinessException; 
+	
+	/**
+	 * 获取所有隐患类型
+	* @Title: getAllHidenDangers 
+	* @Description: TODO
+	* @return
+	* @throws Exception
+	 */
+	List<HiddenDanger> getAllHidenDangers() throws BusinessException;
 }
