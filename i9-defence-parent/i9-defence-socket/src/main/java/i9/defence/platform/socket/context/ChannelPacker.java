@@ -20,7 +20,8 @@ public class ChannelPacker {
     }
 
     public void writeAndFlush(MessageEncodeConvert messageEncodeConvert) {
-        ByteBuf buf = RespMessageBuilder.wrapper(messageEncodeConvert, this.next());
+        int index = next();
+        ByteBuf buf = RespMessageBuilder.wrapper(messageEncodeConvert, index);
         this.channel.writeAndFlush(buf);
     }
     

@@ -58,7 +58,7 @@ public class MessageWrapperTest {
         
         System.out.println(data2.length + " " + len);
 
-        byte[] data3 = EncryptUtils.hexStringToBytes("4010000000000110BAF204C78E08991623AEFF04C5FD092FFB23");
+        // byte[] data3 = EncryptUtils.hexStringToBytes("4010000000000110BAF204C78E08991623AEFF04C5FD092FFB23");
         
         CompleteRespMessage completeRespMessage = new CompleteRespMessage((byte) 0);
         byte[] data000 = RespMessageBuilder.wrapper(completeRespMessage, 0).array();

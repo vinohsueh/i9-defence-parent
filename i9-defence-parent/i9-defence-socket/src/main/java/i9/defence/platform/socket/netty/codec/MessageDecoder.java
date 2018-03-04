@@ -21,7 +21,6 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
-        System.err.println("11111");
         // 如果包体小于起始符 + 版本号 + 消息类型 + 消息索引，表示不为完整包
         if (buf.readableBytes() < 1 + 1 + 1 + 4) {
             return;
