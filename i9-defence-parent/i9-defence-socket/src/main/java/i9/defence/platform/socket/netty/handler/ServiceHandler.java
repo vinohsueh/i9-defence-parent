@@ -30,12 +30,10 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         try {
             if (message.getType() == 0x00) {
-                channelPacker = new ChannelPacker(ctx.channel());
                 LoginService loginService = SpringBeanService.getBean(LoginService.class);
                 loginService.doPost(message, channelPacker);
             }
             else {
-                channelPacker = new ChannelPacker(ctx.channel());
                 ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
                 ICoreService coreService = serviceMapping.getCoreService(message.getType());
                 coreService.doPost(message, channelPacker);
@@ -78,6 +76,9 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) {
         String channelId = ctx.channel().id().asLongText();
         logger.info("netty 服务器，客户端连接 : " + channelId);
+        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
+        ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
+        channelPackerServerContext.addChannelPacker(channelPacker);
     }
     
     // 客户端断开连接消息

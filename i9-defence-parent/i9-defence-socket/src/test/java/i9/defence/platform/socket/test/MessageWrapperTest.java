@@ -6,13 +6,16 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
+import org.junit.Test;
+
 import i9.defence.platform.socket.message.RespMessageBuilder;
 import i9.defence.platform.socket.message.resp.CompleteRespMessage;
 import i9.defence.platform.socket.util.EncryptUtils;
 
-public class MessageTest {
+public class MessageWrapperTest {
 
-    public static void main(String[] args) throws UnknownHostException, IOException {
+    @Test
+    public void testWrapper() throws UnknownHostException, IOException {
 
         byte[] data = new byte[] { 1, 2, 3, 4 };
         ByteBuffer byteBuffer = ByteBuffer.allocate(1 + 2 + 6 + 1 + data.length);
@@ -57,19 +60,17 @@ public class MessageTest {
 
         byte[] data3 = EncryptUtils.hexStringToBytes("4010000000000110BAF204C78E08991623AEFF04C5FD092FFB23");
         
-        
-        
         CompleteRespMessage completeRespMessage = new CompleteRespMessage((byte) 0);
         byte[] data000 = RespMessageBuilder.wrapper(completeRespMessage, 0).array();
         String string = EncryptUtils.bytesToHexString(data000);
         System.out.println(string);
         
-        /*@SuppressWarnings("resource")
+        @SuppressWarnings("resource")
         Socket socket = new Socket("127.0.0.1", 9000);
         while (true) {
             try {
                 OutputStream outputStream = socket.getOutputStream();
-                outputStream.write(data3);
+                outputStream.write(data2);
                 outputStream.flush();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -79,6 +80,6 @@ public class MessageTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 }
