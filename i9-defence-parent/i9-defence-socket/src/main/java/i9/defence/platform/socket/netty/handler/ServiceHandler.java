@@ -41,22 +41,22 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
             MessageEncodeConvert messageEncodeConvert = message.getMessageEncodeConvert();
             if (messageEncodeConvert == null) {
                 CompleteRespMessage completeRespMessage = new CompleteRespMessage(message.getType());
-                channelPacker.writeAndFlush(completeRespMessage);
+                channelPacker.writeAndFlush(completeRespMessage, message.getIndex());
             }
             else {
                 messageEncodeConvert.setType(message.getType());
-                channelPacker.writeAndFlush(messageEncodeConvert);
+                channelPacker.writeAndFlush(messageEncodeConvert, message.getIndex());
             }
         }
         catch (BusinessException businessException) {
             int errorCode = businessException.getErrorCode();
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            channelPacker.writeAndFlush(simpleRespMessage);
+            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
         }
         catch (Exception exception) {
             int errorCode = ErrorCode.UNKOWN;
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            channelPacker.writeAndFlush(simpleRespMessage);
+            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
         }
     }
     

@@ -1,7 +1,5 @@
 package i9.defence.platform.socket.context;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import i9.defence.platform.socket.message.MessageEncodeConvert;
 import i9.defence.platform.socket.message.RespMessageBuilder;
 import io.netty.buffer.ByteBuf;
@@ -19,15 +17,8 @@ public class ChannelPacker {
         return this.channel.id().asLongText();
     }
 
-    public void writeAndFlush(MessageEncodeConvert messageEncodeConvert) {
-        int index = next();
+    public void writeAndFlush(MessageEncodeConvert messageEncodeConvert, int index) {
         ByteBuf buf = RespMessageBuilder.wrapper(messageEncodeConvert, index);
         this.channel.writeAndFlush(buf);
-    }
-    
-    private AtomicInteger index = new AtomicInteger(1);
-    
-    public int next() {
-        return index.getAndIncrement();
     }
 }
