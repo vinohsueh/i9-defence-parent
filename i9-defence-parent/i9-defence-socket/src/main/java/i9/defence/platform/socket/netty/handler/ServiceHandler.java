@@ -10,7 +10,6 @@ import i9.defence.platform.socket.message.resp.CompleteRespMessage;
 import i9.defence.platform.socket.message.resp.SimpleRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
-import i9.defence.platform.socket.service.impl.LoginService;
 import i9.defence.platform.socket.util.ErrorCode;
 import i9.defence.platform.socket.util.ServiceMapping;
 import i9.defence.platform.socket.util.SpringBeanService;
@@ -29,15 +28,9 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
         ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         try {
-            if (message.getType() == 0x00) {
-                LoginService loginService = SpringBeanService.getBean(LoginService.class);
-                loginService.doPost(message, channelPacker);
-            }
-            else {
-                ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
-                ICoreService coreService = serviceMapping.getCoreService(message.getType());
-                coreService.doPost(message, channelPacker);
-            }
+            ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
+            ICoreService coreService = serviceMapping.getCoreService(message.getType());
+            coreService.doPost(message, channelPacker);
             MessageEncodeConvert messageEncodeConvert = message.getMessageEncodeConvert();
             if (messageEncodeConvert == null) {
                 CompleteRespMessage completeRespMessage = new CompleteRespMessage(message.getType());
