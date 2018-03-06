@@ -624,6 +624,65 @@ public class EquipmentExample {
 			addCriterion("equipmentCategoryId not between", value1, value2, "equipmentCategoryId");
 			return (Criteria) this;
 		}
+		public Criteria andProjectIdIsNull() {
+			addCriterion("projectId is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdIsNotNull() {
+			addCriterion("projectId is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdEqualTo(Integer value) {
+			addCriterion("projectId =", value, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdNotEqualTo(Integer value) {
+			addCriterion("projectId <>", value, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdGreaterThan(Integer value) {
+			addCriterion("projectId >", value, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdGreaterThanOrEqualTo(Integer value) {
+			addCriterion("projectId >=", value, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdLessThan(Integer value) {
+			addCriterion("projectId <", value, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdLessThanOrEqualTo(Integer value) {
+			addCriterion("projectId <=", value, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdIn(List<Integer> values) {
+			addCriterion("projectId in", values, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdNotIn(List<Integer> values) {
+			addCriterion("projectId not in", values, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdBetween(Integer value1, Integer value2) {
+			addCriterion("projectId between", value1, value2, "projectId");
+			return (Criteria) this;
+		}
+
+		public Criteria andProjectIdNotBetween(Integer value1, Integer value2) {
+			addCriterion("projectId not between", value1, value2, "projectId");
+			return (Criteria) this;
+		}
 	}
 
 	public static class Criteria extends GeneratedCriteria {

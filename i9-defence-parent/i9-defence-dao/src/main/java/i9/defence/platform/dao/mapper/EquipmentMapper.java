@@ -30,6 +30,6 @@ public interface EquipmentMapper {
 
     int updateByPrimaryKey(Equipment record);
     
-    List<Equipment> selectByLimitPage(@Param("example") EquipmentSearchDto projectSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    List<Equipment> selectByLimitPage(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
 }
