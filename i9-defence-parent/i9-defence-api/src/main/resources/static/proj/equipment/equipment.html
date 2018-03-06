@@ -43,6 +43,7 @@
             <th>设备创建时间</th>
             <th>设备备注</th>
             <th>设备分类</th>
+            <th>所属项目</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -56,6 +57,7 @@
             <td >{{equipment.equipmentDateStr}}</td>
             <td >{{equipment.equipmentRemarks}}</td>
             <td >{{equipment.equipmentCategory.eqCategoryName}}</td>
+            <td >{{equipment.project.projectName}}</td>
             <td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
           </tr>
         </tbody>
