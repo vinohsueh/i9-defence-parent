@@ -45,11 +45,13 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
             int errorCode = businessException.getErrorCode();
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
             channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
+            logger.info("netty 服务器，客户端 : " + channelId + ", exception : ", businessException);
         }
         catch (Exception exception) {
             int errorCode = ErrorCode.UNKOWN;
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
             channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
+            logger.info("netty 服务器，客户端 : " + channelId + ", exception : ", exception);
         }
     }
     
