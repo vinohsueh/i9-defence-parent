@@ -59,6 +59,7 @@
 				<label class="col-md-2 control-label"><span class="required">*</span>所属项目</label>
 	            	<div class="col-md-8">
 	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='equipment.projectId'>
+	            	    <option value="null"> ----请选择---- </option>
 	            		<option value=""> ----请选择---- </option>
 						<option ng-repeat='i in projects' value="{{i.id}}">{{i.projectName}}</option> 
 					</select>
