@@ -1,9 +1,14 @@
 package i9.defence.platform.socket.util;
 
+
 public class DataParseUtil {
     
-    public static Object parseDataValue(short t, byte[] b) {
-        DataEnum dataEnum = DataEnum.valueOf00(t);
+    public static Object parseDataValue(short type, byte[] data) {
+        byte[] b = new byte[data.length];
+        for (int i = 0; i < data.length; i++) {
+            b[i] = data[data.length - i - 1];
+        }
+        DataEnum dataEnum = DataEnum.valueOf00(type);
         switch (dataEnum) {
         case T_ENUM:
             return DataParseUtil.parseEnum(b);
@@ -62,8 +67,25 @@ public class DataParseUtil {
         return (short) (data & 0x0FFFF);
     }
     
-    public static int parseSignedInt0(byte[] b) {
-        return (int) ((((b[3] & 0xff) << 24) | ((b[2] & 0xff) << 16) | ((b[1] & 0xff) << 8) | ((b[0] & 0xff) << 0)));
+    public static int parseSignedInt0(byte[] bytes) {
+        int i; 
+        i = (int) ((bytes[0] & 0xff) | ((bytes[1] & 0xff) << 8) 
+        | ((bytes[2] & 0xff) << 16) | ((bytes[3] & 0xff) << 24)); 
+        return i; 
+    }
+    
+    public static byte[] intToBytes(int i) { 
+        byte[] bytes = new byte[4]; 
+        bytes[0] = (byte) (i & 0xff); 
+        bytes[1] = (byte) ((i >> 8) & 0xff); 
+        bytes[2] = (byte) ((i >> 16) & 0xff); 
+        bytes[3] = (byte) ((i >> 24) & 0xff); 
+        return bytes; 
+    }
+    
+    public static void main(String[] args) {
+        byte[] b = EncryptUtils.hexStringToBytes("0A000000");
+        System.out.println(EncryptUtils.bytesToHexString(b));
     }
     
     public static int parseUnsignedInt(byte[] b) {
