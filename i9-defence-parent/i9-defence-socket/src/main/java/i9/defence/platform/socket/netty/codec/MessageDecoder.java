@@ -20,7 +20,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
     private static final Logger logger = LoggerFactory.getLogger(MessageDecoder.class);
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
+    public void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
         // 如果包体小于起始符 + 版本号 + 消息类型 + 消息索引，表示不为完整包
         if (buf.readableBytes() < 1 + 1 + 1 + 4) {
             return;
@@ -35,7 +35,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         MessageDecodeConvert messageDecodeConvert = null;
         if (type == 0x00) {
             messageDecodeConvert = new LoginReqMessage();
-        } else if (type == 0xFF) {
+        } else if (type == -1) {
             messageDecodeConvert = new HeartbeatReqMessage();
         } else {
             messageDecodeConvert = new UpStreamReqMessage();
