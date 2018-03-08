@@ -3,6 +3,7 @@ package i9.defence.platform.socket.message.req;
 import java.nio.ByteBuffer;
 
 import i9.defence.platform.socket.message.MessageDecodeConvert;
+import i9.defence.platform.socket.util.DataParseUtil;
 import i9.defence.platform.socket.util.EncryptUtils;
 import io.netty.buffer.ByteBuf;
 
@@ -21,6 +22,7 @@ public class DataMessage extends MessageDecodeConvert {
         jsonObject.put("datetime", this.datetime);
         jsonObject.put("dataLen", this.dataLen);
         jsonObject.put("data", EncryptUtils.bytesToHexString(this.data));
+        jsonObject.put("value", DataParseUtil.parseDataValue(this.dataType, this.data));
         return jsonObject;
     }
 
