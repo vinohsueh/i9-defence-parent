@@ -10,8 +10,8 @@
 	            	<div class="col-md-8">
 	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.type'>
 	            		<option value=""> ----请选择---- </option>
-						<option value="">---隐患阀值---</option>
-						<option value="">---报警阀值---</option>
+						<option value="0">---隐患阀值---</option>
+						<option value="1">---报警阀值---</option>
 					</select>
 	          	  </div>
           </div>
@@ -20,7 +20,7 @@
 	            	<div class="col-md-8">
 	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.hid'>
 	            		<option value=""> ----请选择---- </option>
-						<option ng-repeat='i in hiddendangers' value="{{i.id}}">{{i.name}}</option>
+						<option ng-repeat="i in hiddendangers" value="{{i.id}}">{{i.name}}</option>
 					</select>
 	          	</div>
           </div>
@@ -29,6 +29,8 @@
 	            	<div class="col-md-8">
 	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='hiddendangerInfo.name'>
 	            		<option value=""> ----请选择---- </option>
+	            		<option value="最高值">---最高值---</option>
+	            		<option value="最低值">---最低值---</option>
 						<option value="电压最高值">---电压最高值---</option>
 						<option value="电压最低值">---电压最低值---</option>
 						<option value="电流最高值">---电流最高值---</option>
@@ -59,7 +61,7 @@
           <div class="form-group">
 				<label class="col-md-2 control-label"><span class="required">*</span>电压/电流值</label>
 				<div class="col-md-8">
-					<input type="text" class="form-control" id="value" ng-model="hiddendangerInfo.value" placeholder="">
+					<input type="text" class="form-control" id="value" name="value" ng-model="hiddendangerInfo.value" placeholder="">
 				</div>
           </div>  
 

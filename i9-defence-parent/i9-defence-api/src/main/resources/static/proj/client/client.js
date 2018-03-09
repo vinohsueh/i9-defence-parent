@@ -136,8 +136,8 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 	        });
     	})
     };  
-    /*
-     * 
+    
+      
    
     $scope.del = function(){
     	$scope.delArray = [];
@@ -155,5 +155,5 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
-      */
+      
 })

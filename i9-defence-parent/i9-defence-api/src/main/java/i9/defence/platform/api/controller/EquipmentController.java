@@ -36,7 +36,6 @@ public class EquipmentController {
 	
 	/**
      * 分页查询项目列表
-=======
 
     @Autowired
     private EquipmentService equipmentService;
@@ -44,7 +43,6 @@ public class EquipmentController {
     /**
      * 分页查询设备列表
      * 
->>>>>>> branch 'master' of https://github.com/vinohsueh/i9-defence-parent.git
      * @param equipmentSearchDto
      * @param currectPage
      * @param pageSize

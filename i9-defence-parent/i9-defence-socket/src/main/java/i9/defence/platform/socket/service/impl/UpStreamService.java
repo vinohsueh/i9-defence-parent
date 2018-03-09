@@ -6,6 +6,8 @@ import i9.defence.platform.socket.message.req.DataMessage;
 import i9.defence.platform.socket.message.req.UpStreamReqMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.socket.util.DataParseUtil;
+import i9.defence.platform.socket.util.EncryptUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,9 @@ public class UpStreamService implements ICoreService {
         upStreamReqMessage.showInfo();
         for (DataMessage dataMessage : upStreamReqMessage.dataList) {
             dataMessage.showInfo();
+            logger.info("解析数据包体, 数据类型 : " + dataMessage.dataType 
+                    + ", hex : " + EncryptUtils.bytesToHexString(dataMessage.data) 
+                    + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.dataType, dataMessage.data));
         }
         JSONObject jsonObject = upStreamReqMessage.toJSONObject();
         String jsonStr = jsonObject.toJSONString();

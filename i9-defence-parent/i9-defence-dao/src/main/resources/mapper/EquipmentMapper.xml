@@ -42,6 +42,19 @@
       </foreach>
     </where>
   </sql>
+    <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.equipmentName != null and example.equipmentName != ''">
+         OR equipmentName LIKE CONCAT('%',CONCAT('${example.equipmentName}','%'))
+        </if>
+        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
+          OR equipmentIdentifier LIKE CONCAT('%',CONCAT('${example.equipmentIdentifier}','%'))
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+        </if>
+    </trim>
+  </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -73,7 +86,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, equipmentDate, 
-    equipmentRemarks, equipmentCategoryId
+    equipmentRemarks, equipmentCategoryId,projectId
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
     select
@@ -112,10 +125,10 @@
     </selectKey>
     insert into t_equipment (equipmentName, equipmentNum, equipmentIdentifier, 
       equipmentPosition, equipmentDate, equipmentRemarks, 
-      equipmentCategoryId)
+      equipmentCategoryId,projectId)
     values (#{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, #{equipmentIdentifier,jdbcType=VARCHAR}, 
       #{equipmentPosition,jdbcType=VARCHAR}, #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, 
-      #{equipmentCategoryId,jdbcType=INTEGER})
+      #{equipmentCategoryId,jdbcType=INTEGER},#{projectId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -144,6 +157,9 @@
       <if test="equipmentCategoryId != null">
         equipmentCategoryId,
       </if>
+        <if test="projectId != null">
+        projectId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="equipmentName != null">
@@ -166,6 +182,9 @@
       </if>
       <if test="equipmentCategoryId != null">
         #{equipmentCategoryId,jdbcType=INTEGER},
+      </if>
+       <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -202,6 +221,12 @@
       <if test="record.equipmentCategoryId != null">
         equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER},
       </if>
+      <if test="record.equipmentCategoryId != null">
+        equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        projectId = #{record.projectId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -217,6 +242,7 @@
       equipmentDate = #{record.equipmentDate,jdbcType=TIMESTAMP},
       equipmentRemarks = #{record.equipmentRemarks,jdbcType=VARCHAR},
       equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER}
+      projectId = #{record.projectId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -245,6 +271,9 @@
       <if test="equipmentCategoryId != null">
         equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
       </if>
+      <if test="projectId != null">
+        projectId = #{projectId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -256,22 +285,10 @@
       equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
       equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
       equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
-      equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER}
+      equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
+      projectId = #{projectId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <sql id="Query_By_Dto_Where_Clause">
-    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-        <if test="example.equipmentName != null and example.equipmentName != ''">
-            OR (equipmentName LIKE CONCAT(CONCAT('%','${example.equipmentName}'),'%' )
-        </if>
-        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
-            OR equipmentIdentifier LIKE CONCAT(CONCAT('%','${example.equipmentIdentifier}'),'%' )
-        </if>
-        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
-            OR equipmentPosition LIKE CONCAT(CONCAT('%','${example.equipmentPosition}'),'%' )
-        </if>
-    </trim>
-  </sql>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from t_equipment
         <if test="_parameter != null" >

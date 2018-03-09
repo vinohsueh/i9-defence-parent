@@ -10,7 +10,6 @@ import i9.defence.platform.socket.message.resp.CompleteRespMessage;
 import i9.defence.platform.socket.message.resp.SimpleRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
-import i9.defence.platform.socket.service.impl.LoginService;
 import i9.defence.platform.socket.util.ErrorCode;
 import i9.defence.platform.socket.util.ServiceMapping;
 import i9.defence.platform.socket.util.SpringBeanService;
@@ -29,36 +28,30 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
         ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         try {
-            if (message.getType() == 0x00) {
-                channelPacker = new ChannelPacker(ctx.channel());
-                LoginService loginService = SpringBeanService.getBean(LoginService.class);
-                loginService.doPost(message, channelPacker);
-            }
-            else {
-                channelPacker = new ChannelPacker(ctx.channel());
-                ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
-                ICoreService coreService = serviceMapping.getCoreService(message.getType());
-                coreService.doPost(message, channelPacker);
-            }
+            ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
+            ICoreService coreService = serviceMapping.getCoreService(message.getType());
+            coreService.doPost(message, channelPacker);
             MessageEncodeConvert messageEncodeConvert = message.getMessageEncodeConvert();
             if (messageEncodeConvert == null) {
                 CompleteRespMessage completeRespMessage = new CompleteRespMessage(message.getType());
-                channelPacker.writeAndFlush(completeRespMessage);
+                channelPacker.writeAndFlush(completeRespMessage, message.getIndex());
             }
             else {
                 messageEncodeConvert.setType(message.getType());
-                channelPacker.writeAndFlush(messageEncodeConvert);
+                channelPacker.writeAndFlush(messageEncodeConvert, message.getIndex());
             }
         }
         catch (BusinessException businessException) {
             int errorCode = businessException.getErrorCode();
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            channelPacker.writeAndFlush(simpleRespMessage);
+            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
+            logger.info("netty 服务器，客户端 : " + channelId + ", exception : ", businessException);
         }
         catch (Exception exception) {
             int errorCode = ErrorCode.UNKOWN;
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            channelPacker.writeAndFlush(simpleRespMessage);
+            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
+            logger.info("netty 服务器，客户端 : " + channelId + ", exception : ", exception);
         }
     }
     
@@ -78,6 +71,9 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) {
         String channelId = ctx.channel().id().asLongText();
         logger.info("netty 服务器，客户端连接 : " + channelId);
+        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
+        ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
+        channelPackerServerContext.addChannelPacker(channelPacker);
     }
     
     // 客户端断开连接消息

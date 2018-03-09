@@ -4,6 +4,7 @@ import i9.defence.platform.dao.HiddenDangerDao;
 import i9.defence.platform.dao.mapper.HiddenDangerMapper;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.HiddenDanger;
+import i9.defence.platform.model.HiddenDangerExample;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
@@ -60,6 +61,16 @@ public class HiddenDangerDaoImpl implements HiddenDangerDao {
 	@Override
 	public void updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception {
 		hiddenDangerMapper.updateByPrimaryKey(hiddenDanger);
+	}
+	
+	/**
+	 * 获取所有
+	 */
+	@Override
+	public List<HiddenDanger> getAllHidenDangers() throws Exception {
+		HiddenDangerExample example = new HiddenDangerExample();
+		List<HiddenDanger> list = hiddenDangerMapper.selectByExample(example);
+		return list;
 	}
 	
  

@@ -28,7 +28,7 @@ public class Project {
     @NotNull(message="项目坐标-纬度不能为空")
     private Double projectLatitude;
     //项目创建日期
-    @NotNull(message="项目创建日期不能为空")
+    //@NotNull(message="项目创建日期不能为空")
     private Date projectDate;
     //建筑面积
     @NotNull(message="建筑面积不能为空")
@@ -46,7 +46,7 @@ public class Project {
     @NotBlank(message="备注不能为空")
     private String remarks;
     //开关 0-关，1-开
-    @NotNull(message="开关 0-关，1-开不能为空")
+    //@NotNull(message="开关 0-关，1-开不能为空")
     private Integer projectState;
     //项目负责人(一对一关系)
     private Manager dutyMan;

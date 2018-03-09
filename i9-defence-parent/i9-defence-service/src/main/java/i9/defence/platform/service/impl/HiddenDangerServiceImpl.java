@@ -1,5 +1,7 @@
 package i9.defence.platform.service.impl;
 
+import java.util.List;
+
 import i9.defence.platform.dao.HiddenDangerDao;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.HiddenDanger;
@@ -68,9 +70,16 @@ public class HiddenDangerServiceImpl implements HiddenDangerService {
 	}
 
 	@Override
-	public void updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void updateHiddenDanger(HiddenDanger hiddenDanger) {
+	}
+
+	@Override
+	public List<HiddenDanger> getAllHidenDangers() throws BusinessException {
+		try {
+			return hiddenDangerDao.getAllHidenDangers();
+		} catch (Exception e) {
+			 throw new BusinessException("获取所有隐患类型失败",e.getMessage());
+		}
 	}
 
 }

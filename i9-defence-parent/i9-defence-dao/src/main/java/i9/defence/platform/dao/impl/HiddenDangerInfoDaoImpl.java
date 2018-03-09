@@ -42,7 +42,7 @@ public class HiddenDangerInfoDaoImpl implements HiddenDangerInfoDao {
 			int pageSize) throws Exception {
 		final	int totalSize = hiddenDangerInfoMapper.countByExample(hiddenDangerInfoExample); 
 		PageBounds<HiddenDangerInfo> pageBounds = new PageBounds<HiddenDangerInfo>(currectPage, totalSize, pageSize);
-		List<HiddenDangerInfo> list = hiddenDangerInfoMapper.selectByLimitPage(hiddenDangerInfoExample, pageBounds.getOffset(),pageBounds.getPageSize());
+		List<HiddenDangerInfo> list = hiddenDangerInfoMapper.selectByLimitPage(hiddenDangerInfoExample,pageBounds.getOffset(),pageBounds.getPageSize());
 		pageBounds.setPageList(list);
 		return pageBounds;
 	}

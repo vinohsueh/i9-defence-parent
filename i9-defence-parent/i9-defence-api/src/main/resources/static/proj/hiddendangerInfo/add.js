@@ -11,7 +11,15 @@ var hiddendangerInfoEditCtrl = hiddendangerInfoEditNgModule.controller('hiddenda
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-		if ($scope.hiddendangerInfo.type == null ||$scope.hiddendangerInfo.type == 0) {
+		if ($scope.hiddendangerInfo.type == null) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "阀值类型不能为空!"
+			});
+			return false;
+		}
+		if ($scope.hiddendangerInfo.hid == null ||$scope.hiddendangerInfo.hid == 0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
@@ -19,9 +27,20 @@ var hiddendangerInfoEditCtrl = hiddendangerInfoEditNgModule.controller('hiddenda
 			});
 			return false;
 		}
-		httpService.post({url:'./hiddendangerInfo/addHiddenDangerInfo',data:$scope.hiddendangerInfo,showSuccessMsg:true}).then(function(data) {  
+		if ($scope.hiddendangerInfo.name== null ||$scope.hiddendangerInfo.name == 0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "最高低值不能为空!"
+			});
+			return false;
+		}
+		httpService.post({url:'./hiddenDangerInfo/addHiddenDangerInfo',data:$scope.hiddendangerInfo,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})
 	};
+	 httpService.post({url:'./hiddendanger/getAllHiddendanger'}).then(function(data){
+		 $scope.hiddendangers=data.data.data;
+	 })
 	
 });
