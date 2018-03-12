@@ -8,33 +8,35 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.socket.message.MessageDecodeConvert;
+import i9.defence.platform.socket.util.EncryptUtils;
 import io.netty.buffer.ByteBuf;
 
 public class HeartbeatReqMessage extends MessageDecodeConvert {
     
     public void showInfo() {
-        logger.info("解码, 数据长度 : {}, 时间戳 : {}", 4, this.timestamp);
+        logger.info("解码, 数据长度 : {}, 时间戳 : {}", 6, EncryptUtils.bytesToHexString(this.timestamp));
     }
     
     private final static Logger logger = LoggerFactory.getLogger(HeartbeatReqMessage.class);
 
     @Override
     public boolean decode(ByteBuf buf) {
-        if (buf.readableBytes() < 5) {
+        if (buf.readableBytes() < 7) {
             return true;
         }
         buf.readByte();
-        this.timestamp = buf.readInt();
+        timestamp = new byte[6];
+        buf.readBytes(timestamp);
         return false;
     }
     
-    public int timestamp;
+    public byte[] timestamp;
 
     @Override
     public byte[] getByteArray() {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(5);
-        byteBuffer.put((byte) 4);
-        byteBuffer.putInt(this.timestamp);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(7);
+        byteBuffer.put((byte) 6);
+        byteBuffer.put(this.timestamp);
         return byteBuffer.array();
     }
 
