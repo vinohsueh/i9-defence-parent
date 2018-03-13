@@ -17,6 +17,12 @@ public class HeartbeatReqMessage extends MessageDecodeConvert {
         logger.info("解码, 数据长度 : {}, 时间戳 : {}", 6, EncryptUtils.bytesToHexString(this.timestamp));
     }
     
+    public String format() {
+        String datetime = String.format("%02d-%02d-%02d#%02d:%02d:%02d", timestamp[0], timestamp[1], timestamp[2],
+                timestamp[3], timestamp[4], timestamp[5]);
+        return datetime;
+    }
+    
     private final static Logger logger = LoggerFactory.getLogger(HeartbeatReqMessage.class);
 
     @Override

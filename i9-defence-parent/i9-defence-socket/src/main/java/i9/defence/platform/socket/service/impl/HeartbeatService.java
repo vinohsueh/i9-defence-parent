@@ -16,9 +16,8 @@ public class HeartbeatService implements ICoreService {
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
         HeartbeatReqMessage heartbeatReqMessage = (HeartbeatReqMessage) message.getMessageDecodeConvert();
-        logger.info("heartbeat channelId : " + channelPacker.getChannelId() + ", timestamp : " + heartbeatReqMessage.timestamp);
-        int timestamp = (int) (System.currentTimeMillis() / 1000);
-        HeartbeatRespMessage heartbeatRespMessage = new HeartbeatRespMessage(timestamp);
+        logger.info("heartbeat channelId : " + channelPacker.getChannelId() + ", timestamp : " + heartbeatReqMessage.format());
+        HeartbeatRespMessage heartbeatRespMessage = new HeartbeatRespMessage();
         message.setMessageEncodeConvert(heartbeatRespMessage);
     }
     
