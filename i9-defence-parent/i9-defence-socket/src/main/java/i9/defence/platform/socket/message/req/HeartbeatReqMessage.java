@@ -18,8 +18,13 @@ public class HeartbeatReqMessage extends MessageDecodeConvert {
     }
     
     public String format() {
-        String datetime = String.format("%02d-%02d-%02d#%02d:%02d:%02d", timestamp[0], timestamp[1], timestamp[2],
-                timestamp[3], timestamp[4], timestamp[5]);
+        String datetime = String.format("%02d-%02d-%02d#%02d:%02d:%02d", 
+                timestamp[0], 
+                timestamp[1], 
+                timestamp[2],
+                timestamp[3], 
+                timestamp[4], 
+                timestamp[5]);
         return datetime;
     }
     
