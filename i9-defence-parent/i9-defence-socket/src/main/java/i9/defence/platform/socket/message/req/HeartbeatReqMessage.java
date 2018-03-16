@@ -14,41 +14,50 @@ import io.netty.buffer.ByteBuf;
 public class HeartbeatReqMessage extends MessageDecodeConvert {
     
     public void showInfo() {
-        logger.info("解码, 数据长度 : {}, 时间戳 : {}", 6, EncryptUtils.bytesToHexString(this.timestamp));
-    }
-    
-    public String format() {
-        String datetime = String.format("%02d-%02d-%02d#%02d:%02d:%02d", 
-                timestamp[0], 
-                timestamp[1], 
-                timestamp[2],
-                timestamp[3], 
-                timestamp[4], 
-                timestamp[5]);
-        return datetime;
+        logger.info("解码心跳, [数据长度 : {}, 系统编号 : {}, 回路号 : {}, 设备地址 : {}]", this.dataLen, this.systemId, this.loop, this.deviceAddress);
     }
     
     private final static Logger logger = LoggerFactory.getLogger(HeartbeatReqMessage.class);
 
     @Override
     public boolean decode(ByteBuf buf) {
-        if (buf.readableBytes() < 7) {
+        if (buf.readableBytes() < 1) {
             return true;
         }
-        buf.readByte();
-        timestamp = new byte[6];
-        buf.readBytes(timestamp);
+        this.dataLen = buf.readByte();
+        if (buf.readableBytes() < this.dataLen) {
+            return true;
+        }
+        byte[] dst = new byte[6];
+        buf.readBytes(dst);
+        this.systemId = EncryptUtils.bytesToHexString(dst);
+        
+        this.loop = buf.readByte();
+        
+        dst = new byte[4];
+        buf.readBytes(dst);
+        this.deviceAddress = EncryptUtils.bytesToHexString(dst);
+        
         return false;
     }
     
-    public byte[] timestamp;
+    public byte dataLen;
+    
+    public String systemId;// 系统编号(十六进制)
+    
+    public byte loop;// 回路
+    
+    public String deviceAddress;// 设备地址
+    
 
     @Override
     public byte[] getByteArray() {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(7);
-        byteBuffer.put((byte) 6);
-        byteBuffer.put(this.timestamp);
-        return byteBuffer.array();
+        ByteBuffer buffer = ByteBuffer.allocate(dataLen + 1);
+        buffer.put(this.dataLen);
+        buffer.put(EncryptUtils.hexStringToBytes(this.systemId));
+        buffer.put(this.loop);
+        buffer.put(EncryptUtils.hexStringToBytes(this.deviceAddress));
+        return buffer.array();
     }
 
     @Override

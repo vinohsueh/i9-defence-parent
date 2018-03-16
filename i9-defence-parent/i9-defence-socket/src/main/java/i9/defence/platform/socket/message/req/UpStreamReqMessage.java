@@ -82,7 +82,7 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
     }
     
     public void showInfo() {
-        logger.info("解码, 系统类型 : {}, 系统编号 : {}, 来源使用情况 : {}, 回路 : {}, 设备地址 : {}, 数据单元数 : {}, 数据总长度 : {}", 
+        logger.info("解码上行数据, 系统类型 : {}, 系统编号 : {}, 来源使用情况 : {}, 回路 : {}, 设备地址 : {}, 数据单元数 : {}, 数据总长度 : {}", 
                 this.systemType, this.systemId, this.source, this.loop, this.deviceAddress, this.unit, this.dataLen);
     }
 

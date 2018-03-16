@@ -50,7 +50,7 @@ public class LoginReqMessage extends MessageDecodeConvert {
     }
 
     public void showInfo() {
-        logger.info("解码, [数据长度 : {}, 系统编号 : {}, 回路号 : {}, 设备地址 : {}]", this.dataLen, this.systemId, this.loop, this.deviceAddress);
+        logger.info("解码登录, [数据长度 : {}, 系统编号 : {}, 回路号 : {}, 设备地址 : {}]", this.dataLen, this.systemId, this.loop, this.deviceAddress);
     }
     
     private static final Logger logger = LoggerFactory.getLogger(LoginReqMessage.class);
