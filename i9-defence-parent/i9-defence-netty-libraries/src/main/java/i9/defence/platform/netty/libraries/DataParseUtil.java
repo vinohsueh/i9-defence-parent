@@ -3,10 +3,7 @@ package i9.defence.platform.netty.libraries;
 public class DataParseUtil {
     
     public static Object parseDataValue(byte type, byte[] data) {
-        byte[] b = new byte[data.length];
-        for (int i = 0; i < data.length; i++) {
-            b[i] = data[data.length - i - 1];
-        }
+        byte[] b = reverse(data);
         DataEnum dataEnum = DataEnum.valueOf00(type);
         switch (dataEnum) {
         case T_ENUM:
@@ -36,6 +33,14 @@ public class DataParseUtil {
         default:
             return DataParseUtil.parsePacket(b);
         }
+    }
+
+    public static byte[] reverse(byte[] data) {
+        byte[] b = new byte[data.length];
+        for (int i = 0; i < data.length; i++) {
+            b[i] = data[data.length - i - 1];
+        }
+        return b;
     }
 
     public static char parseUnsignedChar(byte[] b) {

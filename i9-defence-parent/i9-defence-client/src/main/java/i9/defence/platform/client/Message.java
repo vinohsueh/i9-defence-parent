@@ -28,6 +28,9 @@ public class Message {
         for (DataMessage dataMessage : upStreamReqMessage.dataList) {
             upStreamReqMessage.dataLen += dataMessage.getByteArray().length;
         }
+        for (DataMessage dataMessage : upStreamReqMessage.dataList) {
+            dataMessage.data = DataParseUtil.reverse(dataMessage.data);
+        }
         return upStreamReqMessage;
     }
     
@@ -51,8 +54,11 @@ public class Message {
         DataMessage dataMessage = new DataMessage();
         dataMessage.channelId = (byte) channelId;
         dataMessage.source = (byte) 0;
-        dataMessage.type = (byte) DataEnum.T_UNSIGNED_SHORT.value;
-        dataMessage.data = EncryptUtils.shortToByte((short) 10);
+        dataMessage.type = (byte) DataEnum.T_FLOAT.value;
+//        int r = new Random().nextInt(100);
+//        dataMessage.data = EncryptUtils.shortToByte((short) r);
+        dataMessage.data = EncryptUtils.floatToByte(100.05f);
+        
         dataMessage.len = (byte) dataMessage.data.length;
         dataMessage.Y = (byte) -1;
         dataMessage.M = (byte) -1;
