@@ -22,6 +22,11 @@
             <artifactId>netty-all</artifactId>
             <version>${netty.version}</version>
         </dependency>
+        <dependency>
+             <groupId>i9.defence.platform</groupId>
+            <artifactId>i9-defence-netty-libraries</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     
     <build>
