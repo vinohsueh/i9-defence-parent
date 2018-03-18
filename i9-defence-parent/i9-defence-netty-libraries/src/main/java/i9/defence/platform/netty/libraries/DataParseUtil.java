@@ -47,7 +47,7 @@ public class DataParseUtil {
     }
     
     public static String parseEnum(byte[] b) {
-        return new String(b);
+        return EncryptUtils.bytesToHexString(b);
     }
     
     public static String parsePacket(byte[] b) {
