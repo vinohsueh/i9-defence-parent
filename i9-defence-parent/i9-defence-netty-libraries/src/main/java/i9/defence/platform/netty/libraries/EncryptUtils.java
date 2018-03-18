@@ -1,6 +1,16 @@
 package i9.defence.platform.netty.libraries;
 
 public class EncryptUtils {
+    
+    public static byte[] shortToByte(short number) {
+        int temp = number;
+        byte[] b = new byte[2];
+        for (int i = 0; i < b.length; i++) {
+            b[i] = new Integer(temp & 0xff).byteValue();// 将最低位保存在最低位
+            temp = temp >> 8; // 向右移8位
+        }
+        return b;
+    }
 
     public static byte[] intToByteArray(int a) {
         return new byte[] {

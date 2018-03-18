@@ -2,7 +2,7 @@ package i9.defence.platform.netty.libraries;
 
 public class DataParseUtil {
     
-    public static Object parseDataValue(short type, byte[] data) {
+    public static Object parseDataValue(byte type, byte[] data) {
         byte[] b = new byte[data.length];
         for (int i = 0; i < data.length; i++) {
             b[i] = data[data.length - i - 1];
@@ -32,9 +32,6 @@ public class DataParseUtil {
             
         case T_ENUM_0:
             return DataParseUtil.parseEnum(b);
-            
-        case T_SIGNED_INT:
-            return DataParseUtil.parseSignedInt(b);
             
         default:
             return DataParseUtil.parsePacket(b);

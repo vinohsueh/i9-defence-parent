@@ -25,9 +25,9 @@ public class UpStreamService implements ICoreService {
         upStreamReqMessage.showInfo();
         for (DataMessage dataMessage : upStreamReqMessage.dataList) {
             dataMessage.showInfo();
-            logger.info("解析数据包体, 数据类型 : " + dataMessage.dataType 
+            logger.info("解析数据包体, 数据类型 : " + dataMessage.type 
                     + ", hex : " + EncryptUtils.bytesToHexString(dataMessage.data) 
-                    + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.dataType, dataMessage.data));
+                    + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
         }
         JSONObject jsonObject = upStreamReqMessage.toJSONObject();
         String jsonStr = jsonObject.toJSONString();
