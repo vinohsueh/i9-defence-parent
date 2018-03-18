@@ -1,5 +1,4 @@
-package i9.defence.platform.socket.util;
-
+package i9.defence.platform.netty.libraries;
 
 public class DataParseUtil {
     

@@ -1,16 +1,16 @@
-package i9.defence.platform.socket.message.req;
+package i9.defence.platform.netty.libraries.req;
 
 import java.nio.ByteBuffer;
-
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.util.DataParseUtil;
-import i9.defence.platform.socket.util.EncryptUtils;
-import io.netty.buffer.ByteBuf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.netty.libraries.DataParseUtil;
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import io.netty.buffer.ByteBuf;
 
 public class DataMessage extends MessageDecodeConvert {
 

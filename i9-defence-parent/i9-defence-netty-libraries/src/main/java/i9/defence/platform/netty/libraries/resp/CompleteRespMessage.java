@@ -1,7 +1,7 @@
-package i9.defence.platform.socket.message.resp;
+package i9.defence.platform.netty.libraries.resp;
 
-import i9.defence.platform.socket.message.MessageEncodeConvert;
-import i9.defence.platform.socket.util.ErrorCode;
+import i9.defence.platform.netty.libraries.ErrorCode;
+import i9.defence.platform.netty.libraries.MessageEncodeConvert;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 

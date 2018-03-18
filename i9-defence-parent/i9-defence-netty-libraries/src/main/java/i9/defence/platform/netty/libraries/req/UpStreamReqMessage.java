@@ -1,8 +1,4 @@
-package i9.defence.platform.socket.message.req;
-
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.util.EncryptUtils;
-import io.netty.buffer.ByteBuf;
+package i9.defence.platform.netty.libraries.req;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -13,6 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import io.netty.buffer.ByteBuf;
 
 public class UpStreamReqMessage extends MessageDecodeConvert {
     

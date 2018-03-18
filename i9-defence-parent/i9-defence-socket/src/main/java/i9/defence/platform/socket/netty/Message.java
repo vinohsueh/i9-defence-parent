@@ -1,7 +1,7 @@
 package i9.defence.platform.socket.netty;
 
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.message.MessageEncodeConvert;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import i9.defence.platform.netty.libraries.MessageEncodeConvert;
 
 public class Message implements java.io.Serializable {
 

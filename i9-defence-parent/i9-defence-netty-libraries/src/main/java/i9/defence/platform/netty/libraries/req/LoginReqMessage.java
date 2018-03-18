@@ -1,4 +1,4 @@
-package i9.defence.platform.socket.message.req;
+package i9.defence.platform.netty.libraries.req;
 
 import java.nio.ByteBuffer;
 
@@ -7,17 +7,25 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.util.EncryptUtils;
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
 import io.netty.buffer.ByteBuf;
 
-public class HeartbeatReqMessage extends MessageDecodeConvert {
-    
-    public void showInfo() {
-        logger.info("解码心跳, [数据长度 : {}, 系统编号 : {}, 回路号 : {}, 设备地址 : {}]", this.dataLen, this.systemId, this.loop, this.deviceAddress);
+public class LoginReqMessage extends MessageDecodeConvert {
+
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        return jsonObject;
     }
     
-    private final static Logger logger = LoggerFactory.getLogger(HeartbeatReqMessage.class);
+    public byte dataLen;
+    
+    public String systemId;// 系统编号(十六进制)
+    
+    public byte loop;// 回路
+    
+    public String deviceAddress;// 设备地址
 
     @Override
     public boolean decode(ByteBuf buf) {
@@ -40,15 +48,12 @@ public class HeartbeatReqMessage extends MessageDecodeConvert {
         
         return false;
     }
+
+    public void showInfo() {
+        logger.info("解码登录, [数据长度 : {}, 系统编号 : {}, 回路号 : {}, 设备地址 : {}]", this.dataLen, this.systemId, this.loop, this.deviceAddress);
+    }
     
-    public byte dataLen;
-    
-    public String systemId;// 系统编号(十六进制)
-    
-    public byte loop;// 回路
-    
-    public String deviceAddress;// 设备地址
-    
+    private static final Logger logger = LoggerFactory.getLogger(LoginReqMessage.class);
 
     @Override
     public byte[] getByteArray() {
@@ -58,10 +63,5 @@ public class HeartbeatReqMessage extends MessageDecodeConvert {
         buffer.put(this.loop);
         buffer.put(EncryptUtils.hexStringToBytes(this.deviceAddress));
         return buffer.array();
-    }
-
-    @Override
-    public JSONObject toJSONObject() {
-        return null;
     }
 }

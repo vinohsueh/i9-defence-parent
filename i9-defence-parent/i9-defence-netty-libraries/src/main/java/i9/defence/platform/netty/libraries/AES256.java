@@ -1,4 +1,4 @@
-package i9.defence.platform.socket.util;
+package i9.defence.platform.netty.libraries;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
