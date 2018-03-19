@@ -39,6 +39,7 @@ public class UpStreamDecodeController {
     @RequestMapping("/pageUpStreamDecode")
     public HashMap<String, Object> pageUpStreamDecode(@RequestBody UpStreamDecodeSearchDto upStreamDecodeSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
+        upStreamDecodeSearchDto.setOrderByClause("submitDate desc");
         PageBounds<UpStreamDecode> pageBounds = upStreamDecodeService.selectByLimitPage(upStreamDecodeSearchDto);
         result.put("data",pageBounds);
         return result;
