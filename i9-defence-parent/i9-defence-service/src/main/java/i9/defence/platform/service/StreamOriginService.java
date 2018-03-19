@@ -19,4 +19,10 @@ public interface StreamOriginService {
      * @return
      */
     PageBounds<StreamOrigin> selectByLimitPage(StreamOriginSearchDto streamOriginSearchDto) throws BusinessException;
+    
+    /**
+     * 添加原始数据
+     * @param streamOrigin
+     */
+	void addStreamOrigin(StreamOrigin streamOrigin) throws BusinessException;
 }
