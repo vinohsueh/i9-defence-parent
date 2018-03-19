@@ -28,7 +28,7 @@ public class Client {
     }
 
     public Client() {
-        this.connect("mikroute010.own9000.com", 2501);
+        this.connect("103.248.102.3", 10001);
     }
 
     public static Client getInstance() {
