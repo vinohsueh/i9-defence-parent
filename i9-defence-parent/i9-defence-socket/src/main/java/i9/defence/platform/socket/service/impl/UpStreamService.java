@@ -30,6 +30,13 @@ public class UpStreamService implements ICoreService {
                     + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
         }
         JSONObject jsonObject = upStreamReqMessage.toJSONObject();
+        
+        // TODO 保存json数据 service -> dao - db
+        // id jsonstr submitDate
+        // t_up_stream_origin
+        // t_up_stream_decode
+        
+        
         String jsonStr = jsonObject.toJSONString();
         try {
             producerService.sendMessage(jsonStr);

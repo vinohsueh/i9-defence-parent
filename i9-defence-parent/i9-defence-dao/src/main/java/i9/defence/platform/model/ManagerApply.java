@@ -53,7 +53,7 @@ public class ManagerApply {
      * 电话
      */
     @NotBlank(message="电话号码不能为空")
-    @Pattern(regexp="^1[3|4|5|7|8][0-9]\\d{8}$",message="请输入正确的手机号")
+    @Pattern(regexp="^1[3|4|5|6|7|8][0-9]\\d{8}$",message="请输入正确的手机号")
     private String phone;
     
     /**
