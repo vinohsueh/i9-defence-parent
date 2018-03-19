@@ -8,9 +8,9 @@ import java.nio.ByteBuffer;
 
 import org.junit.Test;
 
-import i9.defence.platform.socket.message.RespMessageBuilder;
-import i9.defence.platform.socket.message.resp.CompleteRespMessage;
-import i9.defence.platform.socket.util.EncryptUtils;
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.RespMessageBuilder;
+import i9.defence.platform.netty.libraries.resp.CompleteRespMessage;
 
 public class MessageWrapperTest {
 

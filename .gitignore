@@ -37,3 +37,9 @@
 
 /.project
 
+/i9-defence-parent/i9-defence-netty-libraries/.classpath
+/i9-defence-parent/i9-defence-netty-libraries/.project
+/i9-defence-parent/i9-defence-netty-libraries/.settings
+/i9-defence-parent/i9-defence-client/*.classpath
+/i9-defence-parent/i9-defence-client/*.project
+/i9-defence-parent/i9-defence-client/.settings

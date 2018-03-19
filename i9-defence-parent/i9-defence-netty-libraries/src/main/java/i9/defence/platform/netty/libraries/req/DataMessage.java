@@ -1,38 +1,41 @@
-package i9.defence.platform.socket.message.req;
+package i9.defence.platform.netty.libraries.req;
 
 import java.nio.ByteBuffer;
-
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.util.DataParseUtil;
-import i9.defence.platform.socket.util.EncryptUtils;
-import io.netty.buffer.ByteBuf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 
+import i9.defence.platform.netty.libraries.DataParseUtil;
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import io.netty.buffer.ByteBuf;
+
 public class DataMessage extends MessageDecodeConvert {
 
     @Override
     public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("channel", this.channel);
-        jsonObject.put("dataType", this.dataType);
+        jsonObject.put("channel", this.channelId);
+        jsonObject.put("source", this.source);
+        jsonObject.put("type", this.type);
         jsonObject.put("datetime", this.datetime);
-        jsonObject.put("dataLen", this.dataLen);
+        jsonObject.put("len", this.len);
         jsonObject.put("data", EncryptUtils.bytesToHexString(this.data));
-        jsonObject.put("value", DataParseUtil.parseDataValue(this.dataType, this.data));
+        jsonObject.put("value", DataParseUtil.parseDataValue(this.type, this.data));
         return jsonObject;
     }
 
-    public byte channel;
+    public byte channelId;
     
-    public short dataType;
+    public byte source;
+    
+    public byte type;
     
     public String datetime;
     
-    public byte dataLen;
+    public byte len;
     
     public byte[] data;
     
@@ -53,8 +56,9 @@ public class DataMessage extends MessageDecodeConvert {
         if (buf.readableBytes() < 1 + 2 + 6 + 1) {
             return true;
         }
-        this.channel = buf.readByte();
-        this.dataType = buf.readShort();
+        this.channelId = buf.readByte();
+        this.source = buf.readByte();
+        this.type = buf.readByte();
         byte[] dst = new byte[6];
         buf.readBytes(dst);
         this.datetime  = String.format("%02d-%02d-%02d#%02d:%02d:%02d", dst[0], dst[1], dst[2], dst[3], dst[4], dst[5]);
@@ -64,11 +68,11 @@ public class DataMessage extends MessageDecodeConvert {
         this.H = dst[3];
         this.m = dst[4];
         this.S = dst[5];
-        this.dataLen = buf.readByte();
-        if (buf.readableBytes() < this.dataLen) {
+        this.len = buf.readByte();
+        if (buf.readableBytes() < this.len) {
             return true;
         }
-        this.data = new byte[this.dataLen];
+        this.data = new byte[this.len];
         buf.readBytes(this.data);
         return false;
     }
@@ -77,21 +81,22 @@ public class DataMessage extends MessageDecodeConvert {
 
     public void showInfo() {
         logger.info("解码, 设备通道 : {}, 数据类型 : {}, 产生时间 : {}, 数据长度 : {}, 数据 : {}", 
-                this.channel, this.dataType, this.datetime, this.dataLen, EncryptUtils.bytesToHexString(this.data));
+                this.channelId, this.type, this.datetime, this.len, EncryptUtils.bytesToHexString(this.data));
     }
     
     @Override
     public byte[] getByteArray() {
         ByteBuffer byteBuffer = ByteBuffer.allocate(1 + 2 + 6 + 1 + this.data.length);
-        byteBuffer.put(this.channel);
-        byteBuffer.putShort(this.dataType);
+        byteBuffer.put(this.channelId);
+        byteBuffer.put(this.source);
+        byteBuffer.put(this.type);
         byteBuffer.put(this.Y);
         byteBuffer.put(this.M);
         byteBuffer.put(this.D);
         byteBuffer.put(this.H);
         byteBuffer.put(this.m);
         byteBuffer.put(this.S);
-        byteBuffer.put(this.dataLen);
+        byteBuffer.put(this.len);
         byteBuffer.put(this.data);
         return byteBuffer.array();
     }

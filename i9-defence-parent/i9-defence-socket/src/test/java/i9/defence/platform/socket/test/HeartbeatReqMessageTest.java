@@ -1,18 +1,18 @@
 package i9.defence.platform.socket.test;
 
-import i9.defence.platform.socket.context.ChannelPacker;
-import i9.defence.platform.socket.message.req.UpStreamReqMessage;
-import i9.defence.platform.socket.netty.Message;
-import i9.defence.platform.socket.service.impl.UpStreamService;
-import i9.defence.platform.socket.util.EncryptUtils;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
+import i9.defence.platform.socket.context.ChannelPacker;
+import i9.defence.platform.socket.netty.Message;
+import i9.defence.platform.socket.service.impl.UpStreamService;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration({"classpath*:beans.xml"}) 

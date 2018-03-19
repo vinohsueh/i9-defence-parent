@@ -1,8 +1,7 @@
-package i9.defence.platform.socket.message;
+package i9.defence.platform.netty.libraries;
 
 import java.nio.ByteBuffer;
 
-import i9.defence.platform.socket.util.EncryptUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 

@@ -2,15 +2,15 @@ package i9.defence.platform.socket.netty.handler;
 
 import org.apache.log4j.Logger;
 
+import i9.defence.platform.netty.libraries.ErrorCode;
+import i9.defence.platform.netty.libraries.MessageEncodeConvert;
+import i9.defence.platform.netty.libraries.resp.CompleteRespMessage;
+import i9.defence.platform.netty.libraries.resp.SimpleRespMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
 import i9.defence.platform.socket.exception.BusinessException;
-import i9.defence.platform.socket.message.MessageEncodeConvert;
-import i9.defence.platform.socket.message.resp.CompleteRespMessage;
-import i9.defence.platform.socket.message.resp.SimpleRespMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
-import i9.defence.platform.socket.util.ErrorCode;
 import i9.defence.platform.socket.util.ServiceMapping;
 import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.channel.ChannelHandlerContext;
@@ -28,6 +28,9 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
         ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         try {
+        	// save t_up_stream_decode
+        	// id hexStr submitDate
+        	// String hexStr = message.getMessageDecodeConvert().getByteArray();
             ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
             ICoreService coreService = serviceMapping.getCoreService(message.getType());
             coreService.doPost(message, channelPacker);

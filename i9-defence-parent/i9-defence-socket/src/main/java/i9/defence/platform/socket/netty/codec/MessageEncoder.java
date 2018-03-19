@@ -3,7 +3,7 @@ package i9.defence.platform.socket.netty.codec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import i9.defence.platform.socket.util.EncryptUtils;
+import i9.defence.platform.netty.libraries.EncryptUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

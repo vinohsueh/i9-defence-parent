@@ -1,4 +1,4 @@
-package i9.defence.platform.socket.message;
+package i9.defence.platform.netty.libraries;
 
 import com.alibaba.fastjson.JSONObject;
 

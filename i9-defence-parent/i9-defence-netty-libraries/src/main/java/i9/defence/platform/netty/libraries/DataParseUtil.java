@@ -1,13 +1,9 @@
-package i9.defence.platform.socket.util;
-
+package i9.defence.platform.netty.libraries;
 
 public class DataParseUtil {
     
-    public static Object parseDataValue(short type, byte[] data) {
-        byte[] b = new byte[data.length];
-        for (int i = 0; i < data.length; i++) {
-            b[i] = data[data.length - i - 1];
-        }
+    public static Object parseDataValue(byte type, byte[] data) {
+        byte[] b = reverse(data);
         DataEnum dataEnum = DataEnum.valueOf00(type);
         switch (dataEnum) {
         case T_ENUM:
@@ -34,12 +30,17 @@ public class DataParseUtil {
         case T_ENUM_0:
             return DataParseUtil.parseEnum(b);
             
-        case T_SIGNED_INT:
-            return DataParseUtil.parseSignedInt(b);
-            
         default:
             return DataParseUtil.parsePacket(b);
         }
+    }
+
+    public static byte[] reverse(byte[] data) {
+        byte[] b = new byte[data.length];
+        for (int i = 0; i < data.length; i++) {
+            b[i] = data[data.length - i - 1];
+        }
+        return b;
     }
 
     public static char parseUnsignedChar(byte[] b) {
@@ -51,7 +52,7 @@ public class DataParseUtil {
     }
     
     public static String parseEnum(byte[] b) {
-        return new String(b);
+        return EncryptUtils.bytesToHexString(b);
     }
     
     public static String parsePacket(byte[] b) {
