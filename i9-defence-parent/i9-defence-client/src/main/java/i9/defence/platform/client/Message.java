@@ -56,12 +56,7 @@ public class Message {
 //            dataMessage.data = EncryptUtils.floatToByte((float) r);
 //        }
         dataMessage.len = (byte) dataMessage.data.length;
-        dataMessage.Y = (byte) -1;
-        dataMessage.M = (byte) -1;
-        dataMessage.D = (byte) -1;
-        dataMessage.H = (byte) -1;
-        dataMessage.m = (byte) -1;
-        dataMessage.S = (byte) -1;
+        dataMessage.nbs = new byte[] { (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1 };
         return dataMessage;
     }
     
@@ -73,12 +68,7 @@ public class Message {
         int r = new Random().nextInt(100);
         dataMessage.data = EncryptUtils.floatToByte((float) r);
         dataMessage.len = (byte) dataMessage.data.length;
-        dataMessage.Y = (byte) -1;
-        dataMessage.M = (byte) -1;
-        dataMessage.D = (byte) -1;
-        dataMessage.H = (byte) -1;
-        dataMessage.m = (byte) -1;
-        dataMessage.S = (byte) -1;
+        dataMessage.nbs = new byte[] { (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1 };
         return dataMessage;
     }
 }
