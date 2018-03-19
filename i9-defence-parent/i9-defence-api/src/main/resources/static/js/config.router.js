@@ -109,6 +109,23 @@ angular.module('app')
                     }]
                   }
               })
+               .state('app.streamOrigin', {
+                  url: '/streamOrigin',
+                  templateUrl: 'proj/streamOrigin/streamOrigin.html',
+              	  controller : "streamOriginNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'streamOriginNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/streamOrigin/streamOrigin.js',
+            				]
+            			})
+                    }]
+                  }
+              })
                .state('app.eqCategory', {
                   url: '/eqCategory',
                   templateUrl: 'proj/eqCategory/eqCategory.html',
