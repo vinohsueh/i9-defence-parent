@@ -27,4 +27,14 @@ public class StreamOriginServiceImpl implements StreamOriginService {
 		}
 	}
 
+	@Override
+	public void addStreamOrigin(StreamOrigin streamOrigin) throws BusinessException {
+		try {
+			streamOriginDao.addStreamOrigin(streamOrigin);
+		} catch (Exception e) {
+			throw new BusinessException("添加原始数据失败",e.getMessage());
+		}
+		
+	}
+
 }

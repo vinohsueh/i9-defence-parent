@@ -18,4 +18,11 @@ public interface StreamOriginDao {
      */
     PageBounds<StreamOrigin> selectByLimitPage(StreamOriginSearchDto streamOriginSearchDto,
     		int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 添加原始数据
+     * @param streamOrigin
+     * @throws Exception
+     */
+	void addStreamOrigin(StreamOrigin streamOrigin) throws Exception;
 }

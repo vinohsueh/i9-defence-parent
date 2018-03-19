@@ -1,5 +1,7 @@
 package i9.defence.platform.socket.service.impl;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,18 +9,23 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 
+import i9.defence.platform.model.StreamOrigin;
 import i9.defence.platform.mq.libraries.ProducerService;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.req.DataMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
+import i9.defence.platform.service.StreamOriginService;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 
 @Service
 public class UpStreamService implements ICoreService {
-
+	
+	@Autowired
+	private StreamOriginService streamOriginService;
+	
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
         UpStreamReqMessage upStreamReqMessage = (UpStreamReqMessage) message.getMessageDecodeConvert();
@@ -35,9 +42,11 @@ public class UpStreamService implements ICoreService {
         // id jsonstr submitDate
         // t_up_stream_origin
         // t_up_stream_decode
-        
-        
         String jsonStr = jsonObject.toJSONString();
+        StreamOrigin streamOrigin = new StreamOrigin();
+        streamOrigin.setJsonstr(jsonStr);
+        streamOrigin.setSubmitDate(new Date());
+        streamOriginService.addStreamOrigin(streamOrigin);
         try {
             producerService.sendMessage(jsonStr);
             logger.info("发送到MQ服务器消息成功, jsonStr : " + jsonStr);

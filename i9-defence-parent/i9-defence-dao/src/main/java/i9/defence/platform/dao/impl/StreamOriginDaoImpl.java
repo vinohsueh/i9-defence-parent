@@ -32,4 +32,9 @@ public class StreamOriginDaoImpl implements StreamOriginDao {
         return pageBounds;
 	}
 
+	@Override
+	public void addStreamOrigin(StreamOrigin streamOrigin) throws Exception {
+		streamOriginMapper.insertSelective(streamOrigin);
+	}
+
 }
