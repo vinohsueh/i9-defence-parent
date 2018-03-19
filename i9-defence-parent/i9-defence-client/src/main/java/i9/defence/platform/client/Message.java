@@ -1,5 +1,7 @@
 package i9.defence.platform.client;
 
+import java.util.Random;
+
 import i9.defence.platform.netty.libraries.DataEnum;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
@@ -7,6 +9,10 @@ import i9.defence.platform.netty.libraries.req.DataMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
 
 public class Message {
+    
+    public int count = 1;
+    
+    public String[] state = {"00000000", "00000001", "00000002", "00000003", "00000004"};
 
     public UpStreamReqMessage makeUpStreamReqMessage() {
         UpStreamReqMessage upStreamReqMessage = new UpStreamReqMessage();
@@ -31,6 +37,7 @@ public class Message {
         for (DataMessage dataMessage : upStreamReqMessage.dataList) {
             dataMessage.data = DataParseUtil.reverse(dataMessage.data);
         }
+        count ++;
         return upStreamReqMessage;
     }
     
@@ -38,8 +45,16 @@ public class Message {
         DataMessage dataMessage = new DataMessage();
         dataMessage.channelId = (byte) channelId;
         dataMessage.source = (byte) 0;
-        dataMessage.type = (byte) DataEnum.T_ENUM.value;
-        dataMessage.data = EncryptUtils.hexStringToBytes("00000000");
+        if (count % 10 == 0) {
+            dataMessage.type = (byte) DataEnum.T_ENUM.value;
+            String s = state[new Random().nextInt(state.length)];
+            dataMessage.data = EncryptUtils.hexStringToBytes(s);
+        }
+        else {
+            dataMessage.type = (byte) DataEnum.T_UNSIGNED_SHORT.value;
+            int r = new Random().nextInt(100);
+            dataMessage.data = EncryptUtils.floatToByte((float) r);
+        }
         dataMessage.len = (byte) dataMessage.data.length;
         dataMessage.Y = (byte) -1;
         dataMessage.M = (byte) -1;
@@ -55,10 +70,8 @@ public class Message {
         dataMessage.channelId = (byte) channelId;
         dataMessage.source = (byte) 0;
         dataMessage.type = (byte) DataEnum.T_FLOAT.value;
-//        int r = new Random().nextInt(100);
-//        dataMessage.data = EncryptUtils.shortToByte((short) r);
-        dataMessage.data = EncryptUtils.floatToByte(100.05f);
-        
+        int r = new Random().nextInt(100);
+        dataMessage.data = EncryptUtils.floatToByte((float) r);
         dataMessage.len = (byte) dataMessage.data.length;
         dataMessage.Y = (byte) -1;
         dataMessage.M = (byte) -1;

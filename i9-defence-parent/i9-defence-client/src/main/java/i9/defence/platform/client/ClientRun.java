@@ -1,8 +1,8 @@
 package i9.defence.platform.client;
 
-import java.nio.ByteBuffer;
-
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
+
+import java.nio.ByteBuffer;
 
 public class ClientRun {
 
