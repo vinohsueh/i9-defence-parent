@@ -28,6 +28,9 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
         ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         try {
+        	// save t_up_stream_decode
+        	// id hexStr submitDate
+        	// String hexStr = message.getMessageDecodeConvert().getByteArray();
             ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
             ICoreService coreService = serviceMapping.getCoreService(message.getType());
             coreService.doPost(message, channelPacker);
