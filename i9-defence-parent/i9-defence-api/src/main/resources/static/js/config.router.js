@@ -58,6 +58,23 @@ angular.module('app')
                     }]
                   }
               }) 
+              .state('app.upStreamDecode', {
+                  url: '/upStreamDecode',
+                  templateUrl: 'proj/upStreamDecode/upStreamDecode.html',
+              	  controller : "upStreamDecodeNgControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'upStreamDecodeNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/upStreamDecode/upStreamDecode.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
             .state('app.apply', {
                   url: '/apply',
                   templateUrl: 'proj/apply/apply.html',
