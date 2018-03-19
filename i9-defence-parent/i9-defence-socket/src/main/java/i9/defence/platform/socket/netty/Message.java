@@ -1,13 +1,23 @@
 package i9.defence.platform.socket.netty;
 
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.message.MessageEncodeConvert;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import i9.defence.platform.netty.libraries.MessageEncodeConvert;
 
 public class Message implements java.io.Serializable {
 
     private static final long serialVersionUID = -7654462121885214207L;
 
     private byte type;
+    
+    private int index;
+    
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     private MessageDecodeConvert messageDecodeConvert;
     

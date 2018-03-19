@@ -1,26 +1,26 @@
 package i9.defence.platform.socket.netty.codec;
 
-import i9.defence.platform.socket.message.MessageDecodeConvert;
-import i9.defence.platform.socket.message.req.HeartbeatReqMessage;
-import i9.defence.platform.socket.message.req.LoginReqMessage;
-import i9.defence.platform.socket.message.req.UpStreamReqMessage;
-import i9.defence.platform.socket.netty.Message;
-import i9.defence.platform.socket.util.EncryptUtils;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageDecoder;
-
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
+import i9.defence.platform.netty.libraries.req.LoginReqMessage;
+import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
+import i9.defence.platform.socket.netty.Message;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToMessageDecoder;
 
 public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageDecoder.class);
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
+    public void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
         // 如果包体小于起始符 + 版本号 + 消息类型 + 消息索引，表示不为完整包
         if (buf.readableBytes() < 1 + 1 + 1 + 4) {
             return;
@@ -35,7 +35,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         MessageDecodeConvert messageDecodeConvert = null;
         if (type == 0x00) {
             messageDecodeConvert = new LoginReqMessage();
-        } else if (type == 0xFF) {
+        } else if (type == -1) {
             messageDecodeConvert = new HeartbeatReqMessage();
         } else {
             messageDecodeConvert = new UpStreamReqMessage();
@@ -67,6 +67,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
 
         Message message = new Message();
         message.setType(type);
+        message.setIndex(index);
         message.setMessageDecodeConvert(messageDecodeConvert);
         list.add(message);
     }

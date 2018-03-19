@@ -1,13 +1,46 @@
-package i9.defence.platform.socket.util;
+package i9.defence.platform.netty.libraries;
 
 public class EncryptUtils {
+    
+    public static byte[] shortToByte(short number) {
+        int temp = number;
+        byte[] b = new byte[2];
+        for (int i = 0; i < b.length; i++) {
+            b[i] = new Integer(temp & 0xff).byteValue();// 将最低位保存在最低位
+            temp = temp >> 8; // 向右移8位
+        }
+        return b;
+    }
 
-    public static byte[] intToByteArray(int a) {
+    public static byte[] intToByte(int a) {
         return new byte[] {
                 (byte) ((a >> 24) & 0xFF),
                 (byte) ((a >> 16) & 0xFF),
                 (byte) ((a >> 8) & 0xFF),
                 (byte) (a & 0xFF)};
+    }
+    
+    public static byte[] floatToByte(float f) {
+        // 把float转换为byte[]
+        int fbit = Float.floatToIntBits(f);
+        byte[] b = new byte[4];
+        for (int i = 0; i < 4; i++) {
+            b[i] = (byte) (fbit >> (24 - i * 8));
+        }
+        // 翻转数组
+        int len = b.length;
+        // 建立一个与源数组元素类型相同的数组
+        byte[] dest = new byte[len];
+        // 为了防止修改源数组，将源数组拷贝一份副本
+        System.arraycopy(b, 0, dest, 0, len);
+        byte temp;
+        // 将顺位第i个与倒数第i个交换
+        for (int i = 0; i < len / 2; ++i) {
+            temp = dest[i];
+            dest[i] = dest[len - i - 1];
+            dest[len - i - 1] = temp;
+        }
+        return dest;
     }
     
     public static byte[] SumCheck(byte[] buf) {

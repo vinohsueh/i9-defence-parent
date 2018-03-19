@@ -1,8 +1,7 @@
-package i9.defence.platform.socket.message;
+package i9.defence.platform.netty.libraries;
 
 import java.nio.ByteBuffer;
 
-import i9.defence.platform.socket.util.EncryptUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -10,14 +9,14 @@ public class RespMessageBuilder {
 
     public static ByteBuf wrapper(MessageEncodeConvert messageEncodeConvert, int index) {
         byte[] data = messageEncodeConvert.encode().array();
-        ByteBuf buf = Unpooled.buffer(8 + data.length + 2);
+        ByteBuf buf = Unpooled.buffer(7 + data.length + 2);
         buf.writeByte(0x40);
         
-        ByteBuffer byteBuffer = ByteBuffer.allocate(7 + data.length);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(6 + data.length);
         byteBuffer.put((byte) 0x10);
         byteBuffer.put(messageEncodeConvert.getType());
         byteBuffer.putInt(index);
-        byteBuffer.put((byte) data.length);
+//        byteBuffer.put((byte) data.length);
         byteBuffer.put(data);
         
         byte[] mByte = byteBuffer.array();
