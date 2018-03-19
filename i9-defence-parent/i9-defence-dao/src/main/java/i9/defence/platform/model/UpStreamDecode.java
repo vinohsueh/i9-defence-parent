@@ -36,7 +36,7 @@ public class UpStreamDecode {
     }
     public String getSubmitDateStr() {
     	if(submitDate != null) {
-    		return StringUtil.dateToStringWithoutTime(submitDate);
+    		return StringUtil.dateToStringByRep(submitDate, "yyyy-MM-dd HH:mm:ss");
     	}
         return "";
     }
