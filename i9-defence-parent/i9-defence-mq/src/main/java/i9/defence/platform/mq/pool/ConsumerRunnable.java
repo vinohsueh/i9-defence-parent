@@ -22,9 +22,7 @@ public class ConsumerRunnable implements Runnable {
                 }
                 // TODO 在这里处理数据库逻辑操作
                 
-                
-                
-                
+                System.out.println("dsfsf");
                 
             }
             catch (Exception e) {
