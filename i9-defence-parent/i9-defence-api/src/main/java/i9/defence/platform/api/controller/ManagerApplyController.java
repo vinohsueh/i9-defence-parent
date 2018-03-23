@@ -1,15 +1,5 @@
 package i9.defence.platform.api.controller;
 
-import i9.defence.platform.dao.vo.ApplyRefuseDto;
-import i9.defence.platform.dao.vo.ManagerApplyDto;
-import i9.defence.platform.model.Manager;
-import i9.defence.platform.model.ManagerApply;
-import i9.defence.platform.service.ManagerApplyService;
-import i9.defence.platform.service.ManagerService;
-import i9.defence.platform.service.ProjectService;
-import i9.defence.platform.utils.Constants;
-import i9.defence.platform.utils.PageBounds;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +13,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import i9.defence.platform.dao.vo.ApplyRefuseDto;
+import i9.defence.platform.dao.vo.ManagerApplyDto;
+import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.ManagerApply;
+import i9.defence.platform.service.ManagerApplyService;
+import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.utils.Constants;
+import i9.defence.platform.utils.PageBounds;
 
 /**
  * 用户申请controller 创建时间：2018年1月12日 上午9:11:59
@@ -49,9 +48,6 @@ public class ManagerApplyController {
 
     @Autowired
     private ManagerService managerService;
-
-    @Autowired
-    private ProjectService projectService;
 
     /**
      * 分页查询用户申请
