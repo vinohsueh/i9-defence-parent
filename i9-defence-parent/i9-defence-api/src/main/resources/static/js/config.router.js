@@ -304,7 +304,7 @@ angular.module('app')
               })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
-                  templateUrl: '/tpl/app_dashboard_v1.html',
+                  templateUrl: 'tpl/app_dashboard_v1.html',
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
@@ -314,7 +314,7 @@ angular.module('app')
               })
               .state('app.dashboard-v2', {
                   url: '/dashboard-v2',
-                  templateUrl: '/tpl/app_dashboard_v2.html',
+                  templateUrl: 'tpl/app_dashboard_v2.html',
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
