@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.model.StreamOrigin;
-import i9.defence.platform.mq.libraries.ProducerService;
+import i9.defence.platform.mq.libraries.business.BusinessProducerService;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.req.DataMessage;
@@ -59,5 +59,5 @@ public class UpStreamService implements ICoreService {
     private final static Logger logger = LoggerFactory.getLogger(UpStreamService.class);
     
     @Autowired
-    private ProducerService producerService;
+    private BusinessProducerService producerService;
 }

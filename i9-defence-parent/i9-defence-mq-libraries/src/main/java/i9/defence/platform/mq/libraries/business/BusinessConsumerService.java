@@ -1,4 +1,4 @@
-package i9.defence.platform.mq.libraries;
+package i9.defence.platform.mq.libraries.business;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
@@ -11,9 +11,9 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConsumerService {
+public class BusinessConsumerService {
 
-    @Resource(name = "jmsTemplate")
+    @Resource(name = "businessJmsTemplate")
     private JmsTemplate jmsTemplate;
 
     public TextMessage receive(Destination destination) {
@@ -28,9 +28,9 @@ public class ConsumerService {
         return textMessage;
     }
     
-    private static final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(BusinessConsumerService.class);
     
-    @Resource(name = "destination")
+    @Resource(name = "businessDestination")
     private Destination destination;
     
     public TextMessage receive() {

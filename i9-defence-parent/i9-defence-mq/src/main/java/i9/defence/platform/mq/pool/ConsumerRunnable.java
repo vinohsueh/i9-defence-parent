@@ -5,7 +5,8 @@ import javax.jms.TextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.mq.libraries.ConsumerService;
+import i9.defence.platform.mq.libraries.business.BusinessConsumerService;
+import i9.defence.platform.service.UpStreamDecodeService;
 
 @Component
 public class ConsumerRunnable implements Runnable {
@@ -21,7 +22,7 @@ public class ConsumerRunnable implements Runnable {
                     continue;
                 }
                 // TODO 在这里处理数据库逻辑操作
-                
+                this.upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
                 System.out.println("dsfsf");
                 
             }
@@ -32,6 +33,8 @@ public class ConsumerRunnable implements Runnable {
     }
     
     @Autowired
-    private ConsumerService consumerService;
+    private BusinessConsumerService consumerService;
 
+    @Autowired
+    private UpStreamDecodeService upStreamDecodeService;
 }

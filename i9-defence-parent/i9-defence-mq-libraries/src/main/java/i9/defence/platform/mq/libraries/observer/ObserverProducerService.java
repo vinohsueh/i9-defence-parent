@@ -1,4 +1,4 @@
-package i9.defence.platform.mq.libraries;
+package i9.defence.platform.mq.libraries.observer;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
@@ -13,11 +13,11 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProducerService {
+public class ObserverProducerService {
     
-    private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ObserverProducerService.class);
 
-    @Resource(name = "jmsTemplate")
+    @Resource(name = "observerJmsTemplate")
     private JmsTemplate jmsTemplate;
 
     public void sendMessage(Destination destination, final String msg) {
@@ -30,7 +30,7 @@ public class ProducerService {
         jmsTemplate.send(destination, messageCreator);
     }
     
-    @Resource(name = "destination")
+    @Resource(name = "observerDestination")
     private Destination destination;
 
     public void sendMessage(final String msg) {
