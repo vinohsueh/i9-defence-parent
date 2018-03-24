@@ -13,7 +13,7 @@
     </properties>
     
     <build>
-        <finalName>i9-defence-mq</finalName>
+        <finalName>i9-defence-observer</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
