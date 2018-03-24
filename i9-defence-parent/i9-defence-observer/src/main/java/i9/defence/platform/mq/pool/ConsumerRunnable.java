@@ -2,11 +2,13 @@ package i9.defence.platform.mq.pool;
 
 import javax.jms.TextMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.mq.libraries.business.BusinessConsumerService;
-import i9.defence.platform.service.UpStreamDecodeService;
+import i9.defence.platform.mq.libraries.observer.ObserverConsumerService;
+import i9.defence.platform.service.UpStreamOriginService;
 
 @Component
 public class ConsumerRunnable implements Runnable {
@@ -21,20 +23,19 @@ public class ConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                // TODO 在这里处理数据库逻辑操作
-                this.upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
-                System.out.println("dsfsf");
-                
-            }
-            catch (Exception e) {
+                this.upStreamOriginService.saveUpStreamOrigin(textMessage.getText());
+                logger.info("save up stream origin data success, data : " + textMessage.getText());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
     
-    @Autowired
-    private BusinessConsumerService consumerService;
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
 
     @Autowired
-    private UpStreamDecodeService upStreamDecodeService;
+    private ObserverConsumerService consumerService;
+
+    @Autowired
+    private UpStreamOriginService upStreamOriginService;
 }

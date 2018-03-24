@@ -7,22 +7,28 @@ import i9.defence.platform.utils.PageBounds;
 
 /**
  * Service
+ * 
  * @author gbq
  * @create 2018年3月19日
  */
-public interface StreamOriginService {
-	  /**
+public interface UpStreamOriginService {
+    
+    /**
      * 分页查询项目
+     * 
      * @param streamOriginSearchDto
      * @param currectPage
      * @param pageSize
      * @return
      */
     PageBounds<StreamOrigin> selectByLimitPage(StreamOriginSearchDto streamOriginSearchDto) throws BusinessException;
-    
+
     /**
      * 添加原始数据
+     * 
      * @param streamOrigin
      */
-	void addStreamOrigin(StreamOrigin streamOrigin) throws BusinessException;
+    void addStreamOrigin(StreamOrigin streamOrigin) throws BusinessException;
+
+    public void saveUpStreamOrigin(String str);
 }

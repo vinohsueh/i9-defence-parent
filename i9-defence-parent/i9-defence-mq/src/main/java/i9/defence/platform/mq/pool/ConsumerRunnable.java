@@ -2,6 +2,8 @@ package i9.defence.platform.mq.pool;
 
 import javax.jms.TextMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +23,8 @@ public class ConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                // TODO 在这里处理数据库逻辑操作
                 this.upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
-                System.out.println("dsfsf");
+                logger.info("save up stream decode success, data : " + textMessage.getText());
                 
             }
             catch (Exception e) {
@@ -31,6 +32,8 @@ public class ConsumerRunnable implements Runnable {
             }
         }
     }
+    
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
     
     @Autowired
     private BusinessConsumerService consumerService;

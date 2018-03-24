@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.StreamOriginSearchDto;
 import i9.defence.platform.model.StreamOrigin;
-import i9.defence.platform.service.StreamOriginService;
+import i9.defence.platform.service.UpStreamOriginService;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -23,7 +23,7 @@ import i9.defence.platform.utils.PageBounds;
 public class StreamOriginController {
 	
 	@Autowired
-	private StreamOriginService streamOriginService;
+	private UpStreamOriginService streamOriginService;
 	
 	 /**
      * 分页查询设备列表

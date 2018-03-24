@@ -15,7 +15,7 @@ import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.req.DataMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
-import i9.defence.platform.service.StreamOriginService;
+import i9.defence.platform.service.UpStreamOriginService;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
@@ -24,7 +24,7 @@ import i9.defence.platform.socket.service.ICoreService;
 public class UpStreamService implements ICoreService {
 	
 	@Autowired
-	private StreamOriginService streamOriginService;
+	private UpStreamOriginService streamOriginService;
 	
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
