@@ -40,6 +40,12 @@
 /i9-defence-parent/i9-defence-netty-libraries/.classpath
 /i9-defence-parent/i9-defence-netty-libraries/.project
 /i9-defence-parent/i9-defence-netty-libraries/.settings
+
 /i9-defence-parent/i9-defence-client/*.classpath
 /i9-defence-parent/i9-defence-client/*.project
 /i9-defence-parent/i9-defence-client/.settings
+
+
+/i9-defence-parent/i9-defence-observer/.classpath
+/i9-defence-parent/i9-defence-observer/.project
+/i9-defence-parent/i9-defence-observer/.settings
