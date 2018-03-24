@@ -1,5 +1,6 @@
 package i9.defence.platform.mq.pool;
 
+import javax.annotation.Resource;
 import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ public class ConsumerRunnable implements Runnable {
     public void run() {
         while (true) {
             try {
-                TextMessage textMessage = consumerService.receive();
+                TextMessage textMessage = businessConsumerService.receive();
                 // 如果数据为空就延迟3秒钟
                 if (textMessage == null) {
                     Thread.sleep(3000);
@@ -35,8 +36,8 @@ public class ConsumerRunnable implements Runnable {
     
     private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
     
-    @Autowired
-    private BusinessConsumerService consumerService;
+    @Resource
+    private BusinessConsumerService businessConsumerService;
 
     @Autowired
     private UpStreamDecodeService upStreamDecodeService;

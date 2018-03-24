@@ -12,7 +12,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("businessProducerService")
 public class BusinessProducerService {
     
     private static final Logger logger = LoggerFactory.getLogger(BusinessConsumerService.class);

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("businessConsumerService")
 public class BusinessConsumerService {
 
     @Resource(name = "businessJmsTemplate")

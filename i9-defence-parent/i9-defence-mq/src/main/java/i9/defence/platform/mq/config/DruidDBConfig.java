@@ -1,4 +1,4 @@
-package i9.defence.platform.api.config;
+package i9.defence.platform.mq.config;
 
 import java.sql.SQLException;
 
