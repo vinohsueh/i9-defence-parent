@@ -23,4 +23,5 @@
     </bean>
 
     <import resource="activemq_business.xml" />
+    <import resource="activemq_observer.xml" />
 </beans>
