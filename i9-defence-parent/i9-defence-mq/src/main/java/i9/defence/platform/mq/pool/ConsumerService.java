@@ -1,19 +1,19 @@
 package i9.defence.platform.mq.pool;
 
-import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-@Service("businessConsumerService")
-public class BusinessConsumerService {
+@Service
+public class ConsumerService {
 
-    @Resource(name = "businessJmsTemplate")
+    @Autowired
     private JmsTemplate jmsTemplate;
 
     public TextMessage receive(Destination destination) {
@@ -28,9 +28,9 @@ public class BusinessConsumerService {
         return textMessage;
     }
     
-    private static final Logger logger = LoggerFactory.getLogger(BusinessConsumerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
     
-    @Resource(name = "businessDestination")
+    @Autowired
     private Destination destination;
     
     public TextMessage receive() {

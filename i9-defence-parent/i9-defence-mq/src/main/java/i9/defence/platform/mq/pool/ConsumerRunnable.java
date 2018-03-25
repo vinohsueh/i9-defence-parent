@@ -17,7 +17,7 @@ public class ConsumerRunnable implements Runnable {
     public void run() {
         while (true) {
             try {
-                TextMessage textMessage = businessConsumerService.receive();
+                TextMessage textMessage = consumerService.receive();
                 // 如果数据为空就延迟3秒钟
                 if (textMessage == null) {
                     Thread.sleep(3000);
@@ -36,7 +36,7 @@ public class ConsumerRunnable implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
     
     @Resource
-    private BusinessConsumerService businessConsumerService;
+    private ConsumerService consumerService;
 
     @Autowired
     private UpStreamDecodeService upStreamDecodeService;

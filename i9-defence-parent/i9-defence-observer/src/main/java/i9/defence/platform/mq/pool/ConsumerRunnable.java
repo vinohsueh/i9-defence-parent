@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.mq.libraries.observer.ObserverConsumerService;
 import i9.defence.platform.service.UpStreamOriginService;
 
 @Component
@@ -34,7 +33,7 @@ public class ConsumerRunnable implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
 
     @Autowired
-    private ObserverConsumerService consumerService;
+    private ConsumerService consumerService;
 
     @Autowired
     private UpStreamOriginService upStreamOriginService;
