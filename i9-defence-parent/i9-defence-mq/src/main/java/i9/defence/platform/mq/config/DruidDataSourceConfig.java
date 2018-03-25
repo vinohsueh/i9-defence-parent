@@ -17,9 +17,9 @@ import com.alibaba.druid.pool.DruidDataSource;
  * jdbc.url=${jdbc.url} 最新的支持方式如下: jdbc.url=@jdbc.url@
  */
 @Configuration
-public class DruidDBConfig {
+public class DruidDataSourceConfig {
 
-    private static final Logger S_LOGGER = LoggerFactory.getLogger(DruidDBConfig.class);
+    private static final Logger S_LOGGER = LoggerFactory.getLogger(DruidDataSourceConfig.class);
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
