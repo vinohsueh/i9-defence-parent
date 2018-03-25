@@ -1,4 +1,4 @@
-package i9.defence.platform.mq.libraries.business;
+package i9.defence.platform.mq.pool;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;

@@ -1,4 +1,4 @@
-package i9.defence.platform.mq.libraries.observer;
+package i9.defence.platform.mq.pool;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
-@Service("observerConsumerService")
-public class ObserverConsumerService {
+@Service("businessConsumerService")
+public class BusinessConsumerService {
 
-    @Resource(name = "observerJmsTemplate")
+    @Resource(name = "businessJmsTemplate")
     private JmsTemplate jmsTemplate;
 
     public TextMessage receive(Destination destination) {
@@ -28,9 +28,9 @@ public class ObserverConsumerService {
         return textMessage;
     }
     
-    private static final Logger logger = LoggerFactory.getLogger(ObserverConsumerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(BusinessConsumerService.class);
     
-    @Resource(name = "observerDestination")
+    @Resource(name = "businessDestination")
     private Destination destination;
     
     public TextMessage receive() {

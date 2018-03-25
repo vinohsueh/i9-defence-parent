@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.mq.libraries.business.BusinessConsumerService;
 import i9.defence.platform.service.UpStreamDecodeService;
 
 @Component
