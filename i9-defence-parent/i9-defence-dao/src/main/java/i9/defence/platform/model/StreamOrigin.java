@@ -37,7 +37,7 @@ public class StreamOrigin {
     
     public String getSubmitDateStr() {
     	if(submitDate!=null) {
-    		return StringUtil.dateToStringByRep(submitDate, "yyyy-MM-dd HH:mmm:ss");
+    		return StringUtil.dateToStringByRep(submitDate, "yyyy-MM-dd HH:mm:ss");
     	}
         return "";
     }
