@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import i9.defence.platform.service.UpStreamDecodeService;
+import i9.defence.platform.service.UpStreamOriginService;
 
 /** 
 * 创建时间：2018年3月26日 上午9:14:18
@@ -22,9 +23,12 @@ public class SpringBoot00Test {
 
 	@Test
 	public void test() {
-		upStreamDecodeService.saveUpStreamDecode("this is Test");
+		upStreamOriginService.saveUpStreamOrigin("bbbb");
 	}
 	
 	@Autowired
 	private UpStreamDecodeService upStreamDecodeService;
+	
+	@Autowired
+	private UpStreamOriginService upStreamOriginService;
 }
