@@ -26,6 +26,6 @@
         <property name="defaultDestination" ref="observerDestination" />
         <property name="receiveTimeout" value="10000" />
         <!-- true是topic，false是queue，默认是false，此处显示写出false -->
-        <property name="pubSubDomain" value="false" />
+        <property name="pubSubDomain" value="true" />
     </bean>
 </beans>
