@@ -43,7 +43,7 @@
         <tbody>
           <tr ng-repeat="streamOrigin in streamOrigins">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{streamOrigin.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td >{{streamOrigin.jsonstr}}</td>
+            <td style="word-break: break-all;">{{streamOrigin.jsonstr}}</td>
             <td >{{streamOrigin.submitDateStr}}</td>
           </tr>
         </tbody>
