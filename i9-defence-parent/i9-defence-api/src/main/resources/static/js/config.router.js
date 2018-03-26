@@ -162,7 +162,7 @@ angular.module('app')
               })
               .state('app.pageUrl', {
                   url: '/pageUrl',
-                  templateUrl: '/proj/page/page.html',
+                  templateUrl: 'proj/page/page.html',
               	  controller : "pageUrlNgControl",
                   resolve: {
                     deps: ['$ocLazyLoad',
