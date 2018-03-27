@@ -38,4 +38,8 @@ public interface ClientDao {
      * 查询全部负责人
      */
     List<Client> getAllClient()throws Exception;
+    /*
+     * 获取创建者的客户
+     */
+    List<Client> selectByCreateId(Integer createId)throws Exception;
 }

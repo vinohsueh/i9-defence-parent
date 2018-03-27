@@ -16,7 +16,7 @@ public class Message {
 
     public UpStreamReqMessage makeUpStreamReqMessage() {
         UpStreamReqMessage upStreamReqMessage = new UpStreamReqMessage();
-        upStreamReqMessage.systemType = DataParseUtil.parseSignedShort(EncryptUtils.hexStringToBytes("0002"));
+        upStreamReqMessage.systemType = "0002";
         upStreamReqMessage.systemId = "000000000001";
         upStreamReqMessage.source = (byte) 0;
         upStreamReqMessage.loop = (byte) 0;

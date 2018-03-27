@@ -20,10 +20,22 @@ public class ClientSearchDto extends PageListDto{
      * 账户名称
      */
     private String name;
+    /**
+     * 当前登录人
+     */
+    private Integer createId;
     
     private String orderByClause;
 
-    public String getMail() {
+    public Integer getCreateId() {
+		return createId;
+	}
+
+	public void setCreateId(Integer createId) {
+		this.createId = createId;
+	}
+
+	public String getMail() {
         return mail;
     }
 

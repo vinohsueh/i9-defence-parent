@@ -58,4 +58,10 @@ public class ClientDaoImpl implements ClientDao{
         return list;
     }
 
+	@Override
+	public List<Client> selectByCreateId(Integer createId) throws Exception {
+		List<Client> list = clientMapper.selectByCreateId(createId);
+		return list;
+	}
+
 }

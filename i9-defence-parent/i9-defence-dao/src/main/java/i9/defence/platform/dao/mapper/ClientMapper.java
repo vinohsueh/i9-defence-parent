@@ -34,4 +34,6 @@ public interface ClientMapper {
     List<Client> selectAllClient();
     //分页查询
     List<Client> selectByLimitPage(@Param("example") ClientSearchDto clientSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    //获取创建者的客户
+    List<Client> selectByCreateId(Integer createId);
 }
