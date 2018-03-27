@@ -42,4 +42,8 @@ public interface ClientService {
      * 查询客户
      */
     List<Client> getAllClient()throws BusinessException;
+    /*
+     * 获取创建者的客户
+     */
+    List<Client> selectByCreateId(Integer createId)throws BusinessException;
 }
