@@ -99,7 +99,7 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
             len += dataMessage.getByteArray().length;
         }
         ByteBuffer byteBuffer = ByteBuffer.allocate(2 + 1 + 4 + 1 + 1 + 6 + 2 + len);
-        byte[] b0 = EncryptUtils.hexStringToBytes(this.systemId);
+        byte[] b0 = EncryptUtils.hexStringToBytes(this.systemType);
         byteBuffer.put(b0);
         byte[] b = EncryptUtils.hexStringToBytes(this.systemId);
         byteBuffer.put(b);
