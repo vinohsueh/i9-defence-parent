@@ -80,7 +80,7 @@
             OR phone LIKE CONCAT(CONCAT('%','${example.phone}'),'%' )
         </if>
         <if test="example.mail != null and example.mail != ''">
-            OR mail LIKE CONCAT(CONCAT('%','${example.mail}'),'%' ))
+            OR mail LIKE CONCAT(CONCAT('%','${example.mail}'),'%' )))
         </if>
         <if test="example.createId != null and example.createId != ''">
             AND createId = ${example.createId}
