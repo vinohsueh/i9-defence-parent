@@ -2,6 +2,7 @@ package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.ApplyService;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ManagerService;
@@ -124,5 +125,36 @@ public class EquipmentController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         equipmentService.deleteEquipment(Arrays.asList(ids));
         return result;
+    }
+    
+    
+    
+    /**
+     * 根据设备Id查找通道
+    * @Title: selectPassagewayByEid 
+    * @Description: TODO
+    * @param id
+    * @return
+     */
+    @RequestMapping("/selectPassagewayByEid")
+    public HashMap<String, Object> selectPassagewayByEid(Integer id){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	List<Passageway> list = equipmentService.selectPassagewayByEid(id);
+    	result.put("data", list);
+    	return result;
+    }
+    
+    /**
+     * 增加通道
+    * @Title: InsertPassageWay 
+    * @Description: TODO
+    * @param passageway
+    * @return
+     */
+    @RequestMapping("/InsertPassageWay")
+    public HashMap<String, Object> InsertPassageWay(Passageway passageway){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	equipmentService.InsertPassageWay(passageway);
+    	return  result;
     }
 }
