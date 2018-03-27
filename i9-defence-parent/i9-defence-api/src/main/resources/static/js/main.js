@@ -229,6 +229,7 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 				
 			})
 			.error(function(msg){
+				console.log(msg)
 				if (msg.exception == "org.apache.shiro.authz.UnauthorizedException") {
 					$.toaster({
 						title : "Error",
