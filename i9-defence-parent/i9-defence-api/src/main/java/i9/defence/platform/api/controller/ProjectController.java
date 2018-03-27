@@ -88,7 +88,7 @@ public class ProjectController {
      * 修改项目
      * @return
      */
-    //@RequiresPermissions("proj_add")
+    @RequiresPermissions("proj_add")
     @RequestMapping("/updateProject")
     public HashMap<String, Object> updateProject(@RequestBody Project project) {
         HashMap<String, Object> result = new HashMap<String, Object>();
