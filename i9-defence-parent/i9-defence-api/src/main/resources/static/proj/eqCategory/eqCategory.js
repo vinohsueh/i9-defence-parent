@@ -30,6 +30,7 @@ var eqCategoryNgControl=eqCategoryNgModule.controller('eqCategoryNgControl',func
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				eqCategoryName : text,
+				eqCategoryId : text,
 			};
 		
 		httpService.post({url:'./eqCategory/pageEqCategory',data:pageParam,showSuccessMsg:false}).then(function(data) {  

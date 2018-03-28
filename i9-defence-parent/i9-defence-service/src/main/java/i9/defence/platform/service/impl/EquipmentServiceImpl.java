@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
- * 项目类别ServiceImpl
+ * 设备ServiceImpl
  * @author gbq
  * @create 2018年
  */
@@ -45,7 +45,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 		try {
 			return equipmentDao.selectByLimitPage(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize());
 		} catch (Exception e) {
-			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
+			throw new BusinessException("分页设备类别查询失败",e.getMessage());
 		}
 	}
 
@@ -59,7 +59,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 				equipmentDao.addEquipment(equipment);
 			}
 		} catch (Exception e) {
-			throw new BusinessException("添加项目类别类别失败",e.getMessage());
+			throw new BusinessException("添加设备类别失败",e.getMessage());
 		}
 	}
 
@@ -69,7 +69,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 		try {
 			equipmentDao.updateEquipment(equipment);
 		} catch (Exception e) {
-			throw new BusinessException("更新项目类别失败",e.getMessage());
+			throw new BusinessException("更新设备失败",e.getMessage());
 		}
 	}
 
@@ -78,7 +78,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 		try {
 			return equipmentDao.getEquipmentById(id);
 		} catch (Exception e) {
-			throw new BusinessException("查询项目类别失败",e.getMessage());
+			throw new BusinessException("查询设备失败",e.getMessage());
 		}
 	}
 

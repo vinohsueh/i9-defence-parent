@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.Project;
+import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -28,7 +32,10 @@ public class EquipmentController {
 	
 	@Autowired
 	private EquipmentService equipmentService;
-	
+	@Autowired
+	private EquipmentCategoryService eqCategoryService;
+	@Autowired
+	private ProjectService projectService;
 	/**
      * 分页查询项目列表
 
@@ -103,6 +110,7 @@ public class EquipmentController {
     public HashMap<String, Object> getEquipment(@RequestBody Integer equipmentId) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Equipment equipment = equipmentService.getEquipmentById(equipmentId);
+        
         result.put("data", equipment);
         return result;
     }
@@ -120,7 +128,20 @@ public class EquipmentController {
         equipmentService.deleteEquipment(Arrays.asList(ids));
         return result;
     }
-    
+    /**
+     * 查询项目和类别
+     * @param ids
+     * @return
+     */
+    @RequestMapping("/findEquipment")
+    public HashMap<String, Object> findEquipment(){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	List<EquipmentCategory> eqCategory = eqCategoryService.serchEqCategory();
+	    List<Project> project = projectService.findAllProject();
+	    result.put("equCategorys", eqCategory);
+	    result.put("projects", project);
+	    return result;
+    }
     
     
     /**
