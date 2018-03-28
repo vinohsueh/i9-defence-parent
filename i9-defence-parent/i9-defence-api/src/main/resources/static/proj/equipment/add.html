@@ -59,13 +59,29 @@
 				<label class="col-md-2 control-label"><span class="required">*</span>所属项目</label>
 	            	<div class="col-md-8">
 	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='equipment.projectId'>
-	            		<option value="null"> ----请选择---- </option>
-	            	    <option value="null"> ----请选择---- </option>
 	            		<option value=""> ----请选择---- </option>
 						<option ng-repeat='i in projects' value="{{i.id}}">{{i.projectName}}</option> 
 					</select>
 	          	</div>
           </div>
+          <div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>系统编号</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" id="remarks" ng-model="equipment.systemId" placeholder="">
+				</div>
+			</div>
+			<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>装置数量</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" id="remarks" ng-model="equipment.unit" placeholder="">
+				</div>
+			</div>
+			<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>回路</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control" id="remarks" ng-model="equipment.loopl" placeholder="">
+				</div>
+			</div>
 		  <div class="form-group" style="display: none;">
                <label class="col-md-2 control-label">id</label>
                     <div class="col-md-8">

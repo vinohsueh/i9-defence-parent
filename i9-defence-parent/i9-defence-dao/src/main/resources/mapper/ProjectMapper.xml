@@ -14,7 +14,7 @@
     <result column="safetyManId" jdbcType="INTEGER" property="safetyManId" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
-  	<association property="dutyMan" column="dutyManId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<association property="dutyMan" column="dutyManId" select="i9.defence.platform.dao.mapper.ClientMapper.selectByPrimaryKey"/>
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   	<association property="safetyMan" column="safetyManId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   </resultMap>

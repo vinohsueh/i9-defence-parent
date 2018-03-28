@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.ClientSearchDto;
 import i9.defence.platform.model.Client;
+import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ClientService;
+import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
 
@@ -32,6 +34,8 @@ public class ClientController {
     private ClientService clientService;
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private ManagerService managerService;
     /*
      *分页查询
      */
@@ -39,6 +43,8 @@ public class ClientController {
     @RequestMapping("/pageClient")
     public HashMap<String, Object> pageManager(@RequestBody ClientSearchDto clientSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
+        Manager manager = managerService.getLoginManager();
+        clientSearchDto.setCreateId(manager.getId());
         PageBounds<Client> pageBounds = clientService.selectByLimitPage(clientSearchDto);
         result.put("data",pageBounds);
         return result;
@@ -50,6 +56,8 @@ public class ClientController {
      @RequestMapping("/updateAndAdd")
      public HashMap<String, Object> updateAndAdd(@Valid @RequestBody Client client,BindingResult bindingResult) {
          HashMap<String, Object> result = new HashMap<String, Object>();
+         Manager manager = managerService.getLoginManager();
+         client.setCreateId(manager.getId());
          clientService.updateAndAdd(client);
          return result;
      }

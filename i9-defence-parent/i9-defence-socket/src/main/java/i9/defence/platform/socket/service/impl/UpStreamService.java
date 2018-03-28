@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 
-import i9.defence.platform.mq.libraries.ProducerService;
+import i9.defence.platform.mq.libraries.business.BusinessProducerService;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.req.DataMessage;
@@ -30,13 +30,6 @@ public class UpStreamService implements ICoreService {
                     + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
         }
         JSONObject jsonObject = upStreamReqMessage.toJSONObject();
-        
-        // TODO 保存json数据 service -> dao - db
-        // id jsonstr submitDate
-        // t_up_stream_origin
-        // t_up_stream_decode
-        
-        
         String jsonStr = jsonObject.toJSONString();
         try {
             producerService.sendMessage(jsonStr);
@@ -50,5 +43,5 @@ public class UpStreamService implements ICoreService {
     private final static Logger logger = LoggerFactory.getLogger(UpStreamService.class);
     
     @Autowired
-    private ProducerService producerService;
+    private BusinessProducerService producerService;
 }

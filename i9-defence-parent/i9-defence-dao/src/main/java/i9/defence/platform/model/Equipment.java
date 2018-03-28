@@ -3,16 +3,8 @@ package i9.defence.platform.model;
 import java.util.Date;
 
 import i9.defence.platform.utils.StringUtil;
-/**
- * 设备实体
- * 
- * @author 
- *
- * @create 
- *
- */
-public class Equipment {
 
+public class Equipment {
 	private Integer id;
     /**
      * 设备名称
@@ -55,11 +47,27 @@ public class Equipment {
      * 项目(一对一)
      */
     private Project project;
+    
+    /**
+     * 系统id
+     */
+    private String systemId;
+    /**
+     * 装置数量
+     */
+    private Integer unit;
+    /**
+     * 回路
+     */
+    private Integer loopl;
 
-	/**
-	 * @return the projectId
-	 */
-	
+    public EquipmentCategory getEquipmentCategory() {
+		return equipmentCategory;
+	}
+
+	public void setEquipmentCategory(EquipmentCategory equipmentCategory) {
+		this.equipmentCategory = equipmentCategory;
+	}
 
 	public Project getProject() {
 		return project;
@@ -69,20 +77,20 @@ public class Equipment {
 		this.project = project;
 	}
 
-	public EquipmentCategory getEquipmentCategory() {
-		return equipmentCategory;
-	}
-
-	public void setEquipmentCategory(EquipmentCategory equipmentCategory) {
-		this.equipmentCategory = equipmentCategory;
-	}
-
 	public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId == null ? null : systemId.trim();
     }
 
     public String getEquipmentName() {
@@ -101,15 +109,15 @@ public class Equipment {
         this.equipmentNum = equipmentNum;
     }
 
-	public String getEquipmentIdentifier() {
-		return equipmentIdentifier;
-	}
+    public String getEquipmentIdentifier() {
+        return equipmentIdentifier;
+    }
 
-	public void setEquipmentIdentifier(String equipmentIdentifier) {
-		this.equipmentIdentifier = equipmentIdentifier;
-	}
+    public void setEquipmentIdentifier(String equipmentIdentifier) {
+        this.equipmentIdentifier = equipmentIdentifier == null ? null : equipmentIdentifier.trim();
+    }
 
-	public String getEquipmentPosition() {
+    public String getEquipmentPosition() {
         return equipmentPosition;
     }
 
@@ -125,13 +133,6 @@ public class Equipment {
         this.equipmentDate = equipmentDate;
     }
 
-    public String getEquipmentDateStr() {
-    	if(equipmentDate!=null) {
-    		return StringUtil.dateToString(equipmentDate);
-    	}
-        return "";
-    }
-    
     public String getEquipmentRemarks() {
         return equipmentRemarks;
     }
@@ -147,11 +148,34 @@ public class Equipment {
     public void setEquipmentCategoryId(Integer equipmentCategoryId) {
         this.equipmentCategoryId = equipmentCategoryId;
     }
-    public Integer getProjectId() {
-		return projectId;
-	}
 
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
-	}
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Integer getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Integer unit) {
+        this.unit = unit;
+    }
+
+    public Integer getLoopl() {
+        return loopl;
+    }
+
+    public void setLoopl(Integer loopl) {
+        this.loopl = loopl;
+    }
+    public String getEquipmentDateStr() {
+    	if(equipmentDate!=null) {
+    		return StringUtil.dateToString(equipmentDate);
+    	}
+        return "";
+    }
 }

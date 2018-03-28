@@ -49,13 +49,24 @@ public class Client {
      */
     @Pattern(regexp="\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}",message="请输入正确的邮箱格式")
     private String mail;
-
     /**
      * 关联的项目
      */
     private Project project;
+    /**
+     * 创建人
+     */
+    private Integer createId;
     
-    public Project getProject() {
+    public Integer getCreateId() {
+		return createId;
+	}
+
+	public void setCreateId(Integer createId) {
+		this.createId = createId;
+	}
+
+	public Project getProject() {
         return project;
     }
 

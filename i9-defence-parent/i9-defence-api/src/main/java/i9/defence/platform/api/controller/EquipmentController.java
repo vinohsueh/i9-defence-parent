@@ -1,13 +1,5 @@
 package i9.defence.platform.api.controller;
 
-import i9.defence.platform.dao.vo.EquipmentSearchDto;
-import i9.defence.platform.model.Equipment;
-import i9.defence.platform.model.Passageway;
-import i9.defence.platform.service.ApplyService;
-import i9.defence.platform.service.EquipmentService;
-import i9.defence.platform.service.ManagerService;
-import i9.defence.platform.utils.PageBounds;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.Passageway;
+import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.utils.PageBounds;
 
 /**
  * 创建时间：2018年1月9日
@@ -30,10 +28,6 @@ public class EquipmentController {
 	
 	@Autowired
 	private EquipmentService equipmentService;
-	@Autowired
-	private ApplyService applyService;
-	@Autowired
-	private ManagerService managerService;
 	
 	/**
      * 分页查询项目列表

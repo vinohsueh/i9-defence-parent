@@ -1,16 +1,18 @@
 package i9.defence.platform.netty.libraries.req;
 
+import i9.defence.platform.netty.libraries.DataParseUtil;
+import i9.defence.platform.netty.libraries.DateUtil;
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import io.netty.buffer.ByteBuf;
+
 import java.nio.ByteBuffer;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
-
-import i9.defence.platform.netty.libraries.DataParseUtil;
-import i9.defence.platform.netty.libraries.EncryptUtils;
-import i9.defence.platform.netty.libraries.MessageDecodeConvert;
-import io.netty.buffer.ByteBuf;
 
 public class DataMessage extends MessageDecodeConvert {
 
@@ -39,17 +41,7 @@ public class DataMessage extends MessageDecodeConvert {
     
     public byte[] data;
     
-    public byte Y;
-    
-    public byte M;
-    
-    public byte D;
-    
-    public byte H;
-    
-    public byte m;
-    
-    public byte S;
+    public byte[] nbs;
 
     @Override
     public boolean decode(ByteBuf buf) {
@@ -59,15 +51,15 @@ public class DataMessage extends MessageDecodeConvert {
         this.channelId = buf.readByte();
         this.source = buf.readByte();
         this.type = buf.readByte();
-        byte[] dst = new byte[6];
-        buf.readBytes(dst);
-        this.datetime  = String.format("%02d-%02d-%02d#%02d:%02d:%02d", dst[0], dst[1], dst[2], dst[3], dst[4], dst[5]);
-        this.Y = dst[0];
-        this.M = dst[1];
-        this.D = dst[2];
-        this.H = dst[3];
-        this.m = dst[4];
-        this.S = dst[5];
+        nbs = new byte[6];
+        buf.readBytes(nbs);
+        if (nbs[0] == (byte) -1) {
+            this.datetime = DateUtil.format(new Date());
+        }
+        else {
+            this.datetime = String.format("%02d-%02d-%02d#%02d:%02d:%02d", 2000 + nbs[0], nbs[1], nbs[2], nbs[3],
+                    nbs[4], nbs[5]);
+        }
         this.len = buf.readByte();
         if (buf.readableBytes() < this.len) {
             return true;
@@ -90,12 +82,7 @@ public class DataMessage extends MessageDecodeConvert {
         byteBuffer.put(this.channelId);
         byteBuffer.put(this.source);
         byteBuffer.put(this.type);
-        byteBuffer.put(this.Y);
-        byteBuffer.put(this.M);
-        byteBuffer.put(this.D);
-        byteBuffer.put(this.H);
-        byteBuffer.put(this.m);
-        byteBuffer.put(this.S);
+        byteBuffer.put(this.nbs);
         byteBuffer.put(this.len);
         byteBuffer.put(this.data);
         return byteBuffer.array();

@@ -1,16 +1,5 @@
 package i9.defence.platform.api.controller;
 
-import i9.defence.platform.dao.vo.ProjectSearchDto;
-import i9.defence.platform.dao.vo.ProjectSelectDto;
-import i9.defence.platform.model.Manager;
-import i9.defence.platform.model.Project;
-import i9.defence.platform.model.Role;
-import i9.defence.platform.service.ManagerService;
-import i9.defence.platform.service.ProjectService;
-import i9.defence.platform.utils.Constants;
-import i9.defence.platform.utils.PageBounds;
-import i9.defence.platform.utils.ShareCodeUtil;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +15,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import i9.defence.platform.dao.vo.ProjectGetDto;
+import i9.defence.platform.dao.vo.ProjectSearchDto;
+import i9.defence.platform.dao.vo.ProjectSelectDto;
+import i9.defence.platform.model.Client;
+import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.Project;
+import i9.defence.platform.model.Role;
+import i9.defence.platform.service.ClientService;
+import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.utils.Constants;
+import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.ShareCodeUtil;
+
 /**
  * 创建时间：2018年1月9日
  * 
@@ -40,6 +43,8 @@ public class ProjectController {
     private ProjectService projectService;
     @Autowired
     private ManagerService managerService;
+    @Autowired
+    private ClientService clientService;
 
     /**
      * 分页查询项目列表
@@ -73,7 +78,21 @@ public class ProjectController {
     public HashMap<String, Object> addProject(
             @Valid @RequestBody Project project, BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
+        //Manager manager = managerService.getLoginManager();
+        //project.setDistributorId(manager.getId());
         projectService.addProject(project);
+        return result;
+    }
+    
+    /**
+     * 修改项目
+     * @return
+     */
+    @RequiresPermissions("proj_add")
+    @RequestMapping("/updateProject")
+    public HashMap<String, Object> updateProject(@RequestBody Project project) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        projectService.updateProject(project);
         return result;
     }
 
@@ -83,11 +102,12 @@ public class ProjectController {
      */
     @RequiresPermissions("proj_list")
     @RequestMapping("/getProject")
-    public HashMap<String, Object> getProject(
-            @Valid @NotNull(message = "项目ID不能为空") @RequestBody Integer projectId) {
+    public HashMap<String, Object> getProject(@RequestBody ProjectGetDto projectGetDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        Project project = projectService.getProjectById(projectId);
+        Project project = projectService.getProjectById(projectGetDto.getProjectId());
+        List<Client> clientList = clientService.selectByCreateId(projectGetDto.getDistributorId());
         result.put("data", project);
+        result.put("clientList", clientList);
         return result;
     }
 

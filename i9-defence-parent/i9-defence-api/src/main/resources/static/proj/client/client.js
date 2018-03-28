@@ -35,7 +35,7 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 				//username : $scope.searchText
 				name : text,
 				phone : text,
-				email : text,
+				mail : text,
 			};
 		
 		httpService.post({url:'./client/pageClient',data:pageParam,showSuccessMsg:false}).then(function(data) {  

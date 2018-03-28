@@ -60,11 +60,22 @@
             <td>{{project.projectDateStr}}</td>
             <td>{{project.projectArea}}</td>
             <td>{{project.remarks}}</td>
-            <td>{{project.projectState}}</td>
-            <td>{{project.dutyMan.username}}</td>
+            <td ng-if="project.projectState==0">
+            	<label class="i-switch m-t-xs m-r">
+	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox"/>
+	              <i></i>
+            	</label>
+            </td>
+            <td ng-if="project.projectState==1">
+             	<label class="i-switch m-t-xs m-r">
+	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox" checked/>
+	              <i></i>
+            	</label>
+            </td>
+            <td>{{project.dutyMan.name}}</td>
             <td>{{project.distributor.username}}</td>
             <td>{{project.safetyMan.username}}</td>
-            <td><button ng-click="edit({{project.id}})">查看</button></td>
+            <td><button data-id="{{project.id}}" data-distributorId="{{project.distributorId}}" ng-click="edit($event)">查看</button></td>
           </tr>
         </tbody>
       </table>

@@ -1,11 +1,14 @@
 package i9.defence.platform.mq.pool;
 
+import javax.annotation.Resource;
 import javax.jms.TextMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.mq.libraries.ConsumerService;
+import i9.defence.platform.service.UpStreamDecodeService;
 
 @Component
 public class ConsumerRunnable implements Runnable {
@@ -20,11 +23,8 @@ public class ConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                // TODO 在这里处理数据库逻辑操作
-                
-                
-                
-                
+                this.upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
+                logger.info("save up stream decode success, data : " + textMessage.getText());
                 
             }
             catch (Exception e) {
@@ -33,7 +33,11 @@ public class ConsumerRunnable implements Runnable {
         }
     }
     
-    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
+    
+    @Resource
     private ConsumerService consumerService;
 
+    @Autowired
+    private UpStreamDecodeService upStreamDecodeService;
 }

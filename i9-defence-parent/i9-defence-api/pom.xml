@@ -1,16 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>i9-defence-api</artifactId>
-	<packaging>war</packaging>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>i9-defence-api</artifactId>
+    <packaging>war</packaging>
 
-	<parent>
-		<groupId>i9.defence.platform</groupId>
-		<artifactId>i9-defence-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>i9.defence.platform</groupId>
+        <artifactId>i9-defence-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
-	<dependencies>
+    <dependencies>
        <dependency>
              <groupId>i9.defence.platform</groupId>
             <artifactId>i9-defence-service</artifactId>
@@ -19,6 +19,7 @@
     </dependencies>
     
     <build>
+        <finalName>i9-defence-api</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>

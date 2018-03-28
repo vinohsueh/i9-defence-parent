@@ -16,18 +16,18 @@ public class Message {
 
     public UpStreamReqMessage makeUpStreamReqMessage() {
         UpStreamReqMessage upStreamReqMessage = new UpStreamReqMessage();
-        upStreamReqMessage.systemType = DataParseUtil.parseSignedShort(EncryptUtils.hexStringToBytes("0002"));
+        upStreamReqMessage.systemType = "0002";
         upStreamReqMessage.systemId = "000000000001";
         upStreamReqMessage.source = (byte) 0;
         upStreamReqMessage.loop = (byte) 0;
         upStreamReqMessage.deviceAddress = "00000001";
-        upStreamReqMessage.unit = 8;
+        upStreamReqMessage.unit = 12;
         int i = 0;
         while (i <= 3) {
             upStreamReqMessage.dataList.add(this.makeDataMessage1(i));
             i ++;
         }
-        while (i <= 7) {
+        while (i <= 11) {
             upStreamReqMessage.dataList.add(this.makeDataMessage2(i));
             i ++;
         }
@@ -45,23 +45,18 @@ public class Message {
         DataMessage dataMessage = new DataMessage();
         dataMessage.channelId = (byte) channelId;
         dataMessage.source = (byte) 0;
-        if (count % 10 == 0) {
+//        if (count % 10 == 0) {
             dataMessage.type = (byte) DataEnum.T_ENUM.value;
             String s = state[new Random().nextInt(state.length)];
             dataMessage.data = EncryptUtils.hexStringToBytes(s);
-        }
-        else {
-            dataMessage.type = (byte) DataEnum.T_UNSIGNED_SHORT.value;
-            int r = new Random().nextInt(100);
-            dataMessage.data = EncryptUtils.floatToByte((float) r);
-        }
+//        }
+//        else {
+//            dataMessage.type = (byte) DataEnum.T_UNSIGNED_SHORT.value;
+//            int r = new Random().nextInt(100);
+//            dataMessage.data = EncryptUtils.floatToByte((float) r);
+//        }
         dataMessage.len = (byte) dataMessage.data.length;
-        dataMessage.Y = (byte) -1;
-        dataMessage.M = (byte) -1;
-        dataMessage.D = (byte) -1;
-        dataMessage.H = (byte) -1;
-        dataMessage.m = (byte) -1;
-        dataMessage.S = (byte) -1;
+        dataMessage.nbs = new byte[] { (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1 };
         return dataMessage;
     }
     
@@ -73,12 +68,7 @@ public class Message {
         int r = new Random().nextInt(100);
         dataMessage.data = EncryptUtils.floatToByte((float) r);
         dataMessage.len = (byte) dataMessage.data.length;
-        dataMessage.Y = (byte) -1;
-        dataMessage.M = (byte) -1;
-        dataMessage.D = (byte) -1;
-        dataMessage.H = (byte) -1;
-        dataMessage.m = (byte) -1;
-        dataMessage.S = (byte) -1;
+        dataMessage.nbs = new byte[] { (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1, (byte) -1 };
         return dataMessage;
     }
 }

@@ -58,6 +58,23 @@ angular.module('app')
                     }]
                   }
               }) 
+              .state('app.upStreamDecode', {
+                  url: '/upStreamDecode',
+                  templateUrl: 'proj/upStreamDecode/upStreamDecode.html',
+              	  controller : "upStreamDecodeNgControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'upStreamDecodeNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/upStreamDecode/upStreamDecode.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
             .state('app.apply', {
                   url: '/apply',
                   templateUrl: 'proj/apply/apply.html',
@@ -109,6 +126,23 @@ angular.module('app')
                     }]
                   }
               })
+               .state('app.streamOrigin', {
+                  url: '/streamOrigin',
+                  templateUrl: 'proj/streamOrigin/streamOrigin.html',
+              	  controller : "streamOriginNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'streamOriginNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/streamOrigin/streamOrigin.js',
+            				]
+            			})
+                    }]
+                  }
+              })
                .state('app.eqCategory', {
                   url: '/eqCategory',
                   templateUrl: 'proj/eqCategory/eqCategory.html',
@@ -128,7 +162,7 @@ angular.module('app')
               })
               .state('app.pageUrl', {
                   url: '/pageUrl',
-                  templateUrl: '/proj/page/page.html',
+                  templateUrl: 'proj/page/page.html',
               	  controller : "pageUrlNgControl",
                   resolve: {
                     deps: ['$ocLazyLoad',
@@ -270,7 +304,7 @@ angular.module('app')
               })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
-                  templateUrl: '/tpl/app_dashboard_v1.html',
+                  templateUrl: 'tpl/app_dashboard_v1.html',
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
@@ -280,7 +314,7 @@ angular.module('app')
               })
               .state('app.dashboard-v2', {
                   url: '/dashboard-v2',
-                  templateUrl: '/tpl/app_dashboard_v2.html',
+                  templateUrl: 'tpl/app_dashboard_v2.html',
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){

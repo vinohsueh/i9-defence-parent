@@ -63,6 +63,9 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public void updateAndAdd(Client client) throws BusinessException {
+    	if(client.getCreateId() == null) {
+    		 throw new BusinessException("未获取当前登录者的信息!");
+    	}
       try{
           if(client.getId() == null){
               //id为空，新建
@@ -96,4 +99,14 @@ public class ClientServiceImpl implements ClientService{
             throw new BusinessException("查询全部失败",e.getMessage());
         }
     }
+
+	@Override
+	public List<Client> selectByCreateId(Integer createId) throws BusinessException {
+		try {
+			List<Client> list = clientDao.selectByCreateId(createId);
+			return list;
+		}catch (Exception e) {
+            throw new BusinessException("查询全部失败",e.getMessage());
+        }
+	}
 }

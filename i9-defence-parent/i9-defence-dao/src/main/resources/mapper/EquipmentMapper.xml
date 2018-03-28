@@ -10,6 +10,9 @@
     <result column="equipmentDate" jdbcType="TIMESTAMP" property="equipmentDate" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks" />
     <result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
+    <result column="systemId" jdbcType="VARCHAR" property="systemId" />
+    <result column="unit" jdbcType="INTEGER" property="unit" />
+    <result column="loopl" jdbcType="INTEGER" property="loopl" />
     <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
   </resultMap>
@@ -86,7 +89,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, equipmentDate, 
-    equipmentRemarks, equipmentCategoryId,projectId
+    equipmentRemarks, equipmentCategoryId,projectId,systemId,unit,loopl
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
     select
@@ -125,10 +128,11 @@
     </selectKey>
     insert into t_equipment (equipmentName, equipmentNum, equipmentIdentifier, 
       equipmentPosition, equipmentDate, equipmentRemarks, 
-      equipmentCategoryId,projectId)
+      equipmentCategoryId,projectId,systemId,unit,loopl)
     values (#{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, #{equipmentIdentifier,jdbcType=VARCHAR}, 
       #{equipmentPosition,jdbcType=VARCHAR}, #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, 
-      #{equipmentCategoryId,jdbcType=INTEGER},#{projectId,jdbcType=INTEGER})
+      #{equipmentCategoryId,jdbcType=INTEGER},#{projectId,jdbcType=INTEGER},#{systemId,jdbcType=VARCHAR},
+      #{unit,jdbcType=INTEGER},#{loopl,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -157,8 +161,17 @@
       <if test="equipmentCategoryId != null">
         equipmentCategoryId,
       </if>
-        <if test="projectId != null">
+      <if test="projectId != null">
         projectId,
+      </if>
+       <if test="systemId != null">
+        systemId,
+      </if>
+       <if test="unit != null">
+        unit,
+      </if>
+       <if test="loopl != null">
+        loopl,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -185,6 +198,15 @@
       </if>
        <if test="projectId != null">
         #{projectId,jdbcType=INTEGER},
+      </if>
+       <if test="systemId != null">
+        #{systemId,jdbcType=VARCHAR},
+      </if>
+       <if test="unit != null">
+        #{unit,jdbcType=INTEGER},
+      </if> 
+      <if test="loopl != null">
+        #{loopl,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -227,6 +249,15 @@
       <if test="record.projectId != null">
         projectId = #{record.projectId,jdbcType=INTEGER},
       </if>
+      <if test="record.systemId != null">
+        systemId = #{record.systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=INTEGER},
+      </if>
+      <if test="record.loopl != null">
+        loopl = #{record.loopl,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -241,8 +272,11 @@
       equipmentPosition = #{record.equipmentPosition,jdbcType=VARCHAR},
       equipmentDate = #{record.equipmentDate,jdbcType=TIMESTAMP},
       equipmentRemarks = #{record.equipmentRemarks,jdbcType=VARCHAR},
-      equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER}
-      projectId = #{record.projectId,jdbcType=INTEGER}
+      equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER},
+      projectId = #{record.projectId,jdbcType=INTEGER},
+      systemId = #{record.systemId,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=INTEGER},
+      loopl = #{record.loopl,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -274,6 +308,15 @@
       <if test="projectId != null">
         projectId = #{projectId,jdbcType=INTEGER},
       </if>
+       <if test="record.systemId != null">
+        systemId = #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        unit = #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="record.loopl != null">
+        loopl = #{loopl,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -286,7 +329,10 @@
       equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
       equipmentRemarks = #{equipmentRemarks,jdbcType=V	ARCHAR},
       equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
-      projectId = #{projectId,jdbcType=INTEGER}
+      projectId = #{projectId,jdbcType=INTEGER},
+      systemId = #{systemId,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=INTEGER},
+      loopl = #{loopl,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
