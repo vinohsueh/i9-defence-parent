@@ -2,6 +2,7 @@ package i9.defence.platform.service;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
@@ -59,5 +60,20 @@ public interface EquipmentService {
     * @throws BusinessException
      */
     public void  applyDelEquipment(List<Integer> ids) throws BusinessException;
+    
+    /**
+     * 根据设备Id查找通道
+     * @return
+     * @throws BusinessException
+     */
+    List<Passageway> selectPassagewayByEid(Integer id)throws BusinessException;
+    
+    /**
+     * 新增通道
+     * @param passageway
+     * @throws BusinessException
+     */
+    void InsertPassageWay(Passageway passageway) throws BusinessException;
+    
  
 }

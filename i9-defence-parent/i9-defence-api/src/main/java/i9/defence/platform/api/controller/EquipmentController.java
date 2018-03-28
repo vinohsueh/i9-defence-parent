@@ -62,7 +62,7 @@ public class EquipmentController {
     /**
      * 添加设备
      * 
-     * @param equipment
+     * @param equipment  
      * @return
      */
     @RequiresPermissions("equip_add")

@@ -11,6 +11,7 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.EquipmentExample.Criteria;
+import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -61,6 +62,16 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		Criteria criteria = example.createCriteria();
 		criteria.andIdIn(ids);
 		return equipmentMapper.selectByExample(example);
+	}
+
+	@Override
+	public List<Passageway> selectPassagewayByEid(Integer Id) throws Exception {
+		return equipmentMapper.selectPassagewayByEid(Id);
+	}
+
+	@Override
+	public void InsertPassageWay(Passageway passageway) throws Exception {
+		equipmentMapper.InsertPassageWay(passageway);
 	}
 
 }

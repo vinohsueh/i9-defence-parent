@@ -284,7 +284,7 @@
       equipmentIdentifier = #{equipmentIdentifier,jdbcType=VARCHAR},
       equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
       equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
-      equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
+      equipmentRemarks = #{equipmentRemarks,jdbcType=V	ARCHAR},
       equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
       projectId = #{projectId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
@@ -299,4 +299,14 @@
         </if>
         limit #{offset},#{limit}
    </select>
+   
+   <select id="selectPassagewayByEid" resultMap="i9.defence.platform.model.Passageway">
+   select channel,name  
+    from  t_passageway	
+     where equipId=#{equipId} 
+   </select>
+   
+   <insert id="InsertPassageWay" parameterType="i9.defence.platform.model.Passageway">
+   	insert into t_passageway(channel,name,equipId) values(#{channel},#{name},#{equipId})
+   </insert>
 </mapper>
