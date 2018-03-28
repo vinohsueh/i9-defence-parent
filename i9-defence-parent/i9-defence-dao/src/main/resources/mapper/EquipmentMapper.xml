@@ -10,6 +10,7 @@
     <result column="equipmentDate" jdbcType="TIMESTAMP" property="equipmentDate" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks" />
     <result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
+    <result column="projectId" jdbcType="INTEGER" property="projectId" />
     <result column="systemId" jdbcType="VARCHAR" property="systemId" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="loopl" jdbcType="INTEGER" property="loopl" />
