@@ -6,6 +6,7 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ManagerService;
@@ -115,6 +116,25 @@ public class EquipmentServiceImpl implements EquipmentService {
 		} catch (Exception e) {
 			 throw new BusinessException("删除设备类别失败",e.getMessage());
 		}
+	}
+
+	@Override
+	public List<Passageway> selectPassagewayByEid(Integer Id) throws BusinessException {
+		try {
+			return equipmentDao.selectPassagewayByEid(Id);
+		} catch (Exception e) {
+			throw new BusinessException("根据设备id查询通道失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public void InsertPassageWay(Passageway passageway) throws BusinessException {
+		try {
+			equipmentDao.InsertPassageWay(passageway);
+		} catch (Exception e) { 
+				throw new BusinessException("新增通道失败",e.getMessage());
+		}
+		
 	}
 
 }
