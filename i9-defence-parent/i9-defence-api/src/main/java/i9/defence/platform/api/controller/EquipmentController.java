@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
-<<<<<<< HEAD
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.EquipmentCategoryService;
-=======
 import i9.defence.platform.model.Passageway;
->>>>>>> branch 'master' of https://github.com/vinohsueh/i9-defence-parent
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
