@@ -36,6 +36,8 @@
               </label>
             </th>
             <th>设备分类名称</th>
+            <th>设备类别编号</th>
+            <th>设备类别说明</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -43,6 +45,8 @@
           <tr ng-repeat="eqCategory in eqCategorys">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{eqCategory.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td >{{eqCategory.eqCategoryName}}</td>
+            <td >{{eqCategory.eqCategoryId}}</td>
+            <td >{{eqCategory.eqCategoryExplain}}</td>
             <td ng-click="edit({{eqCategory.id}})"><button>编辑</button></td>
           </tr>
         </tbody>

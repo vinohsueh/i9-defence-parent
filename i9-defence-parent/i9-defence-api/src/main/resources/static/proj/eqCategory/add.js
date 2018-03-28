@@ -19,6 +19,14 @@ var eqCategoryEditCtrl = eqCategoryEditNgModule.controller('eqCategoryEditCtrl',
 			});
 			return false;
 		}
+		if ($scope.eqCategory.eqCategoryId ==null ||$scope.eqCategory.eqCategoryId ==0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "设备种类编号不能为空!"
+			});
+			return false;
+		}
 //		if ($scope.equipment.equipmentCategory.eqCategoryName ==null ||$scope.equipment.equipmentCategory.eqCategoryName ==0) {
 //			$.toaster({
 //				title : "Error",
