@@ -346,7 +346,7 @@
         limit #{offset},#{limit}
    </select>
    
-   <select id="selectPassagewayByEid" resultMap="i9.defence.platform.model.Passageway">
+   <select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
    select channel,name  
     from  t_passageway	
      where equipId=#{equipId}  
