@@ -8,7 +8,7 @@ public enum DataEnum {
     
     T_SIGNED_LONG((byte) 4), T_FLOAT((byte) 5), T_STRING((byte) 6), T_ENUM_0((byte) 7), 
     
-    T_PACKET((byte) 8);
+    T_PACKET((byte) 8), T_ENUM0000((byte) -1);
     
     public byte value;
 

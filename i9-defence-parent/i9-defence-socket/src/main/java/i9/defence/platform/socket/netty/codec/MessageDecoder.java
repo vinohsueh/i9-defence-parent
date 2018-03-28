@@ -31,7 +31,9 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         buf.markReaderIndex();
 
         byte start = buf.readByte();    // 读取起始符
+        System.out.println(String.format("%02X", start));
         byte version = buf.readByte();  // 读取版本号
+        System.out.println(String.format("%02X", version));
         byte type = buf.readByte();     // 读取消息类型
         int index = buf.readInt();      // 读取消息索引
 
