@@ -4,6 +4,8 @@ import java.util.List;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.Passageway;
+import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -58,4 +60,18 @@ public interface EquipmentDao {
      * @throws Exception
      */
     void deleteEquipment(List<Integer> ids) throws Exception;
+    
+    /**
+     * 根据设备Id查找通道
+     * @return
+     * @throws BusinessException
+     */
+    List<Passageway> selectPassagewayByEid(Integer Id)throws Exception;
+    
+    /**
+     * 新增通道
+     * @param passageway
+     * @throws BusinessException
+     */
+    void InsertPassageWay(Passageway passageway) throws Exception;
 }
