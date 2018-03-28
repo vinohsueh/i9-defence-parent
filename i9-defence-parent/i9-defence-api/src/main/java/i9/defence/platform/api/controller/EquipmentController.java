@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Project;
+import i9.defence.platform.service.ChannelDataService;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.EquipmentService;
@@ -36,6 +39,8 @@ public class EquipmentController {
 	private EquipmentCategoryService eqCategoryService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private ChannelDataService channelDataService;
 	/**
      * 分页查询项目列表
 
@@ -171,5 +176,19 @@ public class EquipmentController {
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	equipmentService.InsertPassageWay(passageway);
     	return  result;
+    }
+    
+    /**
+     * 查询设备的通道数据
+     * @param systemId
+     * @param channel
+     * @return
+     */
+    @RequestMapping("/equipmentChannelData")
+    public HashMap<String, Object> equipmentChannelData(@RequestBody ChannelDataSearchDto channelDataSearchDto){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	List<ChannelData> list = channelDataService.selectChannelData(channelDataSearchDto);
+    	result.put("data", list);
+    	return result;
     }
 }
