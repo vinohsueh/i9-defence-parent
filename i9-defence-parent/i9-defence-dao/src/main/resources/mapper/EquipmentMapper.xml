@@ -170,8 +170,8 @@
        <if test="unit != null">
         unit,
       </if>
-       <if test="loopl != null">
-        loopl,
+       <if test="loopl != null"> 
+        loopl, 
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -327,7 +327,7 @@
       equipmentIdentifier = #{equipmentIdentifier,jdbcType=VARCHAR},
       equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
       equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
-      equipmentRemarks = #{equipmentRemarks,jdbcType=V	ARCHAR},
+      equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
       equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
       projectId = #{projectId,jdbcType=INTEGER},
       systemId = #{systemId,jdbcType=VARCHAR},
@@ -349,7 +349,7 @@
    <select id="selectPassagewayByEid" resultMap="i9.defence.platform.model.Passageway">
    select channel,name  
     from  t_passageway	
-     where equipId=#{equipId} 
+     where equipId=#{equipId}  
    </select>
    
    <insert id="InsertPassageWay" parameterType="i9.defence.platform.model.Passageway">
