@@ -34,7 +34,7 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
         return jsonObject;
     }
 
-    public short systemType;// 系统类型(十六进制)
+    public String systemType;// 系统类型(十六进制)
 
     public String systemId;// 系统编号(十六进制)
 
@@ -55,7 +55,11 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
         if (buf.readableBytes() < 2 + 1 + 4 + 1 + 1 + 6 + 2) {
             return true;
         }
-        this.systemType = buf.readShort();
+        {
+            byte[] dst = new byte[2];
+            buf.readBytes(dst);
+            this.systemType = EncryptUtils.bytesToHexString(dst);
+        }
         {
             byte[] dst = new byte[6];
             buf.readBytes(dst);
@@ -95,7 +99,8 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
             len += dataMessage.getByteArray().length;
         }
         ByteBuffer byteBuffer = ByteBuffer.allocate(2 + 1 + 4 + 1 + 1 + 6 + 2 + len);
-        byteBuffer.putShort(this.systemType);
+        byte[] b0 = EncryptUtils.hexStringToBytes(this.systemType);
+        byteBuffer.put(b0);
         byte[] b = EncryptUtils.hexStringToBytes(this.systemId);
         byteBuffer.put(b);
         byteBuffer.put(this.source);

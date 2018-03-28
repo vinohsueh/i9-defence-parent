@@ -7,7 +7,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.service.UpStreamOriginService;
 
 /** 
@@ -25,9 +24,6 @@ public class SpringBoot00Test {
 	public void test() {
 		upStreamOriginService.saveUpStreamOrigin("bbbb");
 	}
-	
-	@Autowired
-	private UpStreamDecodeService upStreamDecodeService;
 	
 	@Autowired
 	private UpStreamOriginService upStreamOriginService;

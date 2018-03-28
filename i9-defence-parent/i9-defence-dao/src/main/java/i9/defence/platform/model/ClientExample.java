@@ -634,6 +634,66 @@ public class ClientExample {
             addCriterion("mail not between", value1, value2, "mail");
             return (Criteria) this;
         }
+
+        public Criteria andCreateIdIsNull() {
+            addCriterion("createId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdIsNotNull() {
+            addCriterion("createId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdEqualTo(Integer value) {
+            addCriterion("createId =", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdNotEqualTo(Integer value) {
+            addCriterion("createId <>", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdGreaterThan(Integer value) {
+            addCriterion("createId >", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("createId >=", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdLessThan(Integer value) {
+            addCriterion("createId <", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdLessThanOrEqualTo(Integer value) {
+            addCriterion("createId <=", value, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdIn(List<Integer> values) {
+            addCriterion("createId in", values, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdNotIn(List<Integer> values) {
+            addCriterion("createId not in", values, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdBetween(Integer value1, Integer value2) {
+            addCriterion("createId between", value1, value2, "createId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("createId not between", value1, value2, "createId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -36,6 +36,6 @@ public interface UpStreamDecodeService {
 	     */
 	    void deleteUpStreamDecode(List<Integer> ids) throws BusinessException;
 
-        void saveUpStreamDecode(String jsonStr);
+        void saveUpStreamDecode(String jsonStr) throws Exception;
 }
  

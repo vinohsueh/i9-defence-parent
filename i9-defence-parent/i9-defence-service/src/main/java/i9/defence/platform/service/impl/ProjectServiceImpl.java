@@ -54,6 +54,12 @@ public class ProjectServiceImpl implements ProjectService{
 	@Override
 	public void updateProject(Project project) throws BusinessException {
 		try {
+			Integer status = project.getProjectState();
+			if(status == 0) {
+				project.setProjectState(1);
+			}else {
+				project.setProjectState(0);
+			}
 			projectDao.updateProject(project);
 		} catch (Exception e) {
 			throw new BusinessException("更新项目失败",e.getMessage());
