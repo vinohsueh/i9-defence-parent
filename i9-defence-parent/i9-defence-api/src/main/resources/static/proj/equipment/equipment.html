@@ -42,8 +42,11 @@
             <th>设备位置</th>
             <th>设备创建时间</th>
             <th>设备备注</th>
-            <th>设备分类</th>
+            <th>设备类型</th>
             <th>所属项目</th>
+            <th>系统编号</th>
+            <th>装置数量</th>
+            <th>回路</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -58,7 +61,10 @@
             <td >{{equipment.equipmentRemarks}}</td>
             <td >{{equipment.equipmentCategory.eqCategoryName}}</td>
             <td >{{equipment.project.projectName}}</td>
-            <td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
+            <td >{{equipment.systemId}}</td>
+            <td >{{equipment.unit}}</td>
+            <td >{{equipment.loopl}}</td>
+        	<td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
           </tr>
         </tbody>
       </table>

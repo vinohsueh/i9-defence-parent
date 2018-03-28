@@ -71,7 +71,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         UpStreamDecode upStreamDecode = new UpStreamDecode();
         upStreamDecode.setHexStr(jsonStr);
         upStreamDecode.setSubmitDate(new Date());
-        this.addUpStreamDecode(upStreamDecode);
+        
         //将数据添加到通道数据表中
         
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
@@ -83,11 +83,17 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			channelData.setSystemId((String)jsonObject.get("systemId"));
 			JSONObject jsonObject2 = (JSONObject)object2;
 			channelData.setType((int)jsonObject2.get("type"));
+			channelData.setChannel((int)jsonObject2.get("channel"));
 			channelData.setValue(String.valueOf(jsonObject2.get("value")));
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
 			list.add(channelData);
 		}
-		channelDataDao.insertBatch(list);
+		try {
+			this.addUpStreamDecode(upStreamDecode);
+			channelDataDao.insertBatch(list);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
     }
 }

@@ -3,20 +3,23 @@ var equipmentEditNgModule = angular.module('equipmentEditNgModule', [ 'ngResourc
 
 var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		equipment,httpService) {
+		equipment,equCategorys,projects,httpService) {
 	
 	$scope.equipment = equipment;
+	console.log(equipment.projectId);
+	$scope.equCategorys = equCategorys;
+	$scope.projects = projects;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
-	httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data) {  
+	/*httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data) {  
 		$scope.equCategorys = data.data.data;
 		console.log(JSON.stringify(data));
 	}) 
 	httpService.post({url:'./project/getAllProject',showSuccessMsg:false}).then(function(data) {  
 		$scope.projects = data.data.data;
 		console.log(JSON.stringify(data));
-	}) 
+	})*/ 
 	// 确认添加
 	$scope.confirmAdd = function() {
 		if ($scope.equipment.equipmentName ==null ||$scope.equipment.equipmentName ==0) {
@@ -75,6 +78,15 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
+		if ($scope.equipment.projectId ==null ||$scope.equipment.projectId ==0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "项目不能为空!"
+			});
+			return false;
+		}
+		
 		httpService.post({url:'./equipment/addEquipment',data:$scope.equipment,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

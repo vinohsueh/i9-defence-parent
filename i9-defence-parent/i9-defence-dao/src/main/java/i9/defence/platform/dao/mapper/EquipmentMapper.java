@@ -3,6 +3,7 @@ package i9.defence.platform.dao.mapper;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
+import i9.defence.platform.model.Passageway;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -32,4 +33,7 @@ public interface EquipmentMapper {
     
     List<Equipment> selectByLimitPage(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
+    List<Passageway> selectPassagewayByEid(Integer equipId);
+    
+    void InsertPassageWay(@Param("Passageway") Passageway passageway);
 }

@@ -683,6 +683,197 @@ public class EquipmentExample {
 			addCriterion("projectId not between", value1, value2, "projectId");
 			return (Criteria) this;
 		}
+		
+		public Criteria andUnitIsNull() {
+			addCriterion("unit is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitIsNotNull() {
+			addCriterion("unit is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitEqualTo(Integer value) {
+			addCriterion("unit =", value, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitNotEqualTo(Integer value) {
+			addCriterion("unit <>", value, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitGreaterThan(Integer value) {
+			addCriterion("unit >", value, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitGreaterThanOrEqualTo(Integer value) {
+			addCriterion("unit >=", value, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitLessThan(Integer value) {
+			addCriterion("unit <", value, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitLessThanOrEqualTo(Integer value) {
+			addCriterion("unit <=", value, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitIn(List<Integer> values) {
+			addCriterion("unit in", values, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitNotIn(List<Integer> values) {
+			addCriterion("unit not in", values, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitBetween(Integer value1, Integer value2) {
+			addCriterion("unit between", value1, value2, "unit");
+			return (Criteria) this;
+		}
+
+		public Criteria andUnitNotBetween(Integer value1, Integer value2) {
+			addCriterion("unit not between", value1, value2, "unit");
+			return (Criteria) this;
+		}
+		public Criteria andLooplIsNull() {
+			addCriterion("loopl is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplIsNotNull() {
+			addCriterion("loopl is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplEqualTo(Integer value) {
+			addCriterion("loopl =", value, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplNotEqualTo(Integer value) {
+			addCriterion("loopl <>", value, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplGreaterThan(Integer value) {
+			addCriterion("loopl >", value, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplGreaterThanOrEqualTo(Integer value) {
+			addCriterion("loopl >=", value, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplLessThan(Integer value) {
+			addCriterion("loopl <", value, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplLessThanOrEqualTo(Integer value) {
+			addCriterion("loopl <=", value, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplIn(List<Integer> values) {
+			addCriterion("loopl in", values, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplNotIn(List<Integer> values) {
+			addCriterion("loopl not in", values, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplBetween(Integer value1, Integer value2) {
+			addCriterion("loopl between", value1, value2, "loopl");
+			return (Criteria) this;
+		}
+
+		public Criteria andLooplNotBetween(Integer value1, Integer value2) {
+			addCriterion("loopl not between", value1, value2, "loopl");
+			return (Criteria) this;
+		}
+	
+		
+		public Criteria andSystemIdIsNull() {
+			addCriterion("systemId is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdIsNotNull() {
+			addCriterion("systemId is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdEqualTo(String value) {
+			addCriterion("systemId =", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotEqualTo(String value) {
+			addCriterion("systemId <>", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdGreaterThan(String value) {
+			addCriterion("systemId >", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdGreaterThanOrEqualTo(String value) {
+			addCriterion("systemId >=", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdLessThan(String value) {
+			addCriterion("systemId <", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdLessThanOrEqualTo(String value) {
+			addCriterion("systemId <=", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdLike(String value) {
+			addCriterion("systemId like", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotLike(String value) {
+			addCriterion("systemId not like", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdIn(List<String> values) {
+			addCriterion("systemId in", values, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotIn(List<String> values) {
+			addCriterion("systemId not in", values, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdBetween(String value1, String value2) {
+			addCriterion("systemId between", value1, value2, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotBetween(String value1, String value2) {
+			addCriterion("systemId not between", value1, value2, "systemId");
+			return (Criteria) this;
+		}
+		
 	}
 
 	public static class Criteria extends GeneratedCriteria {
