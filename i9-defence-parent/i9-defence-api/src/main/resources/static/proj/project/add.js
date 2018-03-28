@@ -3,9 +3,10 @@ var projectEditNgModule = angular.module('projectEditNgModule', [ 'ngResource',
 
 var projectEditCtrl = projectEditNgModule.controller('projectEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		project,httpService) {
+		project,clientList,httpService) {
 	
 	$scope.project = project;
+	$scope.clientList = clientList;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}

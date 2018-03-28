@@ -11,6 +11,8 @@ public class EqCategorySearchDto extends PageListDto implements Serializable{
 	private String orderByClause;
 	
 	private String eqCategoryName;
+	
+	private String eqCategoryId;
 
 	/**
 	 * @return the orderByClause
@@ -39,4 +41,13 @@ public class EqCategorySearchDto extends PageListDto implements Serializable{
 	public void setEqCategoryName(String eqCategoryName) {
 		this.eqCategoryName = eqCategoryName;
 	}
+
+	public String getEqCategoryId() {
+		return eqCategoryId;
+	}
+
+	public void setEqCategoryId(String eqCategoryId) {
+		this.eqCategoryId = eqCategoryId;
+	}
+	
 }

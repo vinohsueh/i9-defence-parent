@@ -92,6 +92,9 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
         		project: function () {  
                     return {};  
                 },
+                clientList: function () {  
+                    return {}; 
+                },
             }  
         }); 
         modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -102,9 +105,12 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
          
     };  
     //编辑
-    $scope.edit = function (id) { 
-    	httpService.post({url:'./project/getProject',data:id,showSuccessMsg:false}).then(function(data) {  
+    $scope.edit = function (dom) { 
+    	var projectId = $(dom.target).attr("data-id");
+    	var distributorId = $(dom.target).attr("data-distributorId");
+    	httpService.post({url:'./project/getProject',data:{projectId:projectId,distributorId:distributorId},showSuccessMsg:false}).then(function(data) {  
     		$scope.project = data.data.data;
+    		$scope.clientList = data.data.clientList;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/project/add.html',  
 	            controller: 'projectEditCtrl', 
@@ -121,6 +127,9 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	        		}],
 	            	project: function () {  
 	                    return $scope.project;  
+	                },
+	                clientList: function () {  
+	                    return $scope.clientList;  
 	                },
 	            }  
 	        });
@@ -173,6 +182,7 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
     	})
     };  
     
+    
     $scope.del = function(){
     	$scope.delArray = [];
     	angular.forEach(angular.element.find(".o-checks"), function(dom){
@@ -189,4 +199,14 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
+    
+    $scope.changeStatus = function(id,status) {
+    	var pageParam = {
+    		 id : id,
+    		 projectState : status,
+    	};
+    	httpService.post({url:'./project/updateProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.initTable();
+    	})
+	}
 })

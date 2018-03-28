@@ -49,7 +49,7 @@ public class Project {
     //@NotNull(message="开关 0-关，1-开不能为空")
     private Integer projectState;
     //项目负责人(一对一关系)
-    private Manager dutyMan;
+    private Client dutyMan;
     //经销商(一对一关系)
     private Manager distributor;
     //项目安全责任人(一对一关系)
@@ -158,11 +158,11 @@ public class Project {
         this.projectState = projectState;
     }
 
-	public Manager getDutyMan() {
+	public Client getDutyMan() {
 		return dutyMan;
 	}
 
-	public void setDutyMan(Manager dutyMan) {
+	public void setDutyMan(Client dutyMan) {
 		this.dutyMan = dutyMan;
 	}
 

@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="i9.defence.platform.model.EquipmentCategory">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="eqCategoryName" jdbcType="VARCHAR" property="eqCategoryName" />
+    <result column="eqCategoryId" jdbcType="VARCHAR" property="eqCategoryId" />
+    <result column="eqCategoryExplain" jdbcType="VARCHAR" property="eqCategoryExplain" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, eqCategoryName
+    id, eqCategoryName,eqCategoryId,eqCategoryExplain
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentCategoryExample" resultMap="BaseResultMap">
     select
@@ -101,8 +103,8 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_equipment_category (eqCategoryName)
-    values (#{eqCategoryName,jdbcType=VARCHAR})
+    insert into t_equipment_category (eqCategoryName,eqCategoryId,eqCategoryExplain)
+    values (#{eqCategoryName,jdbcType=VARCHAR},#{eqCategoryId,jdbcType=VARCHAR},#{eqCategoryExplain,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.EquipmentCategory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -113,10 +115,22 @@
       <if test="eqCategoryName != null">
         eqCategoryName,
       </if>
+       <if test="eqCategoryId != null">
+        eqCategoryId,
+      </if>
+       <if test="eqCategoryExplain != null">
+        eqCategoryExplain,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="eqCategoryName != null">
         #{eqCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="eqCategoryId != null">
+        #{eqCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="eqCategoryExplain != null">
+        #{eqCategoryExplain,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -135,6 +149,12 @@
       <if test="record.eqCategoryName != null">
         eqCategoryName = #{record.eqCategoryName,jdbcType=VARCHAR},
       </if>
+      <if test="record.eqCategoryId != null">
+        eqCategoryId = #{record.eqCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eqCategoryExplain != null">
+        eqCategoryExplain = #{record.eqCategoryExplain,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -143,7 +163,9 @@
   <update id="updateByExample" parameterType="map">
     update t_equipment_category
     set id = #{record.id,jdbcType=INTEGER},
-      eqCategoryName = #{record.eqCategoryName,jdbcType=VARCHAR}
+      eqCategoryName = #{record.eqCategoryName,jdbcType=VARCHAR},
+      eqCategoryId = #{record.eqCategoryId,jdbcType=VARCHAR},
+      eqCategoryExplain = #{record.eqCategoryExplain,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -154,18 +176,29 @@
       <if test="eqCategoryName != null">
         eqCategoryName = #{eqCategoryName,jdbcType=VARCHAR},
       </if>
+      <if test="eqCategoryId != null">
+        eqCategoryId = #{eqCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="eqCategoryExplain != null">
+        eqCategoryExplain = #{eqCategoryExplain,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.EquipmentCategory">
     update t_equipment_category
-    set eqCategoryName = #{eqCategoryName,jdbcType=VARCHAR}
+    set eqCategoryName = #{eqCategoryName,jdbcType=VARCHAR},
+    eqCategoryId = #{eqCategoryId,jdbcType=VARCHAR},
+    eqCategoryExplain = #{eqCategoryExplain,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
         <if test="example.eqCategoryName != null and example.eqCategoryName != ''">
             OR (eqCategoryName LIKE CONCAT(CONCAT('%','${example.eqCategoryName}'),'%' )
+        </if>
+        <if test="example.eqCategoryId != null and example.eqCategoryId != ''">
+            OR (eqCategoryId LIKE CONCAT(CONCAT('%','${example.eqCategoryId}'),'%' )
         </if>
     </trim>
   </sql>
