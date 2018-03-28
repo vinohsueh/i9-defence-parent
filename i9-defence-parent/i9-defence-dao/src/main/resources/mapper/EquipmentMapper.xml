@@ -171,8 +171,8 @@
        <if test="unit != null">
         unit,
       </if>
-       <if test="loopl != null">
-        loopl,
+       <if test="loopl != null"> 
+        loopl, 
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -346,4 +346,14 @@
         </if>
         limit #{offset},#{limit}
    </select>
+   
+   <select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
+   select channel,name  
+    from  t_passageway	
+     where equipId=#{equipId}  
+   </select>
+   
+   <insert id="InsertPassageWay" parameterType="i9.defence.platform.model.Passageway">
+   	insert into t_passageway(channel,name,equipId) values(#{channel},#{name},#{equipId})
+   </insert>
 </mapper>

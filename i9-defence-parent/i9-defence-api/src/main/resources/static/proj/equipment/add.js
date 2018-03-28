@@ -78,6 +78,15 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
+		if ($scope.equipment.projectId ==null ||$scope.equipment.projectId ==0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "项目不能为空!"
+			});
+			return false;
+		}
+		
 		httpService.post({url:'./equipment/addEquipment',data:$scope.equipment,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

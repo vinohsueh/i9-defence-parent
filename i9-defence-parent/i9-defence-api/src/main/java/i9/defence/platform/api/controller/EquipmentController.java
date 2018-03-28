@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
+<<<<<<< HEAD
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.EquipmentCategoryService;
+=======
+import i9.defence.platform.model.Passageway;
+>>>>>>> branch 'master' of https://github.com/vinohsueh/i9-defence-parent
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
@@ -62,7 +66,7 @@ public class EquipmentController {
     /**
      * 添加设备
      * 
-     * @param equipment
+     * @param equipment  
      * @return
      */
     @RequiresPermissions("equip_add")
@@ -140,5 +144,35 @@ public class EquipmentController {
 	    result.put("equCategorys", eqCategory);
 	    result.put("projects", project);
 	    return result;
+    }
+    
+    
+    /**
+     * 根据设备Id查找通道
+    * @Title: selectPassagewayByEid 
+    * @Description: TODO
+    * @param id
+    * @return
+     */
+    @RequestMapping("/selectPassagewayByEid")
+    public HashMap<String, Object> selectPassagewayByEid(Integer id){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	List<Passageway> list = equipmentService.selectPassagewayByEid(id);
+    	result.put("data", list);
+    	return result;
+    }
+    
+    /**
+     * 增加通道
+    * @Title: InsertPassageWay 
+    * @Description: TODO
+    * @param passageway
+    * @return
+     */
+    @RequestMapping("/InsertPassageWay")
+    public HashMap<String, Object> InsertPassageWay(Passageway passageway){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	equipmentService.InsertPassageWay(passageway);
+    	return  result;
     }
 }
