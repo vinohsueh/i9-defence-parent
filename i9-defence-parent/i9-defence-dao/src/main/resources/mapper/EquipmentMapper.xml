@@ -50,14 +50,15 @@
     <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
         <if test="example.equipmentName != null and example.equipmentName != ''">
-         OR equipmentName LIKE CONCAT('%',CONCAT('${example.equipmentName}','%'))
+         OR( equipmentName LIKE CONCAT('%',CONCAT('${example.equipmentName}','%'))
         </if>
         <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
           OR equipmentIdentifier LIKE CONCAT('%',CONCAT('${example.equipmentIdentifier}','%'))
         </if>
         <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
-          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%')))
         </if>
+        and delStatus=1
     </trim>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
