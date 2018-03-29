@@ -60,6 +60,10 @@ public class Equipment {
      * 回路
      */
     private Integer loopl;
+    /**
+     * 删除状态
+     */
+    private Integer delStatus;
 
     public EquipmentCategory getEquipmentCategory() {
 		return equipmentCategory;
@@ -178,4 +182,13 @@ public class Equipment {
     	}
         return "";
     }
+
+	public Integer getDelStatus() {
+		return delStatus;
+	}
+
+	public void setDelStatus(Integer delStatus) {
+		this.delStatus = delStatus;
+	}
+    
 }

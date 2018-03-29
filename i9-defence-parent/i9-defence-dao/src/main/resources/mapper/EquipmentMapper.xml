@@ -14,6 +14,7 @@
     <result column="systemId" jdbcType="VARCHAR" property="systemId" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="loopl" jdbcType="INTEGER" property="loopl" />
+    <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
     <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
   </resultMap>
@@ -90,7 +91,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, equipmentDate, 
-    equipmentRemarks, equipmentCategoryId,projectId,systemId,unit,loopl
+    equipmentRemarks, equipmentCategoryId,projectId,systemId,unit,loopl,delStatus
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
     select
@@ -133,7 +134,7 @@
     values (#{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, #{equipmentIdentifier,jdbcType=VARCHAR}, 
       #{equipmentPosition,jdbcType=VARCHAR}, #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, 
       #{equipmentCategoryId,jdbcType=INTEGER},#{projectId,jdbcType=INTEGER},#{systemId,jdbcType=VARCHAR},
-      #{unit,jdbcType=INTEGER},#{loopl,jdbcType=INTEGER})
+      #{unit,jdbcType=INTEGER},#{loopl,jdbcType=INTEGER},#{delStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -174,6 +175,9 @@
        <if test="loopl != null"> 
         loopl, 
       </if>
+       <if test="delStatus != null"> 
+        delStatus, 
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="equipmentName != null">
@@ -208,6 +212,9 @@
       </if> 
       <if test="loopl != null">
         #{loopl,jdbcType=INTEGER},
+      </if>
+      <if test="delStatus != null">
+        #{delStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -259,6 +266,9 @@
       <if test="record.loopl != null">
         loopl = #{record.loopl,jdbcType=INTEGER},
       </if>
+      <if test="record.delStatus != null">
+        loopl = #{record.delStatus,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -277,7 +287,8 @@
       projectId = #{record.projectId,jdbcType=INTEGER},
       systemId = #{record.systemId,jdbcType=VARCHAR},
       unit = #{record.unit,jdbcType=INTEGER},
-      loopl = #{record.loopl,jdbcType=INTEGER}
+      loopl = #{record.loopl,jdbcType=INTEGER},
+      delStatus = #{record.delStatus,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -318,6 +329,9 @@
       <if test="loopl != null">
         loopl = #{loopl,jdbcType=INTEGER},
       </if>
+       <if test="delStatus != null">
+        delStatus = #{delStatus,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -333,7 +347,8 @@
       projectId = #{projectId,jdbcType=INTEGER},
       systemId = #{systemId,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=INTEGER},
-      loopl = #{loopl,jdbcType=INTEGER}
+      loopl = #{loopl,jdbcType=INTEGER},
+      delStatus = #{delStatus,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
