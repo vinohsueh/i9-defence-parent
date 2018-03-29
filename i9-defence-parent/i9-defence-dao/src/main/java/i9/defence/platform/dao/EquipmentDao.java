@@ -74,4 +74,5 @@ public interface EquipmentDao {
      * @throws BusinessException
      */
     void InsertPassageWay(Passageway passageway) throws Exception;
+    
 }

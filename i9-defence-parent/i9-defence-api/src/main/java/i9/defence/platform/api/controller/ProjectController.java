@@ -78,14 +78,16 @@ public class ProjectController {
     public HashMap<String, Object> addProject(
             @Valid @RequestBody Project project, BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        //Manager manager = managerService.getLoginManager();
-        //project.setDistributorId(manager.getId());
+        if(project.getDistributorId() == null) {
+        	Manager manager = managerService.getLoginManager();
+            project.setDistributorId(manager.getId());
+        }
         projectService.addProject(project);
         return result;
     }
     
     /**
-     * 修改项目
+     * 修改项目开关状态
      * @return
      */
     @RequiresPermissions("proj_add")
