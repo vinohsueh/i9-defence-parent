@@ -39,10 +39,8 @@ public class EquipmentController {
 
 	/**
 	 * 分页查询设备列表
-	 * 
+	 * @Title:pageEquipment
 	 * @param equipmentSearchDto
-	 * @param currectPage
-	 * @param pageSize
 	 * @return
 	 */
 	@RequiresPermissions("equip_list")
@@ -56,7 +54,7 @@ public class EquipmentController {
 
 	/**
 	 * 添加设备
-	 * 
+	 * @Title: addEquipment
 	 * @param equipment
 	 * @return
 	 */
@@ -70,7 +68,7 @@ public class EquipmentController {
 
 	/**
 	 * 删除设备
-	 * 
+	 * @Title delEquipment
 	 * @param ids
 	 * @return
 	 */
@@ -98,7 +96,7 @@ public class EquipmentController {
 
 	/**
 	 * id查找设备
-	 * 
+	 * @Title getEquipment
 	 * @param equipmentId
 	 * @return
 	 */
@@ -114,7 +112,7 @@ public class EquipmentController {
 
 	/**
 	 * 删除设备
-	 * 
+	 * @Title delEquipment
 	 * @param ids
 	 * @return
 	 */
@@ -128,7 +126,7 @@ public class EquipmentController {
 
 	/**
 	 * 查询项目和类别
-	 * 
+	 * @Title findEquipment
 	 * @param ids
 	 * @return
 	 */
