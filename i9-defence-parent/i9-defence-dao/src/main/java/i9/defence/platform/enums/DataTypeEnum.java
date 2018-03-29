@@ -9,17 +9,35 @@ package i9.defence.platform.enums;
  */
 public enum DataTypeEnum {
 
-	one(0, ErrorAlertEnum.class), two(1, String.class), three(2, Short.class), four(3,
-			Integer.class), five(4, Long.class), six(5,
-					Float.class), seven(6, String.class);
+	one(0,"错误类型"), two(1, String.class,"string"), three(2, Short.class ,"short"), four(3,
+			Integer.class ,"integer"), five(4, Long.class ,"long"), six(5,
+					Float.class,"floar"), seven(6, String.class,"string");
 
-	private DataTypeEnum(Integer value, Object object) {
-
+	private DataTypeEnum(Integer value, Object object,String name) {
+		this.name = name;
+		this.value = value;
+		this.object = object;
+	}
+	
+	private DataTypeEnum(Integer value,String name) {
+		this.name = name;
+		this.value = value;
 	}
 
 	private Integer value;
 
 	private Object object;
+	
+	private String name;
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Integer getValue() {
 		return value;
