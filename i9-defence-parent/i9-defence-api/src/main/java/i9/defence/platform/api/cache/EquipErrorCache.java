@@ -3,7 +3,10 @@ package i9.defence.platform.api.cache;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+
+import i9.defence.platform.service.EquipmentFaultService;
 
 
 /** 
@@ -15,6 +18,9 @@ import org.springframework.context.annotation.Configuration;
 */
 @Configuration
 public class EquipErrorCache {
+	
+	@Autowired
+	private EquipmentFaultService equipmentFaultService;
 	
 	public static Map<String,Map<String,String>> EQUIPMENT_ERROR_CACHE = new HashMap<String,Map<String,String>>();
 	
