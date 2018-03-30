@@ -16,6 +16,7 @@ import i9.defence.platform.api.cache.EquipErrorCache;
 */
 @Component
 public class ErrorDictionaryCacheListener {
+	
 	@EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
         ApplicationContext context = event.getApplicationContext();
