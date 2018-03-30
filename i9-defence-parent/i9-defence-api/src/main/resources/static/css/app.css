@@ -407,13 +407,14 @@ a.list-group-item.hover {
 }
 
 .pagination > li > a {
-  border-color: #dee5e7;
+  border-color: #1b2446;
 }
 
 .pagination > li > a:hover,
 .pagination > li > a:focus {
-  background-color: #edf1f2;
-  border-color: #dee5e7;
+  color: #fff;
+  background-color: #1b2446;
+  border-color: #1b2446;
 }
 
 .panel {
@@ -1790,8 +1791,8 @@ fieldset[disabled] .btn-default.active {
 
 .btn-primary {
   color: #ffffff !important;
-  background-color: #7266ba;
-  border-color: #7266ba;
+  background-color: #3d4b83;
+  border-color: #3d4b83;
 }
 
 .btn-primary:hover,
@@ -5352,19 +5353,15 @@ a.text-#000000:hover {
   float: right;
 }
 /*mySelf*/
-.myBox{
-  background-color: #252f58;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-}
-.myBox .form-group{
-  padding: 5px 40px 5px 0;
-}
 .glyphicon-calendar{
   cursor: pointer;
 }
-
+.modal-content .i-checks input:checked + i{
+    border-color:#1e284e;
+}
+.modal-content .i-checks input:checked + i:before{
+    background-color: #1e284e;
+}
 
 
 
