@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="D:\WorkSpace\i9-defence-parent\i9-defence-parent\i9-defence-dao\mysql-connector-java-5.1.1.jar" />
+    
+    <context id="mybatisDemoForMysql" targetRuntime="MyBatis3">
+        <!-- 控制注释 -->
+        <commentGenerator>
+            <!-- 是否去除所有自动生成的注释文件 -->
+            <property name="suppressAllComments" value="true" />
+            <!-- 是否去除所有自动生成的文件的时间戳，默认为false -->
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        
+        <!-- 控制数据库 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://103.248.102.5:10029/defence?characterEncoding=utf8" userId="root" password="123456" />
+
+        <javaTypeResolver>
+            <!-- 把jdbc中的decimal与numberic类型转化为integer类型 -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        
+        <!-- 数据库表对应的model -->
+        <javaModelGenerator targetPackage="i9.defence.platform.model" targetProject="i9-defence-dao">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        
+        <!-- 控制Model的xmlMapper文件--> 
+        <sqlMapGenerator targetPackage="mapper" targetProject="i9-defence-dao/src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator> 
+        
+        <!-- 控制mapper接口-->
+        <javaClientGenerator targetPackage="i9.defence.platform.dao.mapper" type="XMLMAPPER" targetProject="i9-defence-dao">
+            <property name="enableSubPackages" value="true" />
+            <property name="methodNameCalculator" value="extended" />
+        </javaClientGenerator>
+         
+        <table schema="defence" tableName="t_equipment_fault" domainObjectName="EquipmentFault">
+            <property name="useActualColumnNames" value="true" />
+            <generatedKey column="id" sqlStatement="mysql" identity="true" />
+        </table>
+    </context>
+</generatorConfiguration>

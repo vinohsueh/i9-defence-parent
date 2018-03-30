@@ -75,31 +75,46 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 		$scope.initTable();
 	}
 	
-	$scope.add = function () {  
-	        var modalInstance = $modal.open({ 
-	            templateUrl: 'proj/equipment/add.html',  
-	            controller: 'equipmentEditCtrl', 
-	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-	            resolve: {  
-	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-	        			return $ocLazyLoad.load({
-	        				name : 'equipmentEditNgModule',
-	        				insertBefore : '#ng_load_plugins_before',
-	        				files : [
-	        				         'proj/equipment/add.js',
-	        				]
-	        			});
-	        		}],
-	        		equipment: function () {  
-	                    return {};  
-	                },
-	            }  
-	        }); 
-	        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-	            $scope.selected = data;
-	        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-	        	$scope.initTable();
-	        });
+	$scope.add = function () {
+			httpService.post({url:'./equipment/findEquipment',showSuccessMsg:false}).then(function(data) {  
+				$scope.equCategorys = data.data.equCategorys;
+				$scope.projects = data.data.projects;
+				console.log(JSON.stringify(data.data.equCategorys));
+				console.log(JSON.stringify(data.data.equCategorys));
+				var modalInstance = $modal.open({ 
+		            templateUrl: 'proj/equipment/add.html',  
+		            controller: 'equipmentEditCtrl', 
+		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+		            resolve: {  
+		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+		        			return $ocLazyLoad.load({
+		        				name : 'equipmentEditNgModule',
+		        				insertBefore : '#ng_load_plugins_before',
+		        				files : [
+		        				         'proj/equipment/add.js',
+		        				]
+		        			});
+		        		}],
+		        		equipment: function () {  
+		                    return {};  
+		                },
+		                equCategorys: function () {  
+		                    return $scope.equCategorys;  
+		                },
+		                projects: function () {  
+		                    return $scope.projects;  
+		                },
+		            }  
+		        }); 
+		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+		            $scope.selected = data;
+		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+		        	$scope.initTable();
+		        });
+			}) 
+//			httpService.post({url:'./project/getAllProject',showSuccessMsg:false}).then(function(data) {  
+//				$scope.projects = data.data.data;
+//			}) 
     };
     //删除
     $scope.del = function(){
@@ -120,6 +135,17 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
     }
     //编辑
     $scope.edit = function (id) { 
+    	$scope.equCategorys = [];
+    	$scope.projects = [];
+   	    httpService.post({url:'./equipment/findEquipment',showSuccessMsg:false}).then(function(data) {  
+			$scope.equCategorys = data.data.equCategorys;
+			$scope.projects = data.data.projects;
+			console.log(JSON.stringify(data.data.projects));
+			console.log(JSON.stringify(data.data.equCategorys));
+		}) 
+//		httpService.post({url:'./project/getAllProject',showSuccessMsg:false}).then(function(data) {  
+//			$scope.projects = data.data.data;
+//		}) 
     	httpService.post({url:'./equipment/getEquipment',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipment = data.data.data;
 			var modalInstance = $modal.open({  
@@ -138,6 +164,12 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	        		}],
 	        		equipment: function () {  
 	                    return $scope.equipment;  
+	                },
+	                equCategorys: function () {  
+	                    return $scope.equCategorys;  
+	                },
+	                projects: function () {  
+	                    return $scope.projects;  
 	                },
 	            }  
 	        });

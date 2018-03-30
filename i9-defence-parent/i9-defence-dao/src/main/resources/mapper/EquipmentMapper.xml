@@ -10,6 +10,7 @@
     <result column="equipmentDate" jdbcType="TIMESTAMP" property="equipmentDate" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks" />
     <result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
+    <result column="projectId" jdbcType="INTEGER" property="projectId" />
     <result column="systemId" jdbcType="VARCHAR" property="systemId" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="loopl" jdbcType="INTEGER" property="loopl" />
@@ -308,13 +309,13 @@
       <if test="projectId != null">
         projectId = #{projectId,jdbcType=INTEGER},
       </if>
-       <if test="record.systemId != null">
+       <if test="systemId != null">
         systemId = #{systemId,jdbcType=VARCHAR},
       </if>
-      <if test="record.unit != null">
+      <if test="unit != null">
         unit = #{unit,jdbcType=INTEGER},
       </if>
-      <if test="record.loopl != null">
+      <if test="loopl != null">
         loopl = #{loopl,jdbcType=INTEGER},
       </if>
     </set>

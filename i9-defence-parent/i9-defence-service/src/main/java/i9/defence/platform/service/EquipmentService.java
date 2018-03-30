@@ -1,12 +1,12 @@
 package i9.defence.platform.service;
 
+import java.util.List;
+
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
-
-import java.util.List;
 
 /**
  * 项目Service
@@ -75,5 +75,4 @@ public interface EquipmentService {
      */
     void InsertPassageWay(Passageway passageway) throws BusinessException;
     
- 
 }

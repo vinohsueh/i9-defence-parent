@@ -103,4 +103,13 @@ public class EquipmentCategoryController {
         eqCategoryService.deleteEqCategory(Arrays.asList(ids));
         return result;
     }
+    /**
+     * 获取全部类型
+     */
+    @RequestMapping("/getAll")
+    public HashMap<String, Object> getAll() {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        result.put("equipmentCategory", eqCategoryService.serchEqCategory());
+        return result;
+    }
 }
