@@ -29,6 +29,7 @@ public class Client {
 
     public Client() {
         this.connect("103.248.102.3", 10001);
+//        this.connect("127.0.0.1", 9000);
     }
 
     public static Client getInstance() {
