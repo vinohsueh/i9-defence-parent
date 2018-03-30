@@ -99,9 +99,6 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
 		        		equipmentFault: function () {  
 		                    return {};  
 		                },
-		                equipmentCategory: function () {  
-		                    return $scope.equipmentCategory;  
-		                },
 		            }  
 		        }); 
 		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -116,7 +113,7 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
     $scope.edit = function (id) { 
     	httpService.post({url:'./equipmentFault/getById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentFault = data.data.data;
-    		$scope.equipmentCategory = data.data.equipmentCategory;
+    		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/equipmentFault/add.html',  
 	            controller: 'equipmentFaultEditCtrl', 
@@ -134,9 +131,9 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
 	        		equipmentFault: function () {  
 	                    return $scope.equipmentFault;  
 	                },
-	                equipmentCategory: function () {  
-	                    return $scope.equipmentCategory;  
-	                },
+//	                equipmentCategory: function () {  
+//	                    return $scope.equipmentCategory;  
+//	                },
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
