@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import i9.defence.platform.model.EquipmentFault;
 import i9.defence.platform.service.EquipmentFaultService;
@@ -34,9 +33,9 @@ public class EquipErrorCache {
 		
 		//将故障存在缓存中  故障编号作为key
 		for (EquipmentFault equipmentFault : list) {
-			//EQUIPMENT_ERROR_CACHE.put(equipmentFault.get, value)
+			EQUIPMENT_ERROR_CACHE.put(equipmentFault.getEqCategoryId()+"-"+equipmentFault.getCode(), equipmentFault.getName());
 		}
-		System.out.println("------------------------------缓存启动");
+		System.out.println("---------缓存启动 加载设备故障缓存--------------");
 	}
 	
 }

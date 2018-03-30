@@ -2,6 +2,7 @@ package i9.defence.platform.api.component;
 
 import com.alibaba.fastjson.JSONObject;
 
+import i9.defence.platform.api.cache.EquipErrorCache;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.utils.StringUtil;
 
@@ -25,6 +26,9 @@ public class ChannelDataInfoComponent {
 		jsonObject.put("channel", channelData.getChannel());
 		jsonObject.put("time", StringUtil.dateToStringByRep(channelData.getDateTime(), "yyyy-MM-dd HH:mm:ss"));
 		jsonObject.put("value", channelData.getValue());
+		if (0 == channelData.getType()) {
+			jsonObject.put("error", EquipErrorCache.EQUIPMENT_ERROR_CACHE.get(channelData.getSystemType()+"-"+channelData.getValue()));
+		}
 		return jsonObject;
 	}
 }
