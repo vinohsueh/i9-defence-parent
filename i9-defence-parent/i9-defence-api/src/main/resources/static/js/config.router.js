@@ -302,6 +302,23 @@ angular.module('app')
                           }]
                   }
               })
+              .state('app.monitoringChart', {
+                  url: '/monitoringChart',
+                  templateUrl: 'proj/monitoringChart/monitoringChart.html',
+                  controller : "monitoringChartNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'monitoringChartNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/monitoringChart/monitoringChart.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: 'tpl/app_dashboard_v1.html',
