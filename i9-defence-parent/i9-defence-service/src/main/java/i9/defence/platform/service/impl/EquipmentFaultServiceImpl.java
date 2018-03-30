@@ -76,5 +76,14 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
             throw new BusinessException("查询失败",e.getMessage());
         }
 	}
+
+	@Override
+	public List<EquipmentFault> selectAllFaults() throws BusinessException {
+		try {
+			return equipmentFaultDao.selectAllFaults();
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
+	}
 }
  
