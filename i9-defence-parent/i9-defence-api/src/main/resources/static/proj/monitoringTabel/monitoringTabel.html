@@ -77,13 +77,12 @@
     </div>
     <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
   </form>
-  <div class="panel panel-default">
-    <div class="panel-heading text-right">
-        <button class="btn m-b-xs w-xs btn-success proj_add" ng-click="add()">新增</button>
-        <button class="btn m-b-xs w-xs btn-danger del_proj" ng-click="del()">删除</button>
-        <button class="btn m-b-xs w-xs btn-warning invite_code" ng-click="shareCode()">邀请码</button>
+  <div class="myBox">
+    <div class="text-right mb-10">
+      <button class="btn btn-success proj_add">新增</button>
+      <button class="btn btn-danger del_proj">删除</button>
+      <button class="btn btn-warning invite_code">邀请码</button>
     </div>
-    
     <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
@@ -93,53 +92,52 @@
                 <input type="checkbox" id="totalCheck"><i></i>
               </label>
             </th>
-            <th>项目名称</th>
-            <th>项目地址</th>
-            <th>坐标-经度</th>
-            <th>坐标-纬度</th>
-            <th>项目创建日期</th>
-            <th>建筑面积</th>
-            <th>备注</th>
-            <th>开关</th>
-            <th>负责人</th>
-            <th>经销商</th>
-            <th>安全责任人</th>
-            <th>操作</th>
+            <th>状态</th>
+            <th>设备名称</th>
+            <th>时间</th>
+            <th>实时数据</th>
+            <th>设备编号</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="project in projects">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{project.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td>{{project.projectName}}</td>
-            <td>{{project.projectAddress}}</td>
-            <td>{{project.projectLongitude}}</td>
-            <td>{{project.projectLatitude}}</td>
-            <td>{{project.projectDateStr}}</td>
-            <td>{{project.projectArea}}</td>
-            <td>{{project.remarks}}</td>
-            <td ng-if="project.projectState==0">
-            	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox"/>
-	              <i></i>
-            	</label>
-            </td>
-            <td ng-if="project.projectState==1">
-             	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox" checked/>
-	              <i></i>
-            	</label>
-            </td>
-            <td>{{project.dutyMan.name}}</td>
-            <td>{{project.distributor.username}}</td>
-            <td>{{project.safetyMan.username}}</td>
-            <td><i class='glyphicon glyphicon-edit' data-id="{{project.id}}" data-distributorId="{{project.distributorId}}" ng-click="edit($event)"></i></td>
+          <tr>
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td><span>漏电</span></td>
+            <td>A设备</td>
+            <td>2017-5-08</td>
+            <td>电压18V，电流18A</td>
+            <td>1290-26-2</td>
+          </tr>
+          <tr>
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td><span>漏电</span></td>
+            <td>A设备</td>
+            <td>2017-5-08</td>
+            <td>电压18V，电流18A</td>
+            <td>1290-26-2</td>
+          </tr>
+          <tr>
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td><span>漏电</span></td>
+            <td>A设备</td>
+            <td>2017-5-08</td>
+            <td>电压18V，电流18A</td>
+            <td>1290-26-2</td>
+          </tr>
+          <tr>
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td><span>漏电</span></td>
+            <td>A设备</td>
+            <td>2017-5-08</td>
+            <td>电压18V，电流18A</td>
+            <td>1290-26-2</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
-        <select class="blue_bg form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize">
+        <select class="blue_bg form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style='width:100px;'>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
@@ -159,28 +157,36 @@
         </ul>
       </div>
     </div>
-    <footer class="panel-footer">
-      <div class="row">
-        <!-- <div class="col-sm-4 hidden-xs">
-          <select class="input-sm form-control w-sm inline v-middle">
-            <option value="0">删除</option>
-          </select>
-          <button class="btn btn-sm btn-default">Apply</button>                  
-        </div> -->
-        <div class="col-sm-4">
-          <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
-        </div>
-        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
-          <ul class="pagination pagination-sm m-t-none m-b-none">
-            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
-            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
-            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
-            <li ng-if="hasNext"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
-            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
-          </ul>
-        </div>
+  </div>
+  <div class='row'>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">联系人</div>
+      <div class="body">
+        <p>职位：项目经理</p>
+        <p>姓名：王二宝</p>
+        <p>电话：18070900000</p>
       </div>
-    </footer>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">项目信息</div>
+      <div class="body">
+        <p>项目负责人：王三宝</p>
+        <p>项目安全负责人：王四宝</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">设备信息</div>
+      <div class="body">
+        <p>名称：G001</p>
+        <p>位置：国际创业中心2019</p>
+      </div>
+    </div>
+    <div class="mPane col-xs-12 col-sm-6">
+      <div class="title">具体数据</div>
+      <div class="body">
+        <div e-chart options="option"></div>
+      </div>
+    </div>
   </div>
 </div>
 </div>

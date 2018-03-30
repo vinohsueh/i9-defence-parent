@@ -1,0 +1,167 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">项目管理</h1>
+</div>
+<div controlled-rescode>
+<div class="wrapper-md">  
+  <form action="" class='form-inline myBox'>
+    <div class="form-group">
+          <label for="">省区域：</label>
+          <select class="form-control blue_bg">
+            <option>天津</option>
+            <option>北京</option>
+            <option>上海</option>
+            <option>深圳</option>
+            <option>杭州</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="">地市区域：</label>
+          <select class="form-control blue_bg">
+            <option>天津</option>
+            <option>保定</option>
+            <option>石家庄</option>
+            <option>北京</option>
+            <option>厦门</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="">县/区：</label>
+          <select class="form-control blue_bg">
+            <option>南开</option>
+            <option>西青</option>
+            <option>河西</option>
+            <option>和平</option>
+          </select>
+        </div>
+    <div class="form-group">
+      <label for="">项目名称：</label>
+      <select class="form-control blue_bg">
+        <option>国际创业中心</option>
+        <option>海泰发展六道</option>
+        <option>C项目</option>
+        <option>D项目</option>
+        <option>E项目</option>
+      </select>
+    </div>
+    
+    <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
+  </form>
+  <div class="myBox">
+    <div class="monitoring">
+      <div class="faultType">
+        <p><strong>国创中心设备检测</strong></p>
+      </div>
+      <div class="equipmentDataTitle ">
+        <div class="row">
+          <div class="col-md-4">
+            <i class='glyphicon glyphicon-map-marker'></i>&nbsp;地点:天津华苑产业园区华天道2号国创中心
+          </div>
+          <div class="col-md-4 text-right">
+            <p><span class='mr-10'><i class='mIcon icon-danger'></i>报警:8</span><i class='mIcon icon-fault'></i>故障:8</p>
+          </div>
+          <div class="col-md-4 text-right">
+            实时监控设备状态：
+            <span class='mLabel sm-mLabel dangerLabel'>报警</span>
+            <span class='mLabel sm-mLabel faultLabel'>故障</span>
+            <span class='mLabel sm-mLabel'>正常</span>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="monitoring">
+
+      <div class="faultType">
+        
+        <div class="item active " ng-class="{true:'active'}[type==1]" ng-click='changeType(1)'>
+          <div class="name">故障电弧B型</div>
+          <div class="body">4</div>
+        </div>
+        <div class="item" ng-class="{true:'active'}[type==2]" ng-click='changeType(2)'>
+          <div class="name">故障电弧B型</div>
+          <div class="body">4</div>
+        </div>
+        <div class="item" ng-click='changeType(3)'>
+          <div class="name">故障电弧B型</div>
+          <div class="body">4</div>
+        </div>
+        <div class="item" ng-click='changeType(4)'>
+          <div class="name">故障电弧B型</div>
+          <div class="body">4</div>
+        </div>
+      </div>
+      <div class="equipmentData">
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel faultLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel dangerLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel dangerLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+        <span class="mLabel">G001</span>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">联系人</div>
+      <div class="body">
+        <p>职位：项目经理</p>
+        <p>姓名：王二宝</p>
+        <p>电话：18070900000</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">项目信息</div>
+      <div class="body">
+        <p>项目负责人：王三宝</p>
+        <p>项目安全负责人：王四宝</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">设备信息</div>
+      <div class="body">
+        <p>名称：G001</p>
+        <p>位置：国际创业中心2019</p>
+      </div>
+    </div>
+    <div class="mPane col-xs-12 col-sm-6">
+      <div class="title">具体数据</div>
+      <div class="body">
+        <div e-chart options="option"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

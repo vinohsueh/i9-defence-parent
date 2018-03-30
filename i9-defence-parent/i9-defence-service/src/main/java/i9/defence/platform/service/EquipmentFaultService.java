@@ -16,8 +16,8 @@ public interface EquipmentFaultService {
 	/*
 	 * 分页查询
 	 */
-	PageBounds<EquipmentFault> selectByLimitPage(EquipmentFaultSearchDto equipmentFaultSearchDto, int currectPage,
-			int pageSize) throws BusinessException;
+	PageBounds<EquipmentFault> selectByLimitPage(EquipmentFaultSearchDto equipmentFaultSearchDto)
+			throws BusinessException;
 
 	/*
 	 * 添加
@@ -44,4 +44,6 @@ public interface EquipmentFaultService {
 	 * @return
 	 */
 	List<EquipmentFault> selectAllFaults() throws BusinessException;
+	
+	
 }
