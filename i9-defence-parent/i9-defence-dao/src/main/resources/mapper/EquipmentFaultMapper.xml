@@ -6,7 +6,10 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
+    <!-- 查询设备型号名称-->
     <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
+  	<!--查询设备型号编号  -->
+  	<association property="eqCategoryId" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEqCategoryId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -217,5 +220,9 @@
 	<!-- 查询设备名称By EquipmentId -->
 	<select id="selectEquipmentByEquipmentId" parameterType="int" resultType="string">
 		select eqCategoryName from t_equipment_category where id = #{equipmentId,jdbcType=INTEGER}
+	</select>
+	<!--查询设备型号编号  -->
+	<select id="selectEquipmentByEqCategoryId" parameterType="int" resultType="string">
+		select eqCategoryId from t_equipment_category where id = #{equipmentId,jdbcType=INTEGER}
 	</select>
 </mapper>

@@ -20,7 +20,7 @@ public class ErrorDictionaryCacheListener {
 	@EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
         ApplicationContext context = event.getApplicationContext();
-        EquipErrorCache realm = (EquipErrorCache) context.getBean("equipErrorCache");
-        realm.show();
-    }
+        EquipErrorCache equipErrorCache = (EquipErrorCache) context.getBean("equipErrorCache");
+        equipErrorCache.initData();
+	}
 }

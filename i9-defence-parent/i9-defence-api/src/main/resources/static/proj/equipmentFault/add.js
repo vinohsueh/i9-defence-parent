@@ -6,8 +6,8 @@ var equipmentFaultEditNgModule = angular.module('equipmentFaultEditNgModule', [ 
 
 var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFaultEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		equipmentFault,httpService,equipmentCategory) {
-	$scope.equipmentCategory = equipmentCategory;
+		equipmentFault,httpService) {
+	
 	$scope.equipmentFault = equipmentFault;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
@@ -46,4 +46,7 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 			$modalInstance.dismiss('cancel')
 		})
 	};
+	httpService.post({url:'./eqCategory/getAll',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
+		$scope.equipmentCategory = data.data.equipmentCategory;
+	})
 });
