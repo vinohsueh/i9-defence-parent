@@ -87,6 +87,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			channelData.setValue(String.valueOf(jsonObject2.get("value")));
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
+			channelData.setSystemType((String)jsonObject.get("systemType"));
 			list.add(channelData);
 		}
 		try {

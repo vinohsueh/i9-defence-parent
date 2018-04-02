@@ -7,32 +7,43 @@ import i9.defence.platform.model.EquipmentFault;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
-/** 
-* @author user: jiace
-* @version creatTime：2018年3月29日 上午11:32:46 
-* 
-*/
+/**
+ * @author user: jiace
+ * @version creatTime：2018年3月29日 上午11:32:46
+ * 
+ */
 public interface EquipmentFaultService {
 	/*
 	 * 分页查询
 	 */
-	 PageBounds<EquipmentFault> selectByLimitPage(EquipmentFaultSearchDto equipmentFaultSearchDto,
-	            int currectPage, int pageSize) throws BusinessException;
-	 /*
-	  * 添加
-	  */
-	 void add(EquipmentFault equipmentFault)throws BusinessException;
-	 /*
-	  * 更新
-	  */
-	 void update(EquipmentFault equipmentFault)throws BusinessException;
-	 /*
-	  * 批量删除
-	  */
-	 void deleteBatch(List<Integer> ids) throws BusinessException;
-	 /*
-	  * 根据id查询
-	  */
-	 EquipmentFault getById(Integer id)throws BusinessException;
+	PageBounds<EquipmentFault> selectByLimitPage(EquipmentFaultSearchDto equipmentFaultSearchDto)
+			throws BusinessException;
+
+	/*
+	 * 添加
+	 */
+	void add(EquipmentFault equipmentFault) throws BusinessException;
+
+	/*
+	 * 更新
+	 */
+	void update(EquipmentFault equipmentFault) throws BusinessException;
+
+	/*
+	 * 批量删除
+	 */
+	void deleteBatch(List<Integer> ids) throws BusinessException;
+
+	/*
+	 * 根据id查询
+	 */
+	EquipmentFault getById(Integer id) throws BusinessException;
+	
+	/**
+	 * 查询所有故障
+	 * @return
+	 */
+	List<EquipmentFault> selectAllFaults() throws BusinessException;
+	
+	
 }
- 

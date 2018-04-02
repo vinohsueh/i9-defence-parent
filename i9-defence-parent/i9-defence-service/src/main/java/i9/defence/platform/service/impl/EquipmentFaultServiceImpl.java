@@ -25,8 +25,7 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 	@Autowired
 	private EquipmentFaultDao equipmentFaultDao;
 	@Override
-	public PageBounds<EquipmentFault> selectByLimitPage(EquipmentFaultSearchDto equipmentFaultSearchDto,
-			int currectPage, int pageSize) throws BusinessException {
+	public PageBounds<EquipmentFault> selectByLimitPage(EquipmentFaultSearchDto equipmentFaultSearchDto) throws BusinessException {
         try {
             return equipmentFaultDao.selectByLimitPage(equipmentFaultSearchDto,equipmentFaultSearchDto.getCurrentPage(),equipmentFaultSearchDto.getPageSize());
         } catch (Exception e) {
@@ -75,6 +74,15 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 		}catch (Exception e) {
             throw new BusinessException("查询失败",e.getMessage());
         }
+	}
+
+	@Override
+	public List<EquipmentFault> selectAllFaults() throws BusinessException {
+		try {
+			return equipmentFaultDao.selectAllFaults();
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
 	}
 }
  

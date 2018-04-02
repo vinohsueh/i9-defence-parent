@@ -76,6 +76,23 @@ angular.module('app')
                     }]
                   }
               }) 
+              .state('app.equipmentFault', {
+                  url: '/equipmentFault',
+                  templateUrl: 'proj/equipmentFault/equipmentFault.html',
+              	  controller : "equipmentFaultControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'equipmentFaultModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/equipmentFault/equipmentFault.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
               .state('app.upStreamDecode', {
                   url: '/upStreamDecode',
                   templateUrl: 'proj/upStreamDecode/upStreamDecode.html',

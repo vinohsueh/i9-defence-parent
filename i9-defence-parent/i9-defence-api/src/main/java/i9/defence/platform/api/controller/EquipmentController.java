@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.api.component.ChannelDataInfoComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ChannelDataService;
 import i9.defence.platform.service.EquipmentCategoryService;
-import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
@@ -192,7 +196,12 @@ public class EquipmentController {
 	public HashMap<String, Object> equipmentChannelData(@RequestBody ChannelDataSearchDto channelDataSearchDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<ChannelData> list = channelDataService.selectChannelData(channelDataSearchDto);
-		result.put("data", list);
+		JSONArray jsonArray = new JSONArray();
+		for (ChannelData channelData : list) {
+			JSONObject jsonObject = new ChannelDataInfoComponent().setChannelData(channelData).build();
+			jsonArray.add(jsonObject);
+		}
+		result.put("data", jsonArray);
 		return result;
 	}
 }

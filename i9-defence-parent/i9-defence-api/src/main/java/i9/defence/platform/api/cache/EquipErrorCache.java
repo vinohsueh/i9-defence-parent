@@ -1,11 +1,13 @@
 package i9.defence.platform.api.cache;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
+import i9.defence.platform.model.EquipmentFault;
 import i9.defence.platform.service.EquipmentFaultService;
 
 
@@ -16,16 +18,24 @@ import i9.defence.platform.service.EquipmentFaultService;
 * @version  
 * 
 */
-@Configuration
+@Component("equipErrorCache")
 public class EquipErrorCache {
 	
 	@Autowired
 	private EquipmentFaultService equipmentFaultService;
 	
-	public static Map<String,Map<String,String>> EQUIPMENT_ERROR_CACHE = new HashMap<String,Map<String,String>>();
+	public static Map<String,String> EQUIPMENT_ERROR_CACHE = new HashMap<String,String>();
 	
-	public void show(){
-		System.out.println("------------------------------缓存启动");
+	public void initData(){
+		//清除缓存
+		EquipErrorCache.EQUIPMENT_ERROR_CACHE.clear();
+		List<EquipmentFault> list = equipmentFaultService.selectAllFaults();
+		
+		//将故障存在缓存中  故障编号作为key
+		for (EquipmentFault equipmentFault : list) {
+			EQUIPMENT_ERROR_CACHE.put(equipmentFault.getEqCategoryId()+"-"+equipmentFault.getCode(), equipmentFault.getName());
+		}
+		System.out.println("---------缓存启动 加载设备故障缓存--------------");
 	}
 	
 }
