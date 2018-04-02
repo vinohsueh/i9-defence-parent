@@ -433,9 +433,9 @@
   	select parentId from t_manager_grade where managerId=#{managerId}
   </select>
   <insert id="addProjSafeManager" parameterType="java.util.List">
-  	insert into t_project_safe(projectId,managerId) values
+  	insert into t_project_safe(projectId,managerId,safe) values
   	<foreach collection="list" item="item" separator=",">
-  		(#{item.projectId},#{item.id})
+  		(#{item.projectId},#{item.id},#{item.securitier})
   	</foreach>
   </insert>
   <select id="selectSafeByProjectId" parameterType="java.lang.Integer" resultType="i9.defence.platform.model.Manager">

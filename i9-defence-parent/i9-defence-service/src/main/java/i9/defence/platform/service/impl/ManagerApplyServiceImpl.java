@@ -161,7 +161,7 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
                 Manager manager = managerApply.getManager();
                 manager.setStatus(S_STATUS);
                 managers.add(manager);
-                if (1 == managerApply.getSecuritier()) {
+                if (null != managerApply.getProjectId()) {
                 	projSafeList.add(manager);
                 }
             }
