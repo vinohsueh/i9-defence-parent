@@ -103,11 +103,11 @@
                 #{item}
             </foreach>
         </if>
-        <!-- <if test="example.distributorId != null">
-            AND (projectId in (select id from t_project where distributorId = #{example.distributorId}) 
+        <if test="example.distributorId != null">
+            AND (id in (select ps.managerId from t_project_safe ps left join t_project p on p.id = ps.projectId  where p.distributorId = #{example.distributorId})
             OR id in (select managerId from t_manager_grade where parentId = #{example.distributorId}) 
             OR id in (select managerId from t_manager_grade where parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId}))) 
-        </if> -->
+        </if> 
     </trim>
   </sql>
   <sql id="Base_Column_List" >
