@@ -36,4 +36,7 @@ public interface ClientMapper {
     List<Client> selectByLimitPage(@Param("example") ClientSearchDto clientSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
     //获取创建者的客户
     List<Client> selectByCreateId(Integer createId);
+    
+    //根据项目ID 查询此项目下的全部 责任人  这个是和项目 一对多 已经产生关系了
+    List<Client> selectByProjectId(Integer projectId);
 }

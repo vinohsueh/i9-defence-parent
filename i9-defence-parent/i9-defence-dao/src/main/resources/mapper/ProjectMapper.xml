@@ -17,6 +17,7 @@
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
  	<result column="delCount" jdbcType="INTEGER" property="delCount"/> 
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectByProjectId"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -375,4 +376,15 @@
    <select id="selectAllEquipmentIds" resultType="java.lang.Integer" parameterType="java.lang.Integer">
    		select equipmentId from t_project_equipment where projectId = #{projectId}
    </select>
+   <delete id="deleteClientByProjectId">
+   		delete from t_project_client where projectId = #{projectId}
+   </delete>
+   <insert id="insertIntoClientByProjectId">
+		insert into t_project_client(projectId,clientId) values
+        <foreach collection ="clientIds" item="clientId" index= "index" separator =",">
+            (
+            #{projectId}, #{clientId}
+            )
+        </foreach >
+   </insert>
 </mapper>
