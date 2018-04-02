@@ -388,4 +388,13 @@
             )
         </foreach >
    </insert>
+   <update id="updateSafeZeroByProjectId">
+   		update t_project_safe set safe = 0 where projectId = #{projectId}
+   </update>
+   <update id="updateSafeOneByProjectId">
+   		update t_project_safe set safe = 1 where projectId = #{projectId} and managerId in
+   		<foreach collection="safeIds" index="index" item="safeId" separator="," open="(" close=")">
+            #{safeId}
+        </foreach>
+   </update>
 </mapper>
