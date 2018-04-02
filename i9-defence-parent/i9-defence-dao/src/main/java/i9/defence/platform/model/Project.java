@@ -1,6 +1,7 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -52,6 +53,8 @@ public class Project {
     private Manager distributor;
     //Apply表中项目个数
     private Integer delCount;
+    //项目负责人 一对多
+    private List<Client> clientList;
 
     public Integer getDelCount() {
 		return delCount;
@@ -179,5 +182,14 @@ public class Project {
 	public void setProjectCounty(String projectCounty) {
 		this.projectCounty = projectCounty;
 	}
+
+	public List<Client> getClientList() {
+		return clientList;
+	}
+
+	public void setClientList(List<Client> clientList) {
+		this.clientList = clientList;
+	}
     
+	
 }
