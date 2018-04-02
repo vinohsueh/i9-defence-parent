@@ -107,4 +107,11 @@ public interface ManagerMapper {
      * @return
      */
     Integer selectParentById(Integer Id);
+    
+    /**
+     * 将安全责任人和项目关系插入表中
+     * @param projSafeList
+     * @throws Exception
+     */
+	void addProjSafeManager(List<Manager> projSafeList);
 }

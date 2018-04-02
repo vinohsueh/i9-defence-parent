@@ -432,4 +432,10 @@
   <select id="selectParentById"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
   	select parentId from t_manager_grade where managerId=#{managerId}
   </select>
+  <insert id="addProjSafeManager" parameterType="java.util.List">
+  	insert into t_project_safe(projectId,managerId) values
+  	<foreach collection="list" item="item" separator=",">
+  		(#{item.projectId},#{item.id})
+  	</foreach>
+  </insert>
 </mapper>
