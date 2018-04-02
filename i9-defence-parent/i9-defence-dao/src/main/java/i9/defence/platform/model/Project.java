@@ -55,6 +55,8 @@ public class Project {
     private Integer delCount;
     //项目负责人 一对多
     private List<Client> clientList;
+    //接收前台传参  项目负责人ids们
+    private List<Integer> clientIds;
 
     public Integer getDelCount() {
 		return delCount;
@@ -189,6 +191,14 @@ public class Project {
 
 	public void setClientList(List<Client> clientList) {
 		this.clientList = clientList;
+	}
+
+	public List<Integer> getClientIds() {
+		return clientIds;
+	}
+
+	public void setClientIds(List<Integer> clientIds) {
+		this.clientIds = clientIds;
 	}
     
 	
