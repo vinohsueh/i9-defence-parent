@@ -36,8 +36,22 @@
     </div>
     <div id='projectList'>
         <div class="projectTitle">
-            <div class="provinceArea areaItem">省区域<i class='mIcon icon-select'></i></div>
-            <div class="cityArea areaItem">市区域<i class='mIcon icon-select'></i></div>
+            <select class="form-control blue_bg areaItem">
+              <option>天津</option>
+              <option>北京</option>
+              <option>上海</option>
+              <option>深圳</option>
+              <option>杭州</option>
+            </select>
+            <select class="form-control blue_bg areaItem">
+              <option>天津</option>
+              <option>北京</option>
+              <option>上海</option>
+              <option>深圳</option>
+              <option>杭州</option>
+            </select>
+            <!-- <div class="provinceArea areaItem">省区域<i class='mIcon icon-select'></i></div>
+            <div class="cityArea areaItem">市区域<i class='mIcon icon-select'></i></div> -->
         </div>
         <div class="projectBody">
             <div class="searchItem">
@@ -172,17 +186,18 @@
     $(function () {
         // 右侧样式
         var mainWidth = parseInt($('#selfMain').width()*0.03);
-        $('#projectList,#pieChart').css('right',mainWidth+'px');
-        var projectListHeight = parseInt($('#selfMain').height()*0.7-186);
+        var rightWidth = parseInt($('#selfMain').width()*0.2);
+        $('#projectList,#pieChart').css({'right':mainWidth+'px','width':rightWidth+'px'});
+        var projectListHeight = parseInt($('#selfMain').height()*0.7-136);
         $('#projectList .projectNameList').css('height',projectListHeight+'px');
         
         // 图表样式
         var chartBodyHeight = parseInt($('#selfMain').height()*0.3-40);
-        // $('#chartData .chartBody,#pieChart .chartBody').css('height',chartBodyHeight+'px');
-        $('#chartData .chartBody,#pieChart .chartBody').css('height','200px');
+        $('#chartData .chartBody,#pieChart .chartBody').css('height',chartBodyHeight+'px');
+        // $('#chartData .chartBody,#pieChart .chartBody').css('height','200px');
         // 加载更多
         $('#loadMore').click(function () {
-            var listHeight = parseInt($('#selfMain').height()-150);
+            var listHeight = parseInt($('#selfMain').height());
             $('.projectNameList').css('height',listHeight+'px');
             $('#loadMore').hide();
         });

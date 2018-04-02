@@ -90,8 +90,8 @@
           <div class="body">4</div>
         </div>
       </div>
-      <div class="equipmentData">
-        <span class="mLabel">G001</span>
+      <div class="equipmentData" ng-repeat='i in httpTest'>
+        <span class="mLabel" ng-click='checkItem()'>G001</span>
         <span class="mLabel">G001</span>
         <span class="mLabel">G001</span>
         <span class="mLabel">G001</span>
@@ -157,7 +157,12 @@
       </div>
     </div>
     <div class="mPane col-xs-12 col-sm-6">
-      <div class="title">具体数据</div>
+      <div class="title clear">
+        <div class="text pull-left">具体数据</div>
+        <div class="tools pull-right">
+          <button type='button' class='btn btn-success' ng-click="add()">添加通道</button>
+        </div>
+      </div>
       <div class="body">
         <div e-chart options="option"></div>
       </div>

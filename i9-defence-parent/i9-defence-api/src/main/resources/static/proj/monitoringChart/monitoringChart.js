@@ -20,6 +20,13 @@ var monitoringChartService = monitoringChartNgModule.factory('monitoringChartSer
 			return resource;
 	}]);
 var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
+	var pageParam = {
+		systemId:
+
+	}
+	httpService.post({url:'./equipment/equipmentChannelData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		
+	});
 	$scope.option={
 	    title:{
 	        show:false,
@@ -112,4 +119,37 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	        },
 	    ],
 	}
+	$scope.add = function () {  
+        var modalInstance = $modal.open({  
+            templateUrl: 'proj/monitoringChart/add.html',  
+            controller: 'monitoringChartEditCtrl', 
+            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+            resolve: {  
+            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+        			return $ocLazyLoad.load({
+        				name : 'monitoringChartEditNgModule',
+        				insertBefore : '#ng_load_plugins_before',
+        				files : [
+        				         'proj/monitoringChart/add.js',
+        				]
+        			});
+        		}],
+        		monitoringChart: function () {  
+                    return {};  
+                },
+                clientList: function () {  
+                    return {}; 
+                },
+            }  
+        }); 
+        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+            $scope.selected = data;
+        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+        	$scope.initTable();
+        });
+         
+    };
+    $scope.checkItem = function (){
+
+    }
 })

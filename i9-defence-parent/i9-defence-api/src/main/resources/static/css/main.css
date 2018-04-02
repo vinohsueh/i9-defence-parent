@@ -264,7 +264,6 @@ select.blue_bg option {
 #projectList .projectTitle .areaItem {
   width: 50%;
   box-sizing: border-box;
-  padding: 10px;
   float: left;
   cursor: pointer;
 }
