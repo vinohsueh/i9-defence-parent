@@ -1,0 +1,162 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">项目管理</h1>
+</div>
+<div controlled-rescode>
+<div class="wrapper-md">  
+  <form action="" class='form-inline myBox'>
+    <div class="form-group">
+      <label for="">设备类型：</label>
+      <select class="form-control blue_bg">
+        <option>天津</option>
+        <option>北京</option>
+        <option>上海</option>
+        <option>深圳</option>
+        <option>杭州</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">登记时间:</label>
+      <div class="input-group">
+        <input type="text" class='form-control blue_bg' disabled>
+        <div class="input-group-addon"><i class='glyphicon glyphicon-calendar'></i></div>
+      </div>
+      <label for="">-</label>
+      <div class="input-group">
+        <input type="text" class='form-control blue_bg' disabled>
+        <div class="input-group-addon"><i class='glyphicon glyphicon-calendar'></i></div>
+      </div>
+    </div>  
+    <div class="form-group">
+      <label for="">经销商：</label>
+      <select class="form-control blue_bg">
+        <option>A经销商</option>
+        <option>B经销商</option>
+        <option>C经销商</option>
+        <option>D经销商</option>
+        <option>E经销商</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="">省区域：</label>
+      <select class="form-control blue_bg" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
+        <option value = ''>请选择</option>
+        <!-- <option>天津</option>
+        <option>北京</option>
+        <option>上海</option>
+        <option>深圳</option>
+        <option>杭州</option> -->
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">地市区域：</label>
+      <select class="form-control blue_bg" ng-model="selected2" ng-options="sh.name for sh in selected.child" ng-change="c2()">
+        <option value=''>请选择</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">县/区：</label>
+      <select class="form-control blue_bg" ng-model="selected3" ng-options="x.value for x in selected2.child" ng-change="c3()">
+        <option value=''>请选择</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">项目名称：</label>
+      <select class="form-control blue_bg">
+        <option>国际创业中心</option>
+        <option>海泰发展六道</option>
+        <option>C项目</option>
+        <option>D项目</option>
+        <option>E项目</option>
+      </select>
+    </div>
+    <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
+  </form>
+  <div class="myBox">
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+        <thead>
+          <tr>
+            <th>事件类型</th>
+            <th>设备类型</th>
+            <th>时间</th>
+            <th>位置</th>
+            <th>项目名称</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span>漏电</span></td>
+            <td>A设备</td>
+            <td>2017-5-08</td>
+            <td>2209</td>
+            <td>国创中心</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row wrapper">
+      <div class="col-sm-5 m-b-xs">
+        <select class="blue_bg form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style='width:100px;'>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <div class="col-xs-7 text-right text-center-xs">                
+        <ul class="pagination pagination-sm m-t-none m-b-none">
+          <li><a href><i class="fa fa-chevron-left"></i></a></li>
+          <li><a href>1</a></li>
+          <li><a href>2</a></li>
+          <li><a href>3</a></li>
+          <li><a href>4</a></li>
+          <li><a href>5</a></li>
+          <li><a href><i class="fa fa-chevron-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">联系人</div>
+      <div class="body">
+        <p>职位：项目经理</p>
+        <p>姓名：王二宝</p>
+        <p>电话：18070900000</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">项目信息</div>
+      <div class="body">
+        <p>项目负责人：王三宝</p>
+        <p>项目安全负责人：王四宝</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">设备信息</div>
+      <div class="body">
+        <p>名称：G001</p>
+        <p>位置：国际创业中心2019</p>
+      </div>
+    </div>
+    <div class="mPane col-xs-12 col-sm-6">
+      <div class="title">具体数据</div>
+      <div class="body">
+        <div e-chart options="option"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+$("#checkLabel").click(function(){
+    if($("#totalCheck").prop("checked") == true){
+        $(".o-checks").prop("checked",true);
+    }else{
+        $(".o-checks").prop("checked",false);
+    }
+    
+})
+</script>
