@@ -438,4 +438,7 @@
   		(#{item.projectId},#{item.id})
   	</foreach>
   </insert>
+  <select id="selectSafeByProjectId" parameterType="java.lang.Integer" resultType="i9.defence.platform.model.Manager">
+  	SELECT m.id as id,m.name as name,m.phone as phone FROM t_manager as m LEFT JOIN t_project_safe as ps on m.id = ps.managerId WHERE ps.projectId = #{projectId}
+  </select>
 </mapper>
