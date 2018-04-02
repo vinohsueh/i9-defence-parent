@@ -195,10 +195,10 @@
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
         <if test="example.eqCategoryName != null and example.eqCategoryName != ''">
-            OR (eqCategoryName LIKE CONCAT(CONCAT('%','${example.eqCategoryName}'),'%' ))
+            OR (eqCategoryName LIKE CONCAT(CONCAT('%','${example.eqCategoryName}'),'%' )
         </if>
         <if test="example.eqCategoryId != null and example.eqCategoryId != ''">
-            OR (eqCategoryId LIKE CONCAT(CONCAT('%','${example.eqCategoryId}'),'%' ))
+            OR (eqCategoryId LIKE CONCAT(CONCAT('%','${example.eqCategoryId}'),'%' )
         </if>
     </trim>
   </sql>

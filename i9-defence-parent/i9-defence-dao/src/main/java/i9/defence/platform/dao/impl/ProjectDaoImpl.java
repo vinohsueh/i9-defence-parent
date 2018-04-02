@@ -18,7 +18,7 @@ import i9.defence.platform.utils.PageBounds;
  * 项目DaoImpl
  * @author 姜哲
  * @create 2018年1月8日
- */
+ */ 
 @Repository
 public class ProjectDaoImpl implements ProjectDao{
 	
@@ -83,5 +83,4 @@ public class ProjectDaoImpl implements ProjectDao{
 		criteria.andIdIn(ids);
 		return projectMapper.selectByExample(example);
 	}
-
 }

@@ -20,7 +20,7 @@ public class ManagerSearchDto extends PageListDto{
     /**
      * 经销商id
      */
-    private Integer distributorId;
+//    private Integer distributorId;
     /**
      * 邮箱
      */
@@ -50,13 +50,13 @@ public class ManagerSearchDto extends PageListDto{
     private String area;
     
     
-    public Integer getDistributorId() {
+  /*  public Integer getDistributorId() {
         return distributorId;
     }
 
     public void setDistributorId(Integer distributorId) {
         this.distributorId = distributorId;
-    }
+    }*/
 
     public String getArea() {
 		return area;

@@ -2,7 +2,6 @@ package i9.defence.platform.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +20,7 @@ import i9.defence.platform.utils.BusinessException;
 @Service
 @Transactional
 public class ChannelDataServiceImpl implements ChannelDataService{
-	
-	@Autowired
+
 	private ChannelDataDao channelDataDao;
 	
 	@Override

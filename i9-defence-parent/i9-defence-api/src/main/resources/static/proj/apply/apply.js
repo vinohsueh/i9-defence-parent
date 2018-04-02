@@ -28,7 +28,7 @@ var applyNgControl=applyNgModule.controller('applyNgControl',function($rootScope
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				state:$scope.selectState,
+				//state:$scope.selectState,
 				//username : $scope.searchText
 			};
 		

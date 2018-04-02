@@ -39,4 +39,8 @@ public interface ApplyMapper {
     void insertProjectApplys(@Param("applies") List<Apply> applies);    
     
     int  updateApplys(@Param("applies") List<Apply> applies);
+    
+    int selectProjectCount(@Param("ids") List<Integer> ids) ;
+    
+    int selectEquipmentCount(@Param("ids") List<Integer> ids) ;
 }

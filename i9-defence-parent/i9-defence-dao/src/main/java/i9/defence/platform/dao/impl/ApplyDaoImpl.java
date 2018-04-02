@@ -78,6 +78,18 @@ public class ApplyDaoImpl implements ApplyDao {
 		List<Apply> list = applyMapper.selectByExample(example);
 		return list;
 	}
+
+	@Override
+	public int selectProjectCount(List<Integer> ids) throws Exception {
+		int count = applyMapper.selectProjectCount(ids);
+		return count;
+	}
+
+	@Override
+	public int selectEquipmentCount(List<Integer> ids) throws Exception {
+		int count =applyMapper.selectEquipmentCount(ids);
+		return count;
+	}
 	
 
 }

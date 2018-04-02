@@ -28,5 +28,4 @@ public interface ChannelDataService {
 	 * @throws BusinessException
 	 */
 	List<ChannelData> selectChannelData(ChannelDataSearchDto channelDataSearchDto) throws BusinessException; 
-
 }

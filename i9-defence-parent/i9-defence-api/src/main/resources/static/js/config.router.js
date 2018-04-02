@@ -24,24 +24,6 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html'
               })
-                .state('app.index', {
-                    url: '/indexPage',
-                    templateUrl: 'proj/indexPage/indexPage.html',
-                    controller : "indexPageNgControl",
-                    resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                        return $ocLazyLoad.load({
-                      name : 'indexPageNgModule',
-                      insertBefore : '#ng_load_plugins_before',
-                      files : [
-                          'proj/indexPage/indexPage.js',
-                          'http://webapi.amap.com/maps?v=1.4.3&key=491782deb46aec33a67744f583836895'
-                          ]
-                    })
-                      }]
-                    }
-                })
               .state('app.project', {
                   url: '/project',
                   templateUrl: 'proj/project/project.html',
@@ -71,23 +53,6 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/client/client.js',
-            				    ]
-            			})
-                    }]
-                  }
-              }) 
-              .state('app.equipmentFault', {
-                  url: '/equipmentFault',
-                  templateUrl: 'proj/equipmentFault/equipmentFault.html',
-              	  controller : "equipmentFaultControl",
-              	  resolve: { 
-                    deps: ['$ocLazyLoad',
-                      function( $ocLazyLoad ){
-                    	return $ocLazyLoad.load({
-            				name : 'equipmentFaultModule',
-            				insertBefore : '#ng_load_plugins_before',
-            				files : [
-            				    'proj/equipmentFault/equipmentFault.js',
             				    ]
             			})
                     }]
@@ -332,41 +297,6 @@ angular.module('app')
                                   insertBefore : '#ng_load_plugins_before',
                                   files : [
                                       'proj/agency/agency.js',
-                                  ]
-                              })
-                          }]
-                  }
-              })
-              .state('app.monitoringChart', {
-                  url: '/monitoringChart',
-                  templateUrl: 'proj/monitoringChart/monitoringChart.html',
-                  controller : "monitoringChartNgControl",
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                          function( $ocLazyLoad ){
-                              return $ocLazyLoad.load({
-                                  name : 'monitoringChartNgModule',
-                                  insertBefore : '#ng_load_plugins_before',
-                                  files : [
-                                      'proj/monitoringChart/monitoringChart.js',
-                                      //'js/directives/echart.js'
-                                  ]
-                              })
-                          }]
-                  }
-              })
-              .state('app.monitoringTabel', {
-                  url: '/monitoringTabel',
-                  templateUrl: 'proj/monitoringTabel/monitoringTabel.html',
-                  controller : "monitoringTabelNgControl",
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                          function( $ocLazyLoad ){
-                              return $ocLazyLoad.load({
-                                  name : 'monitoringTabelNgModule',
-                                  insertBefore : '#ng_load_plugins_before',
-                                  files : [
-                                      'proj/monitoringTabel/monitoringTabel.js',
                                   ]
                               })
                           }]

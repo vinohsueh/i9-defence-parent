@@ -158,20 +158,11 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 			.success(function (data) {
 				if (data.result == 1){
 					if(options.showSuccessMsg==true){
-						if(options.msg){
-							$.toaster({
-								title : "Success",
-								priority : "success",
-								message : options.msg
-							});
-						}else{
-							$.toaster({
-								title : "Success",
-								priority : "success",
-								message : "成功"
-							});
-						}
-						
+					$.toaster({
+						title : "Success",
+						priority : "success",
+						message : "成功"
+					});
 					}
 					deferred.resolve(data);
 				}else if(data.result == -1){
@@ -215,20 +206,11 @@ var httpService = app.factory('httpService', ['$http','$q', '$window', 'toaster'
 			.success(function (data) {
 				if (data.result == 1){
 					if(options.showSuccessMsg==true){
-						if(options.msg){
-							$.toaster({
-								title : "Success",
-								priority : "success",
-								message : options.msg
-							});
-						}else{
-							$.toaster({
-								title : "Success",
-								priority : "success",
-								message : "成功"
-							});
-						}
-						
+						$.toaster({
+							title : "Success",
+							priority : "success",
+							message : "成功"
+						});
 					}
 					deferred.resolve(data);
 				}else if(data.result == -1){

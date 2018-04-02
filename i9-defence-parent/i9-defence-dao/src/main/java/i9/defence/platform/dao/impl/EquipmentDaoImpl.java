@@ -74,4 +74,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		equipmentMapper.InsertPassageWay(passageway);
 	}
 
+	@Override
+	public void updateEquipments(List<Equipment> applies) throws Exception {
+		equipmentMapper.updateEquipments(applies);
+	}
+
 }

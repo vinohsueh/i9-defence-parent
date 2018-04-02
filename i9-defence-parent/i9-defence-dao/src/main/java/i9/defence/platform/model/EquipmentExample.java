@@ -873,6 +873,65 @@ public class EquipmentExample {
 			addCriterion("systemId not between", value1, value2, "systemId");
 			return (Criteria) this;
 		}
+		public Criteria andDelStatusIsNull() {
+			addCriterion("delStatus is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusIsNotNull() {
+			addCriterion("delStatus is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusEqualTo(Integer value) {
+			addCriterion("delStatus =", value, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusNotEqualTo(Integer value) {
+			addCriterion("delStatus <>", value, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusGreaterThan(Integer value) {
+			addCriterion("delStatus >", value, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusGreaterThanOrEqualTo(Integer value) {
+			addCriterion("delStatus >=", value, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusLessThan(Integer value) {
+			addCriterion("delStatus <", value, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusLessThanOrEqualTo(Integer value) {
+			addCriterion("delStatus <=", value, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusIn(List<Integer> values) {
+			addCriterion("delStatus in", values, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusNotIn(List<Integer> values) {
+			addCriterion("delStatus not in", values, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusBetween(Integer value1, Integer value2) {
+			addCriterion("delStatus between", value1, value2, "delStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDelStatusNotBetween(Integer value1, Integer value2) {
+			addCriterion("delStatus not between", value1, value2, "delStatus");
+			return (Criteria) this;
+		}
 		
 	}
 
