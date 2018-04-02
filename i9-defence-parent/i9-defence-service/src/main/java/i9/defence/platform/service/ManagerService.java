@@ -139,4 +139,7 @@ public interface ManagerService {
      * @param manager
      */
     void addProjectManager(Manager manager) throws BusinessException;
+    
+  //查询 此项目下不是安全责任人  safe = 0
+  	List<Manager> selectSafeZeroByProjectId(Integer projectId) throws BusinessException;
 }
