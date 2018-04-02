@@ -86,7 +86,8 @@ public interface ProjectService {
     * @Title: applyDelProject 
     * @Description: TODO
     * @param ids
-    * @throws BusinessException
+     * @return 
+    * @throws BusinessException 
      */
-    public void  applyDelProject(List<Integer> ids) throws BusinessException;
+    public String  applyDelProject(List<Integer> ids) throws BusinessException;
 }

@@ -17,6 +17,7 @@
     <result column="safetyManId" jdbcType="INTEGER" property="safetyManId" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
+ 	<result column="delCount" jdbcType="INTEGER" property="delCount"/> 
   	<association property="dutyMan" column="dutyManId" select="i9.defence.platform.dao.mapper.ClientMapper.selectByPrimaryKey"/>
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   	<association property="safetyMan" column="safetyManId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
@@ -384,7 +385,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from t_project 
+        select <include refid="Base_Column_List" />,
+        (select count(*)  from t_apply a where a.projectId=p.id) as delCount
+        from t_project p
         <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
         </if>

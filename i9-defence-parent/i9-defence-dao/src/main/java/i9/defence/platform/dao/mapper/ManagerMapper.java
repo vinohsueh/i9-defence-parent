@@ -100,4 +100,11 @@ public interface ManagerMapper {
      * @param mrs
      */
     void addBatchManagerRole(List<Manager> managers);
+    
+    /**
+     * 查询有无父级经销商
+     * @param Id
+     * @return
+     */
+    Integer selectParentById(Integer Id);
 }

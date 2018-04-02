@@ -192,8 +192,14 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 		});
     	confirm("确定删除吗?", "", function (isConfirm) {
             if (isConfirm) {
-            	httpService.post({url:'./project/applyDelProject',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
-            		$scope.initTable();
+            	httpService.post({url:'./project/applyDelProject',data:$scope.delArray,showSuccessMsg:false}).then(function(data) {  
+            	$scope.msg=data.data.msg;
+            	$.toaster({
+            		title : "Success",
+					priority : "success",
+					message : $scope.msg
+            	});
+            	$scope.initTable();
             	})
             } else {
             }

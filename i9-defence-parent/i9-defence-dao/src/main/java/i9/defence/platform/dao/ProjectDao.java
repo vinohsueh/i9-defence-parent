@@ -90,5 +90,4 @@ public interface ProjectDao {
     * @throws Exception
      */
     List<Project> getProjectByIds(List<Integer> ids) throws Exception;
-    
 }

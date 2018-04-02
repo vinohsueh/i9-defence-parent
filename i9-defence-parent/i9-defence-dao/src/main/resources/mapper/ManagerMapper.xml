@@ -429,4 +429,7 @@
   <delete id="deleteAgencyById">
     DELETE FROM t_manager_grade WHERE managerId = #{managerId} AND parentId = #{parentId}
   </delete>
+  <select id="selectParentById"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select parentId from t_manager_grade where managerId=#{managerId}
+  </select>
 </mapper>

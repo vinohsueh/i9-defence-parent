@@ -75,4 +75,10 @@ public interface EquipmentDao {
      */
     void InsertPassageWay(Passageway passageway) throws Exception;
     
+	/**
+	 * 批量更新设备
+	 * @param applies
+	 * @throws Exception
+	 */
+	void updateEquipments(List<Equipment> applies) throws Exception;
 }

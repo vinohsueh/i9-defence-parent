@@ -40,7 +40,7 @@
             <property name="methodNameCalculator" value="extended" />
         </javaClientGenerator>
          
-        <table schema="defence" tableName="t_manager" domainObjectName="Manager">
+        <table schema="defence" tableName="t_channel_data" domainObjectName="ChannelData">
             <property name="useActualColumnNames" value="true" />
             <generatedKey column="id" sqlStatement="mysql" identity="true" />
         </table>
