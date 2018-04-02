@@ -17,7 +17,7 @@
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
  	<result column="delCount" jdbcType="INTEGER" property="delCount"/> 
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
-  	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectByProjectId"/>
+  	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
