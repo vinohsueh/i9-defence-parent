@@ -36,4 +36,6 @@ public interface EquipmentMapper {
     List<Passageway> selectPassagewayByEid(Integer equipId);
     
     void InsertPassageWay(@Param("Passageway") Passageway passageway);
+    
+    void updateEquipments(@Param("applies") List<Equipment> applies) ;
 }

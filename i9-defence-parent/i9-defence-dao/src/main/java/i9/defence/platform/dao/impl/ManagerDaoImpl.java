@@ -139,4 +139,9 @@ public class ManagerDaoImpl implements ManagerDao{
         managerMapper.addBatchManagerRole(managers);
     }
 
+	@Override
+	public Integer selectParentById(Integer Id) throws Exception {
+		return managerMapper.selectParentById(Id);
+	}
+
 }

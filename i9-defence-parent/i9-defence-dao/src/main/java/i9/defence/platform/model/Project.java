@@ -54,8 +54,18 @@ public class Project {
     private Manager distributor;
     //项目安全责任人(一对一关系)
     private Manager safetyMan;
+    //Apply表中项目个数
+    private Integer delCount;
 
-    public Integer getId() {
+    public Integer getDelCount() {
+		return delCount;
+	}
+
+	public void setDelCount(Integer delCount) {
+		this.delCount = delCount;
+	}
+
+	public Integer getId() {
         return id;
     }
 

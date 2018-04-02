@@ -14,18 +14,8 @@ public class ChannelData {
     private Integer type;
 
     private String value;
-    
-    private String systemType;
-    
-    public String getSystemType() {
-		return systemType;
-	}
 
-	public void setSystemType(String systemType) {
-		this.systemType = systemType;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -142,4 +142,12 @@ public interface ManagerDao {
      * @param mrs
      */
     void addBatchManagerRole(List<Manager> managers) throws Exception;
+    
+    /**
+     * 查询有无父级经销商
+     * @param Id
+     * @return
+     * @throws Exception
+     */
+    Integer selectParentById(Integer Id) throws Exception;
 }

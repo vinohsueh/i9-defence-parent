@@ -2,81 +2,7 @@
   <h1 class="m-n font-thin h3">设备</h1>
 </div>
 <div controlled-rescode>
-<div class="wrapper-md"> 
-  <form action="" class='form-inline myBox'>
-    <div class="form-group">
-      <label for="">设备类型：</label>
-      <select class="form-control blue_bg">
-        <option>天津</option>
-        <option>北京</option>
-        <option>上海</option>
-        <option>深圳</option>
-        <option>杭州</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">登记时间:</label>
-      <div class="input-group">
-        <input type="text" class='form-control blue_bg' disabled>
-        <div class="input-group-addon"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-      <label for="">-</label>
-      <div class="input-group">
-        <input type="text" class='form-control blue_bg' disabled>
-        <div class="input-group-addon"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-    </div>  
-    <div class="form-group">
-      <label for="">经销商：</label>
-      <select class="form-control blue_bg">
-        <option>A经销商</option>
-        <option>B经销商</option>
-        <option>C经销商</option>
-        <option>D经销商</option>
-        <option>E经销商</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">项目名称：</label>
-      <select class="form-control blue_bg">
-        <option>国际创业中心</option>
-        <option>海泰发展六道</option>
-        <option>C项目</option>
-        <option>D项目</option>
-        <option>E项目</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">省区域：</label>
-      <select class="form-control blue_bg">
-        <option>天津</option>
-        <option>北京</option>
-        <option>上海</option>
-        <option>深圳</option>
-        <option>杭州</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">地市区域：</label>
-      <select class="form-control blue_bg">
-        <option>天津</option>
-        <option>保定</option>
-        <option>石家庄</option>
-        <option>北京</option>
-        <option>厦门</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">县/区：</label>
-      <select class="form-control blue_bg">
-        <option>南开</option>
-        <option>西青</option>
-        <option>河西</option>
-        <option>和平</option>
-      </select>
-    </div>
-    <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
-  </form> 
+<div class="wrapper-md">  
   <div class="panel panel-default">
     <div class="panel-heading">
         <button class="btn m-b-xs w-xs btn-success btn-rounded equip_add" ng-click="add()">新增</button>
@@ -84,7 +10,7 @@
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
-        <select class="blue_bg form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width:100px">
+        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
@@ -116,7 +42,7 @@
             <th>设备位置</th>
             <th>设备创建时间</th>
             <th>设备备注</th>
-            <th>设备类型</th>
+            <th>设备分类</th>
             <th>所属项目</th>
             <th>系统编号</th>
             <th>装置数量</th>
@@ -126,7 +52,8 @@
         </thead>
         <tbody>
           <tr ng-repeat="equipment in equipments">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td ng-if="equipment.delStatus==1"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td ng-if="equipment.delStatus==0"></td>
             <td >{{equipment.equipmentName}}</td>
             <td >{{equipment.equipmentNum}}</td>
             <td >{{equipment.equipmentIdentifier}}</td>
@@ -138,7 +65,7 @@
             <td >{{equipment.systemId}}</td>
             <td >{{equipment.unit}}</td>
             <td >{{equipment.loopl}}</td>
-        	<td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
+            <td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
           </tr>
         </tbody>
       </table>
