@@ -57,6 +57,10 @@ public class Project {
     private List<Client> clientList;
     //接收前台传参  项目负责人ids们
     private List<Integer> clientIds;
+    //安全责任人 一对多
+    private List<Manager> safeList;
+    //接收前台传参  项目安全责任人IDS们
+    private List<Integer> safeIds;
 
     public Integer getDelCount() {
 		return delCount;
@@ -199,6 +203,22 @@ public class Project {
 
 	public void setClientIds(List<Integer> clientIds) {
 		this.clientIds = clientIds;
+	}
+
+	public List<Manager> getSafeList() {
+		return safeList;
+	}
+
+	public void setSafeList(List<Manager> safeList) {
+		this.safeList = safeList;
+	}
+
+	public List<Integer> getSafeIds() {
+		return safeIds;
+	}
+
+	public void setSafeIds(List<Integer> safeIds) {
+		this.safeIds = safeIds;
 	}
     
 	
