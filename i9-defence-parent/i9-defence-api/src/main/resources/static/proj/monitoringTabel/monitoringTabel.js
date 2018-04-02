@@ -112,15 +112,21 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	        },
 	    ],
 	}
-	$scope.province = ChineseDistricts[86];
-	$scope.city = ChineseDistricts;
-	$scope.area = ChineseDistricts;
-	$scope.provinceChange = function () {
-		console.log(this.provinceName);
-		for(i in ChineseDistricts){
-			/*if(i == this.provinceName){
-
-			}*/
-		}
-	}
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
 })

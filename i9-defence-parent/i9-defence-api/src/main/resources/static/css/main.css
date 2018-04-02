@@ -18,6 +18,10 @@ select.blue_bg {
 select.blue_bg option {
   color: #333;
 }
+td.eventType {
+  text-align: center;
+  padding: 5px 0;
+}
 /*1.图标*/
 .mIcon {
   display: inline-block;
