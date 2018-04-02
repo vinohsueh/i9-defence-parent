@@ -39,4 +39,10 @@ public interface ProjectMapper {
     void insertProjectEquipment(@Param("projectId") Integer projectId,@Param("equipmentIds") List<Integer> equipmentIds);
 
     List<Integer> selectAllEquipmentIds(Integer projectId);
+    
+  //重置项目的责任人们   之删除
+    void deleteClientByProjectId(@Param("projectId") Integer projectId) ;
+    
+    //重置项目的责任人们   之增加
+    void insertIntoClientByProjectId(@Param("projectId") Integer projectId,@Param("clientIds") List<Integer> clientIds);
 }
