@@ -24,6 +24,23 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html'
               })
+                .state('app.index', {
+                    url: '/indexPage',
+                    templateUrl: 'proj/indexPage/indexPage.html',
+                    controller : "indexPageNgControl",
+                    resolve: {
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                        return $ocLazyLoad.load({
+                      name : 'indexPageNgModule',
+                      insertBefore : '#ng_load_plugins_before',
+                      files : [
+                          'proj/indexPage/indexPage.js',
+                          ]
+                    })
+                      }]
+                    }
+                })
               .state('app.project', {
                   url: '/project',
                   templateUrl: 'proj/project/project.html',
@@ -297,6 +314,40 @@ angular.module('app')
                                   insertBefore : '#ng_load_plugins_before',
                                   files : [
                                       'proj/agency/agency.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.monitoringChart', {
+                  url: '/monitoringChart',
+                  templateUrl: 'proj/monitoringChart/monitoringChart.html',
+                  controller : "monitoringChartNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'monitoringChartNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/monitoringChart/monitoringChart.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.monitoringTabel', {
+                  url: '/monitoringTabel',
+                  templateUrl: 'proj/monitoringTabel/monitoringTabel.html',
+                  controller : "monitoringTabelNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'monitoringTabelNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/monitoringTabel/monitoringTabel.js',
                                   ]
                               })
                           }]
