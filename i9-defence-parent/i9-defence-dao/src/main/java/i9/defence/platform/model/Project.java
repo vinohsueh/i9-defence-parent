@@ -39,27 +39,17 @@ public class Project {
     //建筑面积
     @NotNull(message="建筑面积不能为空")
     private Integer projectArea;
-    //项目负责人Id
-    @NotNull(message="项目负责人Id不能为空")
-    private Integer dutyManId;
     //经销商Id
     @NotNull(message="经销商Id不能为空")
     private Integer distributorId;
-    //项目安全责任人Id
-    @NotNull(message="项目安全责任人Id不能为空")
-    private Integer safetyManId;
     //备注
     @NotBlank(message="备注不能为空")
     private String remarks;
     //开关 0-关，1-开
     //@NotNull(message="开关 0-关，1-开不能为空")
     private Integer projectState;
-    //项目负责人(一对一关系)
-    private Client dutyMan;
     //经销商(一对一关系)
     private Manager distributor;
-    //项目安全责任人(一对一关系)
-    private Manager safetyMan;
     //Apply表中项目个数
     private Integer delCount;
 
@@ -134,28 +124,12 @@ public class Project {
         this.projectArea = projectArea;
     }
 
-    public Integer getDutyManId() {
-        return dutyManId;
-    }
-
-    public void setDutyManId(Integer dutyManId) {
-        this.dutyManId = dutyManId;
-    }
-
     public Integer getDistributorId() {
         return distributorId;
     }
 
     public void setDistributorId(Integer distributorId) {
         this.distributorId = distributorId;
-    }
-
-    public Integer getSafetyManId() {
-        return safetyManId;
-    }
-
-    public void setSafetyManId(Integer safetyManId) {
-        this.safetyManId = safetyManId;
     }
 
     public String getRemarks() {
@@ -174,28 +148,12 @@ public class Project {
         this.projectState = projectState;
     }
 
-	public Client getDutyMan() {
-		return dutyMan;
-	}
-
-	public void setDutyMan(Client dutyMan) {
-		this.dutyMan = dutyMan;
-	}
-
 	public Manager getDistributor() {
 		return distributor;
 	}
 
 	public void setDistributor(Manager distributor) {
 		this.distributor = distributor;
-	}
-
-	public Manager getSafetyMan() {
-		return safetyMan;
-	}
-
-	public void setSafetyMan(Manager safetyMan) {
-		this.safetyMan = safetyMan;
 	}
 
 	public String getProjectProvince() {
