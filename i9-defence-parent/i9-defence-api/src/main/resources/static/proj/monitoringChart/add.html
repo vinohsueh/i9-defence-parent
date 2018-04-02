@@ -1,0 +1,64 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">添加通道</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>通道名称</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="projectName" ng-model="project.projectName" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>项目地址</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="projectAddress" ng-model="project.projectAddress" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>经度</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="projectLongitude" ng-model="project.projectLongitude" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>纬度</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="projectLatitude" ng-model="project.projectLatitude" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>建筑面积</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="projectArea" ng-model="project.projectArea" placeholder="">
+			</div>
+		</div>	
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>负责人</label>
+			<div class="col-md-8">
+				<select ng-model="project.dutyManId"  ng-options="item.id as item.name for item in clientList">
+        			<option value="">请选择负责人</option> <!-- 不加这句代码，会出现空白 -->
+    			</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>备注</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="remarks" ng-model="project.remarks" placeholder="">
+			</div>
+		</div>
+		<div class="form-group" style="display: none;">
+            <label class="col-md-2 control-label">id</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="id" ng-model="project.id" placeholder="">
+            </div>
+        </div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()"
+		data-dismiss="modal">取消</button>
+	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+</div>

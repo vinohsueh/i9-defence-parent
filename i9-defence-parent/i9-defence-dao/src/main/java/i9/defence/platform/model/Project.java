@@ -18,7 +18,13 @@ public class Project {
     //项目名称
     @NotBlank(message="项目名称不能为空")
     private String projectName;
-    //项目地址
+    //项目所在省
+    private String projectProvince;
+    //项目所在市
+    private String projectCity;
+    //项目所在县/区
+    private String projectCounty;
+    //项目所在详细地址
     @NotBlank(message="项目地址不能为空")
     private String projectAddress;
     //项目坐标-经度
@@ -190,6 +196,30 @@ public class Project {
 
 	public void setSafetyMan(Manager safetyMan) {
 		this.safetyMan = safetyMan;
+	}
+
+	public String getProjectProvince() {
+		return projectProvince;
+	}
+
+	public void setProjectProvince(String projectProvince) {
+		this.projectProvince = projectProvince;
+	}
+
+	public String getProjectCity() {
+		return projectCity;
+	}
+
+	public void setProjectCity(String projectCity) {
+		this.projectCity = projectCity;
+	}
+
+	public String getProjectCounty() {
+		return projectCounty;
+	}
+
+	public void setProjectCounty(String projectCounty) {
+		this.projectCounty = projectCounty;
 	}
     
 }
