@@ -66,8 +66,14 @@ public class ProjectServiceImpl implements ProjectService {
 			} else {
 				project.setProjectState(0);
 			}
+			//先删除 已有的 责任人
 			projectDao.deleteClientByProjectId(project.getId());
+			//先修改 安全责任人的 safe = 0
+			projectDao.updateSafeZeroByProjectId(project.getId());
+			//再增加 已有的 责任人
 			projectDao.insertIntoClientByProjectId(project.getId(), project.getClientIds());
+			//再修改 需要安全责任人的 safe = 1
+			projectDao.updateSafeOneByProjectId(project.getId(), project.getSafeIds());
 			projectDao.updateProject(project);
 		} catch (Exception e) {
 			throw new BusinessException("更新项目失败", e.getMessage());
