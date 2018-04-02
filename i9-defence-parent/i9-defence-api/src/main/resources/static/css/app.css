@@ -3,7 +3,7 @@
 */
 
 html {
-  background-color: #f0f3f4;
+  background-color: #151c35;
 }
 
 body {
@@ -11,7 +11,7 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   line-height: 1.42857143;
-  color: #58666e;
+  color: #fff;
   background-color: transparent;
 }
 
@@ -407,13 +407,14 @@ a.list-group-item.hover {
 }
 
 .pagination > li > a {
-  border-color: #dee5e7;
+  border-color: #1b2446;
 }
 
 .pagination > li > a:hover,
 .pagination > li > a:focus {
-  background-color: #edf1f2;
-  border-color: #dee5e7;
+  color: #fff;
+  background-color: #1b2446;
+  border-color: #1b2446;
 }
 
 .panel {
@@ -444,7 +445,7 @@ a.list-group-item.hover {
 }
 
 .panel-default .panel-heading {
-  background-color: #f6f8f8;
+  background-color: #1e284e;
 }
 
 .panel-heading.no-border {
@@ -461,7 +462,7 @@ a.list-group-item.hover {
 }
 
 .panel-footer {
-  background-color: #ffffff;
+  background-color: #1e284e;
   border-color: #edf1f2;
   border-radius: 0 0 2px 2px;
 }
@@ -472,7 +473,7 @@ a.list-group-item.hover {
 
 .panel-default > .panel-heading,
 .panel-default > .panel-footer {
-  border-color: #edf1f2;
+  border-color: #384575;
 }
 
 .panel-group .panel-heading + .panel-collapse .panel-body {
@@ -482,12 +483,12 @@ a.list-group-item.hover {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   padding: 8px 15px;
-  border-top: 1px solid #eaeff0;
+  border-top: 1px solid #384575;
 }
 
 .table > thead > tr > th {
   padding: 8px 15px;
-  border-bottom: 1px solid #eaeff0;
+  border-bottom: 1px solid #384575;
 }
 
 .table-bordered {
@@ -504,7 +505,7 @@ a.list-group-item.hover {
 
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-  background-color: #fafbfc;
+  background-color: #1b2446;
 }
 
 .table-striped > thead > th {
@@ -659,6 +660,7 @@ html,
 body {
   width: 100%;
   height: 100%;
+  background-color:#151c35;
 }
 
 body {
@@ -702,7 +704,9 @@ body {
 .app-aside {
   float: left;
 }
-
+.bg-black .aside-wrap{
+	background-color:#273b83;
+}
 .app-aside:before {
   position: absolute;
   top: 0;
@@ -767,12 +771,8 @@ body {
 .app-content-body {
   float: left;
   width: 100%;
-<<<<<<< HEAD
-  padding-bottom: 50px;
-=======
   /*padding-bottom: 50px;*/
   background-color:#151c35;
->>>>>>> branch 'master' of https://github.com/vinohsueh/i9-defence-parent.git
 }
 
 .app-footer {
@@ -1791,8 +1791,8 @@ fieldset[disabled] .btn-default.active {
 
 .btn-primary {
   color: #ffffff !important;
-  background-color: #7266ba;
-  border-color: #7266ba;
+  background-color: #3d4b83;
+  border-color: #3d4b83;
 }
 
 .btn-primary:hover,
@@ -1832,8 +1832,8 @@ fieldset[disabled] .btn-primary.active {
 
 .btn-success {
   color: #ffffff !important;
-  background-color: #27c24c;
-  border-color: #27c24c;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
 }
 
 .btn-success:hover,
@@ -2531,7 +2531,7 @@ fieldset[disabled] .btn-black.active {
 }
 
 .i-checks input:checked + i {
-  border-color: #23b7e5;
+  border-color: #fff;
 }
 
 .i-checks input:checked + i:before {
@@ -2539,7 +2539,7 @@ fieldset[disabled] .btn-black.active {
   left: 4px;
   width: 10px;
   height: 10px;
-  background-color: #23b7e5;
+  background-color: #fff;
 }
 
 .i-checks input:checked + span .active {
@@ -2571,7 +2571,7 @@ fieldset[disabled] .i-checks input + i:before {
   margin-left: -20px;
   line-height: 1;
   vertical-align: middle;
-  background-color: #fff;
+  //background-color: #fff;
   border: 1px solid #cfdadd;
 }
 
@@ -3023,7 +3023,7 @@ fieldset[disabled] .i-checks input + i:before {
 
 .bg-black {
   color: #7793a7;
-  background-color: #1c2b36;
+  background-color: #273b83;
 }
 
 .bg-black.lt,
@@ -3038,7 +3038,7 @@ fieldset[disabled] .i-checks input + i:before {
 
 .bg-black.dk,
 .bg-black .dk {
-  background-color: #131e26;
+  background-color: #20316d;
 }
 
 .bg-black.dker,
@@ -3068,7 +3068,7 @@ fieldset[disabled] .i-checks input + i:before {
 .bg-black .nav > li:focus > a,
 .bg-black .nav > li.active > a {
   color: #ffffff;
-  background-color: #131e26;
+  background-color: #2a3f8a;
 }
 
 .bg-black .nav > li > a {
@@ -3077,7 +3077,7 @@ fieldset[disabled] .i-checks input + i:before {
 
 .bg-black .nav > li > a:hover,
 .bg-black .nav > li > a:focus {
-  background-color: #16232d;
+  background-color: #2a3f8a;
 }
 
 .bg-black .nav .open > a {
@@ -4191,7 +4191,7 @@ a.text-#000000:hover {
 }
 
 .b-light {
-  border-color: #edf1f2;
+  border-color: #384575;
 }
 
 .b-dark {
@@ -5352,3 +5352,18 @@ a.text-#000000:hover {
   width: 40%;
   float: right;
 }
+/*mySelf*/
+.glyphicon-calendar{
+  cursor: pointer;
+}
+.modal-content .i-checks input:checked + i{
+    border-color:#1e284e;
+}
+.modal-content .i-checks input:checked + i:before{
+    background-color: #1e284e;
+}
+
+
+
+
+

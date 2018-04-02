@@ -20,13 +20,6 @@ var monitoringChartService = monitoringChartNgModule.factory('monitoringChartSer
 			return resource;
 	}]);
 var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
-	var pageParam = {
-		systemId:
-
-	}
-	httpService.post({url:'./equipment/equipmentChannelData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-		
-	});
 	$scope.option={
 	    title:{
 	        show:false,
@@ -149,7 +142,4 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         });
          
     };
-    $scope.checkItem = function (){
-
-    }
 })
