@@ -109,4 +109,13 @@ public class ClientServiceImpl implements ClientService{
             throw new BusinessException("查询全部失败",e.getMessage());
         }
 	}
+
+	@Override
+	public List<Client> selectAllClientByProjectId(Integer projectId) throws BusinessException {
+		try{
+            return clientDao.selectAllClientByProjectId(projectId);
+        }catch (Exception e) {
+            throw new BusinessException("根据项目ID 查询全部的责任人  生成下拉选框 进行多选失败",e.getMessage());
+        }
+	}
 }

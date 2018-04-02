@@ -66,6 +66,8 @@ public class ProjectServiceImpl implements ProjectService {
 			} else {
 				project.setProjectState(0);
 			}
+			projectDao.deleteClientByProjectId(project.getId());
+			projectDao.insertIntoClientByProjectId(project.getId(), project.getClientIds());
 			projectDao.updateProject(project);
 		} catch (Exception e) {
 			throw new BusinessException("更新项目失败", e.getMessage());
