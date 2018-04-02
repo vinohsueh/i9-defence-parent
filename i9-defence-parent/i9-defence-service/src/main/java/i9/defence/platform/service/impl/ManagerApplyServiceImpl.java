@@ -147,6 +147,8 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
             List<ManagerApply> managerApplys = managerApplyDao.selectApplysByIds(ids);
             //要同意的账户列表
             List<Manager> managers = new ArrayList<Manager>();
+            //项目安全责任人list
+            List<Manager> projSafeList = new ArrayList<Manager>();
             //要同意的账户列表对应的角色
             for (ManagerApply managerApply : managerApplys) {
                 if (Arrays.asList(Constants.S_ADMIN).contains(managerApply.getRoleName())){
@@ -159,11 +161,16 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
                 Manager manager = managerApply.getManager();
                 manager.setStatus(S_STATUS);
                 managers.add(manager);
+                if (1 == managerApply.getSecuritier()) {
+                	projSafeList.add(manager);
+                }
             }
             //更新申请的状态
             managerApplyDao.updateBatchManagerApplys(managerApplys,managerId);
             //将申请的角色添加到用户表里
             managerDao.addBatchManagers(managers);
+            //将安全责任人和项目建立关系
+            managerDao.addProjSafeManager(projSafeList);
             //添加用户的角色
             managerDao.addBatchManagerRole(managers);
         } catch (BusinessException e) {
