@@ -8,6 +8,7 @@
 		<result column="dateTime" jdbcType="TIMESTAMP" property="dateTime" />
 		<result column="type" jdbcType="INTEGER" property="type" />
 		<result column="value" jdbcType="VARCHAR" property="value" />
+		<result column="systemType" jdbcType="VARCHAR" property="systemType" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -83,7 +84,7 @@
 		</trim>
 	</sql>
 	<sql id="Base_Column_List">
-		id, systemId, channel, dateTime, type, value
+		id, systemId, channel, dateTime, type, value, systemType
 	</sql>
 	<select id="selectByExample" parameterType="i9.defence.platform.model.ChannelDataExample"
 		resultMap="BaseResultMap">
@@ -121,11 +122,12 @@
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into t_channel_data (systemId, channel, dateTime,
-		type, value)
-		values (#{systemId,jdbcType=VARCHAR}, #{channel,jdbcType=INTEGER},
-		#{dateTime,jdbcType=TIMESTAMP},
-		#{type,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR})
+		insert into t_channel_data (systemId, channel, dateTime, 
+      type, value, systemType
+      )
+    values (#{systemId,jdbcType=VARCHAR}, #{channel,jdbcType=INTEGER}, #{dateTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR}, #{systemType,jdbcType=VARCHAR}
+      )
 	</insert>
 	<insert id="insertSelective" parameterType="i9.defence.platform.model.ChannelData">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -148,6 +150,9 @@
 			<if test="value != null">
 				value,
 			</if>
+			<if test="systemType != null">
+		        systemType,
+	        </if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="systemId != null">
@@ -165,6 +170,9 @@
 			<if test="value != null">
 				#{value,jdbcType=VARCHAR},
 			</if>
+		    <if test="systemType != null">
+		        #{systemType,jdbcType=VARCHAR},
+            </if>
 		</trim>
 	</insert>
 	<select id="countByExample" parameterType="i9.defence.platform.model.ChannelDataExample"
@@ -195,6 +203,9 @@
 			<if test="record.value != null">
 				value = #{record.value,jdbcType=VARCHAR},
 			</if>
+			<if test="record.systemType != null">
+        		systemType = #{record.systemType,jdbcType=VARCHAR},
+      	    </if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -202,12 +213,13 @@
 	</update>
 	<update id="updateByExample" parameterType="map">
 		update t_channel_data
-		set id = #{record.id,jdbcType=INTEGER},
-		systemId = #{record.systemId,jdbcType=VARCHAR},
-		channel = #{record.channel,jdbcType=INTEGER},
-		dateTime = #{record.dateTime,jdbcType=TIMESTAMP},
-		type = #{record.type,jdbcType=INTEGER},
-		value = #{record.value,jdbcType=VARCHAR}
+    set id = #{record.id,jdbcType=INTEGER},
+      systemId = #{record.systemId,jdbcType=VARCHAR},
+      channel = #{record.channel,jdbcType=INTEGER},
+      dateTime = #{record.dateTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
+      value = #{record.value,jdbcType=VARCHAR},
+      systemType = #{record.systemType,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -230,23 +242,27 @@
 			<if test="value != null">
 				value = #{value,jdbcType=VARCHAR},
 			</if>
+			<if test="systemType != null">
+        		systemType = #{systemType,jdbcType=VARCHAR},
+   		    </if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.ChannelData">
 		update t_channel_data
-		set systemId = #{systemId,jdbcType=VARCHAR},
-		channel = #{channel,jdbcType=INTEGER},
-		dateTime = #{dateTime,jdbcType=TIMESTAMP},
-		type = #{type,jdbcType=INTEGER},
-		value = #{value,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=INTEGER}
+	    set systemId = #{systemId,jdbcType=VARCHAR},
+	      channel = #{channel,jdbcType=INTEGER},
+	      dateTime = #{dateTime,jdbcType=TIMESTAMP},
+	      type = #{type,jdbcType=INTEGER},
+	      value = #{value,jdbcType=VARCHAR},
+	      systemType = #{systemType,jdbcType=VARCHAR}
+	    where id = #{id,jdbcType=INTEGER}
 	</update>
 	<insert id="insertBatch" parameterType="java.util.List">
 		insert into t_channel_data (systemId, channel, dateTime,
-		type, value) values
+		type, value,systemType) values
 		<foreach collection="list" item="item" separator=",">
-			(#{item.systemId},#{item.channel},#{item.dateTime},#{item.type},#{item.value})
+			(#{item.systemId},#{item.channel},#{item.dateTime},#{item.type},#{item.value},#{item.systemType})
 		</foreach>
 	</insert>
 
