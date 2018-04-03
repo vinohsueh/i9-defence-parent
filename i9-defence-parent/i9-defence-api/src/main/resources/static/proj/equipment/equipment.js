@@ -75,8 +75,11 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 		$scope.initTable();
 	}
 	
-	$scope.add = function () {  
-	        var modalInstance = $modal.open({ 
+	$scope.add = function () {
+		httpService.post({url:'./equipment/findEquipment',showSuccessMsg:false}).then(function(data) {  
+			$scope.equCategorys = data.data.equCategorys;
+			$scope.projects = data.data.projects;
+			var modalInstance = $modal.open({ 
 	            templateUrl: 'proj/equipment/add.html',  
 	            controller: 'equipmentEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
@@ -93,6 +96,12 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	        		equipment: function () {  
 	                    return {};  
 	                },
+	                equCategorys: function () {  
+	                    return $scope.equCategorys;  
+	                },
+	                projects: function () {  
+	                    return $scope.projects;  
+	                },
 	            }  
 	        }); 
 	        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -100,7 +109,8 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
 	        	$scope.initTable();
 	        });
-    };
+		});
+	};
     //删除
     $scope.del = function(){
     	$scope.delArray = [];
@@ -129,6 +139,9 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
     $scope.edit = function (id) { 
     	httpService.post({url:'./equipment/getEquipment',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipment = data.data.data;
+    		httpService.post({url:'./equipment/findEquipment',showSuccessMsg:false}).then(function(data) {  
+    			$scope.equCategorys = data.data.equCategorys;
+    			$scope.projects = data.data.projects;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/equipment/add.html',  
 	            controller: 'equipmentEditCtrl', 
@@ -146,6 +159,12 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	        		equipment: function () {  
 	                    return $scope.equipment;  
 	                },
+	                equCategorys: function () {  
+	                    return $scope.equCategorys;  
+	                },
+	                projects: function () {  
+	                    return $scope.projects;  
+	                },
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -154,5 +173,6 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	        	$scope.initTable();
 	        });
     	})
+      });
     };  
 })

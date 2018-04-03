@@ -59,6 +59,7 @@
         <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
           OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%')))
         </if>
+        and delStatus=1
     </trim>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
