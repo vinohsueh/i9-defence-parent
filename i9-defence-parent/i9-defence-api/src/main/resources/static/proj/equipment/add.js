@@ -3,20 +3,14 @@ var equipmentEditNgModule = angular.module('equipmentEditNgModule', [ 'ngResourc
 
 var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		equipment,httpService) {
+		equipment,equCategorys,projects,httpService) {
 	
 	$scope.equipment = equipment;
+	$scope.equCategorys = equCategorys;
+	$scope.projects = projects;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
-	httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data) {  
-		$scope.equCategorys = data.data.data;
-		console.log(JSON.stringify(data));
-	}) 
-	httpService.post({url:'./project/getAllProject',showSuccessMsg:false}).then(function(data) {  
-		$scope.projects = data.data.data;
-		console.log(JSON.stringify(data));
-	}) 
 	// 确认添加
 	$scope.confirmAdd = function() {
 		if ($scope.equipment.equipmentName ==null ||$scope.equipment.equipmentName ==0) {
@@ -27,14 +21,14 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		if ($scope.equipment.equipmentNum ==null ||$scope.equipment.equipmentNum ==0) {
-			$.toaster({
-				title : "Error",
-				priority : "danger",
-				message : "数量不能为空!"
-			});
-			return false;
-		}
+//		if ($scope.equipment.equipmentNum ==null ||$scope.equipment.equipmentNum ==0) {
+//			$.toaster({
+//				title : "Error",
+//				priority : "danger",
+//				message : "数量不能为空!"
+//			});
+//			return false;
+//		}
 		if ($scope.equipment.equipmentIdentifier ==null ||$scope.equipment.equipmentIdentifier ==0) {
 			$.toaster({
 				title : "Error",

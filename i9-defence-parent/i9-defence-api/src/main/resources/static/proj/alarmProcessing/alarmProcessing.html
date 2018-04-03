@@ -36,6 +36,7 @@
         <option>E经销商</option>
       </select>
     </div>
+    
     <div class="form-group">
       <label for="">省区域：</label>
       <select class="form-control blue_bg" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
@@ -72,13 +73,8 @@
     <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
   </form>
   <div class="myBox">
-    <div class="text-right mb-10">
-      <button class="btn btn-success proj_add">新增</button>
-      <button class="btn btn-danger del_proj">删除</button>
-      <button class="btn btn-warning invite_code">邀请码</button>
-    </div>
     <div class="table-responsive">
-      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+      <table class="table table-striped b-t b-light" >
         <thead>
           <tr>
             <th style="width:20px;">
@@ -86,45 +82,65 @@
                 <input type="checkbox" id="totalCheck"><i></i>
               </label>
             </th>
-            <th>状态</th>
-            <th>设备名称</th>
+            <th>事件类型</th>
+            <th>设备类型</th>
             <th>时间</th>
-            <th>实时数据</th>
-            <th>设备编号</th>
+            <th>位置</th>
+            <th>项目名称</th>
+            <th>误报</th>
+            <th width='30%'>处理详情</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td class='eventType'><span class='danger' ng-click="processing()">漏电</span></td>
+            <td>A设备</td>
+            <td>2017-5-08</td>
+            <td>2209</td>
+            <td>国创中心</td>
+            <td>否</td>
+            <td>温度大于45度</td>
+          </tr>
+          <tr>
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td class='eventType'><span class='danger'>漏电</span></td>
             <td>A设备</td>
             <td>2017-5-08</td>
-            <td>电压18V，电流18A</td>
-            <td>1290-26-2</td>
+            <td>2209</td>
+            <td>国创中心</td>
+            <td>否</td>
+            <td>温度大于45度</td>
           </tr>
           <tr>
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span class='warning'>故障</span></td>
+            <td class='eventType'><span class='danger'>漏电</span></td>
             <td>A设备</td>
             <td>2017-5-08</td>
-            <td>电压18V，电流18A</td>
-            <td>1290-26-2</td>
+            <td>2209</td>
+            <td>国创中心</td>
+            <td>否</td>
+            <td>温度大于45度</td>
           </tr>
           <tr>
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span>漏电</span></td>
+            <td class='eventType'><span class='danger'>漏电</span></td>
             <td>A设备</td>
             <td>2017-5-08</td>
-            <td>电压18V，电流18A</td>
-            <td>1290-26-2</td>
+            <td>2209</td>
+            <td>国创中心</td>
+            <td>否</td>
+            <td>温度大于45度</td>
           </tr>
           <tr>
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span>漏电</span></td>
+            <td class='eventType'><span class='danger'>漏电</span></td>
             <td>A设备</td>
             <td>2017-5-08</td>
-            <td>电压18V，电流18A</td>
-            <td>1290-26-2</td>
+            <td>2209</td>
+            <td>国创中心</td>
+            <td>否</td>
+            <td>温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度</td>
           </tr>
         </tbody>
       </table>

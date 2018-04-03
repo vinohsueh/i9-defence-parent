@@ -93,4 +93,14 @@ public class ProjectDaoImpl implements ProjectDao{
 	public void insertIntoClientByProjectId(Integer projectId, List<Integer> clientIds) throws Exception {
 		projectMapper.insertIntoClientByProjectId(projectId,clientIds);
 	}
+
+	@Override
+	public void updateSafeZeroByProjectId(Integer projectId) throws Exception {
+		projectMapper.updateSafeZeroByProjectId(projectId);
+	}
+
+	@Override
+	public void updateSafeOneByProjectId(Integer projectId, List<Integer> safeIds) throws Exception {
+		projectMapper.updateSafeOneByProjectId(projectId,safeIds);
+	}
 }

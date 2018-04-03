@@ -11,12 +11,12 @@
 				<input type="text" class="form-control" id="name" ng-model="equipment.equipmentName" placeholder="">
 			</div>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>设备数量</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="num" ng-model="equipment.equipmentNum" placeholder="">
 			</div>
-		</div>
+		</div> -->
 		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>设备编号</label>
 			<div class="col-md-8">
@@ -29,9 +29,9 @@
 				<input type="text" class="form-control" id="position" ng-model="equipment.equipmentPosition" placeholder="">
 			</div>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>创建时间</label>
-			<div class="col-md-8" ng-controller="DatepickerDemoCtrl">
+			<div class="col-md-8" ng-controller="DatepickerDemoCtrl" >
 	            <div class="input-group w-md">
 	              <input type="text" class="form-control" datepicker-popup="{{format}}" id="date" placeholder="" ng-model="equipment.equipmentDate" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
 	              <span class="input-group-btn">
@@ -39,31 +39,48 @@
 	              </span>
 	            </div>
 	        </div>
-        </div>
+        </div> -->
 		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>备注</label>
 				<div class="col-md-8">
 					<input type="text" class="form-control" id="remarks" ng-model="equipment.equipmentRemarks" placeholder="">
 				</div>
 			</div>
-			<div class="form-group">
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>设备种类</label>
+			<div class="col-md-8">
+				<select   class="input-sm form-control w-sm inline v-middle" ng-model="equipment.equipmentCategoryId"  ng-options="item.id as item.eqCategoryName for item in equCategorys">
+        			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白 -->
+    			</select>
+			</div>
+		</div>
+			<!-- <div class="form-group">
 				<label class="col-md-2 control-label"><span class="required">*</span>设备种类</label>
 	            	<div class="col-md-8">
 	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='equipment.equipmentCategoryId'>
-	            		<option value=""> ----请选择---- </option>
+	            		<option value="">  </option>
 						<option ng-repeat='i in equCategorys' value="{{i.id}}">{{i.eqCategoryName}}</option>
 					</select>
 	          	</div>
-           </div>
-           <div class="form-group">
-				<label class="col-md-2 control-label"><span class="required">*</span>所属项目</label>
+           </div> -->
+          <div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属项目</label>
+			<div class="col-md-8">
+				<select   class="input-sm form-control w-sm inline v-middle" ng-model="equipment.projectId"  ng-options="item.id as item.projectName for item in projects">
+        			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白 -->
+    			</select>
+			</div>
+		 </div>
+         <!--  <div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属项目</label>
 	            	<div class="col-md-8">
 	            	<select class="input-sm form-control w-sm inline v-middle" ng-model='equipment.projectId'>
 	            		<option value=""> ----请选择---- </option>
 						<option ng-repeat='i in projects' value="{{i.id}}">{{i.projectName}}</option> 
 					</select>
 	          	</div>
-          </div>
+          </div> -->
+          <!--  
           <div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>系统编号</label>
 				<div class="col-md-8">
@@ -88,6 +105,7 @@
                 		<input type="text" class="form-control" id="id" ng-model="equipment.id" placeholder="">
             		</div>
           </div>
+          -->
 	</form>
 </div>
 <div class="modal-footer">

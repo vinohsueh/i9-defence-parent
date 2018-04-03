@@ -38,15 +38,17 @@
             </th>
             <th>项目名称</th>
             <th>项目地址</th>
-            <th>坐标-经度</th>
-            <th>坐标-纬度</th>
-            <th>项目创建日期</th>
             <th>建筑面积</th>
-            <th>备注</th>
-            <th>开关</th>
             <th>负责人</th>
             <th>经销商</th>
             <th>安全责任人</th>
+            <!-- 
+            <th>坐标-经度</th>
+            <th>坐标-纬度</th>
+             -->
+             <th>备注</th>
+            <th>创建日期</th>
+            <th>开关</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -55,12 +57,17 @@
             <td ng-if="project.delCount==0"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{project.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td ng-if="project.delCount!=0"></td>
             <td>{{project.projectName}}</td>
-            <td>{{project.projectAddress}}</td>
+            <td>{{project.projectAddressStr}}</td>
+            <td>{{project.projectArea}}</td>
+            <td>{{project.clientListStr}}</td>
+            <td>{{project.distributor.username}}</td>
+            <td>{{project.safeListStr}}</td>
+            <!-- 
             <td>{{project.projectLongitude}}</td>
             <td>{{project.projectLatitude}}</td>
+             -->
+             <td>{{project.remarks}}</td>
             <td>{{project.projectDateStr}}</td>
-            <td>{{project.projectArea}}</td>
-            <td>{{project.remarks}}</td>
             <td ng-if="project.projectState==0">
             	<label class="i-switch m-t-xs m-r">
 	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox"/>
@@ -72,10 +79,7 @@
 	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox" checked/>
 	              <i></i>
             	</label>
-            </td>
-            <td></td>
-            <td>{{project.distributor.username}}</td>
-            <td></td>
+            </td> 
             <td><button data-id="{{project.id}}" data-distributorId="{{project.distributorId}}" ng-click="edit($event)">查看</button></td>
           </tr>
         </tbody>
