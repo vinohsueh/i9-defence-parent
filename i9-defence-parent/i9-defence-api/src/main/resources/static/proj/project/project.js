@@ -75,42 +75,48 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	}
 	
 	$scope.add = function () {  
-        var modalInstance = $modal.open({  
-            templateUrl: 'proj/project/add.html',  
-            controller: 'projectEditCtrl', 
-            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-            resolve: {  
-            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-        			return $ocLazyLoad.load({
-        				name : 'projectEditNgModule',
-        				insertBefore : '#ng_load_plugins_before',
-        				files : [
-        				         'proj/project/add.js',
-        				]
-        			});
-        		}],
-        		project: function () {  
-                    return {};  
-                },
-                clientList: function () {  
-                    return {}; 
-                },
-            }  
-        }); 
-        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-            $scope.selected = data;
-        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-        	$scope.initTable();
-        });
-         
+		httpService.post({url:'./project/getClientByDistributorId',showSuccessMsg:false}).then(function(data) {
+			$scope.clientList = data.data.clientList;
+			var modalInstance = $modal.open({  
+	            templateUrl: 'proj/project/add.html',  
+	            controller: 'projectEditCtrl', 
+	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+	            resolve: {  
+	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+	        			return $ocLazyLoad.load({
+	        				name : 'projectEditNgModule',
+	        				insertBefore : '#ng_load_plugins_before',
+	        				files : [
+	        				         'proj/project/add.js',
+	        				]
+	        			});
+	        		}],
+	        		project: function () {  
+	                    return {};  
+	                },
+	                clientList: function () {  
+	                    return $scope.clientList;  
+	                },
+	                safeList: function () {  
+	                    return {}; 
+	                },
+	            }  
+	        }); 
+	        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+	            $scope.selected = data;
+	        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+	        	$scope.initTable();
+	        });
+		})     
     };  
     //编辑
     $scope.edit = function (dom) { 
     	var projectId = $(dom.target).attr("data-id");
     	var distributorId = $(dom.target).attr("data-distributorId");
     	httpService.post({url:'./project/getProject',data:{projectId:projectId,distributorId:distributorId},showSuccessMsg:false}).then(function(data) {  
-    		$scope.project = data.data.data;
+    		$scope.project = data.data.project;
     		$scope.clientList = data.data.clientList;
+    		$scope.safeList = data.data.safeList;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/project/add.html',  
 	            controller: 'projectEditCtrl', 
@@ -130,6 +136,9 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	                },
 	                clientList: function () {  
 	                    return $scope.clientList;  
+	                },
+	                safeList: function () {  
+	                    return $scope.safeList;  
 	                },
 	            }  
 	        });

@@ -45,4 +45,10 @@ public interface ProjectMapper {
     
     //重置项目的责任人们   之增加
     void insertIntoClientByProjectId(@Param("projectId") Integer projectId,@Param("clientIds") List<Integer> clientIds);
+
+  //重置项目的安全责任人们   之修改 safe字段都为0  初始化
+    void updateSafeZeroByProjectId(@Param("projectId") Integer projectId);
+    
+  //重置项目的安全责任人们   之修改 指定的managerId safe字段为1  初始化
+    void updateSafeOneByProjectId(@Param("projectId") Integer projectId,@Param("safeIds") List<Integer> safeIds);
 }

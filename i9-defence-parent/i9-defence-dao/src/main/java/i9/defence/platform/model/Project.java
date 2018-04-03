@@ -28,6 +28,8 @@ public class Project {
     //项目所在详细地址
     @NotBlank(message="项目地址不能为空")
     private String projectAddress;
+    //项目详细地址拼接
+    private String projectAddressStr;
     //项目坐标-经度
     @NotNull(message="项目坐标-经度不能为空")
     private Double projectLongitude;
@@ -55,10 +57,14 @@ public class Project {
     private Integer delCount;
     //项目负责人 一对多
     private List<Client> clientList;
+    //把项目负责人后台处理拼接
+    private String clientListStr;
     //接收前台传参  项目负责人ids们
     private List<Integer> clientIds;
     //安全责任人 一对多
     private List<Manager> safeList;
+  //把安全负责人后台处理拼接
+    private String safeListStr;
     //接收前台传参  项目安全责任人IDS们
     private List<Integer> safeIds;
 
@@ -188,6 +194,25 @@ public class Project {
 	public void setProjectCounty(String projectCounty) {
 		this.projectCounty = projectCounty;
 	}
+	public String getProjectAddressStr() {
+		StringBuffer projectAddressStr = new StringBuffer();
+		if(projectProvince !=null && !projectProvince.equals("")) {
+			projectAddressStr.append(projectProvince);
+			if(projectCity !=null && !projectCity.equals("")) {
+				projectAddressStr.append(projectCity);
+				if(projectCounty !=null && !projectCounty.equals("")) {
+					projectAddressStr.append(projectCounty);
+					if(projectAddress !=null && !projectAddress.equals("")) {
+						projectAddressStr.append(projectAddress);
+					}
+				}
+			}
+		}
+		if(projectAddressStr.length()>0) {
+			return projectAddressStr.toString();
+		}
+		return "暂无详细地址";
+	}
 
 	public List<Client> getClientList() {
 		return clientList;
@@ -195,6 +220,23 @@ public class Project {
 
 	public void setClientList(List<Client> clientList) {
 		this.clientList = clientList;
+	}
+	
+	public String getClientListStr() {
+		if(clientList.size()>0) {
+			StringBuffer clientListStr = new StringBuffer();
+			Integer num = clientList.size();
+			for(Client client:clientList) {
+				if(num-1==0) {
+					clientListStr.append(client.getName());
+				}else {
+					clientListStr.append(client.getName()+",");
+				}
+				num--;
+			}
+			return clientListStr.toString();
+		}
+		return "暂无项目负责人";
 	}
 
 	public List<Integer> getClientIds() {
@@ -211,6 +253,23 @@ public class Project {
 
 	public void setSafeList(List<Manager> safeList) {
 		this.safeList = safeList;
+	}
+	
+	public String getSafeListStr() {
+		if(safeList.size()>0) {
+			StringBuffer safeListStr = new StringBuffer();
+			Integer num = safeList.size();
+			for(Manager manager:safeList) {	
+				if(num-1==0) {
+					safeListStr.append(manager.getName());
+				}else {
+					safeListStr.append(manager.getName()+",");
+				}
+				num--;
+			}
+			return safeListStr.toString();
+		}
+		return "暂无安全负责人";
 	}
 
 	public List<Integer> getSafeIds() {
