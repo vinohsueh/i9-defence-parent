@@ -233,6 +233,246 @@ public class HiddenDangerExample {
             addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
+
+        public Criteria andHiddenMaxIsNull() {
+            addCriterion("HiddenMax is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxIsNotNull() {
+            addCriterion("HiddenMax is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxEqualTo(Double value) {
+            addCriterion("HiddenMax =", value, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxNotEqualTo(Double value) {
+            addCriterion("HiddenMax <>", value, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxGreaterThan(Double value) {
+            addCriterion("HiddenMax >", value, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxGreaterThanOrEqualTo(Double value) {
+            addCriterion("HiddenMax >=", value, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxLessThan(Double value) {
+            addCriterion("HiddenMax <", value, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxLessThanOrEqualTo(Double value) {
+            addCriterion("HiddenMax <=", value, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxIn(List<Double> values) {
+            addCriterion("HiddenMax in", values, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxNotIn(List<Double> values) {
+            addCriterion("HiddenMax not in", values, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxBetween(Double value1, Double value2) {
+            addCriterion("HiddenMax between", value1, value2, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMaxNotBetween(Double value1, Double value2) {
+            addCriterion("HiddenMax not between", value1, value2, "hiddenMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinIsNull() {
+            addCriterion("HiddenMin is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinIsNotNull() {
+            addCriterion("HiddenMin is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinEqualTo(Double value) {
+            addCriterion("HiddenMin =", value, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinNotEqualTo(Double value) {
+            addCriterion("HiddenMin <>", value, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinGreaterThan(Double value) {
+            addCriterion("HiddenMin >", value, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinGreaterThanOrEqualTo(Double value) {
+            addCriterion("HiddenMin >=", value, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinLessThan(Double value) {
+            addCriterion("HiddenMin <", value, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinLessThanOrEqualTo(Double value) {
+            addCriterion("HiddenMin <=", value, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinIn(List<Double> values) {
+            addCriterion("HiddenMin in", values, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinNotIn(List<Double> values) {
+            addCriterion("HiddenMin not in", values, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinBetween(Double value1, Double value2) {
+            addCriterion("HiddenMin between", value1, value2, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andHiddenMinNotBetween(Double value1, Double value2) {
+            addCriterion("HiddenMin not between", value1, value2, "hiddenMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxIsNull() {
+            addCriterion("WarningMax is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxIsNotNull() {
+            addCriterion("WarningMax is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxEqualTo(Double value) {
+            addCriterion("WarningMax =", value, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxNotEqualTo(Double value) {
+            addCriterion("WarningMax <>", value, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxGreaterThan(Double value) {
+            addCriterion("WarningMax >", value, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxGreaterThanOrEqualTo(Double value) {
+            addCriterion("WarningMax >=", value, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxLessThan(Double value) {
+            addCriterion("WarningMax <", value, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxLessThanOrEqualTo(Double value) {
+            addCriterion("WarningMax <=", value, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxIn(List<Double> values) {
+            addCriterion("WarningMax in", values, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxNotIn(List<Double> values) {
+            addCriterion("WarningMax not in", values, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxBetween(Double value1, Double value2) {
+            addCriterion("WarningMax between", value1, value2, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMaxNotBetween(Double value1, Double value2) {
+            addCriterion("WarningMax not between", value1, value2, "warningMax");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinIsNull() {
+            addCriterion("WarningMin is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinIsNotNull() {
+            addCriterion("WarningMin is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinEqualTo(Double value) {
+            addCriterion("WarningMin =", value, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinNotEqualTo(Double value) {
+            addCriterion("WarningMin <>", value, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinGreaterThan(Double value) {
+            addCriterion("WarningMin >", value, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinGreaterThanOrEqualTo(Double value) {
+            addCriterion("WarningMin >=", value, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinLessThan(Double value) {
+            addCriterion("WarningMin <", value, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinLessThanOrEqualTo(Double value) {
+            addCriterion("WarningMin <=", value, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinIn(List<Double> values) {
+            addCriterion("WarningMin in", values, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinNotIn(List<Double> values) {
+            addCriterion("WarningMin not in", values, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinBetween(Double value1, Double value2) {
+            addCriterion("WarningMin between", value1, value2, "warningMin");
+            return (Criteria) this;
+        }
+
+        public Criteria andWarningMinNotBetween(Double value1, Double value2) {
+            addCriterion("WarningMin not between", value1, value2, "warningMin");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -36,6 +36,7 @@ angular.module('app')
                       insertBefore : '#ng_load_plugins_before',
                       files : [
                           'proj/indexPage/indexPage.js',
+                          'http://webapi.amap.com/maps?v=1.4.3&key=491782deb46aec33a67744f583836895'
                           ]
                     })
                       }]
@@ -353,6 +354,60 @@ angular.module('app')
                           }]
                   }
               })
+<<<<<<< HEAD
+              .state('app.alarmView', {
+                  url: '/alarmView',
+                  templateUrl: 'proj/alarmView/alarmView.html',
+                  controller : "alarmViewNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'alarmViewNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/alarmView/alarmView.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.alarmProcessing', {
+                  url: '/alarmProcessing',
+                  templateUrl: 'proj/alarmProcessing/alarmProcessing.html',
+                  controller : "alarmProcessingNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'alarmProcessingNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/alarmProcessing/alarmProcessing.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+=======
+              .state('app.equipmentFault', {
+                  url: '/equipmentFault',
+                  templateUrl: 'proj/equipmentFault/equipmentFault.html',
+              	  controller : "equipmentFaultControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'equipmentFaultModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/equipmentFault/equipmentFault.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+>>>>>>> fdff43f6764905ea62596ffbba693e97d06e729c
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: 'tpl/app_dashboard_v1.html',

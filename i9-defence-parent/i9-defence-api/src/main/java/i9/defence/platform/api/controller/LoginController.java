@@ -66,6 +66,7 @@ public class LoginController {
     @RequestMapping("/regist.html")
     public ModelAndView regist(@ModelAttribute ManagerApply managerApply) {
         ModelAndView modelAndView = new ModelAndView("regist");
+        managerApply.setSecuritier((byte)0);
         List<Role> roles = roleService.selectPartRole();
         modelAndView.addObject("roles", roles);
         return modelAndView;

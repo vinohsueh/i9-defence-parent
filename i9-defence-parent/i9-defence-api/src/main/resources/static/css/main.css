@@ -18,6 +18,22 @@ select.blue_bg {
 select.blue_bg option {
   color: #333;
 }
+td.eventType span {
+  display: inline-block;
+  padding: 5px 10px;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+td.eventType span.danger {
+  border-color: #D9524E;
+  color: #D9524E;
+}
+td.eventType span.warning {
+  border-color: #EDAC50;
+  color: #EDAC50;
+}
 /*1.图标*/
 .mIcon {
   display: inline-block;
@@ -442,6 +458,9 @@ select.blue_bg option {
 }
 .mr-10 {
   margin-right: 10px;
+}
+.max-w50 {
+  width: 30%;
 }
 .textEll {
   overflow: hidden;

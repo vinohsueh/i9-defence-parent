@@ -4,6 +4,10 @@
   <resultMap id="BaseResultMap" type="i9.defence.platform.model.HiddenDanger">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="HiddenMax" jdbcType="DOUBLE" property="hiddenMax" />
+    <result column="HiddenMin" jdbcType="DOUBLE" property="hiddenMin" />
+    <result column="WarningMax" jdbcType="DOUBLE" property="warningMax" />
+    <result column="WarningMin" jdbcType="DOUBLE" property="warningMin" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,12 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name
-  </sql>
-    <sql id="Query_By_Dto_Where_Clause">
-    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-    	
-    </trim>
+    id, name, HiddenMax, HiddenMin, WarningMax, WarningMin
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.HiddenDangerExample" resultMap="BaseResultMap">
     select
@@ -105,8 +104,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_hidden_danger (name)
-    values (#{name,jdbcType=VARCHAR})
+    insert into t_hidden_danger (name, HiddenMax, HiddenMin, 
+      WarningMax, WarningMin)
+    values (#{name,jdbcType=VARCHAR}, #{hiddenMax,jdbcType=DOUBLE}, #{hiddenMin,jdbcType=DOUBLE}, 
+      #{warningMax,jdbcType=DOUBLE}, #{warningMin,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.HiddenDanger">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -117,17 +118,41 @@
       <if test="name != null">
         name,
       </if>
+      <if test="hiddenMax != null">
+        HiddenMax,
+      </if>
+      <if test="hiddenMin != null">
+        HiddenMin,
+      </if>
+      <if test="warningMax != null">
+        WarningMax,
+      </if>
+      <if test="warningMin != null">
+        WarningMin,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="hiddenMax != null">
+        #{hiddenMax,jdbcType=DOUBLE},
+      </if>
+      <if test="hiddenMin != null">
+        #{hiddenMin,jdbcType=DOUBLE},
+      </if>
+      <if test="warningMax != null">
+        #{warningMax,jdbcType=DOUBLE},
+      </if>
+      <if test="warningMin != null">
+        #{warningMin,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="i9.defence.platform.model.HiddenDangerExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="i9.defence.platform.model.HiddenDangerExample" resultType="java.lang.Long">
     select count(*) from t_hidden_danger
     <if test="_parameter != null">
-      <include refid="Query_By_Dto_Where_Clause" />
+      <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -139,6 +164,18 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.hiddenMax != null">
+        HiddenMax = #{record.hiddenMax,jdbcType=DOUBLE},
+      </if>
+      <if test="record.hiddenMin != null">
+        HiddenMin = #{record.hiddenMin,jdbcType=DOUBLE},
+      </if>
+      <if test="record.warningMax != null">
+        WarningMax = #{record.warningMax,jdbcType=DOUBLE},
+      </if>
+      <if test="record.warningMin != null">
+        WarningMin = #{record.warningMin,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -147,7 +184,11 @@
   <update id="updateByExample" parameterType="map">
     update t_hidden_danger
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR},
+      HiddenMax = #{record.hiddenMax,jdbcType=DOUBLE},
+      HiddenMin = #{record.hiddenMin,jdbcType=DOUBLE},
+      WarningMax = #{record.warningMax,jdbcType=DOUBLE},
+      WarningMin = #{record.warningMin,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -158,22 +199,39 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="hiddenMax != null">
+        HiddenMax = #{hiddenMax,jdbcType=DOUBLE},
+      </if>
+      <if test="hiddenMin != null">
+        HiddenMin = #{hiddenMin,jdbcType=DOUBLE},
+      </if>
+      <if test="warningMax != null">
+        WarningMax = #{warningMax,jdbcType=DOUBLE},
+      </if>
+      <if test="warningMin != null">
+        WarningMin = #{warningMin,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.HiddenDanger">
     update t_hidden_danger
-    set name = #{name,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+      HiddenMax = #{hiddenMax,jdbcType=DOUBLE},
+      HiddenMin = #{hiddenMin,jdbcType=DOUBLE},
+      WarningMax = #{warningMax,jdbcType=DOUBLE},
+      WarningMin = #{warningMin,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
     <select id="selectByLimitPage" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from t_hidden_danger 
+        select <include refid="Base_Column_List" /> from  t_hidden_danger
         <if test="_parameter != null" >
-          <include refid="Query_By_Dto_Where_Clause" />
+          <include refid="Update_By_Example_Where_Clause" />
         </if>
         <if test="example.orderByClause != null" >
           order by ${example.orderByClause}
         </if>
         limit #{offset},#{limit}
-    </select>
+   </select>
 </mapper>

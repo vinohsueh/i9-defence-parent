@@ -1,64 +1,37 @@
 package i9.defence.platform.service;
 
-import java.util.List;
-
-import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.HiddenDanger;
+import i9.defence.platform.model.HiddenDangerExample;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 隐患类型提醒Service
-* @ClassName: HiddenDangerService 
-* @Description: TODO
-* @author luobo
-* @date 2018年1月10日 上午11:21:59 
-*
+ * 隐患提醒类型Service
+ * @ClassName: HiddenDangerService 
+ * @Description: TODO
+ * @author: luobo
+ * @date: 2018年4月2日 下午3:37:36
  */
 public interface HiddenDangerService {
-
-	/**
-	 * 增加隐患提醒类型
-	 * @param HiddenDanger
-	 * @throws Exception
-	 */
-	void addHiddenDanger(HiddenDanger hiddenDanger) throws BusinessException;
 	
 	/**
-	 * 分页查询隐患提醒类型
-	 * @param HiddenDangerDto
-	 * @param currectPage
-	 * @param pageSize
-	 * @throws Excepiton
-	 */
-	PageBounds<HiddenDanger> selectByLimitPage(HiddenDangerDto hiddenDangerDto)throws BusinessException;
-	
-	/**
-	 * 根据id查询
-	* @Title: getHiddenDanger 
+	 * 分页查询
+	* @Title: selectByLimitPage 
 	* @Description: TODO
-	* @param id
-	* @return HiddenDanger
+	* @param hiddenDangerExample
+	* @param currectPage
+	* @param pageSize
+	* @return
 	* @throws BusinessException
 	 */
-	HiddenDanger getHiddenDanger(int id)throws BusinessException;
-	
-	
-	/**
-	* 更新
-	* @Title: hiddenDanger 
-	* @Description: TODO
-	* @param hiddenDanger
-	* @throws Exception
-	 */
-	void  updateHiddenDanger(HiddenDanger hiddenDanger) throws BusinessException; 
-	
-	/**
-	 * 获取所有隐患类型
-	* @Title: getAllHidenDangers 
-	* @Description: TODO
-	* @return
-	* @throws Exception
-	 */
-	List<HiddenDanger> getAllHidenDangers() throws BusinessException;
+	 PageBounds<HiddenDanger> selectByLimitPage(HiddenDangerExample hiddenDangerExample,int currectPage,int pageSize) throws BusinessException;
+
+	 /**
+	  * 新增隐患提醒类型
+	 * @Title: insertHiddenDanger 
+	 * @Description: TODO
+	 * @param hiddenDanger
+	 * @throws Exception
+	  */
+	 void insertHiddenDanger(HiddenDanger hiddenDanger)throws BusinessException;
 }
