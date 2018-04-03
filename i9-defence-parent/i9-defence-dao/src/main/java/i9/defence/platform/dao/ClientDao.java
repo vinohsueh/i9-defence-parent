@@ -42,4 +42,7 @@ public interface ClientDao {
      * 获取创建者的客户
      */
     List<Client> selectByCreateId(Integer createId)throws Exception;
+    
+    //根据项目ID 查询全部的责任人  生成下拉选框 进行多选
+    List<Client> selectAllClientByProjectId(Integer projectId)throws Exception;
 }

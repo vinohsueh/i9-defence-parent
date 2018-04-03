@@ -144,4 +144,9 @@ public class ManagerDaoImpl implements ManagerDao{
 		return managerMapper.selectParentById(Id);
 	}
 
+	@Override
+	public void addProjSafeManager(List<Manager> projSafeList) throws Exception {
+		managerMapper.addProjSafeManager(projSafeList);
+	}
+
 }

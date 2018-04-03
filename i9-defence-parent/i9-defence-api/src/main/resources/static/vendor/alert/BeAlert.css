@@ -53,6 +53,7 @@
 .BeAlert_box .BeAlert_title {
     font-size: 20px;
     margin: 5px auto;
+    color:#333;
 }
 .BeAlert_box .BeAlert_message {
     font-size: 14px;

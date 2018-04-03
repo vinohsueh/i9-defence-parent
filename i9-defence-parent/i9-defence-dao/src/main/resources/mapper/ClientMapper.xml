@@ -311,4 +311,7 @@
    <select id="selectByCreateId" parameterType="int" resultMap="BaseResultMap">
    	select <include refid="Base_Column_List" /> from t_client where createId = #{createId,jdbcType=INTEGER}
    </select>
+   <select id="selectClientByProjectId"  parameterType="java.lang.Integer" resultType="i9.defence.platform.model.Client">
+   		SELECT c.id as id,c.name as name,c.phone as phone FROM t_client as c LEFT JOIN t_project_client as pc on c.id = pc.clientId WHERE pc.projectId = #{projectId}
+   </select>
 </mapper>

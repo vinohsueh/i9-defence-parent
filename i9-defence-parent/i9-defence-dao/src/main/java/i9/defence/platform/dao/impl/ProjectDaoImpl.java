@@ -83,4 +83,14 @@ public class ProjectDaoImpl implements ProjectDao{
 		criteria.andIdIn(ids);
 		return projectMapper.selectByExample(example);
 	}
+
+	@Override
+	public void deleteClientByProjectId(Integer projectId) throws Exception {
+		projectMapper.deleteClientByProjectId(projectId);
+	}
+
+	@Override
+	public void insertIntoClientByProjectId(Integer projectId, List<Integer> clientIds) throws Exception {
+		projectMapper.insertIntoClientByProjectId(projectId,clientIds);
+	}
 }
