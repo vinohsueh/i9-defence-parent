@@ -138,6 +138,8 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
    	    httpService.post({url:'./equipment/findEquipment',showSuccessMsg:false}).then(function(data) {  
 			$scope.equCategorys = data.data.equCategorys;
 			$scope.projects = data.data.projects;
+			console.log(JSON.stringify(data.data.projects));
+			console.log(JSON.stringify(data.data.equCategorys));
 		}) 
 //		httpService.post({url:'./project/getAllProject',showSuccessMsg:false}).then(function(data) {  
 //			$scope.projects = data.data.data;

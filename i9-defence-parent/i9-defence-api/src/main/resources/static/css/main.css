@@ -1,0 +1,11 @@
+/*组件*/
+.myBox {
+  background-color: #252f58;
+  padding: 10px;
+  margin-bottom: 10px;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  
+  
+}

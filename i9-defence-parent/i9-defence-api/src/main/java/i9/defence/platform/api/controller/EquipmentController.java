@@ -1,4 +1,4 @@
-package i9.defence.platform.api.controller;
+ package i9.defence.platform.api.controller;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Project;
+import i9.defence.platform.service.ChannelDataService;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.EquipmentService;
@@ -36,11 +39,15 @@ public class EquipmentController {
 	private EquipmentCategoryService eqCategoryService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private ChannelDataService channelDataService;
 
 	/**
 	 * 分页查询设备列表
 	 * @Title:pageEquipment
 	 * @param equipmentSearchDto
+	 * @param currectPage
+	 * @param pageSize
 	 * @return
 	 */
 	@RequiresPermissions("equip_list")
@@ -76,6 +83,15 @@ public class EquipmentController {
 	 * @RequestMapping("/delEquipment") public HashMap<String, Object>
 	 * delEquipment(@RequestBody Integer[] ids) { HashMap<String, Object> result =
 	 * new HashMap<String, Object>();
+	 * 删除项目
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	/*
+	 * @RequestMapping("/delEquipment") public HashMap<String, Object>
+	 * delEquipment(@RequestBody Integer[] ids) { HashMap<String, Object> result
+	 * = new HashMap<String, Object>();
 	 * equipmentService.deleteEquipment(Arrays.asList(ids)); return result; }
 	 */
 
@@ -97,6 +113,8 @@ public class EquipmentController {
 	/**
 	 * id查找设备
 	 * @Title getEquipment
+	 * @param equipmentId
+	 * id查找设备
 	 * @param equipmentId
 	 * @return
 	 */
