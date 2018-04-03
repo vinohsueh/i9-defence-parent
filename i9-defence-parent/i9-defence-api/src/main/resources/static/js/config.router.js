@@ -36,6 +36,7 @@ angular.module('app')
                       insertBefore : '#ng_load_plugins_before',
                       files : [
                           'proj/indexPage/indexPage.js',
+                          'http://webapi.amap.com/maps?v=1.4.3&key=491782deb46aec33a67744f583836895'
                           ]
                     })
                       }]
@@ -348,6 +349,40 @@ angular.module('app')
                                   insertBefore : '#ng_load_plugins_before',
                                   files : [
                                       'proj/monitoringTabel/monitoringTabel.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.alarmView', {
+                  url: '/alarmView',
+                  templateUrl: 'proj/alarmView/alarmView.html',
+                  controller : "alarmViewNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'alarmViewNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/alarmView/alarmView.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.alarmProcessing', {
+                  url: '/alarmProcessing',
+                  templateUrl: 'proj/alarmProcessing/alarmProcessing.html',
+                  controller : "alarmProcessingNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'alarmProcessingNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/alarmProcessing/alarmProcessing.js',
                                   ]
                               })
                           }]

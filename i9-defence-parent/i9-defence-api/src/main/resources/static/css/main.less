@@ -21,6 +21,22 @@ select.blue_bg{
 		color: #333;
 	}
 }
+td.eventType{
+	span{
+		display: inline-block;
+		padding: 5px 10px;
+		.border-radius();
+		border:1px solid transparent;
+		&.danger{
+			border-color:#D9524E;
+			color: #D9524E;
+		}
+		&.warning{
+			border-color:#EDAC50;
+			color: #EDAC50;
+		}
+	}
+}
 /*1.图标*/
 .mIcon{
 	display: inline-block;
@@ -410,6 +426,9 @@ select.blue_bg{
 }
 .mr-10{
 	margin-right: 10px;
+}
+.max-w50{
+	width: 30%;
 }
 .textEll{
     overflow: hidden;
