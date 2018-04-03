@@ -248,23 +248,23 @@ angular.module('app')
 	              }
 	          })
 	         
-	                .state('app.hiddendangerInfo', {
-			      url: '/hiddendangerInfo',
-			      templateUrl: 'proj/hiddendangerInfo/hiddendangerInfo.html',
-			  	  controller : "hiddendangerInfoNgControl",
-			      resolve: {
-			        deps: ['$ocLazyLoad',
-			          function( $ocLazyLoad ){
-			        	return $ocLazyLoad.load({
-							name : 'hiddendangerInfoNgModule',
-							insertBefore : '#ng_load_plugins_before',
-							files : [
-							    'proj/hiddendangerInfo/hiddendangerInfo.js',
-							]
-	        			})
-	                }]
-	              }
-	          })
+//	                .state('app.hiddendangerInfo', {
+//			      url: '/hiddendangerInfo',
+//			      templateUrl: 'proj/hiddendangerInfo/hiddendangerInfo.html',
+//			  	  controller : "hiddendangerInfoNgControl",
+//			      resolve: {
+//			        deps: ['$ocLazyLoad',
+//			          function( $ocLazyLoad ){
+//			        	return $ocLazyLoad.load({
+//							name : 'hiddendangerInfoNgModule',
+//							insertBefore : '#ng_load_plugins_before',
+//							files : [
+//							    'proj/hiddendangerInfo/hiddendangerInfo.js',
+//							]
+//	        			})
+//	                }]
+//	              }
+//	          })
 	         
 	          
 	          
