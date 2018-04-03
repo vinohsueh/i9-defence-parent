@@ -1,4 +1,105 @@
-/*组件*/
+input.blue_bg {
+  background-color: #1d274d !important;
+  border-color: #1d274d !important;
+  color: #fff !important;
+}
+select.blue_bg {
+  max-width: 200px;
+  overflow: hidden;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  outline: none!important;
+  padding-right: 40px !important;
+  background: url(../images/selectArrow.png) no-repeat right center !important;
+  border-color: #252f58!important;
+  color: #fff!important;
+}
+select.blue_bg option {
+  color: #333;
+}
+/*1.图标*/
+.mIcon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  background: url('../images/icon.png') no-repeat;
+}
+.mIcon.icon-address {
+  background-position: 0 0;
+}
+.mIcon.icon-logo {
+  background-position: -180px 0;
+}
+.mIcon.icon-message {
+  background-position: -210px 0;
+}
+.mIcon.icon-floorArea {
+  background-position: -30px 0;
+}
+.mIcon.icon-device {
+  background-position: -60px 0;
+}
+.mIcon.icon-clients {
+  background-position: -90px 0;
+}
+.mIcon.icon-charges {
+  background-position: -120px 0;
+}
+.mIcon.icon-phone {
+  background-position: -150px 0;
+}
+.mIcon.icon-arrowDown {
+  height: 18px;
+  background-position: 0 -30px;
+}
+.mIcon.icon-select {
+  width: 14px;
+  height: 10px;
+  margin-left: 10px;
+  background-position: -30px -30px;
+}
+.mIcon.icon-select.cur {
+  background-position: -45px -30px;
+}
+.mIcon.icon-search {
+  width: 20px;
+  height: 20px;
+  background-position: -60px -30px;
+}
+.mIcon.icon-radio {
+  width: 20px;
+  height: 20px;
+  background-position: -90px -30px;
+}
+.mIcon.icon-danger {
+  background-position: -240px 0;
+}
+.mIcon.icon-fault {
+  background-position: -270px 0;
+}
+/*2.组件*/
+.sTitle {
+  zoom: 1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.sTitle:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+  font-size: 0;
+}
+.sTitle .text {
+  float: left;
+}
+.sTitle .tools {
+  float: right;
+}
 .myBox {
   background-color: #252f58;
   padding: 10px;
@@ -6,6 +107,345 @@
   -wibkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  
-  
+}
+.myBox .form-group {
+  padding: 5px 40px 5px 0;
+}
+.myBox .form-group .input-group-addon {
+  background-color: #1d274d;
+  border-color: #1d274d;
+  color: #fff;
+}
+/*实时监控图形状态*/
+.mLabel {
+  display: inline-block;
+  vertical-align: middle;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  width: 60px;
+  line-height: 35px;
+  height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  background-color: #495993;
+  margin: 0 4px 10px;
+  cursor: pointer;
+}
+.mLabel.sm-mLabel {
+  cursor: default;
+  -wibkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  line-height: 28px;
+  height: 28px;
+  width: 45px;
+  margin-bottom: 0;
+}
+.mLabel.dangerLabel {
+  background-color: #d9534f;
+}
+.mLabel.faultLabel {
+  background-color: #f0ad4e;
+}
+/*带title的盒子*/
+.mPane {
+  padding: 0 10px 0 0;
+  box-sizing: border-box;
+}
+.mPane.hFull {
+  height: 100%;
+}
+.mPane:last-child {
+  padding-right: 0;
+}
+.mPane .title {
+  line-height: 40px;
+  padding: 0 10px;
+  background-color: #1b295c;
+}
+.mPane .body {
+  background-color: #19244c;
+  padding: 5px 10px;
+}
+.mPane .body p {
+  padding: 5px 0;
+}
+#selfMain {
+  background-color: #151c35;
+  width: 100%;
+  height: 100%;
+}
+#selfMain #selfMap {
+  width: 77%;
+  height: 70%;
+}
+/*实时监控图形排版*/
+.monitoring {
+  zoom: 1;
+}
+.monitoring:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+  font-size: 0;
+}
+.monitoring .faultType {
+  float: left;
+}
+.monitoring .faultType .item {
+  width: 115px;
+  text-align: center;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #2a3f8a;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.monitoring .faultType .item .name {
+  padding: 5px 10px;
+  border-bottom: 1px solid #314796;
+}
+.monitoring .faultType .item .body {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.monitoring .faultType .item.active {
+  background-color: #0d1638;
+}
+.monitoring .faultType .item.active .name {
+  border-color: #262e4c;
+}
+.monitoring .equipmentData {
+  margin-left: 135px;
+  background-color: #283a7e;
+  box-sizing: border-box;
+  padding: 20px;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.monitoring .equipmentDataTitle {
+  margin-left: 135px;
+}
+/*项目列表*/
+#projectList {
+  width: 20%;
+  position: fixed;
+  z-index: 100;
+  top: 50px;
+  right: 40px;
+  background-color: #1e284e;
+  color: #c1cde3;
+}
+#projectList .projectTitle {
+  background-color: #324ba7;
+  text-align: center;
+  zoom: 1;
+}
+#projectList .projectTitle:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+  font-size: 0;
+}
+#projectList .projectTitle .areaItem {
+  width: 50%;
+  box-sizing: border-box;
+  float: left;
+  cursor: pointer;
+}
+#projectList .projectBody {
+  padding: 0 10px 5px;
+}
+#projectList .projectBody .searchItem {
+  box-sizing: border-box;
+  padding: 5px 30px 5px 10px;
+  background-color: #192243;
+  margin: 10px 0;
+  position: relative;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+#projectList .projectBody .searchItem input {
+  background-color: #192243;
+  color: #fff;
+  width: 100%;
+  line-height: 20px;
+  border: none;
+}
+#projectList .projectBody .searchItem .icon-search {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+#projectList .projectBody .projectNameList {
+  border-top: 1px dashed #0d1120;
+  padding-bottom: 5px;
+  overflow-y: auto;
+  padding-left: 0;
+}
+#projectList .projectBody .projectNameList::-webkit-scrollbar {
+  width: 5px;
+  background-color: #151C36;
+}
+#projectList .projectBody .projectNameList::-webkit-scrollbar-thumb {
+  background-color: #324BA7;
+}
+#projectList .projectBody .projectNameList li {
+  font-size: 12px;
+  padding: 10px 30px 10px 20px;
+  border-bottom: 1px dashed #0d1120;
+  background: url('../images/enterArrow.png') no-repeat center right;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#projectList .projectBody .projectNameList li:hover {
+  background-color: #151C36;
+}
+#projectList .projectBody #loadMore {
+  text-align: center;
+  font-size: 12px;
+}
+.info {
+  width: 420px;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  position: relative;
+  text-align: center;
+  color: #fff;
+}
+.info .infoTitle {
+  background-color: #5f82ff;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-weight: bold;
+  position: relative;
+}
+.info .infoTitle .closeInfo {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.info .infoBody {
+  width: 100%;
+  border: 0;
+}
+.info .infoBody th {
+  box-sizing: border-box;
+  width: 33.33333333%;
+  padding: 10px;
+  background-color: #253777;
+  color: #9caade;
+  font-size: 12px;
+}
+.info .infoBody th:nth-child(2) {
+  border-style: solid;
+  border-color: #405396;
+  border-width: 0 1px 0 1px;
+}
+.info .infoBody td {
+  box-sizing: border-box;
+  width: 33.33333333%;
+  padding: 5px 10px;
+  background-color: #2a3f8a;
+  font-size: 12px;
+}
+.info .infoBody td:nth-child(2) {
+  border-style: solid;
+  border-color: #405396;
+  border-width: 0 1px 0 1px;
+}
+.info .icon-arrowDown {
+  position: absolute;
+  bottom: -17px;
+  left: 50%;
+  margin-left: -15px;
+}
+#chartData {
+  width: 77%;
+  box-sizing: border-box;
+  padding-right: 30px;
+}
+#chartData .sTitle {
+  background-color: #1b285b;
+  border-bottom: #253055;
+  color: #fff;
+  line-height: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0 50px;
+}
+#chartData .sTitle .tools span {
+  cursor: pointer;
+  margin-right: 10px;
+}
+#chartData .sTitle .tools span .icon {
+  margin-left: 5px;
+}
+#chartData .sTitle .tools span.active .icon {
+  background-position: -120px -30px;
+}
+#chartData .chartBody {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+#pieChart {
+  width: 20%;
+  position: fixed;
+  z-index: 5;
+  right: 40px;
+  bottom: 0;
+  color: #fff;
+}
+#pieChart .sTitle {
+  background-color: #1b285b;
+  border-bottom: #253055;
+  height: 40px;
+  line-height: 40px;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+.clear {
+  zoom: 1;
+}
+.clear:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+  font-size: 0;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.textEll {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
 }

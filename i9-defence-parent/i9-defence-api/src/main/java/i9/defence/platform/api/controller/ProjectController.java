@@ -87,7 +87,7 @@ public class ProjectController {
     }
     
     /**
-     * 修改项目开关状态
+     * 修改项目
      * @return
      */
     @RequiresPermissions("proj_add")
@@ -147,7 +147,8 @@ public class ProjectController {
     @RequestMapping("/applyDelProject")
     public HashMap<String, Object> applyDelProject(@RequestBody List<Integer> ids){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        projectService.applyDelProject(ids);
+        String msg = projectService.applyDelProject(ids);
+        result.put("msg", msg); 
         return result;
     }
     /**

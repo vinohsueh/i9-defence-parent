@@ -24,6 +24,11 @@ public class Constants {
     public static final Byte [] S_AGENCY_TYPE = {(byte)1};
     
     /**
+     * 项目管理员的type
+     */
+    public static final Byte [] S__Project_Type = {(byte)2};
+    
+    /**
      * 登录url
      */
     public static final String S_LOGIN_URL = "/login";

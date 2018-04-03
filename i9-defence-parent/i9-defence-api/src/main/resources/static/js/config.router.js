@@ -24,6 +24,23 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html'
               })
+                .state('app.index', {
+                    url: '/indexPage',
+                    templateUrl: 'proj/indexPage/indexPage.html',
+                    controller : "indexPageNgControl",
+                    resolve: {
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                        return $ocLazyLoad.load({
+                      name : 'indexPageNgModule',
+                      insertBefore : '#ng_load_plugins_before',
+                      files : [
+                          'proj/indexPage/indexPage.js',
+                          ]
+                    })
+                      }]
+                    }
+                })
               .state('app.project', {
                   url: '/project',
                   templateUrl: 'proj/project/project.html',
@@ -319,6 +336,40 @@ angular.module('app')
                           }]
                   }
               })
+              .state('app.monitoringTabel', {
+                  url: '/monitoringTabel',
+                  templateUrl: 'proj/monitoringTabel/monitoringTabel.html',
+                  controller : "monitoringTabelNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'monitoringTabelNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/monitoringTabel/monitoringTabel.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.equipmentFault', {
+                  url: '/equipmentFault',
+                  templateUrl: 'proj/equipmentFault/equipmentFault.html',
+              	  controller : "equipmentFaultControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'equipmentFaultModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/equipmentFault/equipmentFault.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: 'tpl/app_dashboard_v1.html',

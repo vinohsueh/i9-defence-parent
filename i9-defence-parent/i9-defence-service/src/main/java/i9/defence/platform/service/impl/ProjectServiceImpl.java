@@ -1,6 +1,7 @@
 package i9.defence.platform.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.ApplyDao;
+import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.ProjectDao;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
@@ -18,53 +20,59 @@ import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
 /**
  * 项目ServiceImpl
+ * 
  * @author 姜哲
  * @create 2018年1月8日
  */
 @Service
 @Transactional
-public class ProjectServiceImpl implements ProjectService{
+public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	private ProjectDao projectDao;
 	@Autowired
+	private ManagerDao managerDao;
+	@Autowired
 	private ManagerService managerService;
 	@Autowired
 	private ApplyDao applyDao;
-	
+
 	@Override
 	public void addProject(Project project) throws BusinessException {
 		try {
-			if(project.getId()!=null) {
+			if (project.getId() != null) {
 				projectDao.updateProject(project);
-			}else {
+			} else {
 				project.setProjectDate(new Date());
 				projectDao.addProject(project);
 			}
 		} catch (Exception e) {
-			throw new BusinessException("添加项目失败",e.getMessage());
+			throw new BusinessException("添加项目失败", e.getMessage());
 		}
-		
+
 	}
 
 	@Override
 	public void updateProject(Project project) throws BusinessException {
 		try {
 			Integer status = project.getProjectState();
-			if(status == 0) {
+			if (status == 0) {
 				project.setProjectState(1);
-			}else {
+			} else {
 				project.setProjectState(0);
 			}
+			projectDao.deleteClientByProjectId(project.getId());
+			projectDao.insertIntoClientByProjectId(project.getId(), project.getClientIds());
 			projectDao.updateProject(project);
 		} catch (Exception e) {
-			throw new BusinessException("更新项目失败",e.getMessage());
+			throw new BusinessException("更新项目失败", e.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -72,9 +80,9 @@ public class ProjectServiceImpl implements ProjectService{
 		try {
 			projectDao.deleteProject(ids);
 		} catch (Exception e) {
-			throw new BusinessException("删除项目失败",e.getMessage());
+			throw new BusinessException("删除项目失败", e.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -82,7 +90,7 @@ public class ProjectServiceImpl implements ProjectService{
 		try {
 			return projectDao.getProjectById(id);
 		} catch (Exception e) {
-			throw new BusinessException("查询项目失败",e.getMessage());
+			throw new BusinessException("查询项目失败", e.getMessage());
 		}
 	}
 
@@ -91,17 +99,17 @@ public class ProjectServiceImpl implements ProjectService{
 		try {
 			return projectDao.findAllProject();
 		} catch (Exception e) {
-			throw new BusinessException("查询全部项目失败",e.getMessage());
+			throw new BusinessException("查询全部项目失败", e.getMessage());
 		}
 	}
 
 	@Override
-	public PageBounds<Project> selectByLimitPage(ProjectSearchDto projectSearchDto)
-			throws BusinessException {
+	public PageBounds<Project> selectByLimitPage(ProjectSearchDto projectSearchDto) throws BusinessException {
 		try {
-			return projectDao.selectByLimitPage(projectSearchDto, projectSearchDto.getCurrentPage(), projectSearchDto.getPageSize());
+			return projectDao.selectByLimitPage(projectSearchDto, projectSearchDto.getCurrentPage(),
+					projectSearchDto.getPageSize());
 		} catch (Exception e) {
-			throw new BusinessException("分页查询项目失败",e.getMessage());
+			throw new BusinessException("分页查询项目失败", e.getMessage());
 		}
 	}
 
@@ -110,7 +118,7 @@ public class ProjectServiceImpl implements ProjectService{
 		try {
 			return projectDao.selectAllProjectName(projectSearchDto);
 		} catch (Exception e) {
-			throw new BusinessException("查询全部项目ID和名称失败",e.getMessage());
+			throw new BusinessException("查询全部项目ID和名称失败", e.getMessage());
 		}
 	}
 
@@ -119,9 +127,9 @@ public class ProjectServiceImpl implements ProjectService{
 		try {
 			projectDao.saveProjectEquipment(projectId, equipmentIds);
 		} catch (Exception e) {
-			throw new BusinessException("增加项目和设备关系ID失败",e.getMessage());
+			throw new BusinessException("增加项目和设备关系ID失败", e.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -129,34 +137,104 @@ public class ProjectServiceImpl implements ProjectService{
 		try {
 			return projectDao.selectAllEquipmentIds(projectId);
 		} catch (Exception e) {
-			throw new BusinessException("获取当前项目下的全部设备ID",e.getMessage());
+			throw new BusinessException("获取当前项目下的全部设备ID", e.getMessage());
 		}
 	}
 
 	@Override
-	public void applyDelProject(List<Integer> ids) throws BusinessException {
-		try{
-			//获取当前登录用户
-			Manager loginManager = managerService.getLoginManager();
-			//接受前台所要删除的List<Integer> ids
+	public String applyDelProject(List<Integer> ids) throws BusinessException {
+		try {
+			// 1.获得当前登录用户
+			Manager manager = managerService.getLoginManager();
+			// 1.1接受前台所要删除的List<Integer> ids
 			List<Project> listProjects = projectDao.getProjectByIds(ids);
-			//创建一个List包装所有申请
+			// 1.2创建一个List包装所有申请
 			List<Apply> listApplys = new ArrayList<>();
-			//包装每条Apply
-			for(Project project:listProjects){
-				Apply apply = new Apply();
-				apply.setType(0);
-				apply.setState(0);
-				apply.setApplyId(loginManager.getId()); 
-				apply.setApplyDate(new Date());
-				apply.setConductorId(project.getDistributorId());
-				apply.setProjectId(project.getId());
-				listApplys.add(apply);
+			// 1.3查询此经销商是否有父级
+			Integer parentById = managerDao.selectParentById(manager.getId());
+			// 1.4判断是否被申请过
+			if (!Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
+				// 查询此人提交的删除项目申请在数据库中是否存在
+				Integer number = applyDao.selectProjectCount(ids);
+				if (number > 0) {
+					// 有人提交 过了
+					throw new BusinessException("您选中的数据已经被申请过了");
+				} else {
+					// 2. 判断当前用户的身份（type：0 网站用户；type：1 经销商；type：2.项目管理员）
+					if (manager != null) {
+						// 2.1 如果为网站用户，直接删除。
+						if (Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
+							// 真删
+							this.deleteProject(ids);
+							return "删除成功";
+							// 假删
+							/*
+							 * for(Project project:listProjects){ Apply apply = new Apply();
+							 * apply.setType(0); apply.setState(0); apply.setApplyId(manager.getId());
+							 * apply.setApplyDate(new Date()); apply.setConductorId(null);
+							 * apply.setProjectId(project.getId()); listApplys.add(apply); }
+							 */
+						}
+						// 2.2如果为经销商
+						else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(manager.getType())) {
+							// 2.2.1若为顶级经销商，处理人为null，交给管理员处理。
+							if (null == parentById) {
+								for (Project project : listProjects) {
+									Apply apply = new Apply();
+									apply.setType(0);
+									apply.setState(0);
+									apply.setApplyId(manager.getId());
+									apply.setApplyDate(new Date());
+									apply.setConductorId(null);
+									apply.setProjectId(project.getId());
+									listApplys.add(apply);
+								}
+								// 3.插入到apply表中。
+								applyDao.insertProjectApplys(listApplys);
+								return "您的申请已提交，请等待您的上级处理";
+								// 2.2.2此经销商有父级的话交给上级经销商处理;
+							} else {
+								for (Project project : listProjects) {
+									Apply apply = new Apply();
+									apply.setType(0);
+									apply.setState(0);
+									apply.setApplyId(manager.getId());
+									apply.setApplyDate(new Date());
+									apply.setConductorId(parentById);
+									apply.setProjectId(project.getId());
+									listApplys.add(apply);
+								}
+								// 3.插入到apply表中。
+								applyDao.insertProjectApplys(listApplys);
+								return "您的申请已提交，请等待您的上级处理";
+							}
+						}
+						// 2.3如果项目管理员,交给上级经销商处理。
+						else if (Arrays.asList(Constants.S__Project_Type).contains(manager.getType())) {
+							// 2.3.1添加到apply记录。
+							for (Project project : listProjects) {
+								Apply apply = new Apply();
+								apply.setType(0);
+								apply.setState(0);
+								apply.setApplyId(manager.getId());
+								apply.setApplyDate(new Date());
+								apply.setConductorId(project.getDistributorId());
+								apply.setProjectId(project.getId());
+								listApplys.add(apply);
+							}
+							// 3.插入到apply表中。
+							applyDao.insertProjectApplys(listApplys);
+							return "您的申请已提交，请等待您的上级处理";
+						}
+					}
+				}
 			}
-			applyDao.insertProjectApplys(listApplys);
-		}catch (Exception e) {
-			   throw new BusinessException("删除项目类别失败",e.getMessage());
+		} catch (BusinessException e) {
+			throw new BusinessException(e.getErrorMessage());
+		} catch (Exception e) {
+			throw new BusinessException("删除项目类别失败", e.getMessage());
 		}
+		return null;
 	}
 
 }

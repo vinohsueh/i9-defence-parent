@@ -46,4 +46,7 @@ public interface ClientService {
      * 获取创建者的客户
      */
     List<Client> selectByCreateId(Integer createId)throws BusinessException;
+    
+    //根据项目ID 查询全部的责任人  生成下拉选框 进行多选(此方法 暂时没用了  改为了根据createId)
+    List<Client> selectAllClientByProjectId(Integer projectId)throws BusinessException;
 }
