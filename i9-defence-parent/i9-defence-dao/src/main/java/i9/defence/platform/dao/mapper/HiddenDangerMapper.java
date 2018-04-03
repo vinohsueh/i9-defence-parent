@@ -1,15 +1,14 @@
 package i9.defence.platform.dao.mapper;
 
-import i9.defence.platform.dao.vo.HiddenDangerDto;
-import i9.defence.platform.model.HiddenDanger;
-import i9.defence.platform.model.HiddenDangerExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.model.HiddenDanger;
+import i9.defence.platform.model.HiddenDangerExample;
+
 public interface HiddenDangerMapper {
-    int countByExample(@Param("example")HiddenDangerDto hiddenDangerDto); 
+    long countByExample(HiddenDangerExample example); 
 
     int deleteByExample(HiddenDangerExample example);
 
@@ -31,8 +30,5 @@ public interface HiddenDangerMapper {
 
     int updateByPrimaryKey(HiddenDanger record);
     
-    /**
-     * 分页查询 
-     */
-    List<HiddenDanger> selectByLimitPage(@Param("example") HiddenDangerDto hiddenDangerDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    List<HiddenDanger> selectByLimitPage(@Param("example") HiddenDangerExample hiddenDangerExample, @Param("offset") int offset, @Param("limit") int pageSize);
 }

@@ -17,6 +17,7 @@
     <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
     <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
+  	<collection column="id" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectByEquipmentId"></collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -372,4 +373,20 @@
    <insert id="InsertPassageWay" parameterType="i9.defence.platform.model.Passageway">
    	insert into t_passageway(channel,name,equipId) values(#{channel},#{name},#{equipId})
    </insert>
+   
+   <update id="updateEquipments" parameterType="java.util.List">
+   	update  t_equipment
+	<trim prefix="set" suffixOverrides=",">
+		<trim prefix="delStatus =case" suffix="end,">
+			<foreach collection="applies" item="item">
+				when id=#{item.id} then #{item.delStatus}
+			</foreach>
+		</trim>
+	</trim>	
+	<where>
+		<foreach collection="applies" separator="or" item="item" >
+			id=#{item.id}
+		</foreach>
+	</where>
+   </update>
 </mapper>

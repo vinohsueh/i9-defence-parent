@@ -9,6 +9,8 @@ import i9.defence.platform.dao.ClientDao;
 import i9.defence.platform.dao.mapper.ClientMapper;
 import i9.defence.platform.dao.vo.ClientSearchDto;
 import i9.defence.platform.model.Client;
+import i9.defence.platform.model.ClientExample;
+import i9.defence.platform.model.ClientExample.Criteria;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -62,6 +64,14 @@ public class ClientDaoImpl implements ClientDao{
 	public List<Client> selectByCreateId(Integer createId) throws Exception {
 		List<Client> list = clientMapper.selectByCreateId(createId);
 		return list;
+	}
+
+	@Override
+	public List<Client> selectAllClientByProjectId(Integer projectId) throws Exception {
+		ClientExample example = new ClientExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andProjectIdEqualTo(projectId);
+		return clientMapper.selectByExample(example);
 	}
 
 }

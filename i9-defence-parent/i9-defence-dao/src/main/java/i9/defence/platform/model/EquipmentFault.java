@@ -18,11 +18,24 @@ public class EquipmentFault {
      */
     private Integer equipmentId;
     /**
-     * 设备名称
+     * 设备类型名称
      */
     private String equipmentName;
+    /**
+     * 设备类型编号
+     */
+    private String eqCategoryId;
     
-    public String getEquipmentName() {
+    
+    public String getEqCategoryId() {
+		return eqCategoryId;
+	}
+
+	public void setEqCategoryId(String eqCategoryId) {
+		this.eqCategoryId = eqCategoryId;
+	}
+
+	public String getEquipmentName() {
 		return equipmentName;
 	}
 

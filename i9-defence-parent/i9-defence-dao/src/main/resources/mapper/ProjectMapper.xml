@@ -4,19 +4,21 @@
   <resultMap id="BaseResultMap" type="i9.defence.platform.model.Project">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="projectName" jdbcType="VARCHAR" property="projectName" />
+    <result column="projectProvince" jdbcType="VARCHAR" property="projectProvince" />
+    <result column="projectCity" jdbcType="VARCHAR" property="projectCity" />
+    <result column="projectCounty" jdbcType="VARCHAR" property="projectCounty" />
     <result column="projectAddress" jdbcType="VARCHAR" property="projectAddress" />
     <result column="projectLongitude" jdbcType="DOUBLE" property="projectLongitude" />
     <result column="projectLatitude" jdbcType="DOUBLE" property="projectLatitude" />
     <result column="projectDate" jdbcType="TIMESTAMP" property="projectDate" />
     <result column="projectArea" jdbcType="INTEGER" property="projectArea" />
-    <result column="dutyManId" jdbcType="INTEGER" property="dutyManId" />
     <result column="distributorId" jdbcType="INTEGER" property="distributorId" />
-    <result column="safetyManId" jdbcType="INTEGER" property="safetyManId" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
-  	<association property="dutyMan" column="dutyManId" select="i9.defence.platform.dao.mapper.ClientMapper.selectByPrimaryKey"/>
+ 	<result column="delCount" jdbcType="INTEGER" property="delCount"/> 
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
-  	<association property="safetyMan" column="safetyManId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
+  	<collection property="safeList" column="id" select="i9.defence.platform.dao.mapper.ManagerMapper.selectSafeByProjectId"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -58,9 +60,6 @@
         <if test="example.distributorId != null and example.distributorId != ''">
           AND distributorId = #{example.distributorId}
         </if>
-        <if test="example.projectManagerId != null and example.projectManagerId != ''">
-          AND dutyManId = #{example.projectManagerId}
-        </if>
     </trim>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
@@ -93,8 +92,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, projectName, projectAddress, projectLongitude, projectLatitude, projectDate, 
-    projectArea, dutyManId, distributorId, safetyManId, remarks, projectState
+    id, projectName, projectProvince, projectCity, projectCounty,projectAddress, projectLongitude, projectLatitude, projectDate, 
+    projectArea, distributorId, remarks, projectState
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.ProjectExample" resultMap="BaseResultMap">
     select
@@ -131,14 +130,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_project (projectName, projectAddress, projectLongitude, 
-      projectLatitude, projectDate, projectArea, 
-      dutyManId, distributorId, safetyManId, 
-      remarks, projectState)
-    values (#{projectName,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, #{projectLongitude,jdbcType=DOUBLE}, 
+    insert into t_project (projectName, projectProvince, projectCity, projectCounty, projectAddress, projectLongitude, 
+      projectLatitude, projectDate, projectArea, distributorId, remarks, projectState)
+    values (#{projectName,jdbcType=VARCHAR}, #{projectProvince,jdbcType=VARCHAR}, #{projectCity,jdbcType=VARCHAR}, #{projectCounty,jdbcType=VARCHAR},#{projectAddress,jdbcType=VARCHAR}, #{projectLongitude,jdbcType=DOUBLE}, 
       #{projectLatitude,jdbcType=DOUBLE}, #{projectDate,jdbcType=TIMESTAMP}, #{projectArea,jdbcType=INTEGER}, 
-      #{dutyManId,jdbcType=INTEGER}, #{distributorId,jdbcType=INTEGER}, #{safetyManId,jdbcType=INTEGER}, 
-      #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER})
+      #{distributorId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Project">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -148,6 +144,15 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="projectName != null">
         projectName,
+      </if>
+      <if test="projectProvince != null">
+        projectProvince,
+      </if>
+      <if test="projectCity != null">
+        projectCity,
+      </if>
+      <if test="projectCounty != null">
+        projectCounty,
       </if>
       <if test="projectAddress != null">
         projectAddress,
@@ -164,14 +169,8 @@
       <if test="projectArea != null">
         projectArea,
       </if>
-      <if test="dutyManId != null">
-        dutyManId,
-      </if>
       <if test="distributorId != null">
         distributorId,
-      </if>
-      <if test="safetyManId != null">
-        safetyManId,
       </if>
       <if test="remarks != null">
         remarks,
@@ -183,6 +182,15 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectName != null">
         #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectProvince != null">
+        #{projectProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCity != null">
+        #{projectCity,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCounty != null">
+        #{projectCounty,jdbcType=VARCHAR},
       </if>
       <if test="projectAddress != null">
         #{projectAddress,jdbcType=VARCHAR},
@@ -199,14 +207,8 @@
       <if test="projectArea != null">
         #{projectArea,jdbcType=INTEGER},
       </if>
-      <if test="dutyManId != null">
-        #{dutyManId,jdbcType=INTEGER},
-      </if>
       <if test="distributorId != null">
         #{distributorId,jdbcType=INTEGER},
-      </if>
-      <if test="safetyManId != null">
-        #{safetyManId,jdbcType=INTEGER},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -231,6 +233,15 @@
       <if test="record.projectName != null">
         projectName = #{record.projectName,jdbcType=VARCHAR},
       </if>
+      <if test="record.projectProvince != null">
+        projectProvince = #{record.projectProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectCity != null">
+        projectCity = #{record.projectCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectCounty != null">
+        projectCounty = #{record.projectCounty,jdbcType=VARCHAR},
+      </if>
       <if test="record.projectAddress != null">
         projectAddress = #{record.projectAddress,jdbcType=VARCHAR},
       </if>
@@ -246,14 +257,8 @@
       <if test="record.projectArea != null">
         projectArea = #{record.projectArea,jdbcType=INTEGER},
       </if>
-      <if test="record.dutyManId != null">
-        dutyManId = #{record.dutyManId,jdbcType=INTEGER},
-      </if>
       <if test="record.distributorId != null">
         distributorId = #{record.distributorId,jdbcType=INTEGER},
-      </if>
-      <if test="record.safetyManId != null">
-        safetyManId = #{record.safetyManId,jdbcType=INTEGER},
       </if>
       <if test="record.remarks != null">
         remarks = #{record.remarks,jdbcType=VARCHAR},
@@ -270,14 +275,15 @@
     update t_project
     set id = #{record.id,jdbcType=INTEGER},
       projectName = #{record.projectName,jdbcType=VARCHAR},
+      projectProvince = #{record.projectProvince,jdbcType=VARCHAR},
+      projectCity = #{record.projectCity,jdbcType=VARCHAR},
+      projectCounty = #{record.projectCounty,jdbcType=VARCHAR},
       projectAddress = #{record.projectAddress,jdbcType=VARCHAR},
       projectLongitude = #{record.projectLongitude,jdbcType=DOUBLE},
       projectLatitude = #{record.projectLatitude,jdbcType=DOUBLE},
       projectDate = #{record.projectDate,jdbcType=TIMESTAMP},
       projectArea = #{record.projectArea,jdbcType=INTEGER},
-      dutyManId = #{record.dutyManId,jdbcType=INTEGER},
       distributorId = #{record.distributorId,jdbcType=INTEGER},
-      safetyManId = #{record.safetyManId,jdbcType=INTEGER},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       projectState = #{record.projectState,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -289,6 +295,15 @@
     <set>
       <if test="projectName != null">
         projectName = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectProvince != null">
+        projectProvince = #{projectProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCity != null">
+        projectCity = #{projectCity,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCounty != null">
+        projectCounty = #{projectCounty,jdbcType=VARCHAR},
       </if>
       <if test="projectAddress != null">
         projectAddress = #{projectAddress,jdbcType=VARCHAR},
@@ -305,14 +320,8 @@
       <if test="projectArea != null">
         projectArea = #{projectArea,jdbcType=INTEGER},
       </if>
-      <if test="dutyManId != null">
-        dutyManId = #{dutyManId,jdbcType=INTEGER},
-      </if>
       <if test="distributorId != null">
         distributorId = #{distributorId,jdbcType=INTEGER},
-      </if>
-      <if test="safetyManId != null">
-        safetyManId = #{safetyManId,jdbcType=INTEGER},
       </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
@@ -326,20 +335,23 @@
   <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.Project">
     update t_project
     set projectName = #{projectName,jdbcType=VARCHAR},
+      projectProvince = #{projectProvince,jdbcType=VARCHAR},
+      projectCity = #{projectCity,jdbcType=VARCHAR},
+      projectCounty = #{projectCounty,jdbcType=VARCHAR},
       projectAddress = #{projectAddress,jdbcType=VARCHAR},
       projectLongitude = #{projectLongitude,jdbcType=DOUBLE},
       projectLatitude = #{projectLatitude,jdbcType=DOUBLE},
       projectDate = #{projectDate,jdbcType=TIMESTAMP},
       projectArea = #{projectArea,jdbcType=INTEGER},
-      dutyManId = #{dutyManId,jdbcType=INTEGER},
       distributorId = #{distributorId,jdbcType=INTEGER},
-      safetyManId = #{safetyManId,jdbcType=INTEGER},
       remarks = #{remarks,jdbcType=VARCHAR},
       projectState = #{projectState,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from t_project 
+        select <include refid="Base_Column_List" />,
+        (select count(*)  from t_apply a where a.projectId=p.id) as delCount
+        from t_project p
         <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
         </if>
@@ -365,4 +377,15 @@
    <select id="selectAllEquipmentIds" resultType="java.lang.Integer" parameterType="java.lang.Integer">
    		select equipmentId from t_project_equipment where projectId = #{projectId}
    </select>
+   <delete id="deleteClientByProjectId">
+   		delete from t_project_client where projectId = #{projectId}
+   </delete>
+   <insert id="insertIntoClientByProjectId">
+		insert into t_project_client(projectId,clientId) values
+        <foreach collection ="clientIds" item="clientId" index= "index" separator =",">
+            (
+            #{projectId}, #{clientId}
+            )
+        </foreach >
+   </insert>
 </mapper>

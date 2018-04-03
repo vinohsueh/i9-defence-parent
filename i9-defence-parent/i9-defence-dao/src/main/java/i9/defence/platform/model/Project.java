@@ -1,6 +1,7 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +19,13 @@ public class Project {
     //项目名称
     @NotBlank(message="项目名称不能为空")
     private String projectName;
-    //项目地址
+    //项目所在省
+    private String projectProvince;
+    //项目所在市
+    private String projectCity;
+    //项目所在县/区
+    private String projectCounty;
+    //项目所在详细地址
     @NotBlank(message="项目地址不能为空")
     private String projectAddress;
     //项目坐标-经度
@@ -33,29 +40,37 @@ public class Project {
     //建筑面积
     @NotNull(message="建筑面积不能为空")
     private Integer projectArea;
-    //项目负责人Id
-    @NotNull(message="项目负责人Id不能为空")
-    private Integer dutyManId;
     //经销商Id
     @NotNull(message="经销商Id不能为空")
     private Integer distributorId;
-    //项目安全责任人Id
-    @NotNull(message="项目安全责任人Id不能为空")
-    private Integer safetyManId;
     //备注
     @NotBlank(message="备注不能为空")
     private String remarks;
     //开关 0-关，1-开
     //@NotNull(message="开关 0-关，1-开不能为空")
     private Integer projectState;
-    //项目负责人(一对一关系)
-    private Client dutyMan;
     //经销商(一对一关系)
     private Manager distributor;
-    //项目安全责任人(一对一关系)
-    private Manager safetyMan;
+    //Apply表中项目个数
+    private Integer delCount;
+    //项目负责人 一对多
+    private List<Client> clientList;
+    //接收前台传参  项目负责人ids们
+    private List<Integer> clientIds;
+    //安全责任人 一对多
+    private List<Manager> safeList;
+    //接收前台传参  项目安全责任人IDS们
+    private List<Integer> safeIds;
 
-    public Integer getId() {
+    public Integer getDelCount() {
+		return delCount;
+	}
+
+	public void setDelCount(Integer delCount) {
+		this.delCount = delCount;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -118,28 +133,12 @@ public class Project {
         this.projectArea = projectArea;
     }
 
-    public Integer getDutyManId() {
-        return dutyManId;
-    }
-
-    public void setDutyManId(Integer dutyManId) {
-        this.dutyManId = dutyManId;
-    }
-
     public Integer getDistributorId() {
         return distributorId;
     }
 
     public void setDistributorId(Integer distributorId) {
         this.distributorId = distributorId;
-    }
-
-    public Integer getSafetyManId() {
-        return safetyManId;
-    }
-
-    public void setSafetyManId(Integer safetyManId) {
-        this.safetyManId = safetyManId;
     }
 
     public String getRemarks() {
@@ -158,14 +157,6 @@ public class Project {
         this.projectState = projectState;
     }
 
-	public Client getDutyMan() {
-		return dutyMan;
-	}
-
-	public void setDutyMan(Client dutyMan) {
-		this.dutyMan = dutyMan;
-	}
-
 	public Manager getDistributor() {
 		return distributor;
 	}
@@ -174,12 +165,61 @@ public class Project {
 		this.distributor = distributor;
 	}
 
-	public Manager getSafetyMan() {
-		return safetyMan;
+	public String getProjectProvince() {
+		return projectProvince;
 	}
 
-	public void setSafetyMan(Manager safetyMan) {
-		this.safetyMan = safetyMan;
+	public void setProjectProvince(String projectProvince) {
+		this.projectProvince = projectProvince;
+	}
+
+	public String getProjectCity() {
+		return projectCity;
+	}
+
+	public void setProjectCity(String projectCity) {
+		this.projectCity = projectCity;
+	}
+
+	public String getProjectCounty() {
+		return projectCounty;
+	}
+
+	public void setProjectCounty(String projectCounty) {
+		this.projectCounty = projectCounty;
+	}
+
+	public List<Client> getClientList() {
+		return clientList;
+	}
+
+	public void setClientList(List<Client> clientList) {
+		this.clientList = clientList;
+	}
+
+	public List<Integer> getClientIds() {
+		return clientIds;
+	}
+
+	public void setClientIds(List<Integer> clientIds) {
+		this.clientIds = clientIds;
+	}
+
+	public List<Manager> getSafeList() {
+		return safeList;
+	}
+
+	public void setSafeList(List<Manager> safeList) {
+		this.safeList = safeList;
+	}
+
+	public List<Integer> getSafeIds() {
+		return safeIds;
+	}
+
+	public void setSafeIds(List<Integer> safeIds) {
+		this.safeIds = safeIds;
 	}
     
+	
 }

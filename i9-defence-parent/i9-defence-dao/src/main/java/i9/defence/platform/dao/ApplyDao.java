@@ -2,6 +2,8 @@ package i9.defence.platform.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
 import i9.defence.platform.utils.BusinessException;
@@ -82,4 +84,19 @@ public interface ApplyDao {
 	* @throws BusinessException
 	 */
 	List<Apply> selectPartState(Integer state) throws Exception;
+	
+	/**
+	 * 查询是否已经提交过申请
+	 * @param ids
+	 * @return
+	 * @throws Exception
+	 */
+	int  selectProjectCount(@Param("ids") List<Integer> ids) throws Exception;
+	/**
+	 * 查询是否已经提交过申请
+	 * @param ids
+	 * @return
+	 * @throws Exception
+	 */
+	int  selectEquipmentCount(@Param("ids") List<Integer> ids) throws Exception;
 }

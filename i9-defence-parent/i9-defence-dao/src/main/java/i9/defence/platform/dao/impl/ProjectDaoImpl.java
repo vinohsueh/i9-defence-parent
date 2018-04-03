@@ -18,7 +18,7 @@ import i9.defence.platform.utils.PageBounds;
  * 项目DaoImpl
  * @author 姜哲
  * @create 2018年1月8日
- */
+ */ 
 @Repository
 public class ProjectDaoImpl implements ProjectDao{
 	
@@ -84,4 +84,13 @@ public class ProjectDaoImpl implements ProjectDao{
 		return projectMapper.selectByExample(example);
 	}
 
+	@Override
+	public void deleteClientByProjectId(Integer projectId) throws Exception {
+		projectMapper.deleteClientByProjectId(projectId);
+	}
+
+	@Override
+	public void insertIntoClientByProjectId(Integer projectId, List<Integer> clientIds) throws Exception {
+		projectMapper.insertIntoClientByProjectId(projectId,clientIds);
+	}
 }

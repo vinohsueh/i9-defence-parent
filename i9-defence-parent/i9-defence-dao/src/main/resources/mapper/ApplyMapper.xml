@@ -278,7 +278,7 @@
   
       <select id="selectByLimitPage" resultMap="BaseResultMap">
       select <include refid="Base_Column_List" /> from t_apply
-      <if test="_parameter != null" >
+      <if test="_parameter != null" > 
         <include refid="Update_By_Example_Where_Clause" />
       </if>
       <if test="example.orderByClause != null" >
@@ -311,6 +311,13 @@
 				when id=#{item.id} then #{item.state}
 			</foreach>
 		</trim>
+		<trim prefix="conductorId =case" suffix="end,">
+			<foreach collection="applies" item="item">
+				<if test="item.conductorId!=null">
+				when id=#{item.id} then #{item.conductorId}
+				</if>
+			</foreach>  
+		</trim>
 	</trim>
 	<where>
 		<foreach collection="applies" separator="or" item="item" >
@@ -318,4 +325,18 @@
 		</foreach>
 	</where>
   </update>
+  
+  <select id="selectProjectCount" parameterType="java.util.List" resultType="java.lang.Integer" >
+  	select count(*) from t_apply where projectId in 
+  	<foreach collection="ids" item="item" open="(" close=")"  separator=",">
+  		#{item}
+  	</foreach>
+  </select>
+  
+  <select id="selectEquipmentCount" parameterType="java.util.List" resultType="java.lang.Integer">
+  	select count(*) from t_apply where equipmentId in 
+  	<foreach collection="ids" item="item" open="(" close=")"  separator=",">
+  		#{item}
+  	</foreach>
+  </select>
 </mapper>

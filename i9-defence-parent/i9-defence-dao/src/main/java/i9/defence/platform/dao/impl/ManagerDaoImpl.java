@@ -139,4 +139,14 @@ public class ManagerDaoImpl implements ManagerDao{
         managerMapper.addBatchManagerRole(managers);
     }
 
+	@Override
+	public Integer selectParentById(Integer Id) throws Exception {
+		return managerMapper.selectParentById(Id);
+	}
+
+	@Override
+	public void addProjSafeManager(List<Manager> projSafeList) throws Exception {
+		managerMapper.addProjSafeManager(projSafeList);
+	}
+
 }

@@ -142,4 +142,19 @@ public interface ManagerDao {
      * @param mrs
      */
     void addBatchManagerRole(List<Manager> managers) throws Exception;
+    
+    /**
+     * 查询有无父级经销商
+     * @param Id
+     * @return
+     * @throws Exception
+     */
+    Integer selectParentById(Integer Id) throws Exception;
+    
+    /**
+     * 将安全责任人和项目关系插入表中
+     * @param projSafeList
+     * @throws Exception
+     */
+	void addProjSafeManager(List<Manager> projSafeList) throws Exception;
 }
