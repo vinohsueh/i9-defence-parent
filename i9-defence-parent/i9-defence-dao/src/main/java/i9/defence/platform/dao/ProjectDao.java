@@ -90,4 +90,10 @@ public interface ProjectDao {
     * @throws Exception
      */
     List<Project> getProjectByIds(List<Integer> ids) throws Exception;
+    
+    //重置项目的责任人们   之删除
+    void deleteClientByProjectId(Integer projectId) throws Exception;
+    
+    //重置项目的责任人们   之增加
+    void insertIntoClientByProjectId(Integer projectId,List<Integer> clientIds) throws Exception;
 }

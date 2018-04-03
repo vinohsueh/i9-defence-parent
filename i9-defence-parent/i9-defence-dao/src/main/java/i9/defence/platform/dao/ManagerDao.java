@@ -150,4 +150,11 @@ public interface ManagerDao {
      * @throws Exception
      */
     Integer selectParentById(Integer Id) throws Exception;
+    
+    /**
+     * 将安全责任人和项目关系插入表中
+     * @param projSafeList
+     * @throws Exception
+     */
+	void addProjSafeManager(List<Manager> projSafeList) throws Exception;
 }

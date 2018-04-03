@@ -13,7 +13,7 @@
 		<input type="text" placeholder='请输入您的账号' th:field="*{username}">
 		<input type="password" placeholder='请输入您的密码' th:field="*{password}">
 	</form>
-	<button type='button' id='submitBtn'>登录</button>
+	<button type='submit' id='submitBtn'>登录</button>
 	<!-- <p class='mb-10' id='forgetData'><span></span></p> -->
 	<p class="loginAlert mb-10" style="color: red" th:text="(${exception} == null)?'':${exception.errorMessage}"></p>
 	<!-- <p>还没有一个账户？</p> -->

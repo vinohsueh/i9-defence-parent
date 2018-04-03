@@ -1,6 +1,7 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+import java.util.List;
 
 import i9.defence.platform.utils.StringUtil;
 
@@ -64,8 +65,21 @@ public class Equipment {
      * 删除状态
      */
     private Integer delStatus;
+    
+    /**
+     * 设备一对多通道
+     */
+    private List<Passageway> passageways;
 
-    public EquipmentCategory getEquipmentCategory() {
+    public List<Passageway> getPassageways() {
+		return passageways;
+	}
+
+	public void setPassageways(List<Passageway> passageways) {
+		this.passageways = passageways;
+	}
+
+	public EquipmentCategory getEquipmentCategory() {
 		return equipmentCategory;
 	}
 

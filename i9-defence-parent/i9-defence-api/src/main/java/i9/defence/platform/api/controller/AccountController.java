@@ -54,7 +54,7 @@ public class AccountController {
         Manager manager = managerService.getLoginManager();
         //经销商只能看到他自己的项目管理人员和他的下面的经销商
         if (Arrays.asList(Constants.S_AGENCY).contains(manager.getRole().getName())){
-            //managerSearchDto.setDistributorId(manager.getId());
+            managerSearchDto.setDistributorId(manager.getId());
         }
         PageBounds<Manager> pageBounds = managerService.selectByLimitPage(managerSearchDto);
         result.put("data",pageBounds);

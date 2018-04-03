@@ -103,11 +103,11 @@
                 #{item}
             </foreach>
         </if>
-        <!-- <if test="example.distributorId != null">
-            AND (projectId in (select id from t_project where distributorId = #{example.distributorId}) 
+        <if test="example.distributorId != null">
+            AND (id in (select ps.managerId from t_project_safe ps left join t_project p on p.id = ps.projectId  where p.distributorId = #{example.distributorId})
             OR id in (select managerId from t_manager_grade where parentId = #{example.distributorId}) 
             OR id in (select managerId from t_manager_grade where parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId}))) 
-        </if> -->
+        </if> 
     </trim>
   </sql>
   <sql id="Base_Column_List" >
@@ -431,5 +431,14 @@
   </delete>
   <select id="selectParentById"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
   	select parentId from t_manager_grade where managerId=#{managerId}
+  </select>
+  <insert id="addProjSafeManager" parameterType="java.util.List">
+  	insert into t_project_safe(projectId,managerId,safe) values
+  	<foreach collection="list" item="item" separator=",">
+  		(#{item.projectId},#{item.id},#{item.securitier})
+  	</foreach>
+  </insert>
+  <select id="selectSafeByProjectId" parameterType="java.lang.Integer" resultType="i9.defence.platform.model.Manager">
+  	SELECT m.id as id,m.name as name,m.phone as phone FROM t_manager as m LEFT JOIN t_project_safe as ps on m.id = ps.managerId WHERE ps.projectId = #{projectId} AND ps.safe = 1
   </select>
 </mapper>
