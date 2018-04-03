@@ -149,4 +149,9 @@ public class ManagerDaoImpl implements ManagerDao{
 		managerMapper.addProjSafeManager(projSafeList);
 	}
 
+	@Override
+	public List<Manager> selectSafeZeroByProjectId(Integer projectId) throws Exception {
+		return managerMapper.selectSafeZeroByProjectId(projectId);
+	}
+
 }

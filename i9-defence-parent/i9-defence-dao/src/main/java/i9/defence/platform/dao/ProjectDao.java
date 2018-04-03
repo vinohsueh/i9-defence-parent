@@ -96,4 +96,10 @@ public interface ProjectDao {
     
     //重置项目的责任人们   之增加
     void insertIntoClientByProjectId(Integer projectId,List<Integer> clientIds) throws Exception;
+
+   //重置项目的安全责任人们   之修改 safe字段都为0  初始化
+    void updateSafeZeroByProjectId(Integer projectId) throws Exception;
+    
+  //重置项目的安全责任人们   之修改 指定的managerId safe字段为1  初始化
+    void updateSafeOneByProjectId(Integer projectId,List<Integer> safeIds) throws Exception;
 }

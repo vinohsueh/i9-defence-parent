@@ -157,4 +157,7 @@ public interface ManagerDao {
      * @throws Exception
      */
 	void addProjSafeManager(List<Manager> projSafeList) throws Exception;
+	
+	//查询 此项目下不是安全责任人  safe = 0
+	List<Manager> selectSafeZeroByProjectId(Integer projectId) throws Exception;
 }

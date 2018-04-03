@@ -304,4 +304,13 @@ public class ManagerServiceImpl implements ManagerService{
         }
     }
 
+	@Override
+	public List<Manager> selectSafeZeroByProjectId(Integer projectId) throws BusinessException {
+		 try{
+			 	return managerDao.selectSafeZeroByProjectId(projectId);
+	        }catch (Exception e){
+	            throw new BusinessException("查询 此项目下不是安全责任人  safe = 0失败",e.getMessage());
+	        }
+	}
+
 }

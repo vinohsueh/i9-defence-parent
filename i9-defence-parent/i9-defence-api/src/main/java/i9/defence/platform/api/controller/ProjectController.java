@@ -108,8 +108,10 @@ public class ProjectController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Project project = projectService.getProjectById(projectGetDto.getProjectId());
         List<Client> clientList = clientService.selectByCreateId(projectGetDto.getDistributorId());
+        List<Manager> safeList = managerService.selectSafeZeroByProjectId(projectGetDto.getProjectId());
         result.put("data", project);
         result.put("clientList", clientList);
+        result.put("safeList", safeList);
         return result;
     }
 

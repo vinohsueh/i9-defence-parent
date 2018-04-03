@@ -248,23 +248,23 @@ angular.module('app')
 	              }
 	          })
 	         
-	                .state('app.hiddendangerInfo', {
-			      url: '/hiddendangerInfo',
-			      templateUrl: 'proj/hiddendangerInfo/hiddendangerInfo.html',
-			  	  controller : "hiddendangerInfoNgControl",
-			      resolve: {
-			        deps: ['$ocLazyLoad',
-			          function( $ocLazyLoad ){
-			        	return $ocLazyLoad.load({
-							name : 'hiddendangerInfoNgModule',
-							insertBefore : '#ng_load_plugins_before',
-							files : [
-							    'proj/hiddendangerInfo/hiddendangerInfo.js',
-							]
-	        			})
-	                }]
-	              }
-	          })
+//	                .state('app.hiddendangerInfo', {
+//			      url: '/hiddendangerInfo',
+//			      templateUrl: 'proj/hiddendangerInfo/hiddendangerInfo.html',
+//			  	  controller : "hiddendangerInfoNgControl",
+//			      resolve: {
+//			        deps: ['$ocLazyLoad',
+//			          function( $ocLazyLoad ){
+//			        	return $ocLazyLoad.load({
+//							name : 'hiddendangerInfoNgModule',
+//							insertBefore : '#ng_load_plugins_before',
+//							files : [
+//							    'proj/hiddendangerInfo/hiddendangerInfo.js',
+//							]
+//	        			})
+//	                }]
+//	              }
+//	          })
 	         
 	          
 	          
@@ -354,7 +354,7 @@ angular.module('app')
                           }]
                   }
               })
-<<<<<<< HEAD
+
               .state('app.alarmView', {
                   url: '/alarmView',
                   templateUrl: 'proj/alarmView/alarmView.html',
@@ -389,7 +389,7 @@ angular.module('app')
                           }]
                   }
               })
-=======
+
               .state('app.equipmentFault', {
                   url: '/equipmentFault',
                   templateUrl: 'proj/equipmentFault/equipmentFault.html',
@@ -407,7 +407,7 @@ angular.module('app')
                     }]
                   }
               }) 
->>>>>>> fdff43f6764905ea62596ffbba693e97d06e729c
+
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: 'tpl/app_dashboard_v1.html',
