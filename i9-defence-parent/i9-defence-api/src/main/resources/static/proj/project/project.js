@@ -85,7 +85,7 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
         				name : 'projectEditNgModule',
         				insertBefore : '#ng_load_plugins_before',
         				files : [
-        				         'proj/project/add.js',
+        				    'proj/project/add.js',
         				]
         			});
         		}],
