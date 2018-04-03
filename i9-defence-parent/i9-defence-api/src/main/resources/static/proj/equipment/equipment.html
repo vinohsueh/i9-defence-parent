@@ -42,7 +42,7 @@
             <th>设备位置</th>
             <th>设备创建时间</th>
             <th>设备备注</th>
-            <th>设备类型</th>
+            <th>设备分类</th>
             <th>所属项目</th>
         <!--<th>系统编号</th>
             <th>装置数量</th>
@@ -52,7 +52,8 @@
         </thead>
         <tbody>
           <tr ng-repeat="equipment in equipments">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td ng-if="equipment.delStatus==1"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td ng-if="equipment.delStatus==0"></td>
             <td >{{equipment.equipmentName}}</td>
         <!--<td >{{equipment.equipmentNum}}</td>-->
             <td >{{equipment.equipmentIdentifier}}</td>

@@ -10,15 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
-import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
-import i9.defence.platform.model.Project;
-import i9.defence.platform.service.ChannelDataService;
-import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.model.Passageway;
+import i9.defence.platform.model.Project;
+import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
@@ -36,11 +33,9 @@ public class EquipmentController {
 	@Autowired
 	private EquipmentService equipmentService;
 	@Autowired
-	private EquipmentCategoryService eqCategoryService;
+	EquipmentCategoryService eqCategoryService;
 	@Autowired
 	private ProjectService projectService;
-	@Autowired
-	private ChannelDataService channelDataService;
 
 	/**
 	 * 分页查询设备列表
@@ -106,7 +101,8 @@ public class EquipmentController {
 	@RequestMapping("/applyDelEquipment")
 	public HashMap<String, Object> applyDelEquipment(@RequestBody List<Integer> ids) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		equipmentService.applyDelEquipment(ids);
+		String msg = equipmentService.applyDelEquipment(ids);
+		result.put("msg", msg);
 		return result;
 	}
 
@@ -123,7 +119,6 @@ public class EquipmentController {
 	public HashMap<String, Object> getEquipment(@RequestBody Integer equipmentId) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		Equipment equipment = equipmentService.getEquipmentById(equipmentId);
-
 		result.put("data", equipment);
 		return result;
 	}
@@ -143,7 +138,6 @@ public class EquipmentController {
 	}
 
 	/**
-	 * 查询项目和类别
 	 * @Title findEquipment
 	 * @param ids
 	 * @return
@@ -160,16 +154,15 @@ public class EquipmentController {
 
 	/**
 	 * 根据设备Id查找通道
-	 * 
 	 * @Title: selectPassagewayByEid
 	 * @Description: TODO
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping("/selectPassagewayByEid")
-	public HashMap<String, Object> selectPassagewayByEid(Integer id) {
+	public HashMap<String, Object> selectPassagewayByEid(Integer Id) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = equipmentService.selectPassagewayByEid(id);
+		List<Passageway> list = equipmentService.selectPassagewayByEid(Id);
 		result.put("data", list);
 		return result;
 	}

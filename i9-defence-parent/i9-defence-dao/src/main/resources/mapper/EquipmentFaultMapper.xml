@@ -7,6 +7,10 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
     <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
+    <!-- 查询设备型号名称-->
+    <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
+  	<!--查询设备型号编号  -->
+  	<association property="eqCategoryId" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEqCategoryId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -207,20 +211,19 @@
 		</trim>
 	</sql>
 	<!-- 分页查询 -->
-	<select id="selectByLimitPage" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from t_equipment_fault
-		<if test="_parameter != null">
-			<include refid="Query_By_Dto_Where_Clause" />
-		</if>
-		<if test="example.orderByClause != null">
-			order by ${example.orderByClause}
-		</if>
-		limit #{offset},#{limit}
-	</select>
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_equipment_fault 
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+        limit #{offset},#{limit}
+   </select>
 	<!-- 查询设备名称By EquipmentId -->
 	<select id="selectEquipmentByEquipmentId" parameterType="int" resultType="string">
-		select equipmentName from t_equipment where id = #{equipmentId,jdbcType=INTEGER}
+		select eqCategoryName from t_equipment_category where id = #{equipmentId,jdbcType=INTEGER}
+	</select>
+	<!--查询设备型号编号  -->
+	<select id="selectEquipmentByEqCategoryId" parameterType="int" resultType="string">
+		select eqCategoryId from t_equipment_category where id = #{equipmentId,jdbcType=INTEGER}
 	</select>
 </mapper>
