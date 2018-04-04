@@ -1,5 +1,5 @@
-var monitoringTabelNgModule=angular.module('monitoringTabelNgModule',['ngAnimate','ui.bootstrap','app']);
-var monitoringTabelService = monitoringTabelNgModule.factory('monitoringTabelService',
+var historicalRecordsNgModule=angular.module('historicalRecordsNgModule',['ngAnimate','ui.bootstrap','app']);
+var historicalRecordsService = historicalRecordsNgModule.factory('historicalRecordsService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -19,7 +19,7 @@ var monitoringTabelService = monitoringTabelNgModule.factory('monitoringTabelSer
 			});
 			return resource;
 	}]);
-var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabelNgControl',function($rootScope,$timeout, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringTabelService,httpService){
+var historicalRecordsNgControl=historicalRecordsNgModule.controller('historicalRecordsNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,historicalRecordsService,httpService){
 	$scope.option={
 	    title:{
 	        show:false,
@@ -130,7 +130,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	
 	// $scope.endTime = this.startCheckTime;
 
-	//地域
+	// 地域
 	$scope.error = {};
 	$scope.division = division;
 	$scope.c = function () {
