@@ -68,14 +68,7 @@ public interface EquipmentService {
      * @return
      * @throws BusinessException
      */
-    List<Passageway> selectPassagewayByEid(Integer id)throws BusinessException;
-    
-    /**
-     * 新增通道
-     * @param passageway
-     * @throws BusinessException
-     */
-    void InsertPassageWay(Passageway passageway) throws BusinessException;
+    List<Passageway> selectPassagewayByEid(String systemId)throws BusinessException;
     /**
      * 分页查询隐患报警
      * @param equipmentSearchDto
@@ -84,5 +77,11 @@ public interface EquipmentService {
      * @return
      */
     PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException;
-        
+    /**
+     * 新增通道
+     * @param passageway
+     * @throws BusinessException
+     */
+    void insertPassageWay(Passageway passageway) throws BusinessException;
+ 
 }

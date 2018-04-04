@@ -97,6 +97,16 @@ public class ProjectController {
         projectService.updateProject(project);
         return result;
     }
+    
+    @RequestMapping("/getClientByDistributorId")
+    public HashMap<String, Object> getClientByDistributorId() {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Manager manager = managerService.getLoginManager();
+        //负责人  一对多  查询此经销商下 建立的全部client
+        List<Client> clientList = clientService.selectByCreateId(manager.getId());
+        result.put("clientList", clientList);
+        return result;
+    }
 
     /**
      * id查找项目
@@ -107,9 +117,11 @@ public class ProjectController {
     public HashMap<String, Object> getProject(@RequestBody ProjectGetDto projectGetDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Project project = projectService.getProjectById(projectGetDto.getProjectId());
+        //负责人  一对多  查询此经销商下 建立的全部client
         List<Client> clientList = clientService.selectByCreateId(projectGetDto.getDistributorId());
+        //安全责任人  一对多 查询全部和此工程相关的人（当初输入项目邀请码的哪些注册用户们）
         List<Manager> safeList = managerService.selectSafeZeroByProjectId(projectGetDto.getProjectId());
-        result.put("data", project);
+        result.put("project", project);
         result.put("clientList", clientList);
         result.put("safeList", safeList);
         return result;

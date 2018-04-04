@@ -6,6 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
+    <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
     <!-- 查询设备型号名称-->
     <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
   	<!--查询设备型号编号  -->

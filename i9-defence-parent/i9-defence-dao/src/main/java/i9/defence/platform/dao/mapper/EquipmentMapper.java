@@ -37,9 +37,9 @@ public interface EquipmentMapper {
     
     List<Equipment> selectByLimitPage(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
-    List<Passageway> selectPassagewayByEid(Integer equipId);
+    List<Passageway> selectPassagewayByEid(String systemId);
     
-    void InsertPassageWay(@Param("Passageway") Passageway passageway);
+    void insertPassageWay(@Param("Passageway") Passageway passageway);
     
     void updateEquipments(@Param("applies") List<Equipment> applies) ;
     //隐患报警分页查询

@@ -37,16 +37,16 @@
               </label>
             </th>
             <th>设备名称</th>
-            <th>设备数量</th>
+       <!-- <th>设备数量</th> -->
             <th>设备编号</th>
             <th>设备位置</th>
             <th>设备创建时间</th>
             <th>设备备注</th>
             <th>设备分类</th>
             <th>所属项目</th>
-            <th>系统编号</th>
+        <!--<th>系统编号</th>
             <th>装置数量</th>
-            <th>回路</th>
+            <th>回路</th> -->  
             <th>操作</th>
           </tr>
         </thead>
@@ -55,17 +55,17 @@
             <td ng-if="equipment.delStatus==1"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td ng-if="equipment.delStatus==0"></td>
             <td >{{equipment.equipmentName}}</td>
-            <td >{{equipment.equipmentNum}}</td>
+        <!--<td >{{equipment.equipmentNum}}</td>-->
             <td >{{equipment.equipmentIdentifier}}</td>
             <td >{{equipment.equipmentPosition}}</td>
             <td >{{equipment.equipmentDateStr}}</td>
             <td >{{equipment.equipmentRemarks}}</td>
             <td >{{equipment.equipmentCategory.eqCategoryName}}</td>
             <td >{{equipment.project.projectName}}</td>
-            <td >{{equipment.systemId}}</td>
+       <!-- <td >{{equipment.systemId}}</td>
             <td >{{equipment.unit}}</td>
-            <td >{{equipment.loopl}}</td>
-            <td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
+            <td >{{equipment.loopl}}</td>-->
+        	<td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
           </tr>
         </tbody>
       </table>

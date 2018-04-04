@@ -112,6 +112,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	        },
 	    ],
 	}
+	//添加通道
 	$scope.add = function () {  
         var modalInstance = $modal.open({  
             templateUrl: 'proj/monitoringChart/add.html',  
@@ -138,8 +139,44 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
             $scope.selected = data;
         },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-        	$scope.initTable();
+        	$scope.initItem();
         });
          
+    };
+    //分页条件
+    $scope.pageSize = 10;
+    $scope.currentPage = 1;
+    //初始化
+    $scope.initItem = function (){
+    	var text = $scope.searchText;
+    	var pageParam = {
+    			pageSize:$scope.pageSize,
+    			currentPage:$scope.currentPage,
+    			projectName : text,
+    			projectAddress : text,
+    		};
+    	
+    	httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		
+    	})
+    };
+    $scope.initItem();
+
+    $scope.error = {};
+    $scope.division = division;
+    $scope.c = function () {
+       $scope.error.province = false;
+       $scope.error.city = false;
+       $scope.error.area = false;
+       $scope.selected2 = "";
+       $scope.selected3 = "";
+    };
+    $scope.c2 = function () {       
+       $scope.error.city = false;
+       $scope.error.area = false;
+       $scope.selected3 = "";
+    };
+    $scope.c3 = function () {
+       $scope.error.area = false;
     };
 })

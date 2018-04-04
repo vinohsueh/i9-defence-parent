@@ -207,18 +207,18 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public List<Passageway> selectPassagewayByEid(Integer Id) throws BusinessException {
+	public List<Passageway> selectPassagewayByEid(String systemId) throws BusinessException {
 		try {
-			return equipmentDao.selectPassagewayByEid(Id);
+			return equipmentDao.selectPassagewayByEid(systemId);
 		} catch (Exception e) {
 			throw new BusinessException("根据设备id查询通道失败",e.getMessage());
 		}
 	}
 
 	@Override
-	public void InsertPassageWay(Passageway passageway) throws BusinessException {
+	public void insertPassageWay(Passageway passageway) throws BusinessException {
 		try {
-			equipmentDao.InsertPassageWay(passageway);
+			equipmentDao.insertPassageWay(passageway);
 		} catch (Exception e) { 
 				throw new BusinessException("新增通道失败",e.getMessage());
 		}
@@ -234,6 +234,5 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
 		}
 	}
-
 }
 

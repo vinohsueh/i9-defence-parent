@@ -1,11 +1,14 @@
 package i9.defence.platform.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import i9.defence.platform.utils.StringUtil;
 /**
@@ -188,6 +191,25 @@ public class Project {
 	public void setProjectCounty(String projectCounty) {
 		this.projectCounty = projectCounty;
 	}
+	public String getProjectAddressStr() {
+		StringBuffer projectAddressStr = new StringBuffer();
+		if(projectProvince !=null && !projectProvince.equals("")) {
+			projectAddressStr.append(projectProvince);
+			if(projectCity !=null && !projectCity.equals("")) {
+				projectAddressStr.append(projectCity);
+				if(projectCounty !=null && !projectCounty.equals("")) {
+					projectAddressStr.append(projectCounty);
+					if(projectAddress !=null && !projectAddress.equals("")) {
+						projectAddressStr.append(projectAddress);
+					}
+				}
+			}
+		}
+		if(projectAddressStr.length()>0) {
+			return projectAddressStr.toString();
+		}
+		return "暂无详细地址";
+	}
 
 	public List<Client> getClientList() {
 		return clientList;
@@ -196,9 +218,33 @@ public class Project {
 	public void setClientList(List<Client> clientList) {
 		this.clientList = clientList;
 	}
+	
+	public String getClientListStr() {
+		if(clientList.size()>0) {
+			StringBuffer clientListStr = new StringBuffer();
+			Integer num = clientList.size();
+			for(Client client:clientList) {
+				if(num-1==0) {
+					clientListStr.append(client.getName());
+				}else {
+					clientListStr.append(client.getName()+",");
+				}
+				num--;
+			}
+			return clientListStr.toString();
+		}
+		return "暂无项目负责人";
+	}
 
 	public List<Integer> getClientIds() {
-		return clientIds;
+		List<Integer> cList = new ArrayList<>();
+		if(clientList.size()>0) {
+			for(Client client:clientList) {
+				cList.add(client.getId());
+			}
+			return cList;
+		}
+		return cList;
 	}
 
 	public void setClientIds(List<Integer> clientIds) {
@@ -211,6 +257,23 @@ public class Project {
 
 	public void setSafeList(List<Manager> safeList) {
 		this.safeList = safeList;
+	}
+	
+	public String getSafeListStr() {
+		if(safeList.size()>0) {
+			StringBuffer safeListStr = new StringBuffer();
+			Integer num = safeList.size();
+			for(Manager manager:safeList) {	
+				if(num-1==0) {
+					safeListStr.append(manager.getName());
+				}else {
+					safeListStr.append(manager.getName()+",");
+				}
+				num--;
+			}
+			return safeListStr.toString();
+		}
+		return "暂无安全负责人";
 	}
 
 	public List<Integer> getSafeIds() {

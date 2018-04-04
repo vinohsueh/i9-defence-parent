@@ -23,13 +23,13 @@ public class Passageway   {
     /**
      * 设备Id
      */
-    private Integer equipId;
+    private String systemId;
     
     
     /**
      * 隐患类型Id
      */
-    private Integer HiddenDangerId;
+    private Integer hiddenDangerId;
     
     /**
      * 一对一隐患类型
@@ -37,13 +37,13 @@ public class Passageway   {
     private HiddenDanger hiddenDanger;
     
     
-    
-    public Integer getHiddenDangerId() {
-		return HiddenDangerId;
+
+	public Integer getHiddenDangerId() {
+		return hiddenDangerId;
 	}
 
 	public void setHiddenDangerId(Integer hiddenDangerId) {
-		HiddenDangerId = hiddenDangerId;
+		this.hiddenDangerId = hiddenDangerId;
 	}
 
 	public HiddenDanger getHiddenDanger() {
@@ -54,12 +54,14 @@ public class Passageway   {
 		this.hiddenDanger = hiddenDanger;
 	}
 
-	public Integer getEquipId() {
-		return equipId;
+	
+
+	public String getSystemId() {
+		return systemId;
 	}
 
-	public void setEquipId(Integer equipId) {
-		this.equipId = equipId;
+	public void setSystemId(String systemId) {
+		this.systemId = systemId;
 	}
 
 	public Integer getChannel() {
