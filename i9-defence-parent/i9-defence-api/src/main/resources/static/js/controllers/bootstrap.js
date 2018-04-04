@@ -266,7 +266,6 @@
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 1,
-      language:"zh-CN",
       class: 'datepicker'
     };
 
