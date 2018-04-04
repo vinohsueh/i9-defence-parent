@@ -65,13 +65,13 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public List<Passageway> selectPassagewayByEid(Integer Id) throws Exception {
-		return equipmentMapper.selectPassagewayByEid(Id);
+	public List<Passageway> selectPassagewayByEid(String systemId) throws Exception {
+		return equipmentMapper.selectPassagewayByEid(systemId);
 	}
 
 	@Override
-	public void InsertPassageWay(Passageway passageway) throws Exception {
-		equipmentMapper.InsertPassageWay(passageway);
+	public void insertPassageWay(Passageway passageway) throws Exception {
+		equipmentMapper.insertPassageWay(passageway);
 	}
 
 	@Override

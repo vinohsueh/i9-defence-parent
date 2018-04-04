@@ -66,14 +66,14 @@ public interface EquipmentDao {
      * @return
      * @throws BusinessException
      */
-    List<Passageway> selectPassagewayByEid(Integer Id)throws Exception;
+    List<Passageway> selectPassagewayByEid(String systemId)throws Exception;
     
     /**
      * 新增通道
      * @param passageway
      * @throws BusinessException
      */
-    void InsertPassageWay(Passageway passageway) throws Exception;
+    void insertPassageWay(Passageway passageway) throws Exception;
     
 	/**
 	 * 批量更新设备

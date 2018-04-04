@@ -4,8 +4,8 @@
 	<resultMap type="i9.defence.platform.model.Passageway" id="BaseResultMap">
 		<id column="channel" jdbcType="INTEGER" property="channel" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
-		<result column="HiddenDangerId" jdbcType="INTEGER" property="HiddenDangerId" />
+		<result column="systemId" jdbcType="VARCHAR" property="systemId" />
+		<result column="hiddenDangerId" jdbcType="INTEGER" property="hiddenDangerId" />
 		<association property="equipment" column="equipmentId"
 			select="i9.defence.platform.dao.mapper.EquipmentMapper.selectByPrimaryKey"></association>
 		<association property="hiddenDanger" column="HiddenDangerId"
@@ -13,19 +13,19 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		channel,name,equipId,HiddenDangerId
+		channel,name,systemId,hiddenDangerId
 	</sql>
 
-	<select id="selectByEquipmentId" parameterType="java.lang.Integer"
+	<select id="selectByEquipmentId" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from t_passageway where equipId =#{equipId}
+		from t_passageway where systemId =#{systemId}
 	</select>
 
 	<insert id="addPassageWay" parameterType="i9.defence.platform.model.Passageway">
 		insert into
-		t_passageway(channel,name,equipId,HiddenDangerId)
-		values(#{channel,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{equipId,jdbcType=INTEGER},#{HiddenDangerId,jdbcType=INTEGER})
+		t_passageway(channel,name,systemId,hiddenDangerId)
+		values(#{channel,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{systemId,jdbcType=VARCHAR},#{hiddenDangerId,jdbcType=INTEGER})
 	</insert>
 </mapper>
