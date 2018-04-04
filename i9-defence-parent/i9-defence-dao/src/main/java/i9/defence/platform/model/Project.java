@@ -28,8 +28,6 @@ public class Project {
     //项目所在详细地址
     @NotBlank(message="项目地址不能为空")
     private String projectAddress;
-    //项目详细地址拼接
-    private String projectAddressStr;
     //项目坐标-经度
     @NotNull(message="项目坐标-经度不能为空")
     private Double projectLongitude;
@@ -57,14 +55,10 @@ public class Project {
     private Integer delCount;
     //项目负责人 一对多
     private List<Client> clientList;
-    //把项目负责人后台处理拼接
-    private String clientListStr;
     //接收前台传参  项目负责人ids们
     private List<Integer> clientIds;
     //安全责任人 一对多
     private List<Manager> safeList;
-  //把安全负责人后台处理拼接
-    private String safeListStr;
     //接收前台传参  项目安全责任人IDS们
     private List<Integer> safeIds;
 
