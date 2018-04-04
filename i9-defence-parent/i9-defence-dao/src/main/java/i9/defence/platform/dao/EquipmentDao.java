@@ -9,13 +9,13 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 项目Dao
+ * 设备Dao
  * @author gbq
  * @create 2018年1月8日
  */
 public interface EquipmentDao {
 	  /**
-     * 分页查询项目
+     * 分页查询设备
      * @param equipmentSearchDto
      * @param currectPage
      * @param pageSize
@@ -32,14 +32,14 @@ public interface EquipmentDao {
     void addEquipment(Equipment equipment) throws Exception;
     
     /**
-     * 更新项目
+     * 更新设备
      * @param equipment
      * @throws Exception
      */
     void updateEquipment(Equipment equipment) throws Exception;
     
     /**
-     * 根据ID获取项目
+     * 根据ID获取设备
      * @param id
      * @return
      * @throws Exception
@@ -81,4 +81,5 @@ public interface EquipmentDao {
 	 * @throws Exception
 	 */
 	void updateEquipments(List<Equipment> applies) throws Exception;
+
 }

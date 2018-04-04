@@ -9,13 +9,13 @@ import i9.defence.platform.utils.PageBounds;
 import java.util.List;
 
 /**
- * 项目Service
+ * 设备Service
  * @author gbq
  * @create 2018年1月9日
  */
 public interface EquipmentService {
 	  /**
-     * 分页查询项目
+     * 分页查询设备
      * @param equipmentSearchDto
      * @param currectPage
      * @param pageSize
@@ -31,14 +31,14 @@ public interface EquipmentService {
     void addEquipment(Equipment equipment) throws BusinessException;
     
     /**
-     * 更新项目
+     * 更新设备
      * @param equipment
      * @throws Exception
      */
     void updateEquipment(Equipment equipment) throws BusinessException;
     
     /**
-     * 根据ID获取项目
+     * 根据ID获取设备
      * @param id
      * @return
      * @throws Exception
@@ -46,7 +46,7 @@ public interface EquipmentService {
     Equipment getEquipmentById(int id) throws BusinessException;
     
     /**
-     * 删除项目
+     * 删除设备
      * @param id
      * @throws Exception
      */
@@ -74,6 +74,7 @@ public interface EquipmentService {
      * @throws BusinessException
      */
     void insertPassageWay(Passageway passageway) throws BusinessException;
+
 
     
  
