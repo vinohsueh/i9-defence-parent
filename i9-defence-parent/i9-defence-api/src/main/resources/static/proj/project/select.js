@@ -31,7 +31,28 @@ app.filter('propsFilter', function() {
         return out;
     };
 })
-app.controller('SelectCtrl', function($scope, $http, $timeout) {
+app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clientList,safeList,$modalInstance) {
+    $scope.project = project;
+    $scope.clientList = clientList;
+    $scope.safeList = safeList;
+    $scope.closeBtn = function() {
+        $modalInstance.dismiss('cancel');
+    }
+    // 确认添加
+    $scope.confirmAdd = function() {
+        if ($scope.project.projectName ==null ||$scope.project.projectName ==0) {
+            $.toaster({
+                title : "Error",
+                priority : "danger",
+                message : "项目名不能为空!"
+            });
+            return false;
+        }
+        httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
+            $modalInstance.dismiss('cancel')
+        })
+    };
+
     
         $scope.disabled = undefined;
         $scope.searchEnabled = undefined;
