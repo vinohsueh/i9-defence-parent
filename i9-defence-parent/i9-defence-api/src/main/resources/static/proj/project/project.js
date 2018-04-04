@@ -88,6 +88,7 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	        			        return $ocLazyLoad.load('proj/project/select.js');
 	        			    }
 	        			);
+	        			
 	        		}],
 	        		project: function () {  
 	                    return {};  
@@ -121,13 +122,11 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-	        			return $ocLazyLoad.load({
-	        				name : 'projectEditNgModule',
-	        				insertBefore : '#ng_load_plugins_before',
-	        				files : [
-	        				         'proj/project/add.js',
-	        				]
-	        			});
+	            		return $ocLazyLoad.load('ui.select').then(
+	        			    function(){
+	        			        return $ocLazyLoad.load('proj/project/select.js');
+	        			    }
+		        		);
 	        		}],
 	            	project: function () {  
 	                    return $scope.project;  

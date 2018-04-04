@@ -160,9 +160,9 @@ public class EquipmentController {
 	 * @return
 	 */
 	@RequestMapping("/selectPassagewayByEid")
-	public HashMap<String, Object> selectPassagewayByEid(Integer Id) {
+	public HashMap<String, Object> selectPassagewayByEid(String systemId) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = equipmentService.selectPassagewayByEid(Id);
+		List<Passageway> list = equipmentService.selectPassagewayByEid(systemId);
 		result.put("data", list);
 		return result;
 	}
@@ -175,10 +175,10 @@ public class EquipmentController {
 	 * @param passageway
 	 * @return
 	 */
-	@RequestMapping("/InsertPassageWay")
-	public HashMap<String, Object> InsertPassageWay(Passageway passageway) {
+	@RequestMapping("/insertPassageWay")
+	public HashMap<String, Object> insertPassageWay(Passageway passageway) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		equipmentService.InsertPassageWay(passageway);
+		equipmentService.insertPassageWay(passageway);
 		return result;
 	}
 }

@@ -365,13 +365,13 @@
    </select>
    
    <select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
-   select channel,name  
+   select channel,name,systemId,hiddenDangerId
     from  t_passageway	
-     where equipId=#{equipId}  
+     where systemId=#{systemId}  
    </select>
    
-   <insert id="InsertPassageWay" parameterType="i9.defence.platform.model.Passageway">
-   	insert into t_passageway(channel,name,equipId) values(#{channel},#{name},#{equipId})
+   <insert id="insertPassageWay" parameterType="i9.defence.platform.model.Passageway">
+   	insert into t_passageway(channel,name,systemId,hiddenDangerId) values(#{channel},#{name},#{systemId},#{hiddenDangerId})
    </insert>
    
    <update id="updateEquipments" parameterType="java.util.List">
