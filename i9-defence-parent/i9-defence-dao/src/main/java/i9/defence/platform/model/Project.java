@@ -1,11 +1,14 @@
 package i9.defence.platform.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import i9.defence.platform.utils.StringUtil;
 /**
@@ -240,7 +243,14 @@ public class Project {
 	}
 
 	public List<Integer> getClientIds() {
-		return clientIds;
+		List<Integer> cList = new ArrayList<>();
+		if(clientList.size()>0) {
+			for(Client client:clientList) {
+				cList.add(client.getId());
+			}
+			return cList;
+		}
+		return cList;
 	}
 
 	public void setClientIds(List<Integer> clientIds) {
