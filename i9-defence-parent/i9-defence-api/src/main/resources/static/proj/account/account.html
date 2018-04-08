@@ -8,7 +8,7 @@
         <button class="btn m-b-xs w-sm btn-success btn-rounded account_add" ng-click="add()">新增项目账户</button>
         <button class="btn m-b-xs w-xs btn-danger btn-rounded account_del" ng-click="del()">删除</button>
     </div>
-    <div class="row wrapper form-inline">
+    <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
         <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
           <option value="5">5</option>
@@ -18,12 +18,12 @@
           <option value="100">100</option>
         </select>
       </div>
-      <div class="col-sm-4 form-group">
-      	<label>用户类型: </label>
-    		<select ng-model='selectRoleName' ng-change="search()" class='form-control'>
-    			<option value="">-- 请选择 --</option>
-    			<option ng-repeat='i in roles' value="{{i.name}}">{{i.name}}</option>
-    		</select>
+      <div class="col-sm-4">
+      	<span>用户类型: </span>
+		<select ng-model='selectRoleName' ng-change="search()">
+			<option value="">-- 请选择 --</option>
+			<option ng-repeat='i in roles' value="{{i.name}}">{{i.name}}</option>
+		</select>
       </div>
       <div class="col-sm-3">
         <div class="input-group">

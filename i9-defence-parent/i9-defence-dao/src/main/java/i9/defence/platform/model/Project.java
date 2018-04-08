@@ -42,7 +42,7 @@ public class Project {
     @NotNull(message="建筑面积不能为空")
     private Integer projectArea;
     //经销商Id
-    @NotNull(message="经销商Id不能为空")
+    //@NotNull(message="经销商Id不能为空")
     private Integer distributorId;
     //备注
     @NotBlank(message="备注不能为空")
