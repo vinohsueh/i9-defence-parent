@@ -1,5 +1,6 @@
 package i9.defence.platform.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +29,6 @@ public class Project {
     //项目所在详细地址
     @NotBlank(message="项目地址不能为空")
     private String projectAddress;
-    //项目详细地址拼接
-    private String projectAddressStr;
     //项目坐标-经度
     @NotNull(message="项目坐标-经度不能为空")
     private Double projectLongitude;
@@ -43,7 +42,7 @@ public class Project {
     @NotNull(message="建筑面积不能为空")
     private Integer projectArea;
     //经销商Id
-    @NotNull(message="经销商Id不能为空")
+    //@NotNull(message="经销商Id不能为空")
     private Integer distributorId;
     //备注
     @NotBlank(message="备注不能为空")
@@ -57,14 +56,8 @@ public class Project {
     private Integer delCount;
     //项目负责人 一对多
     private List<Client> clientList;
-    //把项目负责人后台处理拼接
-    private String clientListStr;
-    //接收前台传参  项目负责人ids们
-    private List<Integer> clientIds;
     //安全责任人 一对多
     private List<Manager> safeList;
-  //把安全负责人后台处理拼接
-    private String safeListStr;
     //接收前台传参  项目安全责任人IDS们
     private List<Integer> safeIds;
 
@@ -240,11 +233,17 @@ public class Project {
 	}
 
 	public List<Integer> getClientIds() {
-		return clientIds;
+		List<Integer> cList = new ArrayList<>();
+		if(clientList.size()>0) {
+			for(Client client:clientList) {
+				cList.add(client.getId());
+			}
+			return cList;
+		}
+		return cList;
 	}
 
 	public void setClientIds(List<Integer> clientIds) {
-		this.clientIds = clientIds;
 	}
 
 	public List<Manager> getSafeList() {

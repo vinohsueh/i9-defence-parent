@@ -1,25 +1,25 @@
-var monitoringChartNgModule=angular.module('monitoringChartNgModule',['ngAnimate','ui.bootstrap','app']);
-var monitoringChartService = monitoringChartNgModule.factory('monitoringChartService',
-	['$resource', function($resource){
-		//指定url格式:../模块名/服务名/方法名?参数
-		var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
-		//service忠的方法
-		var resource = $resource(path, {}, {
-			save : {
-				method : 'POST',
-				params : {
-					moduleName : 'proj',
-					serviceName : 'info',
-					methodName : 'save',
-					//role : '@role',
-					//rp : '@rp',
-					random : Math.random()
-				}
-			},
-		});
-		return resource;
+var hiddenDangerTreatmentNgModule=angular.module('hiddenDangerTreatmentNgModule',['ngAnimate','ui.bootstrap','app']);
+var hiddenDangerTreatmentService = hiddenDangerTreatmentNgModule.factory('hiddenDangerTreatmentService',
+		['$resource', function($resource){
+			//指定url格式:../模块名/服务名/方法名?参数
+			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
+			//service忠的方法
+			var resource = $resource(path, {}, {
+				save : {
+					method : 'POST',
+					params : {
+						moduleName : 'proj',
+						serviceName : 'info',
+						methodName : 'save',
+						//role : '@role',
+						//rp : '@rp',
+						random : Math.random()
+					}
+				},
+			});
+			return resource;
 	}]);
-var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
+var hiddenDangerTreatmentNgControl=hiddenDangerTreatmentNgModule.controller('hiddenDangerTreatmentNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,hiddenDangerTreatmentService,httpService){
 	$scope.option={
 	    title:{
 	        show:false,
@@ -112,23 +112,58 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	        },
 	    ],
 	}
-	//添加通道
-	$scope.add = function () {  
+	//日期
+	var myDate = new Date(2000,00,00);
+	var dYear = myDate.getFullYear();
+	var dMonth = myDate.getMonth()+1;
+	var dDay = myDate.getDate();
+	$scope.startTime = dYear+'/'+dMonth+'/'+dDay;
+
+	$scope.change = function () {
+		var myStartDate = this.startTime;
+		var dYear = myStartDate.getFullYear();
+		var dMonth = myStartDate.getMonth()+1;
+		var dDay = myStartDate.getDate();
+		$scope.startCheckTime = dYear+'/'+dMonth+'/'+dDay;
+		console.log(this.startCheckTime);
+	}
+	
+	// $scope.endTime = this.startCheckTime;
+
+	// 地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
+	$scope.treatmentInfo = function () { 
         var modalInstance = $modal.open({  
-            templateUrl: 'proj/monitoringChart/add.html',  
-            controller: 'monitoringChartEditCtrl', 
+            templateUrl: 'proj/hiddenDangerTreatment/treatmentInfo.html',  
+            controller: 'treatmentInfoEditCtrl', 
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
             resolve: {  
             	deps : ['$ocLazyLoad',function($ocLazyLoad) {
         			return $ocLazyLoad.load({
-        				name : 'monitoringChartEditNgModule',
+        				name : 'treatmentInfoNgModule',
         				insertBefore : '#ng_load_plugins_before',
         				files : [
-        				         'proj/monitoringChart/add.js',
+        				         'proj/hiddenDangerTreatment/treatmentInfo.js',
         				]
         			});
         		}],
-        		monitoringChart: function () {  
+        		treatmentInfo: function () {  
                     return {};  
                 },
                 clientList: function () {  
@@ -139,63 +174,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
             $scope.selected = data;
         },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-        	$scope.initItem();
+        	// $scope.initTable();
         });
          
-    };
-
-    //日期
-    var myDate = new Date(2000,00,00);
-    var dYear = myDate.getFullYear();
-    var dMonth = myDate.getMonth()+1;
-    var dDay = myDate.getDate();
-    $scope.startTime = dYear+'/'+dMonth+'/'+dDay;
-
-    $scope.change = function () {
-    	var myStartDate = this.startTime;
-    	var dYear = myStartDate.getFullYear();
-    	var dMonth = myStartDate.getMonth()+1;
-    	var dDay = myStartDate.getDate();
-    	$scope.startCheckTime = dYear+'/'+dMonth+'/'+dDay;
-    	console.log(this.startCheckTime);
-    }
-    
-    // $scope.endTime = this.startCheckTime;
-    
-    //分页条件
-    $scope.pageSize = 10;
-    $scope.currentPage = 1;
-    //初始化
-    $scope.initItem = function (){
-    	var text = $scope.searchText;
-    	var pageParam = {
-    			pageSize:$scope.pageSize,
-    			currentPage:$scope.currentPage,
-    			projectName : text,
-    			projectAddress : text,
-    		};
-    	
-    	httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-    		
-    	})
-    };
-    $scope.initItem();
-
-    $scope.error = {};
-    $scope.division = division;
-    $scope.c = function () {
-       $scope.error.province = false;
-       $scope.error.city = false;
-       $scope.error.area = false;
-       $scope.selected2 = "";
-       $scope.selected3 = "";
-    };
-    $scope.c2 = function () {       
-       $scope.error.city = false;
-       $scope.error.area = false;
-       $scope.selected3 = "";
-    };
-    $scope.c3 = function () {
-       $scope.error.area = false;
     };
 })

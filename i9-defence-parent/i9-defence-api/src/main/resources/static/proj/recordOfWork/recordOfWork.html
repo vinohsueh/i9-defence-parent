@@ -73,78 +73,62 @@
   </form>
   <div class="myBox">
     <div class="text-right mb-10">
-      <div class="btn btn-success">标记已处理</div>
-      <div class="btn btn-danger">标记误报</div>
-      <div class="btn btn-warning">标记故障</div>
+      <button type='button' class='btn btn-success'>导出</button>
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light" >
         <thead>
           <tr>
-            <th style="width:20px;">
-              <label class="i-checks m-b-none" id="checkLabel">
-                <input type="checkbox" id="totalCheck"><i></i>
-              </label>
-            </th>
-            <th>事件类型</th>
-            <th>设备类型</th>
+            <th>状态</th>
+            <th>项目安全负责人</th>
             <th>时间</th>
-            <th>位置</th>
+            <th>事件类型</th>
+            <th>设备分类</th>
             <th>项目名称</th>
-            <th>误报</th>
+            <th>位置</th>
             <th width='30%'>处理详情</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span class='danger' ng-click="processing()">漏电</span></td>
-            <td>A设备</td>
+            <td>已处理</td>
+            <td>刘某</td>
             <td>2017-5-08</td>
-            <td>2209</td>
+            <td class='eventType'><span class='danger'>漏电</span></td>
+            <td>A设备</td>
             <td>国创中心</td>
-            <td>否</td>
+            <td>2209</td>
             <td>温度大于45度</td>
           </tr>
           <tr>
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
+            <td>已处理</td>
+            <td>刘某</td>
             <td>2017-5-08</td>
-            <td>2209</td>
+            <td class='eventType'><span class='warning'>隐患</span></td>
+            <td>A设备</td>
             <td>国创中心</td>
-            <td>否</td>
+            <td>2209</td>
             <td>温度大于45度</td>
           </tr>
           <tr>
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td>已处理</td>
+            <td>刘某</td>
+            <td>2017-5-08</td>
             <td class='eventType'><span class='danger'>漏电</span></td>
             <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
             <td>国创中心</td>
-            <td>否</td>
+            <td>2209</td>
             <td>温度大于45度</td>
           </tr>
           <tr>
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
+            <td>已处理</td>
+            <td>刘某</td>
             <td>2017-5-08</td>
-            <td>2209</td>
+            <td class='eventType'><span class='warning'>隐患</span></td>
+            <td>A设备</td>
             <td>国创中心</td>
-            <td>否</td>
+            <td>2209</td>
             <td>温度大于45度</td>
-          </tr>
-          <tr>
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
-            <td>否</td>
-            <td>温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度温度大于45度</td>
           </tr>
         </tbody>
       </table>
@@ -172,45 +156,5 @@
       </div>
     </div>
   </div>
-  <div class='row'>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">联系人</div>
-      <div class="body">
-        <p>职位：项目经理</p>
-        <p>姓名：王二宝</p>
-        <p>电话：18070900000</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">项目信息</div>
-      <div class="body">
-        <p>项目负责人：王三宝</p>
-        <p>项目安全负责人：王四宝</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">设备信息</div>
-      <div class="body">
-        <p>名称：G001</p>
-        <p>位置：国际创业中心2019</p>
-      </div>
-    </div>
-    <div class="mPane col-xs-12 col-sm-6">
-      <div class="title">具体数据</div>
-      <div class="body">
-        <div e-chart options="option"></div>
-      </div>
-    </div>
-  </div>
 </div>
 </div>
-<script>
-$("#checkLabel").click(function(){
-    if($("#totalCheck").prop("checked") == true){
-        $(".o-checks").prop("checked",true);
-    }else{
-        $(".o-checks").prop("checked",false);
-    }
-    
-})
-</script>

@@ -371,7 +371,6 @@ angular.module('app')
                           }]
                   }
               })
-
               .state('app.equipmentFault', {
                   url: '/equipmentFault',
                   templateUrl: 'proj/equipmentFault/equipmentFault.html',
@@ -389,6 +388,108 @@ angular.module('app')
                     }]
                   }
               }) 
+              .state('app.hiddenEdit', {
+                  url: '/hiddenEdit',
+                  templateUrl: 'proj/hiddenEdit/hiddenEdit.html',
+              	  controller : "hiddenEditControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'hiddenEdittModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/hiddenEdit/hiddenEdit.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+              .state('app.hiddenDangerRemind', {
+                  url: '/hiddenDangerRemind',
+                  templateUrl: 'proj/hiddenDangerRemind/hiddenDangerRemind.html',
+                  controller : "hiddenDangerRemindNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'hiddenDangerRemindNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/hiddenDangerRemind/hiddenDangerRemind.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.hiddenDangerTreatment', {
+                  url: '/hiddenDangerTreatment',
+                  templateUrl: 'proj/hiddenDangerTreatment/hiddenDangerTreatment.html',
+                  controller : "hiddenDangerTreatmentNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'hiddenDangerTreatmentNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/hiddenDangerTreatment/hiddenDangerTreatment.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.historicalRecords', {
+                  url: '/historicalRecords',
+                  templateUrl: 'proj/historicalRecords/historicalRecords.html',
+                  controller : "historicalRecordsNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'historicalRecordsNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/historicalRecords/historicalRecords.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.recordOfWork', {
+                  url: '/recordOfWork',
+                  templateUrl: 'proj/recordOfWork/recordOfWork.html',
+                  controller : "recordOfWorkNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'recordOfWorkNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/recordOfWork/recordOfWork.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
+              .state('app.dataAnalysis', {
+                  url: '/dataAnalysis',
+                  templateUrl: 'proj/dataAnalysis/dataAnalysis.html',
+                  controller : "dataAnalysisNgControl",
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function( $ocLazyLoad ){
+                              return $ocLazyLoad.load({
+                                  name : 'dataAnalysisNgModule',
+                                  insertBefore : '#ng_load_plugins_before',
+                                  files : [
+                                      'proj/dataAnalysis/dataAnalysis.js',
+                                  ]
+                              })
+                          }]
+                  }
+              })
 
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerDto;
+import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.EquipmentExample.Criteria;
@@ -65,18 +67,28 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public List<Passageway> selectPassagewayByEid(Integer Id) throws Exception {
-		return equipmentMapper.selectPassagewayByEid(Id);
+	public List<Passageway> selectPassagewayByEid(String systemId) throws Exception {
+		return equipmentMapper.selectPassagewayByEid(systemId);
 	}
 
 	@Override
-	public void InsertPassageWay(Passageway passageway) throws Exception {
-		equipmentMapper.InsertPassageWay(passageway);
+	public void insertPassageWay(Passageway passageway) throws Exception {
+		equipmentMapper.insertPassageWay(passageway);
 	}
 
 	@Override
 	public void updateEquipments(List<Equipment> applies) throws Exception {
 		equipmentMapper.updateEquipments(applies);
+	}
+
+	@Override
+	public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto,
+			int currectPage, int pageSize) throws Exception {
+		final int totalSize = equipmentMapper.countHiddenDangerByExample(hiddenDangerSearchDto);
+        PageBounds<HiddenDangerDto> pageBounds = new PageBounds<HiddenDangerDto>(currectPage, totalSize, pageSize);
+        List<HiddenDangerDto> list = equipmentMapper.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
+        pageBounds.setPageList(list);
+        return pageBounds;
 	}
 
 }

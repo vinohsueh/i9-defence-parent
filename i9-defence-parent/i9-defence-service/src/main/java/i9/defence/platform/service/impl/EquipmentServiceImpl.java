@@ -13,6 +13,8 @@ import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerDto;
+import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
@@ -205,23 +207,32 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public List<Passageway> selectPassagewayByEid(Integer Id) throws BusinessException {
+	public List<Passageway> selectPassagewayByEid(String systemId) throws BusinessException {
 		try {
-			return equipmentDao.selectPassagewayByEid(Id);
+			return equipmentDao.selectPassagewayByEid(systemId);
 		} catch (Exception e) {
 			throw new BusinessException("根据设备id查询通道失败",e.getMessage());
 		}
 	}
 
 	@Override
-	public void InsertPassageWay(Passageway passageway) throws BusinessException {
+	public void insertPassageWay(Passageway passageway) throws BusinessException {
 		try {
-			equipmentDao.InsertPassageWay(passageway);
+			equipmentDao.insertPassageWay(passageway);
 		} catch (Exception e) { 
 				throw new BusinessException("新增通道失败",e.getMessage());
 		}
 		
 	}
 
+	@Override
+	public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto)
+			throws BusinessException {
+		try {
+			return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+		} catch (Exception e) {
+			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
+		}
+	}
 }
 
