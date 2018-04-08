@@ -407,6 +407,26 @@ angular.module('app')
                     }]
                   }
               }) 
+<<<<<<< HEAD
+              .state('app.hiddenEdit', {
+                  url: '/hiddenEdit',
+                  templateUrl: 'proj/hiddenEdit/hiddenEdit.html',
+              	  controller : "hiddenEditControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'hiddenEditModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/hiddenEdit/hiddenEdit.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+=======
+>>>>>>> branch 'master' of https://github.com/vinohsueh/i9-defence-parent.git
               .state('app.hiddenDangerRemind', {
                   url: '/hiddenDangerRemind',
                   templateUrl: 'proj/hiddenDangerRemind/hiddenDangerRemind.html',

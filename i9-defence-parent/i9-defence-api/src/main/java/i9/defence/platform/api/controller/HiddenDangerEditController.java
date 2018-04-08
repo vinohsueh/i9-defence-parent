@@ -18,8 +18,8 @@ import i9.defence.platform.utils.PageBounds;
 * 
 */
 @RestController
-@RequestMapping("hiddenEdit")
-public class HiddenEditController {
+@RequestMapping("hiddenDangerEdit")
+public class HiddenDangerEditController {
 
 	@Autowired
 	private EquipmentService equipmentService;
@@ -28,8 +28,8 @@ public class HiddenEditController {
      *分页查询
      */
     //@RequiresPermissions("client_list")
-    @RequestMapping("/pageHiddenEdit")
-    public HashMap<String, Object> pageHiddenEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
+    @RequestMapping("/pageHiddenDangerEdit")
+    public HashMap<String, Object> pageHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         PageBounds<HiddenDangerDto> pageBounds = equipmentService.selectHiddenDangerByLimitPage(hiddenDangerSearchDto);
         result.put("data",pageBounds);
