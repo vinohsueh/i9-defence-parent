@@ -71,101 +71,82 @@
     </div>
     <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
   </form>
+  <div class="myBox" style='height: 300px;'>
+    <div e-chart options="option"></div>
+  </div>
   <div class="myBox">
     <div class="table-responsive">
-      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+      <table class="table table-striped b-t b-light" >
         <thead>
           <tr>
-            <th>事件类型</th>
-            <th>设备类型</th>
             <th>时间</th>
-            <th>位置</th>
-            <th>项目名称</th>
+            <th>故障电弧</th>
+            <th>漏电</th>
+            <th>过温</th>
+            <th>缺相</th>
+            <th>过压</th>
+            <th>欠压</th>
+            <th>过载</th>
+            <th>报警总数</th>
+            <th>故障总数</th>
+            <th>隐患总数</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
+            <td>2017/1</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>91</td>
+            <td>2</td>
+            <td>15</td>
           </tr>
           <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
+            <td>2017/1</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>91</td>
+            <td>2</td>
+            <td>15</td>
           </tr>
           <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
+            <td>2017/1</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>91</td>
+            <td>2</td>
+            <td>15</td>
           </tr>
           <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
+            <td>2017/1</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>91</td>
+            <td>2</td>
+            <td>15</td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="row wrapper">
-      <div class="col-sm-5 m-b-xs">
-        <select class="blue_bg form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style='width:100px;'>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-      </div>
-      <div class="col-xs-7 text-right text-center-xs">                
-        <ul class="pagination pagination-sm m-t-none m-b-none">
-          <li><a href><i class="fa fa-chevron-left"></i></a></li>
-          <li><a href>1</a></li>
-          <li><a href>2</a></li>
-          <li><a href>3</a></li>
-          <li><a href>4</a></li>
-          <li><a href>5</a></li>
-          <li><a href><i class="fa fa-chevron-right"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">联系人</div>
-      <div class="body">
-        <p>职位：项目经理</p>
-        <p>姓名：王二宝</p>
-        <p>电话：18070900000</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">项目信息</div>
-      <div class="body">
-        <p>项目负责人：王三宝</p>
-        <p>项目安全负责人：王四宝</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">设备信息</div>
-      <div class="body">
-        <p>名称：G001</p>
-        <p>位置：国际创业中心2019</p>
-      </div>
-    </div>
-    <div class="mPane col-xs-12 col-sm-6">
-      <div class="title">具体数据</div>
-      <div class="body">
-        <div e-chart options="option"></div>
-      </div>
     </div>
   </div>
 </div>

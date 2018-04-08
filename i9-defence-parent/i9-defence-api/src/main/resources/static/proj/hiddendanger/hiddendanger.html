@@ -2,76 +2,120 @@
 	<div class="bg-light lter b-b wrapper-md">
 	  <h1 class="m-n font-thin h3">隐患提醒设置管理</h1>
 	</div>
-	<div class="wrapper-md">  
-	  <div class="panel panel-default">
-	    <div class="panel-heading">
-	        <button class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="add()">新增</button>
-	    </div>
-	    <div class="row wrapper">
-	      <div class="col-sm-5 m-b-xs">
-	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
-	          <option value="5">5</option>
-	          <option value="10">10</option>
-	          <option value="20">20</option>
-	          <option value="50">50</option>
-	          <option value="100">100</option>
-	        </select>
-	        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
-	      </div>
-	      <div class="col-sm-4">
-	      </div>
-	      <div class="col-sm-3">
-	        <div class="input-group">
-	          <!-- <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
-	          <!-- <span class="input-group-btn">
-	            <button class="btn btn-sm btn-default" type="button">Go!</button>
-	          </span> -->
-	        </div>
-	      </div>
-	    </div>
-	    <div class="table-responsive">
-	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
-	        <thead>
-	          <tr>
-	            <th style="width:20px;">
-	              <label class="i-checks m-b-none" id="checkLabel">
-	                <input type="checkbox" id="totalCheck"><i></i>
-	              </label>
-	            </th>
-	            <th>隐患类型名称</th>
-	         </tr>
-	        </thead>
-	        <tbody>
-	          <tr ng-repeat="hiddendanger in hiddendangers">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddendanger.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-click="edit({{hiddendanger.id}})">{{hiddendanger.name}}</td>
-	          </tr>
-	        </tbody>
-	      </table>
-	    </div>
-	    <footer class="panel-footer">
-	      <div class="row">
-	        <!-- <div class="col-sm-4 hidden-xs">
-	          <select class="input-sm form-control w-sm inline v-middle">
-	            <option value="0">删除</option>
-	          </select>
-	          <button class="btn btn-sm btn-default">Apply</button>                  
-	        </div> -->
-	        <div class="col-sm-4">
-	          <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
-	        </div>
-	        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
-	          <ul class="pagination pagination-sm m-t-none m-b-none">
-	            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
-	            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
-	            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
-	            <li ng-if="hasNext"><a ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
-	            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
-	          </ul>
-	        </div>
-	      </div>
-	    </footer>
-	  </div>
+	<div class="wrapper-md"> 
+		<form action="" class='form-inline myBox'>
+			<div class="form-group">
+				<label for="" class='mr-10'>隐患提醒</label>
+				<input type="number" class='form-control blue_bg' value='1'>
+			</div>
+			<div class="form-group">
+				<label for="" class='mr-10'>天</label>
+				<input type="number" class='form-control blue_bg mr-10' value='1'>
+				<label for="">次</label>
+			</div>
+		  
+		  	<button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
+		</form> 
+	  	<div class="panel panel-default">
+		    <div class="panel-heading text-right">
+		        <button class="btn  btn-success" ng-click="add()">新增</button>
+		    </div>
+		    <div class="row wrapper">
+		      <div class="col-sm-5 m-b-xs">
+		        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
+		          <option value="5">5</option>
+		          <option value="10">10</option>
+		          <option value="20">20</option>
+		          <option value="50">50</option>
+		          <option value="100">100</option>
+		        </select>
+		        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
+		      </div>
+		      <div class="col-sm-4">
+		      </div>
+		      <div class="col-sm-3">
+		        <div class="input-group">
+		          <!-- <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
+		          <!-- <span class="input-group-btn">
+		            <button class="btn btn-sm btn-default" type="button">Go!</button>
+		          </span> -->
+		        </div>
+		      </div>
+		    </div>
+		    <div class="table-responsive">
+		      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+		        <thead>
+		          <tr>
+		            <!-- <th style="width:20px;">
+		              <label class="i-checks m-b-none" id="checkLabel">
+		                <input type="checkbox" id="totalCheck"><i></i>
+		              </label>
+		            </th>
+		            <th>隐患类型名称</th> -->
+		            <th></th>
+		            <th colspan=2 class='text-center'>隐患阀值</th>
+		            <th colspan=2 class='text-center'>报警阀值</th>
+		         </tr>
+		        </thead>
+		        <tbody class='text-center'>
+		          <!-- <tr ng-repeat="hiddendanger in hiddendangers">
+		            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddendanger.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+		            <td ng-click="edit({{hiddendanger.id}})">{{hiddendanger.name}}</td>
+		          </tr> -->
+		          	<tr>
+						<td>故障电弧A型</td>			
+						<td class='eventType'><span class='warning'>最高10</span></td>
+						<td class='eventType'><span class='warning'>最低1</span></td>
+						<td class='eventType'><span class='danger'>最高10</span></td>
+						<td class='eventType'><span class='danger'>最低1</span></td>
+		          	</tr>
+      	          	<tr>
+      					<td>故障电弧A型</td>			
+      					<td class='eventType'><span class='warning'>最高10</span></td>
+      					<td class='eventType'><span class='warning'>最低1</span></td>
+      					<td class='eventType'><span class='danger'>最高10</span></td>
+      					<td class='eventType'><span class='danger'>最低1</span></td>
+      	          	</tr>
+		          	<tr>
+						<td>故障电弧A型</td>			
+						<td class='eventType'><span class='warning'>最高10</span></td>
+						<td class='eventType'><span class='warning'>最低1</span></td>
+						<td class='eventType'><span class='danger'>最高10</span></td>
+						<td class='eventType'><span class='danger'>最低1</span></td>
+		          	</tr>
+      	          	<tr>
+      					<td>故障电弧A型</td>			
+      					<td class='eventType'><span class='warning'>最高10</span></td>
+      					<td class='eventType'><span class='warning'>最低1</span></td>
+      					<td class='eventType'><span class='danger'>最高10</span></td>
+      					<td class='eventType'><span class='danger'>最低1</span></td>
+      	          	</tr>
+		        </tbody>
+		      </table>
+		    </div>
+		    <footer class="panel-footer">
+		      <div class="row">
+		        <!-- <div class="col-sm-4 hidden-xs">
+		          <select class="input-sm form-control w-sm inline v-middle">
+		            <option value="0">删除</option>
+		          </select>
+		          <button class="btn btn-sm btn-default">Apply</button>                  
+		        </div> -->
+		        <div class="col-sm-4">
+		          <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
+		        </div>
+		        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
+		          <ul class="pagination pagination-sm m-t-none m-b-none">
+		            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+		            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+		            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
+		            <li ng-if="hasNext"><a ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+		            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+		          </ul>
+		        </div>
+		      </div>
+		    </footer>
+	  	</div>
 	</div>
 </div>
 <script>

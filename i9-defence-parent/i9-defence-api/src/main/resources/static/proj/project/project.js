@@ -20,6 +20,42 @@ var projectService = projectNgModule.factory('projectService',
 			return resource;
 	}]);
 var projectNgControl=projectNgModule.controller('projectNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,projectService,httpService){
+	//日期
+	var myDate = new Date(2000,00,00);
+	var dYear = myDate.getFullYear();
+	var dMonth = myDate.getMonth()+1;
+	var dDay = myDate.getDate();
+	$scope.startTime = dYear+'/'+dMonth+'/'+dDay;
+
+	$scope.change = function () {
+		var myStartDate = this.startTime;
+		var dYear = myStartDate.getFullYear();
+		var dMonth = myStartDate.getMonth()+1;
+		var dDay = myStartDate.getDate();
+		$scope.startCheckTime = dYear+'/'+dMonth+'/'+dDay;
+		console.log(this.startCheckTime);
+	}
+	
+	// $scope.endTime = this.startCheckTime;
+
+	//地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
@@ -88,6 +124,7 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	        			        return $ocLazyLoad.load('proj/project/select.js');
 	        			    }
 	        			);
+	        			
 	        		}],
 	        		project: function () {  
 	                    return {};  
@@ -121,13 +158,11 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-	        			return $ocLazyLoad.load({
-	        				name : 'projectEditNgModule',
-	        				insertBefore : '#ng_load_plugins_before',
-	        				files : [
-	        				         'proj/project/add.js',
-	        				]
-	        			});
+	            		return $ocLazyLoad.load('ui.select').then(
+	        			    function(){
+	        			        return $ocLazyLoad.load('proj/project/select.js');
+	        			    }
+		        		);
 	        		}],
 	            	project: function () {  
 	                    return $scope.project;  
