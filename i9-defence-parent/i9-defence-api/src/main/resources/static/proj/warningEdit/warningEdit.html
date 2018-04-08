@@ -1,0 +1,95 @@
+<div controlled-rescode>
+	<div class="bg-light lter b-b wrapper-md">
+	  <h1 class="m-n font-thin h3">报警操作列表</h1>
+	</div>
+	<div class="wrapper-md">  
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	        <button class="btn m-b-xs w-xs btn-success btn-rounded hiddenEdit_add" ng-click="add()">新增</button>
+	        <button class="btn m-b-xs w-xs btn-danger btn-rounded hiddenEdit_del" ng-click="del()">删除</button>
+	    </div>
+	    <div class="row wrapper">
+	      <div class="col-sm-5 m-b-xs">
+	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
+	          <option value="5">5</option>
+	          <option value="10">10</option>
+	          <option value="20">20</option>
+	          <option value="50">50</option>
+	          <option value="100">100</option>
+	        </select>
+	        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
+	      </div>
+	      <div class="col-sm-4"></div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="input-sm form-control"ng-change="search()" ng-model="searchText" placeholder="模糊查询">
+					</div>
+				</div>
+			</div>
+	    <div class="table-responsive">
+	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+	        <thead>
+	          <tr>
+	            <th style="width:20px;">
+	              <label class="i-checks m-b-none" id="checkLabel">
+	                <input type="checkbox" id="totalCheck"><i></i>
+	              </label>
+	            </th>
+	            <th>报警数量</th>
+	            <th>设备类型</th>
+	            <th>时间</th>
+	            <th>项目安全负责人</th>
+	            <th>项目名称</th>
+	            <th>位置</th>
+	            <th>处理详情</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr ng-repeat="hiddenEdit in hiddenEdits">
+	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.warningCount}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.equipmentDateStr}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.personLiableMan}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.projectName}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.equipmentPosition}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{}}</td>
+	          </tr>
+	        </tbody>
+	      </table>
+	    </div>
+	    <footer class="panel-footer">
+	      <div class="row">
+	        <!-- <div class="col-sm-4 hidden-xs">
+	          <select class="input-sm form-control w-sm inline v-middle">
+	            <option value="0">删除</option>
+	          </select>
+	          <button class="btn btn-sm btn-default">Apply</button>                  
+	        </div> -->
+	        <div class="col-sm-4">
+	          <small class="text-muted inline m-t-sm m-b-sm">xiangshi {{start}}-{{end}} of {{total}} items</small>
+	        </div>
+	        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
+	          <ul class="pagination pagination-sm m-t-none m-b-none">
+	            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
+	            <li ng-if="hasNext"><a ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </footer>
+	  </div>
+	</div>
+</div>
+<script>
+$("#checkLabel").click(function(){
+    if($("#totalCheck").prop("checked") == true){
+        $(".o-checks").prop("checked",true);
+    }else{
+        $(".o-checks").prop("checked",false);
+    }
+    
+})
+</script>
