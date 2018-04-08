@@ -415,7 +415,7 @@
 			</trim>
 		</sql>
 		<!-- 分页查询 -->
-		<select id="selectHiddenDangerByLimitPage" resultMap="i9.defence.platform.dao.vo.HiddenDangerDto">
+		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select
 			<include refid="Base_Column_List" />
 			from t_equipment
