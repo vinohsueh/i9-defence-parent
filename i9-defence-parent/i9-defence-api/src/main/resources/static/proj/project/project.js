@@ -145,13 +145,18 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 		})     
     };  
     //编辑
-    $scope.edit = function (dom) { 
-    	var projectId = $(dom.target).attr("data-id");
-    	var distributorId = $(dom.target).attr("data-distributorId");
-    	httpService.post({url:'./project/getProject',data:{projectId:projectId,distributorId:distributorId},showSuccessMsg:false}).then(function(data) {  
+    $scope.edit = function (ids) { 
+    	var projectId = ids.split(',')[0];
+    	var distributorId = ids.split(',')[1];
+    	var projectGetDto = {
+    			projectId:projectId,
+    			distributorId:distributorId
+    	}
+    	httpService.post({url:'./project/getProject',data:JSON.stringify(projectGetDto),showSuccessMsg:false}).then(function(data) {  
     		$scope.project = data.data.project;
     		$scope.clientList = data.data.clientList;
     		$scope.safeList = data.data.safeList;
+    		//console.log(JSON.stringify($scope.clientList));
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/project/add.html',  
 	            controller: 'projectEditCtrl', 

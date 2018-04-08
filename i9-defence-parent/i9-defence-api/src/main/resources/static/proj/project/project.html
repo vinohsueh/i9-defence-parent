@@ -149,7 +149,7 @@
             	</label>
             </td> 
             <td>
-              <button data-id="{{project.id}}" data-distributorId="{{project.distributorId}}" ng-click="edit($event)" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
+              <button ng-click="edit({{project.id}}+','+{{project.distributorId}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
               <!-- <i class=''></i> -->
             </td>
           </tr>
