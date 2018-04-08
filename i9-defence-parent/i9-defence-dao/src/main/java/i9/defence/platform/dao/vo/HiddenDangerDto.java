@@ -44,7 +44,27 @@ public class HiddenDangerDto {
 	 * 设备报警数据
 	 */
 	private Integer warningCount;
+	/*
+	 * 设备类型
+	 */
+	private String eqCategoryName;
+	/*
+	 * 安全负责人
+	 */
+	private String personLiableMan;
 	
+	public String getPersonLiableMan() {
+		return personLiableMan;
+	}
+	public void setPersonLiableMan(String personLiableMan) {
+		this.personLiableMan = personLiableMan;
+	}
+	public String getEqCategoryName() {
+		return eqCategoryName;
+	}
+	public void setEqCategoryName(String eqCategoryName) {
+		this.eqCategoryName = eqCategoryName;
+	}
 	public Date getEquipmentDate() {
 		return equipmentDate;
 	}
