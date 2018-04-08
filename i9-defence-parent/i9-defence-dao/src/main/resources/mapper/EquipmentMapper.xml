@@ -389,4 +389,43 @@
 		</foreach>
 	</where>
    </update>
+
+	<!-- ———————————— 隐患与报警———————————— -->
+
+		<select id="countHiddenDangerByExample" resultType="java.lang.Integer">
+			select count(*) from v_hidden_edit
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
+		</select>
+		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="example.projectName != null and example.projectName != ''">
+					OR( projectName LIKE
+					CONCAT('%',CONCAT('${example.projectName}','%'))
+				</if>
+				<if test="example.equipmentDate != null and example.equipmentDate != ''">
+					OR( equipmentDate LIKE
+					CONCAT('%',CONCAT('${example.equipmentDate}','%'))
+				</if>
+				<if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+					OR( equipmentPosition LIKE
+					CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+				</if>
+			</trim>
+		</sql>
+		<!-- 分页查询 -->
+		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+			select
+			<include refid="Base_Column_List" />
+			from t_equipment
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
+			<if test="example.orderByClause != null">
+				order by ${example.orderByClause}
+			</if>
+			limit #{offset},#{limit}
+		</select>
+	<!-- ———————————— 隐患与报警———————————— -->
 </mapper>

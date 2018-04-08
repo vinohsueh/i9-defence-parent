@@ -8,8 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-
 import i9.defence.platform.utils.StringUtil;
 /**
  * 项目实体类
@@ -58,8 +56,6 @@ public class Project {
     private Integer delCount;
     //项目负责人 一对多
     private List<Client> clientList;
-    //接收前台传参  项目负责人ids们
-    private List<Integer> clientIds;
     //安全责任人 一对多
     private List<Manager> safeList;
     //接收前台传参  项目安全责任人IDS们
@@ -248,7 +244,6 @@ public class Project {
 	}
 
 	public void setClientIds(List<Integer> clientIds) {
-		this.clientIds = clientIds;
 	}
 
 	public List<Manager> getSafeList() {

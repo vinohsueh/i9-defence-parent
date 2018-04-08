@@ -13,6 +13,8 @@ import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerDto;
+import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
@@ -223,5 +225,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 		
 	}
 
+	@Override
+	public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto)
+			throws BusinessException {
+		try {
+			return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+		} catch (Exception e) {
+			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
+		}
+	}
 }
 

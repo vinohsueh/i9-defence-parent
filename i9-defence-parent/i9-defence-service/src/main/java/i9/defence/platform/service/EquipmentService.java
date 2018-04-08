@@ -1,6 +1,8 @@
 package i9.defence.platform.service;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerDto;
+import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
@@ -67,14 +69,19 @@ public interface EquipmentService {
      * @throws BusinessException
      */
     List<Passageway> selectPassagewayByEid(String systemId)throws BusinessException;
-    
+    /**
+     * 分页查询隐患报警
+     * @param equipmentSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException;
     /**
      * 新增通道
      * @param passageway
      * @throws BusinessException
      */
     void insertPassageWay(Passageway passageway) throws BusinessException;
-
-    
  
 }
