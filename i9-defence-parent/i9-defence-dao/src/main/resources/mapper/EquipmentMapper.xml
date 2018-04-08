@@ -393,7 +393,7 @@
 	<!-- ———————————— 隐患与报警———————————— -->
 
 		<select id="countHiddenDangerByExample" resultType="java.lang.Integer">
-			select count(*) from v_hidden_edit
+			select count(*) from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -416,7 +416,7 @@
 		</sql>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,equipmentName,equipmentPosition,equipmentDate,eqCategoryName,projectName,hiddeCount,personLiableMan from v_hidden_edit
+			select id,equipmentName,equipmentPosition,equipmentDate,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>

@@ -41,17 +41,19 @@
 	            <th>项目安全负责人</th>
 	            <th>项目名称</th>
 	            <th>位置</th>
+	            <th>处理详情</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
 	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
 	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.hiddeCount}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.equipmentDate}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.equipmentDateStr}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.personLiableMan}}</td>
 	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.projectName}}</td>
 	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.equipmentPosition}}</td>
+	            <td ng-click="edit({{hiddenEdit.id}})">{{}}</td>
 	          </tr>
 	        </tbody>
 	      </table>

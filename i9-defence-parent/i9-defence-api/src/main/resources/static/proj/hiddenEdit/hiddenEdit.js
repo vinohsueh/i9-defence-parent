@@ -34,10 +34,8 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 				currentPage:$scope.currentPage,
 				//username : $scope.searchText
 				name : text,
-				code : text,
 			};
-		console.log(pageParam)
-		httpService.post({url:'./hiddenEdit/pagehiddenEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
