@@ -19,6 +19,38 @@ var hiddendangerEditCtrl = hiddendangerEditNgModule.controller('hiddendangerEdit
 			});
 			return false;
 		}
+		if ($scope.hiddendanger.hiddenMax == null ||$scope.hiddendanger.hiddenMax == 0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "隐患最高阀值不能为空!"
+			});
+			return false;
+		}
+		if ($scope.hiddendanger.hiddenMin == null ||$scope.hiddendanger.hiddenMin == 0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "隐患最低阀值不能为空!"
+			});
+			return false;
+		}
+		if ($scope.hiddendanger.warningMax == null ||$scope.hiddendanger.warningMax == 0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "警告最高阀值不能为空!"
+			});
+			return false;
+		}
+		if ($scope.hiddendanger.warningMin == null ||$scope.hiddendanger.warningMin == 0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "警告最低阀值不能为空!"
+			});
+			return false;
+		}
 		httpService.post({url:'./hiddendanger/addHiddendanger',data:$scope.hiddendanger,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

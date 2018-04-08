@@ -58,38 +58,13 @@
 		         </tr>
 		        </thead>
 		        <tbody class='text-center'>
-		          <!-- <tr ng-repeat="hiddendanger in hiddendangers">
-		            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddendanger.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-		            <td ng-click="edit({{hiddendanger.id}})">{{hiddendanger.name}}</td>
-		          </tr> -->
-		          	<tr>
-						<td>故障电弧A型</td>			
-						<td class='eventType'><span class='warning'>最高10</span></td>
-						<td class='eventType'><span class='warning'>最低1</span></td>
-						<td class='eventType'><span class='danger'>最高10</span></td>
-						<td class='eventType'><span class='danger'>最低1</span></td>
-		          	</tr>
-      	          	<tr>
-      					<td>故障电弧A型</td>			
-      					<td class='eventType'><span class='warning'>最高10</span></td>
-      					<td class='eventType'><span class='warning'>最低1</span></td>
-      					<td class='eventType'><span class='danger'>最高10</span></td>
-      					<td class='eventType'><span class='danger'>最低1</span></td>
-      	          	</tr>
-		          	<tr>
-						<td>故障电弧A型</td>			
-						<td class='eventType'><span class='warning'>最高10</span></td>
-						<td class='eventType'><span class='warning'>最低1</span></td>
-						<td class='eventType'><span class='danger'>最高10</span></td>
-						<td class='eventType'><span class='danger'>最低1</span></td>
-		          	</tr>
-      	          	<tr>
-      					<td>故障电弧A型</td>			
-      					<td class='eventType'><span class='warning'>最高10</span></td>
-      					<td class='eventType'><span class='warning'>最低1</span></td>
-      					<td class='eventType'><span class='danger'>最高10</span></td>
-      					<td class='eventType'><span class='danger'>最低1</span></td>
-      	          	</tr>
+		          <tr ng-repeat="hiddendanger in hiddendangers">
+      					<td>{{hiddendanger.name}}</td>	
+      					<td class='eventType'><span class='warning'>最高{{hiddendanger.hiddenMax}}</span></td>
+      					<td class='eventType'><span class='warning'>最低{{hiddendanger.hiddenMin}}</span></td>
+      					<td class='eventType'><span class='danger'>最高{{hiddendanger.warningMax}}</span></td>
+      					<td class='eventType'><span class='danger'>最低{{hiddendanger.warningMin}}</span></td>
+		          </tr>
 		        </tbody>
 		      </table>
 		    </div>
