@@ -389,7 +389,6 @@ angular.module('app')
                           }]
                   }
               })
-
               .state('app.equipmentFault', {
                   url: '/equipmentFault',
                   templateUrl: 'proj/equipmentFault/equipmentFault.html',
@@ -402,6 +401,23 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/equipmentFault/equipmentFault.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+              .state('app.hiddenEdit', {
+                  url: '/hiddenEdit',
+                  templateUrl: 'proj/hiddenEdit/hiddenEdit.html',
+              	  controller : "hiddenEditControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'hiddenEdittModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/hiddenEdit/hiddenEdit.js',
             				    ]
             			})
                     }]
