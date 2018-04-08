@@ -248,7 +248,25 @@ angular.module('app')
 	              }
 	          })
 	         
-//	       
+//	                .state('app.hiddendangerInfo', {
+//			      url: '/hiddendangerInfo',
+//			      templateUrl: 'proj/hiddendangerInfo/hiddendangerInfo.html',
+//			  	  controller : "hiddendangerInfoNgControl",
+//			      resolve: {
+//			        deps: ['$ocLazyLoad',
+//			          function( $ocLazyLoad ){
+//			        	return $ocLazyLoad.load({
+//							name : 'hiddendangerInfoNgModule',
+//							insertBefore : '#ng_load_plugins_before',
+//							files : [
+//							    'proj/hiddendangerInfo/hiddendangerInfo.js',
+//							]
+//	        			})
+//	                }]
+//	              }
+//	          })
+	         
+	          
 	          
 	          
               .state('app.account', {
@@ -371,6 +389,7 @@ angular.module('app')
                           }]
                   }
               })
+
               .state('app.equipmentFault', {
                   url: '/equipmentFault',
                   templateUrl: 'proj/equipmentFault/equipmentFault.html',
@@ -383,23 +402,6 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/equipmentFault/equipmentFault.js',
-            				    ]
-            			})
-                    }]
-                  }
-              }) 
-              .state('app.hiddenEdit', {
-                  url: '/hiddenEdit',
-                  templateUrl: 'proj/hiddenEdit/hiddenEdit.html',
-              	  controller : "hiddenEditControl",
-              	  resolve: { 
-                    deps: ['$ocLazyLoad',
-                      function( $ocLazyLoad ){
-                    	return $ocLazyLoad.load({
-            				name : 'hiddenEdittModule',
-            				insertBefore : '#ng_load_plugins_before',
-            				files : [
-            				    'proj/hiddenEdit/hiddenEdit.js',
             				    ]
             			})
                     }]

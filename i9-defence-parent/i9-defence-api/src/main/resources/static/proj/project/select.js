@@ -48,13 +48,6 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
             });
             return false;
         }
-        var idArr = [];
-        var idStr;
-        $('#charge .ui-select-multiple>div>.ui-select-match>.ng-scope').each(function () {
-            idStr = $(this).find('.checkItem').attr('data-id');
-            idArr.push(idStr);
-        });
-        $scope.project.clientIds = idArr;
         //console.log(JSON.stringify($scope.project));
         httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
             $modalInstance.dismiss('cancel')
@@ -87,16 +80,14 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 
         $scope.counter = 0;
         $scope.someFunction = function (item, model){
-            console.log(2);
-            $scope.counter++;
-            $scope.eventResult = {item: item, model: model};
+        $scope.counter++;
+        $scope.eventResult = {item: item, model: model};
         };
 
         $scope.removed = function (item, model) {
-            console.log(1);
-            $scope.lastRemoved = {
-                item: item,
-                model: model
+        $scope.lastRemoved = {
+            item: item,
+            model: model
         	};
         };
 });

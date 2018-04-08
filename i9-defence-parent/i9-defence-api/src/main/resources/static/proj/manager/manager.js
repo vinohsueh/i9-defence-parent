@@ -1,8 +1,5 @@
-/**
- * 隐患操作js
- */
-var hiddenEditModule=angular.module('hiddenEditModule',['ngAnimate','ui.bootstrap','app']);
-var hiddenEditService = hiddenEditModule.factory('hiddenEditService',
+var managerNgModule=angular.module('managerNgModule',['ngAnimate','ui.bootstrap','app']);
+var managerService = managerNgModule.factory('managerService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -22,29 +19,26 @@ var hiddenEditService = hiddenEditModule.factory('hiddenEditService',
 			});
 			return resource;
 	}]);
-var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,hiddenEditService,httpService){
+var managerNgControl=managerNgModule.controller('managerNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,managerService,httpService){
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
-		var text = $scope.searchText;
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				//username : $scope.searchText
-				name : text,
-				code : text,
 			};
-		console.log(pageParam)
-		httpService.post({url:'./hiddenEdit/pagehiddenEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.hiddenEdits = data.data.data.pageList;
+		
+		httpService.post({url:'./manager/pageManager',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.managers = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
 			$scope.total = data.data.data.totalSize;
 			$scope.start = data.data.data.offset+1;
-			$scope.end = data.data.data.offset+$scope.hiddenEdits.length;
+			$scope.end = data.data.data.offset+$scope.managers.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
 		})
@@ -79,58 +73,53 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	}
 	
 	$scope.add = function () {  
-			$scope.equipmentCategory = data.data.equipmentCategory;
-			//$modalInstance.dismiss('cancel')
-			  var modalInstance = $modal.open({  
-		            templateUrl: 'proj/hiddenEdit/add.html',  
-		            controller: 'hiddenEditEditCtrl', 
-		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-		            resolve: {  
-		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-		        			return $ocLazyLoad.load({
-		        				name : 'hiddenEditEditNgModule',
-		        				insertBefore : '#ng_load_plugins_before',
-		        				files : [
-		        				         'proj/hiddenEdit/add.js',
-		        				]
-		        			});
-		        		}],
-		        		hiddenEdit: function () {  
-		                    return {};  
-		                },
-		            }  
-		        }); 
-		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-		            $scope.selected = data;
-		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-		        	$scope.initTable();
-		        });
+        var modalInstance = $modal.open({  
+            templateUrl: 'proj/manager/add.html',  
+            controller: 'managerEditCtrl', 
+            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+            resolve: {  
+            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+        			return $ocLazyLoad.load({
+        				name : 'managerEditNgModule',
+        				insertBefore : '#ng_load_plugins_before',
+        				files : [
+        				         'proj/manager/add.js',
+        				]
+        			});
+        		}],
+        		manager: function () {  
+                    return {};  
+                },
+            }  
+        }); 
+        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+            $scope.selected = data;
+        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+        	$scope.initTable();
+        });
+         
     };  
     //编辑
     $scope.edit = function (id) { 
-    	httpService.post({url:'./hiddenEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
-    		$scope.hiddenEdit = data.data.data;
-    		//$scope.equipmentCategory = data.data.equipmentCategory;
+    	httpService.post({url:'./manager/getManager',data:id,showSuccessMsg:false}).then(function(data) {  
+    		$scope.manager = data.data.data;
 			var modalInstance = $modal.open({  
-	            templateUrl: 'proj/hiddenEdit/add.html',  
-	            controller: 'hiddenEditEditCtrl', 
+	            templateUrl: 'proj/manager/add.html',  
+	            controller: 'managerEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'hiddenEditModule',
+	        				name : 'managerEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
-	        				         'proj/hiddenEdit/add.js',
+	        				         'proj/manager/add.js',
 	        				]
 	        			});
 	        		}],
-	        		hiddenEdit: function () {  
-	                    return $scope.hiddenEdit;  
+	            	manager: function () {  
+	                    return $scope.manager;  
 	                },
-//	                equipmentCategory: function () {  
-//	                    return $scope.equipmentCategory;  
-//	                },
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -149,7 +138,7 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		});
     	confirm("确定删除吗?", "", function (isConfirm) {
             if (isConfirm) {
-            	httpService.post({url:'./hiddenEdit/deleteBatch',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
+            	httpService.post({url:'./manager/delManager',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
             		$scope.initTable();
             	})
             } else {

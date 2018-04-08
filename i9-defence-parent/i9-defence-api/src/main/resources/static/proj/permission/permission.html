@@ -1,12 +1,12 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">账户管理</h1>
+  <h1 class="m-n font-thin h3">权限管理</h1>
 </div>
 <div controlled-rescode>
 <div class="wrapper-md">  
   <div class="panel panel-default">
     <div class="panel-heading">
-        <button class="btn m-b-xs w-sm btn-success btn-rounded account_add" ng-click="add()">新增项目账户</button>
-        <button class="btn m-b-xs w-xs btn-danger btn-rounded account_del" ng-click="del()">删除</button>
+        <button class="btn m-b-xs w-xs btn-success btn-rounded permission_crud" ng-click="add()">新增</button>
+        <button class="btn m-b-xs w-xs btn-danger btn-rounded permission_crud" ng-click="del()">删除</button>
     </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
@@ -17,17 +17,16 @@
           <option value="50">50</option>
           <option value="100">100</option>
         </select>
+        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
       </div>
       <div class="col-sm-4">
-      	<span>用户类型: </span>
-		<select ng-model='selectRoleName' ng-change="search()">
-			<option value="">-- 请选择 --</option>
-			<option ng-repeat='i in roles' value="{{i.name}}">{{i.name}}</option>
-		</select>
       </div>
       <div class="col-sm-3">
         <div class="input-group">
-          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="输入“地域”模糊查询"/>
+          <!-- <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
+          <!-- <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">Go!</button>
+          </span> -->
         </div>
       </div>
     </div>
@@ -40,47 +39,15 @@
                 <input type="checkbox" id="totalCheck"><i></i>
               </label>
             </th>
-            <th>注册时间</th>
-            <th>用户名</th>
-            <th>账户名称</th>
-            <th>账户类型</th>
-            <th>地域</th>
-            <th>联系方式</th>
-            <th>地址</th>
-            <th>Email</th>
-            <th>项目名称</th>
-            <th>项目安全责任人</th>
-            <th>开关</th>
+            <th>权限名称</th>
+            <th>权限代码</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="account in accounts">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{account.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td>{{account.createTimeStr}}</td>
-            <td>{{account.username}}</td>
-            <td>{{account.name}}</td>
-            <td>{{account.role.name}}</td>
-            <td>{{account.area}}</td>
-            <td>{{account.phone}}</td>
-            <td>{{account.address}}</td>
-            <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{account.email}}</td>
-            <td ng-if="account.projectName != null">{{account.projectName}}</td>
-            <td ng-if="account.projectName == null"></td>
-            <td ng-if="account.securitier==null"></td>
-            <td ng-if="account.securitier==0">否</td>
-            <td ng-if="account.securitier==1">是</td>
-            <td ng-if="account.status==0">
-            	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{account.id}},{{account.status}})" type="checkbox"/>
-	              <i></i>
-            	</label>
-            </td>
-            <td ng-if="account.status==1">
-             	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{account.id}},{{account.status}})" type="checkbox" checked/>
-	              <i></i>
-            	</label>
-            </td>
+          <tr ng-repeat="permission in permissions">
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{permission.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td ng-click="edit({{permission.id}})">{{permission.name}}</td>
+            <td ng-click="edit({{permission.id}})">{{permission.code}}</td>
           </tr>
         </tbody>
       </table>
