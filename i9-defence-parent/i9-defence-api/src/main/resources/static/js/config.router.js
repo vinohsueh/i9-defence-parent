@@ -389,6 +389,7 @@ angular.module('app')
                           }]
                   }
               })
+
               .state('app.equipmentFault', {
                   url: '/equipmentFault',
                   templateUrl: 'proj/equipmentFault/equipmentFault.html',
@@ -406,6 +407,7 @@ angular.module('app')
                     }]
                   }
               }) 
+<<<<<<< HEAD
               .state('app.hiddenEdit', {
                   url: '/hiddenEdit',
                   templateUrl: 'proj/hiddenEdit/hiddenEdit.html',
@@ -423,6 +425,8 @@ angular.module('app')
                     }]
                   }
               }) 
+=======
+>>>>>>> branch 'master' of https://github.com/vinohsueh/i9-defence-parent.git
               .state('app.hiddenDangerRemind', {
                   url: '/hiddenDangerRemind',
                   templateUrl: 'proj/hiddenDangerRemind/hiddenDangerRemind.html',
