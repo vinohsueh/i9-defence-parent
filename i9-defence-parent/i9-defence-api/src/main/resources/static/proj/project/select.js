@@ -31,7 +31,8 @@ app.filter('propsFilter', function() {
         return out;
     };
 })
-app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clientList,safeList,$modalInstance) {
+app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clientList,safeList,$modalInstance,
+		$rootScope, $cookieStore, $window, toaster,httpService) {
     $scope.project = project;
     $scope.clientList = clientList;
     $scope.safeList = safeList;
@@ -40,6 +41,41 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
     }
     // 确认添加
     $scope.confirmAdd = function() {
+    	 $scope.disabled = undefined;
+         $scope.searchEnabled = undefined;
+
+         $scope.enable = function() {
+         	$scope.disabled = false;
+         };
+
+         $scope.disable = function() {
+         	$scope.disabled = true;
+         };
+
+         $scope.enableSearch = function() {
+         	$scope.searchEnabled = true;
+         }
+
+         $scope.disableSearch = function() {
+         	$scope.searchEnabled = false;
+         }
+
+         $scope.clear = function() {
+         	$scope.person.selected = undefined;
+         };
+
+         $scope.counter = 0;
+         $scope.someFunction = function (item, model){
+ 	        $scope.counter++;
+ 	        $scope.eventResult = {item: item, model: model};
+         };
+
+         $scope.removed = function (item, model) {
+ 	        $scope.lastRemoved = {
+ 	            item: item,
+ 	            model: model
+ 	        	};
+         };
         if ($scope.project.projectName ==null ||$scope.project.projectName ==0) {
             $.toaster({
                 title : "Error",
@@ -48,6 +84,14 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
             });
             return false;
         }
+        $scope.project.clientIds = [];
+        //根据传入的动作和要操作的id更新Array
+        $scope.updateSelection = function (id) {
+        	console.log(id);
+        	$scope.project.clientIds.push(id);
+        }
+       
+        
         //console.log(JSON.stringify($scope.project));
         httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
             $modalInstance.dismiss('cancel')
@@ -55,39 +99,5 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
     };
 
     
-        $scope.disabled = undefined;
-        $scope.searchEnabled = undefined;
-
-        $scope.enable = function() {
-        $scope.disabled = false;
-        };
-
-        $scope.disable = function() {
-        $scope.disabled = true;
-        };
-
-        $scope.enableSearch = function() {
-        $scope.searchEnabled = true;
-        }
-
-        $scope.disableSearch = function() {
-        $scope.searchEnabled = false;
-        }
-
-        $scope.clear = function() {
-
-        };
-
-        $scope.counter = 0;
-        $scope.someFunction = function (item, model){
-        $scope.counter++;
-        $scope.eventResult = {item: item, model: model};
-        };
-
-        $scope.removed = function (item, model) {
-        $scope.lastRemoved = {
-            item: item,
-            model: model
-        	};
-        };
+       
 });
