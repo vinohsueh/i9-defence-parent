@@ -416,7 +416,7 @@
 		</sql>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,equipmentName,equipmentPosition,equipmentDate,systemId,projectName,hiddeCount from t_equipment
+			select id,equipmentName,equipmentPosition,equipmentDate,systemId,projectName,hiddeCount from v_hidden_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
