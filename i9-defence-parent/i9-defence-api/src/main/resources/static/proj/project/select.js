@@ -56,9 +56,15 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
             idArr.push(idStr);
         });
         $scope.project.clientIds = idArr;
-        //console.log(JSON.stringify(idArr));
         JSON.stringify($scope.project.clientIds);
-        //console.log(JSON.stringify($scope.project));
+        var idArr2 = [];
+        var idStr2;
+        $('#charge2 .ui-select-multiple>div>.ui-select-match>.ng-scope').each(function () {
+            idStr2 = $(this).find('.checkItem').attr('data-id');
+            idArr2.push(idStr2);
+        });
+        $scope.project.safeIds = idArr2;
+        JSON.stringify($scope.project.safeIds);
         httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
             $modalInstance.dismiss('cancel')
         })
@@ -100,7 +106,7 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
                 model: model
         	};
         };
-        //编辑页面默认选中的
+        //编辑页面默认选中的负责人
         $scope.clientNewList = [];
         var clientIds = $scope.project.clientIds;
         if(clientIds != null){
@@ -114,5 +120,22 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
                 	}
                 }
             }
-        }
+        };
+      //编辑页面默认选中的安全责任人
+        $scope.safeNewList = [];
+        var safeIds = $scope.project.safeIds;
+        if(safeIds != null){
+        	if(safeIds.length > 0){
+        		console.log(JSON.stringify(safeIds));
+        		console.log(JSON.stringify($scope.safeList));
+                for (var i = 0; i <  safeIds.length; i++) {
+                	for(c in $scope.safeList){
+                		if($scope.safeList[c].id == safeIds[i]){
+                			 $scope.safeNewList.push($scope.safeList[c]);
+                		}
+                	}
+                }
+            }
+        	console.log(JSON.stringify($scope.safeNewList));
+        };
 });
