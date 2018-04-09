@@ -126,8 +126,6 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
         var safeIds = $scope.project.safeIds;
         if(safeIds != null){
         	if(safeIds.length > 0){
-        		console.log(JSON.stringify(safeIds));
-        		console.log(JSON.stringify($scope.safeList));
                 for (var i = 0; i <  safeIds.length; i++) {
                 	for(c in $scope.safeList){
                 		if($scope.safeList[c].id == safeIds[i]){
@@ -136,6 +134,5 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
                 	}
                 }
             }
-        	console.log(JSON.stringify($scope.safeNewList));
         };
 });
