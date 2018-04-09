@@ -26,15 +26,34 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	//初始化
 	$scope.initTable = function (){
 		var text = $scope.searchText;
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name : ''
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name : ''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value : ''
+			}
+		}
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				projectName : text,
 				projectAddress : text,
+				projectProvince : $scope.selected.name,
+				projectCity : $scope.selected2.name,
+				projectCounty : $scope.selected3.value,
 			};
-		
+		//console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
+			//console.log(JSON.stringify($scope.projects));
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -225,5 +244,24 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
     	httpService.post({url:'./project/updateProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.initTable();
     	})
-	}
+	};
+    
+  //地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
 })
