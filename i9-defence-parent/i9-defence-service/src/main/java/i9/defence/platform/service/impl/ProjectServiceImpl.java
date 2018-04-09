@@ -46,41 +46,54 @@ public class ProjectServiceImpl implements ProjectService {
 	public void addProject(Project project) throws BusinessException {
 		try {
 			if (project.getId() != null) {
-				projectDao.updateProject(project);
+				this.updateProject2(project);
 			} else {
 				project.setProjectDate(new Date());
 				projectDao.addProject(project);
+				if(project.getClientIds2() != null  && project.getClientIds2().size() > 0){
+					//再增加 已有的 责任人
+					projectDao.insertIntoClientByProjectId(project.getId(), project.getClientIds2());
+				}
 			}
 		} catch (Exception e) {
 			throw new BusinessException("添加项目失败", e.getMessage());
 		}
 
 	}
-
+	
 	@Override
-	public void updateProject(Project project) throws BusinessException {
+	public void updateProject2(Project project) throws BusinessException {
 		try {
-			Integer status = project.getProjectState();
-			if (status == 0) {
-				project.setProjectState(1);
-			} else {
-				project.setProjectState(0);
-			}
 			//先删除 已有的 责任人
 			projectDao.deleteClientByProjectId(project.getId());
 			//先修改 安全责任人的 safe = 0
 			projectDao.updateSafeZeroByProjectId(project.getId());
-			if(project.getClientIds().size() > 0 ){
+			if(project.getClientIds2() != null  && project.getClientIds2().size() > 0){
 				//再增加 已有的 责任人
-				projectDao.insertIntoClientByProjectId(project.getId(), project.getClientIds());
+				projectDao.insertIntoClientByProjectId(project.getId(), project.getClientIds2());
 			}
-			if(project.getSafeIds().size() > 0 ) {
+			if(project.getSafeIds() != null && project.getSafeIds().size() > 0) {
 				//再修改 需要安全责任人的 safe = 1
 				projectDao.updateSafeOneByProjectId(project.getId(), project.getSafeIds());
 			}
 			projectDao.updateProject(project);
 		} catch (Exception e) {
-			throw new BusinessException("更新项目失败", e.getMessage());
+			throw new BusinessException("更新项目责任人、安全责任人等失败", e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateProject(Project project) throws BusinessException {
+		try {
+			Integer status = project.getProjectState();
+				if (status == 0) {
+					project.setProjectState(1);
+				} else{
+					project.setProjectState(0);
+				}
+			projectDao.updateProject(project);
+		} catch (Exception e) {
+			throw new BusinessException("更新项目失败开关状态", e.getMessage());
 		}
 
 	}
