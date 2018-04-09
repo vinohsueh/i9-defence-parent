@@ -72,9 +72,9 @@ public class ProjectServiceImpl implements ProjectService {
 				//再增加 已有的 责任人
 				projectDao.insertIntoClientByProjectId(project.getId(), project.getClientIds2());
 			}
-			if(project.getSafeIds() != null && project.getSafeIds().size() > 0) {
+			if(project.getSafeIds2() != null && project.getSafeIds2().size() > 0) {
 				//再修改 需要安全责任人的 safe = 1
-				projectDao.updateSafeOneByProjectId(project.getId(), project.getSafeIds());
+				projectDao.updateSafeOneByProjectId(project.getId(), project.getSafeIds2());
 			}
 			projectDao.updateProject(project);
 		} catch (Exception e) {
