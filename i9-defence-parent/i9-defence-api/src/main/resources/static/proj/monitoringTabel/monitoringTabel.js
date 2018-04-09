@@ -167,7 +167,8 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			};
 		
 		httpService.post({url:'./hiddenDangerEdit/gatAllHiddenDanger',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.projects = data.data.data.pageList;
+			console.log(JSON.stringify(data));
+			/*$scope.projects = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -175,7 +176,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			$scope.start = data.data.data.offset+1;
 			$scope.end = data.data.data.offset+$scope.projects.length;
 			$scope.pages = data.data.data.loopPageNum;
-			$scope.currentPage = pageParam.currentPage;
+			$scope.currentPage = pageParam.currentPage;*/
 		})
 	};
 	$scope.pageInit();
