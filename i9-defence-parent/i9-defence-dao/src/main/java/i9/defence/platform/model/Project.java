@@ -278,9 +278,20 @@ public class Project {
 		}
 		return "暂无安全负责人";
 	}
+	
+	public List<Integer> getSafeIds2() {
+		return safeIds;
+	}
 
 	public List<Integer> getSafeIds() {
-		return safeIds;
+		List<Integer> sList = new ArrayList<>();
+		if(safeList.size()>0) {
+			for(Manager manager:safeList) {
+				sList.add(manager.getId());
+			}
+			return sList;
+		}
+		return sList;
 	}
 
 	public void setSafeIds(List<Integer> safeIds) {
