@@ -47,9 +47,9 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 				projectCity : $scope.selected2.name,
 				projectCounty : $scope.selected3.value
 			};
-		console.log(pageParam)
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
+			
 			$scope.equipmentCategorys = data.data.equipmentCategory;
 			$scope.projects = data.data.project;
 			$scope.hasPrevious = data.data.data.hasPrevious;
@@ -138,9 +138,11 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		        });
     };  
     //编辑
-    $scope.edit = function (id) { 
-    	httpService.post({url:'./hiddenEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
+    $scope.edit = function (systemId) { 
+    	console.log(systemId)
+    	httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
+    		console.log($scope.hiddenEdit);
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/hiddenEdit/add.html',  

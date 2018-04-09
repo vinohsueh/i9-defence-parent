@@ -38,6 +38,8 @@ public interface EquipmentMapper {
     
     List<Equipment> selectByLimitPage(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
+    List<Equipment> selectByLimitPage2(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize,@Param("distributorId")Integer distributorId);
+    
     List<Passageway> selectPassagewayByEid(String systemId);
     
     void insertPassageWay(@Param("Passageway") Passageway passageway);

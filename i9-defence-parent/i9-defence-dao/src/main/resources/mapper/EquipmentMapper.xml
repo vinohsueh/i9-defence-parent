@@ -362,7 +362,34 @@
         </if>
         limit #{offset},#{limit}
    </select>
-   
+   <select id="selectByLimitPage2" resultMap="BaseResultMap">
+        select e.id as id, e.equipmentName as equipmentName, e.equipmentNum as equipmentNum, e.equipmentIdentifier as equipmentIdentifier, e.equipmentPosition as equipmentPosition, e.equipmentDate as equipmentDate, 
+    e.equipmentRemarks as equipmentRemarks, e.equipmentCategoryId as equipmentCategoryId,e.projectId as projectId,e.systemId as systemId,e.unit as unit,e.loopl as loopl,e.delStatus as delStatus from t_equipment e left join t_project p on e.projectId = p.id 
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause2" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
+   <sql id="Query_By_Dto_Where_Clause2">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.equipmentName != null and example.equipmentName != ''">
+         OR( equipmentName LIKE CONCAT('%',CONCAT('${example.equipmentName}','%'))
+        </if>
+        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
+          OR equipmentIdentifier LIKE CONCAT('%',CONCAT('${example.equipmentIdentifier}','%'))
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%')))
+        </if>
+        and p.distributorId = #{distributorId,jdbcType=INTEGER}
+    </trim>
+  </sql>
    <select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
    select channel,name,systemId,hiddenDangerId
     from  t_passageway	
@@ -439,10 +466,10 @@
 			limit #{offset},#{limit}
 		</select>
 		<!-- 查询具体隐患报警 -->
-		 <select id="selectHiddenDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
+		 <select id="selectHiddenDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
 			  select id,systemId,name,value,dateTime
 			   from  v_hiddendanger_channel_data	
-			    where systemId=#{systemId}  
+			    where systemId=#{systemId,jdbcType=VARCHAR}
 		  </select>
 		
 	<!-- ———————————— 隐患与报警———————————— -->

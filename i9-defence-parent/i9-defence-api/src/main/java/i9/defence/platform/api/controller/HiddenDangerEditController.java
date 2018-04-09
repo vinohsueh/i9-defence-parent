@@ -58,7 +58,7 @@ public class HiddenDangerEditController {
 	 * @return
 	 */
 	@RequestMapping("/selectHiddenDangerChannelDtoBySid")
-	public HashMap<String, Object> selectHiddenDangerChannelDtoBySid(String systemId) {
+	public HashMap<String, Object> selectHiddenDangerChannelDtoBySid(@RequestBody String systemId) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<HiddenDangerChannelDto> list = equipmentService.selectHiddenDangerChannelDtoBySid(systemId);
 		result.put("data", list);

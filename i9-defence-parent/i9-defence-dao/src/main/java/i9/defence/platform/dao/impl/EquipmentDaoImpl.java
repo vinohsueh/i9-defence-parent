@@ -37,6 +37,16 @@ public class EquipmentDaoImpl implements EquipmentDao{
         pageBounds.setPageList(list);
         return pageBounds;
 	}
+	
+	@Override
+	public PageBounds<Equipment> selectByLimitPage2(EquipmentSearchDto equipmentSearchDto, int currectPage, int pageSize ,int distributorId)
+			throws Exception {
+		final int totalSize = equipmentMapper.countByExample(equipmentSearchDto);
+        PageBounds<Equipment> pageBounds = new PageBounds<Equipment>(currectPage, totalSize, pageSize);
+        List<Equipment> list = equipmentMapper.selectByLimitPage2(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize(),distributorId);
+        pageBounds.setPageList(list);
+        return pageBounds;
+	}
 
 	@Override
 	public void addEquipment(Equipment equipment) throws Exception {

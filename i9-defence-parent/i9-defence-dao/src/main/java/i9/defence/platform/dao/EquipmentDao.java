@@ -26,6 +26,14 @@ public interface EquipmentDao {
      */
     PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto,
             int currectPage, int pageSize) throws Exception;
+    /**
+     * 如果为经销商和管理员，分页查询设备
+     * @param equipmentSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<Equipment> selectByLimitPage2(EquipmentSearchDto equipmentSearchDto, int currentPage, int pageSize,int distributorId) throws Exception;
     
     /**
      * 添加设备
@@ -101,6 +109,7 @@ public interface EquipmentDao {
      * @return
      */
     List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
+
     
     /**
    	 * 根据id处理报警隐患

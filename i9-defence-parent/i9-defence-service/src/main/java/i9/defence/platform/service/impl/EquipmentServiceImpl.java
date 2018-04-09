@@ -18,8 +18,10 @@ import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
+import i9.defence.platform.model.ApplyExample.Criteria;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.BusinessException;
@@ -47,10 +49,20 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto)
 			throws BusinessException {
 		try {
-			return equipmentDao.selectByLimitPage(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize());
+			//获取登录人
+			Manager loginManager = managerService.getLoginManager();
+			//如果为网站用户显示全部（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				return equipmentDao.selectByLimitPage(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize());
+			}
+			//如果为经销商和管理员
+			else if (Arrays.asList(Constants.S_ACCOUNT).contains(loginManager.getType())) {
+				return equipmentDao.selectByLimitPage2(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize(),loginManager.getId());
+			}
 		} catch (Exception e) {
 			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
 		}
+		return null;
 	}
 
 	@Override
