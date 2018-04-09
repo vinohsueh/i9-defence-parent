@@ -28,17 +28,35 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:''
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
 		var text = $scope.searchText;
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				//username : $scope.searchText
-				name : text,
-				code : text,
+				eqCategoryName : $scope.eqCategoryName,
+				projectName : $scope.projectName,
+				projectProvince : $scope.selected.name,
+				projectCity : $scope.selected2.name,
+				projectCounty : $scope.selected3.value
 			};
-		console.log(pageParam)
-		httpService.post({url:'./hiddenEdit/pagehiddenEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
+			$scope.equipmentCategorys = data.data.equipmentCategory;
+			$scope.projects = data.data.project;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -78,6 +96,24 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		$scope.initTable();
 	}
 	
+	// 地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
 	$scope.add = function () {  
 			$scope.equipmentCategory = data.data.equipmentCategory;
 			//$modalInstance.dismiss('cancel')
@@ -107,8 +143,8 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		        });
     };  
     //编辑
-    $scope.edit = function (id) { 
-    	httpService.post({url:'./hiddenEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
+    $scope.edit = function (systemId) { 
+    	httpService.post({url:'./hiddenDangerEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  

@@ -389,6 +389,7 @@ angular.module('app')
                           }]
                   }
               })
+
               .state('app.equipmentFault', {
                   url: '/equipmentFault',
                   templateUrl: 'proj/equipmentFault/equipmentFault.html',
@@ -414,7 +415,7 @@ angular.module('app')
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                     	return $ocLazyLoad.load({
-            				name : 'hiddenEdittModule',
+            				name : 'hiddenEditModule',
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/hiddenEdit/hiddenEdit.js',

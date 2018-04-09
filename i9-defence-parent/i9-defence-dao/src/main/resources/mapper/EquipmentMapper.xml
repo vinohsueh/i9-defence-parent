@@ -59,7 +59,6 @@
         <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
           OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%')))
         </if>
-        and delStatus=1
     </trim>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
@@ -393,30 +392,52 @@
 	<!-- ———————————— 隐患与报警———————————— -->
 
 		<select id="countHiddenDangerByExample" resultType="java.lang.Integer">
-			select count(*) from v_hidden_edit
+			select count(*) from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
 		</select>
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<!--根据项目名称 模糊搜索  -->	
 				<if test="example.projectName != null and example.projectName != ''">
-					OR( projectName LIKE
-					CONCAT('%',CONCAT('${example.projectName}','%'))
+					and projectName ='${example.projectName}'
 				</if>
-				<if test="example.equipmentDate != null and example.equipmentDate != ''">
-					OR( equipmentDate LIKE
-					CONCAT('%',CONCAT('${example.equipmentDate}','%'))
+				<!--根据设备类型 模糊搜索  -->	
+				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">
+					and eqCategoryName ='${example.eqCategoryName}'
 				</if>
-				<if test="example.equipmentPosition != null and example.equipmentPosition != ''">
-					OR( equipmentPosition LIKE
-					CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+				<!--根据项目所在省 模糊搜索  -->	
+				<if test="example.projectProvince != null and example.projectProvince != ''">
+					and projectProvince ='${example.projectProvince}'
 				</if>
+				<!--根据项目所在市 模糊搜索  -->	
+				<if test="example.projectCity != null and example.projectCity != ''">
+					and projectCity ='${example.projectCity}'
+				</if>
+				<!--根据项目所在县/区 模糊搜索  -->	
+				<if test="example.projectCounty != null and example.projectCounty != ''">
+					and projectCounty ='${example.projectCounty}'
+				</if>
+				<!--隐患不为0  -->	
+				<if test="example.hidden != null and example.hidden != ''">
+					and hiddeCount != 0
+				</if>
+				<!--报警不为0  -->	
+				<if test="example.danger != null and example.danger != ''">
+					and warningCount != 0 
+				</if>
+				<!-- <if test="example.startDate != null and example.startDate != ''">
+					and example.startDate &lt; equipmentDate
+				</if>
+				<if test="example.endDate != null and example.endDate != ''">
+					and example.endDate &gt; equipmentDate
+				</if> -->
 			</trim>
 		</sql>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,equipmentName,equipmentPosition,equipmentDate,systemId,projectName,hiddeCount from t_equipment
+			select id,systemId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -424,6 +445,13 @@
 				order by ${example.orderByClause}
 			</if>
 			limit #{offset},#{limit}
+		</select>
+		<!-- 查询全部 -->
+		<select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+			select id,systemId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
 		</select>
 	<!-- ———————————— 隐患与报警———————————— -->
 </mapper>

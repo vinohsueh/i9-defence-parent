@@ -20,57 +20,40 @@ var projectService = projectNgModule.factory('projectService',
 			return resource;
 	}]);
 var projectNgControl=projectNgModule.controller('projectNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,projectService,httpService){
-	//日期
-	var myDate = new Date(2000,00,00);
-	var dYear = myDate.getFullYear();
-	var dMonth = myDate.getMonth()+1;
-	var dDay = myDate.getDate();
-	$scope.startTime = dYear+'/'+dMonth+'/'+dDay;
-
-	$scope.change = function () {
-		var myStartDate = this.startTime;
-		var dYear = myStartDate.getFullYear();
-		var dMonth = myStartDate.getMonth()+1;
-		var dDay = myStartDate.getDate();
-		$scope.startCheckTime = dYear+'/'+dMonth+'/'+dDay;
-		console.log(this.startCheckTime);
-	}
-	
-	// $scope.endTime = this.startCheckTime;
-
-	//地域
-	$scope.error = {};
-	$scope.division = division;
-	$scope.c = function () {
-	   $scope.error.province = false;
-	   $scope.error.city = false;
-	   $scope.error.area = false;
-	   $scope.selected2 = "";
-	   $scope.selected3 = "";
-	};
-	$scope.c2 = function () {       
-	   $scope.error.city = false;
-	   $scope.error.area = false;
-	   $scope.selected3 = "";
-	};
-	$scope.c3 = function () {
-	   $scope.error.area = false;
-	};
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
 		var text = $scope.searchText;
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name : ''
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name : ''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value : ''
+			}
+		}
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				projectName : text,
 				projectAddress : text,
+				projectProvince : $scope.selected.name,
+				projectCity : $scope.selected2.name,
+				projectCounty : $scope.selected3.value,
 			};
-		
+		//console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
+			//console.log(JSON.stringify($scope.projects));
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -145,13 +128,18 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 		})     
     };  
     //编辑
-    $scope.edit = function (dom) { 
-    	var projectId = $(dom.target).attr("data-id");
-    	var distributorId = $(dom.target).attr("data-distributorId");
-    	httpService.post({url:'./project/getProject',data:{projectId:projectId,distributorId:distributorId},showSuccessMsg:false}).then(function(data) {  
+    $scope.edit = function (ids) { 
+    	var projectId = ids.split(',')[0];
+    	var distributorId = ids.split(',')[1];
+    	var projectGetDto = {
+    			projectId:projectId,
+    			distributorId:distributorId
+    	}
+    	httpService.post({url:'./project/getProject',data:JSON.stringify(projectGetDto),showSuccessMsg:false}).then(function(data) {  
     		$scope.project = data.data.project;
     		$scope.clientList = data.data.clientList;
     		$scope.safeList = data.data.safeList;
+    		//console.log(JSON.stringify($scope.clientList));
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/project/add.html',  
 	            controller: 'projectEditCtrl', 
@@ -256,5 +244,24 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
     	httpService.post({url:'./project/updateProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.initTable();
     	})
-	}
+	};
+    
+  //地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
 })

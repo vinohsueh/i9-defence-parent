@@ -91,4 +91,10 @@ public class EquipmentDaoImpl implements EquipmentDao{
         return pageBounds;
 	}
 
+	@Override
+	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws Exception {
+		List<HiddenDangerDto> list =equipmentMapper.selectAllHiddenDanger(hiddenDangerSearchDto);
+		return list;
+	}
+
 }

@@ -42,7 +42,7 @@ public class Project {
     @NotNull(message="建筑面积不能为空")
     private Integer projectArea;
     //经销商Id
-    @NotNull(message="经销商Id不能为空")
+    //@NotNull(message="经销商Id不能为空")
     private Integer distributorId;
     //备注
     @NotBlank(message="备注不能为空")
@@ -56,6 +56,9 @@ public class Project {
     private Integer delCount;
     //项目负责人 一对多
     private List<Client> clientList;
+  //接收前台传参  项目负责人人IDS们
+    @SuppressWarnings("unused")
+	private List<Integer> clientIds;
     //安全责任人 一对多
     private List<Manager> safeList;
     //接收前台传参  项目安全责任人IDS们
@@ -231,7 +234,11 @@ public class Project {
 		}
 		return "暂无项目负责人";
 	}
-
+//这个是   后台操作的参数   配合set使用  与前台传参有关
+	public List<Integer> getClientIds2() {
+		return clientIds;
+	}
+//这个是  初始化 传到前端 的参数   用来展示默认选中的
 	public List<Integer> getClientIds() {
 		List<Integer> cList = new ArrayList<>();
 		if(clientList.size()>0) {
@@ -244,6 +251,7 @@ public class Project {
 	}
 
 	public void setClientIds(List<Integer> clientIds) {
+		this.clientIds = clientIds;
 	}
 
 	public List<Manager> getSafeList() {
@@ -270,9 +278,20 @@ public class Project {
 		}
 		return "暂无安全负责人";
 	}
+	
+	public List<Integer> getSafeIds2() {
+		return safeIds;
+	}
 
 	public List<Integer> getSafeIds() {
-		return safeIds;
+		List<Integer> sList = new ArrayList<>();
+		if(safeList.size()>0) {
+			for(Manager manager:safeList) {
+				sList.add(manager.getId());
+			}
+			return sList;
+		}
+		return sList;
 	}
 
 	public void setSafeIds(List<Integer> safeIds) {

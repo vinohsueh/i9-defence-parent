@@ -3,7 +3,7 @@
 	  <h1 class="m-n font-thin h3">隐患提醒设置管理</h1>
 	</div>
 	<div class="wrapper-md"> 
-		<form action="" class='form-inline myBox'>
+		<!-- <form action="" class='form-inline myBox'>
 			<div class="form-group">
 				<label for="" class='mr-10'>隐患提醒</label>
 				<input type="number" class='form-control blue_bg' value='1'>
@@ -15,13 +15,13 @@
 			</div>
 		  
 		  	<button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
-		</form> 
+		</form>  -->
 	  	<div class="panel panel-default">
-		    <div class="panel-heading text-right">
+		   <!--  <div class="panel-heading text-right">
 		        <button class="btn  btn-success" ng-click="add()">新增</button>
-		    </div>
-		    <div class="row wrapper">
-		      <div class="col-sm-5 m-b-xs">
+		    </div> -->
+		    <div class="row panel-heading">
+		      <div class="col-sm-6 m-b-xs">
 		        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
 		          <option value="5">5</option>
 		          <option value="10">10</option>
@@ -31,15 +31,8 @@
 		        </select>
 		        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
 		      </div>
-		      <div class="col-sm-4">
-		      </div>
-		      <div class="col-sm-3">
-		        <div class="input-group">
-		          <!-- <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
-		          <!-- <span class="input-group-btn">
-		            <button class="btn btn-sm btn-default" type="button">Go!</button>
-		          </span> -->
-		        </div>
+		      <div class="col-sm-6 text-right">
+		        	<button class="btn  btn-success" ng-click="add()">新增</button>
 		      </div>
 		    </div>
 		    <div class="table-responsive">
@@ -58,38 +51,13 @@
 		         </tr>
 		        </thead>
 		        <tbody class='text-center'>
-		          <!-- <tr ng-repeat="hiddendanger in hiddendangers">
-		            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddendanger.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-		            <td ng-click="edit({{hiddendanger.id}})">{{hiddendanger.name}}</td>
-		          </tr> -->
-		          	<tr>
-						<td>故障电弧A型</td>			
-						<td class='eventType'><span class='warning'>最高10</span></td>
-						<td class='eventType'><span class='warning'>最低1</span></td>
-						<td class='eventType'><span class='danger'>最高10</span></td>
-						<td class='eventType'><span class='danger'>最低1</span></td>
-		          	</tr>
-      	          	<tr>
-      					<td>故障电弧A型</td>			
-      					<td class='eventType'><span class='warning'>最高10</span></td>
-      					<td class='eventType'><span class='warning'>最低1</span></td>
-      					<td class='eventType'><span class='danger'>最高10</span></td>
-      					<td class='eventType'><span class='danger'>最低1</span></td>
-      	          	</tr>
-		          	<tr>
-						<td>故障电弧A型</td>			
-						<td class='eventType'><span class='warning'>最高10</span></td>
-						<td class='eventType'><span class='warning'>最低1</span></td>
-						<td class='eventType'><span class='danger'>最高10</span></td>
-						<td class='eventType'><span class='danger'>最低1</span></td>
-		          	</tr>
-      	          	<tr>
-      					<td>故障电弧A型</td>			
-      					<td class='eventType'><span class='warning'>最高10</span></td>
-      					<td class='eventType'><span class='warning'>最低1</span></td>
-      					<td class='eventType'><span class='danger'>最高10</span></td>
-      					<td class='eventType'><span class='danger'>最低1</span></td>
-      	          	</tr>
+		          <tr ng-repeat="hiddendanger in hiddendangers">
+      					<td>{{hiddendanger.name}}</td>	
+      					<td class='eventType'><span class='warning'>最高{{hiddendanger.hiddenMax}}</span></td>
+      					<td class='eventType'><span class='warning'>最低{{hiddendanger.hiddenMin}}</span></td>
+      					<td class='eventType'><span class='danger'>最高{{hiddendanger.warningMax}}</span></td>
+      					<td class='eventType'><span class='danger'>最低{{hiddendanger.warningMin}}</span></td>
+		          </tr>
 		        </tbody>
 		      </table>
 		    </div>
