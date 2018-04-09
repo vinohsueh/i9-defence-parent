@@ -26,6 +26,15 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
+	$scope.selected={
+			name : "",
+		}
+		$scope.selected2={
+				name : "",
+			}
+		$scope.selected3={
+				name : "",
+			}
 	//初始化
 	$scope.initTable = function (){
 		var text = $scope.searchText;
@@ -34,9 +43,9 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 				currentPage:$scope.currentPage,
 				eqCategoryName : $scope.eqCategoryName,
 				projectName : $scope.projectName,
-				projectProvince : $scope.selected,
-				projectCity : $scope.selected2,
-				projectCounty : $scope.selected3
+				projectProvince : $scope.selected.name,
+				projectCity : $scope.selected2.name,
+				projectCounty : $scope.selected3.value
 			};
 		console.log(pageParam)
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
@@ -100,7 +109,6 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	$scope.c3 = function () {
 	   $scope.error.area = false;
 	};
-	
 	$scope.add = function () {  
 			$scope.equipmentCategory = data.data.equipmentCategory;
 			//$modalInstance.dismiss('cancel')
