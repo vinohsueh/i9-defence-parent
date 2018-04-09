@@ -32,13 +32,17 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				//username : $scope.searchText
-				name : text,
+				eqCategoryName : $scope.eqCategoryName,
+				projectName : $scope.projectName,
+				projectProvince : $scope.selected,
+				projectCity : $scope.selected2,
+				projectCounty : $scope.selected3
 			};
+		console.log(pageParam)
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
 			$scope.equipmentCategorys = data.data.equipmentCategory;
-			$scope.projects = data.data.data.project;
+			$scope.projects = data.data.project;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -175,8 +179,4 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
-	httpService.post({url:'./eqCategory/serchEqCategory',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
-		$scope.equipmentCategory = data.data.data;
-		console.log($scope.equipmentCategory)
-	})
 })
