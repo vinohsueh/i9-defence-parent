@@ -401,28 +401,23 @@
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
 				<if test="example.projectName != null and example.projectName != ''">
-					OR projectName LIKE
-					CONCAT('%',CONCAT('${example.projectName}','%'))
-				</if>
-				<!--根据项目所在省 模糊搜索  -->	
-				<if test="example.projectProvince != null and example.projectProvince != ''">
-					OR projectProvince LIKE
-					CONCAT('%',CONCAT('${example.projectProvince}','%'))
-				</if>
-				<!--根据项目所在市 模糊搜索  -->	
-				<if test="example.projectCity != null and example.projectCity != ''">
-					OR projectCity LIKE
-					CONCAT('%',CONCAT('${example.projectCity}','%'))
-				</if>
-				<!--根据项目所在县/区 模糊搜索  -->	
-				<if test="example.projectCounty != null and example.projectCounty != ''">
-					OR projectCounty LIKE
-					CONCAT('%',CONCAT('${example.projectCounty}','%'))
+					and projectName ='${example.projectName}'
 				</if>
 				<!--根据设备类型 模糊搜索  -->	
 				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">
-					OR eqCategoryName LIKE
-					CONCAT('%',CONCAT('${example.eqCategoryName}','%'))
+					and eqCategoryName ='${example.eqCategoryName}'
+				</if>
+				<!--根据项目所在省 模糊搜索  -->	
+				<if test="example.projectProvince != null and example.projectProvince != ''">
+					and projectProvince ='${example.projectProvince}'
+				</if>
+				<!--根据项目所在市 模糊搜索  -->	
+				<if test="example.projectCity != null and example.projectCity != ''">
+					and projectCity ='${example.projectCity}'
+				</if>
+				<!--根据项目所在县/区 模糊搜索  -->	
+				<if test="example.projectCounty != null and example.projectCounty != ''">
+					and projectCounty ='${example.projectCounty}'
 				</if>
 				<!-- <if test="example.startDate != null and example.startDate != ''">
 					and example.startDate &lt; equipmentDate
@@ -434,7 +429,7 @@
 		</sql>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			select id,systemId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
