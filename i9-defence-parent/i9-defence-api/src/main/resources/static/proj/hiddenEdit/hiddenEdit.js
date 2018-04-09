@@ -26,17 +26,23 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
-	$scope.selected={
-			name : "",
-		}
-		$scope.selected2={
-				name : "",
-			}
-		$scope.selected3={
-				name : "",
-			}
 	//初始化
 	$scope.initTable = function (){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:''
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
 		var text = $scope.searchText;
 		var pageParam = {
 				pageSize:$scope.pageSize,
@@ -47,7 +53,6 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 				projectCity : $scope.selected2.name,
 				projectCounty : $scope.selected3.value
 			};
-		console.log(pageParam)
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
 			$scope.equipmentCategorys = data.data.equipmentCategory;
@@ -138,8 +143,8 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		        });
     };  
     //编辑
-    $scope.edit = function (id) { 
-    	httpService.post({url:'./hiddenEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
+    $scope.edit = function (systemId) { 
+    	httpService.post({url:'./hiddenDangerEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  

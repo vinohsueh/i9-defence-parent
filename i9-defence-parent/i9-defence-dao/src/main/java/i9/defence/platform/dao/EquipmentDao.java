@@ -92,4 +92,8 @@ public interface EquipmentDao {
      */
     PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto,
             int currectPage, int pageSize) throws Exception;
+    /**
+     * 查询全部隐患报警
+     */
+    List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;
 }

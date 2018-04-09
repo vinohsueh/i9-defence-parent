@@ -420,6 +420,14 @@
 				<if test="example.projectCounty != null and example.projectCounty != ''">
 					and projectCounty ='${example.projectCounty}'
 				</if>
+				<!--隐患不为0  -->	
+				<if test="example.hidden != null and example.hidden != ''">
+					and hiddeCount != 0
+				</if>
+				<!--报警不为0  -->	
+				<if test="example.danger != null and example.danger != ''">
+					and warningCount != 0 
+				</if>
 				<!-- <if test="example.startDate != null and example.startDate != ''">
 					and example.startDate &lt; equipmentDate
 				</if>
@@ -438,6 +446,13 @@
 				order by ${example.orderByClause}
 			</if>
 			limit #{offset},#{limit}
+		</select>
+		<!-- 查询全部 -->
+		<select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+			select id,systemId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
 		</select>
 	<!-- ———————————— 隐患与报警———————————— -->
 </mapper>

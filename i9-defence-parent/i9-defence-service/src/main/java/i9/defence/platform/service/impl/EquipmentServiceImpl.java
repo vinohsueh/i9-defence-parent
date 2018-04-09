@@ -234,5 +234,15 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
 		}
 	}
+
+	@Override
+	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException {
+		try {
+			List<HiddenDangerDto> list = equipmentDao.getAllHiddenDanger(hiddenDangerSearchDto);
+			return list;
+		}catch (Exception e) {
+			throw new BusinessException("查询全部失败",e.getMessage());
+		}
+	}
 }
 
