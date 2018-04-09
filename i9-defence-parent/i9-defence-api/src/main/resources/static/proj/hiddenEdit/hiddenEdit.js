@@ -47,6 +47,8 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
+				hidden : 'true',
+				danger : 'true',
 				eqCategoryName : $scope.eqCategoryName,
 				projectName : $scope.projectName,
 				projectProvince : $scope.selected.name,
