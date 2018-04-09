@@ -111,6 +111,7 @@ app.controller('SelectCtrl', function($scope, $http, $timeout) {
         { name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
         { name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
         ];
+
         $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 
         $scope.multipleDemo = {};
@@ -118,7 +119,7 @@ app.controller('SelectCtrl', function($scope, $http, $timeout) {
         $scope.multipleDemo.selectedPeople = [$scope.people[5], $scope.people[4]];
         $scope.multipleDemo.selectedPeopleWithGroupBy = [$scope.people[8], $scope.people[6]];
         $scope.multipleDemo.selectedPeopleSimple = ['samantha@email.com','wladimir@email.com'];
-        console.log(JSON.stringify($scope.multipleDemo.selectedPeople ));
+
 
         $scope.address = {};
         $scope.refreshAddresses = function(address) {

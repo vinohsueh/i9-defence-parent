@@ -58,6 +58,7 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
         $scope.project.clientIds = idArr;
         //console.log(JSON.stringify(idArr));
         JSON.stringify($scope.project.clientIds);
+        //console.log(JSON.stringify($scope.project));
         httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
             $modalInstance.dismiss('cancel')
         })

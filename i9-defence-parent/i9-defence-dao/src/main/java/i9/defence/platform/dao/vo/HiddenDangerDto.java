@@ -1,9 +1,5 @@
 package i9.defence.platform.dao.vo;
 
-import java.util.Date;
-
-import i9.defence.platform.utils.StringUtil;
-
 /** 
 * @author user: jiace
 * @version creatTime：2018年4月4日 下午4:50:36 
@@ -25,10 +21,6 @@ public class HiddenDangerDto {
 	 */
 	private String equipmentPosition;
 	/*
-	 * 设备穿件日期
-	 */
-	private Date equipmentDate;
-	/*
 	 * 设备编号
 	 */
 	private String systemId;
@@ -44,12 +36,26 @@ public class HiddenDangerDto {
 	 * 设备报警数据
 	 */
 	private Integer warningCount;
+	/*
+	 * 设备类型
+	 */
+	private String eqCategoryName;
+	/*
+	 * 安全负责人
+	 */
+	private String personLiableMan;
 	
-	public Date getEquipmentDate() {
-		return equipmentDate;
+	public String getPersonLiableMan() {
+		return personLiableMan;
 	}
-	public void setEquipmentDate(Date equipmentDate) {
-		this.equipmentDate = equipmentDate;
+	public void setPersonLiableMan(String personLiableMan) {
+		this.personLiableMan = personLiableMan;
+	}
+	public String getEqCategoryName() {
+		return eqCategoryName;
+	}
+	public void setEqCategoryName(String eqCategoryName) {
+		this.eqCategoryName = eqCategoryName;
 	}
 	public Integer getId() {
 		return id;
@@ -92,13 +98,6 @@ public class HiddenDangerDto {
 	}
 	public void setWarningCount(Integer warningCount) {
 		this.warningCount = warningCount;
-	}
-
-	public String getEquipmentDateStr() {
-		if (equipmentDate != null) {
-			return StringUtil.dateToString(equipmentDate);
-		}
-		return "";
 	}
 }
  
