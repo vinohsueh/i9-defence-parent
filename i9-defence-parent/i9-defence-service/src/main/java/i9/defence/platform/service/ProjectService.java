@@ -23,11 +23,18 @@ public interface ProjectService {
     void addProject(Project project) throws BusinessException;
     
     /**
-     * 更新项目
+     * 更新项目开关状态
      * @param project
      * @throws Exception
      */
     void updateProject(Project project) throws BusinessException;
+    
+    /**
+     * 更新项目的责任人和安全责任人等等
+     * @param project
+     * @throws Exception
+     */
+    void updateProject2(Project project) throws BusinessException;
     
     /**
      * 删除项目
