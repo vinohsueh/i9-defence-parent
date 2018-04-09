@@ -106,5 +106,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) {
 		return equipmentMapper.selectHiddenDangerChannelDtoBySid(systemId);
 	}
+	
+	@Override
+	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws Exception {
+		List<HiddenDangerDto> list =equipmentMapper.selectAllHiddenDanger(hiddenDangerSearchDto);
+		return list;
+	}
 
 }

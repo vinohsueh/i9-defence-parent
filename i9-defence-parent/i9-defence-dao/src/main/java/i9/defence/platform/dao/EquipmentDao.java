@@ -118,4 +118,10 @@ public interface EquipmentDao {
    	 * @param systemId
    	 * @return
    	 */
+    
+    
+    /**
+     * 查询全部隐患报警
+     */
+    List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;
 }

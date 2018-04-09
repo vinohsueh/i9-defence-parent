@@ -50,4 +50,6 @@ public interface EquipmentMapper {
 
     //查询具体隐患报警
     List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
+    //隐患报警 全部查询
+    List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 }

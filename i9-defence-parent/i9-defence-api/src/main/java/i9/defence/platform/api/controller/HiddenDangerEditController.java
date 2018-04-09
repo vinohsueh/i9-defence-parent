@@ -65,5 +65,15 @@ public class HiddenDangerEditController {
 		return result;
 	}
     
+    /*
+     *查询全部
+     */
+    @RequestMapping("/gatAllHiddenDanger")
+    public HashMap<String, Object> gatAllHiddenDanger(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	List<HiddenDangerDto> list = equipmentService.getAllHiddenDanger(hiddenDangerSearchDto);
+    	result.put("data",list);
+    	return result;
+    }
 }
  

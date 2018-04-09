@@ -36,6 +36,29 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
     $scope.project = project;
     $scope.clientList = clientList;
     $scope.safeList = safeList;
+    
+    var province={},
+    	  city={};
+    
+    for(i in division){
+    	if(division[i].name == $scope.project.projectProvince){
+    		$scope.selected =division[i];
+    		province = division[i];
+//    		console.log(JSON.stringify(province));
+    		 for(j in province.child){
+    		    	if(province.child[j].name == $scope.project.projectCity){
+    		    		$scope.selected2 =province.child[j];
+    		    		city = province.child[j];
+    		    		//console.log(JSON.stringify(city));
+    		    		for(x in city.child){
+    		    	    	if(city.child[x].value == $scope.project.projectCounty){
+    		    	    		$scope.selected3 =city.child[x];
+    		    	    	}
+    		    	    }
+    		    	}
+    		    }
+    	}
+    }
     $scope.closeBtn = function() {
         $modalInstance.dismiss('cancel');
     }
@@ -56,9 +79,33 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
             idArr.push(idStr);
         });
         $scope.project.clientIds = idArr;
-        //console.log(JSON.stringify(idArr));
         JSON.stringify($scope.project.clientIds);
-        //console.log(JSON.stringify($scope.project));
+        var idArr2 = [];
+        var idStr2;
+        $('#charge2 .ui-select-multiple>div>.ui-select-match>.ng-scope').each(function () {
+            idStr2 = $(this).find('.checkItem').attr('data-id');
+            idArr2.push(idStr2);
+        });
+        $scope.project.safeIds = idArr2;
+        JSON.stringify($scope.project.safeIds);
+        if($scope.selected == null || $scope.selected == ''){
+    		$scope.selected ={
+    			name : ''
+    		}
+    	}
+    	if($scope.selected2 == null || $scope.selected2 == ''){
+    		$scope.selected2 ={
+    			name : ''
+    		}
+    	}
+    	if($scope.selected3 == null || $scope.selected3 == ''){
+    		$scope.selected3 ={
+    			value : ''
+    		}
+    	}
+		$scope.project.projectProvince = $scope.selected.name;
+		$scope.project.projectCity = $scope.selected2.name;
+		$scope.project.projectCounty = $scope.selected3.value;
         httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
             $modalInstance.dismiss('cancel')
         })
@@ -100,7 +147,7 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
                 model: model
         	};
         };
-        //编辑页面默认选中的
+        //编辑页面默认选中的负责人
         $scope.clientNewList = [];
         var clientIds = $scope.project.clientIds;
         if(clientIds != null){
@@ -114,5 +161,38 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
                 	}
                 }
             }
-        }
+        };
+      //编辑页面默认选中的安全责任人
+        $scope.safeNewList = [];
+        var safeIds = $scope.project.safeIds;
+        if(safeIds != null){
+        	if(safeIds.length > 0){
+                for (var i = 0; i <  safeIds.length; i++) {
+                	for(c in $scope.safeList){
+                		if($scope.safeList[c].id == safeIds[i]){
+                			 $scope.safeNewList.push($scope.safeList[c]);
+                		}
+                	}
+                }
+            }
+        };
+        
+      //地域
+    	$scope.error = {};
+    	$scope.division = division;
+    	$scope.c = function () {
+    	   $scope.error.province = false;
+    	   $scope.error.city = false;
+    	   $scope.error.area = false;
+    	   $scope.selected2 = "";
+    	   $scope.selected3 = "";
+    	};
+    	$scope.c2 = function () {       
+    	   $scope.error.city = false;
+    	   $scope.error.area = false;
+    	   $scope.selected3 = "";
+    	};
+    	$scope.c3 = function () {
+    	   $scope.error.area = false;
+    	};
 });

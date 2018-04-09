@@ -29,8 +29,27 @@ public class HiddenDangerSearchDto extends PageListDto{
 	 * 设备类型   
 	 */
 	private String eqCategoryName;
+	/*
+	 * 隐患不为0
+	 */
+	private String hidden;
+	/*
+	 * 报警不为0
+	 */
+	private String danger;
 	
-	
+	public String getHidden() {
+		return hidden;
+	}
+	public void setHidden(String hidden) {
+		this.hidden = hidden;
+	}
+	public String getDanger() {
+		return danger;
+	}
+	public void setDanger(String danger) {
+		this.danger = danger;
+	}
 	public String getProjectProvince() {
 		return projectProvince;
 	}

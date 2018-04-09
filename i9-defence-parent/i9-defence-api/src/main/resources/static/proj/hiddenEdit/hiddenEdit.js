@@ -26,21 +26,29 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
-	$scope.selected={
-			name : "",
-		}
-		$scope.selected2={
-				name : "",
-			}
-		$scope.selected3={
-				name : "",
-			}
 	//初始化
 	$scope.initTable = function (){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:''
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
 		var text = $scope.searchText;
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
+				hidden : 'true',
+				danger : 'true',
 				eqCategoryName : $scope.eqCategoryName,
 				projectName : $scope.projectName,
 				projectProvince : $scope.selected.name,
@@ -141,6 +149,7 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
     $scope.edit = function (systemId) { 
     	console.log(systemId)
     	httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
+    	httpService.post({url:'./hiddenDangerEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
     		console.log($scope.hiddenEdit);
     		//$scope.equipmentCategory = data.data.equipmentCategory;

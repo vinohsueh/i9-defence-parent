@@ -12,6 +12,30 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属省</label>
+			<div class="col-md-8">
+				<select class="form-control  aaa"  ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
+        			<option value = ''>请选择</option>
+      			</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属市</label>
+			<div class="col-md-8">
+				<select class="form-control "ng-model="selected2" ng-options="sh.name for sh in selected.child" ng-change="c2()">
+        			<option value = ''>请选择</option>
+      			</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属区/县</label>
+			<div class="col-md-8">
+				<select class="form-control " ng-model="selected3" ng-options="x.value for x in selected2.child" ng-change="c3()">
+        			<option value=''>请选择</option>
+      			</select>
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>项目地址</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="projectAddress" ng-model="project.projectAddress" placeholder="">
@@ -35,14 +59,6 @@
 				<input type="text" class="form-control" id="projectArea" ng-model="project.projectArea" placeholder="">
 			</div>
 		</div>	
-		<!-- <div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>负责人</label>
-			<div class="col-md-8">
-				<select ng-model="project.dutyManId"  ng-options="item.id as item.name for item in clientList">
-		        			<option value="">请选择负责人</option> 不加这句代码，会出现空白
-		    			</select>
-			</div>
-		</div> -->
 		<div class="form-group">
 		  <label class="col-sm-2 control-label text-left"><span class="required">*</span>负责人</label>
 		  <div class="col-sm-8" id='charge'>
@@ -54,20 +70,17 @@
 		    </ui-select>
 		  </div>
 		</div>
-		<!-- 
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>经销商Id</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" id="distributorId" ng-model="project.distributorId" placeholder="">
-			</div>
+		  <label class="col-sm-2 control-label text-left"><span class="required">*</span>安全责任人</label>
+		  <div class="col-sm-8" id='charge2'>
+		    <ui-select multiple ng-model="safeNewList" theme="bootstrap" ng-disabled="disabled">
+		      <ui-select-match placeholder="请选安全责任人"><span class='checkItem' data-id={{$item.id}}>{{$item.name}}</span></ui-select-match>
+		      <ui-select-choices repeat="manager in safeList | propsFilter: {name: $select.search}">
+		        <div ng-bind-html="manager.name | highlight: $select.search"></div>
+		      </ui-select-choices>
+		    </ui-select>
+		  </div>
 		</div>
-		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>项目安全责任人Id</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" id="safetyManId" ng-model="project.safetyManId" placeholder="">
-			</div>
-		</div>
-		 -->
 		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>备注</label>
 			<div class="col-md-8">

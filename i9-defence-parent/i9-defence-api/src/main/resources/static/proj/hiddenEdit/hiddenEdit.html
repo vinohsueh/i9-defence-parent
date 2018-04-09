@@ -21,7 +21,7 @@
 				<label for="">项目省区域：</label> <select class="form-control blue_bg"
 					ng-model="selected" ng-options="s.name for s in division"
 					ng-change="c()">
-					<option value=''>请选择</option>
+					<option value="">请选择</option>
 					<!-- <option>天津</option>
         <option>北京</option>
         <option>上海</option>
@@ -33,14 +33,14 @@
 				<label for="">项目地市区域：</label> <select class="form-control blue_bg"
 					ng-model="selected2" ng-options="sh.name for sh in selected.child"
 					ng-change="c2()">
-					<option value=''>请选择</option>
+					<option value="">请选择</option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="">项目县/区：</label> <select class="form-control blue_bg"
 					ng-model="selected3" ng-options="x.value for x in selected2.child"
 					ng-change="c3()">
-					<option value=''>请选择</option>
+					<option value="">请选择</option>
 				</select>
 			</div>
 				<div class="form-group">
@@ -95,7 +95,7 @@
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
 	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.systemId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-click="edit('{{hiddenEdit.systemId}}'                                      )">{{hiddenEdit.hiddeCount}}</td>
+	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.hiddeCount}}</td>
 	            <td ng-click="edit({{hiddenEdit.systemId}})">{{hiddenEdit.eqCategoryName}}</td>
 	            <td ng-click="edit({{hiddenEdit.systemId}})">{{hiddenEdit.personLiableMan}}</td>
 	            <td ng-click="edit({{hiddenEdit.systemId}})">{{hiddenEdit.projectName}}</td>
