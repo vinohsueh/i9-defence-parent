@@ -17,7 +17,27 @@ public class ChannelData {
     
     private String systemType;
     
-    public String getSystemType() {
+    private Integer dealStatus;
+
+	private String dealDetail;
+	
+    public Integer getDealStatus() {
+		return dealStatus;
+	}
+
+	public void setDealStatus(Integer dealStatus) {
+		this.dealStatus = dealStatus;
+	}
+
+	public String getDealDetail() {
+		return dealDetail;
+	}
+
+	public void setDealDetail(String dealDetail) {
+		this.dealDetail = dealDetail;
+	}
+
+	public String getSystemType() {
 		return systemType;
 	}
 
