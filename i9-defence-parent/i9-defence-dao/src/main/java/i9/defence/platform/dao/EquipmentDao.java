@@ -3,6 +3,7 @@ package i9.defence.platform.dao;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
@@ -93,4 +94,19 @@ public interface EquipmentDao {
      */
     PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto,
             int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 查询具体隐患报警
+     * @param HiddenDangerChannelDto
+     * @return
+     */
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
+    
+    /**
+   	 * 根据id处理报警隐患
+   	 * @Title: updateHiddenDangerChannelDtoByid
+   	 * @Description: TODO
+   	 * @param systemId
+   	 * @return
+   	 */
 }

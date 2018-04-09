@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
@@ -17,7 +18,7 @@ import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 项目DaoImpl
+ * 设备DaoImpl
  * @author gbq
  * @create 2018年1月8日
  */
@@ -89,6 +90,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
         List<HiddenDangerDto> list = equipmentMapper.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
         return pageBounds;
+	}
+
+	@Override
+	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) {
+		return equipmentMapper.selectHiddenDangerChannelDtoBySid(systemId);
 	}
 
 }

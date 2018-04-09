@@ -400,23 +400,42 @@
 		</select>
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<!--根据项目名称 模糊搜索  -->	
 				<if test="example.projectName != null and example.projectName != ''">
-					OR( projectName LIKE
+					OR projectName LIKE
 					CONCAT('%',CONCAT('${example.projectName}','%'))
 				</if>
-				<if test="example.equipmentDate != null and example.equipmentDate != ''">
-					OR( equipmentDate LIKE
-					CONCAT('%',CONCAT('${example.equipmentDate}','%'))
+				<!--根据项目所在省 模糊搜索  -->	
+				<if test="example.projectProvince != null and example.projectProvince != ''">
+					OR projectProvince LIKE
+					CONCAT('%',CONCAT('${example.projectProvince}','%'))
 				</if>
-				<if test="example.equipmentPosition != null and example.equipmentPosition != ''">
-					OR( equipmentPosition LIKE
-					CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+				<!--根据项目所在市 模糊搜索  -->	
+				<if test="example.projectCity != null and example.projectCity != ''">
+					OR projectCity LIKE
+					CONCAT('%',CONCAT('${example.projectCity}','%'))
 				</if>
+				<!--根据项目所在县/区 模糊搜索  -->	
+				<if test="example.projectCounty != null and example.projectCounty != ''">
+					OR projectCounty LIKE
+					CONCAT('%',CONCAT('${example.projectCounty}','%'))
+				</if>
+				<!--根据设备类型 模糊搜索  -->	
+				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">
+					OR eqCategoryName LIKE
+					CONCAT('%',CONCAT('${example.eqCategoryName}','%'))
+				</if>
+				<!-- <if test="example.startDate != null and example.startDate != ''">
+					and example.startDate &lt; equipmentDate
+				</if>
+				<if test="example.endDate != null and example.endDate != ''">
+					and example.endDate &gt; equipmentDate
+				</if> -->
 			</trim>
 		</sql>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,equipmentName,equipmentPosition,equipmentDate,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			select id,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -425,5 +444,12 @@
 			</if>
 			limit #{offset},#{limit}
 		</select>
+		<!-- 查询具体隐患报警 -->
+		 <select id="selectHiddenDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
+			  select id,systemId,name,value,dateTime
+			   from  v_hiddendanger_channel_data	
+			    where systemId=#{systemId}  
+		  </select>
+		
 	<!-- ———————————— 隐患与报警———————————— -->
 </mapper>
