@@ -12,6 +12,30 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属省</label>
+			<div class="col-md-8">
+				<select class="form-control  aaa"  ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
+        			<option value = ''>请选择</option>
+      			</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属市</label>
+			<div class="col-md-8">
+				<select class="form-control "ng-model="selected2" ng-options="sh.name for sh in selected.child" ng-change="c2()">
+        			<option value = ''>请选择</option>
+      			</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>所属区/县</label>
+			<div class="col-md-8">
+				<select class="form-control " ng-model="selected3" ng-options="x.value for x in selected2.child" ng-change="c3()">
+        			<option value=''>请选择</option>
+      			</select>
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>项目地址</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="projectAddress" ng-model="project.projectAddress" placeholder="">
