@@ -38,8 +38,6 @@ public class HiddenDangerEditController {
     //@RequiresPermissions("client_list")
     @RequestMapping("/pageHiddenDangerEdit")
     public HashMap<String, Object> pageHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
-    	hiddenDangerSearchDto.setHidden("true");
-    	hiddenDangerSearchDto.setDanger("true");
         HashMap<String, Object> result = new HashMap<String, Object>();
         PageBounds<HiddenDangerDto> pageBounds = equipmentService.selectHiddenDangerByLimitPage(hiddenDangerSearchDto);
         List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory();
