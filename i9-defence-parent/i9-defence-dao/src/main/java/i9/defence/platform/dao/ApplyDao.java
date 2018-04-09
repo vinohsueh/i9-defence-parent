@@ -99,4 +99,14 @@ public interface ApplyDao {
 	 * @throws Exception
 	 */
 	int  selectEquipmentCount(@Param("ids") List<Integer> ids) throws Exception;
+	
+	/**
+	 * 
+	* @Title: selectApplyByids 
+	* @Description: TODO
+	* @param ids
+	* @return
+	* @throws Exception
+	 */
+	List<Apply>  selectApplyByids(List<Integer> ids) throws Exception;
 }
