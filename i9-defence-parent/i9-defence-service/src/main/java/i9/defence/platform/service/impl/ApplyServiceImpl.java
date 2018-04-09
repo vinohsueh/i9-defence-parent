@@ -77,11 +77,12 @@ public class ApplyServiceImpl implements ApplyService {
 			List<Integer> listProjectId = new ArrayList<Integer>();
 			// 1.4获得当前登录用户
 			Manager loginManager = managerService.getLoginManager();
+			// 1.5根据ids获得apply集合
+			List<Apply> listApply = applyDao.selectApplyByids(ids);
 			// 如果当前登录用户为网站用户
 			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
-				for (Integer id : ids) {
+				for (Apply apply : listApply) {
 					// 包装Apply的处理时间,处理状态
-					Apply apply = this.getApplyById(id);
 					/*apply.setConductDate(new Date());
 					apply.setConductorId(loginManager.getId()); 
 					apply.setState(1);
@@ -95,9 +96,8 @@ public class ApplyServiceImpl implements ApplyService {
 				} 
 			}//如果当前登录用户为经销商和网站管理员
 			else if (Arrays.asList(Constants.S_ACCOUNT).contains(loginManager.getType())) {
-				for (Integer id : ids) {
+				for (Apply apply : listApply) {
 					// 包装Apply的处理时间,处理状态
-					Apply apply = this.getApplyById(id);
 					/*apply.setConductDate(new Date());
 					apply.setState(1);
 					listApply.add(apply);*/
@@ -114,7 +114,7 @@ public class ApplyServiceImpl implements ApplyService {
 			// 2.删除所关联的设备/项目
 			if (listEquipmentId != null && listEquipmentId.size() != 0) {
 				equipmentService.deleteEquipment(listEquipmentId);
-			} else {
+			} else if(listProjectId !=null && listProjectId.size() !=0) {
 				projectService.deleteProject(listProjectId);
 			}
 			// 3.删除申请表中的记录

@@ -90,6 +90,15 @@ public class ApplyDaoImpl implements ApplyDao {
 		int count =applyMapper.selectEquipmentCount(ids);
 		return count;
 	}
+
+	@Override
+	public List<Apply> selectApplyByids(List<Integer> ids) throws Exception {
+		ApplyExample example = new ApplyExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdIn(ids);
+		List<Apply> list = applyMapper.selectByExample(example);
+		return list;
+	}
 	
 
 }
