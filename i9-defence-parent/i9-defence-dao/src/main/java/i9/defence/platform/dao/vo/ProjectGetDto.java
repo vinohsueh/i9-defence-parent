@@ -1,7 +1,14 @@
 package i9.defence.platform.dao.vo;
 
-public class ProjectGetDto {
-	 private Integer projectId;
+import java.io.Serializable;
+
+public class ProjectGetDto implements Serializable{
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4024777650254814481L;
+
+	private Integer projectId;
 	 
 	 private Integer distributorId;
 

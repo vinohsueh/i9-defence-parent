@@ -32,11 +32,17 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				//username : $scope.searchText
-				name : text,
+				eqCategoryName : $scope.eqCategoryName,
+				projectName : $scope.projectName,
+				projectProvince : $scope.selected,
+				projectCity : $scope.selected2,
+				projectCounty : $scope.selected3
 			};
+		console.log(pageParam)
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
+			$scope.equipmentCategorys = data.data.equipmentCategory;
+			$scope.projects = data.data.project;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -75,6 +81,25 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	$scope.search = function(){
 		$scope.initTable();
 	}
+	
+	// 地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
 	
 	$scope.add = function () {  
 			$scope.equipmentCategory = data.data.equipmentCategory;

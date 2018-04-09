@@ -79,8 +79,8 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
 	}
 	
 	$scope.add = function () {  
-		httpService.post({url:'./eqCategory/getAll',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
-			$scope.equipmentCategory = data.data.equipmentCategory;
+		httpService.post({url:'./eqCategory/serchEqCategory',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
+			$scope.equipmentCategory = data.data.data;
 			//$modalInstance.dismiss('cancel')
 			  var modalInstance = $modal.open({  
 		            templateUrl: 'proj/equipmentFault/add.html',  
@@ -121,7 +121,7 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'equipmentFaultModule',
+	        				name : 'equipmentFaultEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
 	        				         'proj/equipmentFault/add.js',

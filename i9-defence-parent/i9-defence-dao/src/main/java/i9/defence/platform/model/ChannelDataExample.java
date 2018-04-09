@@ -554,6 +554,136 @@ public class ChannelDataExample {
 			addCriterion("systemType not between", value1, value2, "systemType");
 			return (Criteria) this;
 		}
+
+		public Criteria andDealStatusIsNull() {
+			addCriterion("dealStatus is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusIsNotNull() {
+			addCriterion("dealStatus is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusEqualTo(Integer value) {
+			addCriterion("dealStatus =", value, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusNotEqualTo(Integer value) {
+			addCriterion("dealStatus <>", value, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusGreaterThan(Integer value) {
+			addCriterion("dealStatus >", value, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusGreaterThanOrEqualTo(Integer value) {
+			addCriterion("dealStatus >=", value, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusLessThan(Integer value) {
+			addCriterion("dealStatus <", value, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusLessThanOrEqualTo(Integer value) {
+			addCriterion("dealStatus <=", value, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusIn(List<Integer> values) {
+			addCriterion("dealStatus in", values, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusNotIn(List<Integer> values) {
+			addCriterion("dealStatus not in", values, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusBetween(Integer value1, Integer value2) {
+			addCriterion("dealStatus between", value1, value2, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealStatusNotBetween(Integer value1, Integer value2) {
+			addCriterion("dealStatus not between", value1, value2, "dealStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailIsNull() {
+			addCriterion("dealDetail is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailIsNotNull() {
+			addCriterion("dealDetail is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailEqualTo(String value) {
+			addCriterion("dealDetail =", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailNotEqualTo(String value) {
+			addCriterion("dealDetail <>", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailGreaterThan(String value) {
+			addCriterion("dealDetail >", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailGreaterThanOrEqualTo(String value) {
+			addCriterion("dealDetail >=", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailLessThan(String value) {
+			addCriterion("dealDetail <", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailLessThanOrEqualTo(String value) {
+			addCriterion("dealDetail <=", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailLike(String value) {
+			addCriterion("dealDetail like", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailNotLike(String value) {
+			addCriterion("dealDetail not like", value, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailIn(List<String> values) {
+			addCriterion("dealDetail in", values, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailNotIn(List<String> values) {
+			addCriterion("dealDetail not in", values, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailBetween(String value1, String value2) {
+			addCriterion("dealDetail between", value1, value2, "dealDetail");
+			return (Criteria) this;
+		}
+
+		public Criteria andDealDetailNotBetween(String value1, String value2) {
+			addCriterion("dealDetail not between", value1, value2, "dealDetail");
+			return (Criteria) this;
+		}
 	}
 
 	public static class Criteria extends GeneratedCriteria {
@@ -640,4 +770,5 @@ public class ChannelDataExample {
 			this(condition, value, secondValue, null);
 		}
 	}
+
 }
