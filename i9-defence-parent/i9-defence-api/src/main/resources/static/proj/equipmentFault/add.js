@@ -46,7 +46,7 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 			$modalInstance.dismiss('cancel')
 		})
 	};
-	httpService.post({url:'./eqCategory/getAll',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
-		$scope.equipmentCategory = data.data.equipmentCategory;
+	httpService.post({url:'./eqCategory/serchEqCategory',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
+		$scope.equipmentCategory = data.data.data;
 	})
 });
