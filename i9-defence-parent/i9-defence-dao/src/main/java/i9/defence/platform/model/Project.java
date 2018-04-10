@@ -57,8 +57,7 @@ public class Project {
     //项目负责人 一对多
     private List<Client> clientList;
   //接收前台传参  项目负责人人IDS们
-    @SuppressWarnings("unused")
-	private List<Integer> clientIds;
+    private List<Integer> clientIds;
     //安全责任人 一对多
     private List<Manager> safeList;
     //接收前台传参  项目安全责任人IDS们
