@@ -475,7 +475,7 @@
 		</select>
 		<!-- 查询具体隐患报警 -->
 		 <select id="selectHiddenDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-			  select id,systemId,name,value,dateTime
+			  select id,systemId,name,value,dateTime,channel
 			   from  v_hiddendanger_channel_data	
 			    where systemId=#{systemId,jdbcType=VARCHAR}
 		  </select>

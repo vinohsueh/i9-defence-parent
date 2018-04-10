@@ -6,7 +6,7 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
 		hiddenEdit,httpService) {
 	
 	$scope.hiddenEdit = hiddenEdit;
-//	console.log($scope.hiddenEdit);
+	console.log($scope.hiddenEdit);
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}

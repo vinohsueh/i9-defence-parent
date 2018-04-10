@@ -22,20 +22,14 @@
 	                <input type="checkbox" id="totalCheck1"><i></i>
 	              </label>
 	            </th>
-	            <th>设备编号</th>
 	            <th>通道名称</th>
-	            <th>阀值</th>
-	            <th>时间</th>
 	            <th>处理详情</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdit">
 	             <td><label class="i-checks m-b-none"><input class="o-checks1" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td >{{hiddenEdit.systemId}}</td>
 	            <td >{{hiddenEdit.name}}</td>
-	            <td >{{hiddenEdit.value}}</td>
-	            <td >{{hiddenEdit.dateTimeStr}}</td>
 	            <td ><input ></td>
 	          </tr>
 	        </tbody>

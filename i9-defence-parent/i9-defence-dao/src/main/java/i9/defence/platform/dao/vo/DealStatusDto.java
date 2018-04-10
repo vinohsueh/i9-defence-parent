@@ -8,9 +8,25 @@ import java.util.List;
 * 
 */
 public class DealStatusDto {
+	/*
+	 * id集合
+	 */
 	private List<Integer> id;
+	/*
+	 * 标志
+	 */
 	private Integer dealStatus;
+	/*
+	 * 处理详情
+	 */
+	private List<String> dealDetail;
 	
+	public List<String> getDealDetail() {
+		return dealDetail;
+	}
+	public void setDealDetail(List<String> dealDetail) {
+		this.dealDetail = dealDetail;
+	}
 	public List<Integer> getId() {
 		return id;
 	}
