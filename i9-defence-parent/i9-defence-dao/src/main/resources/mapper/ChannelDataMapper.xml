@@ -308,4 +308,11 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+	
+	<update id="updateDealStatusByIds">
+	update t_channel_data
+	    set   dealStatus = ${example.dealStatus}
+	     where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">${example.ids}</foreach>
+	</update>
 </mapper>

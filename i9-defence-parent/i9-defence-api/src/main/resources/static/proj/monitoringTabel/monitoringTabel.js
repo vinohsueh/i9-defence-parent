@@ -119,17 +119,6 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	var dDay = myDate.getDate();
 	$scope.startTime = dYear+'/'+dMonth+'/'+dDay;
 
-	$scope.change = function () {
-		var myStartDate = this.startTime;
-		var dYear = myStartDate.getFullYear();
-		var dMonth = myStartDate.getMonth()+1;
-		var dDay = myStartDate.getDate();
-		$scope.startCheckTime = dYear+'/'+dMonth+'/'+dDay;
-		console.log(this.startCheckTime);
-	}
-	
-	// $scope.endTime = this.startCheckTime;
-
 	//地域
 	$scope.error = {};
 	$scope.division = division;
@@ -148,4 +137,105 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	$scope.c3 = function () {
 	   $scope.error.area = false;
 	};
+
+	//分页条件
+	$scope.pageSize = 10;
+	$scope.currentPage = 1;
+	//初始化
+	$scope.pageInit = function (){
+		var text = $scope.searchText;
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:''
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
+		var pageParam = {
+				pageSize:$scope.pageSize,
+				currentPage:$scope.currentPage,
+				/*projectName : text,
+				projectAddress : text,*/
+			};
+		
+		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data.data.data.pageList));
+			$scope.projects = data.data.data.pageList;
+			for(i in $scope.projects){
+				if($scope.projects[i].hiddeCount>0){
+					$scope.projects[i].status = 'warning';
+					$scope.projects[i].statusText = '隐患';
+				}else if($scope.projects[i].warningCount>0){
+					$scope.projects[i].status = 'danger';
+					$scope.projects[i].statusText = '报警';
+				}else{
+					$scope.projects[i].status = ''
+					$scope.projects[i].statusText = '正常';
+				}
+			}
+
+			$scope.hasPrevious = data.data.data.hasPrevious;
+			$scope.currentPage = data.data.data.currentPage;
+			$scope.hasNext = data.data.data.hasNext;
+			$scope.total = data.data.data.totalSize;
+			$scope.start = data.data.data.offset+1;
+			$scope.end = data.data.data.offset+$scope.projects.length;
+			$scope.pages = data.data.data.loopPageNum;
+			$scope.currentPage = pageParam.currentPage;
+		})
+	};
+	$scope.pageInit();
+	$scope.passagewayInit = function (idNum){
+		var text = $scope.searchText;
+		var pageParam = {
+				id:idNum,
+				/*projectName : text,
+				projectAddress : text,*/
+			};
+		
+		httpService.post({url:'./equipment/pageEquipment',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.projects = data.data.data.pageList;
+			$scope.hasPrevious = data.data.data.hasPrevious;
+			$scope.currentPage = data.data.data.currentPage;
+			$scope.hasNext = data.data.data.hasNext;
+			$scope.total = data.data.data.totalSize;
+			$scope.start = data.data.data.offset+1;
+			$scope.end = data.data.data.offset+$scope.projects.length;
+			$scope.pages = data.data.data.loopPageNum;
+			$scope.currentPage = pageParam.currentPage;
+		})
+	};
+
+	//修改分页大小
+	$scope.changePageSize = function(){
+		$scope.currentPage = 1;
+		$scope.pageInit();
+	}
+	//上一页
+	$scope.lastPage = function(){
+		if ($scope.hasPrevious){
+			$scope.currentPage -=1;
+			$scope.pageInit();
+		}
+	}
+	//下一页
+	$scope.nextPage = function (){
+		if ($scope.hasNext){
+			$scope.currentPage +=1;
+			$scope.pageInit();
+		}
+	}
+	//跳转
+	$scope.pageTo = function(page){
+		$scope.currentPage = page;
+		$scope.pageInit();
+	}
 })

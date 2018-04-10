@@ -55,5 +55,19 @@ public class HiddenDangerController {
 		hiddernDangerService.insertHiddenDanger(hiddenDanger);
 		return result;
 	}
-
+	
+	/**
+	 * 根据隐患id获得隐患
+	* @Title: getHiddendangerById 
+	* @Description: TODO
+	* @param id
+	* @return
+	 */
+	@RequestMapping("/getHiddendangerById")
+	public HashMap<String, Object> getHiddendangerById(@RequestBody Integer id) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		HiddenDanger hiddenDanger = hiddernDangerService.getHiddenById(id);
+		result.put("data", hiddenDanger);
+		return result;
+	}
 }

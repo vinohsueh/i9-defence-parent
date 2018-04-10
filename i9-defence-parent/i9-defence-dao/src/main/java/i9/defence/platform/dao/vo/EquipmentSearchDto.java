@@ -15,6 +15,17 @@ public class EquipmentSearchDto extends PageListDto implements Serializable{
 	private String equipmentIdentifier;
 	
 	private String equipmentPosition;
+	
+	private Integer distributorId;
+	
+	public Integer getDistributorId() {
+		return distributorId;
+	}
+
+	public void setDistributorId(Integer distributorId) {
+		this.distributorId = distributorId;
+	}
+
 	/**
 	 * @return the orderByClause
 	 */

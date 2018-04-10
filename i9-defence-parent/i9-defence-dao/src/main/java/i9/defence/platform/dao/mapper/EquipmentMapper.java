@@ -1,6 +1,7 @@
 package i9.defence.platform.dao.mapper;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
@@ -37,6 +38,8 @@ public interface EquipmentMapper {
     
     List<Equipment> selectByLimitPage(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
+    List<Equipment> selectByLimitPage2(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize,@Param("distributorId")Integer distributorId);
+    
     List<Passageway> selectPassagewayByEid(String systemId);
     
     void insertPassageWay(@Param("Passageway") Passageway passageway);
@@ -44,6 +47,9 @@ public interface EquipmentMapper {
     void updateEquipments(@Param("applies") List<Equipment> applies) ;
     //隐患报警分页查询
     List<HiddenDangerDto> selectHiddenDangerByLimitPage(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+
+    //查询具体隐患报警
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
     //隐患报警 全部查询
     List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 }
