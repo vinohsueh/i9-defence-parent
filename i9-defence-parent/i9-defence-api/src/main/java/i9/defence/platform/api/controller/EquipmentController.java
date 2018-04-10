@@ -75,15 +75,9 @@ public class EquipmentController {
 	 * @return
 	 */
 	/*
-	 * @RequestMapping("/delEquipment") public HashMap<String, Object>
-	 * delEquipment(@RequestBody Integer[] ids) { HashMap<String, Object> result =
-	 * new HashMap<String, Object>();
 	 * 删除项目
-	 * 
 	 * @param ids
 	 * @return
-	 */
-	/*
 	 * @RequestMapping("/delEquipment") public HashMap<String, Object>
 	 * delEquipment(@RequestBody Integer[] ids) { HashMap<String, Object> result
 	 * = new HashMap<String, Object>();
