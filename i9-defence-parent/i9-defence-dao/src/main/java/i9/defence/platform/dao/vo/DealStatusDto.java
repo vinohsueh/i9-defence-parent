@@ -11,7 +11,7 @@ public class DealStatusDto {
 	/*
 	 * id集合
 	 */
-	private List<Integer> id;
+	private List<Integer> ids;
 	/*
 	 * 标志
 	 */
@@ -27,11 +27,11 @@ public class DealStatusDto {
 	public void setDealDetail(List<String> dealDetail) {
 		this.dealDetail = dealDetail;
 	}
-	public List<Integer> getId() {
-		return id;
+	public List<Integer> getIds() {
+		return ids;
 	}
-	public void setId(List<Integer> id) {
-		this.id = id;
+	public void setIds(List<Integer> ids) {
+		this.ids = ids;
 	}
 	public Integer getDealStatus() {
 		return dealStatus;
