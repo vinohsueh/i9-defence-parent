@@ -17,7 +17,6 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -38,8 +37,6 @@ public class ShiroConfiguration {
    
     private static final Logger S_LOGGER = LoggerFactory.getLogger(ShiroConfiguration.class);
     
-    @Value("${server.session.timeout}")
-    private String serverSessionTimeout;
     /**
      * Shiro的Web过滤器Factory 命名:shiroFilter<br />
      * 
