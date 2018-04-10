@@ -3,29 +3,49 @@
 </div>
 <div controlled-rescode>
 <div class="wrapper-md">  
-  <div class="panel panel-default">
-    <div class="panel-heading">
-        <button class="btn m-b-xs w-xs btn-success btn-rounded proj_add" ng-click="add()">新增</button>
-        <button class="btn m-b-xs w-xs btn-danger btn-rounded del_proj" ng-click="del()">删除</button>
-        <button class="btn m-b-xs w-xs btn-warning btn-rounded invite_code" ng-click="shareCode()">邀请码</button>
+  <form action="" class='form-inline myBox'>
+    <div class="form-group">
+      <label for="">省区域：</label>
+      <select class="form-control blue_bg" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
+        <option value = ''>请选择</option>
+      </select>
     </div>
-    <div class="row wrapper">
-      <div class="col-sm-5 m-b-xs">
-        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-      </div>
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-3">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="模糊查询">
+    <div class="form-group">
+      <label for="">地市区域：</label>
+      <select class="form-control blue_bg" ng-model="selected2" ng-options="sh.name for sh in selected.child" ng-change="c2()">
+        <option value=''>请选择</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">县/区：</label>
+      <select class="form-control blue_bg" ng-model="selected3" ng-options="x.value for x in selected2.child" ng-change="c3()">
+        <option value=''>请选择</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="">项目名称(地址)：</label>
+      <div class="input-group">
+          <input type="text" class="input-sm form-control" ng-model="searchText" placeholder="模糊查询">
         </div>
-      </div>
+    </div>
+    <button type='button'  ng-click="search()" class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
+  </form>
+  <div class="panel panel-default">
+    <div class="panel-heading row">
+    	<div class="col-sm-6 m-b-xs">
+	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
+	          <option value="5">5</option>
+	          <option value="10">10</option>
+	          <option value="20">20</option>
+	          <option value="50">50</option>
+	          <option value="100">100</option>
+	        </select>
+	      </div>
+	      <div class="col-sm-6  text-right">
+		      <button class="btn m-b-xs w-xs btn-success btn-rounded proj_add" ng-click="add()">新增</button>
+	          <button class="btn m-b-xs w-xs btn-danger btn-rounded del_proj" ng-click="del()">删除</button>
+	          <button class="btn m-b-xs w-xs btn-warning btn-rounded invite_code" ng-click="shareCode()">邀请码</button>
+	      </div>
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
@@ -96,10 +116,10 @@
           </select>
           <button class="btn btn-sm btn-default">Apply</button>                  
         </div> -->
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
         </div>
-        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
+        <div class="col-sm-offset-3 col-sm-6 text-right text-center-xs" ng-if="pages.length>0">                
           <ul class="pagination pagination-sm m-t-none m-b-none">
             <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
             <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>

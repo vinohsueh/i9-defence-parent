@@ -83,5 +83,8 @@ public interface EquipmentService {
      * @throws BusinessException
      */
     void insertPassageWay(Passageway passageway) throws BusinessException;
- 
+    /**
+     * 查询全部隐患报警
+     */
+    List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
 }

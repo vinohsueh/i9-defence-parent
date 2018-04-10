@@ -44,4 +44,6 @@ public interface EquipmentMapper {
     void updateEquipments(@Param("applies") List<Equipment> applies) ;
     //隐患报警分页查询
     List<HiddenDangerDto> selectHiddenDangerByLimitPage(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    //隐患报警 全部查询
+    List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 }

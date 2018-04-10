@@ -60,6 +60,15 @@
         <if test="example.distributorId != null and example.distributorId != ''">
           AND distributorId = #{example.distributorId}
         </if>
+        <if test="example.projectProvince != null and example.projectProvince != ''">
+          AND projectProvince = #{example.projectProvince}
+        </if>
+        <if test="example.projectCity != null and example.projectCity != ''">
+          AND projectCity = #{example.projectCity}
+        </if>
+        <if test="example.projectCounty != null and example.projectCounty != ''">
+          AND projectCounty = #{example.projectCounty}
+        </if>
     </trim>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
