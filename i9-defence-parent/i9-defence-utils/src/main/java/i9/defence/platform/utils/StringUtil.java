@@ -1,8 +1,11 @@
 package i9.defence.platform.utils;
 
 import java.security.MessageDigest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
 
 /** 
  * 创建时间：2017年11月16日 下午5:07:21
@@ -63,4 +66,23 @@ public class StringUtil {
             return "";
         }
     }
+    
+    /**
+     * 时间转日期
+     * @param endDateString
+     * @param string
+     * @return
+     */
+	public static Date stringToDateByRep(String endDateString, String rep) {
+		if (StringUtils.isNotBlank(endDateString)) {
+            SimpleDateFormat sdm = new SimpleDateFormat(rep);
+            try {
+				return sdm.parse(endDateString);
+			} catch (ParseException e) {
+				return null;
+			}
+        }else {
+            return null;
+        }
+	}
 }
