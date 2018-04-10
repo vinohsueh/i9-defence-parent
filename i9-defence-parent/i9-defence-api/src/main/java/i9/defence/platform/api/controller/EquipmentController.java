@@ -1,5 +1,6 @@
  package i9.defence.platform.api.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.api.components.ChannelDataComponent;
+import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.enums.DataTypeEnum;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.Project;
+import i9.defence.platform.service.ChannelDataService;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ProjectService;
@@ -36,6 +44,8 @@ public class EquipmentController {
 	EquipmentCategoryService eqCategoryService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private ChannelDataService channelDataServicel;
 
 	/**
 	 * 分页查询设备列表
@@ -179,6 +189,30 @@ public class EquipmentController {
 	public HashMap<String, Object> insertPassageWay(Passageway passageway) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		equipmentService.insertPassageWay(passageway);
+		return result;
+	}
+	
+	/**
+	 * 查询设备信息和通道数据
+	 * @param equipmentId
+	 * @return
+	 */
+	@RequestMapping("/selectEquipInfoAndData")
+	public HashMap<String, Object> selectEquipInfoAndData(@RequestBody ChannelDataSearchDto channelDataSearchDto) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		Equipment equipment = equipmentService.getEquipmentById(channelDataSearchDto.getEquipmentId());
+		//根据设备编号查询
+		channelDataSearchDto.setSystemId(equipment.getSystemId());
+		//只查询电流和温度的显示值
+		List<Integer> typeList = new ArrayList<Integer>();
+		typeList.add(DataTypeEnum.FLOAT.getId());
+		typeList.add(DataTypeEnum.SHORT.getId());
+		channelDataSearchDto.setTypes(typeList);
+		channelDataSearchDto.setOrderByClause("dateTime desc");
+		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
+		//分通道处理后的数据
+		JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).build();
+		result.put("data", jsonObject);
 		return result;
 	}
 }

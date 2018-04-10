@@ -407,6 +407,7 @@ angular.module('app')
                     }]
                   }
               }) 
+
               .state('app.hiddenEdit', {
                   url: '/hiddenEdit',
                   templateUrl: 'proj/hiddenEdit/hiddenEdit.html',
@@ -424,6 +425,26 @@ angular.module('app')
                     }]
                   }
               }) 
+              
+              .state('app.warningEdit', {
+                  url: '/warningEdit',
+                  templateUrl: 'proj/warningEdit/warningEdit.html',
+              	  controller : "hiddenEditControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'hiddenEditModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/warningEdit/warningEdit.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+
+
               .state('app.hiddenDangerRemind', {
                   url: '/hiddenDangerRemind',
                   templateUrl: 'proj/hiddenDangerRemind/hiddenDangerRemind.html',

@@ -1,6 +1,6 @@
 <div controlled-rescode>
 	<div class="bg-light lter b-b wrapper-md">
-	  <h1 class="m-n font-thin h3">隐患操作列表</h1>
+	  <h1 class="m-n font-thin h3">报警操作列表</h1>
 	</div>
 	<div class="wrapper-md">
 
@@ -85,7 +85,7 @@
 	                <input type="checkbox" id="totalCheck"><i></i>
 	              </label>
 	            </th>
-	            <th>隐患数量</th>
+	            <th>报警数量</th>
 	            <th>设备类型</th>
 	            <th>项目安全负责人</th>
 	            <th>项目名称</th>
@@ -95,7 +95,7 @@
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
 	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.systemId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.hiddeCount}}</td>
+	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.warningCount}}</td>
 	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.eqCategoryName}}</td>
 	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.personLiableMan}}</td>
 	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.projectName}}</td>

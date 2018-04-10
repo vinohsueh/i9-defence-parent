@@ -99,9 +99,9 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
         });
          
     };  
-  /*//编辑 
+  //编辑 
     $scope.edit = function (id) { 
-    	httpService.post({url:'./hiddendanger/getHiddendanger',data:id,showSuccessMsg:false}).then(function(data) {  
+    	httpService.post({url:'./hiddendanger/getHiddendangerById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddendanger = data.data.data;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/hiddendanger/add.html',  
@@ -128,5 +128,5 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
 	        	$scope.initTable();
 	        });
     	})
-    }; */ 
+    };  
 })

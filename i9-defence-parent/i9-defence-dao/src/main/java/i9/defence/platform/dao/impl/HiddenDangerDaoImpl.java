@@ -32,4 +32,14 @@ public class HiddenDangerDaoImpl implements HiddenDangerDao {
 		hiddenDangerMapper.insert(hiddenDanger);
 	}
 
+	@Override
+	public void updateHiddenDanger(HiddenDanger hiddenDanger) throws Exception {
+		hiddenDangerMapper.updateByPrimaryKey(hiddenDanger);
+	}
+
+	@Override
+	public HiddenDanger getHiddenById(Integer Id) throws Exception {
+		return hiddenDangerMapper.selectByPrimaryKey(Id);
+	}
+
 }
