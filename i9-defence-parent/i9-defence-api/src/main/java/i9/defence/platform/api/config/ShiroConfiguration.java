@@ -1,24 +1,30 @@
 package i9.defence.platform.api.config;
 
-import i9.defence.platform.api.realm.UserRealm;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.SessionListener;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import i9.defence.platform.api.listener.MySessionListener;
+import i9.defence.platform.api.realm.UserRealm;
 
 /**
  * 
@@ -31,7 +37,9 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 public class ShiroConfiguration {
    
     private static final Logger S_LOGGER = LoggerFactory.getLogger(ShiroConfiguration.class);
-
+    
+    @Value("${server.session.timeout}")
+    private String serverSessionTimeout;
     /**
      * Shiro的Web过滤器Factory 命名:shiroFilter<br />
      * 
@@ -97,9 +105,20 @@ public class ShiroConfiguration {
         S_LOGGER.info("注入Shiro的Web过滤器-->securityManager", ShiroFilterFactoryBean.class);
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //securityManager.setRealm(userRealm());
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
-
+    
+    @Bean
+    public SessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        Collection<SessionListener> listeners = new ArrayList<SessionListener>();
+        listeners.add(new MySessionListener());
+        sessionManager.setSessionListeners(listeners);
+        sessionManager.setGlobalSessionTimeout(3600000);
+        return sessionManager;
+    }
+    
     /**
      * Shiro Realm 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的
      * 
