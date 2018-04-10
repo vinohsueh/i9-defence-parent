@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -264,6 +265,15 @@ public class EquipmentServiceImpl implements EquipmentService {
 			return list;
 		}catch (Exception e) {
 			throw new BusinessException("查询全部失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateDealStatus(DealStatusDto dealStatusDto) throws BusinessException {
+		try {
+			equipmentDao.updateDealStatus(dealStatusDto);
+		} catch (Exception e) {
+			throw new BusinessException("修改报警隐患失败",e.getMessage());
 		}
 	}
 }

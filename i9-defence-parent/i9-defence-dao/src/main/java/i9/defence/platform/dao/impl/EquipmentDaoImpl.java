@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import i9.defence.platform.dao.EquipmentDao;
+import i9.defence.platform.dao.mapper.ChannelDataMapper;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -27,7 +29,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	
 	@Autowired
 	private EquipmentMapper equipmentMapper;
-
+	@Autowired
+	private ChannelDataMapper channelDataMapper;
+	
 	@Override
 	public PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto, int currectPage, int pageSize)
 			throws Exception {
@@ -111,6 +115,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws Exception {
 		List<HiddenDangerDto> list =equipmentMapper.selectAllHiddenDanger(hiddenDangerSearchDto);
 		return list;
+	}
+
+	@Override
+	public void updateDealStatus(DealStatusDto dealStatusDto) throws Exception {
+		channelDataMapper.updateDealStatusByIds(dealStatusDto);
 	}
 
 }

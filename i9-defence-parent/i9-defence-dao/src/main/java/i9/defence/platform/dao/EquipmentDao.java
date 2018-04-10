@@ -2,6 +2,7 @@ package i9.defence.platform.dao;
 
 import java.util.List;
 
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -109,16 +110,14 @@ public interface EquipmentDao {
      * @return
      */
     List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
-
     
     /**
-   	 * 根据id处理报警隐患
-   	 * @Title: updateHiddenDangerChannelDtoByid
-   	 * @Description: TODO
-   	 * @param systemId
-   	 * @return
-   	 */
-    
+     * 
+     * 修改隐患报警
+     * @param DealStatusDto
+     * @return
+     */
+    void updateDealStatus(DealStatusDto dealStatusDto)throws Exception;
     
     /**
      * 查询全部隐患报警

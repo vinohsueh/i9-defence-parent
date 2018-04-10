@@ -31,7 +31,7 @@ public class HiddenDangerChannelDto {
 	private String value;
 	
 	/*
-	 * 阀值
+	 * 时间
 	 */
 	private Date dateTime;
 	

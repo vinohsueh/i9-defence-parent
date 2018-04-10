@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
@@ -74,6 +75,16 @@ public class HiddenDangerEditController {
     	List<HiddenDangerDto> list = equipmentService.getAllHiddenDanger(hiddenDangerSearchDto);
     	result.put("data",list);
     	return result;
+    }
+    /**
+     * 处理隐患
+     * 
+     */
+    @RequestMapping("/updateDealStatus")
+    public HashMap<String, Object> updateDealStatus(@RequestBody DealStatusDto dealStatusDto){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	equipmentService.updateDealStatus(dealStatusDto);
+		return result;
     }
 }
  

@@ -117,50 +117,48 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	$scope.c3 = function () {
 	   $scope.error.area = false;
 	};
-	$scope.add = function () {  
-			$scope.equipmentCategory = data.data.equipmentCategory;
-			//$modalInstance.dismiss('cancel')
-			  var modalInstance = $modal.open({  
-		            templateUrl: 'proj/hiddenEdit/add.html',  
-		            controller: 'hiddenEditEditCtrl', 
-		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-		            resolve: {  
-		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-		        			return $ocLazyLoad.load({
-		        				name : 'hiddenEditEditNgModule',
-		        				insertBefore : '#ng_load_plugins_before',
-		        				files : [
-		        				         'proj/hiddenEdit/add.js',
-		        				]
-		        			});
-		        		}],
-		        		hiddenEdit: function () {  
-		                    return {};  
-		                },
-		            }  
-		        }); 
-		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-		            $scope.selected = data;
-		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-		        	$scope.initTable();
-		        });
-    };  
+//	$scope.add = function () {  
+//			$scope.equipmentCategory = data.data.equipmentCategory;
+//			//$modalInstance.dismiss('cancel')
+//			  var modalInstance = $modal.open({  
+//		            templateUrl: 'proj/hiddenEdit/add.html',  
+//		            controller: 'hiddenEditEditNgCtrl', 
+//		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+//		            resolve: {  
+//		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+//		        			return $ocLazyLoad.load({
+//		        				name : 'hiddenEditEditNgModule',
+//		        				insertBefore : '#ng_load_plugins_before',
+//		        				files : [
+//		        				         'proj/hiddenEdit/add.js',
+//		        				]
+//		        			});
+//		        		}],
+//		        		hiddenEdit: function () {  
+//		                    return {};  
+//		                },
+//		            }  
+//		        }); 
+//		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+//		            $scope.selected = data;
+//		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+//		        	$scope.initTable();
+//		        });
+//    };  
     //编辑
     $scope.edit = function (systemId) { 
     	console.log(systemId)
     	httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
-    	httpService.post({url:'./hiddenDangerEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
-    		console.log($scope.hiddenEdit);
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/hiddenEdit/add.html',  
-	            controller: 'hiddenEditEditCtrl', 
+	            controller: 'hiddenEditNgCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'hiddenEditModule',
+	        				name : 'hiddenEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
 	        				         'proj/hiddenEdit/add.js',
@@ -182,20 +180,5 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	        });
     	})
     };  
-    $scope.del = function(){
-    	$scope.delArray = [];
-    	angular.forEach(angular.element.find(".o-checks"), function(dom){
-    		if(angular.element(dom).prop("checked") == true){
-    			$scope.delArray.push(angular.element(dom).attr("data-id"))
-    		}
-		});
-    	confirm("确定删除吗?", "", function (isConfirm) {
-            if (isConfirm) {
-            	httpService.post({url:'./hiddenEdit/deleteBatch',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
-            		$scope.initTable();
-            	})
-            } else {
-            }
-        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
-    }
+    
 })

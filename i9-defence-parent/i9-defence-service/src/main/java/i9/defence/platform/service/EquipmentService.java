@@ -1,5 +1,6 @@
 package i9.defence.platform.service;
 
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -94,4 +95,11 @@ public interface EquipmentService {
      * 查询全部隐患报警
      */
     List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
+    /**
+     * 
+     * 修改隐患报警
+     * @param DealStatusDto
+     * @return
+     */
+    void updateDealStatus(DealStatusDto dealStatusDto)throws BusinessException;
 }

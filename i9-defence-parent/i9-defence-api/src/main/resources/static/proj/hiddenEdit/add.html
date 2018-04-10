@@ -1,0 +1,58 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+		<div class='row'>
+			<h4 class="modal-title col-sm-5" id="myModalLabel"><a>处理隐患</a></h4>
+			<div class='col-sm-6 text-right'>
+				<button type='button' class='btn btn-small btn-success' ng-click="check(0)">标记已处理</button>
+				<button type='button' class='btn btn-small btn-warning' ng-click="check(1)">标记误报</button>
+				<button type='button' class='btn btn-small' ng-click="check(2)">标记故障</button>
+			</div>
+		</div>
+	
+	
+</div>
+
+	    <div class="table-responsive">
+	      <table class="table  b-t b-light" style="table-layout:fixed">
+	        <thead>
+	          <tr>
+	            <th style="width:20px;">
+	              <label class="i-checks m-b-none" id="checkLabel1">
+	                <input type="checkbox" id="totalCheck1"><i></i>
+	              </label>
+	            </th>
+	            <th>设备编号</th>
+	            <th>通道名称</th>
+	            <th>阀值</th>
+	            <th>时间</th>
+	            <th>处理详情</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr ng-repeat="hiddenEdit in hiddenEdit">
+	             <td><label class="i-checks m-b-none"><input class="o-checks1" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	            <td >{{hiddenEdit.systemId}}</td>
+	            <td >{{hiddenEdit.name}}</td>
+	            <td >{{hiddenEdit.value}}</td>
+	            <td >{{hiddenEdit.dateTimeStr}}</td>
+	            <td ><input ></td>
+	          </tr>
+	        </tbody>
+	      </table>
+	    </div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()"
+		data-dismiss="modal">取消</button>
+	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+</div>
+<script>
+$("#checkLabel1").click(function(){
+    if($("#totalCheck1").prop("checked") == true){
+        $(".o-checks1").prop("checked",true);
+    }else{
+        $(".o-checks1").prop("checked",false);
+    }
+    
+})
+</script>
