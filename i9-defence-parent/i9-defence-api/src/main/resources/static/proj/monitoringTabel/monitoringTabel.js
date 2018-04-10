@@ -166,9 +166,22 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				projectAddress : text,*/
 			};
 		
-		httpService.post({url:'./hiddenDangerEdit/gatAllHiddenDanger',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(JSON.stringify(data));
-			/*$scope.projects = data.data.data.pageList;
+		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data.data.data.pageList));
+			$scope.projects = data.data.data.pageList;
+			for(i in $scope.projects){
+				if($scope.projects[i].hiddeCount>0){
+					$scope.projects[i].status = 'warning';
+					$scope.projects[i].statusText = '隐患';
+				}else if($scope.projects[i].warningCount>0){
+					$scope.projects[i].status = 'danger';
+					$scope.projects[i].statusText = '报警';
+				}else{
+					$scope.projects[i].status = ''
+					$scope.projects[i].statusText = '正常';
+				}
+			}
+
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -176,7 +189,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			$scope.start = data.data.data.offset+1;
 			$scope.end = data.data.data.offset+$scope.projects.length;
 			$scope.pages = data.data.data.loopPageNum;
-			$scope.currentPage = pageParam.currentPage;*/
+			$scope.currentPage = pageParam.currentPage;
 		})
 	};
 	$scope.pageInit();

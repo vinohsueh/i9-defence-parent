@@ -74,10 +74,10 @@
         <tbody>
           <tr ng-repeat="project in projects">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{project.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td class='eventType'><span class='danger'>{{}}</span></td>
-            <td>A设备</td>
+            <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
+            <td>{{project.equipmentName}}</td>
             <td>2017-5-08</td>
-            <td>1290-26-2</td>
+            <td>{{project.systemId}}</td>
           </tr>
         </tbody>
       </table>
