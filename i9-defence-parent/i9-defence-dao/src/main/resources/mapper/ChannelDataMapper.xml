@@ -90,10 +90,10 @@
 			 	</foreach>
 			</if>
 			<if test="startDate != null">
-			 and  dataTime &gt; #{startDate}
+			 and  dateTime &gt; #{startDate}
 			</if>
 			<if test="endDate != null">
-			 and  dataTime &lt; date_add(#{endDate}, INTERVAL 1 day)
+			 and  dateTime &lt; date_add(#{endDate}, INTERVAL 1 day)
 			</if>
 		</trim>
 	</sql>

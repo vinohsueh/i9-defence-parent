@@ -226,15 +226,18 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	$scope.passagewayInit = function (idNum){
 		var text = $scope.searchText;
 		var pageParam = {
-				id:idNum,
+				equipmentId:idNum,
+				startDateString:$scope.startTime,
+				endDateString:$scope.endTime,
 				/*projectName : text,
 				projectAddress : text,*/
 			};
 		
-		httpService.post({url:'./equipment/pageEquipment',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			
+		httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data));
 		})
 	};
+	$scope.passagewayInit(52);
 
 	//修改分页大小
 	$scope.changePageSize = function(){
