@@ -2,81 +2,65 @@
 	<div class="bg-light lter b-b wrapper-md">
 	  <h1 class="m-n font-thin h3">报警操作列表</h1>
 	</div>
-	<div class="wrapper-md">  
-	  <div class="panel panel-default">
-	    <form action="" class='form-inline myBox'>
-    <div class="form-group">
-      <label for="">设备类型：</label>
-      	<select   class="form-control blue_bg"   ng-options="item.id as item.projectProvince for item in projectProvinces">
-        			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白    ng-model="equipment.equipmentCategoryId" -->
-    		</select>
-      <!-- <select class="form-control blue_bg">
-        <option>天津</option>
-        <option>北京</option>
-        <option>上海</option>
-        <option>深圳</option>
-        <option>杭州</option>
-      </select> -->
-    </div>
-    <div class="form-group">
-      <label for="">登记时间:</label>
-      <div class="input-group" ng-controller="DatepickerDemoCtrl">
-        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='change()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-      <label for="">-</label>
-      <div class="input-group" ng-controller="DatepickerDemoCtrl">
-        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-    </div>  
-    <div class="form-group">
+	<div class="wrapper-md">
+
+		<form action="" class='form-inline myBox'>
+			<div class="form-group">
+				<label for="">设备类型：</label> <select class="form-control blue_bg" ng-model="eqCategoryName"
+					ng-options="item.eqCategoryName as item.eqCategoryName for item in equipmentCategorys">
+					<option value="">请选择</option>
+					<!-- 不加这句代码，会出现空白 -->
+				</select>
+			</div>
+			<!--  <div class="form-group">
       <label for="">经销商：</label>
       <select class="form-control blue_bg">
-        <option>A经销商</option>
-        <option>B经销商</option>
-        <option>C经销商</option>
-        <option>D经销商</option>
-        <option>E经销商</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">省区域：</label>
-      <select class="form-control blue_bg" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
-        <option value = ''>请选择</option>
-        <!-- <option>天津</option>
+      </select> 
+    </div>-->
+			<div class="form-group">
+				<label for="">项目省区域：</label> <select class="form-control blue_bg"
+					ng-model="selected" ng-options="s.name for s in division"
+					ng-change="c()">
+					<option value="">请选择</option>
+					<!-- <option>天津</option>
         <option>北京</option>
         <option>上海</option>
         <option>深圳</option>
         <option>杭州</option> -->
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">地市区域：</label>
-      <select class="form-control blue_bg" ng-model="selected2" ng-options="sh.name for sh in selected.child" ng-change="c2()">
-        <option value=''>请选择</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">县/区：</label>
-      <select class="form-control blue_bg" ng-model="selected3" ng-options="x.value for x in selected2.child" ng-change="c3()">
-        <option value=''>请选择</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">项目名称：</label>
-      <select class="form-control blue_bg">
-        <option>国际创业中心</option>
-        <option>海泰发展六道</option>
-        <option>C项目</option>
-        <option>D项目</option>
-        <option>E项目</option>
-      </select>
-    </div>
-    <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
-  </form>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="">项目地市区域：</label> <select class="form-control blue_bg"
+					ng-model="selected2" ng-options="sh.name for sh in selected.child"
+					ng-change="c2()">
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="">项目县/区：</label> <select class="form-control blue_bg"
+					ng-model="selected3" ng-options="x.value for x in selected2.child"
+					ng-change="c3()">
+					<option value="">请选择</option>
+				</select>
+			</div>
+				<div class="form-group">
+				<label for="">项目名称：</label> <select class="form-control blue_bg" ng-model="projectName"
+					ng-options="item.projectName as item.projectName for item in projects">
+					<option value="">请选择</option>
+					<!-- 不加这句代码，会出现空白 -->
+				</select>
+			</div>
+			<button type='button' class='btn btn-primary' ng-click="initTable()">
+				<i class='glyphicon glyphicon-search'></i>
+			</button>
+		</form>
+		<div class="panel panel-default">
+	    <!-- <div class="panel-heading">
+	        <button class="btn m-b-xs w-xs btn-success btn-rounded hiddenEdit_add" ng-click="add()">新增</button>
+	        <button class="btn m-b-xs w-xs btn-danger btn-rounded hiddenEdit_del" ng-click="del()">删除</button>
+	    </div>-->
 	    <div class="row wrapper">
-	      <div class="col-sm-5 m-b-xs">
+	    <!--   <div class="col-sm-5 m-b-xs">
 	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
 	          <option value="5">5</option>
 	          <option value="10">10</option>
@@ -84,14 +68,13 @@
 	          <option value="50">50</option>
 	          <option value="100">100</option>
 	        </select>
-	        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
-	      </div>
+	      </div> -->
 	      <div class="col-sm-4"></div>
-				<div class="col-sm-3">
+			<!--  	<div class="col-sm-3">
 					<div class="input-group">
 						<input type="text" class="input-sm form-control"ng-change="search()" ng-model="searchText" placeholder="模糊查询">
 					</div>
-				</div>
+				</div>-->
 			</div>
 	    <div class="table-responsive">
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
@@ -104,23 +87,19 @@
 	            </th>
 	            <th>报警数量</th>
 	            <th>设备类型</th>
-	            <th>时间</th>
 	            <th>项目安全负责人</th>
 	            <th>项目名称</th>
 	            <th>设备位置</th>
-	            <th>处理详情</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.warningCount}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.eqCategoryName}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.equipmentDateStr}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.personLiableMan}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.projectName}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{hiddenEdit.equipmentPosition}}</td>
-	            <td ng-click="edit({{hiddenEdit.id}})">{{}}</td>
+	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.systemId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.warningCount}}</td>
+	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.personLiableMan}}</td>
+	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.projectName}}</td>
+	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.equipmentPosition}}</td>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -133,7 +112,20 @@
 	          </select>
 	          <button class="btn btn-sm btn-default">Apply</button>                  
 	        </div> -->
-	        <div class="col-sm-4">
+
+					<div class="col-sm-5 m-b-xs">
+						<select class="input-sm form-control w-sm inline v-middle"
+							ng-change="changePageSize()" ng-model="pageSize"
+							style="width: 65px">
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+					</div>
+
+					<div class="col-sm-4">
 	          <small class="text-muted inline m-t-sm m-b-sm">xiangshi {{start}}-{{end}} of {{total}} items</small>
 	        </div>
 	        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                

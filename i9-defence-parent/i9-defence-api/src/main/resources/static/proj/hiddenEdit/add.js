@@ -17,14 +17,16 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
     			$scope.delArray.push(angular.element(dom).attr("data-id"))
     		}
 		});
-    	dealStatus={
+    	var dealStatus={
     		ids :$scope.delArray,
-    		status : statu
+    		dealStatus : statu
     	}
-    	console.log('--------'+$scope.delArray)
+    	console.log('--------'+statu);
+    	console.log('--------'+$scope.delArray);
+    	console.log('--------'+JSON.stringify(dealStatus));
     	confirm("确定处理吗?", "", function (isConfirm) {
             if (isConfirm) {
-            	httpService.post({url:'./hiddenDangerEdit/deleteBatch',data:$scope.dealStatus,showSuccessMsg:true}).then(function(data) {  
+            	httpService.post({url:'./hiddenDangerEdit/updateDealStatus',data:dealStatus,showSuccessMsg:true}).then(function(data) {  
             		$scope.initTable();
             	})
             } else {
