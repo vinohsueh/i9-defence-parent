@@ -34,4 +34,28 @@ public interface HiddenDangerService {
 	 * @throws Exception
 	  */
 	 void insertHiddenDanger(HiddenDanger hiddenDanger)throws BusinessException;
+	 
+	 /**
+	  * 更改隐患提醒
+	 * @Title: updateHiddenDanger 
+	 * @Description: TODO
+	 * @param hiddenDanger
+	 * @throws Exception
+	  */
+	 void updateHiddenDanger(HiddenDanger hiddenDanger) throws BusinessException;
+	 
+	 
+	 /**
+	  * 根据id获取隐患
+	 * @Title: getHiddenById 
+	 * @Description: TODO
+	 * @param Id
+	 * @return
+	 * @throws Exception
+	  */
+	 HiddenDanger getHiddenById(Integer Id) throws BusinessException;
+	 
+	 
+	 
+	 
 }
