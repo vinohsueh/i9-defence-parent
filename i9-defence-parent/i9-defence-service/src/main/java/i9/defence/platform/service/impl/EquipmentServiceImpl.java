@@ -244,10 +244,25 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto)
 			throws BusinessException {
 		try {
-			return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			//获取登录人
+			Manager loginManager = managerService.getLoginManager();
+			//如果为网站用户显示全部（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}
+			//如果为经销商和管理员
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+				hiddenDangerSearchDto.setDistributorId(loginManager.getId());
+				return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员
+				hiddenDangerSearchDto.setPrijrctManagerId(loginManager.getId());
+				return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}
 		} catch (Exception e) {
 			throw new BusinessException("分页报警隐患查询失败",e.getMessage());
 		}
+		return null;
 	}
 
 	@Override
