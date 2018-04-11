@@ -63,7 +63,7 @@
 		  <label class="col-sm-2 control-label text-left"><span class="required">*</span>负责人</label>
 		  <div class="col-sm-8" id='charge'>
 		    <ui-select multiple ng-model="clientNewList" theme="bootstrap" ng-disabled="disabled">
-		      <ui-select-match placeholder="请选择负责人"><span class='checkItem' data-id={{$item.id}}>{{$item.name}}</span></ui-select-match>
+		      <ui-select-match placeholder="{{placeHod2}}"><span class='checkItem' data-id={{$item.id}}>{{$item.name}}</span></ui-select-match>
 		      <ui-select-choices repeat="client in clientList | propsFilter: {name: $select.search}">
 		        <div ng-bind-html="client.name | highlight: $select.search"></div>
 		      </ui-select-choices>
@@ -74,7 +74,7 @@
 		  <label class="col-sm-2 control-label text-left"><span class="required">*</span>安全责任人</label>
 		  <div class="col-sm-8" id='charge2'>
 		    <ui-select multiple ng-model="safeNewList" theme="bootstrap" ng-disabled="disabled">
-		      <ui-select-match placeholder="请选安全责任人"><span class='checkItem' data-id={{$item.id}}>{{$item.name}}</span></ui-select-match>
+		      <ui-select-match placeholder="{{placeHod}}"><span class='checkItem' data-id={{$item.id}}>{{$item.name}}</span></ui-select-match>
 		      <ui-select-choices repeat="manager in safeList | propsFilter: {name: $select.search}">
 		        <div ng-bind-html="manager.name | highlight: $select.search"></div>
 		      </ui-select-choices>

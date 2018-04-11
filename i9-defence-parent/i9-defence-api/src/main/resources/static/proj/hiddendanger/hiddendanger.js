@@ -97,8 +97,8 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
         },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
         	$scope.initTable();
         });
-         
     };  
+    
   //编辑 
     $scope.edit = function (id) { 
     	httpService.post({url:'./hiddendanger/getHiddendangerById',data:id,showSuccessMsg:false}).then(function(data) {  
@@ -128,5 +128,29 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
 	        	$scope.initTable();
 	        });
     	})
-    };  
+    }
+  //删除
+    $scope.del = function(){
+    	$scope.delArray = [];
+    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+    		if(angular.element(dom).prop("checked") == true){
+    			$scope.delArray.push(angular.element(dom).attr("data-id"))
+    		}
+		});
+    	confirm("确定删除吗?", "", function (isConfirm) {
+            if (isConfirm) {
+            	httpService.post({url:'./hiddendanger/delHiddendangerByIds',data:$scope.delArray,showSuccessMsg:false,msg:true}).then(function(data) {  
+            	$scope.msg=data.data.msg;
+//            	console.log($scope.msg);
+            	$.toaster({
+					title : "Success",
+					priority : "success",
+					message : $scope.msg
+				});
+            	$scope.initTable();
+            	})
+            } else {
+            }
+        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
+    };
 })

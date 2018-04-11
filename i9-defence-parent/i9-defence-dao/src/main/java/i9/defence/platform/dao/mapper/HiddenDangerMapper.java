@@ -12,7 +12,7 @@ public interface HiddenDangerMapper {
 
     int deleteByExample(HiddenDangerExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(List<Integer> ids);
 
     int insert(HiddenDanger record);
 

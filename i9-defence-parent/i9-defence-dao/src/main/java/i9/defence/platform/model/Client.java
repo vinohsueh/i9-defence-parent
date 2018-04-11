@@ -1,6 +1,8 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -50,29 +52,42 @@ public class Client {
     @Pattern(regexp="\\w+(\\.\\w)*@\\w+(\\.\\w{2,3}){1,3}",message="请输入正确的邮箱格式")
     private String mail;
     /**
-     * 关联的项目
+     * 关联的项目名称集合
      */
-    private Project project;
+    private List<String> project;
     /**
      * 创建人
      */
     private Integer createId;
+    /**
+     * 关联的项目名称
+     */
+    private String projectName;
     
-    public Integer getCreateId() {
+    
+    public List<String> getProject() {
+		return project;
+	}
+
+	public void setProject(List<String> project) {
+		this.project = project;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public Integer getCreateId() {
 		return createId;
 	}
 
 	public void setCreateId(Integer createId) {
 		this.createId = createId;
 	}
-
-	public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
 
     public Integer getId() {
         return id;

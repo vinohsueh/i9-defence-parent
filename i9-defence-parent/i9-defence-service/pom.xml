@@ -27,7 +27,7 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-            <plugin>
+            <plugin><!-- 解决jdk版本不匹配问题 -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
