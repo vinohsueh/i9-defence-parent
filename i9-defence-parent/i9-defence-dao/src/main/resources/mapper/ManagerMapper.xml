@@ -403,7 +403,7 @@
     </if>
   </select>
   <select id="selectPartAgency" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null
+    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null and mg.parentId is not null
   </select>
   <insert id="insertManagerGrade">
     INSERT INTO t_manager_grade(managerId,parentId) VALUES
