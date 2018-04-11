@@ -119,6 +119,7 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
 	var dDay = myDate.getDate();
 	$scope.startTime = dYear+'/'+dMonth+'/'+dDay;
 
+
 	$scope.change = function () {
 		var myStartDate = this.startTime;
 		var dYear = myStartDate.getFullYear();

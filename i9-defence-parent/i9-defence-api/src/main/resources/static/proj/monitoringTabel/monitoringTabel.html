@@ -1,6 +1,6 @@
-<div class="bg-light lter b-b wrapper-md">
+<!-- <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">项目管理</h1>
-</div>
+</div> -->
 <div controlled-rescode>
 <div class="wrapper-md">  
   <form action="" class='form-inline myBox'>
@@ -50,33 +50,25 @@
           <option value="100">100</option>
         </select>
       </div>
-      <div class="col-sm-8 text-right">
+      <!-- <div class="col-sm-8 text-right">
         <button class="btn btn-success proj_add">新增</button>
         <button class="btn btn-danger del_proj">删除</button>
         <button class="btn btn-warning invite_code">邀请码</button>
-      </div>
+      </div> -->
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-b b-light" style="table-layout:fixed">
         <thead>
           <tr>
-            <th style="width:20px;">
-              <label class="i-checks m-b-none" id="checkLabel">
-                <input type="checkbox" id="totalCheck"><i></i>
-              </label>
-            </th>
             <th>状态</th>
             <th>设备名称</th>
-            <th>时间</th>
             <th>设备编号</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="project in projects">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{project.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+          <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
             <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
             <td>{{project.equipmentName}}</td>
-            <td>2017-5-08</td>
             <td>{{project.systemId}}</td>
           </tr>
         </tbody>
@@ -108,14 +100,6 @@
   </div>
   <div class='row'>
     <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">联系人</div>
-      <div class="body">
-        <p>职位：项目经理</p>
-        <p>姓名：王二宝</p>
-        <p>电话：18070900000</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">项目信息</div>
       <div class="body">
         <p>项目负责人：王三宝</p>
@@ -129,9 +113,25 @@
         <p>位置：国际创业中心2019</p>
       </div>
     </div>
-    <div class="mPane col-xs-12 col-sm-6">
-      <div class="title">具体数据</div>
-      <div class="body">
+    <div class="mPane col-xs-12 col-sm-8">
+      <div class="title clearify">
+        具体数据
+        <div class='pull-right form-inline'>
+          <div class="form-group">
+            <label for="">登记时间:</label>
+            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+            </div>
+            <label for="">-</label>
+            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body" ng-show=chartsStatus>
         <div e-chart options="option"></div>
       </div>
     </div>
