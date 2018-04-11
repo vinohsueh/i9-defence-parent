@@ -1,5 +1,7 @@
 package i9.defence.platform.service;
 
+import java.util.List;
+
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.HiddenDangerExample;
 import i9.defence.platform.utils.BusinessException;
@@ -55,7 +57,14 @@ public interface HiddenDangerService {
 	  */
 	 HiddenDanger getHiddenById(Integer Id) throws BusinessException;
 	 
-	 
+	 /**
+	  * 批量删除隐患
+	 * @Title: delHiddenDangers 
+	 * @Description: TODO
+	 * @param ids
+	 * @throws Exception
+	  */
+	 void delHiddenDangers(List<Integer> ids) throws BusinessException;
 	 
 	 
 }

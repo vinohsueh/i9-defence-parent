@@ -1,5 +1,7 @@
 package i9.defence.platform.dao;
 
+import java.util.List;
+
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.HiddenDangerExample;
 import i9.defence.platform.utils.PageBounds;
@@ -52,5 +54,14 @@ public interface HiddenDangerDao {
 	 * @throws Exception
 	  */
 	 HiddenDanger getHiddenById(Integer Id) throws Exception;
+	 
+	 /**
+	  * 批量删除隐患
+	 * @Title: delHiddenDangers 
+	 * @Description: TODO
+	 * @param ids
+	 * @throws Exception
+	  */
+	 void delHiddenDangers(List<Integer> ids) throws Exception;
 	 
 }

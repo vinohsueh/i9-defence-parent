@@ -1,5 +1,7 @@
 package i9.defence.platform.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class HiddenDangerServiceImpl implements HiddenDangerService {
 	@Override
 	public void insertHiddenDanger(HiddenDanger hiddenDanger) throws BusinessException {
 		try {
-			if(hiddenDanger.getId()==0) {
+			if(null==hiddenDanger.getId()||0==hiddenDanger.getId()) {
 				hiddenDangerDao.insertHiddenDanger(hiddenDanger);
 			}else {
 				hiddenDangerDao.updateHiddenDanger(hiddenDanger);
@@ -54,6 +56,15 @@ public class HiddenDangerServiceImpl implements HiddenDangerService {
 			return hiddenDangerDao.getHiddenById(Id);
 		} catch (Exception e) {
 			throw new BusinessException("根据Id查询隐患类型失败", e.getMessage());
+		}
+	}
+
+	@Override
+	public void delHiddenDangers(List<Integer> ids) throws BusinessException {
+		try {
+			hiddenDangerDao.delHiddenDangers(ids);
+		} catch (Exception e) {
+			throw new BusinessException("根据Ids删除隐患类型失败", e.getMessage());
 		}
 	}
 

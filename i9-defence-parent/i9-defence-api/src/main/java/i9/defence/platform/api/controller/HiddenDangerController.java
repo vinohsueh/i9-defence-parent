@@ -1,6 +1,7 @@
 package i9.defence.platform.api.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,6 +69,20 @@ public class HiddenDangerController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HiddenDanger hiddenDanger = hiddernDangerService.getHiddenById(id);
 		result.put("data", hiddenDanger);
+		return result;
+	}
+	
+	/**
+	 * 根据ids删除隐患
+	* @Title: getHiddendangerById 
+	* @Description: TODO
+	* @param id
+	* @return
+	 */
+	@RequestMapping("/delHiddendangerByIds")
+	public HashMap<String, Object> delHiddendangerByIds(@RequestBody List<Integer> ids) {
+		HashMap<String, Object> result = new HashMap<String, Object>(); 
+		hiddernDangerService.delHiddenDangers(ids);
 		return result;
 	}
 }

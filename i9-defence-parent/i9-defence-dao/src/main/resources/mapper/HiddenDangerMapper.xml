@@ -90,9 +90,12 @@
     from t_hidden_danger
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List">
     delete from t_hidden_danger
-    where id = #{id,jdbcType=INTEGER}
+    where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+    	#{item}
+    </foreach>
   </delete>
   <delete id="deleteByExample" parameterType="i9.defence.platform.model.HiddenDangerExample">
     delete from t_hidden_danger
