@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+
+import i9.defence.platform.api.components.HiddendangerChannelDataInFoComponents;
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -62,7 +65,8 @@ public class HiddenDangerEditController {
 	public HashMap<String, Object> selectHiddenDangerChannelDtoBySid(@RequestBody String systemId) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<HiddenDangerChannelDto> list = equipmentService.selectHiddenDangerChannelDtoBySid(systemId);
-		result.put("data", list);
+		JSONArray data = new HiddendangerChannelDataInFoComponents().setHiddenDangerChannelDto(list).build();
+		result.put("data", data);
 		return result;
 	}
     

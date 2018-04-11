@@ -6,7 +6,7 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
 		hiddenEdit,httpService) {
 	
 	$scope.hiddenEdit = hiddenEdit;
-//	console.log($scope.hiddenEdit);
+	console.log($scope.hiddenEdit);
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
@@ -27,12 +27,12 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
     	
     	var dealStatus={
     		ids :$scope.delArray,
-    		dealStatus : statu,
-//    		editDealText:text
+    		dealStatus : statu
+//    		dealDetail:$scope.editTextArray
     	}
     	console.log('--------'+statu);
     	console.log('--------'+$scope.delArray);
-    	console.log('--------'+$scope.editTextArray);
+//    	console.log('--------'+$scope.editTextArray);
     	console.log('--------'+JSON.stringify(dealStatus));
     	confirm("确定处理吗?", "", function (isConfirm) {
             if (isConfirm) {

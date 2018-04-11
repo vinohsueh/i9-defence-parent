@@ -34,7 +34,20 @@ public class HiddenDangerChannelDto {
 	 * 时间
 	 */
 	private Date dateTime;
+	/*
+	 * 通道
+	 */
+	private Integer channel;
 	
+	
+	public Integer getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Integer channel) {
+		this.channel = channel;
+	}
+
 	public Integer getId() {
 		return id;
 	}

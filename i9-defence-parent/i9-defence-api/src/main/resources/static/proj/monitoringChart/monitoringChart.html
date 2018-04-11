@@ -1,31 +1,6 @@
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">项目管理</h1>
-</div>
 <div controlled-rescode>
 <div class="wrapper-md">  
-  <form action="" class='form-inline myBox'>
-    <div class="form-group">
-      <label for="">设备类型：</label>
-      <select class="form-control blue_bg">
-        <option>天津</option>
-        <option>北京</option>
-        <option>上海</option>
-        <option>深圳</option>
-        <option>杭州</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">登记时间:</label>
-      <div class="input-group" ng-controller="DatepickerDemoCtrl">
-        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='change()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-      <label for="">-</label>
-      <div class="input-group" ng-controller="DatepickerDemoCtrl">
-        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-    </div>  
+  <form action="" class='form-inline myBox'> 
     <div class="form-group">
       <label for="">经销商：</label>
       <select class="form-control blue_bg">
@@ -98,7 +73,7 @@
 
       <div class="faultType">
         
-        <div class="item active " ng-class="{true:'active'}[type==1]" ng-click='changeType(1)'>
+        <div class="item" ng-class="{true:'active'}[type==1]" ng-click='changeType(1)'>
           <div class="name">故障电弧B型</div>
           <div class="body">4</div>
         </div>
@@ -106,55 +81,17 @@
           <div class="name">故障电弧B型</div>
           <div class="body">4</div>
         </div>
-        <div class="item" ng-click='changeType(3)'>
+        <div class="item" ng-class="{true:'active'}[type==3]" ng-click='changeType(3)'>
           <div class="name">故障电弧B型</div>
           <div class="body">4</div>
         </div>
-        <div class="item" ng-click='changeType(4)'>
+        <div class="item" ng-class="{true:'active'}[type==4]" ng-click='changeType(4)'>
           <div class="name">故障电弧B型</div>
           <div class="body">4</div>
         </div>
       </div>
-      <div class="equipmentData" ng-repeat='i in httpTest'>
-        <span class="mLabel" ng-click='checkItem()'>G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel faultLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel dangerLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel dangerLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
-        <span class="mLabel">G001</span>
+      <div class="equipmentData">
+        <span class="mLabel {{i.status}}" ng-repeat='i in projects'>{{i.equipmentName}}</span>
       </div>
     </div>
   </div>
@@ -182,10 +119,21 @@
       </div>
     </div>
     <div class="mPane col-xs-12 col-sm-6">
-      <div class="title clear">
-        <div class="text pull-left">具体数据</div>
-        <div class="tools pull-right">
-          <button type='button' class='btn btn-success' ng-click="add()">添加通道</button>
+      <div class="title clearify">
+        具体数据
+        <div class='pull-right form-inline'>
+          <div class="form-group">
+            <label for="">登记时间:</label>
+            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='change()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+            </div>
+            <label for="">-</label>
+            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="body">

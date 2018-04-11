@@ -144,43 +144,74 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
          
     };
 
-    //日期
-    var myDate = new Date(2000,00,00);
-    var dYear = myDate.getFullYear();
-    var dMonth = myDate.getMonth()+1;
-    var dDay = myDate.getDate();
-    $scope.startTime = dYear+'/'+dMonth+'/'+dDay;
+    $scope.getDate = function (index){
+	    var date = new Date(); //当前日期
+	    var newDate = new Date();
+	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
+	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
+	    return time;
+	}
+	$scope.startTime = $scope.getDate(-7);
+	$scope.endTime = $scope.getDate(0);
 
-    $scope.change = function () {
-    	var myStartDate = this.startTime;
-    	var dYear = myStartDate.getFullYear();
-    	var dMonth = myStartDate.getMonth()+1;
-    	var dDay = myStartDate.getDate();
-    	$scope.startCheckTime = dYear+'/'+dMonth+'/'+dDay;
-    	console.log(this.startCheckTime);
-    }
-    
-    // $scope.endTime = this.startCheckTime;
     
     //分页条件
     $scope.pageSize = 10;
     $scope.currentPage = 1;
+    //故障类型
+    $scope.type=1;
     //初始化
-    $scope.initItem = function (){
+    $scope.pageInit = function (){
     	var text = $scope.searchText;
+    	if($scope.selected == null || $scope.selected == ''){
+    		$scope.selected ={
+    			name:''
+    		}
+    	}
+    	if($scope.selected2 == null || $scope.selected2 == ''){
+    		$scope.selected2 ={
+    			name:''
+    		}
+    	}
+    	if($scope.selected3 == null || $scope.selected3 == ''){
+    		$scope.selected3 ={
+    			value:''
+    		}
+    	}
     	var pageParam = {
     			pageSize:$scope.pageSize,
     			currentPage:$scope.currentPage,
-    			projectName : text,
-    			projectAddress : text,
+    			/*projectName : text,
+    			projectAddress : text,*/
     		};
     	
-    	httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-    		
+    	httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.projects = data.data.data.pageList;
+    		for(i in $scope.projects){
+    			if($scope.projects[i].warningCount>0){
+    				$scope.projects[i].status = 'dangerLabel';
+    			}else if($scope.projects[i].hiddeCount>0){
+    				$scope.projects[i].status = 'faultLabel';
+    			}else{
+    				$scope.projects[i].status = ''
+    			}
+    		}
+
+    		$scope.hasPrevious = data.data.data.hasPrevious;
+    		$scope.currentPage = data.data.data.currentPage;
+    		$scope.hasNext = data.data.data.hasNext;
+    		$scope.total = data.data.data.totalSize;
+    		$scope.start = data.data.data.offset+1;
+    		$scope.end = data.data.data.offset+$scope.projects.length;
+    		$scope.pages = data.data.data.loopPageNum;
+    		$scope.currentPage = pageParam.currentPage;
+
+    		$scope.passagewayInit($scope.projects[0].id);
     	})
     };
-    $scope.initItem();
+    $scope.pageInit();
 
+    //日期
     $scope.error = {};
     $scope.division = division;
     $scope.c = function () {
@@ -198,4 +229,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     $scope.c3 = function () {
        $scope.error.area = false;
     };
+
+    $scope.changeType = function (num) {
+    	$scope.type = num;
+    }
 })

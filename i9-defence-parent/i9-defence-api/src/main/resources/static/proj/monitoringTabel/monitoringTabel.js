@@ -37,24 +37,33 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	    tooltip:{
 	        trigger:'axis'
 	    },
+	    dataZoom:{
+            type: 'inside',
+            realtime: true,
+            start: 90,
+            end: 100,
+            // xAxisIndex: [0, 1]
+	    },
 	    legend:{
 	        right:0,
 	        top:0,
 	        orient:'vertical',
 	        inactiveColor:'#666',
+	        selectedMode:'single',
 	        textStyle:{
 	            color:'#fff',
 	        },
 	        data:['系列1','系列2',]
 	    },
 	    xAxis:{
+	    	// type:'time',
 	        axisLabel: {        
 	            show: true,
 	            textStyle: {
 	                color: '#fff',
 	            }
 	        },
-	        data:['信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12',]
+	        data:['信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12','信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12']
 	    },
 	    yAxis:{
 	        axisLabel: {        
@@ -89,7 +98,19 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	                    color:'#ab56dc',
 	                }
 	            },
-	            data:[40,20,10,75,30,20,78,55,51,31,46,36]
+	            
+	            data:[40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36,40,20,10,75,30,20,78,55,51,31,46,36],
+	            /*markLine:{
+	            	lineStyle:{
+	            		color:'#fff',
+	            		type:'solid'
+	            	},
+	            	data: [{
+	                    yAxis: 10,
+	                }, {
+	                    yAxis: 50,
+	                }]
+	            },*/
 	        },
 	        
 	        {
@@ -100,24 +121,28 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	            symbolSize: 10,
 	            itemStyle:{
 	                normal:{
-	                    color:'#e2d89c',
+	                    color:'#ab56dc',
 	                }
 	            },
 	            lineStyle:{
 	                normal:{
-	                    color:'#e2d89c',
+	                    color:'#ab56dc',
 	                }
 	            },
-	            data:[70,30,20,15,40,50,28,35,71,21,16,56]
+	            data:[70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56,70,30,20,15,40,50,28,35,71,21,16,56]
 	        },
 	    ],
 	}
-	//日期
-	var myDate = new Date(2000,00,00);
-	var dYear = myDate.getFullYear();
-	var dMonth = myDate.getMonth()+1;
-	var dDay = myDate.getDate();
-	$scope.startTime = dYear+'/'+dMonth+'/'+dDay;
+	$scope.getDate = function (index){
+	    var date = new Date(); //当前日期
+	    var newDate = new Date();
+	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
+	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
+	    return time;
+	}
+
+	$scope.startTime = $scope.getDate(-7);
+	$scope.endTime = $scope.getDate(0);
 
 	//地域
 	$scope.error = {};
@@ -162,8 +187,11 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				/*projectName : text,
-				projectAddress : text,*/
+				projectName : text,
+				projectAddress : text,
+				projectProvince:$scope.selected.name,
+				projectCity:$scope.selected2.name,
+				projectCounty:$scope.selected3.value,
 			};
 		
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
@@ -190,29 +218,26 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			$scope.end = data.data.data.offset+$scope.projects.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
+
+			$scope.passagewayInit($scope.projects[0].id);
 		})
 	};
 	$scope.pageInit();
 	$scope.passagewayInit = function (idNum){
 		var text = $scope.searchText;
 		var pageParam = {
-				id:idNum,
+				equipmentId:idNum,
+				startDateString:$scope.startTime,
+				endDateString:$scope.endTime,
 				/*projectName : text,
 				projectAddress : text,*/
 			};
 		
-		httpService.post({url:'./equipment/pageEquipment',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.projects = data.data.data.pageList;
-			$scope.hasPrevious = data.data.data.hasPrevious;
-			$scope.currentPage = data.data.data.currentPage;
-			$scope.hasNext = data.data.data.hasNext;
-			$scope.total = data.data.data.totalSize;
-			$scope.start = data.data.data.offset+1;
-			$scope.end = data.data.data.offset+$scope.projects.length;
-			$scope.pages = data.data.data.loopPageNum;
-			$scope.currentPage = pageParam.currentPage;
+		httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data));
 		})
 	};
+	$scope.passagewayInit(52);
 
 	//修改分页大小
 	$scope.changePageSize = function(){
