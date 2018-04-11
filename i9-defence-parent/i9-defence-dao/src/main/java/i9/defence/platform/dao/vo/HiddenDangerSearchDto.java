@@ -37,7 +37,28 @@ public class HiddenDangerSearchDto extends PageListDto{
 	 * 报警不为0
 	 */
 	private String danger;
+	/*
+	 * 项目负责人
+	 */
+	private Integer prijrctManagerId;
+	/*
+	 * 经销商
+	 */
+	private Integer distributorId;
 	
+	
+	public Integer getDistributorId() {
+		return distributorId;
+	}
+	public void setDistributorId(Integer distributorId) {
+		this.distributorId = distributorId;
+	}
+	public Integer getPrijrctManagerId() {
+		return prijrctManagerId;
+	}
+	public void setPrijrctManagerId(Integer prijrctManagerId) {
+		this.prijrctManagerId = prijrctManagerId;
+	}
 	public String getHidden() {
 		return hidden;
 	}
