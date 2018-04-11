@@ -1,6 +1,7 @@
 package i9.defence.platform.dao.mapper;
 
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ChannelDataExample;
 import java.util.List;
@@ -41,4 +42,9 @@ public interface ChannelDataMapper {
      * @return
      */
 	List<ChannelData> selectChannelData(ChannelDataSearchDto channelDataSearchDto);
+	
+	/**
+	 * 批量修改标识
+	 */
+	void updateDealStatusByIds(@Param("example") DealStatusDto dealStatusDto);
 }

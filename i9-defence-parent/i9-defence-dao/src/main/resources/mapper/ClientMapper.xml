@@ -11,7 +11,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="mail" jdbcType="VARCHAR" property="mail" />
 	<result column="createId" jdbcType="INTEGER" property="createId" />
-    <association property="project" column="projectId" javaType="i9.defence.platform.model.Project" select="selectByProjectId"></association>
+    <association property="project" column="id" jdbcType="VARCHAR" select="selectByProjectId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -300,8 +300,8 @@
         limit #{offset},#{limit}
    </select>
    <!-- 查询关联项目 -->
-   <select id="selectByProjectId" parameterType="int" resultType="i9.defence.platform.model.Project">
-   	select * from t_project where id = #{id,jdbcType=INTEGER}
+   <select id="selectByProjectId" parameterType="int" resultType="string">
+   select p.projectName from t_project p left join t_project_client pc on pc.projectId =p.id where pc.clientId =#{id,jdbcType=INTEGER}
    </select>
    <!-- 查询全部负责人 -->
    <select id="selectAllClient" resultMap="BaseResultMap" >

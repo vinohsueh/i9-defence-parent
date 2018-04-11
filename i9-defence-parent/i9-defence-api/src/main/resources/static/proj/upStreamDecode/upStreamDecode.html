@@ -1,13 +1,10 @@
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">解密数据列表</h1>
-</div>
 <div controlled-rescode>
 <div class="wrapper-md">  
   <div class="panel panel-default">
-    <div class="panel-heading">
-     <!--<button class="btn m-b-xs w-xs btn-success btn-rounded net_manager_crud" ng-click="add()">新增</button> -->  
-        <button class="btn m-b-xs w-xs btn-danger btn-rounded net_manager_crud" ng-click="del()">删除</button>
-    </div>
+   <!--  <div class="panel-heading">
+     <button class="btn m-b-xs w-xs btn-success btn-rounded net_manager_crud" ng-click="add()">新增</button>  
+        
+    </div> -->
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
         <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
@@ -27,6 +24,7 @@
           <!-- <span class="input-group-btn">
             <button class="btn btn-sm btn-default" type="button">Go!</button>
           </span> -->
+          <button class="btn m-b-xs w-xs btn-danger btn-rounded net_manager_crud" ng-click="del()">删除</button>
         </div>
       </div>
     </div>

@@ -2,7 +2,9 @@ package i9.defence.platform.dao;
 
 import java.util.List;
 
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
@@ -11,13 +13,13 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 项目Dao
+ * 设备Dao
  * @author gbq
  * @create 2018年1月8日
  */
 public interface EquipmentDao {
 	  /**
-     * 分页查询项目
+     * 分页查询设备
      * @param equipmentSearchDto
      * @param currectPage
      * @param pageSize
@@ -25,7 +27,24 @@ public interface EquipmentDao {
      */
     PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto,
             int currectPage, int pageSize) throws Exception;
+    /**
+     * 如果为经销商，分页查询设备
+     * @param equipmentSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<Equipment> selectByLimitPage2(EquipmentSearchDto equipmentSearchDto, int currentPage, int pageSize,int distributorId) throws Exception;
     
+    /**
+     * 如果为项目管理员，分页查询设备
+     * @param equipmentSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<Equipment> selectByLimitPage3(EquipmentSearchDto equipmentSearchDto, int currentPage, int pageSize,
+			Integer id);
     /**
      * 添加设备
      * @param equipment
@@ -34,14 +53,14 @@ public interface EquipmentDao {
     void addEquipment(Equipment equipment) throws Exception;
     
     /**
-     * 更新项目
+     * 更新设备
      * @param equipment
      * @throws Exception
      */
     void updateEquipment(Equipment equipment) throws Exception;
     
     /**
-     * 根据ID获取项目
+     * 根据ID获取设备
      * @param id
      * @return
      * @throws Exception
@@ -83,6 +102,7 @@ public interface EquipmentDao {
 	 * @throws Exception
 	 */
 	void updateEquipments(List<Equipment> applies) throws Exception;
+
 	 /**
      * 分页查询隐患报警
      * @param hiddenDangerSearchDto
@@ -92,6 +112,22 @@ public interface EquipmentDao {
      */
     PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto,
             int currectPage, int pageSize) throws Exception;
+    
+    /**
+     * 查询具体隐患报警
+     * @param HiddenDangerChannelDto
+     * @return
+     */
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
+    
+    /**
+     * 
+     * 修改隐患报警
+     * @param DealStatusDto
+     * @return
+     */
+    void updateDealStatus(DealStatusDto dealStatusDto)throws Exception;
+    
     /**
      * 查询全部隐患报警
      */

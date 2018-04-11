@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import i9.defence.platform.dao.EquipmentDao;
+import i9.defence.platform.dao.mapper.ChannelDataMapper;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
@@ -17,7 +20,7 @@ import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 项目DaoImpl
+ * 设备DaoImpl
  * @author gbq
  * @create 2018年1月8日
  */
@@ -26,7 +29,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	
 	@Autowired
 	private EquipmentMapper equipmentMapper;
-
+	@Autowired
+	private ChannelDataMapper channelDataMapper;
+	
 	@Override
 	public PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto, int currectPage, int pageSize)
 			throws Exception {
@@ -36,7 +41,27 @@ public class EquipmentDaoImpl implements EquipmentDao{
         pageBounds.setPageList(list);
         return pageBounds;
 	}
-
+	
+	@Override
+	public PageBounds<Equipment> selectByLimitPage2(EquipmentSearchDto equipmentSearchDto, int currectPage, int pageSize ,int distributorId)
+			throws Exception {
+		final int totalSize = equipmentMapper.countByExample(equipmentSearchDto);
+        PageBounds<Equipment> pageBounds = new PageBounds<Equipment>(currectPage, totalSize, pageSize);
+        List<Equipment> list = equipmentMapper.selectByLimitPage2(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize(),distributorId);
+        pageBounds.setPageList(list);
+        return pageBounds;
+	}
+	
+	@Override
+	public PageBounds<Equipment> selectByLimitPage3(EquipmentSearchDto equipmentSearchDto, int currentPage,
+			int pageSize, Integer distributorId) {
+		final int totalSize = equipmentMapper.countByExample(equipmentSearchDto);
+        PageBounds<Equipment> pageBounds = new PageBounds<Equipment>(currentPage, totalSize, pageSize);
+        List<Equipment> list = equipmentMapper.selectByLimitPage3(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize(),distributorId);
+        pageBounds.setPageList(list);
+        return pageBounds;
+	}
+	
 	@Override
 	public void addEquipment(Equipment equipment) throws Exception {
 		equipmentMapper.insertSelective(equipment);
@@ -92,9 +117,19 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
+	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) {
+		return equipmentMapper.selectHiddenDangerChannelDtoBySid(systemId);
+	}
+	
+	@Override
 	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws Exception {
 		List<HiddenDangerDto> list =equipmentMapper.selectAllHiddenDanger(hiddenDangerSearchDto);
 		return list;
+	}
+
+	@Override
+	public void updateDealStatus(DealStatusDto dealStatusDto) throws Exception {
+		channelDataMapper.updateDealStatusByIds(dealStatusDto);
 	}
 
 }

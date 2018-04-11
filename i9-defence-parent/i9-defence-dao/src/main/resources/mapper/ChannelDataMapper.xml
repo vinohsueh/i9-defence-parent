@@ -83,6 +83,18 @@
 			<if test="channel != null">
 			 and channel = #{channel}
 			</if>
+			<if test="types != null">
+			 and type in
+			 	<foreach collection="types" item="item" separator="," open="(" close=")">
+			 		#{item}
+			 	</foreach>
+			</if>
+			<if test="startDate != null">
+			 and  dateTime &gt; #{startDate}
+			</if>
+			<if test="endDate != null">
+			 and  dateTime &lt; date_add(#{endDate}, INTERVAL 1 day)
+			</if>
 		</trim>
 	</sql>
 	<sql id="Base_Column_List">
@@ -308,4 +320,11 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+	
+	<update id="updateDealStatusByIds">
+	update t_channel_data set dealStatus = #{example.dealStatus} where id in
+    <foreach collection="example.ids" item="item" open="(" close=")" separator=",">
+   	 	#{item}
+    </foreach>
+	</update>
 </mapper>

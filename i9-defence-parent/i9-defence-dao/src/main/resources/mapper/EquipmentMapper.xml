@@ -362,7 +362,61 @@
         </if>
         limit #{offset},#{limit}
    </select>
+   <select id="selectByLimitPage2" resultMap="BaseResultMap">
+        select e.id as id, e.equipmentName as equipmentName, e.equipmentNum as equipmentNum, e.equipmentIdentifier as equipmentIdentifier, e.equipmentPosition as equipmentPosition, e.equipmentDate as equipmentDate, 
+    e.equipmentRemarks as equipmentRemarks, e.equipmentCategoryId as equipmentCategoryId,e.projectId as projectId,e.systemId as systemId,e.unit as unit,e.loopl as loopl,e.delStatus as delStatus from t_equipment e left join t_project p on e.projectId = p.id 
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause2" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
    
+   <select id="selectByLimitPage3" resultMap="BaseResultMap">
+        select e.* from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause3" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
+   
+   <sql id="Query_By_Dto_Where_Clause2">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.equipmentName != null and example.equipmentName != ''">
+         OR( equipmentName LIKE CONCAT('%',CONCAT('${example.equipmentName}','%'))
+        </if>
+        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
+          OR equipmentIdentifier LIKE CONCAT('%',CONCAT('${example.equipmentIdentifier}','%'))
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+          OR equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%')))
+        </if>
+        and p.distributorId = #{distributorId,jdbcType=INTEGER}
+    </trim>
+  </sql>
+  
+  <sql id="Query_By_Dto_Where_Clause3">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.equipmentName != null and example.equipmentName != ''">
+         OR( e.equipmentName LIKE CONCAT('%',CONCAT('${example.equipmentName}','%'))
+        </if>
+        <if test="example.equipmentIdentifier != null and example.equipmentIdentifier != ''">
+          OR e.equipmentIdentifier LIKE CONCAT('%',CONCAT('${example.equipmentIdentifier}','%'))
+        </if>
+        <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+          OR e.equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+        </if>
+        and  ps.managerId = #{distributorId}
+    </trim>
+  </sql>
    <select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
    select channel,name,systemId,hiddenDangerId
     from  t_passageway	
@@ -427,6 +481,14 @@
 				<if test="example.danger != null and example.danger != ''">
 					and warningCount != 0 
 				</if>
+				<!--项目负责人  -->	
+				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
+					and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
+				</if>
+				<!--经销商  -->	
+				<if test="example.distributorId != null and example.distributorId != ''">
+					and distributorId = ='${example.distributorId}'
+				</if>
 				<!-- <if test="example.startDate != null and example.startDate != ''">
 					and example.startDate &lt; equipmentDate
 				</if>
@@ -446,6 +508,12 @@
 			</if>
 			limit #{offset},#{limit}
 		</select>
+		<!-- 查询具体隐患报警 -->
+		 <select id="selectHiddenDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
+			  select id,systemId,name,value,dateTime,channel
+			   from  v_hiddendanger_channel_data	
+			    where systemId=#{systemId,jdbcType=VARCHAR}
+		  </select>
 		<!-- 查询全部 -->
 		<select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select id,systemId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
