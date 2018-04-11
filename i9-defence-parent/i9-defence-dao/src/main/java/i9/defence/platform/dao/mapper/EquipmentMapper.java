@@ -40,6 +40,9 @@ public interface EquipmentMapper {
 
     List<Equipment> selectByLimitPage2(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize,@Param("distributorId")Integer distributorId);
     
+    List<Equipment> selectByLimitPage3(@Param("example") EquipmentSearchDto equipmentSearchDto,@Param("offset") int offset,@Param("limit") int pageSize,
+    		@Param("distributorId")Integer managerId);
+    
     List<Passageway> selectPassagewayByEid(String systemId);
     
     void insertPassageWay(@Param("Passageway") Passageway passageway);
@@ -52,4 +55,5 @@ public interface EquipmentMapper {
     List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
     //隐患报警 全部查询
     List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
+
 }
