@@ -1,7 +1,7 @@
 <div controlled-rescode>
-	<div class="bg-light lter b-b wrapper-md">
+	<!-- <div class="bg-light lter b-b wrapper-md">
 	  <h1 class="m-n font-thin h3">隐患提醒设置管理</h1>
-	</div>
+	</div> -->
 	<div class="wrapper-md"> 
 		<!-- <form action="" class='form-inline myBox'>
 			<div class="form-group">
@@ -21,7 +21,7 @@
 		        <button class="btn  btn-success" ng-click="add()">新增</button>
 		    </div> -->
 		    <div class="row panel-heading">
-		      <div class="col-sm-6 m-b-xs">
+		      <div class="col-sm-5 m-b-xs">
 		        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
 		          <option value="5">5</option>
 		          <option value="10">10</option>
@@ -32,19 +32,24 @@
 		        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
 		      </div>
 		      <div class="col-sm-6 text-right">
-		        	<button class="btn  btn-success" ng-click="add()">新增</button>
+		        	<button class="btn m-b-xs w-xs btn-success btn-rounded" ng-click="add()">新增</button>
+		        	<button class="btn m-b-xs w-xs btn-danger btn-rounded" ng-click="del()">删除</button>
+		      <div class="col-sm-4">
+		      </div>
+		      <div class="col-sm-3">
+		        <button class="btn  btn-success" ng-click="add()">新增</button>
 		      </div>
 		    </div>
 		    <div class="table-responsive">
 		      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 		        <thead>
 		          <tr>
-		            <!-- <th style="width:20px;">
+		            <th style="width:20px;">
 		              <label class="i-checks m-b-none" id="checkLabel">
 		                <input type="checkbox" id="totalCheck"><i></i>
 		              </label>
 		            </th>
-		            <th>隐患类型名称</th> -->
+		            <!-- <th>隐患类型名称</th> -->
 		            <th></th>
 		            <th colspan=2 class='text-center'>隐患阀值</th>
 		            <th colspan=2 class='text-center'>报警阀值</th>
@@ -52,6 +57,7 @@
 		        </thead>
 		        <tbody class='text-center'>
 		          <tr ng-repeat="hiddendanger in hiddendangers">
+		        		<td> <label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddendanger.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
       					<td>{{hiddendanger.name}}</td>	
       					<td class='eventType'><span class='warning'>最高{{hiddendanger.hiddenMax}}</span></td>
       					<td class='eventType'><span class='warning'>最低{{hiddendanger.hiddenMin}}</span></td>

@@ -45,7 +45,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	        textStyle:{
 	            color:'#fff',
 	        },
-	        data:['系列1','系列2',]
+	        data:['系列1','系列2']
 	    },
 	    xAxis:{
 	        axisLabel: {        
