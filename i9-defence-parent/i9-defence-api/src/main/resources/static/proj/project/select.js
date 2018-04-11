@@ -36,7 +36,17 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
     $scope.project = project;
     $scope.clientList = clientList;
     $scope.safeList = safeList;
+    if ($scope.safeList.length > 0){
+		$scope.placeHod = "请选安全责任人";
+	}else{
+		$scope.placeHod = "暂无安全责任人可选";
+	}
     
+    if ($scope.clientList.length > 0){
+		$scope.placeHod2 = "请选责任人";
+	}else{
+		$scope.placeHod2 = "暂无责任人可选";
+	}
     var province={},
     	  city={};
     
