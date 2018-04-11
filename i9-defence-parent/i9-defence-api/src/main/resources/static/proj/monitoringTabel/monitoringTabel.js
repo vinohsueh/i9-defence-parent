@@ -21,9 +21,9 @@ var monitoringTabelService = monitoringTabelNgModule.factory('monitoringTabelSer
 	}]);
 var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabelNgControl',function($rootScope,$timeout, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringTabelService,httpService){
 	$scope.getDate = function (index){
-	    var date = new Date(); //当前日期
+	    var date = new Date(); 
 	    var newDate = new Date();
-	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
+	    newDate.setDate(date.getDate() + index);
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
@@ -57,6 +57,8 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	$scope.chartsStatus = false;
 	$scope.idNum = 0;
 
+	$scope.changeTimeStatu = 1;
+
 	//初始化
 	$scope.pageInit = function (){
 		var text = $scope.searchText;
@@ -86,7 +88,6 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			};
 		
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(123);
 			$scope.projects = data.data.data.pageList;
 			for(i in $scope.projects){
 				if($scope.projects[i].hiddeCount>0){
@@ -129,35 +130,36 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			};
 		
 		httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(456);
 			$scope.equipmentInfo = data.data.data;
+			$scope.projectInfo = data.data;
 			$scope.equipmentCheckArr = [];
 			$scope.equipmentItemArr = [];
 
-			for(i in $scope.equipmentInfo.channelData){
-				$scope.equipmentItemObj = {
-		            type:'line',
-		            stack:'10',
-		            symbol: 'emptyCircle',
-		            symbolSize: 10,
-		            itemStyle:{
-		                normal:{
-		                    color:'#ab56dc',
-		                }
-		            },
-		            lineStyle:{
-		                normal:{
-		                    color:'#ab56dc',
-		                }
-		            },
-		        };
-				$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-				$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
-				$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
-				$scope.equipmentItemArr.push($scope.equipmentItemObj);
-			}
+			
 			if($scope.equipmentInfo!= null){
 				$scope.chartsStatus = true;
+				for(i in $scope.equipmentInfo.channelData){
+					$scope.equipmentItemObj = {
+			            type:'line',
+			            stack:'10',
+			            symbol: 'emptyCircle',
+			            symbolSize: 10,
+			            itemStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			            lineStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			        };
+					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
+					$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+					$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
+					$scope.equipmentItemArr.push($scope.equipmentItemObj);
+				}
 				$scope.option={
 				    title:{
 				        show:false,
@@ -263,7 +265,9 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	}
 	//时间切换
 	$scope.changeTime = function () {
-		$scope.passagewayInit();
+		$scope.changeTimeStatu = $scope.changeTimeStatu+1;
+		if($scope.changeTimeStatu>3){
+			$scope.passagewayInit();
+		}
 	}
-	
 })
