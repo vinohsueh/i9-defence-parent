@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import i9.defence.platform.dao.ClientDao;
 import i9.defence.platform.dao.vo.ClientSearchDto;
@@ -55,7 +56,14 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public PageBounds<Client> selectByLimitPage(ClientSearchDto clientSearchDto)throws BusinessException {
         try {
-            return clientDao.selectByLimitPage(clientSearchDto,clientSearchDto.getCurrentPage(),clientSearchDto.getPageSize());
+        	PageBounds<Client> list = clientDao.selectByLimitPage(clientSearchDto,clientSearchDto.getCurrentPage(),clientSearchDto.getPageSize());
+        	for(int i =0;i<list.getPageList().size();i++) {
+        		if(list.getPageList().get(i).getProject().size() != 0) {
+        			String name = StringUtils.collectionToDelimitedString(list.getPageList().get(i).getProject(), ",");
+        			list.getPageList().get(i).setProjectName(name);
+        		}
+        	}
+        	return list;
         } catch (Exception e) {
             throw new BusinessException("分页查询失败",e.getMessage());
         }
