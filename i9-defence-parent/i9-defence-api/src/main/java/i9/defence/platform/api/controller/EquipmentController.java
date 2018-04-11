@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.api.components.ChannelDataComponent;
+import i9.defence.platform.api.components.EquipmentMonitorComponent;
+import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.enums.DataTypeEnum;
@@ -211,8 +213,14 @@ public class EquipmentController {
 		channelDataSearchDto.setOrderByClause("dateTime desc");
 		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
 		//分通道处理后的数据
-		JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).build();
-		result.put("data", jsonObject);
+		result.put("data", null);
+		if (list.size() > 0) {
+			JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).build();
+			result.put("data", jsonObject);
+		}
+		result.put("equip", new EquipmentMonitorComponent().setEquipment(equipment).build());
+		Project project = projectService.getProjectById(equipment.getProjectId());
+		result.put("project", new ProjcetMonitorComponent().setProject(project).build());
 		return result;
 	}
 }
