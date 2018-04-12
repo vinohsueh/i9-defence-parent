@@ -21,47 +21,12 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr>
-	      	<td>001</td>
-	      	<td><input type="text" value='通道0'></td>
+	    <tr ng-repeat='i in passagewayList' data-id='i.id'>
+	      	<td>{{i.passagewayNum}}</td>
+	      	<td><input type="text" class="form-control" value='{{i.passagewayName}}'></td>
 	      	<td>
-				<select class="form-control">
+				<select class="form-control" ng-model='hidedenDanger{{i.passagewayNum}}' ng-options="s.name for s in hiddenDanger">
 				    <option value = ''>请选择</option>
-				    <option value = ''>隐患提醒1</option>
-				    <option value = ''>隐患提醒2</option>
-				</select>
-	      	</td>
-	    </tr>
-        <tr>
-          	<td>001</td>
-          	<td><input type="text" value='通道0'></td>
-          	<td>
-    			<select class="form-control">
-    			    <option value = ''>请选择</option>
-    			    <option value = ''>隐患提醒1</option>
-    			    <option value = ''>隐患提醒2</option>
-    			</select>
-          	</td>
-        </tr>
-        <tr>
-	      	<td>001</td>
-	      	<td><input type="text" value='通道0'></td>
-	      	<td>
-				<select class="form-control">
-				    <option value = ''>请选择</option>
-				    <option value = ''>隐患提醒1</option>
-				    <option value = ''>隐患提醒2</option>
-				</select>
-	      	</td>
-	    </tr>
-	    <tr>
-	      	<td>001</td>
-	      	<td><input type="text" value='通道0'></td>
-	      	<td>
-				<select class="form-control">
-				    <option value = ''>请选择</option>
-				    <option value = ''>隐患提醒1</option>
-				    <option value = ''>隐患提醒2</option>
 				</select>
 	      	</td>
 	    </tr>
