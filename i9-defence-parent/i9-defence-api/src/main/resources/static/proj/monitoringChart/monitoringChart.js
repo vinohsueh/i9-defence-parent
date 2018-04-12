@@ -411,7 +411,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
             $scope.selected = data;
         },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-            $scope.initItem();
+            $scope.passagewayInit();
         });
          
     };

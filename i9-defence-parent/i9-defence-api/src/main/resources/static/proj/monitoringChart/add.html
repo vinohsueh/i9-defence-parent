@@ -21,11 +21,11 @@
 	    </tr>
 	  </thead>
 	  <tbody id='passagewayBody'>
-	    <tr ng-repeat='i in passagewayList' data-id='i.id'>
-	      	<td class='passagewayNum'>{{i.passagewayNum}}</td>
-	      	<td class='passagewayName'><input type="text" class="form-control" value='{{i.passagewayName}}'></td>
+	    <tr ng-repeat='i in passagewayList' data-id='i.hiddenDangerId'>
+	      	<td class='passagewayNum'>{{i.channel}}</td>
+	      	<td class='passagewayName'><input type="text" class="form-control" value='{{i.name}}'></td>
 	      	<td class='hidedenDanger'>
-				<select class="form-control" ng-model='hidedenDanger{{i.passagewayNum}}' ng-options="s.name for s in hiddenDanger">
+				<select class="form-control" ng-model='hidedenDanger{{i.channel}}' ng-options="s.name for s in i.hiddenDangerId">
 				    <option value = ''>请选择</option>
 				</select>
 	      	</td>

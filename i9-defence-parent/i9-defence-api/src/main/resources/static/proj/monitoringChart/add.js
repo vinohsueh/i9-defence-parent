@@ -40,12 +40,13 @@ var monitoringChartEditCtrl = monitoringChartEditNgModule.controller('monitoring
   //初始化
   $scope.pageInit = function (){
     var pageParam = {
-        
+        id:$scope.monitoringChart,
       };
-    
-    httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-      $scope.passagewayList = data.data.data.pageList;
-      $scope.hiddenDanger = data.data;
+    console.log(JSON.stringify(pageParam));
+    httpService.post({url:'./passageWay/selectPassagewaysByEquipId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+      console.log(JSON.stringify(data));
+      $scope.passagewayList = data.data.data;
+      // $scope.hiddenDanger = data.data;
 
     })
   };
