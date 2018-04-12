@@ -73,6 +73,7 @@
           <tr>
             <th>状态</th>
             <th>设备名称</th>
+            <th>项目名称</th>
             <th>设备编号</th>
           </tr>
         </thead>
@@ -80,6 +81,7 @@
           <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
             <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
             <td>{{project.equipmentName}}</td>
+            <td>{{project.projectName}}</td>
             <td>{{project.systemId}}</td>
           </tr>
         </tbody>

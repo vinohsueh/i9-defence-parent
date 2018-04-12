@@ -163,27 +163,50 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     $scope.idNum = 0;
 
     $scope.changeTimeStatu = 1;
+    
+    
+    $scope.queryProjects = function(){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:null
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
+		
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectCounty:$scope.selected3.value,
+		};
+		
+		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+			$scope.projectss  = data.data.data;
+		})
+	}
+	$scope.queryProjects();
+	//初始化
+	$scope.searchText = '';
     //初始化
     $scope.pageInit = function (){
-    	var text = $scope.searchText;
-    	if($scope.selected == null || $scope.selected == ''){
-    		$scope.selected ={
-    			name:''
-    		}
-    	}
-    	if($scope.selected2 == null || $scope.selected2 == ''){
-    		$scope.selected2 ={
-    			name:''
-    		}
-    	}
-    	if($scope.selected3 == null || $scope.selected3 == ''){
-    		$scope.selected3 ={
-    			value:''
-    		}
-    	}
+    	if ($scope.projectName != null) {
+			$scope.searchText =$scope.projectName.projectName;
+		}else{
+			$scope.searchText = "";
+		}
     	var pageParam = {
     			pageSize:$scope.pageSize,
     			currentPage:$scope.currentPage,
+    			projectName : $scope.searchText,
+				projectAddress : $scope.searchText,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
@@ -336,14 +359,17 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
        $scope.error.area = false;
        $scope.selected2 = "";
        $scope.selected3 = "";
+       $scope.queryProjects();
     };
     $scope.c2 = function () {       
        $scope.error.city = false;
        $scope.error.area = false;
        $scope.selected3 = "";
+       $scope.queryProjects();
     };
     $scope.c3 = function () {
        $scope.error.area = false;
+       $scope.queryProjects();
     };
     //修改分页大小
     $scope.changePageSize = function(){
