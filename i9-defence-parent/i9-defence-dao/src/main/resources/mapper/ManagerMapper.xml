@@ -402,8 +402,8 @@
       AND (mg.managerId is null or (mg.managerId is not null and mg.parentId is null))
     </if>
   </select>
-  <select id="selectPartAgency" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null and mg.parentId is not null
+  <select id="selectPartAgency"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null and m.id != #{agencyId} and 0 = (select count(*) from  t_manager_grade where parentId = m.id)
   </select>
   <insert id="insertManagerGrade">
     INSERT INTO t_manager_grade(managerId,parentId) VALUES
@@ -412,10 +412,16 @@
     </foreach>
   </insert>
   <select id="selectAagency" resultMap="AgencyResultMap">
-    SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 AND (mg.managerId IS NOT NULL AND mg.parentId IS NULL)
+    SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 and m.id not in(SELECT managerId from t_manager_grade) and m.id in(SELECT parentId from t_manager_grade)
+  </select>
+  <select id="selectBagency2" resultMap="AgencyResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 AND (mg.managerId IS NOT NULL AND mg.parentId not IN(SELECT mg2.managerId from t_manager_grade AS mg2))
   </select>
   <select id="selectBagency" resultMap="AgencyResultMap">
     SELECT <include refid="Base_Column_List" /> FROM t_manager as m LEFT JOIN t_manager_grade AS mg ON m.id=mg.managerId WHERE m.type=1 AND mg.managerId IS NOT #{agencyId} AND (mg.managerId IS NOT NULL AND mg.parentId IN(SELECT mg2.managerId from t_manager_grade AS mg2 WHERE mg2.parentId IS NULL))
+  </select>
+  <select id="selectCIdsByBid" resultType="java.lang.Integer">
+  	SELECT managerId from t_manager_grade WHERE parentId = #{bId}
   </select>
   <update id="updateBagency">
     UPDATE t_manager_grade SET parentId = #{newParentId} WHERE managerId = #{agencyId}

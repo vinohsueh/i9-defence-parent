@@ -19,6 +19,9 @@ public class AgencyParamDto implements Serializable{
     private Integer parentId;
 
     private Integer managerId;
+    
+    //备用ID
+    private Integer spareId;
 
     public List<Integer> getManagerIdS() {
         return managerIdS;
@@ -43,4 +46,14 @@ public class AgencyParamDto implements Serializable{
     public void setManagerId(Integer managerId) {
         this.managerId = managerId;
     }
+
+	public Integer getSpareId() {
+		return spareId;
+	}
+
+	public void setSpareId(Integer spareId) {
+		this.spareId = spareId;
+	}
+    
+    
 }

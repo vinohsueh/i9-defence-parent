@@ -72,9 +72,9 @@ public class AgencyController {
     @RequestMapping("/allotAgency")
     public HashMap<String,Object> allotAgency(@RequestBody Integer agencyId){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        List<Manager> agencyLeftList = managerService.selectPartAgency();
-        result.put("data1", agencyLeftList);
+        List<Manager> agencyLeftList = managerService.selectPartAgency(agencyId);
         Manager agencyRightList = managerService.getManagerById(agencyId);
+        result.put("data1", agencyLeftList);
         result.put("data2", agencyRightList);
         return result;
     }
@@ -113,6 +113,53 @@ public class AgencyController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Manager manager = managerService.getManagerById(agencyId);
         result.put("data", manager);
+        return result;
+    }
+    
+    /**
+     * 查询已经建立关系的一级经销商们
+     * */
+    @RequiresPermissions("agency_list")
+    @RequestMapping("/selectAagency")
+    public HashMap<String,Object> selectAagency(){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<Manager>managers= managerService.selectAagency();
+        result.put("data", managers);
+        return result;
+    }
+    
+    /**
+     * 查询已经建立关系的二级经销商们
+     * */
+    @RequiresPermissions("agency_list")
+    @RequestMapping("/selectBagency")
+    public HashMap<String,Object> selectBagency(){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<Manager>managers= managerService.selectBagency();
+        result.put("data", managers);
+        return result;
+    }
+    
+    /**
+     *把此二级经销商的parentId 修改为新一级经销商ID
+     * */
+    @RequiresPermissions("agency_list")
+    @RequestMapping("/updateBagency")
+    public HashMap<String,Object> updateBagency(@RequestBody AgencyParamDto agencyParamDto){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        managerService.updateBagency(agencyParamDto.getManagerId(),agencyParamDto.getParentId());
+        return result;
+    }
+    
+    /**
+     *把此二级经销商下的全部下属三级经销商的parentId修改为新的二级经销商ID
+     * */
+    @RequiresPermissions("agency_list")
+    @RequestMapping("/updateCagency")
+    public HashMap<String,Object> updateCagency(@RequestBody AgencyParamDto agencyParamDto){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<Integer> cIds = managerService.selectCIdsByBid(agencyParamDto.getSpareId());
+        managerService.updateCagency(cIds,agencyParamDto.getParentId());
         return result;
     }
 
