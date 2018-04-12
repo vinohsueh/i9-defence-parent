@@ -38,11 +38,16 @@ angular.module('app')
           container: false
         }
       }
+      if ($cookieStore.get("currentUser") == null) {
+    	  $.get('./currentUser', function(data) {  
+	      	  var user = data.data.data;
+        	  $scope.app.user = user; 
+        	  $cookieStore.put("currentUser",user);
+	      });
+      }else{
+    	  $scope.app.user = $cookieStore.get("currentUser");
+      }
       
-      $.get('./currentUser', function(data) {  
-      	var user = data.data.data;
-        	$scope.app.user = user; 
-      });
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
         $scope.app.settings = $localStorage.settings;
@@ -101,25 +106,29 @@ app.config([
 app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement', function($scope, $http,$cookieStore,removeElement) {
     $scope.$on('$includeContentLoaded', function() {
     	/**
-         * 获取用户权限
+         * 获取用户页签
          */
-    	/*if ($cookieStore.get("pages") == null) {
+    	if ($cookieStore.get("pages") == null) {
     		$http.post('./page/getPages').then(function (data) {
 			  $cookieStore.put("pages",data.data.data.urls);
        		  $scope.pages = data.data.data.urls;
    		  });
     	}else{
     		$scope.pages = $cookieStore.get("pages");
-    	}*/
-    	$http.post('./page/getPages').then(function (data) {
+    	}
+    	/*$http.post('./page/getPages').then(function (data) {
      		  $scope.pages = data.data.data.urls;
- 		  });
+ 		  });*/
     	 
-    	//if ($cookieStore.get("noAllowedAuthList") == null) {
+    	
+    	/**
+         * 获取用户权限
+         */
+    	if ($cookieStore.get("noAllowedAuthList") == null) {
     		$http.get('./security/noAllowedAuth').then(function (resp) {
            		$cookieStore.put("noAllowedAuthList",resp.data.data.data);
            	})
-    	//}
+    	}
 	    
       	  /*$http.get('./security/noAllowedAuth').then(function (resp) {
   		        var noAllowedAuthList = resp.data.data.data;

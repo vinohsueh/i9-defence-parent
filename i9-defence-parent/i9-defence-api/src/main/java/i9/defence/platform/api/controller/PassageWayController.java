@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.api.components.PassagewayInfoComponent;
 import i9.defence.platform.dao.vo.PassagewayDto;
+import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.passagewayService;
 
@@ -36,10 +41,15 @@ public class PassageWayController {
 	 * @return
 	 */
 	@RequestMapping("/selectPassagewaysByEquipId")
-	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Integer id) {
+	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Equipment equipment) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = passagewayService.selectPassagewaysByEquipId(id);
-		result.put("data", list);
+		List<Passageway> list = passagewayService.selectPassagewaysByEquipId(equipment.getId());
+		JSONArray jsonArray = new JSONArray();
+		for (Passageway passageway : list) {
+			JSONObject jsonObject = new PassagewayInfoComponent().setPassageway(passageway).build();
+			jsonArray.add(jsonObject);
+		}
+		result.put("data", jsonArray);
 		return result;
 	}
 
