@@ -45,8 +45,8 @@ var monitoringChartEditCtrl = monitoringChartEditNgModule.controller('monitoring
     console.log(JSON.stringify(pageParam));
     httpService.post({url:'./passageWay/selectPassagewaysByEquipId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
       console.log(JSON.stringify(data));
-      /*$scope.passagewayList = data.data.data.pageList;
-      $scope.hiddenDanger = data.data;*/
+      $scope.passagewayList = data.data.data;
+      // $scope.hiddenDanger = data.data;
 
     })
   };
