@@ -1,12 +1,12 @@
 package i9.defence.platform.dao.mapper;
 
-import i9.defence.platform.model.Permission;
-import i9.defence.platform.model.PermissionExample;
-
 import java.util.List;
 import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
+
+import i9.defence.platform.model.Permission;
+import i9.defence.platform.model.PermissionExample;
 
 public interface PermissionMapper {
     int countByExample(@Param("example") PermissionExample example);
@@ -34,4 +34,6 @@ public interface PermissionMapper {
     List<Permission> selectByLimitPage(@Param("example") PermissionExample example, @Param("offset") int offset, @Param("limit") int pageSize);
 
     Set<Permission> getPermissionByManagerId(Integer managerId);
+
+	Set<Permission> getNotHavPermissionByManagerId(Integer managerId);
 }

@@ -123,4 +123,13 @@ public class PermissionServiceImpl implements PermissionService{
         }
     }
 
+	@Override
+	public Set<Permission> getNotHavPermissionByManagerId(Integer managerId) throws BusinessException {
+		try {
+			return permissionDao.getNotHavPermissionByManagerId(managerId);
+		} catch (Exception e) {
+			 throw new BusinessException("查询用户权限失败",e.getMessage());
+		}
+	}
+
 }
