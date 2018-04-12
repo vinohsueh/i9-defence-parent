@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import i9.defence.platform.dao.vo.PassagewayDto;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.passagewayService;
 
@@ -34,9 +36,9 @@ public class PassageWayController {
 	 * @return
 	 */
 	@RequestMapping("/selectPassagewaysByEquipId")
-	public HashMap<String, Object> selectPassagewaysByEquipId(Integer Id) {
+	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Integer id) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = passagewayService.selectPassagewaysByEquipId(Id);
+		List<Passageway> list = passagewayService.selectPassagewaysByEquipId(id);
 		result.put("data", list);
 		return result;
 	}
@@ -50,9 +52,9 @@ public class PassageWayController {
 	 * @return
 	 */
 	@RequestMapping("/addPassageway")
-	public HashMap<String, Object> addPassageway(Passageway passageway) {
+	public HashMap<String, Object> addPassageway(@RequestBody PassagewayDto passagewayDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		passagewayService.addPassageway(passageway);
+		passagewayService.addPassageway(passagewayDto);
 		return result;
 	}
 }

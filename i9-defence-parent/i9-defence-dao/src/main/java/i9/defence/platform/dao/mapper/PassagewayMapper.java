@@ -7,8 +7,11 @@ import i9.defence.platform.model.Passageway;
 public interface PassagewayMapper {
 	
 	//根据设备id查询通道
-	List<Passageway> selectByEquipmentId(Integer Id);
+	List<Passageway> selectByEquipmentId(String Id);
 	
 	//新增通道
-	void addPassageWay(Passageway passageway);
+	void addPassageWay(List<Passageway> passageways);
+	
+	//删除旧的通道对应关系
+	void delPassagewayBySystemId(String systemId);
 }
