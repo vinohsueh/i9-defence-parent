@@ -73,6 +73,20 @@ public interface PermissionDao {
      * @return
      */
     Permission selectPermissionByCode(String code) throws Exception;
-
+    
+    /**
+     * 查询用户权限
+     * @param managerId
+     * @return
+     * @throws Exception
+     */
     Set<Permission> getPermissionByManagerId(Integer managerId) throws Exception;
+    
+    /**
+     * 查询用户没有的权限
+     * @param managerId
+     * @return
+     * @throws Exception
+     */
+	Set<Permission> getNotHavPermissionByManagerId(Integer managerId) throws Exception;
 }

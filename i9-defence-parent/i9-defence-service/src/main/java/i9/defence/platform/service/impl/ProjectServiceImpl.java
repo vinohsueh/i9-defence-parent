@@ -135,7 +135,16 @@ public class ProjectServiceImpl implements ProjectService {
 			throw new BusinessException("分页查询项目失败", e.getMessage());
 		}
 	}
-
+	
+	@Override
+	public List<Project> selectProject(ProjectSearchDto projectSearchDto) throws BusinessException {
+		try {
+			return projectDao.selectProject(projectSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("分页查询项目失败", e.getMessage());
+		}
+	}
+	
 	@Override
 	public List<ProjectSelectDto> selectAllProjectName(ProjectSearchDto projectSearchDto) throws BusinessException {
 		try {

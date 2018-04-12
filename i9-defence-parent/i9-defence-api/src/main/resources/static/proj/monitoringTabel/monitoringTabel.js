@@ -40,14 +40,17 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	   $scope.error.area = false;
 	   $scope.selected2 = "";
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c2 = function () {       
 	   $scope.error.city = false;
 	   $scope.error.area = false;
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c3 = function () {
 	   $scope.error.area = false;
+	   $scope.queryProjects();
 	};
 
 	//分页条件
@@ -58,13 +61,12 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	$scope.idNum = 0;
 
 	$scope.changeTimeStatu = 1;
-
-	//初始化
-	$scope.pageInit = function (){
-		var text = $scope.searchText;
+	
+	
+	$scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
 			$scope.selected ={
-				name:''
+				name:null
 			}
 		}
 		if($scope.selected2 == null || $scope.selected2 == ''){
@@ -77,16 +79,38 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				value:''
 			}
 		}
+		
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectCounty:$scope.selected3.value,
+		};
+		
+		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+			$scope.projectss  = data.data.data;
+		})
+	}
+	$scope.queryProjects();
+	//初始化
+	$scope.searchText = '';
+	$scope.pageInit = function (){
+		
+		if ($scope.projectName != null) {
+			$scope.searchText =$scope.projectName.projectName;
+		}else{
+			$scope.searchText = "";
+		}
+		 
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				projectName : text,
-				projectAddress : text,
-				projectProvince:$scope.selected.name,
+				projectName : $scope.searchText,
+				projectAddress : $scope.searchText,
+				/*projectProvince:$scope.selected.name,
 				projectCity:$scope.selected2.name,
-				projectCounty:$scope.selected3.value,
+				projectCounty:$scope.selected3.value,*/
 			};
-		
+		console.log(pageParam)
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
 			for(i in $scope.projects){
@@ -114,6 +138,9 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			if($scope.projects.length>0){
 				$scope.idNum = $scope.projects[0].id;
 				$scope.passagewayInit();
+			}else{
+				$scope.projectInfo = {};
+				$scope.chartsStatus = false;
 			}
 			
 		})

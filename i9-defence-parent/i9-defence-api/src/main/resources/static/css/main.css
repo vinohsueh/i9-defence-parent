@@ -205,57 +205,14 @@ td.eventType span.hiddenDanger {
 }
 /*实时监控图形排版*/
 .monitoring {
-  zoom: 1;
-}
-.monitoring:after {
-  clear: both;
-  display: block;
-  visibility: hidden;
-  overflow: hidden;
-  height: 0;
-  content: ".";
-  font-size: 0;
-}
-.monitoring .faultType {
-  float: left;
-}
-.monitoring .faultType .item {
-  width: 115px;
-  text-align: center;
-  -wibkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  background-color: #2a3f8a;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-.monitoring .faultType .item .name {
-  padding: 5px 10px;
-  border-bottom: 1px solid #314796;
-}
-.monitoring .faultType .item .body {
-  padding: 5px 10px;
-  font-size: 16px;
-}
-.monitoring .faultType .item.active {
-  background-color: #0d1638;
-}
-.monitoring .faultType .item.active .name {
-  border-color: #262e4c;
-}
-.monitoring .equipmentData {
-  margin-left: 135px;
   background-color: #283a7e;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 20px 20px 10px;
   -wibkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   max-height: 500px;
   overflow-y: auto;
-}
-.monitoring .equipmentDataTitle {
-  margin-left: 135px;
 }
 /*项目列表*/
 #projectList {
