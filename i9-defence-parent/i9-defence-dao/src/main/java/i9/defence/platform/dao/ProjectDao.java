@@ -102,4 +102,6 @@ public interface ProjectDao {
     
   //重置项目的安全责任人们   之修改 指定的managerId safe字段为1  初始化
     void updateSafeOneByProjectId(Integer projectId,List<Integer> safeIds) throws Exception;
+
+	List<Project> selectProject(ProjectSearchDto projectSearchDto) throws Exception;
 }

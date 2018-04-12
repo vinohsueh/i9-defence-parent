@@ -69,6 +69,29 @@ public class ProjectController {
         result.put("data", pageBounds);
         return result;
     }
+    
+    /**
+     * 项目下拉框
+     * @param projectSearchDto
+     * @return
+     */
+    @RequestMapping("/selectProject")
+    public HashMap<String, Object> selectProject(
+            @RequestBody ProjectSearchDto projectSearchDto) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Manager manager = managerService.getLoginManager();
+        Role role = manager.getRole();
+        if(Arrays.asList(Constants.S_AGENCY).contains(role.getName())){
+            projectSearchDto.setDistributorId(manager.getId());
+        }else if(Arrays.asList(Constants.S_PROJ_MANAGER).contains(role.getName())){
+            projectSearchDto.setProjectManagerId(manager.getId());
+        }
+        List<Project> list = projectService.selectProject(projectSearchDto);
+        result.put("data", list);
+        return result;
+    }
+    
+    
     /**
      * 添加项目
      * @return

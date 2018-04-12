@@ -406,4 +406,10 @@
             #{safeId}
         </foreach>
    </update>
+   <select id="selectProject" resultMap="BaseResultMap">
+   		select <include refid="Base_Column_List" />	 from t_project p
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+   </select>
 </mapper>
