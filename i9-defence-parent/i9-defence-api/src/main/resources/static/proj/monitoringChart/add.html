@@ -20,11 +20,11 @@
 	      <th>隐患提醒类型</th>
 	    </tr>
 	  </thead>
-	  <tbody>
+	  <tbody id='passagewayBody'>
 	    <tr ng-repeat='i in passagewayList' data-id='i.id'>
-	      	<td>{{i.passagewayNum}}</td>
-	      	<td><input type="text" class="form-control" value='{{i.passagewayName}}'></td>
-	      	<td>
+	      	<td class='passagewayNum'>{{i.passagewayNum}}</td>
+	      	<td class='passagewayName'><input type="text" class="form-control" value='{{i.passagewayName}}'></td>
+	      	<td class='hidedenDanger'>
 				<select class="form-control" ng-model='hidedenDanger{{i.passagewayNum}}' ng-options="s.name for s in hiddenDanger">
 				    <option value = ''>请选择</option>
 				</select>
