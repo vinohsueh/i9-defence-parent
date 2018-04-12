@@ -42,19 +42,25 @@ var monitoringChartEditCtrl = monitoringChartEditNgModule.controller('monitoring
     var pageParam = {
         id:$scope.monitoringChart,
       };
-    console.log(JSON.stringify(pageParam));
     httpService.post({url:'./passageWay/selectPassagewaysByEquipId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-      console.log(JSON.stringify(data));
-      $scope.passagewayList = data.data.data;
+      $scope.passagewayList = data.data.data[0];
       $scope.hiddenDanger = data.data.dangers;
-
+      console.log(JSON.stringify($scope.hiddenDanger));
+      /*$scope.conf = [];
+      for(i in $scope.passagewayList){
+        var modelName = 'hidedenDanger'+$scope.passagewayList[i].channel;
+        $scope.passagewayList[i].mName = modelName;
+        $scope.passagewayList[i].mName = $scope.passagewayList[i].hiddenDangerId.id;
+        
+        $scope.conf.push($scope.passagewayList[i].hiddenDangerId.id)
+        
+      }
+      console.log( $scope.conf);
+      console.log( $scope.conf[0]);*/
     })
   };
   $scope.pageInit();
-  for(i in $scope.passagewayList){
-    var modelName = 'hidedenDanger'+$scope.passagewayList[i].passagewayNum;
-    $scope[modelName] = $scope.passagewayList[i].hiddenDangerId;
-  }
+  
 
 
 	$scope.closeBtn = function() {
