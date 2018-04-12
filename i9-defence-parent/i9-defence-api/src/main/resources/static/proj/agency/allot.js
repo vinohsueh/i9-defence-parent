@@ -15,25 +15,19 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
             //未被分配的经销商  无建立关系的经销商
             if(agencyLeftList.length > 0){
                 angular.forEach(agencyLeftList,function(manager1){
-                    oHtmlLeft = "";
-                    oHtmlLeft+="<li><span class='name' data-id='"+manager1.id+"'>"+manager1.username+"</span></li>";
-                    // $('#leftTab').append(oHtmlLeft);
+                    oHtmlLeft+="<li><span class='name' data-id='"+manager1.id+"'>"+manager1.username+"</span></li>";             
                 });
             }else{
                 oHtmlLeft = "未被分配的经销商  无建立关系的经销商 为空";
-                // $('#leftTab').append(oHtmlLeft);
             }
             $('#leftTab').html(oHtmlLeft);
             //当前经销商的下属
             if(agencyRightList.agencyList.length > 0){
                 angular.forEach(agencyRightList.agencyList,function(manager1){
-                    oHtmlRight = "";
                     oHtmlRight+="<li><span class='name' data-id='"+manager1.id+"'>"+manager1.username+"</span></li>";
-                    // $('#rightTab').append(oHtmlRight);
                 });
             }else{
-                oHtmlRight="<li><span class='name'>此经销商为三级，无下级</span></li>";
-                // $('#rightTab').append(oHtmlRight);
+                oHtmlRight="此经销商为三级，无下级";
             }
             $('#rightTab').html(oHtmlRight)
         });
@@ -52,7 +46,7 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
 	};
     //备选已选
     $(document).unbind( "click" ).on('click','.choice-list>li',function () {
-        if($(this).parent().prop('id') == 'leftTab'){
+        if($(this).parent().prop('id') == 'rightTab'){
             $(this).siblings().removeClass('active');
         }
         $(this).toggleClass('active');
@@ -69,6 +63,7 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
                 };
                 console.log(JSON.stringify(params));
                 httpService.post({url:'./agency/insertAgency',data:params,showSuccessMsg:true}).then(function(data) {
+                	$modalInstance.dismiss('cancel');
                     console.log(JSON.stringify(data.data.data));
                 });
 
@@ -82,20 +77,31 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
         $('.choice-list-y>li').each(function () {
             if($(this).hasClass('active')){
                 var managerId = $(this).find("span").attr('data-id');
-                /*var params = {
-                    'managerId' : managerId,
-                    'parentId' : param,
-                };
-                httpService.post({url:'./agency/deleteAgencyById',data:params,showSuccessMsg:true}).then(function(data) {
-                    console.log(JSON.stringify(data.data.data));
+                //先判断 此操作对象 是否为三级  是的话  不走以下方法  /agency/deleteAgencyById',d
+                httpService.post({url:'./agency/selectByAgencyId',data:managerId,showSuccessMsg:true}).then(function(data) {
+                	var manager = data.data.data;
+                	var agencyList = manager.agencyList;
+                	if(agencyList.length > 0){
+                		//说明此二级经销商下 有三级经销商  设计到三级怎么分配问题  
+                		$scope.checkList(managerId);
+                	}else{
+                		//说明此二级经销商下  没有三级经销商   直接撤销此 经销商
+                		var params = {
+	                        'managerId' : managerId,
+	                        'parentId' : param,
+	                    };
+	                    httpService.post({url:'./agency/deleteAgencyById',data:params,showSuccessMsg:true}).then(function(data) {
+	                        console.log(JSON.stringify(data.data.data));
+	                    });
+	                    $(this).appendTo($('.choice-list-n')).removeClass('active');
+                	}
                 });
-                $(this).appendTo($('.choice-list-n')).removeClass('active');*/
-                $scope.checkList(managerId);
             }
         })
     });
 
     $scope.checkList = function (id) {
+    	//father 第一种情况  给此操作对象换个一级 
         var param = {
             id:id,
             statu:'father'
