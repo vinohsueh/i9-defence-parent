@@ -23,7 +23,7 @@ public class PassagewayInfoComponent {
 		JSONObject jSONObject = new JSONObject();
 		jSONObject.put("channel", passageway.getChannel());
 		jSONObject.put("name", passageway.getName());
-		jSONObject.put("hiddenDangerId", passageway.getHiddenDangerId());
+		jSONObject.put("hiddenDangerId", passageway.getHiddenDanger());
 		return jSONObject;
 	}
 }
