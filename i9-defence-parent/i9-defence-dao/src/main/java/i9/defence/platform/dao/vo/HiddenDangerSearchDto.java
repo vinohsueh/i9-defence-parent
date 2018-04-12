@@ -107,5 +107,6 @@ public class HiddenDangerSearchDto extends PageListDto{
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+	
 }
  
