@@ -37,6 +37,25 @@ var monitoringChartEditCtrl = monitoringChartEditNgModule.controller('monitoring
 	
 	$scope.monitoringChart = monitoringChart;
 	$scope.clientList = clientList;
+  //初始化
+  /*$scope.pageInit = function (){
+    var pageParam = {
+        
+      };
+    
+    httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+      $scope.passagewayList = data.data.data.pageList;
+      $scope.hiddenDanger = data.data;
+
+    })
+  };
+  $scope.pageInit();*/
+  for(i in $scope.passagewayList){
+    var modelName = 'hidedenDanger'+$scope.passagewayList[i].passagewayNum;
+    $scope[modelName] = $scope.passagewayList[i].hiddenDanger;
+  }
+
+
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
