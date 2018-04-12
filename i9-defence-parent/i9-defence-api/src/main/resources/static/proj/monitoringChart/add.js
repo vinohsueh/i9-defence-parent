@@ -81,7 +81,7 @@ var monitoringChartEditCtrl = monitoringChartEditNgModule.controller('monitoring
       passagewayArr.push(passagewayObj);
     })
 
-		httpService.post({url:'./monitoringChart/addMonitoringChart',data:$scope.monitoringChart,showSuccessMsg:true}).then(function(data) {  
+		httpService.post({url:'./monitoringChart/addMonitoringChart',data:passagewayArr,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})
 	};
