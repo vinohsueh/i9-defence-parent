@@ -235,6 +235,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		if($scope.projects.length>0){
 				$scope.idNum = $scope.projects[0].id;
 				$scope.passagewayInit();
+			}else{
+				$scope.projectInfo = {};
+				$scope.chartsStatus = false;
 			}
     	})
     };
