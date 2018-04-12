@@ -38,15 +38,6 @@ angular.module('app')
           container: false
         }
       }
-      if ($cookieStore.get("currentUser") == null) {
-    	  $.get('./currentUser', function(data) {  
-	      	  var user = data.data.data;
-        	  $scope.app.user = user; 
-        	  $cookieStore.put("currentUser",user);
-	      });
-      }else{
-    	  $scope.app.user = $cookieStore.get("currentUser");
-      }
       
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
@@ -103,50 +94,19 @@ app.config([
     }
 ]);
 /* Setup Layout Part - Sidebar */
-app.controller('NavController', ['$scope', '$http','$cookieStore','removeElement', function($scope, $http,$cookieStore,removeElement) {
+app.controller('NavController', ['$scope', '$http','$cookieStore','$cookies','removeElement', function($scope, $http,$cookieStore,$cookies,removeElement) {
     $scope.$on('$includeContentLoaded', function() {
-    	/**
-         * 获取用户页签
-         */
-    	if ($cookieStore.get("pages") == null) {
-    		$http.post('./page/getPages').then(function (data) {
-			  $cookieStore.put("pages",data.data.data.urls);
-       		  $scope.pages = data.data.data.urls;
-   		  });
-    	}else{
-    		$scope.pages = $cookieStore.get("pages");
-    	}
-    	/*$http.post('./page/getPages').then(function (data) {
-     		  $scope.pages = data.data.data.urls;
- 		  });*/
-    	 
     	
     	/**
-         * 获取用户权限
+         * 获取用户权限和页签
          */
-    	if ($cookieStore.get("noAllowedAuthList") == null) {
-    		$http.get('./security/noAllowedAuth').then(function (resp) {
-           		$cookieStore.put("noAllowedAuthList",resp.data.data.data);
-           	})
-    	}
+		$http.get('./security/noAllowedAuth').then(function (resp) {
+			console.log(resp)
+       		$cookieStore.put("noAllowedAuthList",resp.data.data.data);
+       		$scope.pages = resp.data.data.urls;
+       		$scope.app.user = resp.data.data.user; 
+       	})
 	    
-      	  /*$http.get('./security/noAllowedAuth').then(function (resp) {
-  		        var noAllowedAuthList = resp.data.data.data;
-  		        $cookieStore.put('noAllowedAuthList',noAllowedAuthList);
-  		        $scope.noAllowedAuthList = noAllowedAuthList;
-      		    if(noAllowedAuthList != null){
-	  	            for (var i = 0; i < noAllowedAuthList.length; i++) {
-	  	                var element = angular.element("."+noAllowedAuthList[i]);
-	  	                removeElement(element);
-	  	            }
-	  	            angular.forEach(angular.element.find(".auto"), function(dom){
-	      		    	if(angular.element(dom).next().children().length == 1){
-	      		    		removeElement(angular.element(dom));
-	      		    	}
-		      		});
-	  			}
-      		    angular.element('#load').remove();
-  		  });*/
     });
 }]);
 app.controller('HeaderController', ['$scope', '$http','$cookieStore', function($scope, $http,$cookieStore) {
