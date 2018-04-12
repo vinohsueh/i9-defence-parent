@@ -103,4 +103,9 @@ public class ProjectDaoImpl implements ProjectDao{
 	public void updateSafeOneByProjectId(Integer projectId, List<Integer> safeIds) throws Exception {
 		projectMapper.updateSafeOneByProjectId(projectId,safeIds);
 	}
+
+	@Override
+	public List<Project> selectProject(ProjectSearchDto projectSearchDto) throws Exception {
+		return projectMapper.selectProject(projectSearchDto);
+	}
 }

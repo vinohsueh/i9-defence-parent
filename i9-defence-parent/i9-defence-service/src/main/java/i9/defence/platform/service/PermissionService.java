@@ -69,4 +69,12 @@ public interface PermissionService {
      * @throws BusinessException
      */
     Set<Permission> getPermissionByManagerId(Integer managerId) throws BusinessException;
+    
+    /**
+     * 通过用户id查找没有的权限
+     * @param managerId
+     * @return
+     * @throws BusinessException
+     */
+	Set<Permission> getNotHavPermissionByManagerId(Integer managerId) throws BusinessException;
 }

@@ -5,8 +5,8 @@
 			<h4 class="modal-title col-sm-5" id="myModalLabel"><a>处理隐患</a></h4>
 			<div class='col-sm-6 text-right'>
 				<button type='button' class='btn btn-small btn-success' ng-click="check(1)">标记已处理</button>
-				<button type='button' class='btn btn-small btn-warning' ng-click="check(2)">标记误报</button>
-				<button type='button' class='btn btn-small' ng-click="check(3)">标记故障</button>
+				<button type='button' class='btn btn-small btn-warning' ng-click="check(0)">标记误报</button>
+				<button type='button' class='btn btn-small' ng-click="check(2)">标记故障</button>
 			</div>
 		</div>
 	
@@ -30,6 +30,9 @@
 	          <tr ng-repeat="hiddenEdit in hiddenEdit">
 	             <td><label class="i-checks m-b-none"><input class="o-checks1" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
 	            <td >{{hiddenEdit.name}}</td>
+	            <td >{{hiddenEdit.value}}</td>
+	            <td >{{hiddenEdit.dateTimeStr}}</td>
+	            <td ><input type="text" class="input-sm form-control"  ng-model="hiddenEdit.editText" placeholder="处理详情"></td>
 	            <td ><input ></td>
 	          </tr>
 	        </tbody>

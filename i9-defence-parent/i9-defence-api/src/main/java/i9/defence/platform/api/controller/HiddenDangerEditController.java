@@ -47,7 +47,6 @@ public class HiddenDangerEditController {
         PageBounds<HiddenDangerDto> pageBounds = equipmentService.selectHiddenDangerByLimitPage(hiddenDangerSearchDto);
         List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory();
         List<Project> project = projectService.findAllProject();
-        
         result.put("data",pageBounds);
         result.put("equipmentCategory",equipmentCategory);
         result.put("project",project);

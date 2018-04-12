@@ -11,18 +11,28 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
 		$modalInstance.dismiss('cancel');
 	}
 	$scope.check = function(statu){
+//		var text = $scope.editText;
     	$scope.delArray = [];
     	angular.forEach(angular.element.find(".o-checks1"), function(dom){
     		if(angular.element(dom).prop("checked") == true){
     			$scope.delArray.push(angular.element(dom).attr("data-id"))
     		}
 		});
+//    	$scope.editTextArray = [];
+//    	angular.forEach(angular.element.find(".o-checks1"), function(dom){
+//    		if(angular.element(dom).prop("checked") == true){
+//    			$scope.delArray.push(angular.element(dom).attr("ng-model"))
+//    		}
+//		});
+    	
     	var dealStatus={
     		ids :$scope.delArray,
     		dealStatus : statu
+//    		dealDetail:$scope.editTextArray
     	}
     	console.log('--------'+statu);
     	console.log('--------'+$scope.delArray);
+//    	console.log('--------'+$scope.editTextArray);
     	console.log('--------'+JSON.stringify(dealStatus));
     	confirm("确定处理吗?", "", function (isConfirm) {
             if (isConfirm) {

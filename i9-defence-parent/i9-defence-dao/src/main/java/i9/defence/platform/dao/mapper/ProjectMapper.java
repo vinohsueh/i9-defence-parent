@@ -51,4 +51,6 @@ public interface ProjectMapper {
     
   //重置项目的安全责任人们   之修改 指定的managerId safe字段为1  初始化
     void updateSafeOneByProjectId(@Param("projectId") Integer projectId,@Param("safeIds") List<Integer> safeIds);
+
+	List<Project> selectProject(@Param("example") ProjectSearchDto projectSearchDto);
 }

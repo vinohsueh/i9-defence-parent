@@ -68,4 +68,13 @@ public class HiddenDangerServiceImpl implements HiddenDangerService {
 		}
 	}
 
+	@Override
+	public List<HiddenDanger> selectAllHiddendanger() throws BusinessException {
+		try {
+			return hiddenDangerDao.selectAllHiddendanger();
+		} catch (Exception e) {
+			throw new BusinessException("查询全部隐患类型失败", e.getMessage());
+		}
+	}
+
 }

@@ -253,7 +253,7 @@
     </trim>
   </insert>
   <select id="countByExample" resultType="java.lang.Integer">
-    select count(*) from t_project p left join t_project_safe ps on p.id = ps.projectId
+    select count(DISTINCT p.id) from t_project p left join t_project_safe ps on p.id = ps.projectId
     <if test="_parameter != null" >
       <include refid="Query_By_Dto2_Where_Clause" />
     </if>
@@ -383,7 +383,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" />,
+        select DISTINCT <include refid="Base_Column_List" />,
         (select count(*)  from t_apply a where a.projectId=p.id) as delCount
         from t_project p left join t_project_safe ps on p.id = ps.projectId
         <if test="_parameter != null" >
@@ -431,4 +431,10 @@
             #{safeId}
         </foreach>
    </update>
+   <select id="selectProject" resultMap="BaseResultMap">
+   		select DISTINCT <include refid="Base_Column_List" /> from t_project p left join t_project_safe ps on p.id = ps.projectId
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto2_Where_Clause" />
+        </if>
+   </select>
 </mapper>
