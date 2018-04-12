@@ -45,7 +45,19 @@ public class HiddenDangerController {
 		result.put("data", pageBounds); 
 		return result;
 	}
- 
+	
+	/**
+	 * 查询隐患类型
+	 * @return
+	 */
+	@RequestMapping("/selectHiddendanger")
+	public HashMap<String, Object> selectHiddendanger() {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		List<HiddenDanger> list = hiddernDangerService.selectAllHiddendanger();
+		result.put("data", list); 
+		return result;
+	}
+	
 	/**
 	 * 添加隐患提醒类型
 	 * 
