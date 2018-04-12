@@ -19,10 +19,8 @@ import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.Equipment;
-import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
-import i9.defence.platform.model.ApplyExample.Criteria;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.BusinessException;
@@ -57,8 +55,11 @@ public class EquipmentServiceImpl implements EquipmentService {
 				return equipmentDao.selectByLimitPage(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize());
 			}
 			//如果为经销商和管理员
-			else if (Arrays.asList(Constants.S_ACCOUNT).contains(loginManager.getType())) {
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
 				return equipmentDao.selectByLimitPage2(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize(),loginManager.getId());
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员
+				return equipmentDao.selectByLimitPage3(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize(),loginManager.getId());
 			}
 		} catch (Exception e) {
 			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
@@ -82,7 +83,6 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 	@Override
 	public void updateEquipment(Equipment equipment) throws BusinessException {
-		// TODO Auto-generated method stub
 		try {
 			equipmentDao.updateEquipment(equipment);
 		} catch (Exception e) {
@@ -243,10 +243,25 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto)
 			throws BusinessException {
 		try {
-			return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			//获取登录人
+			Manager loginManager = managerService.getLoginManager();
+			//如果为网站用户显示全部（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}
+			//如果为经销商和管理员
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+				hiddenDangerSearchDto.setDistributorId(loginManager.getId());
+				return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员
+				hiddenDangerSearchDto.setPrijrctManagerId(loginManager.getId());
+				return equipmentDao.selectHiddenDangerByLimitPage(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}
 		} catch (Exception e) {
 			throw new BusinessException("分页报警隐患查询失败",e.getMessage());
 		}
+		return null;
 	}
 
 	@Override
@@ -260,12 +275,30 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 	@Override
 	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException {
+		
 		try {
-			List<HiddenDangerDto> list = equipmentDao.getAllHiddenDanger(hiddenDangerSearchDto);
-			return list;
+			//获取登录人
+			Manager loginManager = managerService.getLoginManager();
+			//如果为网站用户显示全部（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				List<HiddenDangerDto> list = equipmentDao.getAllHiddenDanger(hiddenDangerSearchDto);
+				return list;
+			}
+			//如果为经销商和管理员
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+				hiddenDangerSearchDto.setDistributorId(loginManager.getId());
+				List<HiddenDangerDto> list = equipmentDao.getAllHiddenDanger(hiddenDangerSearchDto);
+				return list;
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员
+				hiddenDangerSearchDto.setPrijrctManagerId(loginManager.getId());
+				List<HiddenDangerDto> list = equipmentDao.getAllHiddenDanger(hiddenDangerSearchDto);
+				return list;
+			}
 		}catch (Exception e) {
 			throw new BusinessException("查询全部失败",e.getMessage());
 		}
+		return null;
 	}
 
 	@Override

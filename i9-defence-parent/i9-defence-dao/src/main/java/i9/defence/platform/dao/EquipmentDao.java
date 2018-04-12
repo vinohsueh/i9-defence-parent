@@ -28,7 +28,7 @@ public interface EquipmentDao {
     PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto,
             int currectPage, int pageSize) throws Exception;
     /**
-     * 如果为经销商和管理员，分页查询设备
+     * 如果为经销商，分页查询设备
      * @param equipmentSearchDto
      * @param currectPage
      * @param pageSize
@@ -36,6 +36,15 @@ public interface EquipmentDao {
      */
     PageBounds<Equipment> selectByLimitPage2(EquipmentSearchDto equipmentSearchDto, int currentPage, int pageSize,int distributorId) throws Exception;
     
+    /**
+     * 如果为项目管理员，分页查询设备
+     * @param equipmentSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<Equipment> selectByLimitPage3(EquipmentSearchDto equipmentSearchDto, int currentPage, int pageSize,
+			Integer id);
     /**
      * 添加设备
      * @param equipment
