@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal"
 		ng-click="closeBtn()" aria-hidden="true">&times;</button>
-	<h4 class="modal-title" id="myModalLabel"><a>处理隐患</a></h4>
+	<h4 class="modal-title" id="myModalLabel">处理</h4>
 </div>
 <div class="modal-body"  id='tableBody'>
 	<!-- <table class="table b-t b-b b-light" style="table-layout:fixed">
@@ -46,9 +46,9 @@
 				<div class="col-sm-3 mb-10 delType">
 					<select class='form-control' ng-model="x.dealStatus">
 						<option value="0">未处理</option>
-						<option value="1">标记已处理</option>
-						<option value="2">标记误报</option>
-						<option value="3">标记故障</option>
+						<option value="1">已处理</option>
+						<option value="2">误报</option>
+						<option value="3">故障</option>
 					</select>
 				</div>
 				<div class="col-sm-12 mb-10 content">
