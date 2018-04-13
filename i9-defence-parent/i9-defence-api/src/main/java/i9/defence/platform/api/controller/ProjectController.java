@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ProjectGetDto;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
@@ -86,8 +90,13 @@ public class ProjectController {
         }else if(Arrays.asList(Constants.S_PROJ_MANAGER).contains(role.getName())){
             projectSearchDto.setProjectManagerId(manager.getId());
         }
-        List<Project> list = projectService.selectProject(projectSearchDto);
-        result.put("data", list);
+        List<Project> projectList = projectService.selectProject(projectSearchDto);
+        JSONArray projectArray = new JSONArray();
+        for(Project project:projectList) {
+        	JSONObject projectObject = new ProjcetMonitorComponent().setProject(project).build2();
+        	projectArray.add(projectObject);
+        }
+        result.put("data", projectArray);
         return result;
     }
     
@@ -147,6 +156,17 @@ public class ProjectController {
         result.put("project", project);
         result.put("clientList", clientList);
         result.put("safeList", safeList);
+        return result;
+    }
+    
+    /**
+     * 查询项目 根据ID 首页
+     * */
+    @RequestMapping("/getProjectByIndexId")
+    public HashMap<String, Object> getProjectByIndexId(@RequestBody ProjectGetDto projectGetDto) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Project project = projectService.getProjectById(projectGetDto.getProjectId());
+        result.put("project", project);
         return result;
     }
 
