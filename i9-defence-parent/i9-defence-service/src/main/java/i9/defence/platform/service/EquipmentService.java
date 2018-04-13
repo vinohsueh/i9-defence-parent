@@ -101,5 +101,5 @@ public interface EquipmentService {
      * @param DealStatusDto
      * @return
      */
-    void updateDealStatus(DealStatusDto dealStatusDto)throws BusinessException;
+    void updateDealStatus(List<DealStatusDto> list) throws BusinessException;
 }

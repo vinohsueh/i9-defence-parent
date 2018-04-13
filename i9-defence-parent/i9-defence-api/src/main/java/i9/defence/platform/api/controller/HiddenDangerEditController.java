@@ -1,5 +1,6 @@
 package i9.defence.platform.api.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,9 +85,9 @@ public class HiddenDangerEditController {
      * 
      */
     @RequestMapping("/updateDealStatus")
-    public HashMap<String, Object> updateDealStatus(@RequestBody DealStatusDto dealStatusDto){
+    public HashMap<String, Object> updateDealStatus(@RequestBody DealStatusDto [] dealStatusDtos){
     	HashMap<String, Object> result = new HashMap<String, Object>();
-    	equipmentService.updateDealStatus(dealStatusDto);
+    	equipmentService.updateDealStatus(Arrays.asList(dealStatusDtos));
 		return result;
     }
 }

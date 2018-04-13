@@ -1,7 +1,5 @@
 package i9.defence.platform.dao.vo;
 
-import java.util.List;
-
 import i9.defence.platform.model.Passageway;
 
 /** 
@@ -12,16 +10,18 @@ import i9.defence.platform.model.Passageway;
 */
 public class PassagewayDto {
 	
-	private List<Passageway> Passageways;
+	private Passageway [] passageways;
 	
 	private Integer equipmentId;
 
-	public List<Passageway> getPassageways() {
-		return Passageways;
+	
+
+	public Passageway[] getPassageways() {
+		return passageways;
 	}
 
-	public void setPassageways(List<Passageway> passageways) {
-		Passageways = passageways;
+	public void setPassageways(Passageway[] passageways) {
+		this.passageways = passageways;
 	}
 
 	public Integer getEquipmentId() {
