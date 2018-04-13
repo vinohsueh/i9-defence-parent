@@ -50,6 +50,9 @@ public interface ProjectDao {
      */
     List<Project> findAllProject() throws Exception;
     
+    //后台首页 查询全部项目
+    List<Project> findAllProjectIndex(ProjectSearchDto projectSearchDto) throws Exception;
+    
     /**
      * 分页查询项目
      * @param projectSearchDto

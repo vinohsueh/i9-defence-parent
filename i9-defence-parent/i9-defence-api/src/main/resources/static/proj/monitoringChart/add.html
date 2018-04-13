@@ -26,7 +26,7 @@
 	      	<td class='passagewayName'><input type="text" class="form-control" value='{{i.name}}'></td>
 	      	<td class='hidedenDanger'>
 				<select class="form-control" ng-model='mName[$index]'>
-				    <option value = ''>请选择</option>
+				    <option value = '' ng-if='mName[$index] == 0'>请选择</option>
 				    <option ng-repeat="h in hiddenDanger" value="{{h.id}}">{{h.name}}</option>
 				</select>
 	      	</td>

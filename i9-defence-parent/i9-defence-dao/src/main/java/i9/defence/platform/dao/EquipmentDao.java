@@ -128,7 +128,7 @@ public interface EquipmentDao {
             int currectPage, int pageSize) throws Exception;
     
     /**
-     * 查询具体隐患报警
+     * 查询具体隐患报警--隐患
      * @param HiddenDangerChannelDto
      * @return
      */
@@ -146,4 +146,10 @@ public interface EquipmentDao {
      * 查询全部隐患报警
      */
     List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;
+    /**
+     * 查询具体隐患报警--报警
+     * @param HiddenDangerChannelDto
+     * @return
+     */
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId);
 }

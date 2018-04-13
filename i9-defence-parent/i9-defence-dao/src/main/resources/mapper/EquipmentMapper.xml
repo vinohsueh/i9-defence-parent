@@ -557,11 +557,17 @@
 			</if>
 			limit #{offset},#{limit}
 		</select>
-		<!-- 查询具体隐患报警 -->
+		<!-- 查询具体隐患报警    查看隐患-->
 		 <select id="selectHiddenDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
 			  select id,systemId,name,value,dateTime,channel,dealStatus,dealDetail
 			   from  v_hiddendanger_channel_data	
-			    where systemId=#{systemId,jdbcType=VARCHAR}
+			    where hiddenCount > 0 and systemId=#{systemId,jdbcType=VARCHAR}
+		  </select>
+		<!-- 查询具体隐患报警    查看警告-->
+		  <select id="selectDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
+		 	select id,systemId,name,value,dateTime,channel,dealStatus,dealDetail
+			   from  v_hiddendanger_channel_data	
+			    where warningCount > 0 and systemId=#{systemId,jdbcType=VARCHAR}
 		  </select>
 		<!-- 查询全部 -->
 		<select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">

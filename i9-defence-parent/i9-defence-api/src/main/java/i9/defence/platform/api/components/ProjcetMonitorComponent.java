@@ -26,4 +26,13 @@ public class ProjcetMonitorComponent {
 		jsonObject.put("safeManager", project.getSafeListStr());
 		return jsonObject;
 	}
+	
+	public JSONObject build2(){
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("id", project.getId());
+		jsonObject.put("projectName", project.getProjectName());
+		jsonObject.put("projectLongitude", project.getProjectLongitude());
+		jsonObject.put("projectLatitude", project.getProjectLatitude());
+		return jsonObject;
+	}
 }

@@ -191,7 +191,8 @@ td.eventType{
 	height: 100%;
 	#selfMap{
 		width:77%;
-		height: 70%;
+		height: 100%;
+		/*height: 70%;*/
 	} 
 }
 /*实时监控图形排版*/
@@ -378,7 +379,19 @@ td.eventType{
 		
 	}
 }
-
+/*选择经纬度*/
+#map{
+	position: relative;
+	#choiceMap{
+		position: absolute;
+		top:10px;
+		right: 10px;
+		z-index: 5;
+		.column2{
+			padding-left: 25px;
+		}
+	}
+}
 //通用
 .clear{
     zoom: 1;

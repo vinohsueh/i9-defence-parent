@@ -269,4 +269,13 @@ public class ProjectServiceImpl implements ProjectService {
 		return null;
 	}
 
+	@Override
+	public List<Project> findAllProjectIndex(ProjectSearchDto projectSearchDto) throws BusinessException {
+		try {
+			return projectDao.findAllProjectIndex(projectSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("后台首页查询全部项目失败", e.getMessage());
+		}
+	}
+
 }

@@ -323,19 +323,20 @@
 	
 	<update id="updateDealStatusByIds">
 	
-	<!--  update t_channel_data 
-	set dealStatus = #{example.dealStatus}, dealDetail = #{dealDetail,jdbcType=VARCHAR} 
+	 update t_channel_data 
 	SET dealStatus = CASE id 
 		<foreach collection="list" item="item">
-			WHEN #{item.id} THEN 3 
+			WHEN #{item.id} THEN #{item.dealStatus} 
 		</foreach>
-            WHEN 1 THEN 3 
-            WHEN 2 THEN 4 
-            WHEN 3 THEN 5 
+        END, 
+    dealDetail = CASE id 
+       <foreach collection="list" item="item">
+			WHEN #{item.id} THEN #{item.dealDetail} 
+		</foreach>
         END
 	where id in
-    <foreach collection="example.ids" item="item" open="(" close=")" separator=",">
-   	 	#{item}
-    </foreach> -->
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+   	 	#{item.id}
+    </foreach>
 	</update>
 </mapper>

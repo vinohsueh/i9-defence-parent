@@ -1,7 +1,7 @@
-var hiddenEditNgModule = angular.module('hiddenEditNgModule', [ 'ngResource',
+var warningEditNgModule = angular.module('warningEditNgModule', [ 'ngResource',
         'ngCookies', 'ui.bootstrap', 'toaster', 'app' ]);
 
-var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', function($scope,
+var warningEditNgCtrl = warningEditNgModule.controller('warningEditNgCtrl', function($scope,
         $rootScope,$modal, $modalInstance, $cookieStore, $http, $window, toaster,httpService,hiddenEdit) {
 	
 	$scope.hiddenEdit = hiddenEdit;
