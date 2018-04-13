@@ -8,7 +8,6 @@ import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerExample;
-import i9.defence.platform.utils.BusinessException;
 
 public interface ManagerMapper {
     int countByExample(@Param("example") ManagerSearchDto managerSearchDto);

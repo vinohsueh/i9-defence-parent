@@ -18,6 +18,7 @@ import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Apply;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
@@ -342,6 +343,15 @@ public class EquipmentServiceImpl implements EquipmentService {
 			return equipmentDao.selectErrorEquipment(equipmentSearchDto);
 		} catch (Exception e) {
 			throw new BusinessException("分页查询故障设备失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) throws BusinessException {
+		try {
+			return equipmentDao.selectErrorRecord(equipmentSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询故障记录失败",e.getMessage());
 		}
 	}
 }

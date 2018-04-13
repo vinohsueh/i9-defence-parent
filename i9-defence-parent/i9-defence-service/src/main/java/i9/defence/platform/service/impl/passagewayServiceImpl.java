@@ -28,7 +28,7 @@ public class passagewayServiceImpl implements passagewayService {
 	public List<Passageway> selectPassagewaysByEquipId(Integer id) throws BusinessException {
 		try {
 			Equipment equipment = equipmentDao.getEquipmentById(id);
-			return passageWayDao.selectPassagewaysByEquipId(equipment.getSystemId());
+			return passageWayDao.selectPassagewaysByEquipId(equipment.getDeviceId());
 		} catch (Exception e) {
 			throw new BusinessException("根据设备id查询通道失败",e.getMessage());
 		}
@@ -39,10 +39,10 @@ public class passagewayServiceImpl implements passagewayService {
 		try {
 			Equipment equipment = equipmentDao.getEquipmentById(passagewayDto.getEquipmentId());
 			//删除旧的通道对应关系
-			passageWayDao.delPassagewayBySystemId(equipment.getSystemId());
+			passageWayDao.delPassagewayBySystemId(equipment.getDeviceId());
 			List<Passageway> passageways = Arrays.asList(passagewayDto.getPassageways());
 			for (Passageway passageway : passageways) {
-				passageway.setSystemId(equipment.getSystemId());
+				passageway.setDeviceId(equipment.getDeviceId());
 			}
 			passageWayDao.addPassageway(passageways);
 		} catch (Exception e) {

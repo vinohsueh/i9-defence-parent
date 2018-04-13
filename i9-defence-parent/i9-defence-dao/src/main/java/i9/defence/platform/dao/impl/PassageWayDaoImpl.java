@@ -15,8 +15,8 @@ public class PassageWayDaoImpl implements PassageWayDao {
 	@Autowired
 	private PassagewayMapper passagewayMapper;
 	@Override
-	public List<Passageway> selectPassagewaysByEquipId(String id) throws Exception {
-		return passagewayMapper.selectByEquipmentId(id);
+	public List<Passageway> selectPassagewaysByEquipId(String deviceId) throws Exception {
+		return passagewayMapper.selectByEquipmentId(deviceId);
 	}
 
 	@Override 

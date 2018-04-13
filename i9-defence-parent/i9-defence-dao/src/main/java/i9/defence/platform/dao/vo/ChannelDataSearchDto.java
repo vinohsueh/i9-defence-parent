@@ -15,7 +15,7 @@ public class ChannelDataSearchDto {
 	
 	private int equipmentId;
 	
-	private String systemId;
+	private String deviceId;
 
     private Integer channel;
     
@@ -71,12 +71,13 @@ public class ChannelDataSearchDto {
 		this.endDateString = endDateString;
 	}
 
-	public String getSystemId() {
-		return systemId;
+
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setSystemId(String systemId) {
-		this.systemId = systemId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public Integer getChannel() {

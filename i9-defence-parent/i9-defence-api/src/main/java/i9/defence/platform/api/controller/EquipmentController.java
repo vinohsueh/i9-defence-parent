@@ -157,21 +157,6 @@ public class EquipmentController {
 	}
 
 	/**
-	 * 根据设备Id查找通道
-	 * @Title: selectPassagewayByEid
-	 * @Description: TODO
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/selectPassagewayByEid")
-	public HashMap<String, Object> selectPassagewayByEid(String systemId) {
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = equipmentService.selectPassagewayByEid(systemId);
-		result.put("data", list);
-		return result;
-	}
-
-	/**
 	 * 增加通道
 	 * 
 	 * @Title: InsertPassageWay
@@ -196,7 +181,7 @@ public class EquipmentController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		Equipment equipment = equipmentService.getEquipmentById(channelDataSearchDto.getEquipmentId());
 		//根据设备编号查询
-		channelDataSearchDto.setSystemId(equipment.getSystemId());
+		channelDataSearchDto.setDeviceId(equipment.getDeviceId());
 		//只查询电流和温度的显示值
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());
@@ -226,6 +211,21 @@ public class EquipmentController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		PageBounds<Equipment> pageBounds = equipmentService.selectErrorEquipment(equipmentSearchDto);
 		result.put("data", pageBounds);
+		return result;
+	}
+	
+	
+	/**
+	 * 查询故障记录
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping("/selectErrorRecord")
+	public HashMap<String, Object> selectErrorRecord(@RequestBody EquipmentSearchDto equipmentSearchDto) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		List<ChannelData> list = equipmentService.selectErrorRecord(equipmentSearchDto);
+		JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).errorBuild();
+		result.put("data", jsonObject);
 		return result;
 	}
 }

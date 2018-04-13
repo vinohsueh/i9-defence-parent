@@ -43,6 +43,52 @@ public class ChannelDataComponent {
 		
 		//将数据按通道分类后传去前台
 		JSONArray jsonArray = new JSONArray();
+		//日期数组
+		List<String> dateList = new ArrayList<>();
+		boolean flag = true;
+		for (Map.Entry<Integer, List<ChannelData>> entry : map.entrySet()) {
+			JSONObject channelObject = new JSONObject();
+			channelObject.put("channelNumber", entry.getKey());
+			//值的数组
+			List<String> list = new ArrayList<>();
+			for (ChannelData channelData : entry.getValue()) {
+				list.add(channelData.getValue());
+			}
+			if (flag) {
+				for (ChannelData channelData : entry.getValue()) {
+					dateList.add(StringUtil.dateToStringByRep(channelData.getDateTime(), "yyyy/MM/dd HH:mm:ss"));
+				}
+				flag = false;
+			}
+			channelObject.put("value", list);
+			jsonArray.add(channelObject);
+		}
+		jsonObject.put("date", dateList);
+		jsonObject.put("channelData", jsonArray);
+		return jsonObject;
+	}
+	
+	/**
+	 * 故障记录按通道分类
+	 * @return
+	 */
+	public JSONObject errorBuild(){
+		JSONObject jsonObject = new JSONObject();
+		//将通道数据按通道号放入map中
+		Map<Integer, List<ChannelData>> map = new HashMap<Integer, List<ChannelData>>();
+		for (ChannelData channelData : channelDatas) {
+			List<ChannelData> list = null;
+			if (map.containsKey(channelData.getChannel())) {
+				list = map.get(channelData.getChannel());
+			}else{
+				list = new ArrayList<ChannelData>();
+			}
+			list.add(channelData);
+			map.put(channelData.getChannel(), list);
+		}
+		
+		//将数据按通道分类后传去前台
+		JSONArray jsonArray = new JSONArray();
 		for (Map.Entry<Integer, List<ChannelData>> entry : map.entrySet()) {
 			JSONObject channelObject = new JSONObject();
 			channelObject.put("channelNumber", entry.getKey());
@@ -54,14 +100,6 @@ public class ChannelDataComponent {
 			channelObject.put("value", list);
 			jsonArray.add(channelObject);
 		}
-		
-		//日期数组
-		List<String> dateList = new ArrayList<>();
-		for (ChannelData channelData : map.get(0)) {
-			dateList.add(StringUtil.dateToStringByRep(channelData.getDateTime(), "yyyy/MM/dd HH:mm:ss"));
-		}
-		
-		jsonObject.put("date", dateList);
 		jsonObject.put("channelData", jsonArray);
 		return jsonObject;
 	}

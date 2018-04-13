@@ -242,8 +242,10 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
 	
 	//编辑
     $scope.edit = function (systemId) { 
-    	console.log(systemId)
-    	httpService.post({url:'./equipment/selectEquipmentError',data:systemId,showSuccessMsg:false}).then(function(data) {  
+    	var param = {
+    		'deviceId':systemId
+    	}
+    	httpService.post({url:'./equipment/selectErrorRecord',data:param,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
@@ -253,7 +255,7 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'errorEquipEditNgCtrl',
+	        				name : 'errorEquipEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
 	        				         'proj/alarmView/add.js',

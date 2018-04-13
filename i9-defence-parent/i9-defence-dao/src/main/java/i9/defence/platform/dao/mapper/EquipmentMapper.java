@@ -1,17 +1,16 @@
 package i9.defence.platform.dao.mapper;
 
-import i9.defence.platform.dao.vo.DealStatusDto;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
-import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Passageway;
-
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentMapper {
 	int countByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);

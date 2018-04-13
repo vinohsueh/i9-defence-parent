@@ -79,8 +79,8 @@
 	</sql>
 	<sql id="Query_Example_Where_Clause">
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
-			<if test="systemId != null and systemId != ''">
-			 and systemId = #{systemId}
+			<if test="deviceId != null and deviceId != ''">
+			 and deviceId = #{deviceId}
 			</if>
 			<if test="channel != null">
 			 and channel = #{channel}

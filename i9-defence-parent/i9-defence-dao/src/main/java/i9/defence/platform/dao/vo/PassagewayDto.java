@@ -31,6 +31,9 @@ public class PassagewayDto {
 	public void setEquipmentId(Integer equipmentId) {
 		this.equipmentId = equipmentId;
 	}
+
+	
+
 	
 	
 }

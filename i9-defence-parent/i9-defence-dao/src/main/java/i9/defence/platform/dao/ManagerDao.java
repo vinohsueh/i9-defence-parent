@@ -1,12 +1,11 @@
 package i9.defence.platform.dao;
 
+import java.util.List;
+
 import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
-import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
-
-import java.util.List;
 
 /** 
  * 创建时间：2018年1月4日 上午9:47:35

@@ -7,6 +7,7 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
@@ -159,4 +160,11 @@ public interface EquipmentDao {
      * @return
      */
 	PageBounds<Equipment> selectErrorEquipment(EquipmentSearchDto equipmentSearchDto);
+		
+	/**
+	 * 
+	 * @param equipmentSearchDto
+	 * @return
+	 */
+	List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto);
 }
