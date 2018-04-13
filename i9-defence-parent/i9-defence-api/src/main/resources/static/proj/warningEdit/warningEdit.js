@@ -1,8 +1,8 @@
 /**
  * 隐患操作js
  */
-var hiddenEditModule=angular.module('hiddenEditModule',['ngAnimate','ui.bootstrap','app']);
-var hiddenEditService = hiddenEditModule.factory('hiddenEditService',
+var warningEditModule=angular.module('warningEditModule',['ngAnimate','ui.bootstrap','app']);
+var hiddenEditService = warningEditModule.factory('hiddenEditService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -22,7 +22,7 @@ var hiddenEditService = hiddenEditModule.factory('hiddenEditService',
 			});
 			return resource;
 	}]);
-var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,hiddenEditService,httpService){
+var warningEditControl=warningEditModule.controller('warningEditControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,hiddenEditService,httpService){
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
@@ -175,16 +175,16 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
     		$scope.hiddenEdit = data.data.data;
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
-	            templateUrl: 'proj/hiddenEdit/add.html',  
-	            controller: 'hiddenEditNgCtrl', 
+	            templateUrl: 'proj/warningEdit/add.html',  
+	            controller: 'warningEditNgCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'hiddenEditNgModule',
+	        				name : 'warningEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
-	        				         'proj/hiddenEdit/add.js',
+	        				         'proj/warningEdit/add.js',
 	        				]
 	        			});
 	        		}],

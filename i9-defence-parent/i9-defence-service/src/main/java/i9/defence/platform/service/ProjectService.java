@@ -58,6 +58,9 @@ public interface ProjectService {
      */
     List<Project> findAllProject() throws BusinessException;
     
+  //后台首页 查询全部项目
+    List<Project> findAllProjectIndex(ProjectSearchDto projectSearchDto) throws BusinessException;
+    
     /**
      * 分页查询项目
      * @param projectSearchDto

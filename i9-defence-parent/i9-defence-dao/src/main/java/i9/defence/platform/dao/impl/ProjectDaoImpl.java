@@ -108,4 +108,9 @@ public class ProjectDaoImpl implements ProjectDao{
 	public List<Project> selectProject(ProjectSearchDto projectSearchDto) throws Exception {
 		return projectMapper.selectProject(projectSearchDto);
 	}
+
+	@Override
+	public List<Project> findAllProjectIndex(ProjectSearchDto projectSearchDto) throws Exception {
+		return projectMapper.findAllProjectIndex(projectSearchDto);
+	}
 }
