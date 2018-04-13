@@ -133,6 +133,16 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
+	public void addEquipments(List<Equipment> equipments) throws Exception {
+		equipmentMapper.insertEquipments(equipments);
+	}
+
+	@Override
+	public void updateEquipmentByIds(List<Equipment> equipments) throws Exception {
+		equipmentMapper.updateEquipmentByIds(equipments);
+	}
+
+	@Override
 	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) {
 		return equipmentMapper.selectDangerChannelDtoBySid(systemId);
 	}

@@ -26,6 +26,10 @@ public class EncryptUtils {
         return value;
     }
     
+    public static void main(String[] args) {
+		System.out.println(bytesToHexString(intToBytes(1)));
+	}
+    
     /**
      * 字节数组转INT
      * @param buffer

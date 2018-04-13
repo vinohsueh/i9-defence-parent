@@ -53,11 +53,25 @@ public interface EquipmentDao {
     void addEquipment(Equipment equipment) throws Exception;
     
     /**
+     * 批量添加设备
+     * @param equipment
+     * @throws Exception
+     */
+    void addEquipments(List<Equipment> equipments) throws Exception;
+    
+    /**
      * 更新设备
      * @param equipment
      * @throws Exception
      */
     void updateEquipment(Equipment equipment) throws Exception;
+    
+    /**
+	 * 批量修改设备
+	 * @param applies
+	 * @throws Exception
+	 */
+	void updateEquipmentByIds(List<Equipment> equipments) throws Exception;
     
     /**
      * 根据ID获取设备
