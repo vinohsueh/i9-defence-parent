@@ -146,4 +146,13 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) {
 		return equipmentMapper.selectDangerChannelDtoBySid(systemId);
 	}
+
+	@Override
+	public PageBounds<Equipment> selectErrorEquipment(EquipmentSearchDto equipmentSearchDto) {
+		final int totalSize = equipmentMapper.countErrorByExample(equipmentSearchDto);
+        PageBounds<Equipment> pageBounds = new PageBounds<Equipment>(equipmentSearchDto.getCurrentPage(), totalSize, equipmentSearchDto.getPageSize());
+        List<Equipment> list = equipmentMapper.selectErrorEquipment(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
+        pageBounds.setPageList(list);
+		return pageBounds;
+	}
 }

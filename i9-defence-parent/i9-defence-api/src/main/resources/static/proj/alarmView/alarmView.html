@@ -5,38 +5,6 @@
 <div class="wrapper-md">  
   <form action="" class='form-inline myBox'>
     <div class="form-group">
-      <label for="">设备类型：</label>
-      <select class="form-control blue_bg">
-        <option>天津</option>
-        <option>北京</option>
-        <option>上海</option>
-        <option>深圳</option>
-        <option>杭州</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">登记时间:</label>
-      <div class="input-group" ng-controller="DatepickerDemoCtrl">
-        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='change()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-      <label for="">-</label>
-      <div class="input-group" ng-controller="DatepickerDemoCtrl">
-        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-      </div>
-    </div>  
-    <div class="form-group">
-      <label for="">经销商：</label>
-      <select class="form-control blue_bg">
-        <option>A经销商</option>
-        <option>B经销商</option>
-        <option>C经销商</option>
-        <option>D经销商</option>
-        <option>E经销商</option>
-      </select>
-    </div>
-    <div class="form-group">
       <label for="">省区域：</label>
       <select class="form-control blue_bg" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
         <option value = ''>请选择</option>
@@ -60,85 +28,74 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="">项目名称：</label>
-      <select class="form-control blue_bg">
-        <option>国际创业中心</option>
-        <option>海泰发展六道</option>
-        <option>C项目</option>
-        <option>D项目</option>
-        <option>E项目</option>
-      </select>
-    </div>
-    <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
+		<label for="">项目名称：</label> 
+		<select class="form-control blue_bg" ng-model="projectName"
+		ng-options="x.projectName for x in projectss">
+		<option value="">全部</option>
+		<!-- 不加这句代码，会出现空白 -->
+		</select>
+	</div>
+    <button type='button' class='btn btn-primary' ng-click="initTable()"><i class='glyphicon glyphicon-search'></i></button>
   </form>
-  <div class="myBox">
+  <div class="panel panel-default myBox">
+  	<div class="panel-heading row">
+    	<div class="col-sm-6 m-b-xs">
+	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
+	          <option value="5">5</option>
+	          <option value="10">10</option>
+	          <option value="20">20</option>
+	          <option value="50">50</option>
+	          <option value="100">100</option>
+	        </select>
+	      </div>
+	      <div class="col-sm-6  text-right">
+	      </div>
+    </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
-            <th>事件类型</th>
             <th>设备类型</th>
-            <th>时间</th>
-            <th>位置</th>
+            <th>项目安全负责人</th>
             <th>项目名称</th>
+            <th>设备位置</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
-          </tr>
-          <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
-          </tr>
-          <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
-          </tr>
-          <tr>
-            <td class='eventType'><span class='danger'>漏电</span></td>
-            <td>A设备</td>
-            <td>2017-5-08</td>
-            <td>2209</td>
-            <td>国创中心</td>
+          <tr ng-repeat="hiddenEdit in equipments">
+            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
+            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.project.safeListStr}}</td>
+            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.project.projectName}}</td>
+            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.equipmentPosition}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="row wrapper">
-      <div class="col-sm-5 m-b-xs">
-        <select class="blue_bg form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style='width:100px;'>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
+    <footer class="panel-footer">
+      <div class="row">
+        <!-- <div class="col-sm-4 hidden-xs">
+          <select class="input-sm form-control w-sm inline v-middle">
+            <option value="0">删除</option>
+          </select>
+          <button class="btn btn-sm btn-default">Apply</button>                  
+        </div> -->
+        <div class="col-sm-3">
+          <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
+        </div>
+        <div class="col-sm-offset-3 col-sm-6 text-right text-center-xs" ng-if="pages.length>0">                
+          <ul class="pagination pagination-sm m-t-none m-b-none">
+            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
+            <li ng-if="hasNext"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+          </ul>
+        </div>
       </div>
-      <div class="col-xs-7 text-right text-center-xs">                
-        <ul class="pagination pagination-sm m-t-none m-b-none">
-          <li><a href><i class="fa fa-chevron-left"></i></a></li>
-          <li><a href>1</a></li>
-          <li><a href>2</a></li>
-          <li><a href>3</a></li>
-          <li><a href>4</a></li>
-          <li><a href>5</a></li>
-          <li><a href><i class="fa fa-chevron-right"></i></a></li>
-        </ul>
-      </div>
-    </div>
+    </footer>
   </div>
-  <div class='row'>
+  
+  <!-- <div class='row'>
     <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">联系人</div>
       <div class="body">
@@ -167,6 +124,6 @@
         <div e-chart options="option"></div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 </div>

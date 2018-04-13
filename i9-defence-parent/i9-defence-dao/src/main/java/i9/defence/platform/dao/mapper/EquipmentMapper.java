@@ -70,4 +70,9 @@ public interface EquipmentMapper {
 	 */
 	void updateEquipmentByIds(List<Equipment> list);
 
+    
+    //查询故障设备
+    int countErrorByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
+    
+    List<Equipment> selectErrorEquipment(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 }
