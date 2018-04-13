@@ -528,4 +528,25 @@
 			</if>
 		</select>
 	<!-- ———————————— 隐患与报警———————————— -->
+	
+	<!-- 故障设备 -->
+	<sql id="Query_Error_By_Dto_Where_Clause">
+		<!--根据项目名称 模糊搜索  -->	
+		<if test="example.projectId != null and example.projectId != ''">
+			and projectId =#{example.projectId}
+		</if>
+	</sql>
+	<select id="countErrorByExample"  resultType="java.lang.Integer">
+	    select count(*) from (select e.*,(select count(*) from t_channel_data cd where systemId = e.systemId and type = 5) as error from t_equipment e) a where a.error > 0 
+		<if test="_parameter != null">
+			<include refid="Query_Error_By_Dto_Where_Clause" />
+		</if>
+    </select>
+	<select id="selectErrorEquipment" resultMap="BaseResultMap">
+		select * from (select e.*,(select count(*) from t_channel_data cd where systemId = e.systemId and type = 5) as error from t_equipment e) a where a.error > 0 
+		<if test="_parameter != null">
+			<include refid="Query_Error_By_Dto_Where_Clause" />
+		</if>
+		limit #{offset},#{limit}
+	</select>
 </mapper>

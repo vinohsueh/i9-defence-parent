@@ -57,5 +57,9 @@ public interface EquipmentMapper {
     List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId);
     //隐患报警 全部查询
     List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
-
+    
+    //查询故障设备
+    int countErrorByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
+    
+    List<Equipment> selectErrorEquipment(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 }

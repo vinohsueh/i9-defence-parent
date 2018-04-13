@@ -318,5 +318,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("根据设备编号查询报警隐患失败",e.getMessage());
 		}
 	}
+
+	@Override
+	public PageBounds<Equipment> selectErrorEquipment(EquipmentSearchDto equipmentSearchDto) throws BusinessException {
+		try {
+			return equipmentDao.selectErrorEquipment(equipmentSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("分页查询故障设备失败",e.getMessage());
+		}
+	}
 }
 

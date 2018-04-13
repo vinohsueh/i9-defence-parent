@@ -138,4 +138,11 @@ public interface EquipmentDao {
      * @return
      */
     List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId);
+    
+    /**
+     * 分页查询故障设备
+     * @param equipmentSearchDto
+     * @return
+     */
+	PageBounds<Equipment> selectErrorEquipment(EquipmentSearchDto equipmentSearchDto);
 }
