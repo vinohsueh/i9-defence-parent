@@ -126,7 +126,7 @@ public interface EquipmentDao {
      * @param DealStatusDto
      * @return
      */
-    void updateDealStatus(DealStatusDto dealStatusDto)throws Exception;
+    void updateDealStatus(List<DealStatusDto> list)throws Exception;
     
     /**
      * 查询全部隐患报警

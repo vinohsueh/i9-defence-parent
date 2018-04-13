@@ -101,11 +101,12 @@ public interface EquipmentService {
      * @param DealStatusDto
      * @return
      */
-    void updateDealStatus(DealStatusDto dealStatusDto)throws BusinessException;
+    void updateDealStatus(List<DealStatusDto> list) throws BusinessException;
     /**
      * 查询具体隐患报警--隐患
      * @param selectHiddenDangerChannelDtoBySid
      * @return
      */
     List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId)throws BusinessException;
+    
 }
