@@ -398,9 +398,11 @@
     <if test="partentId != null">
       AND mg.parentId = #{partentId}
     </if>
+    <!-- 
     <if test="partentId == null">
       AND (mg.managerId is null or (mg.managerId is not null and mg.parentId is null))
     </if>
+     -->
   </select>
   <select id="selectPartAgency"  parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from t_manager as m left join t_manager_grade as mg on m.id = mg.managerId WHERE m.type=1 AND mg.managerId is null and m.id != #{agencyId} and 0 = (select count(*) from  t_manager_grade where parentId = m.id)
