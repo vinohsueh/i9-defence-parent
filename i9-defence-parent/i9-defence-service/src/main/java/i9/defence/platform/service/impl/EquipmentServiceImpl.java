@@ -88,9 +88,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 					equipmentDao.addEquipments(equipments);
 					for(int i = 0;i<equipments.size();i++) {
 						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
-						String deviceId = equipments.get(i).getDeviceId();
-						deviceId = equipments.get(i).getEquipmentPositionStr()+ equipments.get(i).getSystemId()+equipments.get(i).getEquipmentCategoryId();
-						equipments.get(i).setDeviceId(deviceId);
+						equipments.get(i).setDeviceId(equipments.get(i).getDeviceId());
 					}
 					equipmentDao.updateEquipmentByIds(equipments);
 			}
