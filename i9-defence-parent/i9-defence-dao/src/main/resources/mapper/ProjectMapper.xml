@@ -96,6 +96,22 @@
         </if>
     </trim>
   </sql>
+  <sql id="Query_By_Dto3_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+    	<if test="example.projectName != null and example.projectName != ''">
+            OR p.projectName like CONCAT('%',CONCAT('${example.projectName}','%'))
+        </if>
+        <if test="example.projectProvince != null and example.projectProvince != ''">
+          AND p.projectProvince = #{example.projectProvince}
+        </if>
+        <if test="example.projectCity != null and example.projectCity != ''">
+          AND p.projectCity = #{example.projectCity}
+        </if>
+        <if test="example.projectManagerId != null and example.projectManagerId != ''">
+          AND ps.managerId = #{example.projectManagerId}
+        </if>
+    </trim>
+  </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -393,6 +409,13 @@
           order by ${example.orderByClause}
         </if>
         limit #{offset},#{limit}
+   </select>
+   <select id="findAllProjectIndex" resultMap="BaseResultMap">
+   		select <include refid="Base_Column_List" />
+        from t_project p left join t_project_safe ps on p.id = ps.projectId
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto3_Where_Clause" />
+        </if>
    </select>
    <select id="selectAllProjectName" resultType="i9.defence.platform.dao.vo.ProjectSelectDto">
    		select id,projectName from t_project

@@ -53,4 +53,7 @@ public interface ProjectMapper {
     void updateSafeOneByProjectId(@Param("projectId") Integer projectId,@Param("safeIds") List<Integer> safeIds);
 
 	List<Project> selectProject(@Param("example") ProjectSearchDto projectSearchDto);
+
+	//后台首页 查询全部项目
+    List<Project> findAllProjectIndex(@Param("example") ProjectSearchDto projectSearchDto);
 }
