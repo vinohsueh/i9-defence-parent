@@ -2,10 +2,9 @@ var hiddenEditNgModule = angular.module('hiddenEditNgModule', [ 'ngResource',
         'ngCookies', 'ui.bootstrap', 'toaster', 'app' ]);
 
 var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', function($scope,
-        $rootScope,$modal, $modalInstance, $cookieStore, $http, $window, toaster, httpService,hiddenEdit) {
+        $rootScope,$modal, $modalInstance, $cookieStore, $http, $window, toaster,httpService,hiddenEdit) {
 	
 	$scope.hiddenEdit = hiddenEdit;
-	console.log(hiddenEdit)
     //页面初始化
     /*$scope.pageInit = function (data) {
         console.log(JSON.stringify(data));
@@ -28,12 +27,18 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
 	}
     
 	$scope.confirmAdd = function(){
+		var dealStatusDtos = [];
 		angular.forEach(angular.element.find(".error"), function(dom){
-    		console.log(angular.element(dom).find(".id").attr("data-aa"));
-    		console.log(angular.element(dom).find(".delType").find("select").val())
-    		console.log(angular.element(dom).find(".content").find("textarea").val())
-    		var 
+    		var a =  {
+    			id :angular.element(dom).find(".id").attr("data-aa"),
+    			dealStatus : angular.element(dom).find(".delType").find("select").val(),
+    			dealDetail : angular.element(dom).find(".content").find("textarea").val()
+    		}
+    		dealStatusDtos.push(a)
 		});
+		httpService.post({url:'./hiddenDangerEdit/updateDealStatus',data:dealStatusDtos,showSuccessMsg:true}).then(function(data) {  
+    		$modalInstance.dismiss('cancel');
+    	})
 	}
    
 	/*$scope.check = function(statu){

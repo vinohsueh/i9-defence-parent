@@ -171,7 +171,7 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
     //编辑
     $scope.edit = function (systemId) { 
     	console.log(systemId)
-    	httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
+    	httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
@@ -191,9 +191,6 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	        		hiddenEdit: function () {  
 	                    return $scope.hiddenEdit;  
 	                },
-//	                equipmentCategory: function () {  
-//	                    return $scope.equipmentCategory;  
-//	                },
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数

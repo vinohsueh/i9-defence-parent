@@ -132,4 +132,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		channelDataMapper.updateDealStatusByIds(list);
 	}
 
+	@Override
+	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) {
+		return equipmentMapper.selectDangerChannelDtoBySid(systemId);
+	}
 }

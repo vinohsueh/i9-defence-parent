@@ -185,9 +185,6 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	        		hiddenEdit: function () {  
 	                    return $scope.hiddenEdit;  
 	                },
-//	                equipmentCategory: function () {  
-//	                    return $scope.equipmentCategory;  
-//	                },
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
