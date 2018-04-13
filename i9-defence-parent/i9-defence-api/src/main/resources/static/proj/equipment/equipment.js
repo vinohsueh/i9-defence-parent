@@ -30,7 +30,7 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				equipmentName : text,
-				equipmentIdentifier : text,
+				systemId : text,
 				equipmentPosition : text,
 			};
 		

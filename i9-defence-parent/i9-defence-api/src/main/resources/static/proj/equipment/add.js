@@ -29,7 +29,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 //			});
 //			return false;
 //		}
-		if ($scope.equipment.equipmentIdentifier ==null ||$scope.equipment.equipmentIdentifier ==0) {
+		if ($scope.equipment.systemId ==null ||$scope.equipment.systemId ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
@@ -37,14 +37,14 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		if ($scope.equipment.equipmentPosition ==null ||$scope.equipment.equipmentPosition ==0) {
-			$.toaster({
-				title : "Error",
-				priority : "danger",
-				message : "位置不能为空!"
-			});
-			return false;
-		}
+//		if ($scope.equipment.equipmentPosition ==null ||$scope.equipment.equipmentPosition ==0) {
+//			$.toaster({
+//				title : "Error",
+//				priority : "danger",
+//				message : "位置不能为空!"
+//			});
+//			return false;
+//		}
 //		if ($scope.equipment.equipmentDate ==null ||$scope.equipment.equipmentDate ==0) {
 //			$.toaster({
 //				title : "Error",
