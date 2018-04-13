@@ -31,4 +31,5 @@ public interface EquipmentCategoryMapper {
     
     List<EquipmentCategory> selectByLimitPage(@Param("example") EqCategorySearchDto eqCategorySearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
+    EquipmentCategory selectByeqEqCategoryId(String eqCategoryId);
 }

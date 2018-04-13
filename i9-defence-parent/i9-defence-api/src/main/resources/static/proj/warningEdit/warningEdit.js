@@ -170,6 +170,7 @@ var warningEditControl=warningEditModule.controller('warningEditControl',functio
 //    };  
     //编辑
     $scope.edit = function (systemId) { 
+    	httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
     	console.log(systemId)
     	httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;

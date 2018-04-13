@@ -73,8 +73,25 @@ public class EquipmentServiceImpl implements EquipmentService {
 			if(equipment.getId()!=null) {
 				equipmentDao.updateEquipment(equipment);
 			}else {
-				equipment.setEquipmentDate(new Date());
-				equipmentDao.addEquipment(equipment);
+					List<Equipment> equipments = new ArrayList<>();
+					for(int i = 0;i<equipment.getEquipmentNum();i++) {
+						Equipment newEquipment = new Equipment();
+						newEquipment.setSystemId(equipment.getSystemId());
+						newEquipment.setEquipmentDate(new Date());
+						newEquipment.setEquipmentRemarks(equipment.getEquipmentRemarks());
+						newEquipment.setEquipmentCategoryId(equipment.getEquipmentCategoryId());
+						newEquipment.setProjectId(equipment.getProjectId());
+						newEquipment.setEquipmentPosition(equipment.getEquipmentPositionStr());
+						equipments.add(newEquipment);
+					}
+					equipmentDao.addEquipments(equipments);
+					for(int i = 0;i<equipments.size();i++) {
+						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
+						String deviceId = equipments.get(i).getDeviceId();
+						deviceId = equipments.get(i).getEquipmentPositionStr()+ equipments.get(i).getSystemId()+equipments.get(i).getEquipmentCategoryId();
+						equipments.get(i).setDeviceId(deviceId);
+					}
+					equipmentDao.updateEquipmentByIds(equipments);
 			}
 		} catch (Exception e) {
 			throw new BusinessException("添加项目类别类别失败",e.getMessage());
@@ -316,6 +333,15 @@ public class EquipmentServiceImpl implements EquipmentService {
 			return equipmentDao.selectDangerChannelDtoBySid(systemId);
 		} catch (Exception e) {
 			throw new BusinessException("根据设备编号查询报警隐患失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public PageBounds<Equipment> selectErrorEquipment(EquipmentSearchDto equipmentSearchDto) throws BusinessException {
+		try {
+			return equipmentDao.selectErrorEquipment(equipmentSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("分页查询故障设备失败",e.getMessage());
 		}
 	}
 }

@@ -88,6 +88,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
 			channelData.setSystemType((String)jsonObject.get("systemType"));
+			channelData.setDeviceAddress(jsonObject.getString("deviceAddress"));
+			channelData.calDeviceId();
 			list.add(channelData);
 		}
 		try {

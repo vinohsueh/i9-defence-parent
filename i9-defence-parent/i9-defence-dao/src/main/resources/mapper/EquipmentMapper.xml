@@ -12,10 +12,11 @@
     <result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
     <result column="projectId" jdbcType="INTEGER" property="projectId" />
     <result column="systemId" jdbcType="VARCHAR" property="systemId" />
+    <result column="deviceId" jdbcType="VARCHAR" property="deviceId" />
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="loopl" jdbcType="INTEGER" property="loopl" />
     <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
-    <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
+    <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
   	<collection column="id" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectByEquipmentId"></collection>
   </resultMap>
@@ -92,7 +93,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, equipmentDate, 
-    equipmentRemarks, equipmentCategoryId,projectId,systemId,unit,loopl,delStatus
+    equipmentRemarks, equipmentCategoryId,projectId,systemId,unit,loopl,delStatus,deviceId
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
     select
@@ -131,11 +132,11 @@
     </selectKey>
     insert into t_equipment (equipmentName, equipmentNum, equipmentIdentifier, 
       equipmentPosition, equipmentDate, equipmentRemarks, 
-      equipmentCategoryId,projectId,systemId,unit,loopl)
+      equipmentCategoryId,projectId,systemId,unit,loopl,deviceId)
     values (#{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, #{equipmentIdentifier,jdbcType=VARCHAR}, 
       #{equipmentPosition,jdbcType=VARCHAR}, #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, 
       #{equipmentCategoryId,jdbcType=INTEGER},#{projectId,jdbcType=INTEGER},#{systemId,jdbcType=VARCHAR},
-      #{unit,jdbcType=INTEGER},#{loopl,jdbcType=INTEGER},#{delStatus,jdbcType=INTEGER})
+      #{unit,jdbcType=INTEGER},#{loopl,jdbcType=INTEGER},#{delStatus,jdbcType=INTEGER},,#{deviceId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -179,6 +180,9 @@
        <if test="delStatus != null"> 
         delStatus, 
       </if>
+       <if test="deviceId != null"> 
+        deviceId, 
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="equipmentName != null">
@@ -216,6 +220,9 @@
       </if>
       <if test="delStatus != null">
         #{delStatus,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -270,6 +277,9 @@
       <if test="record.delStatus != null">
         loopl = #{record.delStatus,jdbcType=INTEGER},
       </if>
+      <if test="record.deviceId != null">
+        systemId = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -289,7 +299,8 @@
       systemId = #{record.systemId,jdbcType=VARCHAR},
       unit = #{record.unit,jdbcType=INTEGER},
       loopl = #{record.loopl,jdbcType=INTEGER},
-      delStatus = #{record.delStatus,jdbcType=INTEGER}
+      delStatus = #{record.delStatus,jdbcType=INTEGER},
+	  deviceId = #{record.deviceId,jdbcType=VARCHAR}      
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -333,6 +344,9 @@
        <if test="delStatus != null">
         delStatus = #{delStatus,jdbcType=INTEGER},
       </if>
+       <if test="systemId != null">
+        deviceId = #{deviceId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -349,7 +363,8 @@
       systemId = #{systemId,jdbcType=VARCHAR},
       unit = #{unit,jdbcType=INTEGER},
       loopl = #{loopl,jdbcType=INTEGER},
-      delStatus = #{delStatus,jdbcType=INTEGER}
+      delStatus = #{delStatus,jdbcType=INTEGER},
+      deviceId = #{deviceId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
@@ -364,7 +379,7 @@
    </select>
    <select id="selectByLimitPage2" resultMap="BaseResultMap">
         select e.id as id, e.equipmentName as equipmentName, e.equipmentNum as equipmentNum, e.equipmentIdentifier as equipmentIdentifier, e.equipmentPosition as equipmentPosition, e.equipmentDate as equipmentDate, 
-    e.equipmentRemarks as equipmentRemarks, e.equipmentCategoryId as equipmentCategoryId,e.projectId as projectId,e.systemId as systemId,e.unit as unit,e.loopl as loopl,e.delStatus as delStatus from t_equipment e left join t_project p on e.projectId = p.id 
+    e.equipmentRemarks as equipmentRemarks, e.equipmentCategoryId as equipmentCategoryId,e.projectId as projectId,e.systemId as systemId,e.unit as unit,e.loopl as loopl,e.delStatus as delStatus,e.deviceId as deviceId from t_equipment e left join t_project p on e.projectId = p.id 
         <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause2" />
         </if>
@@ -442,6 +457,32 @@
 		</foreach>
 	</where>
    </update>
+   <!-- ———————————— 批量添加设备———————————— -->
+   <insert id="insertEquipments" parameterType="java.util.List">
+		insert into t_equipment (systemId, equipmentDate,equipmentRemarks,
+		equipmentCategoryId, projectId) values
+		<foreach collection="equipments" item="item" separator=",">
+			(#{item.systemId},#{item.equipmentDate},#{item.equipmentRemarks},#{item.equipmentCategoryId},#{item.projectId})
+		</foreach>
+	</insert>
+	
+   <update id="updateEquipmentByIds">
+	 update t_equipment 
+	SET equipmentPosition = CASE id 
+		<foreach collection="list" item="item">
+			WHEN #{item.id} THEN #{item.equipmentPosition} 
+		</foreach>
+        END, 
+    deviceId = CASE id 
+       <foreach collection="list" item="item">
+			WHEN #{item.id} THEN #{item.deviceId} 
+		</foreach>
+        END
+	where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+   	 	#{item.id}
+    </foreach>
+	</update>
 
 	<!-- ———————————— 隐患与报警———————————— -->
 
@@ -528,4 +569,25 @@
 			</if>
 		</select>
 	<!-- ———————————— 隐患与报警———————————— -->
+	
+	<!-- 故障设备 -->
+	<sql id="Query_Error_By_Dto_Where_Clause">
+		<!--根据项目名称 模糊搜索  -->	
+		<if test="example.projectId != null and example.projectId != ''">
+			and projectId =#{example.projectId}
+		</if>
+	</sql>
+	<select id="countErrorByExample"  resultType="java.lang.Integer">
+	    select count(*) from (select e.*,(select count(*) from t_channel_data cd where systemId = e.systemId and type = 5) as error from t_equipment e) a where a.error > 0 
+		<if test="_parameter != null">
+			<include refid="Query_Error_By_Dto_Where_Clause" />
+		</if>
+    </select>
+	<select id="selectErrorEquipment" resultMap="BaseResultMap">
+		select * from (select e.*,(select count(*) from t_channel_data cd where systemId = e.systemId and type = 5) as error from t_equipment e) a where a.error > 0 
+		<if test="_parameter != null">
+			<include refid="Query_Error_By_Dto_Where_Clause" />
+		</if>
+		limit #{offset},#{limit}
+	</select>
 </mapper>

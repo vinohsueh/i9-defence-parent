@@ -20,6 +20,68 @@ var alarmViewService = alarmViewNgModule.factory('alarmViewService',
 		return resource;
 	}]);
 var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,alarmViewService,httpService){
+	
+	//分页条件
+	$scope.pageSize = 10;
+	$scope.currentPage = 1;
+	$scope.queryProjects = function(){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:null
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
+		
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectCounty:$scope.selected3.value,
+		};
+		
+		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+			$scope.projectss  = data.data.data;
+		})
+	}
+	$scope.queryProjects();
+	//初始化
+	$scope.searchText = '';
+	$scope.initTable = function (){
+		if ($scope.projectName != null) {
+			$scope.searchText =$scope.projectName.id;
+		}else{
+			$scope.searchText = null;
+		}
+		var pageParam = {
+				pageSize:$scope.pageSize,
+				currentPage:$scope.currentPage,
+				projectId : $scope.searchText
+			};
+		
+		httpService.post({url:'./equipment/selectErrorEquipment',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.equipments = data.data.data.pageList;
+			console.log($scope.equipments)
+			$scope.hasPrevious = data.data.data.hasPrevious;
+			$scope.currentPage = data.data.data.currentPage;
+			$scope.hasNext = data.data.data.hasNext;
+			$scope.total = data.data.data.totalSize;
+			$scope.start = data.data.data.offset+1;
+			$scope.end = data.data.data.offset+$scope.equipments.length;
+			$scope.pages = data.data.data.loopPageNum;
+			$scope.currentPage = pageParam.currentPage;
+		})
+	};
+	$scope.initTable();
+	
+	
 	$scope.option={
 	    title:{
 	        show:false,
@@ -140,13 +202,74 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
 	   $scope.error.area = false;
 	   $scope.selected2 = "";
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c2 = function () {       
 	   $scope.error.city = false;
 	   $scope.error.area = false;
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c3 = function () {
 	   $scope.error.area = false;
+	   $scope.queryProjects();
 	};
+	//修改分页大小
+	$scope.changePageSize = function(){
+		$scope.currentPage = 1;
+		$scope.initTable();
+	}
+	//上一页
+	$scope.lastPage = function(){
+		if ($scope.hasPrevious){
+			$scope.currentPage -=1;
+			$scope.initTable();
+		}
+	}
+	//下一页
+	$scope.nextPage = function (){
+		if ($scope.hasNext){
+			$scope.currentPage +=1;
+			$scope.initTable();
+		}
+	}
+	//跳转
+	$scope.pageTo = function(page){
+		$scope.currentPage = page;
+		$scope.initTable();
+	}
+	
+	
+	//编辑
+    $scope.edit = function (systemId) { 
+    	console.log(systemId)
+    	httpService.post({url:'./equipment/selectEquipmentError',data:systemId,showSuccessMsg:false}).then(function(data) {  
+    		$scope.hiddenEdit = data.data.data;
+    		//$scope.equipmentCategory = data.data.equipmentCategory;
+			var modalInstance = $modal.open({  
+	            templateUrl: 'proj/alarmView/add.html',  
+	            controller: 'errorEquipEditNgCtrl', 
+	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+	            resolve: {  
+	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+	        			return $ocLazyLoad.load({
+	        				name : 'errorEquipEditNgCtrl',
+	        				insertBefore : '#ng_load_plugins_before',
+	        				files : [
+	        				         'proj/alarmView/add.js',
+	        				]
+	        			});
+	        		}],
+	        		hiddenEdit: function () {  
+	                    return $scope.hiddenEdit;  
+	                },
+	            }  
+	        });
+			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+	            $scope.selected = data;
+	        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+	        	$scope.initTable();
+	        });
+    	})
+    };  
 })

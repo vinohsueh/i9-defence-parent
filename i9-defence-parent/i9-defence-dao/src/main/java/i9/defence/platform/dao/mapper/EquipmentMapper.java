@@ -1,9 +1,11 @@
 package i9.defence.platform.dao.mapper;
 
+import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Passageway;
@@ -57,5 +59,20 @@ public interface EquipmentMapper {
     List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId);
     //隐患报警 全部查询
     List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
+    /**
+     * 批量添加设备
+     * @param records
+     */
+    void insertEquipments(@Param("equipments") List<Equipment> equipments);
+    
+    /**
+	 * 批量修改设备
+	 */
+	void updateEquipmentByIds(List<Equipment> list);
 
+    
+    //查询故障设备
+    int countErrorByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
+    
+    List<Equipment> selectErrorEquipment(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 }

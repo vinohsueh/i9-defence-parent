@@ -116,8 +116,6 @@ public class EquipmentController {
 	 * id查找设备
 	 * @Title getEquipment
 	 * @param equipmentId
-	 * id查找设备
-	 * @param equipmentId
 	 * @return
 	 */
 	@RequiresPermissions("equip_list")
@@ -215,6 +213,19 @@ public class EquipmentController {
 		result.put("equip", new EquipmentMonitorComponent().setEquipment(equipment).build());
 		Project project = projectService.getProjectById(equipment.getProjectId());
 		result.put("project", new ProjcetMonitorComponent().setProject(project).build());
+		return result;
+	}
+	
+	/**
+	 * 查询故障设备
+	 * @param equipmentSearchDto
+	 * @return
+	 */
+	@RequestMapping("/selectErrorEquipment")
+	public HashMap<String, Object> selectErrorEquipment(@RequestBody EquipmentSearchDto equipmentSearchDto) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		PageBounds<Equipment> pageBounds = equipmentService.selectErrorEquipment(equipmentSearchDto);
+		result.put("data", pageBounds);
 		return result;
 	}
 }

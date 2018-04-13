@@ -3,9 +3,10 @@ var hiddendangerEditNgModule = angular.module('hiddendangerEditNgModule', [ 'ngR
 
 var hiddendangerEditCtrl = hiddendangerEditNgModule.controller('hiddendangerEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		hiddendanger,httpService) {
+		hiddendanger,eqCategorys,httpService) {
 	
 	$scope.hiddendanger = hiddendanger;
+	$scope.eqCategorys=eqCategorys;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}

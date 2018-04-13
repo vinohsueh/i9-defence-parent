@@ -21,7 +21,27 @@ public class ChannelData {
 
 	private String dealDetail;
 	
-    public Integer getDealStatus() {
+	private String deviceId;
+	
+	private String deviceAddress;
+	
+    public String getDeviceAddress() {
+		return deviceAddress;
+	}
+
+	public void setDeviceAddress(String deviceAddress) {
+		this.deviceAddress = deviceAddress;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public Integer getDealStatus() {
 		return dealStatus;
 	}
 
@@ -92,4 +112,10 @@ public class ChannelData {
     public void setValue(String value) {
         this.value = value == null ? null : value.trim();
     }
+
+	public void calDeviceId() {
+		StringBuffer str = new StringBuffer();
+		str.append(this.systemType).append(this.systemId).append(this.deviceAddress);
+		this.deviceId = str.toString();
+	}
 }
