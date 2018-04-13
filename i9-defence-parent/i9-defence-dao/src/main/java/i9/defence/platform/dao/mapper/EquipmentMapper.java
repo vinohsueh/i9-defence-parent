@@ -68,6 +68,6 @@ public interface EquipmentMapper {
     /**
 	 * 批量修改设备
 	 */
-	void updateEquipmentByIds(@Param("equipments")List<Equipment> ids);
+	void updateEquipmentByIds(List<Equipment> list);
 
 }
