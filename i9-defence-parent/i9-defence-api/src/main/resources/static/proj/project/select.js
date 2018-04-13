@@ -34,6 +34,7 @@ app.filter('propsFilter', function() {
 app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clientList,safeList,$modalInstance,
 		$rootScope, $cookieStore, $window, toaster,httpService,$modal) {
     $scope.project = project;
+
     $scope.clientList = clientList;
     $scope.safeList = safeList;
     if ($scope.safeList.length > 0){
@@ -116,6 +117,7 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 		$scope.project.projectProvince = $scope.selected.name;
 		$scope.project.projectCity = $scope.selected2.name;
 		$scope.project.projectCounty = $scope.selected3.value;
+
         httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
             $modalInstance.dismiss('cancel')
         })
@@ -231,10 +233,14 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
             }  
         }); 
         modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-            $scope.selected = data;
+            // $scope.coordinate = data;
+            var coordinateAtt = data.split(',');
+            $scope.project.projectLongitude = coordinateAtt[0];
+            $scope.project.projectLatitude = coordinateAtt[1];
         },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-//            $scope.project.projectLongitude = 
+           
         });
          
     };
+
 });

@@ -248,15 +248,15 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/alarmView/add.html',  
-	            controller: 'warningEditNgCtrl', 
+	            controller: 'errorEquipEditNgCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'warningEditNgModule',
+	        				name : 'errorEquipEditNgCtrl',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
-	        				         'proj/warningEdit/add.js',
+	        				         'proj/alarmView/add.js',
 	        				]
 	        			});
 	        		}],
