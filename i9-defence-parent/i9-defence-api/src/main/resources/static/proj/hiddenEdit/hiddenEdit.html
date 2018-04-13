@@ -8,7 +8,7 @@
 			<div class="form-group">
 				<label for="">设备类型：</label> <select class="form-control blue_bg" ng-model="eqCategoryName"
 					ng-options="item.eqCategoryName as item.eqCategoryName for item in equipmentCategorys">
-					<option value="">请选择</option>
+					<option value="">全部</option>
 					<!-- 不加这句代码，会出现空白 -->
 				</select>
 			</div>
@@ -45,8 +45,8 @@
 			</div>
 				<div class="form-group">
 				<label for="">项目名称：</label> <select class="form-control blue_bg" ng-model="projectName"
-					ng-options="item.projectName as item.projectName for item in projects">
-					<option value="">请选择</option>
+					ng-options="x.projectName for x in projectss">
+					<option value="">全部</option>
 					<!-- 不加这句代码，会出现空白 -->
 				</select>
 			</div>
@@ -80,11 +80,11 @@
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
-	            <th style="width:20px;">
+	           <!--  <th style="width:20px;">
 	              <label class="i-checks m-b-none" id="checkLabel">
 	                <input type="checkbox" id="totalCheck"><i></i>
 	              </label>
-	            </th>
+	            </th> -->
 	            <th>隐患数量</th>
 	            <th>设备类型</th>
 	            <th>项目安全负责人</th>
@@ -94,7 +94,7 @@
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.systemId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	            <!--<td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.systemId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>  -->
 	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.hiddeCount}}</td>
 	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.eqCategoryName}}</td>
 	            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.personLiableMan}}</td>
@@ -143,12 +143,12 @@
 	</div>
 </div>
 <script>
-$("#checkLabel").click(function(){
+/* $("#checkLabel").click(function(){
     if($("#totalCheck").prop("checked") == true){
         $(".o-checks").prop("checked",true);
     }else{
         $(".o-checks").prop("checked",false);
     }
     
-})
+}) */
 </script>

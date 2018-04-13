@@ -2,16 +2,6 @@
 <div class="wrapper-md">  
   <form action="" class='form-inline myBox'> 
     <div class="form-group">
-      <label for="">经销商：</label>
-      <select class="form-control blue_bg">
-        <option>A经销商</option>
-        <option>B经销商</option>
-        <option>C经销商</option>
-        <option>D经销商</option>
-        <option>E经销商</option>
-      </select>
-    </div>
-    <div class="form-group">
       <label for="">省区域：</label>
       <select class="form-control blue_bg" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
         <option value = ''>请选择</option>
@@ -36,107 +26,67 @@
     </div>
     <div class="form-group">
       <label for="">项目名称：</label>
-      <select class="form-control blue_bg">
-        <option>国际创业中心</option>
-        <option>海泰发展六道</option>
-        <option>C项目</option>
-        <option>D项目</option>
-        <option>E项目</option>
+      <select class="form-control blue_bg" ng-model="projectName" ng-options="x.projectName for x in projectss">
+        <option value=''>全部</option>
       </select>
     </div>
-    <button type='button' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
+    <button type='button' class='btn btn-primary' ng-click='subSearch()'><i class='glyphicon glyphicon-search'></i></button>
   </form>
   <div class="myBox">
-    <div class="monitoring">
-      <div class="faultType">
-        <p><strong>国创中心设备检测</strong></p>
-      </div>
-      <div class="equipmentDataTitle ">
-        <div class="row">
-          <div class="col-md-4">
-            <i class='glyphicon glyphicon-map-marker'></i>&nbsp;地点:天津华苑产业园区华天道2号国创中心
-          </div>
-          <div class="col-md-4 text-right">
-            <p><span class='mr-10'><i class='mIcon icon-danger'></i>报警:8</span><i class='mIcon icon-fault'></i>故障:8</p>
-          </div>
-          <div class="col-md-4 text-right">
-            实时监控设备状态：
-            <span class='mLabel sm-mLabel dangerLabel'>报警</span>
-            <span class='mLabel sm-mLabel faultLabel'>故障</span>
-            <span class='mLabel sm-mLabel'>正常</span>
-          </div>
+      <div class="row">
+        <div class="col-md-4">
+          <i class='glyphicon glyphicon-map-marker'></i>&nbsp;地点:天津华苑产业园区华天道2号国创中心
         </div>
-        
-      </div>
-    </div>
-    <div class="monitoring">
-
-      <div class="faultType">
-        
-        <div class="item" ng-class="{true:'active'}[type==1]" ng-click='changeType(1)'>
-          <div class="name">故障电弧B型</div>
-          <div class="body">4</div>
+        <div class="col-md-4 text-right">
+          <p><span class='mr-10'><i class='mIcon icon-danger'></i>报警:8</span><i class='mIcon icon-fault'></i>故障:8</p>
         </div>
-        <div class="item" ng-class="{true:'active'}[type==2]" ng-click='changeType(2)'>
-          <div class="name">故障电弧B型</div>
-          <div class="body">4</div>
-        </div>
-        <div class="item" ng-class="{true:'active'}[type==3]" ng-click='changeType(3)'>
-          <div class="name">故障电弧B型</div>
-          <div class="body">4</div>
-        </div>
-        <div class="item" ng-class="{true:'active'}[type==4]" ng-click='changeType(4)'>
-          <div class="name">故障电弧B型</div>
-          <div class="body">4</div>
+        <div class="col-md-4 text-right">
+          实时监控设备状态：
+          <span class='mLabel sm-mLabel dangerLabel'>报警</span>
+          <span class='mLabel sm-mLabel faultLabel'>故障</span>
+          <span class='mLabel sm-mLabel'>正常</span>
         </div>
       </div>
-      <div class="equipmentData">
-        <span class="mLabel {{i.status}}" ng-repeat='i in projects'>{{i.equipmentName}}</span>
+      <div class='monitoring'>
+          <span class="mLabel {{i.status}}" ng-click='checkItem(i.id)' ng-repeat='i in projects'>{{i.equipmentName}}</span>
       </div>
-    </div>
   </div>
   <div class='row'>
     <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">联系人</div>
-      <div class="body">
-        <p>职位：项目经理</p>
-        <p>姓名：王二宝</p>
-        <p>电话：18070900000</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">项目信息</div>
       <div class="body">
-        <p>项目负责人：王三宝</p>
-        <p>项目安全负责人：王四宝</p>
+        <p>项目名称：{{projectInfo.project.name}}</p>
+        <p>项目负责人：{{projectInfo.project.manager}}</p>
+        <p>项目安全负责人：{{projectInfo.project.safeManager}}</p>
       </div>
     </div>
     <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">设备信息</div>
       <div class="body">
-        <p>名称：G001</p>
-        <p>位置：国际创业中心2019</p>
+        <p>名称：{{projectInfo.equip.name}}</p>
+        <p>位置：{{projectInfo.equip.location}}</p>
       </div>
     </div>
-    <div class="mPane col-xs-12 col-sm-6">
+    <div class="mPane col-xs-12 col-sm-8">
       <div class="title clearify">
         具体数据
         <div class='pull-right form-inline'>
+          <button type='button' class='btn btn-success' ng-click='add()'>通道设置</button>
           <div class="form-group">
             <label for="">登记时间:</label>
             <div class="input-group" ng-controller="DatepickerDemoCtrl">
-              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='change()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
             <label for="">-</label>
             <div class="input-group" ng-controller="DatepickerDemoCtrl">
-              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="body">
+      <div class="body" ng-show=chartsStatus>
         <div e-chart options="option"></div>
       </div>
     </div>

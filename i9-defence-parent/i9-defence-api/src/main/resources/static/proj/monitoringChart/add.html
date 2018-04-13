@@ -4,14 +4,35 @@
 	<h4 class="modal-title" id="myModalLabel">添加通道</h4>
 </div>
 <div class="modal-body">
-	<form class="form-horizontal" role="form">
+	<!-- <form class="form-horizontal" role="form">
 		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>通道名称</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="passagewayName" ng-model="monitoringChart.passagewayName" placeholder="">
 			</div>
 		</div>
-	</form>
+	</form> -->
+	<table class="table b-t b-b b-light" style="table-layout:fixed">
+	  <thead>
+	    <tr>
+	      <th>通道编号</th>
+	      <th>通道名称</th>
+	      <th>隐患提醒类型</th>
+	    </tr>
+	  </thead>
+	  <tbody id='passagewayBody'>
+	    <tr ng-repeat='i in passagewayList' on-finish>
+	      	<td class='passagewayNum'>{{i.channel}}</td>
+	      	<td class='passagewayName'><input type="text" class="form-control" value='{{i.name}}'></td>
+	      	<td class='hidedenDanger'>
+				<select class="form-control" ng-model='mName[$index]'>
+				    <option value = '' ng-if='mName[$index] == 0'>请选择</option>
+				    <option ng-repeat="h in hiddenDanger" value="{{h.id}}">{{h.name}}</option>
+				</select>
+	      	</td>
+	    </tr>
+	  </tbody>
+	</table>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" ng-click="closeBtn()"

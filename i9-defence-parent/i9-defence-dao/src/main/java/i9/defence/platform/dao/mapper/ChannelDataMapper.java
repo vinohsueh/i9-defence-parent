@@ -46,5 +46,5 @@ public interface ChannelDataMapper {
 	/**
 	 * 批量修改标识
 	 */
-	void updateDealStatusByIds(@Param("example") DealStatusDto dealStatusDto);
+	void updateDealStatusByIds(List<DealStatusDto> list);
 }

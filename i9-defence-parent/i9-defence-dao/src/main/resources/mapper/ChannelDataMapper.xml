@@ -322,9 +322,21 @@
 	</select>
 	
 	<update id="updateDealStatusByIds">
-	update t_channel_data set dealStatus = #{example.dealStatus} where id in
-    <foreach collection="example.ids" item="item" open="(" close=")" separator=",">
-   	 	#{item}
+	
+	 update t_channel_data 
+	SET dealStatus = CASE id 
+		<foreach collection="list" item="item">
+			WHEN #{item.id} THEN #{item.dealStatus} 
+		</foreach>
+        END, 
+    dealDetail = CASE id 
+       <foreach collection="list" item="item">
+			WHEN #{item.id} THEN #{item.dealDetail} 
+		</foreach>
+        END
+	where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+   	 	#{item.id}
     </foreach>
 	</update>
 </mapper>

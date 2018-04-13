@@ -26,11 +26,10 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
-	//初始化
-	$scope.initTable = function (){
+	$scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
 			$scope.selected ={
-				name:''
+				name:null
 			}
 		}
 		if($scope.selected2 == null || $scope.selected2 == ''){
@@ -43,21 +42,37 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 				value:''
 			}
 		}
-		var text = $scope.searchText;
+		
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectCounty:$scope.selected3.value,
+		};
+		
+		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+			$scope.projectss  = data.data.data;
+		})
+	}
+	$scope.queryProjects();
+	//初始化
+	$scope.searchText = '';
+	$scope.initTable = function (){
+		if ($scope.projectName != null) {
+			$scope.searchText =$scope.projectName.projectName;
+		}else{
+			$scope.searchText = "";
+		}
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				hidden : 'true',
 				danger : 'true',
+				projectName : $scope.searchText,
+				projectAddress : $scope.searchText,
 				eqCategoryName : $scope.eqCategoryName,
-				projectName : $scope.projectName,
-				projectProvince : $scope.selected.name,
-				projectCity : $scope.selected2.name,
-				projectCounty : $scope.selected3.value
 			};
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
-			
 			$scope.equipmentCategorys = data.data.equipmentCategory;
 			$scope.projects = data.data.project;
 			$scope.hasPrevious = data.data.data.hasPrevious;
@@ -108,14 +123,17 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	   $scope.error.area = false;
 	   $scope.selected2 = "";
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c2 = function () {       
 	   $scope.error.city = false;
 	   $scope.error.area = false;
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c3 = function () {
 	   $scope.error.area = false;
+	   $scope.queryProjects();
 	};
 //	$scope.add = function () {  
 //			$scope.equipmentCategory = data.data.equipmentCategory;
@@ -167,9 +185,6 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	        		hiddenEdit: function () {  
 	                    return $scope.hiddenEdit;  
 	                },
-//	                equipmentCategory: function () {  
-//	                    return $scope.equipmentCategory;  
-//	                },
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数

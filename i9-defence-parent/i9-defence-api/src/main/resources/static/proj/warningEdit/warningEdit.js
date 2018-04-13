@@ -1,8 +1,8 @@
 /**
- * 报警操作js
+ * 隐患操作js
  */
-var hiddenEditModule=angular.module('hiddenEditModule',['ngAnimate','ui.bootstrap','app']);
-var hiddenEditService = hiddenEditModule.factory('hiddenEditService',
+var warningEditModule=angular.module('warningEditModule',['ngAnimate','ui.bootstrap','app']);
+var hiddenEditService = warningEditModule.factory('hiddenEditService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -22,21 +22,64 @@ var hiddenEditService = hiddenEditModule.factory('hiddenEditService',
 			});
 			return resource;
 	}]);
-var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,hiddenEditService,httpService){
+var warningEditControl=warningEditModule.controller('warningEditControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,hiddenEditService,httpService){
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
+	
+	
+	
+	
+	$scope.queryProjects = function(){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:null
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
+		
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectCounty:$scope.selected3.value,
+		};
+		
+		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+			$scope.projectss  = data.data.data;
+		})
+	}
+	$scope.queryProjects();
 	//初始化
+	$scope.searchText = '';
 	$scope.initTable = function (){
-		var text = $scope.searchText;
+		if ($scope.projectName != null) {
+			$scope.searchText =$scope.projectName.projectName;
+		}else{
+			$scope.searchText = "";
+		}
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				//username : $scope.searchText
-				name : text,
+				hidden : 'true',
+				danger : 'true',
+				projectName : $scope.searchText,
+				projectAddress : $scope.searchText,
+				eqCategoryName : $scope.eqCategoryName,
 			};
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
+			
+			$scope.equipmentCategorys = data.data.equipmentCategory;
+			$scope.projects = data.data.project;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -76,59 +119,78 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 		$scope.initTable();
 	}
 	
-	$scope.add = function () {  
-			$scope.equipmentCategory = data.data.equipmentCategory;
-			//$modalInstance.dismiss('cancel')
-			  var modalInstance = $modal.open({  
-		            templateUrl: 'proj/hiddenEdit/add.html',  
-		            controller: 'hiddenEditEditCtrl', 
-		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-		            resolve: {  
-		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-		        			return $ocLazyLoad.load({
-		        				name : 'hiddenEditEditNgModule',
-		        				insertBefore : '#ng_load_plugins_before',
-		        				files : [
-		        				         'proj/hiddenEdit/add.js',
-		        				]
-		        			});
-		        		}],
-		        		hiddenEdit: function () {  
-		                    return {};  
-		                },
-		            }  
-		        }); 
-		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-		            $scope.selected = data;
-		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-		        	$scope.initTable();
-		        });
-    };  
+	// 地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	   $scope.queryProjects();
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	   $scope.queryProjects();
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	   $scope.queryProjects();
+	};
+//	$scope.add = function () {  
+//			$scope.equipmentCategory = data.data.equipmentCategory;
+//			//$modalInstance.dismiss('cancel')
+//			  var modalInstance = $modal.open({  
+//		            templateUrl: 'proj/hiddenEdit/add.html',  
+//		            controller: 'hiddenEditEditNgCtrl', 
+//		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+//		            resolve: {  
+//		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+//		        			return $ocLazyLoad.load({
+//		        				name : 'hiddenEditEditNgModule',
+//		        				insertBefore : '#ng_load_plugins_before',
+//		        				files : [
+//		        				         'proj/hiddenEdit/add.js',
+//		        				]
+//		        			});
+//		        		}],
+//		        		hiddenEdit: function () {  
+//		                    return {};  
+//		                },
+//		            }  
+//		        }); 
+//		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+//		            $scope.selected = data;
+//		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+//		        	$scope.initTable();
+//		        });
+//    };  
     //编辑
-    $scope.edit = function (id) { 
-    	httpService.post({url:'./hiddenEdit/getById',data:id,showSuccessMsg:false}).then(function(data) {  
+    $scope.edit = function (systemId) { 
+    	console.log(systemId)
+    	httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
     		//$scope.equipmentCategory = data.data.equipmentCategory;
 			var modalInstance = $modal.open({  
-	            templateUrl: 'proj/hiddenEdit/add.html',  
-	            controller: 'hiddenEditEditCtrl', 
+	            templateUrl: 'proj/warningEdit/add.html',  
+	            controller: 'warningEditNgCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'hiddenEditModule',
+	        				name : 'warningEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
-	        				         'proj/hiddenEdit/add.js',
+	        				         'proj/warningEdit/add.js',
 	        				]
 	        			});
 	        		}],
 	        		hiddenEdit: function () {  
 	                    return $scope.hiddenEdit;  
 	                },
-//	                equipmentCategory: function () {  
-//	                    return $scope.equipmentCategory;  
-//	                },
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -138,20 +200,5 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	        });
     	})
     };  
-    $scope.del = function(){
-    	$scope.delArray = [];
-    	angular.forEach(angular.element.find(".o-checks"), function(dom){
-    		if(angular.element(dom).prop("checked") == true){
-    			$scope.delArray.push(angular.element(dom).attr("data-id"))
-    		}
-		});
-    	confirm("确定删除吗?", "", function (isConfirm) {
-            if (isConfirm) {
-            	httpService.post({url:'./hiddenEdit/deleteBatch',data:$scope.delArray,showSuccessMsg:true}).then(function(data) {  
-            		$scope.initTable();
-            	})
-            } else {
-            }
-        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
-    }
+    
 })

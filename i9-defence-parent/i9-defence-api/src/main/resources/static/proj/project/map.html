@@ -1,0 +1,52 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">选择经纬度</h4>
+</div>
+<div class="modal-body">
+	<div id='map' style='height:500px'>
+		<table id='choiceMap'>
+	        <tr>
+	            <td>
+	                <label>按关键字搜索：</label>
+	            </td>
+	            <td class="column2">
+	                <label>左击获取经纬度：</label>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>
+	                <input type="text" placeholder="请输入关键字进行搜索" id="tipinput">
+	            </td>
+	            <td class="column2">
+	                <input type="text" readonly="true" id="lnglat">
+	            </td>
+	        </tr>
+	    </table>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()"
+		data-dismiss="modal">取消</button>
+	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+</div>
+<!-- <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.5&key=491782deb46aec33a67744f583836895&plugin=AMap.Autocomplete"></script> -->
+<script>
+	var map = new AMap.Map("map", {
+	    resizeEnable: true
+	});
+	//为地图注册click事件获取鼠标点击出的经纬度坐标
+	var clickEventListener = map.on('click', function(e) {
+	    document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+	});
+	var auto = new AMap.Autocomplete({
+	    input: "tipinput"
+	});
+	AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+	function select(e) {
+	    if (e.poi && e.poi.location) {
+	        map.setZoom(15);
+	        map.setCenter(e.poi.location);
+	    }
+	}
+</script>

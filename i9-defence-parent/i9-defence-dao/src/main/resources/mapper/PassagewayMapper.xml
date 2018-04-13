@@ -23,9 +23,14 @@
 		from t_passageway where systemId =#{systemId}
 	</select>
 
-	<insert id="addPassageWay" parameterType="i9.defence.platform.model.Passageway">
+	<insert id="addPassageWay" parameterType="java.util.List">
 		insert into
 		t_passageway(channel,name,systemId,hiddenDangerId)
-		values(#{channel,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{systemId,jdbcType=VARCHAR},#{hiddenDangerId,jdbcType=INTEGER})
+		values
+		<foreach collection="list" item="item" separator=",">(#{item.channel,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.systemId,jdbcType=VARCHAR},#{item.hiddenDangerId,jdbcType=INTEGER}) </foreach>
 	</insert>
+	
+	<delete id="delPassagewayBySystemId" parameterType="string">
+		delete from t_passageway where systemId = #{systemId}
+	</delete>
 </mapper>

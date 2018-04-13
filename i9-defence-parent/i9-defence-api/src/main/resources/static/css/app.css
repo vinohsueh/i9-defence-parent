@@ -27,7 +27,11 @@ body {
 .h6 {
   margin: 0;
 }
-
+ul,ol,dl,dt,li,dd{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 a {
   color: #363f44;
   text-decoration: none;
@@ -43,7 +47,6 @@ a:focus {
 label {
   font-weight: normal;
 }
-
 small,
 .small {
   font-size: 13px;

@@ -6,6 +6,7 @@ import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerExample;
+import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 import java.util.List;
@@ -95,8 +96,8 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public List<Manager> selectPartAgency() throws Exception {
-        return managerMapper.selectPartAgency();
+    public List<Manager> selectPartAgency(Integer agencyId) throws Exception {
+        return managerMapper.selectPartAgency(agencyId);
     }
 
     @Override
@@ -152,6 +153,16 @@ public class ManagerDaoImpl implements ManagerDao{
 	@Override
 	public List<Manager> selectSafeZeroByProjectId(Integer projectId) throws Exception {
 		return managerMapper.selectSafeZeroByProjectId(projectId);
+	}
+
+	@Override
+	public List<Manager> selectBagency() throws BusinessException {
+		return managerMapper.selectBagency2();
+	}
+
+	@Override
+	public List<Integer> selectCIdsByBid(Integer bId) throws Exception {
+		return managerMapper.selectCIdsByBid(bId);
 	}
 
 }

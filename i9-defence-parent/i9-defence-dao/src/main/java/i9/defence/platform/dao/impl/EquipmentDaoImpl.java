@@ -128,8 +128,12 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public void updateDealStatus(DealStatusDto dealStatusDto) throws Exception {
-		channelDataMapper.updateDealStatusByIds(dealStatusDto);
+	public void updateDealStatus(List<DealStatusDto> list) throws Exception {
+		channelDataMapper.updateDealStatusByIds(list);
 	}
 
+	@Override
+	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) {
+		return equipmentMapper.selectDangerChannelDtoBySid(systemId);
+	}
 }
