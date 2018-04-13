@@ -6,13 +6,13 @@
 <div class="modal-body">
 	<form class="form-horizontal" role="form">
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>项目名称</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>项目名称</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="projectName" ng-model="project.projectName" placeholder="">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>所属省</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>所属省</label>
 			<div class="col-md-8">
 				<select class="form-control  aaa"  ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
         			<option value = ''>请选择</option>
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>所属市</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>所属市</label>
 			<div class="col-md-8">
 				<select class="form-control "ng-model="selected2" ng-options="sh.name for sh in selected.child" ng-change="c2()">
         			<option value = ''>请选择</option>
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>所属区/县</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>所属区/县</label>
 			<div class="col-md-8">
 				<select class="form-control " ng-model="selected3" ng-options="x.value for x in selected2.child" ng-change="c3()">
         			<option value=''>请选择</option>
@@ -36,25 +36,26 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>项目地址</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>项目地址</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="projectAddress" ng-model="project.projectAddress" placeholder="">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>经度</label>
-			<div class="col-md-8">
+			<label class="col-md-3 control-label"><span class="required">*</span>经度</label>
+			<div class="col-md-7">
 				<input type="text" class="form-control" id="projectLongitude" ng-model="project.projectLongitude" placeholder="">
 			</div>
+			<button type='button' class='btn btn-primary' ng-click='map()'><i class='glyphicon glyphicon-map-marker'></i></button>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>纬度</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>纬度</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="projectLatitude" ng-model="project.projectLatitude" placeholder="">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>建筑面积</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>建筑面积</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="projectArea" ng-model="project.projectArea" placeholder="">
 			</div>
@@ -82,13 +83,13 @@
 		  </div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>备注</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>备注</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="remarks" ng-model="project.remarks" placeholder="">
 			</div>
 		</div>
 		<div class="form-group" style="display: none;">
-            <label class="col-md-2 control-label">id</label>
+            <label class="col-md-3 control-label">id</label>
             <div class="col-md-8">
                 <input type="text" class="form-control" id="id" ng-model="project.id" placeholder="">
             </div>

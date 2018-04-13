@@ -32,7 +32,7 @@ app.filter('propsFilter', function() {
     };
 })
 app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clientList,safeList,$modalInstance,
-		$rootScope, $cookieStore, $window, toaster,httpService) {
+		$rootScope, $cookieStore, $window, toaster,httpService,$modal) {
     $scope.project = project;
     $scope.clientList = clientList;
     $scope.safeList = safeList;
@@ -122,87 +122,119 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
     };
 
     
-        $scope.disabled = undefined;
-        $scope.searchEnabled = undefined;
+    $scope.disabled = undefined;
+    $scope.searchEnabled = undefined;
 
-        $scope.enable = function() {
-        $scope.disabled = false;
-        };
+    $scope.enable = function() {
+    $scope.disabled = false;
+    };
 
-        $scope.disable = function() {
-        $scope.disabled = true;
-        };
+    $scope.disable = function() {
+    $scope.disabled = true;
+    };
 
-        $scope.enableSearch = function() {
-        $scope.searchEnabled = true;
-        }
+    $scope.enableSearch = function() {
+    $scope.searchEnabled = true;
+    }
 
-        $scope.disableSearch = function() {
-        $scope.searchEnabled = false;
-        }
+    $scope.disableSearch = function() {
+    $scope.searchEnabled = false;
+    }
 
-        $scope.clear = function() {
+    $scope.clear = function() {
 
-        };
+    };
 
-        $scope.counter = 0;
-        $scope.someFunction = function (item, model){
-            $scope.counter++;
-            $scope.eventResult = {item: item, model: model};
-        };
+    $scope.counter = 0;
+    $scope.someFunction = function (item, model){
+        $scope.counter++;
+        $scope.eventResult = {item: item, model: model};
+    };
 
-        $scope.removed = function (item, model) {
-            $scope.lastRemoved = {
-                item: item,
-                model: model
-        	};
-        };
-        //编辑页面默认选中的负责人
-        $scope.clientNewList = [];
-        var clientIds = $scope.project.clientIds;
-        if(clientIds != null){
-        	if(clientIds.length > 0){
-                //console.log(JSON.stringify(clientIds));
-                for (var i = 0; i <  clientIds.length; i++) {
-                	for(c in $scope.clientList){
-                		if($scope.clientList[c].id == clientIds[i]){
-                			 $scope.clientNewList.push($scope.clientList[c]);
-                		}
-                	}
-                }
+    $scope.removed = function (item, model) {
+        $scope.lastRemoved = {
+            item: item,
+            model: model
+    	};
+    };
+    //编辑页面默认选中的负责人
+    $scope.clientNewList = [];
+    var clientIds = $scope.project.clientIds;
+    if(clientIds != null){
+    	if(clientIds.length > 0){
+            //console.log(JSON.stringify(clientIds));
+            for (var i = 0; i <  clientIds.length; i++) {
+            	for(c in $scope.clientList){
+            		if($scope.clientList[c].id == clientIds[i]){
+            			 $scope.clientNewList.push($scope.clientList[c]);
+            		}
+            	}
             }
-        };
-      //编辑页面默认选中的安全责任人
-        $scope.safeNewList = [];
-        var safeIds = $scope.project.safeIds;
-        if(safeIds != null){
-        	if(safeIds.length > 0){
-                for (var i = 0; i <  safeIds.length; i++) {
-                	for(c in $scope.safeList){
-                		if($scope.safeList[c].id == safeIds[i]){
-                			 $scope.safeNewList.push($scope.safeList[c]);
-                		}
-                	}
-                }
+        }
+    };
+  //编辑页面默认选中的安全责任人
+    $scope.safeNewList = [];
+    var safeIds = $scope.project.safeIds;
+    if(safeIds != null){
+    	if(safeIds.length > 0){
+            for (var i = 0; i <  safeIds.length; i++) {
+            	for(c in $scope.safeList){
+            		if($scope.safeList[c].id == safeIds[i]){
+            			 $scope.safeNewList.push($scope.safeList[c]);
+            		}
+            	}
             }
-        };
-        
-      //地域
-    	$scope.error = {};
-    	$scope.division = division;
-    	$scope.c = function () {
-    	   $scope.error.province = false;
-    	   $scope.error.city = false;
-    	   $scope.error.area = false;
-    	   $scope.selected2 = "";
-    	   $scope.selected3 = "";
-    	};
-    	$scope.c2 = function () {       
-    	   $scope.error.city = false;
-    	   $scope.error.area = false;
-    	   $scope.selected3 = "";
-    	};
-    	$scope.c3 = function () {
-    	   $scope.error.area = false;
-    	};
+        }
+    };
+    
+  //地域
+	$scope.error = {};
+	$scope.division = division;
+	$scope.c = function () {
+	   $scope.error.province = false;
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected2 = "";
+	   $scope.selected3 = "";
+	};
+	$scope.c2 = function () {       
+	   $scope.error.city = false;
+	   $scope.error.area = false;
+	   $scope.selected3 = "";
+	};
+	$scope.c3 = function () {
+	   $scope.error.area = false;
+	};
+    //地图选择
+    $scope.map = function () {  
+        var modalInstance = $modal.open({  
+            templateUrl: 'proj/project/map.html',  
+            controller: 'mapCtrl', 
+            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+            resolve: {  
+                deps : ['$ocLazyLoad',function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name : 'mapNgModule',
+                        insertBefore : '#ng_load_plugins_before',
+                        files : [
+                                 'proj/project/map.js',
+                                 'http://webapi.amap.com/maps?v=1.4.5&key=491782deb46aec33a67744f583836895&plugin=AMap.Autocomplete'
+                        ]
+                    });
+                }],
+                project: function () {  
+                    return   
+                },
+                clientList: function () {  
+                    return {}; 
+                },
+            }  
+        }); 
+        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+            $scope.selected = data;
+        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+//            $scope.project.projectLongitude = 
+        });
+         
+    };
 });
