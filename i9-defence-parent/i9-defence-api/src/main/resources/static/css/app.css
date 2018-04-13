@@ -5365,7 +5365,11 @@ a.text-#000000:hover {
 .modal-content .i-checks input:checked + i:before{
     background-color: #1e284e;
 }
-
+/*地图搜索列表*/
+.amap-sug-result{
+  z-index: 9999;
+  color: #333;
+}
 
 
 

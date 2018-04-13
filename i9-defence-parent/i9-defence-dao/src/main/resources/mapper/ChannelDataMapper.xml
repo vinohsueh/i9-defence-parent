@@ -332,9 +332,9 @@
 	</update>
 	<insert id="insertBatch" parameterType="java.util.List">
 		insert into t_channel_data (systemId, channel, dateTime,
-		type, value,systemType) values
+		type, value,systemType,deviceId,deviceAddress) values
 		<foreach collection="list" item="item" separator=",">
-			(#{item.systemId},#{item.channel},#{item.dateTime},#{item.type},#{item.value},#{item.systemType})
+			(#{item.systemId},#{item.channel},#{item.dateTime},#{item.type},#{item.value},#{item.systemType},#{item.deviceId},#{item.deviceAddress})
 		</foreach>
 	</insert>
 
