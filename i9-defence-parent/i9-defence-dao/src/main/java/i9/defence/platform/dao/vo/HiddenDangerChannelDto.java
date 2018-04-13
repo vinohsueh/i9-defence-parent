@@ -19,17 +19,14 @@ public class HiddenDangerChannelDto {
 	 * 设备编号
 	 */
 	private String systemId;
-
 	/*
 	 * 通道名称
 	 */
 	private String name;
-	
 	/*
 	 * 阀值
 	 */
 	private String value;
-	
 	/*
 	 * 时间
 	 */
@@ -38,8 +35,31 @@ public class HiddenDangerChannelDto {
 	 * 通道
 	 */
 	private Integer channel;
+	/*
+	 * 处理表示1未处理2标记错误3标记故障
+	 */
+	private Integer dealStatus;
+	/*
+	 * 处理详情
+	 */
+	private String dealDetail;
 	
-	
+	public Integer getDealStatus() {
+		return dealStatus;
+	}
+
+	public void setDealStatus(Integer dealStatus) {
+		this.dealStatus = dealStatus;
+	}
+
+	public String getDealDetail() {
+		return dealDetail;
+	}
+
+	public void setDealDetail(String dealDetail) {
+		this.dealDetail = dealDetail;
+	}
+
 	public Integer getChannel() {
 		return channel;
 	}

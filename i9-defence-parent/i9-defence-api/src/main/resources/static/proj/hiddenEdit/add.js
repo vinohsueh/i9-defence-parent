@@ -5,6 +5,7 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
         $rootScope,$modal, $modalInstance, $cookieStore, $http, $window, toaster, httpService,hiddenEdit) {
 	
 	$scope.hiddenEdit = hiddenEdit;
+	console.log(hiddenEdit)
     //页面初始化
     /*$scope.pageInit = function (data) {
         console.log(JSON.stringify(data));
@@ -26,6 +27,14 @@ var hiddenEditNgCtrl = hiddenEditNgModule.controller('hiddenEditNgCtrl', functio
 		$modalInstance.dismiss('cancel');
 	}
     
+	$scope.confirmAdd = function(){
+		angular.forEach(angular.element.find(".error"), function(dom){
+    		console.log(angular.element(dom).find(".id").attr("data-aa"));
+    		console.log(angular.element(dom).find(".delType").find("select").val())
+    		console.log(angular.element(dom).find(".content").find("textarea").val())
+    		var 
+		});
+	}
    
 	/*$scope.check = function(statu){
 //		var text = $scope.editText;
