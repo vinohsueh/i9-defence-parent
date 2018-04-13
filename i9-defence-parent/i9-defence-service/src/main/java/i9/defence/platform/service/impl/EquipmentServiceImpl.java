@@ -265,7 +265,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) {
+	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) throws BusinessException {
 		try {
 			return equipmentDao.selectHiddenDangerChannelDtoBySid(systemId);
 		} catch (Exception e) {
@@ -307,6 +307,15 @@ public class EquipmentServiceImpl implements EquipmentService {
 			equipmentDao.updateDealStatus(dealStatusDto);
 		} catch (Exception e) {
 			throw new BusinessException("修改报警隐患失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) throws BusinessException {
+		try {
+			return equipmentDao.selectDangerChannelDtoBySid(systemId);
+		} catch (Exception e) {
+			throw new BusinessException("根据设备编号查询报警隐患失败",e.getMessage());
 		}
 	}
 }

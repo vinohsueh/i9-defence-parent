@@ -54,7 +54,7 @@ public class HiddenDangerEditController {
     }
     
     /**
-	 * 根据设备编号查找报警隐患
+	 * 根据设备编号查找报警隐患 --隐患
 	 * @Title: selectHiddenDangerChannelDtoBySid
 	 * @Description: TODO
 	 * @param systemId
@@ -89,5 +89,20 @@ public class HiddenDangerEditController {
     	equipmentService.updateDealStatus(dealStatusDto);
 		return result;
     }
+    /**
+	 * 根据设备编号查找报警隐患 --报警
+	 * @Title: 
+	 * @Description: TODO
+	 * @param systemId
+	 * @return
+	 */
+	@RequestMapping("/selectDangerChannelDtoBySid")
+	public HashMap<String, Object> selectDangerChannelDtoBySid(@RequestBody String systemId) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		List<HiddenDangerChannelDto> list = equipmentService.selectDangerChannelDtoBySid(systemId);
+		JSONArray data = new HiddendangerChannelDataInFoComponents().setHiddenDangerChannelDto(list).build();
+		result.put("data", data);
+		return result;
+	}
 }
  

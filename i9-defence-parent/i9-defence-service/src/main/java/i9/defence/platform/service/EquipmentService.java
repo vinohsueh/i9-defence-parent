@@ -86,11 +86,11 @@ public interface EquipmentService {
      */
     void insertPassageWay(Passageway passageway) throws BusinessException;
     /**
-     * 查询具体隐患报警
+     * 查询具体隐患报警--隐患
      * @param selectHiddenDangerChannelDtoBySid
      * @return
      */
-    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId)throws BusinessException;
     /**
      * 查询全部隐患报警
      */
@@ -102,4 +102,10 @@ public interface EquipmentService {
      * @return
      */
     void updateDealStatus(DealStatusDto dealStatusDto)throws BusinessException;
+    /**
+     * 查询具体隐患报警--隐患
+     * @param selectHiddenDangerChannelDtoBySid
+     * @return
+     */
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId)throws BusinessException;
 }
