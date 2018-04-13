@@ -1,5 +1,6 @@
 package i9.defence.platform.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class passagewayServiceImpl implements passagewayService {
 			Equipment equipment = equipmentDao.getEquipmentById(passagewayDto.getEquipmentId());
 			//删除旧的通道对应关系
 			passageWayDao.delPassagewayBySystemId(equipment.getSystemId());
-			List<Passageway> passageways = passagewayDto.getPassageways();
+			List<Passageway> passageways = Arrays.asList(passagewayDto.getPassageways());
 			for (Passageway passageway : passageways) {
 				passageway.setSystemId(equipment.getSystemId());
 			}
