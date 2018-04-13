@@ -473,6 +473,66 @@ public class HiddenDangerExample {
             addCriterion("WarningMin not between", value1, value2, "warningMin");
             return (Criteria) this;
         }
+
+        public Criteria andEquipCategoryIdIsNull() {
+            addCriterion("EquipCategoryId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdIsNotNull() {
+            addCriterion("EquipCategoryId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdEqualTo(Integer value) {
+            addCriterion("EquipCategoryId =", value, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdNotEqualTo(Integer value) {
+            addCriterion("EquipCategoryId <>", value, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdGreaterThan(Integer value) {
+            addCriterion("EquipCategoryId >", value, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("EquipCategoryId >=", value, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdLessThan(Integer value) {
+            addCriterion("EquipCategoryId <", value, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdLessThanOrEqualTo(Integer value) {
+            addCriterion("EquipCategoryId <=", value, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdIn(List<Integer> values) {
+            addCriterion("EquipCategoryId in", values, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdNotIn(List<Integer> values) {
+            addCriterion("EquipCategoryId not in", values, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdBetween(Integer value1, Integer value2) {
+            addCriterion("EquipCategoryId between", value1, value2, "equipCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEquipCategoryIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("EquipCategoryId not between", value1, value2, "equipCategoryId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

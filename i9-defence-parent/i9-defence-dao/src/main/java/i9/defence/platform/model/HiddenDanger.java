@@ -1,6 +1,5 @@
 package i9.defence.platform.model;
 
-
 /**
  * 隐患提醒实体类
  * @ClassName: HiddenDanger 
@@ -35,6 +34,16 @@ public class HiddenDanger {
      * 报警阀值最小值
      */
     private Double warningMin;
+
+    /**
+     * 设备类型Id
+     */
+    private Integer equipCategoryId;
+    
+    /**
+     * 设备类型实体
+     */
+    private EquipmentCategory equipmentCategory;
 
     public Integer getId() {
         return id;
@@ -83,4 +92,22 @@ public class HiddenDanger {
     public void setWarningMin(Double warningMin) {
         this.warningMin = warningMin;
     }
+
+    public Integer getEquipCategoryId() {
+        return equipCategoryId;
+    }
+
+    public void setEquipCategoryId(Integer equipCategoryId) {
+        this.equipCategoryId = equipCategoryId;
+    }
+
+	public EquipmentCategory getEquipmentCategory() {
+		return equipmentCategory;
+	}
+
+	public void setEquipmentCategory(EquipmentCategory equipmentCategory) {
+		this.equipmentCategory = equipmentCategory;
+	}
+    
+    
 }

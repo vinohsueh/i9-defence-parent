@@ -8,6 +8,8 @@
     <result column="HiddenMin" jdbcType="DOUBLE" property="hiddenMin" />
     <result column="WarningMax" jdbcType="DOUBLE" property="warningMax" />
     <result column="WarningMin" jdbcType="DOUBLE" property="warningMin" />
+    <result column="EquipCategoryId" jdbcType="INTEGER" property="equipCategoryId" />
+    <association property="equipmentCategory" column="equipCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, HiddenMax, HiddenMin, WarningMax, WarningMin
+    id, name, HiddenMax, HiddenMin, WarningMax, WarningMin, EquipCategoryId
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.HiddenDangerExample" resultMap="BaseResultMap">
     select
@@ -108,9 +110,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_hidden_danger (name, HiddenMax, HiddenMin, 
-      WarningMax, WarningMin)
+      WarningMax, WarningMin, EquipCategoryId
+      )
     values (#{name,jdbcType=VARCHAR}, #{hiddenMax,jdbcType=DOUBLE}, #{hiddenMin,jdbcType=DOUBLE}, 
-      #{warningMax,jdbcType=DOUBLE}, #{warningMin,jdbcType=DOUBLE})
+      #{warningMax,jdbcType=DOUBLE}, #{warningMin,jdbcType=DOUBLE}, #{equipCategoryId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.HiddenDanger">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -133,6 +137,9 @@
       <if test="warningMin != null">
         WarningMin,
       </if>
+      <if test="equipCategoryId != null">
+        EquipCategoryId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -149,6 +156,9 @@
       </if>
       <if test="warningMin != null">
         #{warningMin,jdbcType=DOUBLE},
+      </if>
+      <if test="equipCategoryId != null">
+        #{equipCategoryId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -179,6 +189,9 @@
       <if test="record.warningMin != null">
         WarningMin = #{record.warningMin,jdbcType=DOUBLE},
       </if>
+      <if test="record.equipCategoryId != null">
+        EquipCategoryId = #{record.equipCategoryId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -191,7 +204,8 @@
       HiddenMax = #{record.hiddenMax,jdbcType=DOUBLE},
       HiddenMin = #{record.hiddenMin,jdbcType=DOUBLE},
       WarningMax = #{record.warningMax,jdbcType=DOUBLE},
-      WarningMin = #{record.warningMin,jdbcType=DOUBLE}
+      WarningMin = #{record.warningMin,jdbcType=DOUBLE},
+      EquipCategoryId = #{record.equipCategoryId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -214,6 +228,9 @@
       <if test="warningMin != null">
         WarningMin = #{warningMin,jdbcType=DOUBLE},
       </if>
+      <if test="equipCategoryId != null">
+        EquipCategoryId = #{equipCategoryId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -223,10 +240,11 @@
       HiddenMax = #{hiddenMax,jdbcType=DOUBLE},
       HiddenMin = #{hiddenMin,jdbcType=DOUBLE},
       WarningMax = #{warningMax,jdbcType=DOUBLE},
-      WarningMin = #{warningMin,jdbcType=DOUBLE}
+      WarningMin = #{warningMin,jdbcType=DOUBLE},
+      EquipCategoryId = #{equipCategoryId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
+    
     <select id="selectByLimitPage" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from  t_hidden_danger
         <if test="_parameter != null" >

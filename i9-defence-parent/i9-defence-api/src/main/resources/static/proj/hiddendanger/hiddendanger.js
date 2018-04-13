@@ -23,14 +23,15 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
+	$scope.typeId=0;
 	//初始化
 	$scope.initTable = function (){
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
+				equipCategoryId:$scope.typeId,
 				//username : $scope.searchText
 			};
-		
 		httpService.post({url:'./hiddendanger/pageHiddendanger',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddendangers = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
@@ -42,8 +43,24 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
 		})
+		
 	};
+	
+	httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data){
+		$scope.eqCategorys = data.data.data;
+	})
 	$scope.initTable();
+	
+	//取相应的设备类型
+	$scope.choiceType = function(){
+		  if($scope.eqCategoryId){
+			  $scope.typeId = $scope.eqCategoryId.id;	
+		  }else{
+			  $scope.typeId =0;
+		  }
+		  $scope.initTable();
+	 }
+	  
 	//修改分页大小
 	$scope.changePageSize = function(){
 		$scope.currentPage = 1;

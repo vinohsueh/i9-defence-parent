@@ -38,10 +38,10 @@ public class HiddenDangerController {
 	 * @return
 	 */
 	@RequestMapping("/pageHiddendanger")
-	public HashMap<String, Object> pageHiddendanger(@RequestBody PageListDto pageList) {
+	public HashMap<String, Object> pageHiddendanger(@RequestBody PageListDto pageList ) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HiddenDangerExample hiddenDangerExample = new HiddenDangerExample(); 
-		PageBounds<HiddenDanger> pageBounds = hiddernDangerService.selectByLimitPage(hiddenDangerExample, pageList.getCurrentPage(), pageList.getPageSize()); 
+		PageBounds<HiddenDanger> pageBounds = hiddernDangerService.selectByLimitPage(hiddenDangerExample, pageList.getCurrentPage(), pageList.getPageSize(),pageList.getEquipCategoryId()); 
 		result.put("data", pageBounds); 
 		return result;
 	}

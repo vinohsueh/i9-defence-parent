@@ -26,7 +26,7 @@ public interface HiddenDangerService {
 	* @return
 	* @throws BusinessException
 	 */
-	 PageBounds<HiddenDanger> selectByLimitPage(HiddenDangerExample hiddenDangerExample,int currectPage,int pageSize) throws BusinessException;
+	 PageBounds<HiddenDanger> selectByLimitPage(HiddenDangerExample hiddenDangerExample,int currectPage,int pageSize,Integer equipCategoryId) throws BusinessException;
 
 	 /**
 	  * 新增隐患提醒类型
