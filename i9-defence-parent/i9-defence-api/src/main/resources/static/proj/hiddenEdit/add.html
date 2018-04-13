@@ -1,43 +1,64 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal"
 		ng-click="closeBtn()" aria-hidden="true">&times;</button>
-		<div class='row'>
-			<h4 class="modal-title col-sm-5" id="myModalLabel"><a>处理隐患</a></h4>
-			<div class='col-sm-6 text-right'>
-				<button type='button' class='btn btn-small btn-success' ng-click="check(1)">标记已处理</button>
-				<button type='button' class='btn btn-small btn-warning' ng-click="check(0)">标记误报</button>
-				<button type='button' class='btn btn-small' ng-click="check(2)">标记故障</button>
-			</div>
-		</div>
-	
-	
+	<h4 class="modal-title" id="myModalLabel"><a>处理隐患</a></h4>
 </div>
+<div class="modal-body"  id='tableBody'>
+	<!-- <table class="table b-t b-b b-light" style="table-layout:fixed">
+	  <thead>
+	    <tr>
+	      <th>通道名称</th>
+	      <th>故障时间</th>
+	      <th>处理类型</th>
+	      <th>处理详情</th>
+	    </tr>
+	  </thead>
+	  <tbody ng-bind-html="oHtml">
+	  <tbody>
+	  	<tr>
+	  		<td>名字</td>
+	  		<td>tongdaomingcheng</td>
+	  		<td>
+	  				<select class='form-control'>
+	  					<option value="">标记已处理</option>
+	  					<option value="">标记误报</option>
+	  					<option value="">标记</option>
+	  				</select>
+	  		</td>
+	  		<td><input type="text" class='form-control' placeholder='处理详情'></td>
+	  	</tr>
+	    <tr ng-repeat="hiddenEdit in hiddenEdit">
+	      <td >{{hiddenEdit.name}}</td>
+	      <td >{{hiddenEdit.value}}</td>
+	      <td >{{hiddenEdit.dateTimeStr}}</td>
+	      <td ><input type="text" class="input-sm form-control"  ng-model="hiddenEdit.editText" placeholder="处理详情"></td>
+	      <td ><input type='text' class='input-sm form-control'></td>
+	    </tr>
+	  </tbody>
+	</table> -->
+	<div class="row">
+		<div class="col-sm-12 b-b" ng-repeat='i in hiddenEdit'>
+			<p>{{i.name}}</p>
+			<div>
+				<div class="col-sm-4 mb-10">隐患value</div>
+				<div class="col-sm-4 mb-10">隐患时间</div>
+				<div class="col-sm-4 mb-10">
+					<select class='form-control'>
+						<option value="0">未处理</option>
+						<option value="1">标记已处理</option>
+						<option value="2">标记误报</option>
+						<option value="3">标记故障</option>
+					</select>
+				</div>
+				<div class="col-sm-12 mb-10">
+					<textarea class='form-control' cols="30" rows="5" placeholder='请填写处理详情'></textarea>
+					<!-- <input class='form-control' type='text' placeholder='填写处理详情'> -->
+				</div>
+			</div>
 
-	    <div class="table-responsive">
-	      <table class="table  b-t b-light" style="table-layout:fixed">
-	        <thead>
-	          <tr>
-	            <th style="width:20px;">
-	              <label class="i-checks m-b-none" id="checkLabel1">
-	                <input type="checkbox" id="totalCheck1"><i></i>
-	              </label>
-	            </th>
-	            <th>通道名称</th>
-	            <th>处理详情</th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	          <tr ng-repeat="hiddenEdit in hiddenEdit">
-	             <td><label class="i-checks m-b-none"><input class="o-checks1" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td >{{hiddenEdit.name}}</td>
-	            <td >{{hiddenEdit.value}}</td>
-	            <td >{{hiddenEdit.dateTimeStr}}</td>
-	            <td ><input type="text" class="input-sm form-control"  ng-model="hiddenEdit.editText" placeholder="处理详情"></td>
-	            <td ><input ></td>
-	          </tr>
-	        </tbody>
-	      </table>
-	    </div>
+		</div>
+	</div>
+</div> 
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" ng-click="closeBtn()"
 		data-dismiss="modal">取消</button>

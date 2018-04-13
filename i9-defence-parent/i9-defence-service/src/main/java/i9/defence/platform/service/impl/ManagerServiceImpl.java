@@ -210,9 +210,9 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public List<Manager> selectPartAgency() throws BusinessException {
+    public List<Manager> selectPartAgency(Integer agencyId) throws BusinessException {
         try {
-            return managerDao.selectPartAgency();
+            return managerDao.selectPartAgency(agencyId);
         } catch (Exception e) {
             throw new BusinessException("查询无分配无建立关系的等待被分配的经销商列表失败",e.getMessage());
         }
@@ -311,6 +311,24 @@ public class ManagerServiceImpl implements ManagerService{
 	        }catch (Exception e){
 	            throw new BusinessException("查询 此项目下不是安全责任人  safe = 0失败",e.getMessage());
 	        }
+	}
+
+	@Override
+	public List<Manager> selectBagency() throws BusinessException {
+		 try{
+			 	return managerDao.selectBagency();
+	        }catch (Exception e){
+	            throw new BusinessException("查询已经建立关系的二级经销商们失败",e.getMessage());
+	        }
+	}
+
+	@Override
+	public List<Integer> selectCIdsByBid(Integer bId) throws BusinessException {
+		try{
+		 	return managerDao.selectCIdsByBid(bId);
+        }catch (Exception e){
+            throw new BusinessException("根据二级ID查询全部的三级的ID们失败",e.getMessage());
+        }
 	}
 
 }
