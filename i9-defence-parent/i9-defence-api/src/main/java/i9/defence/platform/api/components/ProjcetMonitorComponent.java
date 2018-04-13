@@ -33,6 +33,8 @@ public class ProjcetMonitorComponent {
 		jsonObject.put("projectName", project.getProjectName());
 		jsonObject.put("projectLongitude", project.getProjectLongitude());
 		jsonObject.put("projectLatitude", project.getProjectLatitude());
+		jsonObject.put("address", project.getProjectAddress());
+		jsonObject.put("area", project.getProjectAddress());
 		return jsonObject;
 	}
 }
