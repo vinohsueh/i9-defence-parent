@@ -1,13 +1,14 @@
 package i9.defence.platform.dao.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.dao.vo.ManagerSelectDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerExample;
-
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import i9.defence.platform.utils.BusinessException;
 
 public interface ManagerMapper {
     int countByExample(@Param("example") ManagerSearchDto managerSearchDto);
@@ -57,7 +58,7 @@ public interface ManagerMapper {
     /**
      * 查询经销商列表(此查询是 无等级关系的  等待分配的经销商  操作模态框的左侧)
      */
-    List<Manager> selectPartAgency();
+    List<Manager> selectPartAgency(Integer agencyId);
 
     /**
      * 往经销商关系表中增加关系分配二级三级经销商
@@ -68,6 +69,11 @@ public interface ManagerMapper {
      * 查询已经建立关系的一级经销商们
      */
     List<Manager> selectAagency();
+    
+    /**
+     * 查询已经建立关系的二级经销商们
+     */
+    List<Manager> selectBagency2();
 
     /**
      * 查询已经建立关系的二级经销商们
@@ -84,6 +90,11 @@ public interface ManagerMapper {
      * */
     void updateCagency(@Param("managerIds") List<Integer> managerIds,@Param("newParentId") Integer newParentId);
 
+    /**
+     * 根据二级ID查询全部的三级的ID们
+     * */
+    List<Integer> selectCIdsByBid(@Param("bId") Integer bId);
+    
     /**
      * 撤销（删除）一级下的二级或者二级下的三级     右侧---->左侧(一个一个地撤销  因为会对二级判断)
      * */

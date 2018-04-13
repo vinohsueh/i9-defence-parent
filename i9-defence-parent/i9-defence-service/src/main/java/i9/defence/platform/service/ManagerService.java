@@ -102,7 +102,7 @@ public interface ManagerService {
     /**
      * 查询经销商列表(此查询是 无等级关系的  等待被分配的默认经销商  操作模态框的左侧)
      */
-    List<Manager> selectPartAgency() throws BusinessException;
+    List<Manager> selectPartAgency(Integer agencyId) throws BusinessException;
 
     /**
      * 往经销商关系表中增加关系分配二级三级经销商
@@ -113,9 +113,14 @@ public interface ManagerService {
      * 查询已经建立关系的一级经销商们
      */
     List<Manager> selectAagency() throws BusinessException;
-
+    
     /**
      * 查询已经建立关系的二级经销商们
+     */
+    List<Manager> selectBagency() throws BusinessException;
+
+    /**
+     * 查询已经建立关系的指定一级经销商下的二级经销商们
      */
     List<Manager> selectBagency(Integer agencyId) throws BusinessException;
 
@@ -128,6 +133,11 @@ public interface ManagerService {
      * 把此二级经销商下的全部下属三级经销商的parentId修改为新的二级经销商ID
      * */
     void updateCagency(List<Integer> managerIds,Integer newParentId) throws BusinessException;
+    
+    /**
+     * 根据二级ID查询全部的三级的ID们
+     * */
+    List<Integer> selectCIdsByBid(Integer bId) throws BusinessException;
 
     /**
      * 撤销（删除）一级下的二级或者二级下的三级     右侧---->左侧(一个一个地撤销  因为会对二级判断)

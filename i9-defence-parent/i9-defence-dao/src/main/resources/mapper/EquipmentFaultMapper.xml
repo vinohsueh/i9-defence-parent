@@ -206,7 +206,7 @@
 				OR( name LIKE CONCAT(CONCAT('%','${example.name}'),'%' )
 			</if>
 			<if test="example.code != null and example.code != ''">
-				OR code LIKE CONCAT(CONCAT('%','${example.code}'),'%' )
+				OR code LIKE CONCAT(CONCAT('%','${example.code}'),'%' ))
 			</if>
 		</trim>
 	</sql>

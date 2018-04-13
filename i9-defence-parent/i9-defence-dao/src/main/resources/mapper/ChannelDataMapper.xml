@@ -322,7 +322,8 @@
 	</select>
 	
 	<update id="updateDealStatusByIds">
-	update t_channel_data set dealStatus = #{example.dealStatus} where id in
+	update t_channel_data set dealStatus = #{example.dealStatus}, dealDetail = #{dealDetail,jdbcType=VARCHAR} 
+	where id in
     <foreach collection="example.ids" item="item" open="(" close=")" separator=",">
    	 	#{item}
     </foreach>

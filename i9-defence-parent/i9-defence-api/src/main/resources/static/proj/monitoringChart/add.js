@@ -37,20 +37,54 @@ var monitoringChartEditCtrl = monitoringChartEditNgModule.controller('monitoring
 	
 	$scope.monitoringChart = monitoringChart;
 	$scope.clientList = clientList;
+  //初始化
+  $scope.pageInit = function (){
+    var pageParam = {
+        id:$scope.monitoringChart,
+      };
+    
+    $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+		console.log($scope.passagewayList)
+		$scope.mName = [];
+		for(i in $scope.passagewayList){
+	        $scope.mName.push($scope.passagewayList[i].hiddenDangerId.id)
+	      }
+	});
+    httpService.post({url:'./passageWay/selectPassagewaysByEquipId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+      $scope.passagewayList = data.data.data;
+      $scope.hiddenDanger = data.data.dangers;
+    })
+  };
+  $scope.pageInit();
+  
+
+
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-		if ($scope.monitoringChart.passagewayName ==null ||$scope.monitoringChart.passagewayName ==0) {
+		/*if ($scope.monitoringChart.passagewayName ==null ||$scope.monitoringChart.passagewayName ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
 				message : "项目名不能为空!"
 			});
 			return false;
-		}
-		httpService.post({url:'./monitoringChart/addMonitoringChart',data:$scope.monitoringChart,showSuccessMsg:true}).then(function(data) {  
+		}*/
+    var passagewayArr = [],
+        passagewayObj = {};
+
+    $('#passagewayBody tr').each(function () {
+      var thisDom = $(this);
+      passagewayObj.id = thisDom.attr('data-id');
+      passagewayObj.passagewayNum = thisDom.find('.passagewayNum').text();
+      passagewayObj.passagewayName = thisDom.find('.passagewayName input').val();
+      passagewayObj.hidedenDanger = $scope['hidedenDanger'+passagewayObj.passagewayNum]
+      passagewayArr.push(passagewayObj);
+    })
+
+		httpService.post({url:'./monitoringChart/addMonitoringChart',data:passagewayArr,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})
 	};

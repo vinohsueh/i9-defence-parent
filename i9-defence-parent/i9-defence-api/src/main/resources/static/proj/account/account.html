@@ -1,6 +1,6 @@
-<div class="bg-light lter b-b wrapper-md">
+<!-- <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">账户管理</h1>
-</div>
+</div> -->
 <div controlled-rescode>
 <div class="wrapper-md">  
   <div class="panel panel-default">
@@ -18,9 +18,9 @@
           <option value="100">100</option>
         </select>
       </div>
-      <div class="col-sm-4">
-      	<span>用户类型: </span>
-		<select ng-model='selectRoleName' ng-change="search()">
+      <div class="col-sm-4 form-inline">
+      	<label>用户类型: </label>
+		<select ng-model='selectRoleName' ng-change="search()" class='form-control'>
 			<option value="">-- 请选择 --</option>
 			<option ng-repeat='i in roles' value="{{i.name}}">{{i.name}}</option>
 		</select>

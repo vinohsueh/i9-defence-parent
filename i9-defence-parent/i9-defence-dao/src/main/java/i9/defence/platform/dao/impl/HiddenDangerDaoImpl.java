@@ -42,4 +42,15 @@ public class HiddenDangerDaoImpl implements HiddenDangerDao {
 		return hiddenDangerMapper.selectByPrimaryKey(Id);
 	}
 
+	@Override
+	public void delHiddenDangers(List<Integer> ids) throws Exception {
+		 hiddenDangerMapper.deleteByPrimaryKey(ids);
+	}
+
+	@Override
+	public List<HiddenDanger> selectAllHiddendanger() throws Exception {
+		HiddenDangerExample example = new HiddenDangerExample();
+		return hiddenDangerMapper.selectByExample(example);
+	}
+
 }

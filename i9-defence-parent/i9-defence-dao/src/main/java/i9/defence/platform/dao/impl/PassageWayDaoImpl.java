@@ -15,13 +15,18 @@ public class PassageWayDaoImpl implements PassageWayDao {
 	@Autowired
 	private PassagewayMapper passagewayMapper;
 	@Override
-	public List<Passageway> selectPassagewaysByEquipId(Integer Id) throws Exception {
-		return passagewayMapper.selectByEquipmentId(Id);
+	public List<Passageway> selectPassagewaysByEquipId(String id) throws Exception {
+		return passagewayMapper.selectByEquipmentId(id);
 	}
 
 	@Override 
-	public void addPassageway(Passageway passageway) throws Exception {
-		passagewayMapper.addPassageWay(passageway);
+	public void addPassageway(List<Passageway> passageways) throws Exception {
+		passagewayMapper.addPassageWay(passageways);
+	}
+
+	@Override
+	public void delPassagewayBySystemId(String systemId) throws Exception {
+		passagewayMapper.delPassagewayBySystemId(systemId);
 	}
 
 }

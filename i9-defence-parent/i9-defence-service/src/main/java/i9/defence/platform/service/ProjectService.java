@@ -66,7 +66,14 @@ public interface ProjectService {
      * @return
      */
     PageBounds<Project> selectByLimitPage(ProjectSearchDto projectSearchDto) throws BusinessException;
-
+    
+    /**
+     * 条件查询项目
+     * @param projectSearchDto
+     * @return
+     * @throws BusinessException
+     */
+    List<Project> selectProject(ProjectSearchDto projectSearchDto) throws BusinessException;
     /**
      * 获取全部的项目的主键ID和项目名称
      * @return
@@ -97,4 +104,5 @@ public interface ProjectService {
     * @throws BusinessException 
      */
     public String  applyDelProject(List<Integer> ids) throws BusinessException;
+	
 }

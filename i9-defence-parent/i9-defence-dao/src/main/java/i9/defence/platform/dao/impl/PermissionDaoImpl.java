@@ -89,4 +89,9 @@ public class PermissionDaoImpl implements PermissionDao{
         return permissionMapper.getPermissionByManagerId(managerId);
     }
 
+	@Override
+	public Set<Permission> getNotHavPermissionByManagerId(Integer managerId) throws Exception {
+		return permissionMapper.getNotHavPermissionByManagerId(managerId);
+	}
+
 }
