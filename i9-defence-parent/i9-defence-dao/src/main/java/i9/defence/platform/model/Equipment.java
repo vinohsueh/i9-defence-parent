@@ -3,8 +3,13 @@ package i9.defence.platform.model;
 import java.util.Date;
 import java.util.List;
 
+import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.StringUtil;
 
+/**
+ * @author 28937
+ *
+ */
 public class Equipment {
 	private Integer id;
     /**
@@ -34,7 +39,7 @@ public class Equipment {
     /**
      * 设备分类id
      */
-    private Integer equipmentCategoryId;
+    private String equipmentCategoryId;
     /**
      * 设备分类(一对一)
      */
@@ -65,6 +70,11 @@ public class Equipment {
      * 删除状态
      */
     private Integer delStatus;
+    
+    /**
+     * 唯一标识
+     */
+    private String deviceId;
     
     /**
      * 设备一对多通道
@@ -135,15 +145,15 @@ public class Equipment {
         this.equipmentIdentifier = equipmentIdentifier == null ? null : equipmentIdentifier.trim();
     }
 
-    public String getEquipmentPosition() {
-        return equipmentPosition;
-    }
+	public String getEquipmentPosition() {
+		return equipmentPosition;
+	}
 
-    public void setEquipmentPosition(String equipmentPosition) {
-        this.equipmentPosition = equipmentPosition == null ? null : equipmentPosition.trim();
-    }
+	public void setEquipmentPosition(String equipmentPosition) {
+		this.equipmentPosition = equipmentPosition;
+	}
 
-    public Date getEquipmentDate() {
+	public Date getEquipmentDate() {
         return equipmentDate;
     }
 
@@ -159,15 +169,16 @@ public class Equipment {
         this.equipmentRemarks = equipmentRemarks == null ? null : equipmentRemarks.trim();
     }
 
-    public Integer getEquipmentCategoryId() {
-        return equipmentCategoryId;
-    }
 
-    public void setEquipmentCategoryId(Integer equipmentCategoryId) {
-        this.equipmentCategoryId = equipmentCategoryId;
-    }
+    public String getEquipmentCategoryId() {
+		return equipmentCategoryId;
+	}
 
-    public Integer getProjectId() {
+	public void setEquipmentCategoryId(String equipmentCategoryId) {
+		this.equipmentCategoryId = equipmentCategoryId;
+	}
+
+	public Integer getProjectId() {
         return projectId;
     }
 
@@ -197,12 +208,27 @@ public class Equipment {
         return "";
     }
 
+    public String getEquipmentPositionStr() {
+    	if(id !=null ) {
+    		return EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(id));
+    	}
+        return "";
+    }
+    
 	public Integer getDelStatus() {
 		return delStatus;
 	}
 
 	public void setDelStatus(Integer delStatus) {
 		this.delStatus = delStatus;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
     
 }

@@ -116,8 +116,6 @@ public class EquipmentController {
 	 * id查找设备
 	 * @Title getEquipment
 	 * @param equipmentId
-	 * id查找设备
-	 * @param equipmentId
 	 * @return
 	 */
 	@RequiresPermissions("equip_list")

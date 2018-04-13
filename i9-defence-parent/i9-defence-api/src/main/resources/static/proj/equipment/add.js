@@ -8,19 +8,20 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 	$scope.equipment = equipment;
 	$scope.equCategorys = equCategorys;
 	$scope.projects = projects;
+	
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-		if ($scope.equipment.equipmentName ==null ||$scope.equipment.equipmentName ==0) {
-			$.toaster({
-				title : "Error",
-				priority : "danger",
-				message : "设备名称不能为空!"
-			});
-			return false;
-		}
+//		if ($scope.equipment.equipmentName ==null ||$scope.equipment.equipmentName ==0) {
+//			$.toaster({
+//				title : "Error",
+//				priority : "danger",
+//				message : "设备名称不能为空!"
+//			});
+//			return false;
+//		}
 //		if ($scope.equipment.equipmentNum ==null ||$scope.equipment.equipmentNum ==0) {
 //			$.toaster({
 //				title : "Error",
@@ -61,7 +62,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		if ($scope.equipment.equipmentName ==null ||$scope.equipment.equipmentName ==0) {
+		if ($scope.equipment.equipmentCategoryId ==null ||$scope.equipment.equipmentCategoryId ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
@@ -77,7 +78,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		
+		console.log($scope.equCategorys);
 		httpService.post({url:'./equipment/addEquipment',data:$scope.equipment,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

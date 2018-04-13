@@ -132,4 +132,14 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		channelDataMapper.updateDealStatusByIds(list);
 	}
 
+	@Override
+	public void addEquipments(List<Equipment> equipments) throws Exception {
+		equipmentMapper.insertEquipments(equipments);
+	}
+
+	@Override
+	public void updateEquipmentByIds(List<Equipment> equipments) throws Exception {
+		equipmentMapper.updateEquipmentByIds(equipments);
+	}
+
 }

@@ -73,8 +73,25 @@ public class EquipmentServiceImpl implements EquipmentService {
 			if(equipment.getId()!=null) {
 				equipmentDao.updateEquipment(equipment);
 			}else {
-				equipment.setEquipmentDate(new Date());
-				equipmentDao.addEquipment(equipment);
+					List<Equipment> equipments = new ArrayList<>();
+					for(int i = 0;i<equipment.getEquipmentNum();i++) {
+						Equipment newEquipment = new Equipment();
+						newEquipment.setSystemId(equipment.getSystemId());
+						newEquipment.setEquipmentDate(new Date());
+						newEquipment.setEquipmentRemarks(equipment.getEquipmentRemarks());
+						newEquipment.setEquipmentCategoryId(equipment.getEquipmentCategoryId());
+						newEquipment.setProjectId(equipment.getProjectId());
+						newEquipment.setEquipmentPosition(equipment.getEquipmentPositionStr());
+						equipments.add(newEquipment);
+					}
+					equipmentDao.addEquipments(equipments);
+					
+					
+					for(int i = 0;i<equipments.size();i++) {
+						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
+						equipments.get(i).setDeviceId(equipments.get(i).getDeviceId());
+					}
+					equipmentDao.updateEquipmentByIds(equipments);
 			}
 		} catch (Exception e) {
 			throw new BusinessException("添加项目类别类别失败",e.getMessage());
@@ -309,5 +326,6 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("修改报警隐患失败",e.getMessage());
 		}
 	}
+
 }
 
