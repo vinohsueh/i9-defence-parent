@@ -429,12 +429,12 @@ angular.module('app')
               .state('app.warningEdit', {
                   url: '/warningEdit',
                   templateUrl: 'proj/warningEdit/warningEdit.html',
-              	  controller : "hiddenEditControl",
+              	  controller : "warningEditControl",
               	  resolve: { 
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                     	return $ocLazyLoad.load({
-            				name : 'hiddenEditModule',
+            				name : 'warningEditModule',
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/warningEdit/warningEdit.js',
