@@ -9,6 +9,7 @@ var mapCtrl = mapNgModule.controller('mapCtrl', function($scope,
         $modalInstance.dismiss('cancel');
     }
     $scope.confirmAdd = function () {
-        
+        var coordinate = $('#lnglat').val()
+        $modalInstance.close(coordinate); 
     }
 });
