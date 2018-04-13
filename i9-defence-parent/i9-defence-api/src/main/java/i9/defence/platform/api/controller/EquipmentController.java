@@ -27,6 +27,7 @@ import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ChannelDataService;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.service.PassagewayService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
 
@@ -48,6 +49,8 @@ public class EquipmentController {
 	private ProjectService projectService;
 	@Autowired
 	private ChannelDataService channelDataServicel;
+	@Autowired
+	private PassagewayService passagewayService;
 
 	/**
 	 * 分页查询设备列表
@@ -189,10 +192,11 @@ public class EquipmentController {
 		channelDataSearchDto.setTypes(typeList);
 		channelDataSearchDto.setOrderByClause("dateTime desc");
 		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
+		List<Passageway> passageWays = passagewayService.selectPassagewaysByEquipId(equipment.getId());
 		//分通道处理后的数据
 		result.put("data", null);
 		if (list.size() > 0) {
-			JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).build();
+			JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).setPassageways(passageWays).build();
 			result.put("data", jsonObject);
 		}
 		result.put("equip", new EquipmentMonitorComponent().setEquipment(equipment).build());
@@ -224,7 +228,9 @@ public class EquipmentController {
 	public HashMap<String, Object> selectErrorRecord(@RequestBody EquipmentSearchDto equipmentSearchDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<ChannelData> list = equipmentService.selectErrorRecord(equipmentSearchDto);
-		JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).errorBuild();
+		Equipment equipment = equipmentService.getEquipmentByIdentifier(equipmentSearchDto.getDeviceId());
+		List<Passageway> passageways = passagewayService.selectPassagewaysByEquipId(equipment.getId());
+		JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).setPassageways(passageways).errorBuild();
 		result.put("data", jsonObject);
 		return result;
 	}

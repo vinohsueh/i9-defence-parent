@@ -17,7 +17,7 @@ import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.HiddenDangerService;
-import i9.defence.platform.service.passagewayService;
+import i9.defence.platform.service.PassagewayService;
 
 /**
  * 通道controller
@@ -32,7 +32,7 @@ import i9.defence.platform.service.passagewayService;
 public class PassageWayController {
 
 	@Autowired
-	private passagewayService passagewayService;
+	private PassagewayService passagewayService;
 	
 	@Autowired
 	private HiddenDangerService hiddernDangerService;

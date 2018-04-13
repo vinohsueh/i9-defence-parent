@@ -182,10 +182,15 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			                }
 			            },
 			        };
-					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-					$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
-					$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
-					$scope.equipmentItemArr.push($scope.equipmentItemObj);
+					if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
+    					$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
+    					$scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
+    				}else{
+    					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
+    					$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+    				}
+    				$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
+    				$scope.equipmentItemArr.push($scope.equipmentItemObj);
 				}
 				$scope.option={
 				    title:{

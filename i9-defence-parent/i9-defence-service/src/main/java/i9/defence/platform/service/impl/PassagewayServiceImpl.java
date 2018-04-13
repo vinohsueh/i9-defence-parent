@@ -12,12 +12,12 @@ import i9.defence.platform.dao.PassageWayDao;
 import i9.defence.platform.dao.vo.PassagewayDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
-import i9.defence.platform.service.passagewayService;
+import i9.defence.platform.service.PassagewayService;
 import i9.defence.platform.utils.BusinessException;
 
 @Service
 @Transactional
-public class passagewayServiceImpl implements passagewayService {
+public class PassagewayServiceImpl implements PassagewayService {
 
 	@Autowired
 	private PassageWayDao passageWayDao;

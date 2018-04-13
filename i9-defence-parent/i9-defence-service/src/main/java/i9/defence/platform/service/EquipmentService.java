@@ -124,6 +124,13 @@ public interface EquipmentService {
 	 * @throws BusinessException
 	 */
 	List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) throws BusinessException;
+	
+	/**
+	 * 通过唯一编号找设备
+	 * @param deviceId
+	 * @return
+	 */
+	Equipment getEquipmentByIdentifier(String deviceId) throws BusinessException;
 
     
 }

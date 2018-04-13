@@ -352,5 +352,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询故障记录失败",e.getMessage());
 		}
 	}
+
+	@Override
+	public Equipment getEquipmentByIdentifier(String deviceId) throws BusinessException {
+		try {
+			return equipmentDao.getEquipmentByIdentifier(deviceId);
+		} catch (Exception e) {
+			throw new BusinessException("查询设备失败",e.getMessage());
+		}
+	}
 }
 

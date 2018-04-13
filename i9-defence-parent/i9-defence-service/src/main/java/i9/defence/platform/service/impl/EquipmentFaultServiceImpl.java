@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import i9.defence.platform.cache.ErrorTypeCache;
 import i9.defence.platform.dao.EquipmentFaultDao;
 import i9.defence.platform.dao.vo.EquipmentFaultSearchDto;
 import i9.defence.platform.model.EquipmentFault;
@@ -24,6 +25,8 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 
 	@Autowired
 	private EquipmentFaultDao equipmentFaultDao;
+	@Autowired
+	private ErrorTypeCache errorTypeCache;
 	@Override
 	public PageBounds<EquipmentFault> selectByLimitPage(EquipmentFaultSearchDto equipmentFaultSearchDto) throws BusinessException {
         try {
@@ -43,6 +46,7 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 			//id不为null则为更新
 				equipmentFaultDao.update(equipmentFault);
 			}
+			errorTypeCache.init();
 		}catch (Exception e) {
             throw new BusinessException("添加失败",e.getMessage());
         }
@@ -52,6 +56,7 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 	public void update(EquipmentFault equipmentFault) throws BusinessException {
 		try {
 			equipmentFaultDao.update(equipmentFault);
+			errorTypeCache.init();
 		}catch (Exception e) {
             throw new BusinessException("更新失败",e.getMessage());
         }
@@ -61,6 +66,7 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 	public void deleteBatch(List<Integer> ids) throws BusinessException {
 		try {
 			equipmentFaultDao.deleteBatch(ids);
+			errorTypeCache.init();
 		}catch (Exception e) {
             throw new BusinessException("删除失败",e.getMessage());
         }
@@ -74,6 +80,15 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 		}catch (Exception e) {
             throw new BusinessException("查询失败",e.getMessage());
         }
+	}
+
+	@Override
+	public List<EquipmentFault> getAllTypes() throws BusinessException {
+		try {
+			return equipmentFaultDao.getAllTypes();
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
 	}
 }
  

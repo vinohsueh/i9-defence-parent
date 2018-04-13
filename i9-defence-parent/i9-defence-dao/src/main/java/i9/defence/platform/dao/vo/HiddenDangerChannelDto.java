@@ -4,17 +4,17 @@ import java.util.Date;
 
 import i9.defence.platform.utils.StringUtil;
 
-/** 
-* @author user: gbq
-* @version creatTime：2018年4月9日 上午10:50:36 
-* 
-*/
+/**
+ * @author user: gbq
+ * @version creatTime：2018年4月9日 上午10:50:36
+ * 
+ */
 public class HiddenDangerChannelDto {
 	/*
-	 * 对应channel  id
-	 * */
+	 * 对应channel id
+	 */
 	private Integer id;
-	
+
 	/*
 	 * 设备编号
 	 */
@@ -43,7 +43,7 @@ public class HiddenDangerChannelDto {
 	 * 处理详情
 	 */
 	private String dealDetail;
-	
+
 	public Integer getDealStatus() {
 		return dealStatus;
 	}
@@ -107,10 +107,11 @@ public class HiddenDangerChannelDto {
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
-	 public String getDateTimeStr() {
-	    	if(dateTime!=null) {
-	    		return StringUtil.dateToString(dateTime);
-	    	}
-	        return "";
-	    }
+
+	public String getDateTimeStr() {
+		if (dateTime != null) {
+			return StringUtil.dateToString(dateTime);
+		}
+		return "";
+	}
 }

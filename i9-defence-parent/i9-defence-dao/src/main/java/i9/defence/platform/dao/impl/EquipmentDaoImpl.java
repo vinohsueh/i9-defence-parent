@@ -162,7 +162,18 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	@Override
 	public List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) {
 		ChannelDataExample example = new ChannelDataExample();
-		example.createCriteria().andDeviceIdEqualTo(equipmentSearchDto.getDeviceId()).andTypeEqualTo(DataTypeEnum.ERROR.getId());
+		example.createCriteria().andDeviceIdEqualTo(equipmentSearchDto.getDeviceId()).andTypeEqualTo(DataTypeEnum.ERROR.getId()).andDealStatusEqualTo(0);
 		return channelDataMapper.selectByExample(example);
+	}
+
+	@Override
+	public Equipment getEquipmentByIdentifier(String deviceId) {
+		EquipmentExample example = new EquipmentExample();
+		example.createCriteria().andDeviceIdEqualTo(deviceId);
+		List<Equipment> list = equipmentMapper.selectByExample(example);
+		if (list.size()>0) {
+			return list.get(0);
+		}
+		return null;
 	}
 }

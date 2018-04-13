@@ -2,6 +2,8 @@ package i9.defence.platform.model;
 
 import java.util.Date;
 
+import i9.defence.platform.utils.StringUtil;
+
 public class ChannelData {
     private Integer id;
 
@@ -25,7 +27,18 @@ public class ChannelData {
 	
 	private String deviceAddress;
 	
-    public String getDeviceAddress() {
+	private String errorName;
+	
+	
+    public String getErrorName() {
+		return errorName;
+	}
+
+	public void setErrorName(String errorName) {
+		this.errorName = errorName;
+	}
+
+	public String getDeviceAddress() {
 		return deviceAddress;
 	}
 
@@ -112,7 +125,14 @@ public class ChannelData {
     public void setValue(String value) {
         this.value = value == null ? null : value.trim();
     }
-
+    
+    public String getDateTimeStr(){
+		if (dateTime != null) {
+			return StringUtil.dateToString(dateTime);
+		}
+		return "";
+    }
+    
 	public void calDeviceId() {
 		StringBuffer str = new StringBuffer();
 		str.append(this.systemType).append(this.systemId).append(this.deviceAddress);

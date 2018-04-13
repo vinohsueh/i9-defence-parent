@@ -8,7 +8,9 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import i9.defence.platform.cache.ErrorTypeCache;
 import i9.defence.platform.model.ChannelData;
+import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.StringUtil;
 
 /** 
@@ -19,10 +21,23 @@ import i9.defence.platform.utils.StringUtil;
 */
 public class ChannelDataComponent {
 	
+	/**
+	 * 通道数据
+	 */
 	private List<ChannelData> channelDatas;
+	
+	/**
+	 * 通道信息
+	 */
+	private List<Passageway> passageWays;
 	
 	public ChannelDataComponent setChannelDataComponent(List<ChannelData> channelDatas) {
 		this.channelDatas=channelDatas;
+		return this;
+	}
+	
+	public ChannelDataComponent setPassageways(List<Passageway> passageWays) {
+		this.passageWays=passageWays;
 		return this;
 	}
 	
@@ -41,6 +56,13 @@ public class ChannelDataComponent {
 			map.put(channelData.getChannel(), list);
 		}
 		
+		//将通道名称传到map中
+		Map<Integer, String> nameMap = new HashMap<Integer, String>();
+		for (Passageway passageway : passageWays) {
+			nameMap.put(passageway.getChannel(), passageway.getName());
+		}
+		
+		
 		//将数据按通道分类后传去前台
 		JSONArray jsonArray = new JSONArray();
 		//日期数组
@@ -49,11 +71,13 @@ public class ChannelDataComponent {
 		for (Map.Entry<Integer, List<ChannelData>> entry : map.entrySet()) {
 			JSONObject channelObject = new JSONObject();
 			channelObject.put("channelNumber", entry.getKey());
+			channelObject.put("name", nameMap.get(entry.getKey()));
 			//值的数组
 			List<String> list = new ArrayList<>();
 			for (ChannelData channelData : entry.getValue()) {
 				list.add(channelData.getValue());
 			}
+			//只存一次日期
 			if (flag) {
 				for (ChannelData channelData : entry.getValue()) {
 					dateList.add(StringUtil.dateToStringByRep(channelData.getDateTime(), "yyyy/MM/dd HH:mm:ss"));
@@ -87,17 +111,25 @@ public class ChannelDataComponent {
 			map.put(channelData.getChannel(), list);
 		}
 		
+		//将通道名称传到map中
+		Map<Integer, String> nameMap = new HashMap<Integer, String>();
+		for (Passageway passageway : passageWays) {
+			nameMap.put(passageway.getChannel(), passageway.getName());
+		}
+		
 		//将数据按通道分类后传去前台
 		JSONArray jsonArray = new JSONArray();
 		for (Map.Entry<Integer, List<ChannelData>> entry : map.entrySet()) {
 			JSONObject channelObject = new JSONObject();
 			channelObject.put("channelNumber", entry.getKey());
+			channelObject.put("name", nameMap.get(entry.getKey()));
 			//值的数组
-			List<String> list = new ArrayList<>();
+			JSONArray jsonArrays = new JSONArray();
 			for (ChannelData channelData : entry.getValue()) {
-				list.add(channelData.getValue());
+				channelData.setErrorName(ErrorTypeCache.getCacheDict(channelData.getValue()));
+				jsonArrays.add(JSONObject.toJSON(channelData));
 			}
-			channelObject.put("value", list);
+			channelObject.put("value", jsonArrays);
 			jsonArray.add(channelObject);
 		}
 		jsonObject.put("channelData", jsonArray);

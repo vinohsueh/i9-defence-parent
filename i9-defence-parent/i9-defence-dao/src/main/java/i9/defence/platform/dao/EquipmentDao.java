@@ -167,4 +167,11 @@ public interface EquipmentDao {
 	 * @return
 	 */
 	List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto);
+	
+	/**
+	 * 根据唯一编号查找
+	 * @param deviceId
+	 * @return
+	 */
+	Equipment getEquipmentByIdentifier(String deviceId);
 }
