@@ -22,7 +22,7 @@ import i9.defence.platform.utils.PageBounds;
  * @version
  */
 @RestController
-@RequestMapping("eqCategory")
+@RequestMapping("/eqCategory")
 public class EquipmentCategoryController {
     @Autowired
     private EquipmentCategoryService eqCategoryService;

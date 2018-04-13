@@ -12,6 +12,16 @@ public class PageListDto {
     
     private int state;
     
+    private Integer equipCategoryId;
+    
+
+	public Integer getEquipCategoryId() {
+		return equipCategoryId;
+	}
+
+	public void setEquipCategoryId(Integer equipCategoryId) {
+		this.equipCategoryId = equipCategoryId;
+	}
 
 	public int getState() {
 		return state;
