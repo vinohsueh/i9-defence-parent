@@ -42,21 +42,17 @@ var monitoringChartEditCtrl = monitoringChartEditNgModule.controller('monitoring
     var pageParam = {
         id:$scope.monitoringChart,
       };
+    
+    $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+		console.log($scope.passagewayList)
+		$scope.mName = [];
+		for(i in $scope.passagewayList){
+	        $scope.mName.push($scope.passagewayList[i].hiddenDangerId.id)
+	      }
+	});
     httpService.post({url:'./passageWay/selectPassagewaysByEquipId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-      $scope.passagewayList = data.data.data[0];
+      $scope.passagewayList = data.data.data;
       $scope.hiddenDanger = data.data.dangers;
-      console.log(JSON.stringify($scope.hiddenDanger));
-      /*$scope.conf = [];
-      for(i in $scope.passagewayList){
-        var modelName = 'hidedenDanger'+$scope.passagewayList[i].channel;
-        $scope.passagewayList[i].mName = modelName;
-        $scope.passagewayList[i].mName = $scope.passagewayList[i].hiddenDangerId.id;
-        
-        $scope.conf.push($scope.passagewayList[i].hiddenDangerId.id)
-        
-      }
-      console.log( $scope.conf);
-      console.log( $scope.conf[0]);*/
     })
   };
   $scope.pageInit();
