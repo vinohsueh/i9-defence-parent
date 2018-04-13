@@ -158,6 +158,17 @@ public class ProjectController {
         result.put("safeList", safeList);
         return result;
     }
+    
+    /**
+     * 查询项目 根据ID 首页
+     * */
+    @RequestMapping("/getProjectByIndexId")
+    public HashMap<String, Object> getProjectByIndexId(@RequestBody ProjectGetDto projectGetDto) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Project project = projectService.getProjectById(projectGetDto.getProjectId());
+        result.put("project", project);
+        return result;
+    }
 
     /**
      * 查找当前登录人的全部项目
