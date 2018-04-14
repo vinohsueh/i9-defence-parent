@@ -2,8 +2,6 @@ package i9.defence.platform.dao.vo;
 
 import java.util.Date;
 
-import i9.defence.platform.enums.DataTypeEnum;
-
 /**
  * 分页查询通道数据返回值
  * @ClassName: ChannelDataLimitPageDto 
@@ -194,16 +192,33 @@ public class ChannelDataLimitPageDto {
 			this.deviceAddress = deviceAddress;
 		} 
 		
-		public String getErrorName () {
-			if (type == DataTypeEnum.ERROR.getId()) {
-				return "故障";
-			}else if (type == DataTypeEnum.FLOAT.getId()) {
-				if (Double.parseDouble(value) >= warningMax || Double.parseDouble(value) <= warningMin) {
-					return "报警";
-				}else if ((Double.parseDouble(value) < hiddenMin && Double.parseDouble(value) > warningMin) || (Double.parseDouble(value) > hiddenMax && Double.parseDouble(value) < warningMax)){
-					return "隐患";
+		/*public String getErrorName () {
+			try {
+				if (type == DataTypeEnum.ERROR.getId()) {
+					return "故障";
+				}else if (type == DataTypeEnum.FLOAT.getId()) {
+					double  cValue  = 0;
+					if (!value.equals("0.0")) {
+						cValue = 0;
+					}else{
+						cValue = Double.valueOf(value);
+					}
+					if (Double.valueOf(value) >= warningMax || Double.valueOf(value) <= warningMin) {
+						return "报警";
+					}else if ((Double.valueOf(value) < hiddenMin && Double.valueOf(value) > warningMin) || (Double.valueOf(value) > hiddenMax && Double.valueOf(value) < warningMax)){
+						return "隐患";
+					}else{
+						return "1";
+					}
+				}else{
+					return "1";
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			return "";
-		}
+			
+			
+		}*/
+		
 }

@@ -34,6 +34,26 @@ var channelDataNgControl=channelDataNgModule.controller('channelDataNgControl',f
 		
 		httpService.post({url:'./channel/pageChannel',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.channelDatas = data.data.data.pageList;
+			for(var i=0;i<$scope.channelDatas.length;i++){
+				var type = $scope.channelDatas[i].type;
+				var value = $scope.channelDatas[i].value;
+				var warningMin = $scope.channelDatas[i].warningMin;
+				var warningMax = $scope.channelDatas[i].warningMax;
+				var hiddenMax = $scope.channelDatas[i].hiddenMax;
+				var hiddenMin = $scope.channelDatas[i].hiddenMin;
+				if (type == 0) {
+					$scope.channelDatas[i].errorName =  "故障";
+				}else if (type == 5) {
+					if (value >= warningMax || value <= warningMin) {
+						$scope.channelDatas[i].errorName = "报警";
+					}else if ((value < hiddenMin && value > warningMin) || (value > hiddenMax && value < warningMax)){
+						$scope.channelDatas[i].errorName = "隐患";
+					}else{
+						$scope.channelDatas[i].errorName = "正常";
+					}
+				}
+				
+			}
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
