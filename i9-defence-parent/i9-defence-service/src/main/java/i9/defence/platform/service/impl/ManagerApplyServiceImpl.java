@@ -161,7 +161,7 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
                 Manager manager = managerApply.getManager();
                 manager.setStatus(S_STATUS);
                 managers.add(manager);
-                if (null != managerApply.getProjectId()) {
+                if (managerApply.getProjectId() != null) {
                 	projSafeList.add(manager);
                 }
             }
@@ -169,8 +169,10 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
             managerApplyDao.updateBatchManagerApplys(managerApplys,managerId);
             //将申请的角色添加到用户表里
             managerDao.addBatchManagers(managers);
-            //将安全责任人和项目建立关系
-            managerDao.addProjSafeManager(projSafeList);
+            if (projSafeList.size() > 0) {
+            	 //将安全责任人和项目建立关系
+            	managerDao.addProjSafeManager(projSafeList);
+            }
             //添加用户的角色
             managerDao.addBatchManagerRole(managers);
         } catch (BusinessException e) {
