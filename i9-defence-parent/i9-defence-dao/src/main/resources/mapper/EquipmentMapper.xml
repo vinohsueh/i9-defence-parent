@@ -460,20 +460,25 @@
    <!-- ———————————— 批量添加设备———————————— -->
    <insert id="insertEquipments" parameterType="java.util.List" useGeneratedKeys="true"
     keyProperty="id">
-		insert into t_equipment (systemId, equipmentDate,equipmentRemarks,
+		insert into t_equipment (equipmentName,systemId, equipmentDate,equipmentRemarks,
 		equipmentCategoryId, projectId) values
 		<foreach collection="list" item="item" separator=",">
-			(#{item.systemId},#{item.equipmentDate},#{item.equipmentRemarks},#{item.equipmentCategoryId},#{item.projectId})
+			(#{item.equipmentName},#{item.systemId},#{item.equipmentDate},#{item.equipmentRemarks},#{item.equipmentCategoryId},#{item.projectId})
 		</foreach>
 	</insert>
 	
    <update id="updateEquipmentByIds">
-	 update t_equipment 
-	SET equipmentPosition = CASE id 
+	 update t_equipment SET 
+	equipmentPosition = CASE id 
 		<foreach collection="list" item="item">
 			WHEN #{item.id} THEN #{item.equipmentPosition} 
 		</foreach>
         END, 
+    equipmentName = CASE id 
+       <foreach collection="list" item="item">
+			WHEN #{item.id} THEN #{item.equipmentName} 
+		</foreach>
+        END,
     deviceId = CASE id 
        <foreach collection="list" item="item">
 			WHEN #{item.id} THEN #{item.deviceId} 
@@ -569,6 +574,9 @@
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
 		</select>
+		<select id="selectHiddenDangerDtoByDeviceId" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+			select * from v_hiddenDanger_edit where deviceId = #{deviceId}
+		</select>
 	<!-- ———————————— 隐患与报警———————————— -->
 	
 	<!-- 故障设备 -->
@@ -591,5 +599,49 @@
 		</if>
 		limit #{offset},#{limit}
 	</select>
+	<select id="selectMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
+		where (cd.value &gt;= cd.WarningMax or  cd.value &lt;= cd.WarningMin)  
+		<if test="example.projectId != null ">
+	         and p.id = #{projectId}
+        </if>
+        <if test="example.endTime != null and example.endTime != ''">
+	        and cd.dateTime &lt; endTime
+        </if>
+        <if test="example.startTime != null and example.startTime != ''">
+	        cd.dateTime &gt; startTime 
+        </if>
+		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
+	</select>
 	
+	<select id="selectWarningMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
+		where (cd.value &gt;= cd.WarningMax or  cd.value &lt;= cd.WarningMin)  
+		<if test="projectId != null ">
+	         and p.id = #{projectId}
+        </if>
+        <if test="endTime != null and endTime != ''">
+	        and cd.dateTime &lt; endTime
+        </if>
+        <if test="startTime != null and startTime != ''">
+	        cd.dateTime &gt; startTime 
+        </if>
+		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
+	</select>
+	
+	
+	<select id="selectHiddenMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
+		where ((cd.value &gt; cd.HiddenMax and cd.value &lt; cd.WarningMax)or(cd.value &lt; cd.HiddenMin and cd.value &gt; cd.WarningMin)) 
+		<if test="projectId != null ">
+	         and p.id = #{projectId}
+        </if>
+        <if test="endTime != null and endTime != ''">
+	        and cd.dateTime &lt; endTime
+        </if>
+        <if test="startTime != null and startTime != ''">
+	        cd.dateTime &gt; startTime 
+        </if>
+		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
+	</select>
 </mapper>

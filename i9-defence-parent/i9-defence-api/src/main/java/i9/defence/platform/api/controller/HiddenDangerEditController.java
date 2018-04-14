@@ -1,6 +1,7 @@
 package i9.defence.platform.api.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,9 +18,11 @@ import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
 
@@ -38,6 +41,8 @@ public class HiddenDangerEditController {
 	private EquipmentCategoryService equipmentCategoryService;
 	@Autowired
     private ProjectService projectService;
+	@Autowired
+	private ManagerService managerService;
 	/*
      *分页查询
      */
@@ -87,7 +92,10 @@ public class HiddenDangerEditController {
     @RequestMapping("/updateDealStatus")
     public HashMap<String, Object> updateDealStatus(@RequestBody DealStatusDto [] dealStatusDtos){
     	HashMap<String, Object> result = new HashMap<String, Object>();
-    	equipmentService.updateDealStatus(Arrays.asList(dealStatusDtos));
+    	Manager manager = managerService.getLoginManager();
+    	Integer managerId = manager.getId();
+    	Date nowDate = new Date();
+    	equipmentService.updateDealStatus(Arrays.asList(dealStatusDtos),managerId,nowDate);
 		return result;
     }
     /**
