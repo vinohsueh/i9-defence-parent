@@ -1,4 +1,4 @@
-package i9.defence.platform.api;
+package i9.defence.platform.ms.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
