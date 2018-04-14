@@ -9,7 +9,7 @@
         <button class="btn m-b-xs w-xs btn-danger btn-rounded equip_del" ng-click="del()">删除</button>
     </div> -->
     <div class="row wrapper">
-      <div class="col-sm-5 m-b-xs">
+      <div class="col-sm-2 m-b-xs">
         <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
           <option value="5">5</option>
           <option value="10">10</option>
@@ -21,11 +21,11 @@
       </div>
       
       <div class="col-sm-4">
-        <div class="input-group">
+        <div class="form-group">
           <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="模糊查询">
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-6 text-right">
       	<button class="btn m-b-xs w-xs btn-success btn-rounded equip_add" ng-click="add()">新增</button>
         <button class="btn m-b-xs w-xs btn-danger btn-rounded equip_del" ng-click="del()">删除</button>
       </div>
@@ -69,7 +69,9 @@
        <!-- <td >{{equipment.systemId}}</td>
             <td >{{equipment.unit}}</td>
             <td >{{equipment.loopl}}</td>-->
-        	<td ng-click="edit({{equipment.id}})"><button>编辑</button></td>
+        	<td >
+        		<button ng-click="edit({{equipment.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
+        	</td>
           </tr>
         </tbody>
       </table>

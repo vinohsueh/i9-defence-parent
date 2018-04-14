@@ -63,5 +63,7 @@ public class Constants {
      * 项目管理员列表
      */
     public static final String [] S_PROJ_MANAGER = {"主管领导","值班人员","管理人员"};
+
+	public static final String[] NOT_DJUGE_NULL_LIST = {};
     
 }
