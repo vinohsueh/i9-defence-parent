@@ -18,6 +18,7 @@ import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Apply;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
@@ -87,9 +88,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 					equipmentDao.addEquipments(equipments);
 					for(int i = 0;i<equipments.size();i++) {
 						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
-						String deviceId = equipments.get(i).getDeviceId();
-						deviceId = equipments.get(i).getEquipmentPositionStr()+ equipments.get(i).getSystemId()+equipments.get(i).getEquipmentCategoryId();
-						equipments.get(i).setDeviceId(deviceId);
+						equipments.get(i).setDeviceId(equipments.get(i).getDeviceId());
 					}
 					equipmentDao.updateEquipmentByIds(equipments);
 			}
@@ -342,6 +341,24 @@ public class EquipmentServiceImpl implements EquipmentService {
 			return equipmentDao.selectErrorEquipment(equipmentSearchDto);
 		} catch (Exception e) {
 			throw new BusinessException("分页查询故障设备失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) throws BusinessException {
+		try {
+			return equipmentDao.selectErrorRecord(equipmentSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询故障记录失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public Equipment getEquipmentByIdentifier(String deviceId) throws BusinessException {
+		try {
+			return equipmentDao.getEquipmentByIdentifier(deviceId);
+		} catch (Exception e) {
+			throw new BusinessException("查询设备失败",e.getMessage());
 		}
 	}
 }

@@ -13,6 +13,9 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.enums.DataTypeEnum;
+import i9.defence.platform.model.ChannelData;
+import i9.defence.platform.model.ChannelDataExample;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.EquipmentExample.Criteria;
@@ -154,5 +157,23 @@ public class EquipmentDaoImpl implements EquipmentDao{
         List<Equipment> list = equipmentMapper.selectErrorEquipment(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
 		return pageBounds;
+	}
+
+	@Override
+	public List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) {
+		ChannelDataExample example = new ChannelDataExample();
+		example.createCriteria().andDeviceIdEqualTo(equipmentSearchDto.getDeviceId()).andTypeEqualTo(DataTypeEnum.ERROR.getId()).andDealStatusEqualTo(0);
+		return channelDataMapper.selectByExample(example);
+	}
+
+	@Override
+	public Equipment getEquipmentByIdentifier(String deviceId) {
+		EquipmentExample example = new EquipmentExample();
+		example.createCriteria().andDeviceIdEqualTo(deviceId);
+		List<Equipment> list = equipmentMapper.selectByExample(example);
+		if (list.size()>0) {
+			return list.get(0);
+		}
+		return null;
 	}
 }

@@ -1,8 +1,8 @@
 <!-- list -->
 <ul class="nav">
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+  <!-- <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span>　</span>
-  </li>
+  </li> -->
   <li ng-repeat="page in pages">
     <a ng-if="page.code != null && page.ifSingle == 1" ui-sref="{{page.code}}">
       <i class="text-primary-dker" ng-class="page.icon"></i>

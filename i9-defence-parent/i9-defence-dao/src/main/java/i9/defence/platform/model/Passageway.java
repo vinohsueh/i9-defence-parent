@@ -23,7 +23,7 @@ public class Passageway   {
     /**
      * 设备Id
      */
-    private String systemId;
+    private String deviceId;
     
     
     /**
@@ -56,12 +56,13 @@ public class Passageway   {
 
 	
 
-	public String getSystemId() {
-		return systemId;
+
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setSystemId(String systemId) {
-		this.systemId = systemId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public Integer getChannel() {

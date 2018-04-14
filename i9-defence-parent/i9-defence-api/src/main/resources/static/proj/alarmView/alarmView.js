@@ -239,21 +239,26 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
 		$scope.initTable();
 	}
 	
-	
+	$scope.ifshow = false;
 	//编辑
     $scope.edit = function (systemId) { 
-    	console.log(systemId)
-    	httpService.post({url:'./equipment/selectEquipmentError',data:systemId,showSuccessMsg:false}).then(function(data) {  
-    		$scope.hiddenEdit = data.data.data;
+    	var param = {
+    		'deviceId':systemId
+    	}
+    	httpService.post({url:'./equipment/selectErrorRecord',data:param,showSuccessMsg:false}).then(function(data) {  
+    		$scope.hiddenEdit = data.data.data.channelData;
+    		if($scope.hiddenEdit.length>0){
+    			$scope.ifshow = true;
+    		}
     		//$scope.equipmentCategory = data.data.equipmentCategory;
-			var modalInstance = $modal.open({  
+			/*var modalInstance = $modal.open({  
 	            templateUrl: 'proj/alarmView/add.html',  
 	            controller: 'errorEquipEditNgCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'errorEquipEditNgCtrl',
+	        				name : 'errorEquipEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
 	        				         'proj/alarmView/add.js',
@@ -269,7 +274,22 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
 	            $scope.selected = data;
 	        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
 	        	$scope.initTable();
-	        });
+	        });*/
     	})
     };  
+    
+    $scope.confirmAdd = function(){
+		var dealStatusDtos = [];
+		angular.forEach(angular.element.find(".error"), function(dom){
+    		var a =  {
+    			id :angular.element(dom).find(".id").attr("data-aa"),
+    			dealStatus : angular.element(dom).find(".delType").find("select").val(),
+    			dealDetail : angular.element(dom).find(".content").find("textarea").val()
+    		}
+    		dealStatusDtos.push(a)
+		});
+		httpService.post({url:'./hiddenDangerEdit/updateDealStatus',data:dealStatusDtos,showSuccessMsg:true}).then(function(data) {  
+    		$scope.ifshow = false;
+    	})
+	}
 })

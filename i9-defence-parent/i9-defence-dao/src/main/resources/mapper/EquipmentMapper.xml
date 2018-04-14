@@ -433,13 +433,13 @@
     </trim>
   </sql>
    <select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
-   select channel,name,systemId,hiddenDangerId
+   select channel,name,deviceId,hiddenDangerId
     from  t_passageway	
-     where systemId=#{systemId}  
+     where deviceId=#{deviceId}  
    </select>
    
    <insert id="insertPassageWay" parameterType="i9.defence.platform.model.Passageway">
-   	insert into t_passageway(channel,name,systemId,hiddenDangerId) values(#{channel},#{name},#{systemId},#{hiddenDangerId})
+   	insert into t_passageway(channel,name,deviceId,hiddenDangerId) values(#{channel},#{name},#{deviceId},#{hiddenDangerId})
    </insert>
    
    <update id="updateEquipments" parameterType="java.util.List">
@@ -458,10 +458,11 @@
 	</where>
    </update>
    <!-- ———————————— 批量添加设备———————————— -->
-   <insert id="insertEquipments" parameterType="java.util.List">
+   <insert id="insertEquipments" parameterType="java.util.List" useGeneratedKeys="true"
+    keyProperty="id">
 		insert into t_equipment (systemId, equipmentDate,equipmentRemarks,
 		equipmentCategoryId, projectId) values
-		<foreach collection="equipments" item="item" separator=",">
+		<foreach collection="list" item="item" separator=",">
 			(#{item.systemId},#{item.equipmentDate},#{item.equipmentRemarks},#{item.equipmentCategoryId},#{item.projectId})
 		</foreach>
 	</insert>
@@ -540,7 +541,7 @@
 		</sql>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,systemId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -551,19 +552,19 @@
 		</select>
 		<!-- 查询具体隐患报警    查看隐患-->
 		 <select id="selectHiddenDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-			  select id,systemId,name,value,dateTime,channel,dealStatus,dealDetail
+			  select id,deviceId,name,value,dateTime,channel,dealStatus,dealDetail
 			   from  v_hiddendanger_channel_data	
-			    where hiddenCount > 0 and systemId=#{systemId,jdbcType=VARCHAR}
+			    where ((value &gt; HiddenMax and value &lt; WarningMax)or(value &lt; HiddenMin and value &gt; WarningMin)) and deviceId=#{deviceId,jdbcType=VARCHAR} and dealStatus = 0
 		  </select>
 		<!-- 查询具体隐患报警    查看警告-->
 		  <select id="selectDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-		 	select id,systemId,name,value,dateTime,channel,dealStatus,dealDetail
+		 	select id,deviceId,name,value,dateTime,channel,dealStatus,dealDetail
 			   from  v_hiddendanger_channel_data	
-			    where warningCount > 0 and systemId=#{systemId,jdbcType=VARCHAR}
+			    where (value &gt;= WarningMax or  value &lt;= WarningMin)and deviceId=#{deviceId,jdbcType=VARCHAR} and dealStatus = 0
 		  </select>
 		<!-- 查询全部 -->
 		<select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,systemId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			select id,deviceId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -590,4 +591,5 @@
 		</if>
 		limit #{offset},#{limit}
 	</select>
+	
 </mapper>

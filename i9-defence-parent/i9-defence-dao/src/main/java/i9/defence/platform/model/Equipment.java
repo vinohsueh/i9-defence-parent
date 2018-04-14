@@ -230,5 +230,10 @@ public class Equipment {
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
 	}
+	public String calDeviceId() {
+		StringBuffer str = new StringBuffer();
+		str.append(this.equipmentCategoryId).append(this.systemId).append(this.equipmentPosition);
+		return this.deviceId = str.toString();
+	}
     
 }

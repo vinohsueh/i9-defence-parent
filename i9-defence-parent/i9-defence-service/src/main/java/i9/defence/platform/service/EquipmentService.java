@@ -5,6 +5,7 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
@@ -115,6 +116,21 @@ public interface EquipmentService {
      * @return
      */
 	PageBounds<Equipment> selectErrorEquipment(EquipmentSearchDto equipmentSearchDto) throws BusinessException;
+	
+	/**
+	 * 查询故障记录
+	 * @param equipmentSearchDto
+	 * @return
+	 * @throws BusinessException
+	 */
+	List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) throws BusinessException;
+	
+	/**
+	 * 通过唯一编号找设备
+	 * @param deviceId
+	 * @return
+	 */
+	Equipment getEquipmentByIdentifier(String deviceId) throws BusinessException;
 
     
 }
