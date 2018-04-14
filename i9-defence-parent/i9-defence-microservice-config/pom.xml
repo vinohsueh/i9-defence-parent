@@ -2,7 +2,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>i9-defence-ms-config</artifactId>
+    <artifactId>i9-defence-microservice-config</artifactId>
     <packaging>war</packaging>
 
     <parent>
@@ -25,7 +25,7 @@
     </dependencies>
     
     <build>
-        <finalName>i9-defence-ms-config</finalName>
+        <finalName>i9-defence-microservice-config</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
