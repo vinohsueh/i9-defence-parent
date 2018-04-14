@@ -28,6 +28,12 @@ public class Constants {
      */
     public static final Byte [] S__Project_Type = {(byte)2};
     
+    
+    /**channel类型
+     * 
+     */
+    public static final Integer [] S_Chaanel_TYPES = {1,2,3};
+    
     /**
      * 登录url
      */
@@ -57,4 +63,5 @@ public class Constants {
      * 项目管理员列表
      */
     public static final String [] S_PROJ_MANAGER = {"主管领导","值班人员","管理人员"};
+    
 }

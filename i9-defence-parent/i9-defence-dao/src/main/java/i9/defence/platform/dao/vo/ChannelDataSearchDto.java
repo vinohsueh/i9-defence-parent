@@ -11,7 +11,7 @@ import i9.defence.platform.utils.StringUtil;
 * @version  
 * 
 */
-public class ChannelDataSearchDto {
+public class ChannelDataSearchDto  extends PageListDto{
 	
 	private int equipmentId;
 	
@@ -27,9 +27,6 @@ public class ChannelDataSearchDto {
     
     private String endDateString;
 
-    
-    
-	
 
 	public int getEquipmentId() {
 		return equipmentId;
