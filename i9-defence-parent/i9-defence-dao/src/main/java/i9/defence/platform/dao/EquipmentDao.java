@@ -7,6 +7,8 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.dao.vo.MonthData;
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
@@ -174,4 +176,25 @@ public interface EquipmentDao {
 	 * @return
 	 */
 	Equipment getEquipmentByIdentifier(String deviceId);
+	
+	/**
+	 * 查询报警隐患数量
+	 * @param deviceId
+	 * @return
+	 */
+	HiddenDangerDto selectHiddenDangerDtoByDeviceId(String deviceId);
+	
+	/**
+	 * 与统计报警
+	 * @param monthDataDto
+	 * @return
+	 */
+	List<MonthData> selectMonthWarningData(MonthDataDto monthDataDto);
+	
+	/**
+	 * 与统计隐患
+	 * @param monthDataDto
+	 * @return
+	 */
+	List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto);
 }

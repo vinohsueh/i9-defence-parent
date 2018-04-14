@@ -5,6 +5,8 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.dao.vo.MonthData;
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
@@ -131,6 +133,30 @@ public interface EquipmentService {
 	 * @return
 	 */
 	Equipment getEquipmentByIdentifier(String deviceId) throws BusinessException;
+	
+	/**
+	 * 查询报警隐患数量
+	 * @param deviceId
+	 * @return
+	 * @throws BusinessException
+	 */
+	HiddenDangerDto selectHiddenDangerDtoByDeviceId(String deviceId) throws BusinessException;
+	
+	/**
+	 * 月统计报警
+	 * @param monthDataDto
+	 * @return
+	 * @throws BusinessException
+	 */
+	List<MonthData> selectMonthWarningData(MonthDataDto monthDataDto) throws BusinessException;
+	
+	/**
+	 * 月统计
+	 * @param monthDataDto
+	 * @return
+	 * @throws BusinessException
+	 */
+	List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) throws BusinessException;
 
     
 }

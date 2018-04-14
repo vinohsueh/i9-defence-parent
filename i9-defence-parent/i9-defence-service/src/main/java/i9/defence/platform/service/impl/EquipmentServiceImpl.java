@@ -17,6 +17,8 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.dao.vo.MonthData;
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
@@ -359,6 +361,33 @@ public class EquipmentServiceImpl implements EquipmentService {
 			return equipmentDao.getEquipmentByIdentifier(deviceId);
 		} catch (Exception e) {
 			throw new BusinessException("查询设备失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public HiddenDangerDto selectHiddenDangerDtoByDeviceId(String deviceId) throws BusinessException {
+		try {
+			return equipmentDao.selectHiddenDangerDtoByDeviceId(deviceId);
+		} catch (Exception e) {
+			throw new BusinessException("查询隐患数量失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<MonthData> selectMonthWarningData(MonthDataDto monthDataDto) throws BusinessException {
+		try {
+			return equipmentDao.selectMonthWarningData(monthDataDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询隐患数量失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) throws BusinessException {
+		try {
+			return equipmentDao.selectHiddenMonthData(monthDataDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询隐患数量失败",e.getMessage());
 		}
 	}
 }
