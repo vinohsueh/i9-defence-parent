@@ -29,6 +29,12 @@ public class ChannelData {
 	
 	private String errorName;
 	
+	private Date dealDate;
+	
+	private Integer dealManagerId;
+	
+	//一对一 处理人信息
+	private Manager dealManager;
 	
     public String getErrorName() {
 		return errorName;
@@ -138,4 +144,37 @@ public class ChannelData {
 		str.append(this.systemType).append(this.systemId).append(this.deviceAddress);
 		this.deviceId = str.toString();
 	}
+
+	public Date getDealDate() {
+		return dealDate;
+	}
+
+	public String getDealDateStr() {
+		if(dealDate != null) {
+			return StringUtil.dateToString(dealDate);
+		}
+		return "";
+	}
+	
+	public void setDealDate(Date dealDate) {
+		this.dealDate = dealDate;
+	}
+
+	public Integer getDealManagerId() {
+		return dealManagerId;
+	}
+
+	public void setDealManagerId(Integer dealManagerId) {
+		this.dealManagerId = dealManagerId;
+	}
+
+	public Manager getDealManager() {
+		return dealManager;
+	}
+
+	public void setDealManager(Manager dealManager) {
+		this.dealManager = dealManager;
+	}
+
+	
 }

@@ -236,4 +236,9 @@ public class Equipment {
 		return this.deviceId = str.toString();
 	}
     
+	public String calEquipmentName() {
+		StringBuffer str = new StringBuffer();
+		str.append(this.equipmentName).append("--").append(this.equipmentPosition);
+		return this.equipmentName = str.toString();
+	}
 }

@@ -79,18 +79,19 @@ public class EquipmentServiceImpl implements EquipmentService {
 					List<Equipment> equipments = new ArrayList<>();
 					for(int i = 0;i<equipment.getEquipmentNum();i++) {
 						Equipment newEquipment = new Equipment();
+						newEquipment.setEquipmentName(equipment.getEquipmentName());
 						newEquipment.setSystemId(equipment.getSystemId());
 						newEquipment.setEquipmentDate(new Date());
 						newEquipment.setEquipmentRemarks(equipment.getEquipmentRemarks());
 						newEquipment.setEquipmentCategoryId(equipment.getEquipmentCategoryId());
 						newEquipment.setProjectId(equipment.getProjectId());
-						newEquipment.setEquipmentPosition(equipment.getEquipmentPositionStr());
 						equipments.add(newEquipment);
 					}
 					equipmentDao.addEquipments(equipments);
 					for(int i = 0;i<equipments.size();i++) {
 						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
-						equipments.get(i).setDeviceId(equipments.get(i).getDeviceId());
+						equipments.get(i).setDeviceId(equipments.get(i).calDeviceId());
+						equipments.get(i).setEquipmentName(equipments.get(i).calEquipmentName());
 					}
 					equipmentDao.updateEquipmentByIds(equipments);
 			}
@@ -320,9 +321,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public void updateDealStatus(List<DealStatusDto> list) throws BusinessException {
+	public void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate) throws BusinessException {
 		try {
-			equipmentDao.updateDealStatus(list);
+			equipmentDao.updateDealStatus(list,managerId,nowDate);
 		} catch (Exception e) {
 			throw new BusinessException("修改报警隐患失败",e.getMessage());
 		}

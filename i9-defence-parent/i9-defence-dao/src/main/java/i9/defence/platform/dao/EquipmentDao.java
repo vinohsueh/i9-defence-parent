@@ -1,5 +1,6 @@
 package i9.defence.platform.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
@@ -143,7 +144,7 @@ public interface EquipmentDao {
      * @param DealStatusDto
      * @return
      */
-    void updateDealStatus(List<DealStatusDto> list)throws Exception;
+    void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate)throws Exception;
     
     /**
      * 查询全部隐患报警
