@@ -82,13 +82,12 @@ public class EquipmentServiceImpl implements EquipmentService {
 						newEquipment.setEquipmentRemarks(equipment.getEquipmentRemarks());
 						newEquipment.setEquipmentCategoryId(equipment.getEquipmentCategoryId());
 						newEquipment.setProjectId(equipment.getProjectId());
-						newEquipment.setEquipmentPosition(equipment.getEquipmentPositionStr());
 						equipments.add(newEquipment);
 					}
 					equipmentDao.addEquipments(equipments);
 					for(int i = 0;i<equipments.size();i++) {
 						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
-						equipments.get(i).setDeviceId(equipments.get(i).getDeviceId());
+						equipments.get(i).setDeviceId(equipments.get(i).calDeviceId());
 					}
 					equipmentDao.updateEquipmentByIds(equipments);
 			}
