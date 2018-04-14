@@ -20,7 +20,7 @@ var dataAnalysisService = dataAnalysisNgModule.factory('dataAnalysisService',
 			return resource;
 	}]);
 var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,dataAnalysisService,httpService){
-	$scope.option={
+	/*$scope.option={
 	    title:{
 	        show:false,
 	    },
@@ -118,7 +118,8 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	            data:[70,30,20,15,40,50,28,35,71,21,16,56]
 	        },
 	    ],
-	}
+	}*/
+	$scope.chartsStatus = false;
     $scope.getDate = function (index){
 	    var date = new Date(); //当前日期
 	    var newDate = new Date();
@@ -170,41 +171,21 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				/*projectName : text,
 				projectAddress : text,*/
 			};
-			// console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(JSON.stringify(data));
-			$scope.equipmentInfo = data.data.data;
-			$scope.projectInfo = data.data;
-			$scope.equipmentCheckArr = [];
-			$scope.equipmentItemArr = [];
-			if($scope.equipmentInfo!= null){
+			$scope.projectInfo = data.data.data;
+			$scope.projectTime = [];
+			$scope.projectWarning = [];
+			$scope.projectHidden = [];
+			if($scope.projectInfo!= null){
 				$scope.chartsStatus = true;
-				for(i in $scope.equipmentInfo.channelData){
-					$scope.equipmentItemObj = {
-			            type:'line',
-			            stack:'10',
-			            symbol: 'emptyCircle',
-			            symbolSize: 10,
-			            itemStyle:{
-			                normal:{
-			                    color:'#ab56dc',
-			                }
-			            },
-			            lineStyle:{
-			                normal:{
-			                    color:'#ab56dc',
-			                }
-			            },
-			        };
-					if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
-						$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
-						$scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
-					}else{
-						$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-						$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
-					}
-					$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
-					$scope.equipmentItemArr.push($scope.equipmentItemObj);
+				for(i in $scope.projectInfo.months){
+					$scope.projectTime.push($scope.projectInfo.months[i]);
+				}
+				for(i in $scope.projectInfo.hiddenData){
+					$scope.projectHidden.push($scope.projectInfo.hiddenData[i]);
+				}
+				for(i in $scope.projectInfo.warningData){
+					$scope.projectWarning.push($scope.projectInfo.warningData[i]);
 				}
 				$scope.option={
 				    title:{
@@ -231,27 +212,23 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 			            // xAxisIndex: [0, 1]
 				    },
 				    legend:{
-				    	type:'scroll',
 				        right:0,
 				        top:0,
 				        orient:'vertical',
 				        inactiveColor:'#666',
-				        selectedMode:'single',
 				        textStyle:{
 				            color:'#fff',
 				        },
-				        data:$scope.equipmentCheckArr,
-				        // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
+				        data:['报警','隐患',]
 				    },
 				    xAxis:{
-				    	// type:'time',
 				        axisLabel: {        
 				            show: true,
 				            textStyle: {
 				                color: '#fff',
 				            }
 				        },
-				        data:$scope.equipmentInfo.date,
+				        data:$scope.projectTime,
 				    },
 				    yAxis:{
 				        axisLabel: {        
@@ -268,7 +245,46 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				            }
 				        },
 				    },
-				    series:$scope.equipmentItemArr,
+				    series:[
+				        {
+				            type:'bar',
+				            name:'报警',
+				            stack:'10',
+				            showAllSymbol: true,
+				            symbol: 'emptyCircle',
+				            symbolSize: 10,
+				            itemStyle:{
+				                normal:{
+				                    color:'#ab56dc',
+				                }
+				            },
+				            lineStyle:{
+				                normal:{
+				                    color:'#ab56dc',
+				                }
+				            },
+				            data:$scope.projectWarning,
+				        },
+				        
+				        {
+				            type:'bar',
+				            name:'隐患',
+				            showAllSymbol: true,
+				            symbol: 'emptyCircle',
+				            symbolSize: 10,
+				            itemStyle:{
+				                normal:{
+				                    color:'#e2d89c',
+				                }
+				            },
+				            lineStyle:{
+				                normal:{
+				                    color:'#e2d89c',
+				                }
+				            },
+				            data:$scope.projectHidden
+				        },
+				    ],
 				}
 			}else{
 				$scope.chartsStatus = false;
