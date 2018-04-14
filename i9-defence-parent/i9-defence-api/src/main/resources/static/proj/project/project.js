@@ -49,6 +49,7 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 				projectProvince : $scope.selected.name,
 				projectCity : $scope.selected2.name,
 				projectCounty : $scope.selected3.value,
+				orderByClause : "projectDate desc"
 			};
 		//console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
