@@ -1,15 +1,14 @@
 <div controlled-rescode>
 	<!-- <div class="bg-light lter b-b wrapper-md">
-	  <h1 class="m-n font-thin h3">客户列表</h1>
+	  <h1 class="m-n font-thin h3">删除设备/项目申请表管理</h1>
 	</div> -->
 	<div class="wrapper-md">  
 	  <div class="panel panel-default">
 	    <!-- <div class="panel-heading">
-	        <button class="btn m-b-xs w-xs btn-success btn-rounded client_add" ng-click="add()">新增</button>
-	        <button class="btn m-b-xs w-xs btn-danger btn-rounded client_del" ng-click="del()">删除</button>
+            <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button>
 	    </div> -->
 	    <div class="row wrapper">
-	      <div class="col-sm-2 m-b-xs">
+	      <div class="col-sm-5 m-b-xs">
 	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
 	          <option value="5">5</option>
 	          <option value="10">10</option>
@@ -20,42 +19,32 @@
 	        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
 	      </div>
 	      <div class="col-sm-4">
-			  <input type="text" class="input-sm form-control"ng-change="search()" ng-model="searchText" placeholder="模糊查询">
-		  </div>
-		  <div class="col-sm-6 text-right">
-		  	  <button class="btn m-b-xs w-xs btn-success btn-rounded client_add" ng-click="add()">新增</button>
-	          <button class="btn m-b-xs w-xs btn-danger btn-rounded client_del" ng-click="del()">删除</button>
-		  </div>
-		</div>
-			
+	      </div>
+	      <div class="col-sm-3">
+	        <div class="input-group">
+	          <!-- <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
+	          <!-- <span class="input-group-btn">
+	            <button class="btn btn-sm btn-default" type="button">Go!</button>
+	          </span> -->
+	        </div>
+	        <!-- <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button> -->
+	      </div>
+	    </div>
 	    <div class="table-responsive">
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
-	            <th style="width:20px;">
-	              <label class="i-checks m-b-none" id="checkLabel">
-	                <input type="checkbox" id="totalCheck"><i></i>
-	              </label>
-	            </th>
-	            <th>时间</th>
-	            <th>项目负责人</th>
-	            <th>项目名称</th>
-	            <th>地域</th>
-	            <th>联系方式</th>
-	            <th>地址</th>
-	            <th>Email</th>
-	          </tr>
+	            <th>报警/隐患/故障</th>
+	            <th>处理详细</th>
+	            <th>设备地址</th>
+	            <th>设备Id</th>
 	        </thead>
 	        <tbody>
-	          <tr ng-repeat="client in clients">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{client.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td>{{client.createTimeString}}</td>
-	            <td>{{client.name}}</td>
-	            <td>{{client.projectName}}</td>
-	            <td>{{client.territory}}</td>
-	            <td>{{client.phone}}</td>
-	            <td>{{client.address}}</td>
-	            <td>{{client.mail}}</td>
+	          <tr ng-repeat="channelData in channelDatas">
+		          <td>{{channelData.errorName}}</td>
+		          <td>{{channelData.dealDetail}}</td>
+		          <td>{{channelData.deviceAddress}}</td>
+		          <td>{{channelData.deviceId}}</td>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -69,7 +58,7 @@
 	          <button class="btn btn-sm btn-default">Apply</button>                  
 	        </div> -->
 	        <div class="col-sm-4">
-	          <small class="text-muted inline m-t-sm m-b-sm">xiangshi {{start}}-{{end}} of {{total}} items</small>
+	          <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
 	        </div>
 	        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
 	          <ul class="pagination pagination-sm m-t-none m-b-none">

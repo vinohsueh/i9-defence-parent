@@ -1,5 +1,6 @@
 package i9.defence.platform.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.dao.vo.MonthData;
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.enums.DataTypeEnum;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ChannelDataExample;
@@ -131,8 +134,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public void updateDealStatus(List<DealStatusDto> list) throws Exception {
-		channelDataMapper.updateDealStatusByIds(list);
+	public void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate) throws Exception {
+		channelDataMapper.updateDealStatusByIds(list,managerId,nowDate);
 	}
 
 	@Override
@@ -175,5 +178,20 @@ public class EquipmentDaoImpl implements EquipmentDao{
 			return list.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public HiddenDangerDto selectHiddenDangerDtoByDeviceId(String deviceId) {
+		return equipmentMapper.selectHiddenDangerDtoByDeviceId(deviceId);
+	}
+
+	@Override
+	public List<MonthData> selectMonthWarningData(MonthDataDto monthDataDto) {
+		return equipmentMapper.selectWarningMonthData(monthDataDto.getProjectId(), monthDataDto.getStartTime(), monthDataDto.getEndTime());
+	}
+
+	@Override
+	public List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) {
+		return equipmentMapper.selectHiddenMonthData(monthDataDto.getProjectId(), monthDataDto.getStartTime(), monthDataDto.getEndTime());
 	}
 }

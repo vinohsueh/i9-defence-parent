@@ -1,14 +1,19 @@
 package i9.defence.platform.dao.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import i9.defence.platform.dao.vo.ChannelDataLimitPageDto;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ChannelDataExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 
 public interface ChannelDataMapper {
-    long countByExample(ChannelDataExample example);
+    int countByExample(@Param("example") ChannelDataSearchDto channelDataSearchDto); 
 
     int deleteByExample(ChannelDataExample example);
 
@@ -30,6 +35,8 @@ public interface ChannelDataMapper {
 
     int updateByPrimaryKey(ChannelData record);
     
+    List<ChannelDataLimitPageDto> selectByLimitPage(@Param("example") ChannelDataSearchDto channelDataSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    
     /**
      * 批量添加通道信息
      * @param records
@@ -46,5 +53,5 @@ public interface ChannelDataMapper {
 	/**
 	 * 批量修改标识
 	 */
-	void updateDealStatusByIds(List<DealStatusDto> list);
+	void updateDealStatusByIds(@Param("list") List<DealStatusDto> list,@Param("managerId") Integer managerId,@Param("nowDate") Date nowDate);
 }
