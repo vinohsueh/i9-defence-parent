@@ -18,6 +18,7 @@ import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Apply;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
@@ -73,8 +74,22 @@ public class EquipmentServiceImpl implements EquipmentService {
 			if(equipment.getId()!=null) {
 				equipmentDao.updateEquipment(equipment);
 			}else {
-				equipment.setEquipmentDate(new Date());
-				equipmentDao.addEquipment(equipment);
+					List<Equipment> equipments = new ArrayList<>();
+					for(int i = 0;i<equipment.getEquipmentNum();i++) {
+						Equipment newEquipment = new Equipment();
+						newEquipment.setSystemId(equipment.getSystemId());
+						newEquipment.setEquipmentDate(new Date());
+						newEquipment.setEquipmentRemarks(equipment.getEquipmentRemarks());
+						newEquipment.setEquipmentCategoryId(equipment.getEquipmentCategoryId());
+						newEquipment.setProjectId(equipment.getProjectId());
+						equipments.add(newEquipment);
+					}
+					equipmentDao.addEquipments(equipments);
+					for(int i = 0;i<equipments.size();i++) {
+						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
+						equipments.get(i).setDeviceId(equipments.get(i).calDeviceId());
+					}
+					equipmentDao.updateEquipmentByIds(equipments);
 			}
 		} catch (Exception e) {
 			throw new BusinessException("添加项目类别类别失败",e.getMessage());
@@ -325,6 +340,24 @@ public class EquipmentServiceImpl implements EquipmentService {
 			return equipmentDao.selectErrorEquipment(equipmentSearchDto);
 		} catch (Exception e) {
 			throw new BusinessException("分页查询故障设备失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) throws BusinessException {
+		try {
+			return equipmentDao.selectErrorRecord(equipmentSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询故障记录失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public Equipment getEquipmentByIdentifier(String deviceId) throws BusinessException {
+		try {
+			return equipmentDao.getEquipmentByIdentifier(deviceId);
+		} catch (Exception e) {
+			throw new BusinessException("查询设备失败",e.getMessage());
 		}
 	}
 }

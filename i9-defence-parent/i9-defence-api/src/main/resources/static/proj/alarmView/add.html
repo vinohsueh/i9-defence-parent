@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal"
 		ng-click="closeBtn()" aria-hidden="true">&times;</button>
-	<h4 class="modal-title" id="myModalLabel">处理隐患</h4>
+	<h4 class="modal-title" id="myModalLabel">处理报警</h4>
 </div>
 <div class="modal-body"  id='tableBody'>
 	<!-- <table class="table b-t b-b b-light" style="table-layout:fixed">
@@ -38,8 +38,7 @@
 	</table> -->
 	<div class="row">
 		<div class="col-sm-12 b-b" ng-repeat='i in hiddenEdit'>
-			<p ng-if="i.name !=''">{{i.name}}</p>
-			<p ng-if="i.name ==''">通道{{i.channel}}</p>
+			<p>{{i.name}}</p>
 			<div class="error" ng-repeat = "x in i.data">
 				<div class="col-sm-1 mb-10 id" data-aa="{{x.id}}">{{$index+1}}、</div>
 				<div class="col-sm-3 mb-10">隐患值:{{x.value}}</div>

@@ -23,7 +23,7 @@ public class HiddenDangerDto {
 	/*
 	 * 设备编号
 	 */
-	private String systemId;
+	private String deviceId;
 	/*
 	 * 项目名称
 	 */
@@ -75,11 +75,12 @@ public class HiddenDangerDto {
 	public void setEquipmentPosition(String equipmentPosition) {
 		this.equipmentPosition = equipmentPosition;
 	}
-	public String getSystemId() {
-		return systemId;
+	
+	public String getDeviceId() {
+		return deviceId;
 	}
-	public void setSystemId(String systemId) {
-		this.systemId = systemId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 	public String getProjectName() {
 		return projectName;

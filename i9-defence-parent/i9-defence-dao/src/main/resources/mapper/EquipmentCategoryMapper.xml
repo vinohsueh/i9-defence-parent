@@ -88,6 +88,12 @@
     from t_equipment_category
     where id = #{id,jdbcType=INTEGER}
   </select>
+   <select id="selectByeqEqCategoryId" parameterType="string" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_equipment_category
+    where eqCategoryId = #{eqCategoryId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.util.List" >
     delete from t_equipment_category
     where id in

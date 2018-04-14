@@ -39,10 +39,11 @@
                 <input type="checkbox" id="totalCheck"><i></i>
               </label>
             </th>
-            <th>设备名称</th>
+       <!--  <th>设备名称</th> -->
        <!-- <th>设备数量</th> -->
             <th>设备编号</th>
-            <th>设备位置</th>
+            <th>设备地址</th>
+       <!-- <th>设备位置</th> -->
             <th>设备创建时间</th>
             <th>设备备注</th>
             <th>设备分类</th>
@@ -57,9 +58,9 @@
           <tr ng-repeat="equipment in equipments">
             <td ng-if="equipment.delStatus==1"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td ng-if="equipment.delStatus==0"></td>
-            <td >{{equipment.equipmentName}}</td>
+        <!--  <td >{{equipment.equipmentName}}</td> -->
         <!--<td >{{equipment.equipmentNum}}</td>-->
-            <td >{{equipment.equipmentIdentifier}}</td>
+            <td >{{equipment.systemId}}</td>
             <td >{{equipment.equipmentPosition}}</td>
             <td >{{equipment.equipmentDateStr}}</td>
             <td >{{equipment.equipmentRemarks}}</td>

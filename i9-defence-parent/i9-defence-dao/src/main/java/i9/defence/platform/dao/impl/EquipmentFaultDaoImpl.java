@@ -9,6 +9,7 @@ import i9.defence.platform.dao.EquipmentFaultDao;
 import i9.defence.platform.dao.mapper.EquipmentFaultMapper;
 import i9.defence.platform.dao.vo.EquipmentFaultSearchDto;
 import i9.defence.platform.model.EquipmentFault;
+import i9.defence.platform.model.EquipmentFaultExample;
 import i9.defence.platform.utils.PageBounds;
 
 /** 
@@ -50,6 +51,12 @@ public class EquipmentFaultDaoImpl implements EquipmentFaultDao{
 	public EquipmentFault getById(Integer id) throws Exception {
 		EquipmentFault equipmentFault= equipmentFaultMapper.selectByPrimaryKey(id);
 		return equipmentFault;
+	}
+
+	@Override
+	public List<EquipmentFault> getAllTypes() throws Exception {
+		EquipmentFaultExample example = new EquipmentFaultExample();
+		return equipmentFaultMapper.selectByExample(example);
 	}
 }
  

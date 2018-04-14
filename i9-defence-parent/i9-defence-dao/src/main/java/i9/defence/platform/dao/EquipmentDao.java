@@ -7,6 +7,7 @@ import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
+import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
@@ -53,11 +54,25 @@ public interface EquipmentDao {
     void addEquipment(Equipment equipment) throws Exception;
     
     /**
+     * 批量添加设备
+     * @param equipment
+     * @throws Exception
+     */
+    void addEquipments(List<Equipment> equipments) throws Exception;
+    
+    /**
      * 更新设备
      * @param equipment
      * @throws Exception
      */
     void updateEquipment(Equipment equipment) throws Exception;
+    
+    /**
+	 * 批量修改设备
+	 * @param applies
+	 * @throws Exception
+	 */
+	void updateEquipmentByIds(List<Equipment> equipments) throws Exception;
     
     /**
      * 根据ID获取设备
@@ -145,4 +160,18 @@ public interface EquipmentDao {
      * @return
      */
 	PageBounds<Equipment> selectErrorEquipment(EquipmentSearchDto equipmentSearchDto);
+		
+	/**
+	 * 
+	 * @param equipmentSearchDto
+	 * @return
+	 */
+	List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto);
+	
+	/**
+	 * 根据唯一编号查找
+	 * @param deviceId
+	 * @return
+	 */
+	Equipment getEquipmentByIdentifier(String deviceId);
 }

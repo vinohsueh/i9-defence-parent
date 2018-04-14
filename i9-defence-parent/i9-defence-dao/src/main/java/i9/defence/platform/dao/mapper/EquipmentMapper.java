@@ -1,5 +1,9 @@
 package i9.defence.platform.dao.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -7,9 +11,6 @@ import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Passageway;
-
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentMapper {
 	int countByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
@@ -57,6 +58,17 @@ public interface EquipmentMapper {
     List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId);
     //隐患报警 全部查询
     List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
+    /**
+     * 批量添加设备
+     * @param records
+     */
+    void insertEquipments(List<Equipment> equipments);
+    
+    /**
+	 * 批量修改设备
+	 */
+	void updateEquipmentByIds(List<Equipment> list);
+
     
     //查询故障设备
     int countErrorByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);

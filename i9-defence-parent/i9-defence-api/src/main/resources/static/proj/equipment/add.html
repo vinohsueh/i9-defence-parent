@@ -5,30 +5,30 @@
 </div>
 <div class="modal-body">
 	<form class="form-horizontal" role="form">
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>设备名称</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="name" ng-model="equipment.equipmentName" placeholder="">
-			</div>
-		</div>
-		<!-- <div class="form-group">
-			<label class="col-md-2 control-label"><span class="required">*</span>设备数量</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" id="num" ng-model="equipment.equipmentNum" placeholder="">
 			</div>
 		</div> -->
 		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>设备编号</label>
 			<div class="col-md-8">
-				<input type="text" class="form-control" id="identifier" ng-model="equipment.equipmentIdentifier" placeholder="">
+				<input type="text" class="form-control" id="identifier" ng-model="equipment.systemId" placeholder="">
 			</div>
 		</div>
-		<div class="form-group">
+		 <div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>设备数量</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="num" ng-model="equipment.equipmentNum" placeholder="">
+			</div>
+		</div> 
+		<!-- <div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>设备位置</label>
 			<div class="col-md-8">
 				<input type="text" class="form-control" id="position" ng-model="equipment.equipmentPosition" placeholder="">
 			</div>
-		</div>
+		</div> -->
 		<!-- <div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>创建时间</label>
 			<div class="col-md-8" ng-controller="DatepickerDemoCtrl" >
@@ -49,7 +49,7 @@
 		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>设备种类</label>
 			<div class="col-md-8">
-				<select   class="input-sm form-control w-sm inline v-middle" ng-model="equipment.equipmentCategoryId"  ng-options="item.id as item.eqCategoryName for item in equCategorys">
+				<select   class="input-sm form-control w-sm inline v-middle" ng-model="equipment.equipmentCategoryId"  ng-options="item.eqCategoryId as item.eqCategoryName for item in equCategorys">
         			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白 -->
     			</select>
 			</div>

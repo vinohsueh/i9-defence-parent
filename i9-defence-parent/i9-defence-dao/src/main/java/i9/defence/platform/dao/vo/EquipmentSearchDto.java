@@ -20,7 +20,16 @@ public class EquipmentSearchDto extends PageListDto implements Serializable{
 	
 	private Integer projectId;
 	
+	private String deviceId;
 	
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
 	public Integer getProjectId() {
 		return projectId;
 	}

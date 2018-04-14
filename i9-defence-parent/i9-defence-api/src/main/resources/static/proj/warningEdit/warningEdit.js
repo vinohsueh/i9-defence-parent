@@ -69,7 +69,6 @@ var warningEditControl=warningEditModule.controller('warningEditControl',functio
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				hidden : 'true',
 				danger : 'true',
 				projectName : $scope.searchText,
 				projectAddress : $scope.searchText,

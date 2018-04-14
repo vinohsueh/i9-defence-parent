@@ -63,10 +63,10 @@
         </thead>
         <tbody>
           <tr ng-repeat="hiddenEdit in equipments">
-            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
-            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.project.safeListStr}}</td>
-            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.project.projectName}}</td>
-            <td ng-click="edit('{{hiddenEdit.systemId}}')">{{hiddenEdit.equipmentPosition}}</td>
+            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
+            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.safeListStr}}</td>
+            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.projectName}}</td>
+            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentPosition}}</td>
           </tr>
         </tbody>
       </table>
@@ -94,7 +94,33 @@
       </div>
     </footer>
   </div>
-  
+  <div class="row" ng-if="ifshow">
+	<div class="col-sm-12 b-b" ng-repeat='i in hiddenEdit'>
+		<p ng-if="i.name !=''">{{i.name}}</p>
+		<p ng-if="i.name ==''">通道{{i.channelNumber}}</p>
+		<div class="error" ng-repeat = "x in i.value">
+			<div class="col-sm-1 mb-10 id" data-aa="{{x.id}}">{{$index+1}}、</div>
+			<div class="col-sm-3 mb-10">故障名:{{x.errorName}}</div>
+			<div class="col-sm-5 mb-10">故障时间:{{x.dateTimeStr}}</div>
+			<div class="col-sm-3 mb-10 delType">
+				<select class='form-control' ng-model="x.dealStatus">
+					<option value="0">未处理</option>
+					<option value="1">已处理</option>
+					<option value="2">误报</option>
+					<option value="3">故障</option>
+				</select>
+			</div>
+			<div class="col-sm-12 mb-10 content">
+				<textarea class='form-control' cols="30" rows="2" ng-model="x.dealDetail" placeholder='请填写处理详情'></textarea>
+				<!-- <input class='form-control' type='text' placeholder='填写处理详情'> -->
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+</div>
+</div>
   <!-- <div class='row'>
     <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">联系人</div>
