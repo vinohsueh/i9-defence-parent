@@ -621,10 +621,10 @@
 	         and p.id = #{projectId}
         </if>
         <if test="endTime != null and endTime != ''">
-	        and cd.dateTime &lt; endTime
+	        and cd.dateTime &lt; #{endTime}
         </if>
         <if test="startTime != null and startTime != ''">
-	        cd.dateTime &gt; startTime 
+	        and cd.dateTime &gt; #{startTime}
         </if>
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select>
@@ -637,10 +637,10 @@
 	         and p.id = #{projectId}
         </if>
         <if test="endTime != null and endTime != ''">
-	        and cd.dateTime &lt; endTime
+	        and cd.dateTime &lt; #{endTime}
         </if>
         <if test="startTime != null and startTime != ''">
-	        cd.dateTime &gt; startTime 
+	        and cd.dateTime &gt; #{startTime} 
         </if>
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select>
