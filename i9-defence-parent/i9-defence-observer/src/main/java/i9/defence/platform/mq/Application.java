@@ -1,6 +1,7 @@
 package i9.defence.platform.mq;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -25,7 +26,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling
 @ServletComponentScan // 扫描使用注解方式的servlet
 @ImportResource("classpath:activemq.xml")
+@EnableAutoConfiguration
 public class Application extends SpringBootServletInitializer{
+    
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

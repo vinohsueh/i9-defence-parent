@@ -54,6 +54,11 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
              <groupId>i9.defence.platform</groupId>
             <artifactId>i9-defence-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
