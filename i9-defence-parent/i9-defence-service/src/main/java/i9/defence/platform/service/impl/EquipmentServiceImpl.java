@@ -77,6 +77,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 					List<Equipment> equipments = new ArrayList<>();
 					for(int i = 0;i<equipment.getEquipmentNum();i++) {
 						Equipment newEquipment = new Equipment();
+						newEquipment.setEquipmentName(equipment.getEquipmentName());
 						newEquipment.setSystemId(equipment.getSystemId());
 						newEquipment.setEquipmentDate(new Date());
 						newEquipment.setEquipmentRemarks(equipment.getEquipmentRemarks());
@@ -88,6 +89,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 					for(int i = 0;i<equipments.size();i++) {
 						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
 						equipments.get(i).setDeviceId(equipments.get(i).calDeviceId());
+						equipments.get(i).setEquipmentName(equipments.get(i).calEquipmentName());
 					}
 					equipmentDao.updateEquipmentByIds(equipments);
 			}
