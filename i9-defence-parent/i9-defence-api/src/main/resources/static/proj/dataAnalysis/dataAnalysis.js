@@ -171,6 +171,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				/*projectName : text,
 				projectAddress : text,*/
 			};
+		console.log(pageParam)
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];

@@ -53,16 +53,15 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				name:''
 			}
 		}
-		
 		var pageParam = {
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
 			projectName:$scope.searchText,
+			projectAddress:$scope.searchText
 		};
-		
+		console.log(pageParam)
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
-			console.log(JSON.stringify($scope.projectList));
 			var markItem = {};
 			
 			for(i in $scope.projectList){
