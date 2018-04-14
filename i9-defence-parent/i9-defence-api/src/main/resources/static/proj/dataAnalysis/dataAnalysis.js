@@ -162,6 +162,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 		}else{
 			$scope.projectId = null;
 		}
+
 		var pageParam = {
 				projectId:$scope.projectId,
 				startTime:$scope.startTime,
@@ -169,10 +170,10 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				/*projectName : text,
 				projectAddress : text,*/
 			};
-		
+			// console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			console.log(JSON.stringify(data));
-			/*$scope.equipmentInfo = data.data.data;
+			$scope.equipmentInfo = data.data.data;
 			$scope.projectInfo = data.data;
 			$scope.equipmentCheckArr = [];
 			$scope.equipmentItemArr = [];
@@ -270,11 +271,12 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				    series:$scope.equipmentItemArr,
 				}
 			}else{
-			*/	$scope.chartsStatus = false;
+				$scope.chartsStatus = false;
 			}
 			
 		})
 	};
+	$scope.pageInit();
 	// 地域
 	$scope.error = {};
 	$scope.division = division;
