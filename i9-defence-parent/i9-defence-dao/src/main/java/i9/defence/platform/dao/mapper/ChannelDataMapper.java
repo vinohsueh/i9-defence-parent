@@ -1,14 +1,17 @@
 package i9.defence.platform.dao.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import i9.defence.platform.dao.vo.ChannelDataLimitPageDto;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ChannelDataExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface ChannelDataMapper {
-    long countByExample(ChannelDataExample example);
+    int countByExample(@Param("example") ChannelDataSearchDto channelDataSearchDto); 
 
     int deleteByExample(ChannelDataExample example);
 
@@ -29,6 +32,8 @@ public interface ChannelDataMapper {
     int updateByPrimaryKeySelective(ChannelData record);
 
     int updateByPrimaryKey(ChannelData record);
+    
+    List<ChannelDataLimitPageDto> selectByLimitPage(@Param("example") ChannelDataSearchDto channelDataSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
     
     /**
      * 批量添加通道信息

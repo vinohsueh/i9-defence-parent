@@ -77,6 +77,17 @@
 			</foreach>
 		</where>
 	</sql>
+	
+	<sql id="Query_By_Dto_Where_Clause">
+	 <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.types != null">
+            AND dealStatus in
+            <foreach collection="example.types" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+	 </trim>
+	</sql>
 	<sql id="Query_Example_Where_Clause">
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
 			<if test="systemId != null and systemId != ''">
@@ -216,10 +227,10 @@
 		</trim>
 	</insert>
 	<select id="countByExample" parameterType="i9.defence.platform.model.ChannelDataExample"
-		resultType="java.lang.Long">
+		resultType="java.lang.Integer">
 		select count(*) from t_channel_data
 		<if test="_parameter != null">
-			<include refid="Example_Where_Clause" />
+			<include refid="Query_By_Dto_Where_Clause" />
 		</if>
 	</select>
 	<update id="updateByExampleSelective" parameterType="map">
@@ -369,4 +380,18 @@
    	 	#{item.id}
     </foreach>
 	</update>
+	
+	<select id="selectByLimitPage" resultType="i9.defence.platform.dao.vo.ChannelDataLimitPageDto">
+	select c.id as id,c.systemId as systemId ,c.channel as channel,c.dateTime as dateTime,c.type as type,c.value as value,c.systemType as systemType,c.dealStatus as dealStatus,c.dealDetail as dealDetail,c.deviceAddress as deviceAddress,c.deviceId as deviceId,hd.WarningMin as WarningMin,hd.WarningMax as WarningMax ,hd.HiddenMin as HiddenMin, hd.HiddenMax as HiddenMax, hd.name as name from t_channel_data  c 
+	LEFT JOIN t_passageway p on c.channel=p.channel LEFT join t_hidden_danger hd on hd.id = p.hiddenDangerId and c.deviceId =p.deviceId
+       <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+       </if>
+       <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+       </if>
+        limit #{offset},#{limit}
+	</select>
+	
+	
 </mapper>
