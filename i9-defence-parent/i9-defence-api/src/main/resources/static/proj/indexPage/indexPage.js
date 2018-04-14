@@ -69,7 +69,11 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				markItem = {}
 				markItem.positionX = $scope.projectList[i].projectLongitude;
 				markItem.positionY = $scope.projectList[i].projectLatitude;
-				markItem.text = $scope.projectList[i].projectName;
+				markItem.saferList = $scope.projectList[i].saferList;
+				markItem.area = $scope.projectList[i].area;
+				markItem.address = $scope.projectList[i].address;
+				markItem.projectName = $scope.projectList[i].projectName;
+				markItem.clientListStr = $scope.projectList[i].clientListStr;
 				$scope.markArr.push(markItem);
 			}
 			var mainHeight = $(window).height()-50;
@@ -109,7 +113,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			});
 			var oHtml="";
 			for(var i=0;i<myData.mark.length;i++){
-			    oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].text+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><th><i class='mIcon icon-address'></i>地址</th><th><i class='mIcon icon-floorArea'></i>建筑面积</th><th><i class='mIcon icon-device'></i>消防设备</th></tr><tr><td>华苑产业园华天道2号</td><td>2000平米</td><td><p>A设备:200台</p><p>B设备:200台</p><p>C设备:200台</p></td></tr><tr><th><i class='mIcon icon-clients'></i>所属客户</th><th><i class='mIcon icon-charges'></i>安全负责人</th><th><i class='mIcon icon-phone'></i>联系电话</th></tr><tr><td>国创中心</td><td>李某</td><td><p>022-28978989</p><p>022-22222222</p></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
+			    oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><th><i class='mIcon icon-address'></i>地址</th><th><i class='mIcon icon-floorArea'></i>建筑面积</th></tr><tr><td>"+myData.mark[i].address+"</td><td>"+myData.mark[i].area+"</td></tr><tr><th><i class='mIcon icon-clients'></i>项目负责人</th><th><i class='mIcon icon-charges'></i>安全负责人</th></tr><tr><td>"+myData.mark[i].clientListStr+"</td><td>"+myData.mark[i].saferList+"</td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
 			    marker = new AMap.Marker({
 			        position: [myData.mark[i].positionX,myData.mark[i].positionY],
 			        zIndex: 101,
