@@ -13,7 +13,7 @@ import i9.defence.platform.utils.BusinessException;
  * @author: luobo
  * @date: 2018年4月2日 下午5:01:32
  */
-public interface passagewayService {
+public interface PassagewayService {
 
 	/**
 	 * 根据设备id查询通道

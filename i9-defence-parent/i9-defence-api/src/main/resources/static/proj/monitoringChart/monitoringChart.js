@@ -130,11 +130,12 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
+    		$scope.warningCount = data.data.count.warningCount;
+    		$scope.hiddenCount = data.data.count.hiddenCount;
     		$scope.projectInfo = data.data;
     		$scope.equipmentCheckArr = [];
     		$scope.equipmentItemArr = [];
-
-    		
+    		console.log($scope.equipmentInfo)
     		if($scope.equipmentInfo!= null){
     			$scope.chartsStatus = true;
     			for(i in $scope.equipmentInfo.channelData){
@@ -154,8 +155,13 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		                }
     		            },
     		        };
-    				$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-    				$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+    				if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
+    					$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
+    					$scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
+    				}else{
+    					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
+    					$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+    				}
     				$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
     				$scope.equipmentItemArr.push($scope.equipmentItemObj);
     			}

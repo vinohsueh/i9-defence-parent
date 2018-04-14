@@ -37,6 +37,13 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	    tooltip:{
 	        trigger:'axis'
 	    },
+	    dataZoom:{
+            type: 'inside',
+            realtime: true,
+            start: 90,
+            end: 100,
+            // xAxisIndex: [0, 1]
+	    },
 	    legend:{
 	        right:0,
 	        top:0,
@@ -73,7 +80,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	    },
 	    series:[
 	        {
-	            type:'line',
+	            type:'bar',
 	            name:'系列1',
 	            stack:'10',
 	            showAllSymbol: true,
@@ -93,7 +100,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	        },
 	        
 	        {
-	            type:'line',
+	            type:'bar',
 	            name:'系列2',
 	            showAllSymbol: true,
 	            symbol: 'emptyCircle',
@@ -112,24 +119,162 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	        },
 	    ],
 	}
-	//日期
-	var myDate = new Date(2000,00,00);
-	var dYear = myDate.getFullYear();
-	var dMonth = myDate.getMonth()+1;
-	var dDay = myDate.getDate();
-	$scope.startTime = dYear+'/'+dMonth+'/'+dDay;
-
-	$scope.change = function () {
-		var myStartDate = this.startTime;
-		var dYear = myStartDate.getFullYear();
-		var dMonth = myStartDate.getMonth()+1;
-		var dDay = myStartDate.getDate();
-		$scope.startCheckTime = dYear+'/'+dMonth+'/'+dDay;
-		console.log(this.startCheckTime);
+    $scope.getDate = function (index){
+	    var date = new Date(); //当前日期
+	    var newDate = new Date();
+	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
+	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
+	    return time;
 	}
-	
-	// $scope.endTime = this.startCheckTime;
-
+	$scope.startTime = $scope.getDate(-7);
+	$scope.endTime = $scope.getDate(0);
+    $scope.queryProjects = function(){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:null
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
+		
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectCounty:$scope.selected3.value,
+		};
+		
+		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+			$scope.projectss  = data.data.data;
+		})
+	}
+	$scope.queryProjects();
+	$scope.pageInit = function (){
+    	if ($scope.projectName != null) {
+			$scope.projectId =$scope.projectName.id;
+		}else{
+			$scope.projectId = null;
+		}
+		var pageParam = {
+				projectId:$scope.projectId,
+				startTime:$scope.startTime,
+				endTime:$scope.endTime,
+				/*projectName : text,
+				projectAddress : text,*/
+			};
+		
+		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data));
+			/*$scope.equipmentInfo = data.data.data;
+			$scope.projectInfo = data.data;
+			$scope.equipmentCheckArr = [];
+			$scope.equipmentItemArr = [];
+			if($scope.equipmentInfo!= null){
+				$scope.chartsStatus = true;
+				for(i in $scope.equipmentInfo.channelData){
+					$scope.equipmentItemObj = {
+			            type:'line',
+			            stack:'10',
+			            symbol: 'emptyCircle',
+			            symbolSize: 10,
+			            itemStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			            lineStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			        };
+					if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
+						$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
+						$scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
+					}else{
+						$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
+						$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+					}
+					$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
+					$scope.equipmentItemArr.push($scope.equipmentItemObj);
+				}
+				$scope.option={
+				    title:{
+				        show:false,
+				    },
+				    toolbox:{
+				        show:false,
+				    },
+				    grid:{
+				        top:10,
+				        left:60,
+				        right:120,
+				        bottom:30,
+				        borderColor:'#566c93',
+				    },
+				    tooltip:{
+				        trigger:'axis'
+				    },
+				    dataZoom:{
+			            type: 'inside',
+			            realtime: true,
+			            start: 90,
+			            end: 100,
+			            // xAxisIndex: [0, 1]
+				    },
+				    legend:{
+				    	type:'scroll',
+				        right:0,
+				        top:0,
+				        orient:'vertical',
+				        inactiveColor:'#666',
+				        selectedMode:'single',
+				        textStyle:{
+				            color:'#fff',
+				        },
+				        data:$scope.equipmentCheckArr,
+				        // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
+				    },
+				    xAxis:{
+				    	// type:'time',
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        data:$scope.equipmentInfo.date,
+				    },
+				    yAxis:{
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        splitLine:{
+				            show:true,
+				            lineStyle:{
+				                color:'#4960bf',
+				                type:'dashed'
+				            }
+				        },
+				    },
+				    series:$scope.equipmentItemArr,
+				}
+			}else{
+			*/	$scope.chartsStatus = false;
+			}
+			
+		})
+	};
 	// 地域
 	$scope.error = {};
 	$scope.division = division;
@@ -139,13 +284,16 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	   $scope.error.area = false;
 	   $scope.selected2 = "";
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c2 = function () {       
 	   $scope.error.city = false;
 	   $scope.error.area = false;
 	   $scope.selected3 = "";
+	   $scope.queryProjects();
 	};
 	$scope.c3 = function () {
 	   $scope.error.area = false;
+	   $scope.queryProjects();
 	};
 })

@@ -15,7 +15,7 @@ public class ChannelDataSearchDto  extends PageListDto{
 	
 	private int equipmentId;
 	
-	private String systemId;
+	private String deviceId;
 
     private Integer channel;
     
@@ -68,12 +68,13 @@ public class ChannelDataSearchDto  extends PageListDto{
 		this.endDateString = endDateString;
 	}
 
-	public String getSystemId() {
-		return systemId;
+
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setSystemId(String systemId) {
-		this.systemId = systemId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public Integer getChannel() {

@@ -15,9 +15,14 @@ import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.api.components.ChannelDataComponent;
 import i9.defence.platform.api.components.EquipmentMonitorComponent;
+import i9.defence.platform.api.components.HiddenDangerDtoInfoComponent;
+import i9.defence.platform.api.components.MonthDataInfoComponent;
 import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.HiddenDangerDto;
+import i9.defence.platform.dao.vo.MonthData;
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.enums.DataTypeEnum;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
@@ -27,6 +32,7 @@ import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ChannelDataService;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.service.PassagewayService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
 
@@ -48,6 +54,8 @@ public class EquipmentController {
 	private ProjectService projectService;
 	@Autowired
 	private ChannelDataService channelDataServicel;
+	@Autowired
+	private PassagewayService passagewayService;
 
 	/**
 	 * 分页查询设备列表
@@ -157,21 +165,6 @@ public class EquipmentController {
 	}
 
 	/**
-	 * 根据设备Id查找通道
-	 * @Title: selectPassagewayByEid
-	 * @Description: TODO
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/selectPassagewayByEid")
-	public HashMap<String, Object> selectPassagewayByEid(String systemId) {
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = equipmentService.selectPassagewayByEid(systemId);
-		result.put("data", list);
-		return result;
-	}
-
-	/**
 	 * 增加通道
 	 * 
 	 * @Title: InsertPassageWay
@@ -196,21 +189,30 @@ public class EquipmentController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		Equipment equipment = equipmentService.getEquipmentById(channelDataSearchDto.getEquipmentId());
 		//根据设备编号查询
-		channelDataSearchDto.setSystemId(equipment.getSystemId());
+		channelDataSearchDto.setDeviceId(equipment.getDeviceId());
 		//只查询电流和温度的显示值
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());
 		typeList.add(DataTypeEnum.SHORT.getId());
 		channelDataSearchDto.setTypes(typeList);
 		channelDataSearchDto.setOrderByClause("dateTime desc");
+		//隐患报警数量
+		HiddenDangerDto hiddenDangerDto = equipmentService.selectHiddenDangerDtoByDeviceId(equipment.getDeviceId());
+		JSONObject jObject = new HiddenDangerDtoInfoComponent().setHiddenDangerDto(hiddenDangerDto).build();
+		result.put("count", jObject);
+		//通道数据
 		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
+		//通道对应关系
+		List<Passageway> passageWays = passagewayService.selectPassagewaysByEquipId(equipment.getId());
 		//分通道处理后的数据
 		result.put("data", null);
 		if (list.size() > 0) {
-			JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).build();
+			JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).setPassageways(passageWays).build();
 			result.put("data", jsonObject);
 		}
+		//设备信息
 		result.put("equip", new EquipmentMonitorComponent().setEquipment(equipment).build());
+		//项目信息
 		Project project = projectService.getProjectById(equipment.getProjectId());
 		result.put("project", new ProjcetMonitorComponent().setProject(project).build());
 		return result;
@@ -226,6 +228,38 @@ public class EquipmentController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		PageBounds<Equipment> pageBounds = equipmentService.selectErrorEquipment(equipmentSearchDto);
 		result.put("data", pageBounds);
+		return result;
+	}
+	
+	
+	/**
+	 * 查询故障记录
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping("/selectErrorRecord")
+	public HashMap<String, Object> selectErrorRecord(@RequestBody EquipmentSearchDto equipmentSearchDto) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		List<ChannelData> list = equipmentService.selectErrorRecord(equipmentSearchDto);
+		Equipment equipment = equipmentService.getEquipmentByIdentifier(equipmentSearchDto.getDeviceId());
+		List<Passageway> passageways = passagewayService.selectPassagewaysByEquipId(equipment.getId());
+		JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).setPassageways(passageways).errorBuild();
+		result.put("data", jsonObject);
+		return result;
+	}
+	
+	/**
+	 * 查询月统计
+	 * @param monthDataDto
+	 * @return
+	 */
+	@RequestMapping("/selectMonthData")
+	public HashMap<String, Object> selectMonthData(@RequestBody MonthDataDto monthDataDto){
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
+		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
+		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();
+		result.put("data", jsonObject);
 		return result;
 	}
 }

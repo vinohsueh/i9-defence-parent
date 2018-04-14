@@ -114,13 +114,13 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
 			for(i in $scope.projects){
-				if($scope.projects[i].hiddeCount>0){
-					$scope.projects[i].status = 'warning';
-					$scope.projects[i].statusText = '隐患';
-				}else if($scope.projects[i].warningCount>0){
+				if($scope.projects[i].warningCount>0){
 					$scope.projects[i].status = 'danger';
 					$scope.projects[i].statusText = '报警';
-				}else{
+				}else if($scope.projects[i].hiddeCount>0){
+					$scope.projects[i].status = 'warning';
+					$scope.projects[i].statusText = '隐患';
+				}else {
 					$scope.projects[i].status = ''
 					$scope.projects[i].statusText = '正常';
 				}
@@ -182,10 +182,15 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			                }
 			            },
 			        };
-					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-					$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
-					$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
-					$scope.equipmentItemArr.push($scope.equipmentItemObj);
+					if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
+    					$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
+    					$scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
+    				}else{
+    					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
+    					$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+    				}
+    				$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
+    				$scope.equipmentItemArr.push($scope.equipmentItemObj);
 				}
 				$scope.option={
 				    title:{

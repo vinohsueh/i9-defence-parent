@@ -40,7 +40,15 @@ var hiddendangerEditCtrl = hiddendangerEditNgModule.controller('hiddendangerEdit
 			$.toaster({
 				title : "Error",
 				priority : "danger",
-				message : "警告最高阀值不能为空!"
+				message : "报警最高阀值不能为空!"
+			});
+			return false;
+		}
+		if ($scope.hiddendanger.warningMax <  $scope.hiddendanger.hiddenMax) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "报警最高阀值不能小于隐患最高阀值!"
 			});
 			return false;
 		}
@@ -48,7 +56,15 @@ var hiddendangerEditCtrl = hiddendangerEditNgModule.controller('hiddendangerEdit
 			$.toaster({
 				title : "Error",
 				priority : "danger",
-				message : "警告最低阀值不能为空!"
+				message : "报警最低阀值不能为空!"
+			});
+			return false;
+		}
+		if ($scope.hiddendanger.warningMin >  $scope.hiddendanger.hiddenMin) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "报警最低阀值不能大于隐患最低阀值!"
 			});
 			return false;
 		}

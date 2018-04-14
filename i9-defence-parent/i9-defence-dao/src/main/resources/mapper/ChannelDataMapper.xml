@@ -13,6 +13,9 @@
     	<result column="dealDetail" jdbcType="VARCHAR" property="dealDetail" />
     	<result column="deviceId"   jdbcType="VARCHAR" property="deviceId"/>
     	<result column="deviceAddress" jdbcType="VARCHAR" property="deviceAddress"/>
+		<result column="dealDate" jdbcType="TIMESTAMP" property="dealDate" />
+		<result column="dealManagerId" jdbcType="INTEGER" property="dealManagerId" />
+		<association property="dealManager" column="dealManagerId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -90,8 +93,8 @@
 	</sql>
 	<sql id="Query_Example_Where_Clause">
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
-			<if test="systemId != null and systemId != ''">
-			 and systemId = #{systemId}
+			<if test="deviceId != null and deviceId != ''">
+			 and deviceId = #{deviceId}
 			</if>
 			<if test="channel != null">
 			 and channel = #{channel}
@@ -111,7 +114,7 @@
 		</trim>
 	</sql>
 	<sql id="Base_Column_List">
-	    id, systemId, channel, dateTime, type, value, systemType, dealStatus, dealDetail,deviceId,deviceAddress
+	    id, systemId, channel, dateTime, type, value, systemType, dealStatus, dealDetail,deviceId,deviceAddress,dealDate,dealManagerId
     </sql>
 	<select id="selectByExample" parameterType="i9.defence.platform.model.ChannelDataExample"
 		resultMap="BaseResultMap">
@@ -151,10 +154,12 @@
     </selectKey>
     insert into t_channel_data (systemId, channel, dateTime, 
       type, value, systemType, 
-      dealStatus, dealDetail,deviceId,deviceAddress)
+      dealStatus, dealDetail,deviceId,deviceAddress,dealDate,dealManagerId)
     values (#{systemId,jdbcType=VARCHAR}, #{channel,jdbcType=INTEGER}, #{dateTime,jdbcType=TIMESTAMP}, 
       #{type,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR}, #{systemType,jdbcType=VARCHAR}, 
-      #{dealStatus,jdbcType=INTEGER}, #{dealDetail,jdbcType=VARCHAR} ,#{deviceId,jdbcType=VARCHAR},#{deviceAddress,jdbcType=VARCHAR})
+      #{dealStatus,jdbcType=INTEGER}, #{dealDetail,jdbcType=VARCHAR} ,#{deviceId,jdbcType=VARCHAR},#{deviceAddress,jdbcType=VARCHAR},
+      #{dealDate,jdbcType=TIMESTAMP},#{dealManagerId,jdbcType=INTEGER}
+      )
   </insert>
 	<insert id="insertSelective" parameterType="i9.defence.platform.model.ChannelData">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -192,6 +197,12 @@
 	        <if test="deviceAddress != null">
 	        	deviceAddress	
 	        </if>
+	        <if test="dealDate != null">
+	        	dealDate
+	        </if>
+	        <if test="dealManagerId != null">
+	        	dealManagerId
+	        </if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="systemId != null">
@@ -223,6 +234,12 @@
 	        </if>
      	    <if test="deviceAddress != null">
 		        #{deviceAddress,jdbcType=VARCHAR},
+	        </if>
+	        <if test="dealDate != null">
+		        #{dealDate,jdbcType=TIMESTAMP},
+	        </if>
+	        <if test="dealManagerId != null">
+		        #{dealManagerId,jdbcType=INTEGER},
 	        </if>
 		</trim>
 	</insert>
@@ -269,6 +286,12 @@
     		<if test="record.deviceAddress != null">
         		deviceAddress = #{record.deviceAddress,jdbcType=VARCHAR},
     		</if>
+    		<if test="record.dealDate != null">
+				dealDate = #{record.dealDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.dealManagerId != null">
+        		dealManagerId = #{record.dealManagerId,jdbcType=INTEGER},
+      		</if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -286,7 +309,9 @@
       dealStatus = #{record.dealStatus,jdbcType=INTEGER},
       dealDetail = #{record.dealDetail,jdbcType=VARCHAR},
       deviceId = #{record.deviceId,jdbcType=VARCHAR},
-      deviceAddress = #{record.deviceAddress,jdbcType=VARCHAR}
+      deviceAddress = #{record.deviceAddress,jdbcType=VARCHAR},
+      dealDate = #{record.dealDate,jdbcType=TIMESTAMP},
+      dealManagerId = #{record.dealManagerId,jdbcType=INTEGER}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -324,6 +349,12 @@
       		<if test="deviceAddress != null">
 	        	deviceAddress = #{deviceAddress,jdbcType=VARCHAR},
 	      	</if>
+	      	<if test="dealDate != null">
+				dealDate = #{dealDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dealManagerId != null">
+	        	dealManagerId = #{dealManagerId,jdbcType=INTEGER},
+	     	</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -338,7 +369,9 @@
 	      dealStatus = #{dealStatus,jdbcType=INTEGER},
 	      dealDetail = #{dealDetail,jdbcType=VARCHAR},
           deviceId = #{deviceId,jdbcType=VARCHAR},
-          deviceAddress = #{deviceAddress,jdbcType=VARCHAR}
+          deviceAddress = #{deviceAddress,jdbcType=VARCHAR},
+          dealDate = #{dealDate,jdbcType=TIMESTAMP},
+          dealManagerId = #{dealManagerId,jdbcType=INTEGER}
 	    where id = #{id,jdbcType=INTEGER}
 	</update>
 	<insert id="insertBatch" parameterType="java.util.List">
@@ -374,7 +407,8 @@
        <foreach collection="list" item="item">
 			WHEN #{item.id} THEN #{item.dealDetail} 
 		</foreach>
-        END
+        END,
+        dealDate = #{nowDate},dealManagerId= #{managerId}
 	where id in
     <foreach collection="list" item="item" open="(" close=")" separator=",">
    	 	#{item.id}

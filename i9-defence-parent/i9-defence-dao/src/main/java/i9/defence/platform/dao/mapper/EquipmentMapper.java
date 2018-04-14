@@ -1,17 +1,17 @@
 package i9.defence.platform.dao.mapper;
 
-import i9.defence.platform.dao.vo.DealStatusDto;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
-import i9.defence.platform.model.ChannelData;
+import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Passageway;
-
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentMapper {
 	int countByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
@@ -63,7 +63,7 @@ public interface EquipmentMapper {
      * 批量添加设备
      * @param records
      */
-    void insertEquipments(@Param("equipments") List<Equipment> equipments);
+    void insertEquipments(List<Equipment> equipments);
     
     /**
 	 * 批量修改设备
@@ -75,4 +75,29 @@ public interface EquipmentMapper {
     int countErrorByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
     
     List<Equipment> selectErrorEquipment(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    
+    /**
+	 * 查询报警隐患数量
+	 * @param deviceId
+	 * @return
+	 */
+	HiddenDangerDto selectHiddenDangerDtoByDeviceId(String deviceId);
+	
+	/**
+	 * 查询月统计
+	 * @param projectId
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<MonthData> selectWarningMonthData(@Param("projectId")Integer projectId,@Param("startTime")String startTime,@Param("endTime")String endTime);
+		
+	/**
+	 * 查询月隐患
+	 * @param projectId
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<MonthData> selectHiddenMonthData(@Param("projectId")Integer projectId,@Param("startTime")String startTime,@Param("endTime")String endTime);
 }

@@ -684,6 +684,146 @@ public class ChannelDataExample {
 			addCriterion("dealDetail not between", value1, value2, "dealDetail");
 			return (Criteria) this;
 		}
+
+		public Criteria andDeviceAddressIsNull() {
+			addCriterion("deviceAddress is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressIsNotNull() {
+			addCriterion("deviceAddress is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressEqualTo(String value) {
+			addCriterion("deviceAddress =", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressNotEqualTo(String value) {
+			addCriterion("deviceAddress <>", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressGreaterThan(String value) {
+			addCriterion("deviceAddress >", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressGreaterThanOrEqualTo(String value) {
+			addCriterion("deviceAddress >=", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressLessThan(String value) {
+			addCriterion("deviceAddress <", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressLessThanOrEqualTo(String value) {
+			addCriterion("deviceAddress <=", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressLike(String value) {
+			addCriterion("deviceAddress like", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressNotLike(String value) {
+			addCriterion("deviceAddress not like", value, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressIn(List<String> values) {
+			addCriterion("deviceAddress in", values, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressNotIn(List<String> values) {
+			addCriterion("deviceAddress not in", values, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressBetween(String value1, String value2) {
+			addCriterion("deviceAddress between", value1, value2, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceAddressNotBetween(String value1, String value2) {
+			addCriterion("deviceAddress not between", value1, value2, "deviceAddress");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdIsNull() {
+			addCriterion("deviceId is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdIsNotNull() {
+			addCriterion("deviceId is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdEqualTo(String value) {
+			addCriterion("deviceId =", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotEqualTo(String value) {
+			addCriterion("deviceId <>", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdGreaterThan(String value) {
+			addCriterion("deviceId >", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdGreaterThanOrEqualTo(String value) {
+			addCriterion("deviceId >=", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdLessThan(String value) {
+			addCriterion("deviceId <", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdLessThanOrEqualTo(String value) {
+			addCriterion("deviceId <=", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdLike(String value) {
+			addCriterion("deviceId like", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotLike(String value) {
+			addCriterion("deviceId not like", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdIn(List<String> values) {
+			addCriterion("deviceId in", values, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotIn(List<String> values) {
+			addCriterion("deviceId not in", values, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdBetween(String value1, String value2) {
+			addCriterion("deviceId between", value1, value2, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotBetween(String value1, String value2) {
+			addCriterion("deviceId not between", value1, value2, "deviceId");
+			return (Criteria) this;
+		}
 	}
 
 	public static class Criteria extends GeneratedCriteria {
@@ -770,5 +910,4 @@ public class ChannelDataExample {
 			this(condition, value, secondValue, null);
 		}
 	}
-
 }

@@ -5,6 +5,7 @@ var errorEquipEditNgCtrl = errorEquipEditNgModule.controller('errorEquipEditNgCt
         $rootScope,$modal, $modalInstance, $cookieStore, $http, $window, toaster,httpService,hiddenEdit) {
 	
 	$scope.hiddenEdit = hiddenEdit;
+	console.log($scope.hiddenEdit)
     //页面初始化
     /*$scope.pageInit = function (data) {
         console.log(JSON.stringify(data));
