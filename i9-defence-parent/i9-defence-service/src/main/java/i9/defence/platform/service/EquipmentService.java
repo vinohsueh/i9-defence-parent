@@ -11,6 +11,7 @@ import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -102,7 +103,7 @@ public interface EquipmentService {
      * @param DealStatusDto
      * @return
      */
-    void updateDealStatus(List<DealStatusDto> list) throws BusinessException;
+    void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate) throws BusinessException;
     /**
      * 查询具体隐患报警--隐患
      * @param selectHiddenDangerChannelDtoBySid

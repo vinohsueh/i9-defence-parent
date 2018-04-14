@@ -317,9 +317,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public void updateDealStatus(List<DealStatusDto> list) throws BusinessException {
+	public void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate) throws BusinessException {
 		try {
-			equipmentDao.updateDealStatus(list);
+			equipmentDao.updateDealStatus(list,managerId,nowDate);
 		} catch (Exception e) {
 			throw new BusinessException("修改报警隐患失败",e.getMessage());
 		}

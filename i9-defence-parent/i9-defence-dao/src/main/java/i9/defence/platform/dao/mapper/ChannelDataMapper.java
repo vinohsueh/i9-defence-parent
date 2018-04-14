@@ -4,6 +4,8 @@ import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ChannelDataExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,5 +48,5 @@ public interface ChannelDataMapper {
 	/**
 	 * 批量修改标识
 	 */
-	void updateDealStatusByIds(List<DealStatusDto> list);
+	void updateDealStatusByIds(@Param("list") List<DealStatusDto> list,@Param("managerId") Integer managerId,@Param("nowDate") Date nowDate);
 }

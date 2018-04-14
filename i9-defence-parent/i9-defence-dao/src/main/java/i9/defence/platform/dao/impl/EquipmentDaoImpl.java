@@ -1,5 +1,6 @@
 package i9.defence.platform.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,8 +132,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public void updateDealStatus(List<DealStatusDto> list) throws Exception {
-		channelDataMapper.updateDealStatusByIds(list);
+	public void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate) throws Exception {
+		channelDataMapper.updateDealStatusByIds(list,managerId,nowDate);
 	}
 
 	@Override
