@@ -17,6 +17,7 @@
         <module>i9-defence-dao</module>
         <module>i9-defence-service</module>
         <module>i9-defence-utils</module>
+        <module>i9-defence-ms-config</module>
     </modules>
     
     <properties>
