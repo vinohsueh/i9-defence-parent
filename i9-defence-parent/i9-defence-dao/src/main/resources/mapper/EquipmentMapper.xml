@@ -460,20 +460,25 @@
    <!-- ———————————— 批量添加设备———————————— -->
    <insert id="insertEquipments" parameterType="java.util.List" useGeneratedKeys="true"
     keyProperty="id">
-		insert into t_equipment (systemId, equipmentDate,equipmentRemarks,
+		insert into t_equipment (equipmentName,systemId, equipmentDate,equipmentRemarks,
 		equipmentCategoryId, projectId) values
 		<foreach collection="list" item="item" separator=",">
-			(#{item.systemId},#{item.equipmentDate},#{item.equipmentRemarks},#{item.equipmentCategoryId},#{item.projectId})
+			(#{item.equipmentName},#{item.systemId},#{item.equipmentDate},#{item.equipmentRemarks},#{item.equipmentCategoryId},#{item.projectId})
 		</foreach>
 	</insert>
 	
    <update id="updateEquipmentByIds">
-	 update t_equipment 
-	SET equipmentPosition = CASE id 
+	 update t_equipment SET 
+	equipmentPosition = CASE id 
 		<foreach collection="list" item="item">
 			WHEN #{item.id} THEN #{item.equipmentPosition} 
 		</foreach>
         END, 
+    equipmentName = CASE id 
+       <foreach collection="list" item="item">
+			WHEN #{item.id} THEN #{item.equipmentName} 
+		</foreach>
+        END,
     deviceId = CASE id 
        <foreach collection="list" item="item">
 			WHEN #{item.id} THEN #{item.deviceId} 

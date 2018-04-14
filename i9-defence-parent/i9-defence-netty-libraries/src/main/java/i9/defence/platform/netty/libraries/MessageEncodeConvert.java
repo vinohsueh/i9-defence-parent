@@ -4,6 +4,10 @@ import io.netty.buffer.ByteBuf;
 
 public abstract class MessageEncodeConvert {
 
+    /**
+     * 将实体对象转换成bytebuf
+     * @return
+     */
     public abstract ByteBuf encode();
     
     public byte getType() {
