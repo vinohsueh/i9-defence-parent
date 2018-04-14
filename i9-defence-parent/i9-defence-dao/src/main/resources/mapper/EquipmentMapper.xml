@@ -458,13 +458,11 @@
 	</where>
    </update>
    <!-- ———————————— 批量添加设备———————————— -->
-   <insert id="insertEquipments" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-	    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-	      SELECT LAST_INSERT_ID()
-	    </selectKey>
+   <insert id="insertEquipments" parameterType="java.util.List" useGeneratedKeys="true"
+    keyProperty="id">
 		insert into t_equipment (systemId, equipmentDate,equipmentRemarks,
 		equipmentCategoryId, projectId) values
-		<foreach collection="equipments" item="item" separator=",">
+		<foreach collection="list" item="item" separator=",">
 			(#{item.systemId},#{item.equipmentDate},#{item.equipmentRemarks},#{item.equipmentCategoryId},#{item.projectId})
 		</foreach>
 	</insert>

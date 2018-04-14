@@ -62,7 +62,7 @@ public interface EquipmentMapper {
      * 批量添加设备
      * @param records
      */
-    void insertEquipments(@Param("equipments") List<Equipment> equipments);
+    void insertEquipments(List<Equipment> equipments);
     
     /**
 	 * 批量修改设备
