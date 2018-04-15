@@ -1,4 +1,4 @@
-package i9.defence.platform.mq.pool;
+package i9.defence.platform.microservice.observer.pool;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;

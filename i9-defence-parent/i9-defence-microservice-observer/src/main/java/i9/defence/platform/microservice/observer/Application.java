@@ -1,4 +1,4 @@
-package i9.defence.platform.mq;
+package i9.defence.platform.microservice.observer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

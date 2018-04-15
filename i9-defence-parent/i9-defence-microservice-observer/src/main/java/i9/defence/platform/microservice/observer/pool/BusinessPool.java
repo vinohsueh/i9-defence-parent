@@ -1,4 +1,4 @@
-package i9.defence.platform.mq.pool;
+package i9.defence.platform.microservice.observer.pool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
