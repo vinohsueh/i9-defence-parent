@@ -12,12 +12,12 @@
 
     <modules>
         <module>i9-defence-api</module>
-        <module>i9-defence-mq</module>
+        <module>i9-defence-microservice-mq</module>
         <module>i9-defence-microservice-observer</module>
+        <module>i9-defence-microservice-config</module>
         <module>i9-defence-dao</module>
         <module>i9-defence-service</module>
         <module>i9-defence-utils</module>
-        <module>i9-defence-microservice-config</module>
     </modules>
     
     <properties>

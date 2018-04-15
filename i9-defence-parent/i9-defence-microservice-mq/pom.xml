@@ -2,9 +2,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>i9-defence-mq</artifactId>
+    <artifactId>i9-defence-microservice-mq</artifactId>
     <packaging>war</packaging>
-    <name>i9-defence-mq</name>
+    <name>i9-defence-microservice-mq</name>
 
     <parent>
         <groupId>i9.defence.platform</groupId>
@@ -17,7 +17,7 @@
     </properties>
 
     <build>
-        <finalName>i9-defence-mq</finalName>
+        <finalName>i9-defence-microservice-mq</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
