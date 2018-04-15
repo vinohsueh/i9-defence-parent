@@ -2,9 +2,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>i9-defence-observer</artifactId>
+    <artifactId>i9-defence-microservice-observer</artifactId>
     <packaging>war</packaging>
-    <name>i9-defence-observer</name>
+    <name>i9-defence-microservice-observer</name>
     
     <parent>
         <groupId>i9.defence.platform</groupId>
@@ -17,7 +17,7 @@
     </properties>
     
     <build>
-        <finalName>i9-defence-observer</finalName>
+        <finalName>i9-defence-microservice-observer</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
