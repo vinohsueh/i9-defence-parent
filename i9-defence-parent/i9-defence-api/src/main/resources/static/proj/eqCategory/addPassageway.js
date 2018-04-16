@@ -36,7 +36,6 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
 		addPassageway,clientList,httpService,$timeout) {
 	
 	$scope.addPassageway = addPassageway;
-  console.log($scope.addPassageway);
 	$scope.clientList = clientList;
   //初始化
   $scope.pageInit = function (){
@@ -44,39 +43,16 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
         id:$scope.addPassageway,
       };    
     httpService.post({url:'./passageWay/selectPassagewaysByCategoryId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-      console.log(JSON.stringify(data));
-      $scope.passagewayHave = data.data.data;
+      $scope.passagewayList = data.data.data;
       $scope.hiddenDanger = data.data.dangers;
       $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
         $scope.mName = [];  
-        
         for(i in $scope.passagewayList){
           if ($scope.passagewayList[i].hiddenDangerId) {
             $scope.mName.push($scope.passagewayList[i].hiddenDangerId.id)
-          }else{
-             $scope.mName.push(0);
           }
-          
         }
-        
       });
-      $scope.passagewayList = [];
-      $scope.passagewayData = [];
-      for(i in $scope.passagewayHave){
-        $scope.passagewayData.push($scope.passagewayHave[i].channel);
-      }
-      for(var j=0;j<16;j++){
-        if($.inArray(j,$scope.passagewayData)>-1){
-          for(i in $scope.passagewayHave){
-            if($scope.passagewayHave[i].channel == j){
-              $scope.passagewayList.push($scope.passagewayHave[i]);
-            }
-          }
-        }else{
-          $scope.passagewayList.push({'channel':j})
-        }
-      }
-      console.log(JSON.stringify($scope.passagewayList)); 
     })
   };
   $scope.pageInit();
@@ -87,33 +63,52 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
 		$modalInstance.dismiss('cancel');
 	}
 	// 确认添加
-	$scope.confirmAdd = function() {
-		/*if ($scope.addPassageway.passagewayName ==null ||$scope.addPassageway.passagewayName ==0) {
-			$.toaster({
-				title : "Error",
-				priority : "danger",
-				message : "项目名不能为空!"
-			});
-			return false;
-		}*/
-    var passagewayArr = [],
-        passagewayObj = {};
+	$scope.confirmAdd = function(them) {
+    var passagewayObj = {};
 
-    $('#passagewayBody tr').each(function (i) {
-      passagewayObj = {}
-      var thisDom = $(this);
-      passagewayObj.channel = thisDom.find('.passagewayNum').text();
-      passagewayObj.name = thisDom.find('.passagewayName input').val();
-      passagewayObj.hiddenDangerId = $scope.mName[i];
-      passagewayArr.push(passagewayObj);
-    })
-    var passagewayDto = {
-      passageways:passagewayArr,
-      equipmentId:$scope.addPassageway
-    }
-    console.log(JSON.stringify(passagewayDto));
-		httpService.post({url:'./passageWay/addPassageway',data:passagewayDto,showSuccessMsg:true}).then(function(data) {  
-			$modalInstance.dismiss('cancel')
+    var thisDom = $(them).closest('tr');
+    passagewayObj.channel = thisDom.find('.passagewayNum input').val();
+    passagewayObj.name = thisDom.find('.passagewayName input').val();
+    passagewayObj.hiddenDangerId = thisDom.find('.hidedenDanger select').val();
+    passagewayObj.categoryId = $scope.addPassageway;
+
+    console.log(JSON.stringify(passagewayObj));
+		httpService.post({url:'./passageWay/addPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
+			// $modalInstance.dismiss('cancel')
+      thisDom.remove();
+      $scope.pageInit();
 		})
 	};
+  // 确认删除
+  $scope.confirmDel = function(them) {
+    var passagewayObj = {};
+
+    var thisDom = $(them.target).closest('tr');
+    passagewayObj.channel = thisDom.find('.passagewayNum input').val();
+    passagewayObj.categoryId = $scope.addPassageway;
+
+    console.log(JSON.stringify(passagewayObj));
+    httpService.post({url:'./passageWay/delPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
+      // $modalInstance.dismiss('cancel')
+      // thisDom.remove();
+      $scope.pageInit();
+      console.log(1);
+    })
+  };
+
+  // 确认移除
+  $scope.confirmRemove = function(them) {
+    var thisDom = $(them).closest('tr');
+    thisDom.remove();
+  };
+  //添加新通道
+  $scope.addRoad = function () {
+    $scope.mName.push[0];
+    var oOption = '';
+    for(i in $scope.hiddenDanger){
+      oOption += "<option value='"+$scope.hiddenDanger[i].id+"'>"+$scope.hiddenDanger[i].name+"</option>"
+    }
+    var oHtml = "<tr on-finish><td class='passagewayNum'><input type='text' class='form-control' placeholder='请输入通道号'></td><td class='passagewayName'><input type='text' class='form-control' placeholder='请输入通道名称'></td><td class='hidedenDanger'><select class='form-control'><option value = ''>请选择</option>"+oOption+"</select></td><td><button type='button' class='btn btn-success' onclick='angular.element(this).scope().confirmAdd(this)'>确定</button><button type='button' class='btn btn-danger' onclick='angular.element(this).scope().confirmRemove(this)'>删除</button></td></tr>";
+    angular.element("#passagewayBody").append(oHtml);
+  }
 });
