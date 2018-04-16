@@ -152,8 +152,9 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	    $('#projectList .projectNameList').css('height',projectListHeight+'px');
 	    
 	    // 图表样式
-	    /*var chartBodyHeight = parseInt($('#selfMain').height()*0.3-40);
-	    $('#chartData .chartBody,#pieChart .chartBody').css('height',chartBodyHeight+'px');*/
+	    var chartBodyHeight = parseInt($('#selfMain').height()*0.3-40);
+	    // $('#chartData .chartBody,#pieChart .chartBody').css('height',chartBodyHeight+'px');
+	    $('#chartData .chartBody').css('height',chartBodyHeight+'px');
 
 
 
@@ -171,7 +172,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 
 	})
 
-	/*$scope.option={
+	$scope.option={
 	    title:{
 	        show:false,
 	    },
@@ -224,7 +225,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	    },
 	    series:[
 	        {
-	            type:'line',
+	            type:'bar',
 	            name:'系列1',
 	            stack:'10',
 	            showAllSymbol: true,
@@ -244,7 +245,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	        },
 	        
 	        {
-	            type:'line',
+	            type:'bar',
 	            name:'系列2',
 	            showAllSymbol: true,
 	            symbol: 'emptyCircle',
@@ -263,7 +264,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	        },
 	    ],
 	}
-	$scope.pieOption = {
+	/*$scope.pieOption = {
         tooltip: {
             trigger: 'item',
             formatter: "{a} <br/>{b}: {c} ({d}%)"

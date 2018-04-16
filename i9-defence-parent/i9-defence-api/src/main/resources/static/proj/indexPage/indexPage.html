@@ -51,12 +51,13 @@
                 <i class='mIcon icon-search' ng-click='pageInit()'></i>
             </div>
             <ul class="projectNameList">
-                <li ng-repeat='i in projectList'>{{i.projectName}}</li>                
+                <!-- <li ng-repeat='i in projectList'>{{i.projectName}}</li>                 -->
+                <li ng-repeat='i in projectList'><p>{{i.projectName}}</p><button class='btn btn-primary'></button></li>
             </ul>
             <!-- <div id='loadMore'>下拉展开更多…</div> -->
         </div>
     </div>
-    <!-- <div id='chartData'>
+    <div id='chartData'>
         <div class="sTitle">
             <p class='text'>隐患统计台</p>
             <p class='tools'>
@@ -69,7 +70,7 @@
             <div e-chart options="option"></div>
         </div>
     </div>
-    <div id="pieChart">
+    <!-- <div id="pieChart">
         <div class="sTitle">
             <div class="text">设备分布饼图</div>
         </div>

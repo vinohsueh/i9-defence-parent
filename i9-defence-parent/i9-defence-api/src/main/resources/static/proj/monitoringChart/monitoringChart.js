@@ -37,9 +37,18 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //图表显示隐藏状态
     $scope.chartsStatus = false;
     $scope.idNum = 0;
+    $scope.serchEqCategory = null;
 
     $scope.changeTimeStatu = 1;
     
+    $scope.serchEqCategory = function(){      
+        var pageParam = {};
+        httpService.post({url:'./eqCategory/serchEqCategory',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+            $scope.serchEqCategory  = data.data.data;
+        })
+    }
+    $scope.serchEqCategory();
+
     
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
@@ -83,6 +92,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			currentPage:$scope.currentPage,
     			projectName : $scope.searchText,
 				projectAddress : $scope.searchText,
+                equipmentCategoryId:$scope.serchEqCategory;
     			/*projectName : text,
     			projectAddress : text,*/
     		};
@@ -295,6 +305,14 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	if($scope.changeTimeStatu>3){
     		$scope.passagewayInit();
     	}
+    }
+
+    //设备类型切换
+    $scope.changeType = function (idNum) {
+        $scope.type=idNum;
+        $scope.serchEqCategory = idNum;
+        $scope.pageInit();
+
     }
     //添加通道
     $scope.add = function () {  
