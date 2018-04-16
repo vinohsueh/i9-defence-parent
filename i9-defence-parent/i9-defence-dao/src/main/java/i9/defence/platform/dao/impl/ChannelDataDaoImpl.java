@@ -44,8 +44,8 @@ public class ChannelDataDaoImpl implements ChannelDataDao{
 	@Override
 	public PageBounds<ChannelDataLimitPageDto> selectByLimitPage(ChannelDataSearchDto channelDataSearchDto, int currectPage, int pageSize)
 			throws Exception {
-		final int totalSize = channelDataMapper.countByExample(channelDataSearchDto);
 		channelDataSearchDto.setTypes(Arrays.asList(Constants.S_Chaanel_TYPES));
+		final int totalSize = channelDataMapper.countByExample(channelDataSearchDto);
 		PageBounds<ChannelDataLimitPageDto> pageBounds = new PageBounds<ChannelDataLimitPageDto>(currectPage,totalSize, pageSize);
 		List<ChannelDataLimitPageDto> list = channelDataMapper.selectByLimitPage(channelDataSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
 		pageBounds.setPageList(list);
