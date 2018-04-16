@@ -1,0 +1,6 @@
+i9\defence\platform\mq\pool\BusinessPool.class
+i9\defence\platform\mq\pool\ConsumerRunnable.class
+i9\defence\platform\mq\pool\ConsumerService.class
+i9\defence\platform\mq\Application.class
+i9\defence\platform\mq\config\DruidDataSourceConfig.class
+i9\defence\platform\mq\bootstrap\BootStrap.class
