@@ -3,16 +3,16 @@
 </div> -->
 <div controlled-rescode>
 <div class="wrapper-md">  
-  <form action="" class='form-inline myBox'>
+  <!-- <form action="" class='form-inline myBox'>
     <div class="form-group">
       <label for="">省区域：</label>
       <select class="form-control blue_bg" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
         <option value = ''>请选择</option>
-        <!-- <option>天津</option>
+        <option>天津</option>
         <option>北京</option>
         <option>上海</option>
         <option>深圳</option>
-        <option>杭州</option> -->
+        <option>杭州</option>
       </select>
     </div>
     <div class="form-group">
@@ -32,11 +32,11 @@
 		<select class="form-control blue_bg" ng-model="projectName"
 		ng-options="x.projectName for x in projectss">
 		<option value="">全部</option>
-		<!-- 不加这句代码，会出现空白 -->
+		不加这句代码，会出现空白
 		</select>
 	</div>
     <button type='button' class='btn btn-primary' ng-click="initTable()"><i class='glyphicon glyphicon-search'></i></button>
-  </form>
+  </form> -->
   <div class="panel panel-default myBox">
   	<div class="panel-heading row">
     	<div class="col-sm-6 m-b-xs">
@@ -80,7 +80,7 @@
           <button class="btn btn-sm btn-default">Apply</button>                  
         </div> -->
         <div class="col-sm-3">
-          <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
+          <small class="text-muted inline m-t-sm m-b-sm">共 {{total}} 条数据</small>
         </div>
         <div class="col-sm-offset-3 col-sm-6 text-right text-center-xs" ng-if="pages.length>0">                
           <ul class="pagination pagination-sm m-t-none m-b-none">

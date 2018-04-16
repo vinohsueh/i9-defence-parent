@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import i9.defence.platform.dao.ProjectDao;
 import i9.defence.platform.dao.mapper.ProjectMapper;
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
@@ -112,5 +113,10 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public List<Project> findAllProjectIndex(ProjectSearchDto projectSearchDto) throws Exception {
 		return projectMapper.findAllProjectIndex(projectSearchDto);
+	}
+
+	@Override
+	public List<Integer> selectIdsByMonthDataDto(MonthDataDto monthDataDto) throws Exception {
+		return projectMapper.selectIdsByMonthDataDto(monthDataDto);
 	}
 }

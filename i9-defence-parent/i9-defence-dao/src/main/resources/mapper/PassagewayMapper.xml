@@ -4,33 +4,41 @@
 	<resultMap type="i9.defence.platform.model.Passageway" id="BaseResultMap">
 		<id column="channel" jdbcType="INTEGER" property="channel" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="deviceId" jdbcType="VARCHAR" property="deviceId" />
+		<result column="categoryId" jdbcType="INTEGER" property="categoryId" />
 		<result column="hiddenDangerId" jdbcType="INTEGER" property="hiddenDangerId" />
-		<association property="equipment" column="equipmentId"
-			select="i9.defence.platform.dao.mapper.EquipmentMapper.selectByPrimaryKey"></association>
+		<!-- <association property="equipmentCategory" column="categoryId"
+			select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></association> -->
 		<association property="hiddenDanger" column="HiddenDangerId"
 			select="i9.defence.platform.dao.mapper.HiddenDangerMapper.selectByPrimaryKey"></association>
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		channel,name,deviceId,hiddenDangerId
+		channel,name,categoryId,hiddenDangerId
 	</sql>
 
-	<select id="selectByEquipmentId" parameterType="java.lang.String"
+	<select id="selectPassagewaysByCategoryId" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from t_passageway where deviceId =#{deviceId}
+		from t_passageway where categoryId =#{categoryId}
 	</select>
 
-	<insert id="addPassageWay" parameterType="java.util.List">
+	<insert id="addPassageWay" parameterType="i9.defence.platform.model.Passageway">
 		insert into
-		t_passageway(channel,name,deviceId,hiddenDangerId)
+		t_passageway(channel,name,categoryId,hiddenDangerId)
 		values
-		<foreach collection="list" item="item" separator=",">(#{item.channel,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.deviceId,jdbcType=VARCHAR},#{item.hiddenDangerId,jdbcType=INTEGER}) </foreach>
+		(#{item.channel,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.categoryId,jdbcType=INTEGER},#{item.hiddenDangerId,jdbcType=INTEGER})
 	</insert>
 	
-	<delete id="delPassagewayBySystemId" parameterType="string">
-		delete from t_passageway where deviceId = #{deviceId}
+	<delete id="delPassagewayBySystemId" parameterType="java.lang.Integer">
+		delete from t_passageway where categoryId = #{categoryId}
+	</delete>
+	
+	<select id="selectCountByCatIdAndChannelId" parameterType="i9.defence.platform.model.Passageway" resultType="int">
+		select count(*) from t_passageway where categoryId = #{categoryId} and channel = #{channel}
+	</select> 
+	
+	<delete id="delPassageway" parameterType="i9.defence.platform.model.Passageway">
+		delete from t_passageway where categoryId = #{categoryId} and channel = #{channel}
 	</delete>
 </mapper>

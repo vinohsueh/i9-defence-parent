@@ -22,6 +22,17 @@ public class EquipmentSearchDto extends PageListDto implements Serializable{
 	
 	private String deviceId;
 	
+	private Integer equipmentCategoryId;
+	
+	
+	public Integer getEquipmentCategoryId() {
+		return equipmentCategoryId;
+	}
+
+	public void setEquipmentCategoryId(Integer equipmentCategoryId) {
+		this.equipmentCategoryId = equipmentCategoryId;
+	}
+
 	public String getDeviceId() {
 		return deviceId;
 	}

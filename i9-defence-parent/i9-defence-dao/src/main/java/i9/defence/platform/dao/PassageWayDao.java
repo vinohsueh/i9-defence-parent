@@ -14,14 +14,14 @@ import i9.defence.platform.model.Passageway;
 public interface PassageWayDao {
 	
 	/**
-	 * 根据设备id查询通道
+	 * 根据设备类型id查询通道
 	* @Title: selectPassagewaysByEquipId 
 	* @Description: TODO
 	* @param Id
 	* @return
 	* @throws Exception
 	 */
-	List<Passageway> selectPassagewaysByEquipId(String id)throws Exception;
+	List<Passageway> selectPassagewaysByCategoryId(Integer categoryId)throws Exception;
 	
 	
 	/**
@@ -31,12 +31,26 @@ public interface PassageWayDao {
 	* @param passageway
 	* @throws Exception
 	 */
-	void addPassageway(List<Passageway> passageways) throws Exception;
+	void addPassageway(Passageway passageway) throws Exception;
 
 	/**
 	 * 删除旧的通道对应关系
 	 * @param systemId
 	 * @throws Exception
 	 */
-	void delPassagewayBySystemId(String systemId) throws Exception;
+	void delPassagewayBySystemId(Integer categoryId) throws Exception;
+	
+	/**
+	 * 根据类型和通道查询
+	 * @param passageway
+	 * @return
+	 * @throws Exception
+	 */
+	int selectCountByCatIdAndChannelId(Passageway passageway) throws Exception;
+
+	/**
+	 * 删除通道
+	 * @param passageway
+	 */
+	void delPassageway(Passageway passageway) throws Exception;
 }

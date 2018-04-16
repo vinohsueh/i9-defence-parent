@@ -16,9 +16,9 @@
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="loopl" jdbcType="INTEGER" property="loopl" />
     <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
-    <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
+    <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
-  	<collection column="id" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectByEquipmentId"></collection>
+  	<collection column="equipmentCategoryId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -617,8 +617,11 @@
 	<select id="selectWarningMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
 		where (cd.value &gt;= cd.WarningMax or  cd.value &lt;= cd.WarningMin)  
-		<if test="projectId != null ">
-	         and p.id = #{projectId}
+		<if test="projectIds != null  and  projectIds.size > 0">
+	         and p.id in
+	         <foreach collection="projectIds" item="projectId" open="(" separator=","  close=")">
+				#{projectId}
+			</foreach>
         </if>
         <if test="endTime != null and endTime != ''">
 	        and cd.dateTime &lt; #{endTime}
@@ -633,8 +636,11 @@
 	<select id="selectHiddenMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
 		where ((cd.value &gt; cd.HiddenMax and cd.value &lt; cd.WarningMax)or(cd.value &lt; cd.HiddenMin and cd.value &gt; cd.WarningMin)) 
-		<if test="projectId != null ">
-	         and p.id = #{projectId}
+		<if test="projectIds != null  and  projectIds.size > 0 ">
+	          and p.id in
+	         <foreach collection="projectIds" item="projectId" open="(" separator=","  close=")">
+				#{projectId}
+			</foreach>
         </if>
         <if test="endTime != null and endTime != ''">
 	        and cd.dateTime &lt; #{endTime}

@@ -112,6 +112,16 @@
         </if>
     </trim>
   </sql>
+  <sql id="Query_By_Dto4_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.projectProvince != null and example.projectProvince != ''">
+          	AND projectProvince = #{example.projectProvince}
+        </if>
+        <if test="example.projectCity != null and example.projectCity != ''">
+          AND  projectCity = #{example.projectCity}
+        </if>
+    </trim>
+  </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -458,6 +468,12 @@
    		select DISTINCT <include refid="Base_Column_List" /> from t_project p left join t_project_safe ps on p.id = ps.projectId
         <if test="_parameter != null" >
           <include refid="Query_By_Dto2_Where_Clause" />
+        </if>
+   </select>
+   <select id="selectIdsByMonthDataDto" resultType="java.lang.Integer">
+   		select id from t_project
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto4_Where_Clause" />
         </if>
    </select>
 </mapper>
