@@ -49,7 +49,9 @@
             <td >{{eqCategory.eqCategoryName}}</td>
             <td >{{eqCategory.eqCategoryId}}</td>
             <td >{{eqCategory.eqCategoryExplain}}</td>
-            <td ng-click="edit({{eqCategory.id}})"><button>编辑</button></td>
+            <td>
+            <button ng-click="edit({{eqCategory.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
+            </td>
           </tr>
         </tbody>
       </table>

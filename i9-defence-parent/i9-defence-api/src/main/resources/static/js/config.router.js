@@ -110,6 +110,23 @@ angular.module('app')
                     }]
                   }
               }) 
+              .state('app.channelData', {
+                  url: '/channelData',
+                  templateUrl: 'proj/channelData/channelData.html',
+              	  controller : "channelDataNgControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'channelDataNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/channelData/channelData.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
               .state('app.manager', {
                   url: '/manager',
                   templateUrl: 'proj/manager/manager.html',

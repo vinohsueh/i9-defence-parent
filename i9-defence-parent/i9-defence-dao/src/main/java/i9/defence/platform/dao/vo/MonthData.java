@@ -8,6 +8,17 @@ package i9.defence.platform.dao.vo;
 public class MonthData {
 	
 	private int count;
+	
+	private String month;
+	
+	
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
 
 	public int getCount() {
 		return count;

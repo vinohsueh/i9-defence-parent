@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import i9.defence.platform.api.components.ChannelDataComponent;
 import i9.defence.platform.api.components.EquipmentMonitorComponent;
 import i9.defence.platform.api.components.HiddenDangerDtoInfoComponent;
+import i9.defence.platform.api.components.MonthDataInfoComponent;
 import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
@@ -257,8 +258,8 @@ public class EquipmentController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
 		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
-		
-		JSONObject jsonObject = new JSONObject();
+		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();
+		result.put("data", jsonObject);
 		return result;
 	}
 }
