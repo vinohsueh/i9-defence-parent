@@ -62,7 +62,7 @@ var warningEditControl=warningEditModule.controller('warningEditControl',functio
 	$scope.searchText = '';
 	$scope.initTable = function (){
 		if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.projectName;
+			$scope.searchText =$scope.projectName.id;
 		}else{
 			$scope.searchText = "";
 		}
@@ -70,7 +70,7 @@ var warningEditControl=warningEditModule.controller('warningEditControl',functio
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				danger : 'true',
-				projectName : $scope.searchText,
+				projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
 				eqCategoryName : $scope.eqCategoryName,
 			};

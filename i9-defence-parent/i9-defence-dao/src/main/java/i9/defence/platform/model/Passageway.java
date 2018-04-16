@@ -41,7 +41,16 @@ public class Passageway   {
      */
     private HiddenDanger hiddenDanger;
     
+    private boolean ifEdit;
     
+
+	public boolean isIfEdit() {
+		return ifEdit;
+	}
+
+	public void setIfEdit(boolean ifEdit) {
+		this.ifEdit = ifEdit;
+	}
 
 	public Integer getHiddenDangerId() {
 		return hiddenDangerId;

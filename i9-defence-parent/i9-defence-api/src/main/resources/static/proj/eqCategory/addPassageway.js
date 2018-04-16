@@ -53,6 +53,7 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
           }
         }
       });
+      console.log($scope.mName)
     })
   };
   $scope.pageInit();
@@ -95,7 +96,24 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
       console.log(1);
     })
   };
+//确认添加
+$scope.confirmEdit = function(them) {
+  var passagewayObj = {};
+  console.log($scope.mName)
+  var thisDom = $(them.target).closest('tr');
+  passagewayObj.channel = thisDom.find('.passagewayNum input').val();
+  passagewayObj.name = thisDom.find('.passagewayName input').val();
+  passagewayObj.hiddenDangerId = thisDom.find('.hidedenDanger select').val();
+  passagewayObj.categoryId = $scope.addPassageway;
+  passagewayObj.ifEdit = true;
 
+  console.log(JSON.stringify(passagewayObj));
+		httpService.post({url:'./passageWay/addPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
+			// $modalInstance.dismiss('cancel')
+    thisDom.remove();
+    $scope.pageInit();
+		})
+	};
   // 确认移除
   $scope.confirmRemove = function(them) {
     var thisDom = $(them).closest('tr');
