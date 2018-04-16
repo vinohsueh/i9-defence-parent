@@ -20,6 +20,37 @@ var monitoringChartService = monitoringChartNgModule.factory('monitoringChartSer
 		return resource;
 	}]);
 var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
+	//时间插件
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+      $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1,
+      class: 'datepicker'
+    };
+
+    $scope.initDate = new Date('2016-15-20');
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+	
+    
+    
+    
 	//首页跳转过来的项目id
 	$scope.projectId=$stateParams.id;
 	$scope.getDate = function (index){
@@ -137,8 +168,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	var text = $scope.searchText;
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			startDateString:$scope.startTime,
-    			endDateString:$scope.endTime,
+    			startDateString:$scope.dateToString($scope.startTime),
+    			endDateString:$scope.dateToString($scope.endTime),
     			/*projectName : text,
     			projectAddress : text,*/
     		};
@@ -311,7 +342,13 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		$scope.passagewayInit();
     	}
     }
-
+    
+    $scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
+    
+    
     //设备类型切换
     $scope.changeType = function (idNum) {
         $scope.type=idNum;
