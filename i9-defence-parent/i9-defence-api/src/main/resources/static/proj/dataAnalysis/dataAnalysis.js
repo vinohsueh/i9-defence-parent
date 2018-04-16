@@ -226,7 +226,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				        textStyle:{
 				            color:'#fff',
 				        },
-				        data:['报警','隐患',]
+				        data:['报警','故障',]
 				    },
 				    xAxis:{
 				        axisLabel: {        
@@ -275,7 +275,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				        
 				        {
 				            type:'bar',
-				            name:'隐患',
+				            name:'故障',
 				            showAllSymbol: true,
 				            symbol: 'emptyCircle',
 				            symbolSize: 10,

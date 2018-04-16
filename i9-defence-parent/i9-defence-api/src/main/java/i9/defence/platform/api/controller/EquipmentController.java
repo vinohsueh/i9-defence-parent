@@ -262,7 +262,9 @@ public class EquipmentController {
 			Integer[] array = projectIds.toArray(new Integer[0]);
 			monthDataDto.setProjectId(array);
 		}
+		//报警数据
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
+		//故障数据
 		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
 		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();
 		result.put("data", jsonObject);

@@ -1,7 +1,10 @@
 package i9.defence.platform.api.controller;
 
+import i9.defence.platform.api.components.PassagewayInfoComponent;
 import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
+import i9.defence.platform.service.HiddenDangerService;
 import i9.defence.platform.service.PassagewayService;
 
 import java.util.HashMap;
@@ -11,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /** 
  * 通道controller
@@ -28,6 +34,8 @@ public class PassageWayController {
 	private PassagewayService passagewayService;
 	
 
+	@Autowired
+	private HiddenDangerService hiddenDangerService;
 	
 	
 	/*@RequestMapping("/selectPassagewaysByEquipId")
@@ -57,6 +65,14 @@ public class PassageWayController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<Passageway> list = passagewayService.selectPassagewaysByCategoryId(equipmentCategory.getId());
 		result.put("data",list);
+		JSONArray jsonArray = new JSONArray();
+		for (Passageway passageway : list) {
+			JSONObject jsonObject = new PassagewayInfoComponent().setPassageway(passageway).build();
+			jsonArray.add(jsonObject);
+		}
+		List<HiddenDanger> hiddenDangers = hiddenDangerService.selectAllHiddendanger();
+		result.put("dangers", hiddenDangers);
+		result.put("data", jsonArray);
 		return result;
 	}     
 	

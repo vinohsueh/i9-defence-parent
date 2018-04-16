@@ -92,7 +92,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			currentPage:$scope.currentPage,
     			projectName : $scope.searchText,
 				projectAddress : $scope.searchText,
-                equipmentCategoryId:$scope.serchEqCategory;
+                equipmentCategoryId:$scope.serchEqCategory,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
