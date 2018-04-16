@@ -1,5 +1,9 @@
 package i9.defence.platform.api.controller;
 
+import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.Passageway;
+import i9.defence.platform.service.PassagewayService;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import i9.defence.platform.model.Passageway;
-import i9.defence.platform.service.PassagewayService;
 
 /** 
  * 通道controller
@@ -52,9 +53,9 @@ public class PassageWayController {
 	 * @return
 	 */
 	@RequestMapping("/selectPassagewaysByCategoryId")
-	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Integer id) {
+	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody EquipmentCategory equipmentCategory) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = passagewayService.selectPassagewaysByCategoryId(id);
+		List<Passageway> list = passagewayService.selectPassagewaysByCategoryId(equipmentCategory.getId());
 		result.put("data",list);
 		return result;
 	}     

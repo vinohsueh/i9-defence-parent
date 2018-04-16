@@ -73,6 +73,38 @@ var eqCategoryNgControl=eqCategoryNgModule.controller('eqCategoryNgControl',func
 		$scope.initTable();
 	}
 	
+	//添加通道
+	$scope.addPassageway = function (id) {  
+	    var modalInstance = $modal.open({  
+	        templateUrl: 'proj/eqCategory/addPassageway.html',  
+	        controller: 'addPassagewayEditCtrl', 
+	        backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+	        resolve: {  
+	            deps : ['$ocLazyLoad',function($ocLazyLoad) {
+	                return $ocLazyLoad.load({
+	                    name : 'addPassagewayEditNgModule',
+	                    insertBefore : '#ng_load_plugins_before',
+	                    files : [
+	                             'proj/eqCategory/addPassageway.js',
+	                    ]
+	                });
+	            }],
+	            addPassageway: function () {  
+	                return id;  
+	            },
+	            clientList: function () {  
+	                return {}; 
+	            },
+	        }  
+	    }); 
+	    modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+	        $scope.selected = data;
+	    },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+	        $scope.initTable();
+	    });
+	     
+	};
+
 	$scope.add = function () {  
         var modalInstance = $modal.open({  
             templateUrl: 'proj/eqCategory/add.html',  

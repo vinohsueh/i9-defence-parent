@@ -40,6 +40,7 @@
             <th>设备分类名称</th>
             <th>设备类别编号</th>
             <th>设备类别说明</th>
+            <th>添加通道</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -49,6 +50,9 @@
             <td >{{eqCategory.eqCategoryName}}</td>
             <td >{{eqCategory.eqCategoryId}}</td>
             <td >{{eqCategory.eqCategoryExplain}}</td>
+            <td>
+              <button type='button' class='btn btn-primary' ng-click="addPassageway({{eqCategory.id}})">添加通道</button>
+            </td>
             <td>
             <button ng-click="edit({{eqCategory.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
             </td>
