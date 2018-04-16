@@ -6,8 +6,8 @@
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="categoryId" jdbcType="INTEGER" property="categoryId" />
 		<result column="hiddenDangerId" jdbcType="INTEGER" property="hiddenDangerId" />
-		<association property="equipmentCategory" column="categoryId"
-			select="i9.defence.platform.dao.mapper.PassagewayMapper.selectByEquipmentId"></association>
+		<!-- <association property="equipmentCategory" column="categoryId"
+			select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></association> -->
 		<association property="hiddenDanger" column="HiddenDangerId"
 			select="i9.defence.platform.dao.mapper.HiddenDangerMapper.selectByPrimaryKey"></association>
 	</resultMap>
