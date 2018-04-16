@@ -49,7 +49,7 @@
 		<div class="form-group">
 			<label class="col-md-2 control-label"><span class="required">*</span>设备种类</label>
 			<div class="col-md-8">
-				<select   class="input-sm form-control w-sm inline v-middle" ng-model="equipment.equipmentCategoryId"  ng-options="item.eqCategoryId as item.eqCategoryName for item in equCategorys">
+				<select   class="input-sm form-control w-sm inline v-middle" ng-model="equipment.equipmentCategoryId"  ng-options="item.id as item.eqCategoryName for item in equCategorys">
         			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白 -->
     			</select>
 			</div>
