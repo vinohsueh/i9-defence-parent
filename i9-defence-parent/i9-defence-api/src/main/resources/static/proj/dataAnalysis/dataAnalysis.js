@@ -321,4 +321,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	   $scope.error.area = false;
 	   $scope.queryProjects();
 	};
+	$scope.searchBtn = function () {
+		$scope.pageInit();
+	}
 })

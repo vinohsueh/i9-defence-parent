@@ -41,6 +41,17 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	   $scope.error.area = false;
 	   $scope.queryProjects();
 	};*/
+	$scope.getDate = function (index){
+	    var date = new Date(); 
+	    var newDate = new Date();
+	    newDate.setDate(date.getDate() + index);
+	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
+	    return time;
+	}
+
+	$scope.startTime = $scope.getDate(-7);
+	$scope.endTime = $scope.getDate(0);
+
 	$scope.pageInit = function(){
 		$scope.markArr = [];
 		if($scope.selected == null || $scope.selected == ''){
@@ -57,9 +68,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
 			projectName:$scope.searchText,
-			projectAddress:$scope.searchText
+			projectAddress:$scope.searchText,
 		};
-		console.log(pageParam)
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
 			var markItem = {};
@@ -139,7 +149,166 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	}
 	$scope.pageInit();
 
-	
+	//图标初始化
+	// $scope.Ids = [];
+	$scope.chartsStatus = false;
+	$scope.chartInit = function (){
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:null
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectId:[],
+			startTime:$scope.startTime,
+			endTime:$scope.endTime,
+
+		};
+		console.log(JSON.stringify(pageParam));
+		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.projectInfo = data.data.data;
+			console.log($scope.projectInfo);
+			$scope.projectTime = [];
+			$scope.projectWarning = [];
+			$scope.projectHidden = [];
+			if($scope.projectInfo!= null){
+				$scope.chartsStatus = true;
+				for(i in $scope.projectInfo.months){
+					$scope.projectTime.push($scope.projectInfo.months[i]);
+				}
+				for(i in $scope.projectInfo.hiddenData){
+					$scope.projectHidden.push($scope.projectInfo.hiddenData[i]);
+				}
+				for(i in $scope.projectInfo.warningData){
+					$scope.projectWarning.push($scope.projectInfo.warningData[i]);
+				}
+				$scope.option={
+				    title:{
+				        show:false,
+				    },
+				    toolbox:{
+				        show:false,
+				    },
+				    grid:{
+				        top:10,
+				        left:60,
+				        right:120,
+				        bottom:30,
+				        borderColor:'#566c93',
+				    },
+				    tooltip:{
+				        trigger:'axis'
+				    },
+				    dataZoom:{
+			            type: 'inside',
+			            realtime: true,
+			            start: 90,
+			            end: 100,
+			            // xAxisIndex: [0, 1]
+				    },
+				    legend:{
+				        right:0,
+				        top:0,
+				        orient:'vertical',
+				        inactiveColor:'#666',
+				        textStyle:{
+				            color:'#fff',
+				        },
+				        data:['报警','故障',]
+				    },
+				    xAxis:{
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        data:$scope.projectTime,
+				    },
+				    yAxis:{
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        splitLine:{
+				            show:true,
+				            lineStyle:{
+				                color:'#4960bf',
+				                type:'dashed'
+				            }
+				        },
+				    },
+				    series:[
+				        {
+				            type:'bar',
+				            name:'报警',
+				            stack:'10',
+				            showAllSymbol: true,
+				            symbol: 'emptyCircle',
+				            symbolSize: 10,
+				            itemStyle:{
+				                normal:{
+				                    color:'#ab56dc',
+				                }
+				            },
+				            lineStyle:{
+				                normal:{
+				                    color:'#ab56dc',
+				                }
+				            },
+				            data:$scope.projectWarning,
+				        },
+				        
+				        {
+				            type:'bar',
+				            name:'故障',
+				            showAllSymbol: true,
+				            symbol: 'emptyCircle',
+				            symbolSize: 10,
+				            itemStyle:{
+				                normal:{
+				                    color:'#e2d89c',
+				                }
+				            },
+				            lineStyle:{
+				                normal:{
+				                    color:'#e2d89c',
+				                }
+				            },
+				            data:$scope.projectHidden
+				        },
+				    ],
+				}
+			}else{
+				$scope.chartsStatus = false;
+			}
+			
+		})
+	};
+	$scope.chartInit();
+	//时间切换
+	$scope.changeTimeStatu = 1;
+	$scope.changeTime = function () {
+		$scope.changeTimeStatu = $scope.changeTimeStatu+1;
+		if($scope.changeTimeStatu>3){
+			$scope.chartInit();
+		}
+	}
+
+	$scope.searchBtn = function () {
+		$scope.pageInit();
+		$scope.chartInit();
+	}
+
 	$(function () {
 	    // 右侧样式
 	    var mainWidth = parseInt($('#selfMain').width()*0.03);
@@ -148,7 +317,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	    $('#projectList').css({'right':mainWidth+'px','width':rightWidth+'px'});
 	    // var projectListHeight = parseInt($('#selfMain').height()*0.7-136);
 	    var projectListHeight = parseInt($(window).height()-150);
-	    console.log(projectListHeight);
 	    $('#projectList .projectNameList').css('height',projectListHeight+'px');
 	    
 	    // 图表样式
@@ -172,7 +340,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 
 	})
 
-	$scope.option={
+	/*$scope.option={
 	    title:{
 	        show:false,
 	    },
@@ -263,7 +431,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	            data:[70,30,20,15,40,50,28,35,71,21,16,56]
 	        },
 	    ],
-	}
+	}*/
 	
 	
 	//跳转项目页面

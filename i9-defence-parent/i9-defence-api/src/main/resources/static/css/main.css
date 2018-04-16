@@ -424,7 +424,7 @@ td.eventType span.hiddenDanger {
   box-sizing: border-box;
   padding-right: 30px;
 }
-#chartData .sTitle {
+#chartData .row {
   background-color: #1b285b;
   border-bottom: #253055;
   color: #fff;
@@ -432,16 +432,6 @@ td.eventType span.hiddenDanger {
   height: 40px;
   box-sizing: border-box;
   padding: 0 50px;
-}
-#chartData .sTitle .tools span {
-  cursor: pointer;
-  margin-right: 10px;
-}
-#chartData .sTitle .tools span .icon {
-  margin-left: 5px;
-}
-#chartData .sTitle .tools span.active .icon {
-  background-position: -120px -30px;
 }
 #chartData .chartBody {
   width: 100%;

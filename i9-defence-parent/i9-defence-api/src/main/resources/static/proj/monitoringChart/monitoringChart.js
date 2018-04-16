@@ -39,7 +39,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //图表显示隐藏状态
     $scope.chartsStatus = false;
     $scope.idNum = 0;
-    $scope.serchEqCategory = null;
+    $scope.serchEqCategoryId = null;
 
     $scope.changeTimeStatu = 1;
     
@@ -97,7 +97,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			currentPage:$scope.currentPage,*/
     			projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
-                equipmentCategoryId:$scope.serchEqCategory,
+                equipmentCategoryId:$scope.serchEqCategoryId,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
@@ -315,7 +315,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //设备类型切换
     $scope.changeType = function (idNum) {
         $scope.type=idNum;
-        $scope.serchEqCategory = idNum;
+        $scope.serchEqCategoryId = idNum;
         $scope.pageInit();
 
     }
