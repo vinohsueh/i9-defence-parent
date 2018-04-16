@@ -2,7 +2,6 @@ package i9.defence.platform.service;
 
 import java.util.List;
 
-import i9.defence.platform.dao.vo.PassagewayDto;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
 
@@ -16,7 +15,7 @@ import i9.defence.platform.utils.BusinessException;
 public interface PassagewayService {
 
 	/**
-	 * 根据设备id查询通道
+	 * 根据设备类型id查询通道
 	* @Title: selectPassagewaysByEquipId 
 	* @Description: TODO
 	* @param Id
@@ -33,5 +32,15 @@ public interface PassagewayService {
 	* @param passageway
 	* @throws Exception
 	 */
-	void addPassageway(PassagewayDto passagewayDto) throws BusinessException;
+	/*void addPassageway(PassagewayDto passagewayDto) throws BusinessException;*/
+	
+	
+	/**
+	 * 新增通道
+	* @Title: addPassageway 
+	* @Description: TODO
+	* @param Passageway
+	* @throws BusinessException
+	 */
+	void addPassageway(List<Passageway> passageways) throws BusinessException;
 }

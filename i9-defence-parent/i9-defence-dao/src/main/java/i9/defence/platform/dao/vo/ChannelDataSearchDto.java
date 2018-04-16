@@ -26,8 +26,7 @@ public class ChannelDataSearchDto  extends PageListDto{
     private String startDateString;
     
     private String endDateString;
-
-
+    
 	public int getEquipmentId() {
 		return equipmentId;
 	}
@@ -92,6 +91,4 @@ public class ChannelDataSearchDto  extends PageListDto{
 	public void setOrderByClause(String orderByClause) {
 		this.orderByClause = orderByClause;
 	}
-    
-    
 }

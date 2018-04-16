@@ -21,9 +21,14 @@ public class Passageway   {
     private String name;
 
     /**
-     * 设备Id
+     * 设备类型Id
      */
-    private String deviceId;
+    private Integer categoryId;
+    
+    /**
+     * 类型实体
+     */
+    private EquipmentCategory equipmentCategory;
     
     
     /**
@@ -54,17 +59,6 @@ public class Passageway   {
 		this.hiddenDanger = hiddenDanger;
 	}
 
-	
-
-
-	public String getDeviceId() {
-		return deviceId;
-	}
-
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
-	}
-
 	public Integer getChannel() {
 		return channel;
 	}
@@ -80,4 +74,23 @@ public class Passageway   {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public EquipmentCategory getEquipmentCategory() {
+		return equipmentCategory;
+	}
+
+	public void setEquipmentCategory(EquipmentCategory equipmentCategory) {
+		this.equipmentCategory = equipmentCategory;
+	}
+
+	 
+    
 }
