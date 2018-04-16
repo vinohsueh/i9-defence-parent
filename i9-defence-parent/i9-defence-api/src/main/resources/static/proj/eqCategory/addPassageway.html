@@ -28,11 +28,11 @@
 	      	<td class='hidedenDanger'>
 				<select class="form-control" ng-model='mName[$index]'>
 				    <option value = '' ng-if='mName[$index] == 0'>请选择</option>
-				    <option ng-repeat="h in hiddenDanger" value="{{h.id}}">{{h.name}}</option>
+				    <option ng-repeat="h in hiddenDanger" value="{{h.id}}"  on-finish>{{h.name}}</option>
 				</select>
 	      	</td>
 	      	<td>
-				<!-- <button type='button' class='btn btn-success'>确定</button> -->
+				<button type='button' class='btn btn-success' ng-click='confirmEdit($event)'>确定</button>
 				<button type='button' class='btn btn-danger' ng-click='confirmDel($event)'>删除</button>
 	      	</td>
 	    </tr>

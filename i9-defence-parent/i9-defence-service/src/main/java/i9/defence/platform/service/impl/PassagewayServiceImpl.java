@@ -30,10 +30,13 @@ public class PassagewayServiceImpl implements PassagewayService {
 	@Override
 	public void addPassageway(Passageway passageway) throws BusinessException {
 		try {
-			int count = passageWayDao.selectCountByCatIdAndChannelId(passageway);
-			if (count>0){
-				throw new BusinessException("该通道号已经添加过了!");
+			if (!passageway.isIfEdit()) {
+				int count = passageWayDao.selectCountByCatIdAndChannelId(passageway);
+				if (count>0){
+					throw new BusinessException("该通道号已经添加过了!");
+				}
 			}
+			
 			passageWayDao.addPassageway(passageway);
 		} catch (BusinessException e) {
 			throw new BusinessException(e.getErrorMessage(), e.getMessage());

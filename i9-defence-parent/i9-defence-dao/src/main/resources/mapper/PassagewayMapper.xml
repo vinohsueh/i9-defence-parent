@@ -28,6 +28,7 @@
 		t_passageway(channel,name,categoryId,hiddenDangerId)
 		values
 		(#{channel,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{categoryId,jdbcType=INTEGER},#{hiddenDangerId,jdbcType=INTEGER})
+		ON DUPLICATE KEY UPDATE channel=#{channel,jdbcType=INTEGER},hiddenDangerId = #{hiddenDangerId,jdbcType=INTEGER},name=#{name,jdbcType=VARCHAR};
 	</insert>
 	
 	<delete id="delPassagewayBySystemId" parameterType="java.lang.Integer">
