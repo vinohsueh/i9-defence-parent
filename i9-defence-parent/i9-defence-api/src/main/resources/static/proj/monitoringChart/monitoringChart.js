@@ -20,7 +20,9 @@ var monitoringChartService = monitoringChartNgModule.factory('monitoringChartSer
 		return resource;
 	}]);
 var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
-    $scope.getDate = function (index){
+	//首页跳转过来的项目id
+	$scope.projectId=$stateParams.id;
+	$scope.getDate = function (index){
 	    var date = new Date(); //当前日期
 	    var newDate = new Date();
 	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
@@ -83,22 +85,25 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //初始化
     $scope.pageInit = function (){
     	if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.projectName;
+			$scope.searchText =$scope.projectName.id;
 		}else{
 			$scope.searchText = "";
 		}
+    	if ($scope.projectId != null) {
+    		$scope.searchText = $scope.projectId;
+    	}
     	var pageParam = {
-    			pageSize:$scope.pageSize,
-    			currentPage:$scope.currentPage,
-    			projectName : $scope.searchText,
+    			/*pageSize:$scope.pageSize,
+    			currentPage:$scope.currentPage,*/
+    			projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
                 equipmentCategoryId:$scope.serchEqCategory,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
     	
-    	httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-    		$scope.projects = data.data.data.pageList;
+    	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.projects = data.data.data;
     		for(i in $scope.projects){
     			if($scope.projects[i].warningCount>0){
     				$scope.projects[i].status = 'dangerLabel';

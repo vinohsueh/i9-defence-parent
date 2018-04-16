@@ -27,7 +27,7 @@
 		insert into
 		t_passageway(channel,name,categoryId,hiddenDangerId)
 		values
-		(#{item.channel,jdbcType=INTEGER},#{item.name,jdbcType=VARCHAR},#{item.categoryId,jdbcType=INTEGER},#{item.hiddenDangerId,jdbcType=INTEGER})
+		(#{channel,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{categoryId,jdbcType=INTEGER},#{hiddenDangerId,jdbcType=INTEGER})
 	</insert>
 	
 	<delete id="delPassagewayBySystemId" parameterType="java.lang.Integer">

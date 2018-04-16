@@ -195,4 +195,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) {
 		return equipmentMapper.selectHiddenMonthData(Arrays.asList(monthDataDto.getProjectId()), monthDataDto.getStartTime(), monthDataDto.getEndTime());
 	}
+
+	@Override
+	public List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto) {
+		return equipmentMapper.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
+	}
 }

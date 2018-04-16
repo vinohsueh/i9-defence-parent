@@ -501,8 +501,8 @@
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
-				<if test="example.projectName != null and example.projectName != ''">
-					and projectName ='${example.projectName}'
+				<if test="example.projectId != null">
+					and projectId = #{example.projectId}
 				</if>
 				<!--根据设备类型 模糊搜索  -->	
 				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">
@@ -534,7 +534,10 @@
 				</if>
 				<!--经销商  -->	
 				<if test="example.distributorId != null and example.distributorId != ''">
-					and distributorId = ='${example.distributorId}'
+					and distributorId ='${example.distributorId}'
+				</if>
+				<if test="example.equipmentCategoryId != null">
+					and equipmentCategoryId = #{example.equipmentCategoryId}
 				</if>
 				<!-- <if test="example.startDate != null and example.startDate != ''">
 					and example.startDate &lt; equipmentDate
@@ -544,6 +547,16 @@
 				</if> -->
 			</trim>
 		</sql>
+		
+		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
+			<if test="example.orderByClause != null">
+				order by ${example.orderByClause}
+			</if>
+		</select>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit

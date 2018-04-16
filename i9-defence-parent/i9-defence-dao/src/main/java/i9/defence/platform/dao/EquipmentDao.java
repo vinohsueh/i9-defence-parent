@@ -198,4 +198,11 @@ public interface EquipmentDao {
 	 * @return
 	 */
 	List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto);
+	
+	/**
+	 * 查询全部
+	 * @param hiddenDangerSearchDto
+	 * @return
+	 */
+	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto);
 }
