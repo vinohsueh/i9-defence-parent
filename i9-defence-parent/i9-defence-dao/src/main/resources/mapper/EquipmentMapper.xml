@@ -501,8 +501,8 @@
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
-				<if test="example.projectName != null and example.projectName != ''">
-					and projectName ='${example.projectName}'
+				<if test="example.projectId != null">
+					and projectId = #{example.projectId}
 				</if>
 				<!--根据设备类型 模糊搜索  -->	
 				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">

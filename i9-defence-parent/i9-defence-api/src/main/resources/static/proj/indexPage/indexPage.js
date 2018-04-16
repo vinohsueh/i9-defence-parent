@@ -264,6 +264,12 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	        },
 	    ],
 	}
+	
+	
+	//跳转项目页面
+	$scope.goTo = function(id){
+		$state.go('app.monitoringChart',{id:id});
+	}
 	/*$scope.pieOption = {
         tooltip: {
             trigger: 'item',
