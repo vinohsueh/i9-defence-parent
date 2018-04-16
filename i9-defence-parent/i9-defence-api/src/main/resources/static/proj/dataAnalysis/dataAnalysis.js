@@ -163,9 +163,15 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 		}else{
 			$scope.projectId = null;
 		}
-
+    	
+    	
+    	var Ids = [];
+    	if ($scope.projectId != null) {
+    		Ids.push($scope.projectId);
+    	}
+    	
 		var pageParam = {
-				projectId:[$scope.projectId],
+				projectId:Ids,
 				startTime:$scope.startTime,
 				endTime:$scope.endTime,
 				/*projectName : text,
