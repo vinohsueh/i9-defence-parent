@@ -88,8 +88,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 			$scope.searchText = "";
 		}
     	var pageParam = {
-    			pageSize:$scope.pageSize,
-    			currentPage:$scope.currentPage,
+    			/*pageSize:$scope.pageSize,
+    			currentPage:$scope.currentPage,*/
     			projectName : $scope.searchText,
 				projectAddress : $scope.searchText,
                 equipmentCategoryId:$scope.serchEqCategory,
@@ -97,8 +97,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			projectAddress : text,*/
     		};
     	
-    	httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-    		$scope.projects = data.data.data.pageList;
+    	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.projects = data.data.data;
     		for(i in $scope.projects){
     			if($scope.projects[i].warningCount>0){
     				$scope.projects[i].status = 'dangerLabel';

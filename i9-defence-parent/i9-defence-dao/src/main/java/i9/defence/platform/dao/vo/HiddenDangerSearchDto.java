@@ -46,7 +46,18 @@ public class HiddenDangerSearchDto extends PageListDto{
 	 */
 	private Integer distributorId;
 	
+	/**
+	 * 设备类型
+	 */
+	private Integer equipmentCategoryId;
 	
+	
+	public Integer getEquipmentCategoryId() {
+		return equipmentCategoryId;
+	}
+	public void setEquipmentCategoryId(Integer equipmentCategoryId) {
+		this.equipmentCategoryId = equipmentCategoryId;
+	}
 	public Integer getDistributorId() {
 		return distributorId;
 	}

@@ -100,4 +100,11 @@ public interface EquipmentMapper {
 	 * @return
 	 */
 	List<MonthData> selectHiddenMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	
+	/**
+	 * 查询全部
+	 * @param hiddenDangerSearchDto
+	 * @return
+	 */
+	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 }
