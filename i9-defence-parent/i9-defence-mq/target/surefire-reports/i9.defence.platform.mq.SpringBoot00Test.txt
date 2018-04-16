@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: i9.defence.platform.mq.SpringBoot00Test
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.002 sec - in i9.defence.platform.mq.SpringBoot00Test
