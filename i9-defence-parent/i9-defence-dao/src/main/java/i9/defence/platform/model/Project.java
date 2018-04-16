@@ -206,7 +206,7 @@ public class Project {
 		if(projectAddressStr.length()>0) {
 			return projectAddressStr.toString();
 		}
-		return "暂无详细地址";
+		return "暂无";
 	}
 
 	public List<Client> getClientList() {
@@ -231,7 +231,7 @@ public class Project {
 			}
 			return clientListStr.toString();
 		}
-		return "暂无项目负责人";
+		return "暂无";
 	}
 //这个是   后台操作的参数   配合set使用  与前台传参有关
 	public List<Integer> getClientIds2() {
@@ -275,7 +275,7 @@ public class Project {
 			}
 			return safeListStr.toString();
 		}
-		return "暂无安全负责人";
+		return "暂无";
 	}
 	
 	public List<Integer> getSafeIds2() {

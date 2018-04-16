@@ -2,6 +2,7 @@ package i9.defence.platform.service;
 
 import java.util.List;
 
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
@@ -107,5 +108,8 @@ public interface ProjectService {
     * @throws BusinessException 
      */
     public String  applyDelProject(List<Integer> ids) throws BusinessException;
+    
+  //根据 项目的 省市区  查询项目ID
+  	List<Integer> selectIdsByMonthDataDto(MonthDataDto monthDataDto) throws BusinessException;
 	
 }
