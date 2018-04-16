@@ -75,9 +75,32 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
     console.log(JSON.stringify(passagewayObj));
 		httpService.post({url:'./passageWay/addPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
 			// $modalInstance.dismiss('cancel')
+      thisDom.remove();
       $scope.pageInit();
 		})
 	};
+  // 确认删除
+  $scope.confirmDel = function(them) {
+    var passagewayObj = {};
+
+    var thisDom = $(them.target).closest('tr');
+    passagewayObj.channel = thisDom.find('.passagewayNum input').val();
+    passagewayObj.categoryId = $scope.addPassageway;
+
+    console.log(JSON.stringify(passagewayObj));
+    httpService.post({url:'./passageWay/delPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
+      // $modalInstance.dismiss('cancel')
+      // thisDom.remove();
+      $scope.pageInit();
+      console.log(1);
+    })
+  };
+
+  // 确认移除
+  $scope.confirmRemove = function(them) {
+    var thisDom = $(them).closest('tr');
+    thisDom.remove();
+  };
   //添加新通道
   $scope.addRoad = function () {
     $scope.mName.push[0];
@@ -85,7 +108,7 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
     for(i in $scope.hiddenDanger){
       oOption += "<option value='"+$scope.hiddenDanger[i].id+"'>"+$scope.hiddenDanger[i].name+"</option>"
     }
-    var oHtml = "<tr on-finish><td class='passagewayNum'><input type='text' class='form-control' placeholder='请输入通道号'></td><td class='passagewayName'><input type='text' class='form-control' placeholder='请输入通道名称'></td><td class='hidedenDanger'><select class='form-control'><option value = ''>请选择</option>"+oOption+"</select></td><td><button type='button' class='btn btn-success' onclick='angular.element(this).scope().confirmAdd(this)'>确定</button><button type='button' class='btn btn-danger'>删除</button></td></tr>";
+    var oHtml = "<tr on-finish><td class='passagewayNum'><input type='text' class='form-control' placeholder='请输入通道号'></td><td class='passagewayName'><input type='text' class='form-control' placeholder='请输入通道名称'></td><td class='hidedenDanger'><select class='form-control'><option value = ''>请选择</option>"+oOption+"</select></td><td><button type='button' class='btn btn-success' onclick='angular.element(this).scope().confirmAdd(this)'>确定</button><button type='button' class='btn btn-danger' onclick='angular.element(this).scope().confirmRemove(this)'>删除</button></td></tr>";
     angular.element("#passagewayBody").append(oHtml);
   }
 });
