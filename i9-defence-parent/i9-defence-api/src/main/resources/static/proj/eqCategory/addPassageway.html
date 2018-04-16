@@ -18,11 +18,12 @@
 	      <th>通道编号</th>
 	      <th>通道名称</th>
 	      <th>隐患提醒类型</th>
+	      <th>操作</th>
 	    </tr>
 	  </thead>
 	  <tbody id='passagewayBody'>
 	    <tr ng-repeat='i in passagewayList' on-finish>
-	      	<td class='passagewayNum'>{{i.channel}}</td>
+	      	<td class='passagewayNum'><input type="text" class="form-control" value='{{i.channel}}'></td>
 	      	<td class='passagewayName'><input type="text" class="form-control" value='{{i.name}}'></td>
 	      	<td class='hidedenDanger'>
 				<select class="form-control" ng-model='mName[$index]'>
@@ -30,13 +31,18 @@
 				    <option ng-repeat="h in hiddenDanger" value="{{h.id}}">{{h.name}}</option>
 				</select>
 	      	</td>
+	      	<td>
+				<!-- <button type='button' class='btn btn-success'>确定</button> -->
+				<button type='button' class='btn btn-danger'>删除</button>
+	      	</td>
 	    </tr>
+	    
 	  </tbody>
 	</table>
-	<button type='button' class='btn btn-success btn-block'><i class='glyphicon glyphicon-plus'></i>添加通道</button>
+	<button type='button' ng-click='addRoad()' class='btn btn-success btn-block'><i class='glyphicon glyphicon-plus'></i>添加通道</button>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" ng-click="closeBtn()"
 		data-dismiss="modal">取消</button>
-	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
+	<!-- <button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button> -->
 </div>
