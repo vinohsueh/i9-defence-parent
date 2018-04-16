@@ -256,6 +256,12 @@ public class EquipmentController {
 	@RequestMapping("/selectMonthData")
 	public HashMap<String, Object> selectMonthData(@RequestBody MonthDataDto monthDataDto){
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		//说明 查询的是单个项目的信息
+		if(monthDataDto.getProjectId().length < 0) {
+			List<Integer> projectIds = projectService.selectIdsByMonthDataDto(monthDataDto);
+			Integer[] array = projectIds.toArray(new Integer[0]);
+			monthDataDto.setProjectId(array);
+		}
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
 		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
 		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();

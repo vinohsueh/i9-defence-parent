@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.ProjectDao;
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Apply;
@@ -275,6 +276,15 @@ public class ProjectServiceImpl implements ProjectService {
 			return projectDao.findAllProjectIndex(projectSearchDto);
 		} catch (Exception e) {
 			throw new BusinessException("后台首页查询全部项目失败", e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Integer> selectIdsByMonthDataDto(MonthDataDto monthDataDto) throws BusinessException {
+		try {
+			return projectDao.selectIdsByMonthDataDto(monthDataDto);
+		} catch (Exception e) {
+			throw new BusinessException("根据 项目的 省市区  查询项目ID失败", e.getMessage());
 		}
 	}
 

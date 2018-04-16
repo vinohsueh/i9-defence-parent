@@ -1,5 +1,6 @@
 package i9.defence.platform.dao;
 
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
@@ -107,4 +108,7 @@ public interface ProjectDao {
     void updateSafeOneByProjectId(Integer projectId,List<Integer> safeIds) throws Exception;
 
 	List<Project> selectProject(ProjectSearchDto projectSearchDto) throws Exception;
+	
+	//根据 项目的 省市区  查询项目ID
+	List<Integer> selectIdsByMonthDataDto(MonthDataDto monthDataDto) throws Exception;
 }
