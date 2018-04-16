@@ -39,7 +39,7 @@ public class Equipment {
     /**
      * 设备分类id
      */
-    private String equipmentCategoryId;
+    private Integer equipmentCategoryId;
     /**
      * 设备分类(一对一)
      */
@@ -169,12 +169,11 @@ public class Equipment {
         this.equipmentRemarks = equipmentRemarks == null ? null : equipmentRemarks.trim();
     }
 
-
-    public String getEquipmentCategoryId() {
+	public Integer getEquipmentCategoryId() {
 		return equipmentCategoryId;
 	}
 
-	public void setEquipmentCategoryId(String equipmentCategoryId) {
+	public void setEquipmentCategoryId(Integer equipmentCategoryId) {
 		this.equipmentCategoryId = equipmentCategoryId;
 	}
 

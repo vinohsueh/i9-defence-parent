@@ -22,7 +22,7 @@ public interface PassagewayService {
 	* @return
 	* @throws BusinessException
 	 */
-	List<Passageway> selectPassagewaysByEquipId(Integer Id)throws BusinessException;
+	List<Passageway> selectPassagewaysByCategoryId(Integer id)throws BusinessException;
 	
 
 	/**
@@ -42,5 +42,11 @@ public interface PassagewayService {
 	* @param Passageway
 	* @throws BusinessException
 	 */
-	void addPassageway(List<Passageway> passageways) throws BusinessException;
+	void addPassageway(Passageway passageway) throws BusinessException;
+
+	/**
+	 * 删除通道
+	 * @param passageway
+	 */
+	void delPassageway(Passageway passageway) throws BusinessException;
 }

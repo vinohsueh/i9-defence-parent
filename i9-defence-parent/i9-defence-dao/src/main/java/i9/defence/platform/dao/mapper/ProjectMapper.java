@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.dao.vo.ProjectSearchDto;
 import i9.defence.platform.dao.vo.ProjectSelectDto;
 import i9.defence.platform.model.Project;
@@ -56,4 +57,7 @@ public interface ProjectMapper {
 
 	//后台首页 查询全部项目
     List<Project> findAllProjectIndex(@Param("example") ProjectSearchDto projectSearchDto);
+
+  //根据 项目的 省市区  查询项目ID
+  	List<Integer> selectIdsByMonthDataDto(@Param("example") MonthDataDto monthDataDto);
 }

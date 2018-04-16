@@ -27,14 +27,7 @@ public class PassageWayController {
 	private PassagewayService passagewayService;
 	
 
-	/**
-	 * 根据设备id查询通道
-	 * 
-	 * @Title: selectPassagewaysByEquipId
-	 * @Description: TODO
-	 * @param Id
-	 * @return
-	 */
+	
 	
 	/*@RequestMapping("/selectPassagewaysByEquipId")
 	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Equipment equipment) {
@@ -51,10 +44,17 @@ public class PassageWayController {
 		return result;
 	}*/
 	
-	@RequestMapping("/selectPassagewaysByEquipId")
-	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Integer Id) {
+	/**
+	 * 根据设备类型查询通道
+	 * @Title: selectPassagewaysByEquipId
+	 * @Description: TODO
+	 * @param Id
+	 * @return
+	 */
+	@RequestMapping("/selectPassagewaysByCategoryId")
+	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Integer id) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = passagewayService.selectPassagewaysByEquipId(Id);
+		List<Passageway> list = passagewayService.selectPassagewaysByCategoryId(id);
 		result.put("data",list);
 		return result;
 	}     
@@ -69,9 +69,23 @@ public class PassageWayController {
 	 * @return
 	 */ 
 	@RequestMapping("/addPassageway")
-	public HashMap<String, Object> addPassageway(@RequestBody List<Passageway> Passageways) {
+	public HashMap<String, Object> addPassageway(@RequestBody Passageway passageway) {
 		HashMap<String, Object> result = new HashMap<String, Object>(); 
-		passagewayService.addPassageway(Passageways);
+		passagewayService.addPassageway(passageway);
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @Title: addPassageway
+	 * @Description: TODO
+	 * @param passageway
+	 * @return
+	 */ 
+	@RequestMapping("/delPassageway")
+	public HashMap<String, Object> delPassageway(@RequestBody Passageway passageway) {
+		HashMap<String, Object> result = new HashMap<String, Object>(); 
+		passagewayService.delPassageway(passageway);
 		return result;
 	}
 	 

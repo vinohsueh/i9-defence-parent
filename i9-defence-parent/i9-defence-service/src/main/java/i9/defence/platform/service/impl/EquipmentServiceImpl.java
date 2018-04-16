@@ -65,7 +65,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 				return equipmentDao.selectByLimitPage3(equipmentSearchDto, equipmentSearchDto.getCurrentPage(), equipmentSearchDto.getPageSize(),loginManager.getId());
 			}
 		} catch (Exception e) {
-			throw new BusinessException("分页项目类别类别查询失败",e.getMessage());
+			throw new BusinessException("查询设备失败",e.getMessage());
 		}
 		return null;
 	}
@@ -96,7 +96,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 					equipmentDao.updateEquipmentByIds(equipments);
 			}
 		} catch (Exception e) {
-			throw new BusinessException("添加项目类别类别失败",e.getMessage());
+			throw new BusinessException("添加设备失败",e.getMessage());
 		}
 	}
 
@@ -105,7 +105,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 		try {
 			equipmentDao.updateEquipment(equipment);
 		} catch (Exception e) {
-			throw new BusinessException("更新项目类别失败",e.getMessage());
+			throw new BusinessException("更新设备失败",e.getMessage());
 		}
 	}
 
@@ -114,7 +114,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 		try {
 			return equipmentDao.getEquipmentById(id);
 		} catch (Exception e) {
-			throw new BusinessException("查询项目类别失败",e.getMessage());
+			throw new BusinessException("查询设备失败",e.getMessage());
 		}
 	}
 
