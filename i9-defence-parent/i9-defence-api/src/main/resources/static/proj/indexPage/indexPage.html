@@ -61,9 +61,18 @@
         <div class="sTitle">
             <p class='text'>隐患统计台</p>
             <p class='tools'>
-                <span class='active'>年<i class='mIcon icon-radio'></i></span>
-                <span>月<i class='mIcon icon-radio'></i></span>
-                <span>日<i class='mIcon icon-radio'></i></span>
+                <div class="form-group">
+                      <label for="">登记时间:</label>
+                      <div class="input-group" ng-controller="DatepickerDemoCtrl">
+                        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+                        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+                      </div>
+                      <label for="">-</label>
+                      <div class="input-group" ng-controller="DatepickerDemoCtrl">
+                        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+                        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+                      </div>
+                </div>
             </p>
         </div>
         <div class="chartBody" id='chartBody'>
