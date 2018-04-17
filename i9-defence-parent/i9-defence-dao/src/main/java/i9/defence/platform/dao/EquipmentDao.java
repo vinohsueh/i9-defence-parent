@@ -205,4 +205,5 @@ public interface EquipmentDao {
 	 * @return
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto);
+	
 }

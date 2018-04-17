@@ -184,7 +184,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		$scope.projectInfo = data.data;
     		$scope.equipmentCheckArr = [];
     		$scope.equipmentItemArr = [];
-    		console.log($scope.equipmentInfo)
+//    		console.log($scope.equipmentInfo)
     		if($scope.equipmentInfo!= null){
     			$scope.chartsStatus = true;
     			for(i in $scope.equipmentInfo.channelData){

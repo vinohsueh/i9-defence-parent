@@ -401,5 +401,6 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询失败",e.getMessage());
 		}
 	}
+
 }
 

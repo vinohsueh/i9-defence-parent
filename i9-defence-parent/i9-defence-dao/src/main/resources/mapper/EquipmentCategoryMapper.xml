@@ -6,6 +6,7 @@
     <result column="eqCategoryName" jdbcType="VARCHAR" property="eqCategoryName" />
     <result column="eqCategoryId" jdbcType="VARCHAR" property="eqCategoryId" />
     <result column="eqCategoryExplain" jdbcType="VARCHAR" property="eqCategoryExplain" />
+     <association property="eqNum" column="id" select="selectEqNumById"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -217,5 +218,8 @@
           order by ${example.orderByClause}
         </if>
         limit #{offset},#{limit}
+   </select>
+   <select id="selectEqNumById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   		SELECT count(*)  FROM t_equipment where equipmentCategoryId= #{id}
    </select>
 </mapper>

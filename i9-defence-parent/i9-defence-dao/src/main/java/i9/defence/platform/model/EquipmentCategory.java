@@ -24,8 +24,18 @@ public class EquipmentCategory {
      */
     private String eqCategoryExplain;
     
+    private Integer eqNum;
+    
 
-    public Integer getId() {
+    public Integer getEqNum() {
+		return eqNum;
+	}
+
+	public void setEqNum(Integer eqNum) {
+		this.eqNum = eqNum;
+	}
+
+	public Integer getId() {
         return id;
     }
 
