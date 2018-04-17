@@ -21,7 +21,7 @@ public interface PassageWayDao {
 	* @return
 	* @throws Exception
 	 */
-	List<Passageway> selectPassagewaysByEquipId(Integer categoryId)throws Exception;
+	List<Passageway> selectPassagewaysByCategoryId(Integer categoryId)throws Exception;
 	
 	
 	/**
@@ -31,7 +31,7 @@ public interface PassageWayDao {
 	* @param passageway
 	* @throws Exception
 	 */
-	void addPassageway(List<Passageway> passageways) throws Exception;
+	void addPassageway(Passageway passageway) throws Exception;
 
 	/**
 	 * 删除旧的通道对应关系
@@ -39,4 +39,18 @@ public interface PassageWayDao {
 	 * @throws Exception
 	 */
 	void delPassagewayBySystemId(Integer categoryId) throws Exception;
+	
+	/**
+	 * 根据类型和通道查询
+	 * @param passageway
+	 * @return
+	 * @throws Exception
+	 */
+	int selectCountByCatIdAndChannelId(Passageway passageway) throws Exception;
+
+	/**
+	 * 删除通道
+	 * @param passageway
+	 */
+	void delPassageway(Passageway passageway) throws Exception;
 }

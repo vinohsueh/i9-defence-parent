@@ -18,7 +18,7 @@
     <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
     <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
-  	<collection column="id" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectByEquipmentId"></collection>
+  	<collection column="equipmentCategoryId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -501,8 +501,8 @@
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
-				<if test="example.projectName != null and example.projectName != ''">
-					and projectName ='${example.projectName}'
+				<if test="example.projectId != null">
+					and projectId = #{example.projectId}
 				</if>
 				<!--根据设备类型 模糊搜索  -->	
 				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">
@@ -534,7 +534,10 @@
 				</if>
 				<!--经销商  -->	
 				<if test="example.distributorId != null and example.distributorId != ''">
-					and distributorId = ='${example.distributorId}'
+					and distributorId ='${example.distributorId}'
+				</if>
+				<if test="example.equipmentCategoryId != null">
+					and equipmentCategoryId = #{example.equipmentCategoryId}
 				</if>
 				<!-- <if test="example.startDate != null and example.startDate != ''">
 					and example.startDate &lt; equipmentDate
@@ -544,6 +547,16 @@
 				</if> -->
 			</trim>
 		</sql>
+		
+		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
+			<if test="example.orderByClause != null">
+				order by ${example.orderByClause}
+			</if>
+		</select>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
@@ -617,8 +630,11 @@
 	<select id="selectWarningMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
 		where (cd.value &gt;= cd.WarningMax or  cd.value &lt;= cd.WarningMin)  
-		<if test="projectId != null ">
-	         and p.id = #{projectId}
+		<if test="projectIds != null  and  projectIds.size > 0">
+	         and p.id in
+	         <foreach collection="projectIds" item="projectId" open="(" separator=","  close=")">
+				#{projectId}
+			</foreach>
         </if>
         <if test="endTime != null and endTime != ''">
 	        and cd.dateTime &lt; #{endTime}
@@ -630,11 +646,14 @@
 	</select>
 	
 	
-	<select id="selectHiddenMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+	<!-- <select id="selectHiddenMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
 		where ((cd.value &gt; cd.HiddenMax and cd.value &lt; cd.WarningMax)or(cd.value &lt; cd.HiddenMin and cd.value &gt; cd.WarningMin)) 
-		<if test="projectId != null ">
-	         and p.id = #{projectId}
+		<if test="projectIds != null  and  projectIds.size > 0 ">
+	          and p.id in
+	         <foreach collection="projectIds" item="projectId" open="(" separator=","  close=")">
+				#{projectId}
+			</foreach>
         </if>
         <if test="endTime != null and endTime != ''">
 	        and cd.dateTime &lt; #{endTime}
@@ -642,6 +661,24 @@
         <if test="startTime != null and startTime != ''">
 	        and cd.dateTime &gt; #{startTime} 
         </if>
+		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
+	</select> -->
+	<select id="selectHiddenMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from t_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
+		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
+			<if test="projectIds != null  and  projectIds.size > 0 ">
+		          and p.id in
+		         <foreach collection="projectIds" item="projectId" open="(" separator=","  close=")">
+					#{projectId}
+				</foreach>
+	        </if>
+	        <if test="endTime != null and endTime != ''">
+		        and cd.dateTime &lt; #{endTime}
+	        </if>
+	        <if test="startTime != null and startTime != ''">
+		        and cd.dateTime &gt; #{startTime} 
+	        </if>
+        </trim>
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select>
 </mapper>

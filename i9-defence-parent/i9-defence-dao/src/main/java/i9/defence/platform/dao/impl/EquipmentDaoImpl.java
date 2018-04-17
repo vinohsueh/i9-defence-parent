@@ -1,5 +1,6 @@
 package i9.defence.platform.dao.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -187,11 +188,16 @@ public class EquipmentDaoImpl implements EquipmentDao{
 
 	@Override
 	public List<MonthData> selectMonthWarningData(MonthDataDto monthDataDto) {
-		return equipmentMapper.selectWarningMonthData(monthDataDto.getProjectId(), monthDataDto.getStartTime(), monthDataDto.getEndTime());
+		return equipmentMapper.selectWarningMonthData(Arrays.asList(monthDataDto.getProjectId()), monthDataDto.getStartTime(), monthDataDto.getEndTime());
 	}
 
 	@Override
 	public List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) {
-		return equipmentMapper.selectHiddenMonthData(monthDataDto.getProjectId(), monthDataDto.getStartTime(), monthDataDto.getEndTime());
+		return equipmentMapper.selectHiddenMonthData(Arrays.asList(monthDataDto.getProjectId()), monthDataDto.getStartTime(), monthDataDto.getEndTime());
+	}
+
+	@Override
+	public List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto) {
+		return equipmentMapper.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
 	}
 }

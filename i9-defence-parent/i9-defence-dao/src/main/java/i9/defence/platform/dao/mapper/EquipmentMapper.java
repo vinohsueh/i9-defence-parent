@@ -90,7 +90,7 @@ public interface EquipmentMapper {
 	 * @param endTime
 	 * @return
 	 */
-	List<MonthData> selectWarningMonthData(@Param("projectId")Integer projectId,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	List<MonthData> selectWarningMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
 		
 	/**
 	 * 查询月隐患
@@ -99,5 +99,12 @@ public interface EquipmentMapper {
 	 * @param endTime
 	 * @return
 	 */
-	List<MonthData> selectHiddenMonthData(@Param("projectId")Integer projectId,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	List<MonthData> selectHiddenMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	
+	/**
+	 * 查询全部
+	 * @param hiddenDangerSearchDto
+	 * @return
+	 */
+	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 }

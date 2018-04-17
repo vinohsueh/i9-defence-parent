@@ -13,6 +13,10 @@ public class HiddenDangerSearchDto extends PageListDto{
 	 * 项目名称
 	 */
 	private String projectName;
+	
+	private Integer projectId;
+	
+	
 	/*
 	 * 项目所在省
 	 */
@@ -46,7 +50,25 @@ public class HiddenDangerSearchDto extends PageListDto{
 	 */
 	private Integer distributorId;
 	
+	/**
+	 * 设备类型
+	 */
+	private Integer equipmentCategoryId;
 	
+	
+	
+	public Integer getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+	public Integer getEquipmentCategoryId() {
+		return equipmentCategoryId;
+	}
+	public void setEquipmentCategoryId(Integer equipmentCategoryId) {
+		this.equipmentCategoryId = equipmentCategoryId;
+	}
 	public Integer getDistributorId() {
 		return distributorId;
 	}

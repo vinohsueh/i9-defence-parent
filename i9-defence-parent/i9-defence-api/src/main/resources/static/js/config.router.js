@@ -339,6 +339,7 @@ angular.module('app')
               })
               .state('app.monitoringChart', {
                   url: '/monitoringChart',
+                  params: {'id': null},
                   templateUrl: 'proj/monitoringChart/monitoringChart.html',
                   controller : "monitoringChartNgControl",
                   resolve: {

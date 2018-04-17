@@ -191,18 +191,49 @@ td.eventType{
 	height: 100%;
 	#selfMap{
 		width:77%;
-		height: 100%;
+		height: 70%;
 		/*height: 70%;*/
 	} 
 }
 /*实时监控图形排版*/
 .monitoring{
-	background-color: #283a7e;
-	box-sizing: border-box;
-	padding: 20px 20px 10px;
-	.border-radius();
-	max-height: 500px;
-	overflow-y: auto;
+	.clear;
+	.faultType{
+		float: left;
+		max-height:295px;
+		overflow-y: auto;
+		.item{
+			width:115px;
+			text-align: center;
+			.border-radius();
+			background-color: #2a3f8a;
+			margin-bottom: 10px;
+			cursor: pointer;
+			.name{
+				padding: 5px 10px;
+				border-bottom: 1px solid #314796;
+			}
+			.body{
+				padding:5px 10px;
+				font-size:16px;
+			}
+			&.active{
+				background-color: #0d1638;
+				.name{
+					border-color:#262e4c;
+				}
+			}
+		}
+	}
+	.equipmentData{
+		margin-left: 135px;
+		background-color: #283a7e;
+		box-sizing: border-box;
+		padding: 20px;
+		.border-radius();
+		max-height:295px;
+		overflow-y: auto;
+	}
 }
 /*项目列表*/
 #projectList{
@@ -260,14 +291,24 @@ td.eventType{
 				background-color: #324BA7;
 			}
 			li{
+				.clear();
 				font-size: 12px;
-				padding: 10px 30px 10px 20px;
+				padding: 10px 40px 10px 20px;
 				border-bottom: 1px dashed #0d1120;
-				background:url('@{imgPath}enterArrow.png') no-repeat center right;
 				cursor: pointer;
-				.textEll;
+				position: relative;
 				&:hover{
 					background-color:#151C36;
+				}
+				p{
+					.textEll;
+					margin-bottom: 0;
+				}
+				button{
+					position: absolute;
+					top:10px;
+					right: 10px;
+					background:url('@{imgPath}enterArrow.png') no-repeat center right;
 				}
 			}
 		}
@@ -335,7 +376,7 @@ td.eventType{
 	width: 77%;
 	box-sizing: border-box;
 	padding-right: 30px;
-	.sTitle{
+	.row{
 		background-color: #1b285b;
 		border-bottom: #253055;
 		color: #fff;
@@ -343,16 +384,6 @@ td.eventType{
 		height: 40px;
 		box-sizing: border-box;
 		padding:0 50px; 
-		.tools span{
-			cursor: pointer;
-			margin-right: 10px;
-			.icon{
-				margin-left: 5px;
-			}
-			&.active .icon{
-				background-position: -120px -30px;
-			}
-		}
 	}
 	.chartBody{
 		width:100%;
