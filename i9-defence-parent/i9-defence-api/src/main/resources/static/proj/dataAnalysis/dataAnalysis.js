@@ -20,6 +20,45 @@ var dataAnalysisService = dataAnalysisNgModule.factory('dataAnalysisService',
 			return resource;
 	}]);
 var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,dataAnalysisService,httpService){
+	//时间插件
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+      $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.opened = true;
+    };
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1,
+      class: 'datepicker'
+    };
+
+    $scope.initDate = new Date('2016-15-20');
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+	
+    $scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
+    $scope.startTimeS;
+    $scope.changeStartTime = function(){
+    	console.log($scope.startTime)
+    	$scope.startTimeS = $scope.dateToString($scope.startTime);
+    	console.log($scope.dateToString($scope.startTime))
+    	
+    }
+	
 	/*$scope.option={
 	    title:{
 	        show:false,
@@ -172,8 +211,8 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
     	
 		var pageParam = {
 				projectId:Ids,
-				startTime:$scope.startTime,
-				endTime:$scope.endTime,
+				startTime:$scope.startTimeS,
+				endTime:$scope.dateToString($scope.endTimeS),
 				/*projectName : text,
 				projectAddress : text,*/
 			};
