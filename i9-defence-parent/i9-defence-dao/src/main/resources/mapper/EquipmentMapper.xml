@@ -389,6 +389,13 @@
         limit #{offset},#{limit}
    </select>
    
+   <select id="countByExample3"  resultType="java.lang.Integer">
+    select count(*) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
+    <if test="_parameter != null">
+      <include refid="Query_By_Dto_Where_Clause3" />
+    </if>
+  </select>
+   
    <select id="selectByLimitPage3" resultMap="BaseResultMap">
         select e.* from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
         <if test="_parameter != null" >
@@ -427,9 +434,11 @@
           OR e.equipmentIdentifier LIKE CONCAT('%',CONCAT('${example.equipmentIdentifier}','%'))
         </if>
         <if test="example.equipmentPosition != null and example.equipmentPosition != ''">
-          OR e.equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))
+          OR e.equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%')))
         </if>
-        and  ps.managerId = #{distributorId}
+        <if test="example.distributorId != null and example.distributorId != ''">
+          AND ps.managerId = #{example.distributorId} and p.projectState = 1
+        </if>
     </trim>
   </sql>
    <select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
