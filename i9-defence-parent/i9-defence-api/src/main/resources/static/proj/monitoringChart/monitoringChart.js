@@ -48,7 +48,10 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[1];
 	
-    
+    $scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
     
     
 	//首页跳转过来的项目id
@@ -343,10 +346,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	}
     }
     
-    $scope.dateToString = function(d){
-    	var date = new Date(d);
-    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-    }
     
     
     //设备类型切换
