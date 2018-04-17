@@ -92,7 +92,7 @@
           AND p.projectCounty = #{example.projectCounty}
         </if>
         <if test="example.projectManagerId != null and example.projectManagerId != ''">
-          AND ps.managerId = #{example.projectManagerId}
+          AND ps.managerId = #{example.projectManagerId} and p.projectState = 1
         </if>
     </trim>
   </sql>

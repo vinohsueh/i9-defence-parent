@@ -42,8 +42,9 @@ public interface EquipmentMapper {
 
     List<Equipment> selectByLimitPage2(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize,@Param("distributorId")Integer distributorId);
     
-    List<Equipment> selectByLimitPage3(@Param("example") EquipmentSearchDto equipmentSearchDto,@Param("offset") int offset,@Param("limit") int pageSize,
-    		@Param("distributorId")Integer managerId);
+    List<Equipment> selectByLimitPage3(@Param("example") EquipmentSearchDto equipmentSearchDto,@Param("offset") int offset,@Param("limit") int pageSize);
+    
+    int countByExample3(@Param("example") EquipmentSearchDto equipmentSearchDto);
     
     List<Passageway> selectPassagewayByEid(String systemId);
     
