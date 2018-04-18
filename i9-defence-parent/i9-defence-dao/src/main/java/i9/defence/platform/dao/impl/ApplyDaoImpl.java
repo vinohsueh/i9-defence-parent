@@ -1,6 +1,5 @@
 package i9.defence.platform.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.mapper.ApplyMapper;
+import i9.defence.platform.dao.vo.ApplyDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
 import i9.defence.platform.model.ApplyExample.Criteria;
@@ -104,32 +104,13 @@ public class ApplyDaoImpl implements ApplyDao {
 	}
 
 	@Override
-	public PageBounds<Apply> selectByLimitPage2(ApplyExample applyExample, int currectPage, int pageSize,
-			Integer destriId) throws Exception {
-		final int totalSize = applyMapper.countByExample2(applyExample);
-		ArrayList<Apply> Onedestris = new ArrayList<>();
-		ArrayList<Apply> Twodestris = new ArrayList<>();
-		PageBounds<Apply> pageBounds = new PageBounds<Apply>(currectPage, totalSize, pageSize);
-		List<Apply> list = applyMapper.selectByLimitPage2(applyExample, pageBounds.getOffset(),
-				pageBounds.getPageSize());
-		if (destriId != null && 1 == destriId) {
-			for (Apply apply : list) {
-				if (null == apply.getConductParentId()) {
-					Onedestris.add(apply);
-				}
-			}
-			pageBounds.setPageList(Onedestris);
+	public PageBounds<Apply> selectByLimitPage2(ApplyDto applyDto, int currectPage, int pageSize) throws Exception {
+			final int totalSize = applyMapper.countByExample2(applyDto); 
+			PageBounds<Apply> pageBounds = new PageBounds<Apply>(currectPage, totalSize, pageSize);
+			List<Apply> list = applyMapper.selectByLimitPage2(applyDto, pageBounds.getOffset(), pageBounds.getPageSize());
+			pageBounds.setPageList(list);
 			return pageBounds;
-		} else if (destriId != null && 2 == destriId) {
-			for (Apply apply : list) {
-				if (null != apply.getConductParentId()) {
-					Twodestris.add(apply);
-				}
-			}
-			pageBounds.setPageList(Twodestris);
-			return pageBounds;
-		}
-		return null;
+		} 
 
-	}
+	 
 }

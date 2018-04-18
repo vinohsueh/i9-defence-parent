@@ -78,9 +78,10 @@ public class Apply {
     private Project project;
     
     /**
-     * 申请表中项目的负责人的父Id
+     * 选择经销商级别
      */
-    private Integer ConductParentId;
+    private String choiceType;
+    
     
     public Integer getId() {
         return id;
@@ -190,13 +191,14 @@ public class Apply {
 		this.project = project;
 	}
 
-	public Integer getConductParentId() {
-		return ConductParentId;
+	public String getChoiceType() {
+		return choiceType;
 	}
 
-	public void setConductParentId(Integer conductParentId) {
-		ConductParentId = conductParentId;
+	public void setChoiceType(String choiceType) {
+		this.choiceType = choiceType;
 	}
-    
+
+	 
     
 }

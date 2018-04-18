@@ -11,7 +11,6 @@
     <result column="conductDate" jdbcType="TIMESTAMP" property="conductDate" />
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
     <result column="projectId" jdbcType="INTEGER" property="projectId" />
-    <result column="ConductParentId" jdbcType="INTEGER" property="ConductParentId"/>
     <association property="applyManager" column="applyId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
     <association property="conductorManager" column="conductorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
     <association property="equipment" column="equipmentId" select="i9.defence.platform.dao.mapper.EquipmentMapper.selectByPrimaryKey"></association>
@@ -77,11 +76,13 @@
   </sql>
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
-    	<if test="example.applyId != null and example.applyId != ''">
-            OR (applyId like CONCAT('%',CONCAT('${example.applyId}','%'))
+         <if test="example.destriId != null and example.destriId ==1">
+         and mg.parentId IS  NULL
         </if>
-        <if test="example.conductorId != null and example.conductorId != ''">
-          OR conductorId LIKE CONCAT('%',CONCAT('${example.conductorId}','%')))
+    </trim>
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+         <if test="example.destriId != null and example.destriId ==2">
+         and mg.parentId IS NOT NULL
         </if>
     </trim>
   </sql>
@@ -194,10 +195,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-    <select id="countByExample2" parameterType="i9.defence.platform.model.ApplyExample" resultType="java.lang.Integer">
+    <select id="countByExample2" resultType="java.lang.Integer">
     select count(a.id) from  t_apply a left join t_manager_grade mg on a.conductorId=mg.managerId 
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Query_By_Dto_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -307,7 +308,7 @@
   <select id="selectByLimitPage2" resultMap="BaseResultMap">
       select a.id as id,a.type as type, a.state as state,a.applyId as applyId,a.applyDate as applyDate,a.conductorId as conductorId,a.equipmentId as equipmentId,a.projectId as projectId, mg.parentId  as ConductParentId from t_apply a left join t_manager_grade mg on a.conductorId=mg.managerId 
       <if test="_parameter != null" > 
-        <include refid="Update_By_Example_Where_Clause" />
+        <include refid="Query_By_Dto_Where_Clause" />
       </if>
       <if test="example.orderByClause != null" >
         order by ${example.orderByClause}
