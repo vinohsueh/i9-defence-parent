@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import i9.defence.platform.dao.ApplyDao;
+import i9.defence.platform.dao.vo.ApplyDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
 import i9.defence.platform.model.ApplyExample.Criteria;
@@ -42,7 +43,7 @@ public class ApplyServiceImpl implements ApplyService {
 
 	@Override
 	public PageBounds<Apply> selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize,Integer destriId)
-			throws BusinessException {
+			throws BusinessException { 
 		try {
 			// 1.获得当前登录用户
 			Manager manager = managerService.getLoginManager();
@@ -53,7 +54,9 @@ public class ApplyServiceImpl implements ApplyService {
 					PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);
 					return pageBounds; 
 				}else {
-					PageBounds<Apply> pageBounds = applyDao.selectByLimitPage2(applyExample, currectPage, pageSize,destriId);
+					ApplyDto applyDto = new ApplyDto(); 
+					applyDto.setDestriId(destriId);
+					PageBounds<Apply> pageBounds = applyDao.selectByLimitPage2(applyDto, currectPage, pageSize);
 					return pageBounds;
 				}
 			} 
