@@ -30,6 +30,19 @@ public interface ApplyDao {
 	 */
 	PageBounds<Apply>  selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize) throws Exception;
 	
+	
+	/**
+	 * 分页查询申请表（外带处理人的父Id）
+	* @Title: selectByLimitPage 
+	* @Description: TODO
+	* @param applyExample
+	* @param currectPage
+	* @param pageSize
+	* @return
+	* @throws Exception
+	 */
+	PageBounds<Apply>  selectByLimitPage2(ApplyExample applyExample, int currectPage, int pageSize,Integer destriId) throws Exception;
+	
 	/**
 	 * 删除申请
 	* @Title: delApply 

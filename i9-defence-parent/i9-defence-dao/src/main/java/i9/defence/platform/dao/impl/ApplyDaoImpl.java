@@ -1,5 +1,6 @@
 package i9.defence.platform.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import i9.defence.platform.model.ApplyExample.Criteria;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * @ClassName: ApplyDaoImpl 
+ * @ClassName: ApplyDaoImpl
  * @Description: TODO
  * @author: luobo
  * @date: 2018年1月25日 上午10:09:12
@@ -23,16 +24,18 @@ public class ApplyDaoImpl implements ApplyDao {
 
 	@Autowired
 	private ApplyMapper applyMapper;
+
 	@Override
-	public PageBounds<Apply> selectByLimitPage(ApplyExample applyExample,
-			int currectPage, int pageSize) throws Exception {
-		final 	int totalSize = applyMapper.countByExample(applyExample);
+	public PageBounds<Apply> selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize)
+			throws Exception {
+		final int totalSize = applyMapper.countByExample(applyExample);
 		PageBounds<Apply> pageBounds = new PageBounds<Apply>(currectPage, totalSize, pageSize);
-		List<Apply> list = applyMapper.selectByLimitPage(applyExample, pageBounds.getOffset(), pageBounds.getPageSize());
+		List<Apply> list = applyMapper.selectByLimitPage(applyExample, pageBounds.getOffset(),
+				pageBounds.getPageSize());
 		pageBounds.setPageList(list);
 		return pageBounds;
 	}
-	
+
 	/**
 	 * 删除申请
 	 */
@@ -40,7 +43,7 @@ public class ApplyDaoImpl implements ApplyDao {
 	public void delApply(List<Integer> ids) throws Exception {
 		applyMapper.deleteByPrimaryKey(ids);
 	}
-	
+
 	/**
 	 * 批量插入
 	 */
@@ -48,11 +51,11 @@ public class ApplyDaoImpl implements ApplyDao {
 	public void insertEquipmentApplys(List<Apply> applies) throws Exception {
 		applyMapper.insertEquipmentApplys(applies);
 	}
-	
+
 	/**
 	 * 批量更新
 	 */
-	@Override 
+	@Override
 	public void updateApplys(List<Apply> applies) throws Exception {
 		applyMapper.updateApplys(applies);
 	}
@@ -64,9 +67,9 @@ public class ApplyDaoImpl implements ApplyDao {
 
 	@Override
 	public void insertProjectApplys(List<Apply> applies) throws Exception {
-		 applyMapper.insertProjectApplys(applies);
+		applyMapper.insertProjectApplys(applies);
 	}
-	
+
 	/**
 	 * 查询部分申请
 	 */
@@ -87,7 +90,7 @@ public class ApplyDaoImpl implements ApplyDao {
 
 	@Override
 	public int selectEquipmentCount(List<Integer> ids) throws Exception {
-		int count =applyMapper.selectEquipmentCount(ids);
+		int count = applyMapper.selectEquipmentCount(ids);
 		return count;
 	}
 
@@ -99,6 +102,34 @@ public class ApplyDaoImpl implements ApplyDao {
 		List<Apply> list = applyMapper.selectByExample(example);
 		return list;
 	}
-	
 
+	@Override
+	public PageBounds<Apply> selectByLimitPage2(ApplyExample applyExample, int currectPage, int pageSize,
+			Integer destriId) throws Exception {
+		final int totalSize = applyMapper.countByExample2(applyExample);
+		ArrayList<Apply> Onedestris = new ArrayList<>();
+		ArrayList<Apply> Twodestris = new ArrayList<>();
+		PageBounds<Apply> pageBounds = new PageBounds<Apply>(currectPage, totalSize, pageSize);
+		List<Apply> list = applyMapper.selectByLimitPage2(applyExample, pageBounds.getOffset(),
+				pageBounds.getPageSize());
+		if (destriId != null && 1 == destriId) {
+			for (Apply apply : list) {
+				if (null == apply.getConductParentId()) {
+					Onedestris.add(apply);
+				}
+			}
+			pageBounds.setPageList(Onedestris);
+			return pageBounds;
+		} else if (destriId != null && 2 == destriId) {
+			for (Apply apply : list) {
+				if (null != apply.getConductParentId()) {
+					Twodestris.add(apply);
+				}
+			}
+			pageBounds.setPageList(Twodestris);
+			return pageBounds;
+		}
+		return null;
+
+	}
 }

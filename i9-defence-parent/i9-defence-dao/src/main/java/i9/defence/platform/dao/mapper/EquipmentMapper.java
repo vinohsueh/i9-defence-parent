@@ -108,4 +108,5 @@ public interface EquipmentMapper {
 	 * @return
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
+	
 }

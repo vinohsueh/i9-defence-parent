@@ -599,6 +599,7 @@
 		<select id="selectHiddenDangerDtoByDeviceId" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select * from v_hiddenDanger_edit where deviceId = #{deviceId}
 		</select>
+		
 	<!-- ———————————— 隐患与报警———————————— -->
 	
 	<!-- 故障设备 -->
