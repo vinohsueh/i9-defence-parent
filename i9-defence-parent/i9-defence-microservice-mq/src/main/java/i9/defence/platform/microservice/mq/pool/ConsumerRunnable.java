@@ -1,4 +1,4 @@
-package i9.defence.platform.mq.pool;
+package i9.defence.platform.microservice.mq.pool;
 
 import javax.annotation.Resource;
 import javax.jms.TextMessage;
