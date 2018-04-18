@@ -42,8 +42,9 @@ public interface EquipmentMapper {
 
     List<Equipment> selectByLimitPage2(@Param("example") EquipmentSearchDto equipmentSearchDto, @Param("offset") int offset, @Param("limit") int pageSize,@Param("distributorId")Integer distributorId);
     
-    List<Equipment> selectByLimitPage3(@Param("example") EquipmentSearchDto equipmentSearchDto,@Param("offset") int offset,@Param("limit") int pageSize,
-    		@Param("distributorId")Integer managerId);
+    List<Equipment> selectByLimitPage3(@Param("example") EquipmentSearchDto equipmentSearchDto,@Param("offset") int offset,@Param("limit") int pageSize);
+    
+    int countByExample3(@Param("example") EquipmentSearchDto equipmentSearchDto);
     
     List<Passageway> selectPassagewayByEid(String systemId);
     
@@ -100,4 +101,11 @@ public interface EquipmentMapper {
 	 * @return
 	 */
 	List<MonthData> selectHiddenMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	
+	/**
+	 * 查询全部
+	 * @param hiddenDangerSearchDto
+	 * @return
+	 */
+	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 }

@@ -62,9 +62,10 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	@Override
 	public PageBounds<Equipment> selectByLimitPage3(EquipmentSearchDto equipmentSearchDto, int currentPage,
 			int pageSize, Integer distributorId) {
-		final int totalSize = equipmentMapper.countByExample(equipmentSearchDto);
+		equipmentSearchDto.setDistributorId(distributorId);
+		final int totalSize = equipmentMapper.countByExample3(equipmentSearchDto);
         PageBounds<Equipment> pageBounds = new PageBounds<Equipment>(currentPage, totalSize, pageSize);
-        List<Equipment> list = equipmentMapper.selectByLimitPage3(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize(),distributorId);
+        List<Equipment> list = equipmentMapper.selectByLimitPage3(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
         return pageBounds;
 	}
@@ -194,5 +195,10 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	@Override
 	public List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) {
 		return equipmentMapper.selectHiddenMonthData(Arrays.asList(monthDataDto.getProjectId()), monthDataDto.getStartTime(), monthDataDto.getEndTime());
+	}
+
+	@Override
+	public List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto) {
+		return equipmentMapper.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
 	}
 }

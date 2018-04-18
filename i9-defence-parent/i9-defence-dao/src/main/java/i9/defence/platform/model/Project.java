@@ -48,7 +48,7 @@ public class Project {
     @NotBlank(message="备注不能为空")
     private String remarks;
     //开关 0-关，1-开
-    //@NotNull(message="开关 0-关，1-开不能为空")
+    //@NotNull(message="开关 0-关，1-开 不能为空")
     private Integer projectState;
     //经销商(一对一关系)
     private Manager distributor;

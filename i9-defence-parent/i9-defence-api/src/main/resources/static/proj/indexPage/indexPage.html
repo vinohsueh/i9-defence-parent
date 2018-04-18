@@ -48,28 +48,38 @@
         <div class="projectBody">
             <div class="searchItem">
                 <input type="text" ng-model='searchText' placeholder='输入查找项目名称'/>
-                <i class='mIcon icon-search' ng-click='pageInit()'></i>
+                <i class='mIcon icon-search' ng-click='searchBtn()'></i>
             </div>
             <ul class="projectNameList">
-                <li ng-repeat='i in projectList'>{{i.projectName}}</li>                
+                <!-- <li ng-repeat='i in projectList'>{{i.projectName}}</li>                 -->
+                <li ng-repeat='i in projectList' ng-click="goTo({{i.id}})"><p>{{i.projectName}}</p><button class='btn btn-primary'></button></li>
             </ul>
             <!-- <div id='loadMore'>下拉展开更多…</div> -->
         </div>
     </div>
-    <!-- <div id='chartData'>
-        <div class="sTitle">
-            <p class='text'>隐患统计台</p>
-            <p class='tools'>
-                <span class='active'>年<i class='mIcon icon-radio'></i></span>
-                <span>月<i class='mIcon icon-radio'></i></span>
-                <span>日<i class='mIcon icon-radio'></i></span>
-            </p>
+    <div id='chartData'>
+        <div class="row">
+            <p class='col-sm-3'>bai统计台</p>
+            <div class='col-sm-9 form-inline text-right'>
+                <div class="form-group">
+                      <label for="">登记时间:</label>
+                      <div class="input-group" ng-controller="indexPageNgControl">
+                        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+                        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+                      </div>
+                      <label for="">-</label>
+                      <div class="input-group" ng-controller="indexPageNgControl">
+                        <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+                        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+                      </div>
+                </div>
+            </div>
         </div>
-        <div class="chartBody" id='chartBody'>
+        <div class="chartBody" id='chartBody' ng-show='chartsStatus'>
             <div e-chart options="option"></div>
         </div>
     </div>
-    <div id="pieChart">
+    <!-- <div id="pieChart">
         <div class="sTitle">
             <div class="text">设备分布饼图</div>
         </div>

@@ -24,6 +24,7 @@ public class ProjcetMonitorComponent {
 		jsonObject.put("name", project.getProjectName());
 		jsonObject.put("manager", project.getClientListStr());
 		jsonObject.put("safeManager", project.getSafeListStr());
+		jsonObject.put("location", project.getProjectAddressStr());
 		return jsonObject;
 	}
 	

@@ -58,7 +58,7 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	$scope.searchText = '';
 	$scope.initTable = function (){
 		if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.projectName;
+			$scope.searchText =$scope.projectName.id;
 		}else{
 			$scope.searchText = "";
 		}
@@ -66,7 +66,7 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				hidden : 'true',
-				projectName : $scope.searchText,
+				projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
 				eqCategoryName : $scope.eqCategoryName,
 			};

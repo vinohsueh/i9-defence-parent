@@ -189,10 +189,15 @@ td.eventType span.hiddenDanger {
 }
 .mPane .body {
   background-color: #19244c;
+  height: 105px;
   padding: 5px 10px;
 }
 .mPane .body p {
-  padding: 5px 0;
+  padding: 2px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
 }
 #selfMain {
   background-color: #151c35;
@@ -201,18 +206,60 @@ td.eventType span.hiddenDanger {
 }
 #selfMain #selfMap {
   width: 77%;
-  height: 100%;
+  height: 70%;
   /*height: 70%;*/
 }
 /*实时监控图形排版*/
 .monitoring {
-  background-color: #283a7e;
-  box-sizing: border-box;
-  padding: 20px 20px 10px;
+  zoom: 1;
+}
+.monitoring:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+  font-size: 0;
+}
+.monitoring .faultType {
+  float: left;
+  height: 500px;
+  overflow-y: auto;
+}
+.monitoring .faultType .item {
+  width: 115px;
+  text-align: center;
   -wibkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  max-height: 500px;
+  background-color: #2a3f8a;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.monitoring .faultType .item .name {
+  padding: 5px 10px;
+  border-bottom: 1px solid #314796;
+}
+.monitoring .faultType .item .body {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.monitoring .faultType .item.active {
+  background-color: #0d1638;
+}
+.monitoring .faultType .item.active .name {
+  border-color: #262e4c;
+}
+.monitoring .equipmentData {
+  margin-left: 135px;
+  background-color: #283a7e;
+  box-sizing: border-box;
+  padding: 20px;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  height: 500px;
   overflow-y: auto;
 }
 /*项目列表*/
@@ -285,18 +332,37 @@ td.eventType span.hiddenDanger {
   background-color: #324BA7;
 }
 #projectList .projectBody .projectNameList li {
+  zoom: 1;
   font-size: 12px;
-  padding: 10px 30px 10px 20px;
+  padding: 10px 40px 10px 20px;
   border-bottom: 1px dashed #0d1120;
-  background: url('../images/enterArrow.png') no-repeat center right;
   cursor: pointer;
+  position: relative;
+}
+#projectList .projectBody .projectNameList li:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+  font-size: 0;
+}
+#projectList .projectBody .projectNameList li:hover {
+  background-color: #151C36;
+}
+#projectList .projectBody .projectNameList li p {
   overflow: hidden;
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   white-space: nowrap;
+  margin-bottom: 0;
 }
-#projectList .projectBody .projectNameList li:hover {
-  background-color: #151C36;
+#projectList .projectBody .projectNameList li button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: url('../images/enterArrow.png') no-repeat center right;
 }
 #projectList .projectBody #loadMore {
   text-align: center;
@@ -363,7 +429,7 @@ td.eventType span.hiddenDanger {
   box-sizing: border-box;
   padding-right: 30px;
 }
-#chartData .sTitle {
+#chartData .row {
   background-color: #1b285b;
   border-bottom: #253055;
   color: #fff;
@@ -371,16 +437,6 @@ td.eventType span.hiddenDanger {
   height: 40px;
   box-sizing: border-box;
   padding: 0 50px;
-}
-#chartData .sTitle .tools span {
-  cursor: pointer;
-  margin-right: 10px;
-}
-#chartData .sTitle .tools span .icon {
-  margin-left: 5px;
-}
-#chartData .sTitle .tools span.active .icon {
-  background-position: -120px -30px;
 }
 #chartData .chartBody {
   width: 100%;

@@ -10,13 +10,13 @@ public interface PassagewayMapper {
 	List<Passageway> selectPassagewaysByCategoryId(Integer categoryId); 
 	
 	//新增通道
-	void addPassageWay(Passageway passageway);
+	void addPassageWay(List<Passageway> passageways);
 	
 	//查询
 	int selectCountByCatIdAndChannelId(Passageway passageway);
 	
 	//删除旧的通道对应关系
-	void delPassagewayBySystemId(Integer categoryId);
+	void delPassagewayByCategoryId(Integer categoryId);
 	
 	//删除通告
 	void delPassageway(Passageway passageway);

@@ -60,6 +60,22 @@ public class HiddenDangerEditController {
     }
     
     /**
+     * 查询全部
+     * @param hiddenDangerSearchDto
+     * @return
+     */
+    @RequestMapping("/selectAllHiddenDangerEdit")
+    public HashMap<String, Object> selectAllHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<HiddenDangerDto> list = equipmentService.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
+        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory();
+        List<Project> project = projectService.findAllProject();
+        result.put("data",list);
+        result.put("equipmentCategory",equipmentCategory);
+        result.put("project",project);
+        return result;
+    }
+    /**
 	 * 根据设备编号查找报警隐患 --隐患
 	 * @Title: selectHiddenDangerChannelDtoBySid
 	 * @Description: TODO

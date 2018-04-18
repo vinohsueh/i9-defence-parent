@@ -20,7 +20,43 @@ var monitoringChartService = monitoringChartNgModule.factory('monitoringChartSer
 		return resource;
 	}]);
 var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
-    $scope.getDate = function (index){
+	//时间插件
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+      $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.opened = true;
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1,
+      class: 'datepicker'
+    };
+
+    $scope.initDate = new Date('2016-15-20');
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+	
+    $scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
+    
+    
+	//首页跳转过来的项目id
+	$scope.projectId=$stateParams.id;
+	$scope.getDate = function (index){
 	    var date = new Date(); //当前日期
 	    var newDate = new Date();
 	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
@@ -37,9 +73,18 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //图表显示隐藏状态
     $scope.chartsStatus = false;
     $scope.idNum = 0;
+    $scope.serchEqCategoryId = null;
 
     $scope.changeTimeStatu = 1;
     
+    $scope.serchEqCategory = function(){      
+        var pageParam = {};
+        httpService.post({url:'./eqCategory/serchEqCategory',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+            $scope.serchEqCategory  = data.data.data;
+        })
+    }
+    $scope.serchEqCategory();
+
     
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
@@ -74,21 +119,25 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //初始化
     $scope.pageInit = function (){
     	if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.projectName;
+			$scope.searchText =$scope.projectName.id;
 		}else{
 			$scope.searchText = "";
 		}
+    	if ($scope.projectId != null) {
+    		$scope.searchText = $scope.projectId;
+    	}
     	var pageParam = {
-    			pageSize:$scope.pageSize,
-    			currentPage:$scope.currentPage,
-    			projectName : $scope.searchText,
+    			/*pageSize:$scope.pageSize,
+    			currentPage:$scope.currentPage,*/
+    			projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
+                equipmentCategoryId:$scope.serchEqCategoryId,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
     	
-    	httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-    		$scope.projects = data.data.data.pageList;
+    	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.projects = data.data.data;
     		for(i in $scope.projects){
     			if($scope.projects[i].warningCount>0){
     				$scope.projects[i].status = 'dangerLabel';
@@ -122,8 +171,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	var text = $scope.searchText;
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			startDateString:$scope.startTime,
-    			endDateString:$scope.endTime,
+    			startDateString:$scope.dateToString($scope.startTime),
+    			endDateString:$scope.dateToString($scope.endTime),
     			/*projectName : text,
     			projectAddress : text,*/
     		};
@@ -295,6 +344,16 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	if($scope.changeTimeStatu>3){
     		$scope.passagewayInit();
     	}
+    }
+    
+    
+    
+    //设备类型切换
+    $scope.changeType = function (idNum) {
+        $scope.type=idNum;
+        $scope.serchEqCategoryId = idNum;
+        $scope.pageInit();
+
     }
     //添加通道
     $scope.add = function () {  

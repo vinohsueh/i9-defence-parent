@@ -14,6 +14,7 @@
         <module>i9-defence-api</module>
         <module>i9-defence-microservice-mq</module>
         <module>i9-defence-microservice-observer</module>
+        <module>i9-defence-microservice-push</module>
         <module>i9-defence-microservice-config</module>
         <module>i9-defence-dao</module>
         <module>i9-defence-service</module>

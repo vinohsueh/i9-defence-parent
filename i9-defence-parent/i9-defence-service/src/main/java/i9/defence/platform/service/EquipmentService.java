@@ -158,6 +158,13 @@ public interface EquipmentService {
 	 * @throws BusinessException
 	 */
 	List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) throws BusinessException;
+	
+	/**
+	 * 查询全部
+	 * @param hiddenDangerSearchDto
+	 * @return
+	 */
+	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
 
     
 }

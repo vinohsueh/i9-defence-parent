@@ -20,6 +20,40 @@ var dataAnalysisService = dataAnalysisNgModule.factory('dataAnalysisService',
 			return resource;
 	}]);
 var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,dataAnalysisService,httpService){
+	//时间插件
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+      $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.opened = true;
+    };
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1,
+      class: 'datepicker'
+    };
+
+    $scope.initDate = new Date('2016-15-20');
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
+	
+    $scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
+
+    
+	
 	/*$scope.option={
 	    title:{
 	        show:false,
@@ -129,6 +163,14 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	}
 	$scope.startTime = $scope.getDate(-7);
 	$scope.endTime = $scope.getDate(0);
+	//更换时间
+	$scope.changeTimeStatu = 1;
+	$scope.changeTime = function(){
+		$scope.changeTimeStatu = $scope.changeTimeStatu+1;
+		if($scope.changeTimeStatu>2){
+			$scope.pageInit();
+		}
+	}
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
 			$scope.selected ={
@@ -163,15 +205,21 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 		}else{
 			$scope.projectId = null;
 		}
-
+    	
+    	
+    	var Ids = [];
+    	if ($scope.projectId != null) {
+    		Ids.push($scope.projectId);
+    	}
+    	
 		var pageParam = {
-				projectId:[$scope.projectId],
-				startTime:$scope.startTime,
-				endTime:$scope.endTime,
+				projectId:Ids,
+				startTime:$scope.dateToString($scope.startTime),
+				endTime:$scope.dateToString($scope.endTime),
 				/*projectName : text,
 				projectAddress : text,*/
 			};
-		console.log(pageParam)
+		console.log(JSON.stringify(pageParam))
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
@@ -220,7 +268,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				        textStyle:{
 				            color:'#fff',
 				        },
-				        data:['报警','隐患',]
+				        data:['报警','故障',]
 				    },
 				    xAxis:{
 				        axisLabel: {        
@@ -269,7 +317,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				        
 				        {
 				            type:'bar',
-				            name:'隐患',
+				            name:'故障',
 				            showAllSymbol: true,
 				            symbol: 'emptyCircle',
 				            symbolSize: 10,
@@ -315,4 +363,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	   $scope.error.area = false;
 	   $scope.queryProjects();
 	};
+	$scope.searchBtn = function () {
+		$scope.pageInit();
+	}
 })

@@ -35,7 +35,7 @@
   <div class="myBox">
       <div class="row">
         <div class="col-md-4">
-          <i class='glyphicon glyphicon-map-marker'></i>&nbsp;地点:天津华苑产业园区华天道2号国创中心
+          <i class='glyphicon glyphicon-map-marker'></i>&nbsp;地点:{{projectInfo.project.location}}
         </div>
         <div class="col-md-4 text-right">
           <p><span class='mr-10'><i class='mIcon icon-danger'></i>报警:{{warningCount}}</span><i class='mIcon icon-fault'></i>隐患:{{hiddenCount}}</p>
@@ -48,7 +48,15 @@
         </div>
       </div>
       <div class='monitoring'>
-          <span class="mLabel {{i.status}}" ng-click='checkItem(i.id)' ng-repeat='i in projects'>{{i.equipmentName}}</span>
+          <div class="faultType">
+            <div class="item " ng-class="{true:'active'}[type==i.id]" ng-click='changeType(i.id)' ng-repeat='i in serchEqCategory'>
+              <div class="name">{{i.eqCategoryName}}</div>
+              <div class="body">{{i.eqCategoryId}}</div>
+            </div>
+          </div>
+          <div class="equipmentData">
+            <span class="mLabel {{i.status}}" ng-click='checkItem(i.id)' ng-repeat='i in projects'>{{i.equipmentName}}</span>
+          </div>
       </div>
   </div>
   <div class='row'>
@@ -71,22 +79,21 @@
       <div class="title clearify">
         具体数据
         <div class='pull-right form-inline'>
-          <button type='button' class='btn btn-success' ng-click='add()'>通道设置</button>
           <div class="form-group">
             <label for="">登记时间:</label>
-            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+            <div class="input-group" ng-controller="monitoringChartNgControl">
               <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
             <label for="">-</label>
-            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+            <div class="input-group" ng-controller="monitoringChartNgControl">
               <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="body" ng-show=chartsStatus>
+      <div class="body" ng-if="chartsStatus">
         <div e-chart options="option"></div>
       </div>
     </div>
