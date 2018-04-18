@@ -11,22 +11,7 @@
     <result column="conductDate" jdbcType="TIMESTAMP" property="conductDate" />
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
     <result column="projectId" jdbcType="INTEGER" property="projectId" />
-    <association property="applyManager" column="applyId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
-    <association property="conductorManager" column="conductorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
-    <association property="equipment" column="equipmentId" select="i9.defence.platform.dao.mapper.EquipmentMapper.selectByPrimaryKey"></association>
-    <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association> 
-  </resultMap>
-   <resultMap id="BaseResultMap2" type="i9.defence.platform.dao.vo.ApplyDto">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="applyId" jdbcType="INTEGER" property="applyId" />
-    <result column="applyDate" jdbcType="TIMESTAMP" property="applyDate" />
-    <result column="conductorId" jdbcType="INTEGER" property="conductorId" />
-    <result column="conductDate" jdbcType="TIMESTAMP" property="conductDate" />
-    <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
-    <result column="projectId" jdbcType="INTEGER" property="projectId" />
-    <result column="ConductParentId" jdbcType="INTEGER" property="ConductParentId" />
+    <result column="ConductParentId" jdbcType="INTEGER" property="ConductParentId"/>
     <association property="applyManager" column="applyId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
     <association property="conductorManager" column="conductorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"></association>
     <association property="equipment" column="equipmentId" select="i9.defence.platform.dao.mapper.EquipmentMapper.selectByPrimaryKey"></association>
@@ -319,7 +304,7 @@
       limit #{offset},#{limit}
   </select>
   
-  <select id="selectByLimitPage2" resultMap="BaseResultMap2">
+  <select id="selectByLimitPage2" resultMap="BaseResultMap">
       select a.id as id,a.type as type, a.state as state,a.applyId as applyId,a.applyDate as applyDate,a.conductorId as conductorId,a.equipmentId as equipmentId,a.projectId as projectId, mg.parentId  as ConductParentId from t_apply a left join t_manager_grade mg on a.conductorId=mg.managerId 
       <if test="_parameter != null" > 
         <include refid="Update_By_Example_Where_Clause" />

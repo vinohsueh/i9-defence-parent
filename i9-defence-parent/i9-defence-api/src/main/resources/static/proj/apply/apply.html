@@ -8,7 +8,7 @@
             <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button>
 	    </div> -->
 	    <div class="row wrapper">
-	      <div class="col-sm-5 m-b-xs">
+	      <div class="col-sm-4 m-b-xs form-inline">
 	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
 	          <option value="5">5</option>
 	          <option value="10">10</option>
@@ -18,21 +18,25 @@
 	        </select>
 	        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
 	      </div>
-	      <div class="col-sm-4">
-	      </div>
-	      <div class="col-sm-3">
+
+	      <div class="col-sm-8">
 	        <div class="input-group">
 	          <!-- <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
 	          <!-- <span class="input-group-btn">
 	            <button class="btn btn-sm btn-default" type="button">Go!</button>
 	          </span> -->
 	        </div>
-	        <select class="form-control" ng-model="destorId" ng-change="changeType()"  style="color: red"  >
+	        <div class='col-sm-offset-6 col-sm-3'>
+	        	<select class="form-control text-center" ng-model="destorId"  ng-change="changeType()"  style="color: red"  >
 	        	 <option value="">-- 全部 --</option>
 	        	 <option value="1">-- 一级经销商申请 --</option>
 	        	 <option value="2">-- 二级经销商申请 --</option>
-	        </select>
-	        <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button>
+	        	</select>
+	        </div>	
+	        <div class='col-sm-3'>
+	        	<button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button>
+	        </div>
+	        
 	      </div>
 	    </div>
 	    <div class="table-responsive">

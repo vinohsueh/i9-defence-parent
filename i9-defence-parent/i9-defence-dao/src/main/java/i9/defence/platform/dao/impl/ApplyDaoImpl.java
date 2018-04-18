@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.mapper.ApplyMapper;
-import i9.defence.platform.dao.vo.ApplyDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
 import i9.defence.platform.model.ApplyExample.Criteria;
@@ -111,41 +110,19 @@ public class ApplyDaoImpl implements ApplyDao {
 		ArrayList<Apply> Onedestris = new ArrayList<>();
 		ArrayList<Apply> Twodestris = new ArrayList<>();
 		PageBounds<Apply> pageBounds = new PageBounds<Apply>(currectPage, totalSize, pageSize);
-		List<ApplyDto> list = applyMapper.selectByLimitPage2(applyExample, pageBounds.getOffset(),
+		List<Apply> list = applyMapper.selectByLimitPage2(applyExample, pageBounds.getOffset(),
 				pageBounds.getPageSize());
 		if (destriId != null && 1 == destriId) {
-			for (ApplyDto applyDto : list) {
-				if (null == applyDto.getConductParentId()) {
-					Apply apply = new Apply();
-					apply.setId(applyDto.getId());
-					apply.setType(applyDto.getType());
-					apply.setState(applyDto.getState());
-					apply.setApplyDate(applyDto.getApplyDate());
-					apply.setApplyId(applyDto.getApplyId());
-					apply.setApplyManager(applyDto.getApplyManager());
-					apply.setEquipmentId(applyDto.getEquipmentId());
-					apply.setEquipment(applyDto.getEquipment());
-					apply.setProjectId(applyDto.getProjectId());
-					apply.setProject(applyDto.getProject());
+			for (Apply apply : list) {
+				if (null == apply.getConductParentId()) {
 					Onedestris.add(apply);
 				}
 			}
 			pageBounds.setPageList(Onedestris);
 			return pageBounds;
 		} else if (destriId != null && 2 == destriId) {
-			for (ApplyDto applyDto : list) {
-				if (null != applyDto.getConductParentId()) {
-					Apply apply = new Apply();
-					apply.setId(applyDto.getId());
-					apply.setType(applyDto.getType());
-					apply.setState(applyDto.getState());
-					apply.setApplyDate(applyDto.getApplyDate());
-					apply.setApplyId(applyDto.getApplyId());
-					apply.setApplyManager(applyDto.getApplyManager());
-					apply.setEquipmentId(applyDto.getEquipmentId());
-					apply.setEquipment(applyDto.getEquipment());
-					apply.setProjectId(applyDto.getProjectId());
-					apply.setProject(applyDto.getProject());
+			for (Apply apply : list) {
+				if (null != apply.getConductParentId()) {
 					Twodestris.add(apply);
 				}
 			}
