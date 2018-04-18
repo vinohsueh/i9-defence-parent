@@ -12,6 +12,8 @@ public class ErrHandleSearchDto extends PageListDto implements Serializable{
 	private String orderByClause;
 	
 	private String eqDeviceId;
+	
+	private Integer managerId;
 
 	public String getOrderByClause() {
 		return orderByClause;
@@ -27,6 +29,15 @@ public class ErrHandleSearchDto extends PageListDto implements Serializable{
 
 	public void setEqDeviceId(String eqDeviceId) {
 		this.eqDeviceId = eqDeviceId;
+	}
+
+	public Integer getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(Integer managerId) {
+		this.managerId = managerId;
 	}	
 
+	
 }
