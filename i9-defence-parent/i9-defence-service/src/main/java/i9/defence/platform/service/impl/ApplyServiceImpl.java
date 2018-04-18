@@ -41,7 +41,7 @@ public class ApplyServiceImpl implements ApplyService {
 	private EquipmentService equipmentService;
 
 	@Override
-	public PageBounds<Apply> selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize)
+	public PageBounds<Apply> selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize,Integer destriId)
 			throws BusinessException {
 		try {
 			// 1.获得当前登录用户
@@ -49,9 +49,15 @@ public class ApplyServiceImpl implements ApplyService {
 			Criteria criteria = applyExample.createCriteria();
 			// 1.1若为网站用户 (type=0),则全部显示
 			if (Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
-				PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);
-				return pageBounds;
-			} // 1.2若为经销商和管理员则根据条件显示
+				if(destriId!=null && destriId==0) {
+					PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);
+					return pageBounds; 
+				}else {
+					PageBounds<Apply> pageBounds = applyDao.selectByLimitPage2(applyExample, currectPage, pageSize,destriId);
+					return pageBounds;
+				}
+			} 
+			// 1.2若为经销商和管理员则根据条件显示
 			else if(Arrays.asList(Constants.S_ACCOUNT).contains(manager.getType())){
 				criteria.andConductorIdEqualTo(manager.getId());
 				PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);

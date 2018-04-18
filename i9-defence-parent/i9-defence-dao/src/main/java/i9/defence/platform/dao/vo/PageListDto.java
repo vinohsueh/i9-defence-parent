@@ -14,6 +14,8 @@ public class PageListDto {
     
     private Integer equipCategoryId;
     
+    private Integer destriId;
+    
 
 	public Integer getEquipCategoryId() {
 		return equipCategoryId;
@@ -46,6 +48,14 @@ public class PageListDto {
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
+
+	public Integer getDestriId() {
+		return destriId;
+	}
+
+	public void setDestriId(Integer destriId) {
+		this.destriId = destriId;
+	}
     
     
 }

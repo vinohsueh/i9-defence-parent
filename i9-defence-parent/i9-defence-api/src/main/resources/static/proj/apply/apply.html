@@ -27,6 +27,11 @@
 	            <button class="btn btn-sm btn-default" type="button">Go!</button>
 	          </span> -->
 	        </div>
+	        <select class="form-control" ng-model="destorId" ng-change="changeType()"  style="color: red"  >
+	        	 <option value="">-- 全部 --</option>
+	        	 <option value="1">-- 一级经销商申请 --</option>
+	        	 <option value="2">-- 二级经销商申请 --</option>
+	        </select>
 	        <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button>
 	      </div>
 	    </div>
