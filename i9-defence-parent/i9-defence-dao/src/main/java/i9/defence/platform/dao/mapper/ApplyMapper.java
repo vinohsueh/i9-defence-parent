@@ -1,15 +1,17 @@
 package i9.defence.platform.dao.mapper;
 
-import i9.defence.platform.model.Apply;
-import i9.defence.platform.model.ApplyExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.model.Apply;
+import i9.defence.platform.model.ApplyExample;
+
 public interface ApplyMapper {
     int countByExample(ApplyExample example);
-
+    
+    int countByExample2(ApplyExample example);
+    
     int deleteByExample(ApplyExample example);
 
     int deleteByPrimaryKey(List<Integer> ids);
@@ -33,7 +35,9 @@ public interface ApplyMapper {
     int updateByPrimaryKey(Apply record);
     
     List<Apply> selectByLimitPage(@Param("example") ApplyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
-
+    
+    List<Apply> selectByLimitPage2(@Param("example") ApplyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
+    
     void insertEquipmentApplys(@Param("applies") List<Apply> applies);
     
     void insertProjectApplys(@Param("applies") List<Apply> applies);    

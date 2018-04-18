@@ -23,11 +23,13 @@ var applyNgControl=applyNgModule.controller('applyNgControl',function($rootScope
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
+	$scope.destriId=0;
 	//初始化
 	$scope.initTable = function (){
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
+				destriId : $scope.destriId,
 				//state:$scope.selectState,
 				//username : $scope.searchText
 			};
@@ -118,6 +120,16 @@ var applyNgControl=applyNgModule.controller('applyNgControl',function($rootScope
             } else {
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
+    }
+    
+    
+    $scope.changeType = function(){
+    	if($scope.destorId){
+    		$scope.destriId = $scope.destorId;
+    	}else{
+    		$scope.destriId= 0;
+    	}
+    	$scope.initTable();
     }
  
 })

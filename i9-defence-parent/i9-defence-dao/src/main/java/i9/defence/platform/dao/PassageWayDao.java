@@ -31,14 +31,14 @@ public interface PassageWayDao {
 	* @param passageway
 	* @throws Exception
 	 */
-	void addPassageway(Passageway passageway) throws Exception;
+	void addPassageway(List<Passageway> passageways) throws Exception;
 
 	/**
 	 * 删除旧的通道对应关系
 	 * @param systemId
 	 * @throws Exception
 	 */
-	void delPassagewayBySystemId(Integer categoryId) throws Exception;
+	void delPassagewayByCategoryId(Integer categoryId) throws Exception;
 	
 	/**
 	 * 根据类型和通道查询

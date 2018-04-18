@@ -189,10 +189,15 @@ td.eventType span.hiddenDanger {
 }
 .mPane .body {
   background-color: #19244c;
+  height: 105px;
   padding: 5px 10px;
 }
 .mPane .body p {
-  padding: 5px 0;
+  padding: 2px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
 }
 #selfMain {
   background-color: #151c35;
@@ -219,7 +224,7 @@ td.eventType span.hiddenDanger {
 }
 .monitoring .faultType {
   float: left;
-  max-height: 295px;
+  height: 500px;
   overflow-y: auto;
 }
 .monitoring .faultType .item {
@@ -254,7 +259,7 @@ td.eventType span.hiddenDanger {
   -wibkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  max-height: 295px;
+  height: 500px;
   overflow-y: auto;
 }
 /*项目列表*/

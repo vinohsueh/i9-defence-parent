@@ -77,6 +77,11 @@ public class Apply {
      */
     private Project project;
     
+    /**
+     * 申请表中项目的负责人的父Id
+     */
+    private Integer ConductParentId;
+    
     public Integer getId() {
         return id;
     }
@@ -183,6 +188,14 @@ public class Apply {
 
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public Integer getConductParentId() {
+		return ConductParentId;
+	}
+
+	public void setConductParentId(Integer conductParentId) {
+		ConductParentId = conductParentId;
 	}
     
     

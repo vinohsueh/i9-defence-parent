@@ -8,7 +8,13 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 	$scope.equipment = equipment;
 	$scope.equCategorys = equCategorys;
 	$scope.projects = projects;
-	
+
+	//设备数量修改
+	$scope.equipmentNumStatu = false;
+	if($scope.equipment.id != null){
+		$scope.equipmentNumStatu = true;
+	}
+	console.log($scope.equipment);
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}

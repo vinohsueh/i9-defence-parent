@@ -12,7 +12,7 @@ public class PassagewayDto {
 	
 	private Passageway [] passageways;
 	
-	private Integer equipmentId;
+	private Integer categoryId;
 
 	
 
@@ -24,16 +24,13 @@ public class PassagewayDto {
 		this.passageways = passageways;
 	}
 
-	public Integer getEquipmentId() {
-		return equipmentId;
+	public Integer getCategoryId() {
+		return categoryId;
 	}
 
-	public void setEquipmentId(Integer equipmentId) {
-		this.equipmentId = equipmentId;
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	
-
-	
 	
 }
