@@ -51,13 +51,8 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
     	var date = new Date(d);
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
-    $scope.startTimeS;
-    $scope.changeStartTime = function(){
-    	console.log($scope.startTime)
-    	$scope.startTimeS = $scope.dateToString($scope.startTime);
-    	console.log($scope.dateToString($scope.startTime))
-    	
-    }
+
+    
 	
 	/*$scope.option={
 	    title:{
@@ -168,6 +163,14 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	}
 	$scope.startTime = $scope.getDate(-7);
 	$scope.endTime = $scope.getDate(0);
+	//更换时间
+	$scope.changeTimeStatu = 1;
+	$scope.changeTime = function(){
+		$scope.changeTimeStatu = $scope.changeTimeStatu+1;
+		if($scope.changeTimeStatu>2){
+			$scope.pageInit();
+		}
+	}
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
 			$scope.selected ={
@@ -211,12 +214,12 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
     	
 		var pageParam = {
 				projectId:Ids,
-				startTime:$scope.startTimeS,
-				endTime:$scope.dateToString($scope.endTimeS),
+				startTime:$scope.dateToString($scope.startTime),
+				endTime:$scope.dateToString($scope.endTime),
 				/*projectName : text,
 				projectAddress : text,*/
 			};
-		console.log(pageParam)
+		console.log(JSON.stringify(pageParam))
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
