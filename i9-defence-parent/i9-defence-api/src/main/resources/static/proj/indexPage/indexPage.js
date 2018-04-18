@@ -358,7 +358,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	    $('#projectList .projectNameList').css('height',projectListHeight+'px');
 	    
 	    // 图表样式
-	    var chartBodyHeight = parseInt($('#selfMain').height()*0.3-40);
+	    var chartBodyHeight = parseInt(($(window).height()-50)*0.3-40);
 	    // $('#chartData .chartBody,#pieChart .chartBody').css('height',chartBodyHeight+'px');
 	    $('#chartData .chartBody').css('height',chartBodyHeight+'px');
 
