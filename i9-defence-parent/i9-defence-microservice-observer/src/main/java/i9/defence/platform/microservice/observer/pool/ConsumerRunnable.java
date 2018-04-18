@@ -1,13 +1,15 @@
 package i9.defence.platform.microservice.observer.pool;
 
+import i9.defence.platform.microservice.observer.service.ConsumerServiceRunnable;
+import i9.defence.platform.service.UpStreamOriginService;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.jms.TextMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import i9.defence.platform.service.UpStreamOriginService;
 
 @Component
 public class ConsumerRunnable implements Runnable {
@@ -22,19 +24,18 @@ public class ConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                this.upStreamOriginService.saveUpStreamOrigin(textMessage.getText());
-                logger.info("save up stream origin data success, data : " + textMessage.getText());
+                executorService.execute(new ConsumerServiceRunnable(upStreamOriginService, textMessage));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
     
-    private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
-
-    @Autowired
-    private ConsumerService consumerService;
-
     @Autowired
     private UpStreamOriginService upStreamOriginService;
+    
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    
+    @Autowired
+    private ConsumerService consumerService;
 }
