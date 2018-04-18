@@ -1,4 +1,4 @@
-package i9.defence.platform.microservice.observer.config;
+package i9.defence.platform.microservice.push.config;
 
 import java.sql.SQLException;
 

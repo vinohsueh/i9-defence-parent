@@ -1,4 +1,4 @@
-package i9.defence.platform.microservice.observer.bootstrap;
+package i9.defence.platform.microservice.push.bootstrap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.microservice.observer.pool.BusinessPool;
+import i9.defence.platform.microservice.push.pool.BusinessPool;
 
 @Component
 public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {

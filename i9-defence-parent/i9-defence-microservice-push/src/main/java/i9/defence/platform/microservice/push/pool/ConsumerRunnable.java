@@ -1,4 +1,4 @@
-package i9.defence.platform.microservice.observer.pool;
+package i9.defence.platform.microservice.push.pool;
 
 import javax.jms.TextMessage;
 
@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import i9.defence.platform.service.UpStreamOriginService;
 
 @Component
 public class ConsumerRunnable implements Runnable {
@@ -22,7 +20,6 @@ public class ConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                this.upStreamOriginService.saveUpStreamOrigin(textMessage.getText());
                 logger.info("save up stream origin data success, data : " + textMessage.getText());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -34,7 +31,4 @@ public class ConsumerRunnable implements Runnable {
 
     @Autowired
     private ConsumerService consumerService;
-
-    @Autowired
-    private UpStreamOriginService upStreamOriginService;
 }
