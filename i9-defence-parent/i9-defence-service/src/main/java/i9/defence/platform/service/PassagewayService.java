@@ -2,6 +2,7 @@ package i9.defence.platform.service;
 
 import java.util.List;
 
+import i9.defence.platform.dao.vo.PassagewayDto;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
 
@@ -42,7 +43,7 @@ public interface PassagewayService {
 	* @param Passageway
 	* @throws BusinessException
 	 */
-	void addPassageway(Passageway passageway) throws BusinessException;
+	void addPassageway(PassagewayDto passagewayDto) throws BusinessException;
 
 	/**
 	 * 删除通道

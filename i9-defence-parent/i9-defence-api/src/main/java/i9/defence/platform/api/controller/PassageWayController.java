@@ -1,12 +1,5 @@
 package i9.defence.platform.api.controller;
 
-import i9.defence.platform.api.components.PassagewayInfoComponent;
-import i9.defence.platform.model.EquipmentCategory;
-import i9.defence.platform.model.HiddenDanger;
-import i9.defence.platform.model.Passageway;
-import i9.defence.platform.service.HiddenDangerService;
-import i9.defence.platform.service.PassagewayService;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.api.components.PassagewayInfoComponent;
+import i9.defence.platform.dao.vo.PassagewayDto;
+import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.HiddenDanger;
+import i9.defence.platform.model.Passageway;
+import i9.defence.platform.service.HiddenDangerService;
+import i9.defence.platform.service.PassagewayService;
 
 /** 
  * 通道controller
@@ -86,9 +87,9 @@ public class PassageWayController {
 	 * @return
 	 */ 
 	@RequestMapping("/addPassageway")
-	public HashMap<String, Object> addPassageway(@RequestBody Passageway passageway) {
+	public HashMap<String, Object> addPassageway(@RequestBody PassagewayDto passagewayDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>(); 
-		passagewayService.addPassageway(passageway);
+		passagewayService.addPassageway(passagewayDto);
 		return result;
 	}
 	
