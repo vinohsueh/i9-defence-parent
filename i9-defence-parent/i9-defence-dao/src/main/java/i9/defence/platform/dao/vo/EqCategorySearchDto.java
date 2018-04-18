@@ -13,6 +13,42 @@ public class EqCategorySearchDto extends PageListDto implements Serializable{
 	private String eqCategoryName;
 	
 	private String eqCategoryId;
+	
+	private int num;
+	
+	/*
+	 * 项目负责人
+	 */
+	private Integer prijrctManagerId;
+	/*
+	 * 经销商
+	 */
+	private Integer distributorId;
+
+	
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public Integer getPrijrctManagerId() {
+		return prijrctManagerId;
+	}
+
+	public void setPrijrctManagerId(Integer prijrctManagerId) {
+		this.prijrctManagerId = prijrctManagerId;
+	}
+
+	public Integer getDistributorId() {
+		return distributorId;
+	}
+
+	public void setDistributorId(Integer distributorId) {
+		this.distributorId = distributorId;
+	}
 
 	/**
 	 * @return the orderByClause

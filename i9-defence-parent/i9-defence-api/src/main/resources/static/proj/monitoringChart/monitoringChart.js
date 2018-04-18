@@ -81,6 +81,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         var pageParam = {};
         httpService.post({url:'./eqCategory/serchEqCategory',data:pageParam,showSuccessMsg:false}).then(function(data) { 
             $scope.serchEqCategory  = data.data.data;
+            console.log($scope.serchEqCategory)
         })
     }
     $scope.serchEqCategory();

@@ -6,7 +6,6 @@
     <result column="eqCategoryName" jdbcType="VARCHAR" property="eqCategoryName" />
     <result column="eqCategoryId" jdbcType="VARCHAR" property="eqCategoryId" />
     <result column="eqCategoryExplain" jdbcType="VARCHAR" property="eqCategoryExplain" />
-     <association property="eqNum" column="id" select="selectEqNumById"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -219,7 +218,22 @@
         </if>
         limit #{offset},#{limit}
    </select>
-   <select id="selectEqNumById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  <!--  <select id="selectEqNumById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
    		SELECT count(*)  FROM t_equipment where equipmentCategoryId= #{id}
+   </select> -->
+   <select id="selectAllEqCategoryAndNum" resultType="i9.defence.platform.model.EquipmentCategory">
+   select ec.*,(select count(*) from t_equipment e left join 
+   t_project p on p.id = e.projectId where 
+   e.equipmentCategoryId = ec.id 
+   <!--经销商  -->	
+	<if test="example.distributorId != null and example.distributorId != ''">
+		and distributorId ='${example.distributorId}'
+	</if>
+    ) 
+   as eqNum from t_equipment_category ec
    </select>
+   <select id="selectAllEqCategoryAndNum1" resultType="i9.defence.platform.model.EquipmentCategory">
+   select ec.*,(select count(*) from t_equipment e left join t_project_safe ps on ps.projectId = e.projectId where
+    e.equipmentCategoryId = ec.id and ps.managerId = '${example.prijrctManagerId}') as eqNum from t_equipment_category ec
+    </select>
 </mapper>

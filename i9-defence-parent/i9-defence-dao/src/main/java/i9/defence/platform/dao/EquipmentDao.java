@@ -200,7 +200,7 @@ public interface EquipmentDao {
 	List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto);
 	
 	/**
-	 * 查询全部
+	 * 网站用户查询全部
 	 * @param hiddenDangerSearchDto
 	 * @return
 	 */
