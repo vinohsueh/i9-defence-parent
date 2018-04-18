@@ -65,7 +65,7 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-    var passagewayArr=[],
+    var passagewayArr=[];
     var passagewayObj = {};
 
     var thisDom = $('#passagewayBody tr');
