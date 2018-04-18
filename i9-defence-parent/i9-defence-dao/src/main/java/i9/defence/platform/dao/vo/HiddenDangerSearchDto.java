@@ -52,11 +52,20 @@ public class HiddenDangerSearchDto extends PageListDto{
 	
 	/**
 	 * 设备类型
-	 */
+	 */ 
 	private Integer equipmentCategoryId;
+	/*
+	 * 隐患大于0
+	 */
+	private Integer hiddenCount1;
 	
 	
-	
+	public Integer getHiddenCount1() {
+		return hiddenCount1;
+	}
+	public void setHiddenCount1(Integer hiddenCount1) {
+		this.hiddenCount1 = hiddenCount1;
+	}
 	public Integer getProjectId() {
 		return projectId;
 	}
