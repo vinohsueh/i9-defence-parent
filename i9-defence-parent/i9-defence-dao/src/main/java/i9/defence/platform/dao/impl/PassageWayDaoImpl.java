@@ -20,13 +20,13 @@ public class PassageWayDaoImpl implements PassageWayDao {
 	}
  
 	@Override 
-	public void addPassageway(Passageway passageway) throws Exception {
-		passagewayMapper.addPassageWay(passageway);
+	public void addPassageway(List<Passageway> passageways) throws Exception {
+		passagewayMapper.addPassageWay(passageways);
 	}
 
 	@Override
-	public void delPassagewayBySystemId(Integer categoryId) throws Exception {
-		passagewayMapper.delPassagewayBySystemId(categoryId);
+	public void delPassagewayByCategoryId(Integer categoryId) throws Exception {
+		passagewayMapper.delPassagewayByCategoryId(categoryId);
 	}
 
 	@Override

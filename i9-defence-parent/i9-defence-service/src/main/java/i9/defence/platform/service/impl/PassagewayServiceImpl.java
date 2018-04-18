@@ -1,5 +1,6 @@
 package i9.defence.platform.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.PassageWayDao;
+import i9.defence.platform.dao.vo.PassagewayDto;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.PassagewayService;
 import i9.defence.platform.utils.BusinessException;
@@ -28,16 +30,10 @@ public class PassagewayServiceImpl implements PassagewayService {
 	}
 
 	@Override
-	public void addPassageway(Passageway passageway) throws BusinessException {
+	public void addPassageway(PassagewayDto passagewayDto) throws BusinessException {
 		try {
-			if (!passageway.isIfEdit()) {
-				int count = passageWayDao.selectCountByCatIdAndChannelId(passageway);
-				if (count>0){
-					throw new BusinessException("该通道号已经添加过了!");
-				}
-			}
-			
-			passageWayDao.addPassageway(passageway);
+			passageWayDao.delPassagewayByCategoryId(passagewayDto.getCategoryId());
+			passageWayDao.addPassageway(Arrays.asList(passagewayDto.getPassageways()));
 		} catch (BusinessException e) {
 			throw new BusinessException(e.getErrorMessage(), e.getMessage());
 		} catch (Exception e) {
