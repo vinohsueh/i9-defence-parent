@@ -2,6 +2,8 @@ package i9.defence.platform.model;
 
 import java.util.Date;
 
+import i9.defence.platform.utils.StringUtil;
+
 public class ErrHandle {
     private Integer id;
 
@@ -11,11 +13,21 @@ public class ErrHandle {
 
     private Date handleDate;
 
+   //处理状态(0为处理)(1已处理)
     private Integer handleState;
 
     private String eqDeviceId;
 
     private String eqAddRess;
+    
+    //(处理记录的故障类型类型)
+    private Integer type;
+    
+    //处理记录的故障类型类型 前台获取
+    private String typeStr;
+    
+    //处理人  一对一
+    private Manager handleManager;
 
     public Integer getId() {
         return id;
@@ -48,6 +60,13 @@ public class ErrHandle {
     public void setHandleDate(Date handleDate) {
         this.handleDate = handleDate;
     }
+    
+    public String getHandleDateStr() {
+    	if(handleDate != null) {
+    		return StringUtil.dateToString(handleDate);
+    	}
+        return "";
+    }
 
     public Integer getHandleState() {
         return handleState;
@@ -72,4 +91,35 @@ public class ErrHandle {
     public void setEqAddRess(String eqAddRess) {
         this.eqAddRess = eqAddRess == null ? null : eqAddRess.trim();
     }
+
+	public Manager getHandleManager() {
+		return handleManager;
+	}
+
+	public void setHandleManager(Manager handleManager) {
+		this.handleManager = handleManager;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getTypeStr() {
+		return typeStr;
+	}
+
+	public void setTypeStr(String typeStr) {
+		if(type == 1) {
+			this.typeStr = "故障";
+		}else if (type == 2) {
+			this.typeStr = "报警";
+		}else {
+			this.typeStr = "隐患";
+		}
+	}    
+
 }

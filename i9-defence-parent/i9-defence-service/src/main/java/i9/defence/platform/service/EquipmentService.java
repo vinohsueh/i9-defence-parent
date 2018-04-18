@@ -165,6 +165,5 @@ public interface EquipmentService {
 	 * @return
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
-
-    
+	
 }

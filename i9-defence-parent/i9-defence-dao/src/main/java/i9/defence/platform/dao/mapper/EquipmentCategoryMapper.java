@@ -1,10 +1,12 @@
 package i9.defence.platform.dao.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import i9.defence.platform.dao.vo.EqCategorySearchDto;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.EquipmentCategoryExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface EquipmentCategoryMapper {
 	int countByExample(@Param("example") EqCategorySearchDto eqCategorySearchDto);
@@ -32,4 +34,8 @@ public interface EquipmentCategoryMapper {
     List<EquipmentCategory> selectByLimitPage(@Param("example") EqCategorySearchDto eqCategorySearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
     EquipmentCategory selectByeqEqCategoryId(String eqCategoryId);
+    
+    List<EquipmentCategory> selectAllEqCategoryAndNum(@Param("example") EquipmentCategory equipmentCategory);
+    
+    List<EquipmentCategory> selectAllEqCategoryAndNum1(@Param("example") EquipmentCategory equipmentCategory);
 }

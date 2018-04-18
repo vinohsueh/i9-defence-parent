@@ -24,8 +24,27 @@ public class EquipmentCategory {
      */
     private String eqCategoryExplain;
     
+    private Integer eqNum;
+    
+    /*
+	 * 项目负责人
+	 */
+	private Integer prijrctManagerId;
+	/*
+	 * 经销商
+	 */
+	private Integer distributorId;
+    
 
-    public Integer getId() {
+    public Integer getEqNum() {
+		return eqNum;
+	}
+
+	public void setEqNum(Integer eqNum) {
+		this.eqNum = eqNum;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -55,6 +74,22 @@ public class EquipmentCategory {
 
 	public void setEqCategoryExplain(String eqCategoryExplain) {
 		this.eqCategoryExplain = eqCategoryExplain;
+	}
+
+	public Integer getPrijrctManagerId() {
+		return prijrctManagerId;
+	}
+
+	public void setPrijrctManagerId(Integer prijrctManagerId) {
+		this.prijrctManagerId = prijrctManagerId;
+	}
+
+	public Integer getDistributorId() {
+		return distributorId;
+	}
+
+	public void setDistributorId(Integer distributorId) {
+		this.distributorId = distributorId;
 	}
     
 }

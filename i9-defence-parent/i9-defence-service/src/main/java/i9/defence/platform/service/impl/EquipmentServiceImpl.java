@@ -396,10 +396,29 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)
 			throws BusinessException {
 		try {
-			return equipmentDao.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
+			Manager loginManager = managerService.getLoginManager();
+			//如果为网站用户显示全部（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				List<HiddenDangerDto> list = equipmentDao.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
+				return list;
+			}
+			//如果为经销商和管理员
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+				hiddenDangerSearchDto.setDistributorId(loginManager.getId());
+				List<HiddenDangerDto> list = equipmentDao.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
+				return list;
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员
+				hiddenDangerSearchDto.setPrijrctManagerId(loginManager.getId());
+				List<HiddenDangerDto> list = equipmentDao.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
+				return list;
+			}
+//			return equipmentDao.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
 		} catch (Exception e) {
 			throw new BusinessException("查询失败",e.getMessage());
 		}
+		return null;
 	}
+
 }
 

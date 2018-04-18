@@ -58,4 +58,18 @@ public interface EquipmentCategoryDao {
      */
     List<EquipmentCategory> serchEqCategory()throws Exception;
     
+    /**
+     * 查询数量
+     * @param 
+     * @throws Exception
+     */
+    List<EquipmentCategory> selectAllEqCategoryAndNum(EquipmentCategory equipmentCategory)throws Exception;
+    
+    /**
+     * 查询数量
+     * @param 
+     * @throws Exception
+     */
+    List<EquipmentCategory> selectAllEqCategoryAndNum1(EquipmentCategory equipmentCategory)throws Exception;
+    
 }
