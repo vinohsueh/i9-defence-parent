@@ -189,27 +189,14 @@ public class ProjectServiceImpl implements ProjectService {
 			if (!Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
 				// 查询此人提交的删除项目申请在数据库中是否存在
 				Integer number = applyDao.selectProjectCount(ids);
-				if (number > 0) {
+				if (number >0) {
 					// 有人提交 过了
 					throw new BusinessException("您选中的数据已经被申请过了");
 				} else {
 					// 2. 判断当前用户的身份（type：0 网站用户；type：1 经销商；type：2.项目管理员）
 					if (manager != null) {
-						// 2.1 如果为网站用户，直接删除。
-						if (Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
-							// 真删
-							this.deleteProject(ids);
-							return "删除成功";
-							// 假删
-							/*
-							 * for(Project project:listProjects){ Apply apply = new Apply();
-							 * apply.setType(0); apply.setState(0); apply.setApplyId(manager.getId());
-							 * apply.setApplyDate(new Date()); apply.setConductorId(null);
-							 * apply.setProjectId(project.getId()); listApplys.add(apply); }
-							 */
-						}
 						// 2.2如果为经销商
-						else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(manager.getType())) {
+						 if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(manager.getType())) {
 							// 2.2.1若为顶级经销商，处理人为null，交给管理员处理。
 							if (null == parentById) {
 								for (Project project : listProjects) {
@@ -260,7 +247,19 @@ public class ProjectServiceImpl implements ProjectService {
 							return "您的申请已提交，请等待您的上级处理";
 						}
 					}
-				}
+				} 
+			}// 2.1 如果为网站用户，直接删除。
+			else if (Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
+				// 真删
+				this.deleteProject(ids);
+				return "删除成功";
+				// 假删
+				/*
+				 * for(Project project:listProjects){ Apply apply = new Apply();
+				 * apply.setType(0); apply.setState(0); apply.setApplyId(manager.getId());
+				 * apply.setApplyDate(new Date()); apply.setConductorId(null);
+				 * apply.setProjectId(project.getId()); listApplys.add(apply); }
+				 */
 			}
 		} catch (BusinessException e) {
 			throw new BusinessException(e.getErrorMessage());

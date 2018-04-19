@@ -65,8 +65,9 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-    var passagewayArr=[];
+    var passagewayArr=[],
     var passagewayObj = {};
+        passagewayObj = {};
 
     var thisDom = $('#passagewayBody tr');
     for(i in thisDom){
@@ -74,6 +75,16 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
       passagewayObj.name = thisDom.find('.passagewayName input').val();
       passagewayObj.hiddenDangerId = thisDom.find('.hidedenDanger select').val();
       passagewayObj.categoryId = $scope.addPassageway;
+    $('#passagewayBody tr').each(function () {
+      passagewayObj = {};
+      passagewayObj.channel = $(this).find('.passagewayNum input').val();
+      passagewayObj.name = $(this).find('.passagewayName input').val();
+      passagewayObj.hiddenDangerId = $(this).find('.hidedenDanger select').val();
+      passagewayArr.push(passagewayObj);
+    })
+    var param = {
+      passageways:passagewayArr,
+      categoryId :$scope.addPassageway
     }
     
 
@@ -81,6 +92,8 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
 		httpService.post({url:'./passageWay/addPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
 			// $modalInstance.dismiss('cancel')
       thisDom.remove();
+		httpService.post({url:'./passageWay/addPassageway',data:param,showSuccessMsg:true}).then(function(data) {  
+			$modalInstance.dismiss('cancel')
       $scope.pageInit();
 		})
 	};
@@ -99,6 +112,7 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
       $scope.pageInit();
       console.log(1);
     })
+    thisDom.remove();
   };
   // 确认移除
   $scope.confirmRemove = function(them) {

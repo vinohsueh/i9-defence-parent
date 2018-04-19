@@ -49,7 +49,7 @@ public class ErrHandleController {
     }
     
     /**
-     *批量处理设备故障 type = 1 故障 或者 设备报警 type = 2 报警  或者 设备隐患 type = 2 隐患
+     *批量处理设备故障 type = 1 故障 或者 设备报警 type = 2 报警  或者 设备隐患 type = 3 隐患
      */
     @RequestMapping("/handlingErrors")
     public HashMap<String, Object> handlingErrors(@RequestBody ErrHandleUnifiedDto errHandleUnifiedDto) {

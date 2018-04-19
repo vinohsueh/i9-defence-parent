@@ -141,25 +141,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 				}else {
 					//2. 判断当前用户的身份（type：0 网站用户；type：1 经销商；type：2.项目管理员）
 					if(manager!=null) {
-						//2.1 如果为网站用户，直接删除。
-						if(Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
-							//真删
-							this.deleteEquipment(ids);
-							return "成功";
-							//假删
-							/*for(Equipment equipment:listEquipment){
-						Apply apply = new Apply();
-						apply.setType(1);
-						apply.setState(0);
-						apply.setApplyId(manager.getId()); 
-						apply.setApplyDate(new Date());
-						apply.setConductorId(null);
-						apply.setEquipmentId(equipment.getId());
-						listApply.add(apply);
-					}*/
-						}					
 						//2.2如果为经销商
-						else if(Arrays.asList(Constants.S_AGENCY_TYPE).contains(manager.getType())) {
+						  if(Arrays.asList(Constants.S_AGENCY_TYPE).contains(manager.getType())) {
 							//2.2.1若为顶级经销商，处理人为null，交给管理员处理。
 							if(null==parentById){
 								for(Equipment equipment:listEquipment){
@@ -221,7 +204,24 @@ public class EquipmentServiceImpl implements EquipmentService {
 					}
 				}
 			}	
-				}
+			//2.1 如果为网站用户，直接删除。
+			else if(Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
+				//真删
+				this.deleteEquipment(ids);
+				return "成功"; 
+				//假删
+				/*for(Equipment equipment:listEquipment){
+			Apply apply = new Apply();
+			apply.setType(1);
+			apply.setState(0);
+			apply.setApplyId(manager.getId()); 
+			apply.setApplyDate(new Date());
+			apply.setConductorId(null);
+			apply.setEquipmentId(equipment.getId());
+			listApply.add(apply);
+		}*/
+			}
+		}
 		catch (BusinessException e) {
 				throw new BusinessException(e.getErrorMessage());
 		} catch (Exception e) {
