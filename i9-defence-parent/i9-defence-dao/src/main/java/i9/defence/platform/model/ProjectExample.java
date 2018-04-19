@@ -495,52 +495,52 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaEqualTo(Integer value) {
+        public Criteria andProjectAreaEqualTo(Double value) {
             addCriterion("projectArea =", value, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaNotEqualTo(Integer value) {
+        public Criteria andProjectAreaNotEqualTo(Double value) {
             addCriterion("projectArea <>", value, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaGreaterThan(Integer value) {
+        public Criteria andProjectAreaGreaterThan(Double value) {
             addCriterion("projectArea >", value, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaGreaterThanOrEqualTo(Integer value) {
+        public Criteria andProjectAreaGreaterThanOrEqualTo(Double value) {
             addCriterion("projectArea >=", value, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaLessThan(Integer value) {
+        public Criteria andProjectAreaLessThan(Double value) {
             addCriterion("projectArea <", value, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaLessThanOrEqualTo(Integer value) {
+        public Criteria andProjectAreaLessThanOrEqualTo(Double value) {
             addCriterion("projectArea <=", value, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaIn(List<Integer> values) {
+        public Criteria andProjectAreaIn(List<Double> values) {
             addCriterion("projectArea in", values, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaNotIn(List<Integer> values) {
+        public Criteria andProjectAreaNotIn(List<Double> values) {
             addCriterion("projectArea not in", values, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaBetween(Integer value1, Integer value2) {
+        public Criteria andProjectAreaBetween(Double value1, Double value2) {
             addCriterion("projectArea between", value1, value2, "projectArea");
             return (Criteria) this;
         }
 
-        public Criteria andProjectAreaNotBetween(Integer value1, Integer value2) {
+        public Criteria andProjectAreaNotBetween(Double value1, Double value2) {
             addCriterion("projectArea not between", value1, value2, "projectArea");
             return (Criteria) this;
         }
