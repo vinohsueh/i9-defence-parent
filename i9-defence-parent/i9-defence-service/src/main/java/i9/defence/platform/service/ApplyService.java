@@ -57,5 +57,5 @@ public interface ApplyService {
 	* @throws BusinessException
 	 */
 	List<Apply> selectPartState(Integer state) throws BusinessException;
- 
+
 }

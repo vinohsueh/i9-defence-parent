@@ -92,7 +92,7 @@ public class HiddenDangerEditController {
 	}
     
     /*
-     *查询全部
+     *查询全部隐患和报警
      */
     @RequestMapping("/gatAllHiddenDanger")
     public HashMap<String, Object> gatAllHiddenDanger(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {

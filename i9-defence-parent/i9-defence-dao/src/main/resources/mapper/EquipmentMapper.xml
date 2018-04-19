@@ -532,11 +532,15 @@
 				</if>
 				<!--隐患不为0  -->	
 				<if test="example.hidden != null and example.hidden != ''">
-					and hiddeCount != 0
+					and hiddeCount != 0 and warningCount = 0 
 				</if>
 				<!--报警不为0  -->	
 				<if test="example.danger != null and example.danger != ''">
 					and warningCount != 0 
+				</if>
+				<!--隐患或报警大于0  -->	
+				<if test="example.hiddenCount1 != null">
+					and (hiddeCount > 0 or warningCount > 0 )
 				</if>
 				<!--项目负责人  -->	
 				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">

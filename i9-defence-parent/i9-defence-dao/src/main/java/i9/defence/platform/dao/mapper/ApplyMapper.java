@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.dao.vo.ApplyDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
 
 public interface ApplyMapper {
-    int countByExample(ApplyExample example);
+    int countByExample( ApplyExample example);
     
-    int countByExample2(ApplyExample example);
+    int countByExample2(@Param("example") ApplyDto applyDto); 
     
     int deleteByExample(ApplyExample example);
 
@@ -36,7 +37,7 @@ public interface ApplyMapper {
     
     List<Apply> selectByLimitPage(@Param("example") ApplyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
     
-    List<Apply> selectByLimitPage2(@Param("example") ApplyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
+    List<Apply> selectByLimitPage2(@Param("example") ApplyDto applyDto, @Param("offset") int offset, @Param("limit") int pageSize);
     
     void insertEquipmentApplys(@Param("applies") List<Apply> applies);
     
