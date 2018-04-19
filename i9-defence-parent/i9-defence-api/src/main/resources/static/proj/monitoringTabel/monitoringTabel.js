@@ -110,10 +110,8 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				projectCity:$scope.selected2.name,
 				projectCounty:$scope.selected3.value,*/
 			};
-		console.log(pageParam)
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
-			console.log(JSON.stringify($scope.projects));
 			for(i in $scope.projects){
 				if($scope.projects[i].warningCount>0){
 					$scope.projects[i].status = 'danger';

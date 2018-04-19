@@ -73,9 +73,7 @@
             <td>{{project.equipmentName}}</td>
             <td>{{project.projectName}}</td>
             <td>
-              <span class='passageway'>通道1:50.c</span>
-              <span class='passageway'>通道1</span>
-              <span class='passageway'>通道1</span>
+              <span class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
             </td>
           </tr>
         </tbody>

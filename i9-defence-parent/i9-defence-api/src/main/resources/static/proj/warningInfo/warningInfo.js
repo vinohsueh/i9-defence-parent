@@ -32,7 +32,7 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 				eqDeviceId:$stateParams.id
 			};
 		httpService.post({url:'./errHandle/pageErrHandle',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(JSON.stringify(data));
+			$scope.warningList = data.data.data;
 		})
 	};
 	$scope.initTable();

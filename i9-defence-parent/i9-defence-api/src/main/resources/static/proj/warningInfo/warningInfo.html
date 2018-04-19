@@ -38,9 +38,9 @@
 	            <th>数据信息</th>
 	        </thead>
 	        <tbody>
-	          <tr ng-repeat="channelData in channelDatas">
-		          <td>{{channelData.errorName}}</td>
-		          <td>{{channelData.dealDetail}}</td>
+	          <tr ng-repeat="i in warningList">
+		          <td>{{i.typeStr}}</td>
+		          <td>{{i.handleCon}}</td>
 	          </tr>
 	        </tbody>
 	      </table>
