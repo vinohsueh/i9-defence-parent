@@ -40,7 +40,7 @@ public class Project {
     private Date projectDate;
     //建筑面积
     @NotNull(message="建筑面积不能为空")
-    private Integer projectArea;
+    private Double projectArea;
     //经销商Id
     //@NotNull(message="经销商Id不能为空")
     private Integer distributorId;
@@ -126,11 +126,11 @@ public class Project {
     	return "";
     }
 
-    public Integer getProjectArea() {
+    public Double getProjectArea() {
         return projectArea;
     }
 
-    public void setProjectArea(Integer projectArea) {
+    public void setProjectArea(Double projectArea) {
         this.projectArea = projectArea;
     }
 
