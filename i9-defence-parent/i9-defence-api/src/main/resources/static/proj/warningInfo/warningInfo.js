@@ -30,11 +30,8 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 				currentPage:$scope.currentPage,
 				orderByClause: "handleDate desc",
 				eqDeviceId:$stateParams.id
-				//state:$scope.selectState,
-				//username : $scope.searchText
 			};
-		console.log(JSON.stringify(pageParam));
-		httpService.post({url:'./channel/pageChannel',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./errHandle/pageErrHandle',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			console.log(JSON.stringify(data));
 		})
 	};
