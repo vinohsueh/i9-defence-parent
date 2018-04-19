@@ -201,4 +201,5 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto) {
 		return equipmentMapper.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
 	}
+
 }

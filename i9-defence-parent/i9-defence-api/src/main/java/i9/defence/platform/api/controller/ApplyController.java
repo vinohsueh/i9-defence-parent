@@ -40,7 +40,7 @@ public class ApplyController {
 	public HashMap<String, Object> getApply(@RequestBody PageListDto pageListDto){
         HashMap<String, Object> result = new HashMap<String, Object>(); 
         ApplyExample example= new ApplyExample();
-        PageBounds<Apply> pageBounds = applyService.selectByLimitPage(example, pageListDto.getCurrentPage(), pageListDto.getPageSize());
+        PageBounds<Apply> pageBounds = applyService.selectByLimitPage(example, pageListDto.getCurrentPage(), pageListDto.getPageSize(),pageListDto.getDestriId());
         result.put("data",pageBounds); 
         return result;
 	}

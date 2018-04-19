@@ -66,8 +66,15 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
 	// 确认添加
 	$scope.confirmAdd = function() {
     var passagewayArr=[],
+    var passagewayObj = {};
         passagewayObj = {};
 
+    var thisDom = $('#passagewayBody tr');
+    for(i in thisDom){
+      passagewayObj.channel = thisDom.find('.passagewayNum input').val();
+      passagewayObj.name = thisDom.find('.passagewayName input').val();
+      passagewayObj.hiddenDangerId = thisDom.find('.hidedenDanger select').val();
+      passagewayObj.categoryId = $scope.addPassageway;
     $('#passagewayBody tr').each(function () {
       passagewayObj = {};
       passagewayObj.channel = $(this).find('.passagewayNum input').val();
@@ -79,7 +86,12 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
       passageways:passagewayArr,
       categoryId :$scope.addPassageway
     }
+    
 
+    console.log(JSON.stringify(passagewayObj));
+		httpService.post({url:'./passageWay/addPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
+			// $modalInstance.dismiss('cancel')
+      thisDom.remove();
 		httpService.post({url:'./passageWay/addPassageway',data:param,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
       $scope.pageInit();
@@ -87,7 +99,19 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
 	};
   // 确认删除
   $scope.confirmDel = function(them) {
+    var passagewayObj = {};
+
     var thisDom = $(them.target).closest('tr');
+    passagewayObj.channel = thisDom.find('.passagewayNum input').val();
+    passagewayObj.categoryId = $scope.addPassageway;
+
+    console.log(JSON.stringify(passagewayObj));
+    httpService.post({url:'./passageWay/delPassageway',data:passagewayObj,showSuccessMsg:true}).then(function(data) {  
+      // $modalInstance.dismiss('cancel')
+      // thisDom.remove();
+      $scope.pageInit();
+      console.log(1);
+    })
     thisDom.remove();
   };
   // 确认移除

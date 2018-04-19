@@ -462,6 +462,41 @@ angular.module('app')
                   }
               }) 
 
+              .state('app.event', {
+                  url: '/event',
+                  templateUrl: 'proj/event/event.html',
+              	  controller : "eventControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'eventModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/event/event.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+              .state('app.warningInfo', {
+                  url: '/warningInfo',
+                  params: {'id': null},
+                  templateUrl: 'proj/warningInfo/warningInfo.html',
+                  controller : "warningInfoControl",
+                  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                      return $ocLazyLoad.load({
+                    name : 'warningInfoModule',
+                    insertBefore : '#ng_load_plugins_before',
+                    files : [
+                        'proj/warningInfo/warningInfo.js',
+                        ]
+                  })
+                    }]
+                  }
+              }) 
 
               .state('app.hiddenDangerRemind', {
                   url: '/hiddenDangerRemind',

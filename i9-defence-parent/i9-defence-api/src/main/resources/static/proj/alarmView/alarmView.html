@@ -64,11 +64,11 @@
         </thead>
         <tbody>
           <tr ng-repeat="hiddenEdit in equipments">
-            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
-            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.safeListStr}}</td>
-            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.projectName}}</td>
-            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentPosition}}</td>
-            <td><button type='button' class='btn btn-primary' ng-click='faultRecord()'>查看</button></td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.project.safeListStr}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.project.projectName}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentPosition}}</td>
+            <td><button type='button' class='btn btn-primary' ng-click="faultRecord('{{hiddenEdit.deviceId}}')">查看</button></td>
           </tr>
         </tbody>
       </table>
@@ -127,24 +127,24 @@
     <div class="mPane hFull col-xs-6 col-sm-3">
       <div class="title">项目信息</div>
       <div class="body">
-        <p>名称：项目一</p>
-        <p>负责人：王三宝</p>
-        <p>安全负责人：王四宝</p>
+        <p>名称：{{projectInfo.project.name}}</p>
+        <p>负责人：{{projectInfo.project.manager}}</p>
+        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
       </div>
     </div>
     <div class="mPane hFull col-xs-6 col-sm-3">
       <div class="title">设备信息</div>
       <div class="body">
-        <p>名称：项目一</p>
-        <p>位置：位置</p>
+        <p>名称：{{projectInfo.equip.name}}</p>
+        <p>位置：{{projectInfo.equip.location}}</p>
       </div>
     </div>
     <div class="mPane hFull col-xs-6 col-sm-6">
       <div class="title">处理详情</div>
       <div class="body">
-        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10'></textarea>
+        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon'></textarea>
         <div class='text-right'>
-          <button type='' class='btn btn-success'>确定</button>
+          <button type='' class='btn btn-success' ng-click='confirmBtn()'>确定</button>
         </div>
       </div>
     </div>

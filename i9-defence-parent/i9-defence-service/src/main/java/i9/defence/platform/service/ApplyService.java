@@ -26,7 +26,7 @@ public interface ApplyService {
 	* @return
 	* @throws Exception
 	 */
-	PageBounds<Apply>  selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize) throws BusinessException;
+	PageBounds<Apply>  selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize,Integer destriId) throws BusinessException;
 
 	/**
 	 * 删除申请
@@ -57,5 +57,5 @@ public interface ApplyService {
 	* @throws BusinessException
 	 */
 	List<Apply> selectPartState(Integer state) throws BusinessException;
- 
+
 }

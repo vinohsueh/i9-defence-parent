@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.EqCategorySearchDto;
+import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.service.EquipmentCategoryService;
+import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -26,7 +28,7 @@ import i9.defence.platform.utils.PageBounds;
 public class EquipmentCategoryController {
     @Autowired
     private EquipmentCategoryService eqCategoryService;
-
+    
     /**
      * 分页查询项目分类列表
      * 
@@ -58,6 +60,20 @@ public class EquipmentCategoryController {
         result.put("data", list);
         return result;
     }
+    
+    /**
+     * 查询项目分类全部和数量
+     * 
+     * @param eqCategory
+     * @return
+//     */
+//    @RequestMapping("/selectAllEqCategoryAndNum")
+//    public HashMap<String, Object> selectAllEqCategoryAndNum() {
+//        HashMap<String, Object> result = new HashMap<String, Object>();
+//        List<EqCategorySearchDto> list = eqCategoryService.selectAllEqCategoryAndNum();
+//        result.put("data", list);
+//        return result;
+//    }
 
     /**
      * 添加项目分类
@@ -76,7 +92,6 @@ public class EquipmentCategoryController {
 
     /**
      * id查找项目分类
-     * 
      * @param EqCategoryId
      * @return
      */

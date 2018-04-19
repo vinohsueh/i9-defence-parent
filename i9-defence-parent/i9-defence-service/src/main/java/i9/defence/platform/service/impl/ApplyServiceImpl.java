@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import i9.defence.platform.dao.ApplyDao;
+import i9.defence.platform.dao.vo.ApplyDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
 import i9.defence.platform.model.ApplyExample.Criteria;
@@ -41,17 +42,25 @@ public class ApplyServiceImpl implements ApplyService {
 	private EquipmentService equipmentService;
 
 	@Override
-	public PageBounds<Apply> selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize)
-			throws BusinessException {
+	public PageBounds<Apply> selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize,Integer destriId)
+			throws BusinessException { 
 		try {
 			// 1.获得当前登录用户
 			Manager manager = managerService.getLoginManager();
 			Criteria criteria = applyExample.createCriteria();
 			// 1.1若为网站用户 (type=0),则全部显示
 			if (Arrays.asList(Constants.S_NET_MANAGER).contains(manager.getType())) {
-				PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);
-				return pageBounds;
-			} // 1.2若为经销商和管理员则根据条件显示
+				if(destriId!=null && destriId==0) {
+					PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);
+					return pageBounds; 
+				}else {
+					ApplyDto applyDto = new ApplyDto(); 
+					applyDto.setDestriId(destriId);
+					PageBounds<Apply> pageBounds = applyDao.selectByLimitPage2(applyDto, currectPage, pageSize);
+					return pageBounds;
+				}
+			} 
+			// 1.2若为经销商和管理员则根据条件显示
 			else if(Arrays.asList(Constants.S_ACCOUNT).contains(manager.getType())){
 				criteria.andConductorIdEqualTo(manager.getId());
 				PageBounds<Apply> pageBounds = applyDao.selectByLimitPage(applyExample, currectPage, pageSize);

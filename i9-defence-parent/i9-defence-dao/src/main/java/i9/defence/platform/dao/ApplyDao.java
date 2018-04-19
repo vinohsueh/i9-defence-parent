@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.dao.vo.ApplyDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ApplyExample;
 import i9.defence.platform.utils.BusinessException;
@@ -29,6 +30,19 @@ public interface ApplyDao {
 	* @throws Exception
 	 */
 	PageBounds<Apply>  selectByLimitPage(ApplyExample applyExample, int currectPage, int pageSize) throws Exception;
+	
+	
+	/**
+	 * 分页查询申请表（外带处理人的父Id）
+	* @Title: selectByLimitPage 
+	* @Description: TODO
+	* @param applyExample
+	* @param currectPage
+	* @param pageSize
+	* @return
+	* @throws Exception
+	 */
+	PageBounds<Apply>  selectByLimitPage2(ApplyDto applyDto, int currectPage, int pageSize) throws Exception;
 	
 	/**
 	 * 删除申请

@@ -59,4 +59,11 @@ public interface EquipmentCategoryService {
      */
     List<EquipmentCategory> serchEqCategory()throws BusinessException;
     
+//    /**
+//     * 查询数量
+//     * @param 
+//     * @throws Exception
+//     */
+//    List<EqCategorySearchDto> selectAllEqCategoryAndNum()throws BusinessException;
+//    
 }

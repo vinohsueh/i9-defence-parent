@@ -91,17 +91,19 @@
 	            <th>设备类型</th>
 	            <th>项目安全负责人</th>
 	            <th>项目名称</th>
+	            <th width='100px'>故障记录</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
 	            <!--<td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.deviceId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>  -->
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.hiddeCount}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.deviceId}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentPosition}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.eqCategoryName}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.personLiableMan}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.projectName}}</td>
+	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.hiddeCount}}</td>
+	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.deviceId}}</td>
+	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentPosition}}</td>
+	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.personLiableMan}}</td>
+	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.projectName}}</td>
+	            <td><button type='button' class='btn btn-primary' ng-click="faultRecord('{{hiddenEdit.deviceId}}')">查看</button></td>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -141,8 +143,36 @@
 	        </div>
 	      </div>
 	    </footer>
+	    
+	  </div>
+	  <div class='row' ng-if="ifshow">
+	    <div class="mPane hFull col-xs-6 col-sm-3">
+	      <div class="title">项目信息</div>
+	      <div class="body">
+	        <p>名称：{{projectInfo.project.name}}</p>
+	        <p>负责人：{{projectInfo.project.manager}}</p>
+	        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
+	      </div>
+	    </div>
+	    <div class="mPane hFull col-xs-6 col-sm-3">
+	      <div class="title">设备信息</div>
+	      <div class="body">
+	        <p>名称：{{projectInfo.equip.name}}</p>
+	        <p>位置：{{projectInfo.equip.location}}</p>
+	      </div>
+	    </div>
+	    <div class="mPane hFull col-xs-6 col-sm-6">
+	      <div class="title">处理详情</div>
+	      <div class="body">
+	        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon'></textarea>
+	        <div class='text-right'>
+	          <button type='' class='btn btn-success' ng-click='confirmBtn()'>确定</button>
+	        </div>
+	      </div>
+	    </div>
 	  </div>
 	</div>
+
 </div>
 <script>
 /* $("#checkLabel").click(function(){

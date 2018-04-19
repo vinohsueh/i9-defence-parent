@@ -77,6 +77,12 @@ public class Apply {
      */
     private Project project;
     
+    /**
+     * 选择经销商级别
+     */
+    private String choiceType;
+    
+    
     public Integer getId() {
         return id;
     }
@@ -184,6 +190,15 @@ public class Apply {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-    
+
+	public String getChoiceType() {
+		return choiceType;
+	}
+
+	public void setChoiceType(String choiceType) {
+		this.choiceType = choiceType;
+	}
+
+	 
     
 }
