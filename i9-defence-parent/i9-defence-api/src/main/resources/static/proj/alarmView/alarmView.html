@@ -64,10 +64,10 @@
         </thead>
         <tbody>
           <tr ng-repeat="hiddenEdit in equipments">
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.safeListStr}}</td>
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.projectName}}</td>
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentPosition}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.safeListStr}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.projectName}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentPosition}}</td>
             <td><button type='button' class='btn btn-primary' ng-click='faultRecord()'>查看</button></td>
           </tr>
         </tbody>
