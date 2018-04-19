@@ -19,6 +19,7 @@
     <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
   	<collection column="equipmentCategoryId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></collection>
+  	<collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"></collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -690,5 +691,8 @@
 	        </if>
         </trim>
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
+	</select>
+	<select id="selectEqChannelDataDto" parameterType="java.lang.Integer" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
+		select `p`.`name` AS `channelName`,`cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue` from ((`t_channel_data` `cd` left join `t_passageway` `p` on((`cd`.`channel` = `p`.`channel`))) left join `t_equipment` `e` on((`e`.`deviceId` = `cd`.`deviceId`))) where ((`e`.`id` = #{id}) and (`cd`.`dateTime` = (select `t_channel_data`.`dateTime` from `t_channel_data` where (`t_channel_data`.`deviceId` = (select `t_equipment`.`deviceId` from `t_equipment` where (`t_equipment`.`id` = #{id}))) order by `t_channel_data`.`dateTime` desc limit 1))) order by `cd`.`channel`
 	</select>
 </mapper>
