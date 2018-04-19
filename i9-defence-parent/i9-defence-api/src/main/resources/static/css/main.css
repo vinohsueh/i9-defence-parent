@@ -478,6 +478,17 @@ td.eventType span.hiddenDanger {
 #map #choiceMap .column2 {
   padding-left: 25px;
 }
+/*通道信息*/
+.passageway {
+  padding: 5px 10px;
+  -wibkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #495993;
+  position: relative;
+  display: inline-block;
+  margin: 2px;
+}
 .clear {
   zoom: 1;
 }

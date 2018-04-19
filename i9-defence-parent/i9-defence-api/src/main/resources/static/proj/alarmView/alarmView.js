@@ -277,7 +277,11 @@ var alarmViewNgControl=alarmViewNgModule.controller('alarmViewNgControl',functio
 	        });*/
     	})
     };  
-    
+    //查看记录
+    $scope.faultRecord = function () {
+    	
+    }
+
     $scope.confirmAdd = function(){
 		var dealStatusDtos = [];
 		angular.forEach(angular.element.find(".error"), function(dom){
