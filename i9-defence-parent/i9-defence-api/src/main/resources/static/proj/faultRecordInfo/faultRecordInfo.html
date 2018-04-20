@@ -1,7 +1,9 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal"
 		ng-click="closeBtn()" aria-hidden="true">&times;</button>
-	<h4 class="modal-title" id="myModalLabel">故障记录</h4>
+	<h4 class="modal-title" id="myModalLabel" ng-if="typeId==1">故障记录</h4>
+	<h4 class="modal-title" id="myModalLabel" ng-if="typeId==2">报警记录</h4>
+	<h4 class="modal-title" id="myModalLabel" ng-if="typeId==3">隐患记录</h4>
 </div>
 <div class="modal-body"  id='tableBody'>
 	<!-- <table class="table b-t b-b b-light" style="table-layout:fixed">
