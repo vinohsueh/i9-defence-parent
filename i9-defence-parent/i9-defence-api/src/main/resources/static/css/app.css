@@ -5168,14 +5168,20 @@ a.text-#000000:hover {
     margin-right: 5px;
 }
 .oneLever{
-  background-color: #595959!important;
+  background-color: #1b2446!important;
+  font-size: 20px;
   color: #FFFFFF;
+  border-top:solid #e83632;
 }
 .twoLever{
-  background-color: #A6A6A6!important;
+	font-size: 20px;
+	color: #FFFFFF;
+  background-color: #4b00af!important;
 }
 .threeLever{
-  background-color: #D9D9D9!important;
+	font-size: 20px;
+	color: #FFFFFF;
+  background-color: #027bd6!important;
 }
 .sico {
   display: block;
