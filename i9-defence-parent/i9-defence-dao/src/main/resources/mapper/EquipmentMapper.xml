@@ -720,6 +720,22 @@
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select>
 	<select id="selectEqChannelDataDto" parameterType="java.lang.Integer" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
-		select `p`.`name` AS `channelName`,`cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue` from ((`t_channel_data` `cd` left join `t_passageway` `p` on((`cd`.`channel` = `p`.`channel`))) left join `t_equipment` `e` on((`e`.`deviceId` = `cd`.`deviceId`))) where ((`e`.`id` = #{id}) and (`cd`.`dateTime` = (select `t_channel_data`.`dateTime` from `t_channel_data` where (`t_channel_data`.`deviceId` = (select `t_equipment`.`deviceId` from `t_equipment` where (`t_equipment`.`id` = #{id}))) order by `t_channel_data`.`dateTime` desc limit 1))) order by `cd`.`channel`
+		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.categoryId = e.equipmentCategoryId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,cd.type as type
+		FROM `t_channel_data` `cd`
+			LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
+			
+		WHERE `e`.`id` = #{id} 
+			AND `cd`.`dateTime` = (
+				SELECT `t_channel_data`.`dateTime`
+				FROM `t_channel_data`
+				WHERE `t_channel_data`.`deviceId` = (
+					SELECT `t_equipment`.`deviceId`
+					FROM `t_equipment`
+					WHERE `t_equipment`.`id` = #{id}
+				)
+				ORDER BY `t_channel_data`.`dateTime` DESC
+				LIMIT 1
+			)
+		ORDER BY `cd`.`channel`
 	</select>
 </mapper>

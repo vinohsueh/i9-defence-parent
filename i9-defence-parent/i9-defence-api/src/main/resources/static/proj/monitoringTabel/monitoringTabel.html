@@ -62,14 +62,16 @@
         <thead>
           <tr>
             <th width='100px'>状态</th>
-            <th width='30%'>设备名称</th>
+            <th width='200px'>设备标识</th>
+            <th width='100px'>设备名称</th>
             <th width='100px'>项目名称</th>
-            <th>设备编号</th>
+            <th>最新数据</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
             <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
+           	<td>{{project.deviceId}}</td>
             <td>{{project.equipmentName}}</td>
             <td>{{project.projectName}}</td>
             <td>
@@ -117,6 +119,7 @@
       <div class="body">
         <p>名称：{{projectInfo.equip.name}}</p>
         <p>位置：{{projectInfo.equip.location}}</p>
+        <p>设备标识：{{projectInfo.equip.deviceId}}</p>
       </div>
     </div>
     <div class="mPane col-xs-12 col-sm-8">
