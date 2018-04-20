@@ -497,6 +497,26 @@ angular.module('app')
                     }]
                   }
               }) 
+              
+              .state('app.faultRecordInfo', {
+                  url: '/faultRecordInfo',
+                  params: {'id': null,'typeId':null},
+                  templateUrl: 'proj/faultRecordInfo/faultRecordInfo.html',
+                  controller : "faultRecordInfoControl",
+                  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                      return $ocLazyLoad.load({
+                    name : 'faultRecordInfoModule',
+                    insertBefore : '#ng_load_plugins_before',
+                    files : [
+                        'proj/faultRecordInfo/faultRecordInfo.js',
+                        ]
+                  })
+                    }]
+                  }
+              }) 
+              
 
               .state('app.hiddenDangerRemind', {
                   url: '/hiddenDangerRemind',

@@ -126,10 +126,11 @@ public class ChannelDataComponent {
 			//值的数组
 			JSONArray jsonArrays = new JSONArray();
 			for (ChannelData channelData : entry.getValue()) {
-				channelData.setErrorName(ErrorTypeCache.getCacheDict(channelData.getValue()));
+				//channelData.setErrorName(ErrorTypeCache.getCacheDict(channelData.getValue()));
+				channelData.setValue(ErrorTypeCache.getCacheDict(channelData.getValue()));
 				jsonArrays.add(JSONObject.toJSON(channelData));
 			}
-			channelObject.put("value", jsonArrays);
+			channelObject.put("data", jsonArrays);
 			jsonArray.add(channelObject);
 		}
 		jsonObject.put("channelData", jsonArray);

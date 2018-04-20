@@ -1,0 +1,70 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">故障记录</h4>
+</div>
+<div class="modal-body"  id='tableBody'>
+	<!-- <table class="table b-t b-b b-light" style="table-layout:fixed">
+	  <thead>
+	    <tr>
+	      <th>通道名称</th>
+	      <th>故障时间</th>
+	      <th>处理类型</th>
+	      <th>处理详情</th>
+	    </tr>
+	  </thead>
+	  <tbody ng-bind-html="oHtml">
+	  <tbody>
+	  	<tr>
+	  		<td>名字</td>
+	  		<td>tongdaomingcheng</td>
+	  		<td>
+	  				<select class='form-control'>
+	  					<option value="">标记已处理</option>
+	  					<option value="">标记误报</option>
+	  					<option value="">标记</option>
+	  				</select>
+	  		</td>
+	  		<td><input type="text" class='form-control' placeholder='处理详情'></td>
+	  	</tr>
+	    <tr ng-repeat="hiddenEdit in hiddenEdit">
+	      <td >{{hiddenEdit.name}}</td>
+	      <td >{{hiddenEdit.value}}</td>
+	      <td >{{hiddenEdit.dateTimeStr}}</td>
+	      <td ><input type="text" class="input-sm form-control"  ng-model="hiddenEdit.editText" placeholder="处理详情"></td>
+	      <td ><input type='text' class='input-sm form-control'></td>
+	    </tr>
+	  </tbody>
+	</table> -->
+	<div class="row">
+		<div class="col-sm-12 b-b" ng-repeat='i in warningList'>
+			<p ng-if="i.name != null">{{i.name}}</p>
+			<p ng-if="i.name == null">通道{{i.channelNumber}}</p>
+			<div class="error" ng-repeat = "x in i.data">
+				<div class="col-sm-1 mb-10 id" data-aa="{{x.id}}">{{$index+1}}、</div>
+				<div class="col-sm-6 mb-10" ng-if="typeId==1">故障类型:{{x.value}}</div>
+				<div class="col-sm-6 mb-10" ng-if="typeId==2">报警值:{{x.value}}</div>
+				<div class="col-sm-6 mb-10" ng-if="typeId==3">隐患值:{{x.value}}</div>
+				<div class="col-sm-5 mb-10" ng-if="typeId==1">故障时间:{{x.dateTimeStr}}</div>
+				<div class="col-sm-5 mb-10" ng-if="typeId==2">报警时间:{{x.dateTimeStr}}</div>
+				<div class="col-sm-5 mb-10" ng-if="typeId==3">隐患时间:{{x.dateTimeStr}}</div>
+				<!-- <div class="col-sm-3 mb-10 delType">
+						<span ng-if="x."></span>
+						<option value="1">已处理</option>
+					</select>
+				</div> -->
+			</div>
+
+		</div>
+	</div>
+</div> 
+<script>
+$("#checkLabel1").click(function(){
+    if($("#totalCheck1").prop("checked") == true){
+        $(".o-checks1").prop("checked",true);
+    }else{
+        $(".o-checks1").prop("checked",false);
+    }
+    
+})
+</script>

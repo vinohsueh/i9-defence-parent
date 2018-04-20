@@ -182,7 +182,7 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
         }
         //查看记录
         $scope.faultRecord = function (idNum) {
-        	$state.go('app.warningInfo',{id:idNum});
+        	$state.go('app.faultRecordInfo',{id:idNum,typeId:3});
         }
         //详情提交
         $scope.confirmBtn = function () {
