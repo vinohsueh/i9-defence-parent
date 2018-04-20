@@ -52,17 +52,18 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	@Override
 	public PageBounds<Equipment> selectByLimitPage2(EquipmentSearchDto equipmentSearchDto, int currectPage, int pageSize ,int distributorId)
 			throws Exception {
-		final int totalSize = equipmentMapper.countByExample(equipmentSearchDto);
+		equipmentSearchDto.setDistributorId(distributorId);
+		final int totalSize = equipmentMapper.countByExample2(equipmentSearchDto);
         PageBounds<Equipment> pageBounds = new PageBounds<Equipment>(currectPage, totalSize, pageSize);
-        List<Equipment> list = equipmentMapper.selectByLimitPage2(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize(),distributorId);
+        List<Equipment> list = equipmentMapper.selectByLimitPage2(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
         pageBounds.setPageList(list);
         return pageBounds;
 	}
 	
 	@Override
 	public PageBounds<Equipment> selectByLimitPage3(EquipmentSearchDto equipmentSearchDto, int currentPage,
-			int pageSize, Integer distributorId) {
-		equipmentSearchDto.setDistributorId(distributorId);
+			int pageSize, Integer projectManagerId) {
+		equipmentSearchDto.setProjectManagerId(projectManagerId);
 		final int totalSize = equipmentMapper.countByExample3(equipmentSearchDto);
         PageBounds<Equipment> pageBounds = new PageBounds<Equipment>(currentPage, totalSize, pageSize);
         List<Equipment> list = equipmentMapper.selectByLimitPage3(equipmentSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
