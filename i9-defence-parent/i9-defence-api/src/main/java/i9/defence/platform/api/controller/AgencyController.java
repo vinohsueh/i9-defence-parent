@@ -42,7 +42,7 @@ public class AgencyController {
             partentId = loginManager.getId();
         }
         List<Manager> agencys = managerService.selectAllAgency(partentId);
-        for(Manager manager:agencys){
+        /*for(Manager manager:agencys){
             System.out.println("1--"+manager.getUsername());
             if(manager.getAgencyList()!=null){
                 for(Manager manager1:manager.getAgencyList()){
@@ -58,7 +58,7 @@ public class AgencyController {
             }else {
                 System.out.println("无下属----2级");
             }
-        }
+        }*/
         result.put("data",agencys);
         return result;
     }
@@ -87,7 +87,7 @@ public class AgencyController {
     @RequestMapping("/insertAgency")
     public HashMap<String,Object> insertAgency(@RequestBody AgencyParamDto agencyParamDto){
         HashMap<String,Object> result = new HashMap<String, Object>();
-        managerService.insertManagerGrade(agencyParamDto.getManagerIdS(),agencyParamDto.getParentId());
+        managerService.insertManagerGrade(Arrays.asList(agencyParamDto.getManagerIdS()),agencyParamDto.getParentId());
         return result;
     }
 
