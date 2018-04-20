@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import i9.defence.platform.dao.EquipmentFaultDao;
 import i9.defence.platform.model.EquipmentFault;
-import i9.defence.platform.service.EquipmentFaultService;
 
 /** 
 * 创建时间：2018年4月14日 上午2:40:30
@@ -19,7 +19,7 @@ import i9.defence.platform.service.EquipmentFaultService;
 @Component
 public class ErrorTypeCache {
 	@Autowired
-	private EquipmentFaultService equipmentFaultService;
+	private EquipmentFaultDao equipmentFaultDao;
 	
 	/**
      *  id和name
@@ -29,7 +29,7 @@ public class ErrorTypeCache {
     //public static List<string> codetypeList = new ArrayList<string>();
     
     public void init() {
-    	 List<EquipmentFault> list = equipmentFaultService.getAllTypes();
+    	 List<EquipmentFault> list = equipmentFaultDao.getAllTypes();
          //清空缓存数据
          ErrorTypeCache.dictMap.clear();
   

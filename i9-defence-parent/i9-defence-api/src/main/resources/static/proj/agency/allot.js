@@ -56,21 +56,18 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
         var arrays = [];
         $('.choice-list-n>li').each(function () {
             if($(this).hasClass('active')){
-                arrays.push($(this).find("span").attr('data-id'));
-                var params = {
-                    'managerIdS' : arrays,
-                    'parentId' : param,
-                };
-                console.log(JSON.stringify(params));
-                httpService.post({url:'./agency/insertAgency',data:params,showSuccessMsg:true}).then(function(data) {
-                	$modalInstance.dismiss('cancel');
-                    console.log(JSON.stringify(data.data.data));
-                });
-
-                $(this).appendTo($('.choice-list-y')).removeClass('active');
-                
+                arrays.push($(this).find("span").attr('data-id'));   
+                $(this).appendTo($('.choice-list-y')).removeClass('active');  
             }
         })
+        var params = {
+            'managerIdS' : arrays,
+            'parentId' : param,
+       };      
+        httpService.post({url:'./agency/insertAgency',data:params,showSuccessMsg:true}).then(function(data) {
+        	$modalInstance.dismiss('cancel');
+            console.log(JSON.stringify(data.data.data));
+        });
     });
 
     $(document).on('click','.ico-cancle-m',function () {
@@ -90,14 +87,14 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
 	                        'managerId' : managerId,
 	                        'parentId' : param,
 	                    };
-	                    httpService.post({url:'./agency/deleteAgencyById',data:params,showSuccessMsg:true}).then(function(data) {
-	                        console.log(JSON.stringify(data.data.data));
-	                    });
+                		httpService.post({url:'./agency/deleteAgencyById',data:params,showSuccessMsg:true}).then(function(data) {
+                            console.log(JSON.stringify(data.data.data));
+                        });
 	                    $(this).appendTo($('.choice-list-n')).removeClass('active');
                 	}
                 });
             }
-        })
+        }) 
     });
 
     $scope.checkList = function (id) {

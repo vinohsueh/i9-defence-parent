@@ -23,6 +23,7 @@ public class EquipmentMonitorComponent {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("name", equipment.getEquipmentName());
 		jsonObject.put("location", equipment.getEquipmentPosition());
+		jsonObject.put("deviceId", equipment.getDeviceId());
 		return jsonObject;
 	}
 }

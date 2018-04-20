@@ -2,6 +2,8 @@ package i9.defence.platform.dao.vo;
 
 import java.io.Serializable;
 
+import i9.defence.platform.cache.ErrorTypeCache;
+
 public class EqChannelDataDto implements Serializable{
 	
 	/**
@@ -14,6 +16,17 @@ public class EqChannelDataDto implements Serializable{
 	private Integer channelNum;
 	
 	private String channelValue;
+	
+	private Integer type;
+	
+	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
 	public String getChannelName() {
 		if(channelName == null) {
@@ -35,7 +48,11 @@ public class EqChannelDataDto implements Serializable{
 	}
 
 	public String getChannelValue() {
-		return channelValue;
+		if (type == 0) {
+			return ErrorTypeCache.getCacheDict(channelValue);
+		}else{
+			return channelValue;
+		}
 	}
 
 	public void setChannelValue(String channelValue) {

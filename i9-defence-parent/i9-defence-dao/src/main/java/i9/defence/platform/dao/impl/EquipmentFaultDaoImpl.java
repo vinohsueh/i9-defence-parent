@@ -54,7 +54,7 @@ public class EquipmentFaultDaoImpl implements EquipmentFaultDao{
 	}
 
 	@Override
-	public List<EquipmentFault> getAllTypes() throws Exception {
+	public List<EquipmentFault> getAllTypes(){
 		EquipmentFaultExample example = new EquipmentFaultExample();
 		return equipmentFaultMapper.selectByExample(example);
 	}

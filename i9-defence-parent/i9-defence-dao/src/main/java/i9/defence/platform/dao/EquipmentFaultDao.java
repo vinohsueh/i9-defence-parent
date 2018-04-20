@@ -38,5 +38,5 @@ public interface EquipmentFaultDao {
 	EquipmentFault getById(Integer id) throws Exception;
 	
 	//查询全部
-	List<EquipmentFault> getAllTypes() throws Exception;
+	List<EquipmentFault> getAllTypes();
 }

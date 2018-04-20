@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ErrHandleMapper {
-    long countByExample(@Param("example") ErrHandleSearchDto errHandleSearchDto);
+    int countByExample(@Param("example") ErrHandleSearchDto errHandleSearchDto);
 
     int deleteByExample(ErrHandleExample example);
 
