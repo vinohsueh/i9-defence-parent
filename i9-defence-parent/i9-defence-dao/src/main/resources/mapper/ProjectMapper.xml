@@ -11,7 +11,7 @@
     <result column="projectLongitude" jdbcType="DOUBLE" property="projectLongitude" />
     <result column="projectLatitude" jdbcType="DOUBLE" property="projectLatitude" />
     <result column="projectDate" jdbcType="TIMESTAMP" property="projectDate" />
-    <result column="projectArea" jdbcType="INTEGER" property="projectArea" />
+    <result column="projectArea" jdbcType="DOUBLE" property="projectArea" />
     <result column="distributorId" jdbcType="INTEGER" property="distributorId" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
@@ -193,7 +193,7 @@
     insert into t_project (projectName, projectProvince, projectCity, projectCounty, projectAddress, projectLongitude, 
       projectLatitude, projectDate, projectArea, distributorId, remarks, projectState)
     values (#{projectName,jdbcType=VARCHAR}, #{projectProvince,jdbcType=VARCHAR}, #{projectCity,jdbcType=VARCHAR}, #{projectCounty,jdbcType=VARCHAR},#{projectAddress,jdbcType=VARCHAR}, #{projectLongitude,jdbcType=DOUBLE}, 
-      #{projectLatitude,jdbcType=DOUBLE}, #{projectDate,jdbcType=TIMESTAMP}, #{projectArea,jdbcType=INTEGER}, 
+      #{projectLatitude,jdbcType=DOUBLE}, #{projectDate,jdbcType=TIMESTAMP}, #{projectArea,jdbcType=DOUBLE}, 
       #{distributorId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Project">
@@ -265,7 +265,7 @@
         #{projectDate,jdbcType=TIMESTAMP},
       </if>
       <if test="projectArea != null">
-        #{projectArea,jdbcType=INTEGER},
+        #{projectArea,jdbcType=DOUBLE},
       </if>
       <if test="distributorId != null">
         #{distributorId,jdbcType=INTEGER},
@@ -315,7 +315,7 @@
         projectDate = #{record.projectDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.projectArea != null">
-        projectArea = #{record.projectArea,jdbcType=INTEGER},
+        projectArea = #{record.projectArea,jdbcType=DOUBLE},
       </if>
       <if test="record.distributorId != null">
         distributorId = #{record.distributorId,jdbcType=INTEGER},
@@ -342,7 +342,7 @@
       projectLongitude = #{record.projectLongitude,jdbcType=DOUBLE},
       projectLatitude = #{record.projectLatitude,jdbcType=DOUBLE},
       projectDate = #{record.projectDate,jdbcType=TIMESTAMP},
-      projectArea = #{record.projectArea,jdbcType=INTEGER},
+      projectArea = #{record.projectArea,jdbcType=DOUBLE},
       distributorId = #{record.distributorId,jdbcType=INTEGER},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       projectState = #{record.projectState,jdbcType=INTEGER}
@@ -378,7 +378,7 @@
         projectDate = #{projectDate,jdbcType=TIMESTAMP},
       </if>
       <if test="projectArea != null">
-        projectArea = #{projectArea,jdbcType=INTEGER},
+        projectArea = #{projectArea,jdbcType=DOUBLE},
       </if>
       <if test="distributorId != null">
         distributorId = #{distributorId,jdbcType=INTEGER},
@@ -402,7 +402,7 @@
       projectLongitude = #{projectLongitude,jdbcType=DOUBLE},
       projectLatitude = #{projectLatitude,jdbcType=DOUBLE},
       projectDate = #{projectDate,jdbcType=TIMESTAMP},
-      projectArea = #{projectArea,jdbcType=INTEGER},
+      projectArea = #{projectArea,jdbcType=DOUBLE},
       distributorId = #{distributorId,jdbcType=INTEGER},
       remarks = #{remarks,jdbcType=VARCHAR},
       projectState = #{projectState,jdbcType=INTEGER}

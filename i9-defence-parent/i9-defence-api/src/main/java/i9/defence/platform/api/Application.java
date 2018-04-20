@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan("i9.defence.platform")
 @EnableCaching
-@EnableScheduling
 @ServletComponentScan // 扫描使用注解方式的servlet 
+@EnableScheduling//定时器
 public class Application extends SpringBootServletInitializer{
     
     public static void main(String[] args) {

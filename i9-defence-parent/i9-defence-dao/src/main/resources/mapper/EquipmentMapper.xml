@@ -21,6 +21,18 @@
   	<collection column="equipmentCategoryId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></collection>
   	<collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"></collection>
   </resultMap>
+  <resultMap id="BaseResultMapDto" type="i9.defence.platform.dao.vo.HiddenDangerDto">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="equipmentName" jdbcType="VARCHAR" property="equipmentName" />
+    <result column="equipmentPosition" jdbcType="VARCHAR" property="equipmentPosition" />
+    <result column="deviceId" jdbcType="VARCHAR" property="deviceId" />
+    <result column="projectName" jdbcType="VARCHAR" property="projectName" />
+    <result column="hiddeCount" jdbcType="INTEGER" property="hiddeCount" />
+    <result column="warningCount" jdbcType="INTEGER" property="warningCount" />
+    <result column="eqCategoryName" jdbcType="VARCHAR" property="eqCategoryName" />
+    <result column="personLiableMan" jdbcType="VARCHAR" property="personLiableMan" />
+    <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"/>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -583,7 +595,7 @@
 			</if>
 		</select>
 		<!-- 分页查询 -->
-		<select id="selectHiddenDangerByLimitPage" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+		<select id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto">
 			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />

@@ -134,36 +134,9 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	   $scope.error.area = false;
 	   $scope.queryProjects();
 	};
-//	$scope.add = function () {  
-//			$scope.equipmentCategory = data.data.equipmentCategory;
-//			//$modalInstance.dismiss('cancel')
-//			  var modalInstance = $modal.open({  
-//		            templateUrl: 'proj/hiddenEdit/add.html',  
-//		            controller: 'hiddenEditEditNgCtrl', 
-//		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-//		            resolve: {  
-//		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-//		        			return $ocLazyLoad.load({
-//		        				name : 'hiddenEditEditNgModule',
-//		        				insertBefore : '#ng_load_plugins_before',
-//		        				files : [
-//		        				         'proj/hiddenEdit/add.js',
-//		        				]
-//		        			});
-//		        		}],
-//		        		hiddenEdit: function () {  
-//		                    return {};  
-//		                },
-//		            }  
-//		        }); 
-//		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-//		            $scope.selected = data;
-//		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-//		        	$scope.initTable();
-//		        });
-//    };  
+
     //编辑
-    $scope.edit = function (systemId) { 
+    /*$scope.edit = function (systemId) { 
     	httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:systemId,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddenEdit = data.data.data;
     		//$scope.equipmentCategory = data.data.equipmentCategory;
@@ -192,6 +165,42 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
 	        	$scope.initTable();
 	        });
     	})
-    };  
+    };*/  
     
+    	$scope.ifshow = false; 
+    	$scope.deviceId;
+        // 处理详情
+        $scope.handleInfo = function (idNum) {
+        	var param = {
+        		'equipmentId':idNum
+        	}
+        	httpService.post({url:'./equipment/selectEquipInfoAndData',data:param,showSuccessMsg:false}).then(function(data) {
+        		$scope.ifshow = true;
+        		$scope.deviceId = idNum;
+        		$scope.projectInfo = data.data;
+        	});
+        }
+        //查看记录
+        $scope.faultRecord = function (idNum) {
+        	$state.go('app.warningInfo',{id:idNum});
+        }
+        //详情提交
+        $scope.confirmBtn = function () {
+        	var handleCon = $('#handleCon').val();
+        	var param = {
+        		eqId:$scope.deviceId,
+        		handleCon:handleCon,
+        		eqType:1
+        	}
+        	if(handleCon.replace(/(^\s*)|(\s*$)/g,"").length!=0){
+    	    	httpService.post({url:'./errHandle/handlingErrors',data:param,showSuccessMsg:false}).then(function(data) {
+    	    		$scope.ifshow = false;
+    	    		$('#handleCon').val('');
+    	    		$scope.initTable();
+    	    	});
+        	}else{
+        		alert('请输入内容！');
+        	}
+        	
+        }
 })

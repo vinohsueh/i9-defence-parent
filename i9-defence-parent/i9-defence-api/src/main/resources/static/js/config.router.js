@@ -479,6 +479,24 @@ angular.module('app')
                     }]
                   }
               }) 
+              .state('app.warningInfo', {
+                  url: '/warningInfo',
+                  params: {'id': null},
+                  templateUrl: 'proj/warningInfo/warningInfo.html',
+                  controller : "warningInfoControl",
+                  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                      return $ocLazyLoad.load({
+                    name : 'warningInfoModule',
+                    insertBefore : '#ng_load_plugins_before',
+                    files : [
+                        'proj/warningInfo/warningInfo.js',
+                        ]
+                  })
+                    }]
+                  }
+              }) 
 
               .state('app.hiddenDangerRemind', {
                   url: '/hiddenDangerRemind',

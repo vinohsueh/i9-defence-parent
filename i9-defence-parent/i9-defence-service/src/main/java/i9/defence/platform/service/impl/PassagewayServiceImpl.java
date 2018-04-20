@@ -33,7 +33,11 @@ public class PassagewayServiceImpl implements PassagewayService {
 	public void addPassageway(PassagewayDto passagewayDto) throws BusinessException {
 		try {
 			passageWayDao.delPassagewayByCategoryId(passagewayDto.getCategoryId());
-			passageWayDao.addPassageway(Arrays.asList(passagewayDto.getPassageways()));
+			List<Passageway> passageways = Arrays.asList(passagewayDto.getPassageways());
+			for (Passageway passageway : passageways) {
+				passageway.setCategoryId(passagewayDto.getCategoryId());
+			}
+			passageWayDao.addPassageway(passageways);
 		} catch (BusinessException e) {
 			throw new BusinessException(e.getErrorMessage(), e.getMessage());
 		} catch (Exception e) {

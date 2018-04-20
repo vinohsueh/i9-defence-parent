@@ -59,14 +59,16 @@
             <th>项目安全负责人</th>
             <th>项目名称</th>
             <th>设备位置</th>
+            <th width='100px'>故障记录</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="hiddenEdit in equipments">
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.safeListStr}}</td>
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.project.projectName}}</td>
-            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentPosition}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.project.safeListStr}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.project.projectName}}</td>
+            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentPosition}}</td>
+            <td><button type='button' class='btn btn-primary' ng-click="faultRecord('{{hiddenEdit.deviceId}}')">查看</button></td>
           </tr>
         </tbody>
       </table>
@@ -94,62 +96,58 @@
       </div>
     </footer>
   </div>
-  <div class="row" ng-if="ifshow">
-	<div class="col-sm-12 b-b" ng-repeat='i in hiddenEdit'>
-		<p ng-if="i.name !=''">{{i.name}}</p>
-		<p ng-if="i.name ==''">通道{{i.channelNumber}}</p>
-		<div class="error" ng-repeat = "x in i.value">
-			<div class="col-sm-1 mb-10 id" data-aa="{{x.id}}">{{$index+1}}、</div>
-			<div class="col-sm-3 mb-10">故障名:{{x.errorName}}</div>
-			<div class="col-sm-5 mb-10">故障时间:{{x.dateTimeStr}}</div>
-			<div class="col-sm-3 mb-10 delType">
-				<select class='form-control' ng-model="x.dealStatus">
-					<option value="0">未处理</option>
-					<option value="1">已处理</option>
-					<option value="2">误报</option>
-					<option value="3">故障</option>
-				</select>
-			</div>
-			<div class="col-sm-12 mb-10 content">
-				<textarea class='form-control' cols="30" rows="2" ng-model="x.dealDetail" placeholder='请填写处理详情'></textarea>
-				<!-- <input class='form-control' type='text' placeholder='填写处理详情'> -->
-			</div>
-		</div>
-
-	</div>
-	<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
-</div>
-</div>
-  <!-- <div class='row'>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">联系人</div>
-      <div class="body">
-        <p>职位：项目经理</p>
-        <p>姓名：王二宝</p>
-        <p>电话：18070900000</p>
+  <!-- <div class="row" ng-if="ifshow">
+    <div class="col-sm-12 b-b" ng-repeat='i in hiddenEdit'>
+      <p ng-if="i.name !=''">{{i.name}}</p>
+      <p ng-if="i.name ==''">通道{{i.channelNumber}}</p>
+      <div class="error" ng-repeat = "x in i.value">
+        <div class="col-sm-1 mb-10 id" data-aa="{{x.id}}">{{$index+1}}、</div>
+        <div class="col-sm-3 mb-10">故障名:{{x.errorName}}</div>
+        <div class="col-sm-5 mb-10">故障时间:{{x.dateTimeStr}}</div>
+        <div class="col-sm-3 mb-10 delType">
+          <select class='form-control' ng-model="x.dealStatus">
+            <option value="0">未处理</option>
+            <option value="1">已处理</option>
+            <option value="2">误报</option>
+            <option value="3">故障</option>
+          </select>
+        </div>
+        <div class="col-sm-12 mb-10 content">
+          <textarea class='form-control' cols="30" rows="2" ng-model="x.dealDetail" placeholder='请填写处理详情'></textarea>
+          <input class='form-control' type='text' placeholder='填写处理详情'>
+        </div>
       </div>
+  
     </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">项目信息</div>
-      <div class="body">
-        <p>项目负责人：王三宝</p>
-        <p>项目安全负责人：王四宝</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
-      <div class="title">设备信息</div>
-      <div class="body">
-        <p>名称：G001</p>
-        <p>位置：国际创业中心2019</p>
-      </div>
-    </div>
-    <div class="mPane col-xs-12 col-sm-6">
-      <div class="title">具体数据</div>
-      <div class="body">
-        <div e-chart options="option"></div>
-      </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
     </div>
   </div> -->
+  <div class='row' ng-if="ifshow">
+    <div class="mPane hFull col-xs-6 col-sm-3">
+      <div class="title">项目信息</div>
+      <div class="body">
+        <p>名称：{{projectInfo.project.name}}</p>
+        <p>负责人：{{projectInfo.project.manager}}</p>
+        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-3">
+      <div class="title">设备信息</div>
+      <div class="body">
+        <p>名称：{{projectInfo.equip.name}}</p>
+        <p>位置：{{projectInfo.equip.location}}</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-6">
+      <div class="title">处理详情</div>
+      <div class="body">
+        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon'></textarea>
+        <div class='text-right'>
+          <button type='' class='btn btn-success' ng-click='confirmBtn()'>确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
