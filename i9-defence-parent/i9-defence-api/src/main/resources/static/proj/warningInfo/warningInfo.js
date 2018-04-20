@@ -33,6 +33,7 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 			};
 		httpService.post({url:'./errHandle/pageErrHandle',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.warningList = data.data.data;
+			console.log("----"+$scope.warningList);
 		})
 	};
 	$scope.initTable();
