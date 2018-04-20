@@ -43,9 +43,14 @@
 	            <th>类型</th>
 	        </thead>
 	        <tbody>
-	          <tr ng-repeat="i in warningList">
-		          <td>{{i.typeStr}}</td>
-		          <td>{{i.handleCon}}</td>
+	          <tr ng-repeat="warning in warningLists">
+		          <td>{{warning.handleCon}}</td>
+		           <td>{{warning.handleManager.username}}</td>
+		          <td>{{warning.handleDateStr}}</td>
+		          <td>{{warning.handleStateStr}}</td>
+		          <td>{{warning.eqDeviceId}}</td>
+		          <td>{{warning.eqAddRess}}</td>
+		          <td>{{warning.typeStr}}</td>
 	          </tr>
 	        </tbody>
 	      </table>

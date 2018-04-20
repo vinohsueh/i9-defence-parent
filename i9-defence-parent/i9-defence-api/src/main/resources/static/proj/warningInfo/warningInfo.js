@@ -32,8 +32,15 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 				eqDeviceId:$stateParams.id
 			};
 		httpService.post({url:'./errHandle/pageErrHandle',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.warningList = data.data.data;
-			console.log("----"+$scope.warningList);
+			$scope.warningLists = data.data.data.pageList;
+			for(i in $scope.warningLists){
+				console.log("----"+JSON.stringify($scope.warningLists[i].handleState));
+				if($scope.warningLists[i].handleState = 0){
+					$scope.warningLists[i].statusText = '未处理';
+				}else if($scope.warningLists[i].handleState = 1){
+					$scope.warningLists[i].statusText = '已处理';
+				}
+			}
 		})
 	};
 	$scope.initTable();
