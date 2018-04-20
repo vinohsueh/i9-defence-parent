@@ -5171,17 +5171,17 @@ a.text-#000000:hover {
   background-color: #1b2446!important;
   font-size: 20px;
   color: #FFFFFF;
-  border-top:solid #e83632;
+  border-top:groove #161f45;
 }
 .twoLever{
 	font-size: 20px;
 	color: #FFFFFF;
-  background-color: #4b00af!important;
+  background-color: #202950!important;
 }
 .threeLever{
 	font-size: 20px;
 	color: #FFFFFF;
-  background-color: #027bd6!important;
+  background-color: #2d3764!important;
 }
 .sico {
   display: block;
