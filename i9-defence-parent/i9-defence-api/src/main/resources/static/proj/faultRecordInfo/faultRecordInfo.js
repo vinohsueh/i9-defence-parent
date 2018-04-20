@@ -1,0 +1,62 @@
+var faultRecordInfoModule=angular.module('faultRecordInfoModule',['ngAnimate','ui.bootstrap','app']);
+var faultRecordInfoControl=faultRecordInfoModule.controller('faultRecordInfoControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,httpService){
+	//分页条件
+	$scope.pageSize = 10;
+	$scope.currentPage = 1;
+	$scope.typeId=$stateParams.typeId;
+	console.log($scope.typeId);
+	//初始化
+	$scope.initTable = function (){
+		var pageParam = {
+				deviceId:$stateParams.id
+			};
+		if($scope.typeId){
+			if($scope.typeId==1){
+				httpService.post({url:'./equipment/selectErrorRecord',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+					$scope.warningList = data.data.data.channelData;
+					console.log($scope.warningList)
+				})
+			}else if($scope.typeId==2){
+				httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:$stateParams.id,showSuccessMsg:false}).then(function(data) {  
+					$scope.warningList = data.data.data;
+					console.log($scope.warningList)
+				})
+			}else if($scope.typeId==3){
+				httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:$stateParams.id,showSuccessMsg:false}).then(function(data) {  
+					$scope.warningList = data.data.data;
+					console.log($scope.warningList)
+				})
+			}
+		}
+	};
+	$scope.initTable();
+	
+	//修改分页大小
+	$scope.changePageSize = function(){
+		$scope.currentPage = 1;
+		$scope.initTable();
+	}
+	//上一页
+	$scope.lastPage = function(){
+		if ($scope.hasPrevious){
+			$scope.currentPage -=1;
+			$scope.initTable();
+		}
+	}
+	//下一页
+	$scope.nextPage = function (){
+		if ($scope.hasNext){
+			$scope.currentPage +=1;
+			$scope.initTable();
+		}
+	}
+	//跳转
+	$scope.pageTo = function(page){
+		$scope.currentPage = page;
+		$scope.initTable();
+	}
+	$scope.search = function(){
+		$scope.initTable();
+	}
+
+})

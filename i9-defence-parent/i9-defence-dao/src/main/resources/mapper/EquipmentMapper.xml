@@ -606,16 +606,16 @@
 			limit #{offset},#{limit}
 		</select>
 		<!-- 查询具体隐患报警    查看隐患-->
-		 <select id="selectHiddenDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
+		 <select id="selectHiddenDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
 			  select id,deviceId,name,value,dateTime,channel,dealStatus,dealDetail
 			   from  v_hiddendanger_channel_data	
-			    where ((value &gt; HiddenMax and value &lt; WarningMax)or(value &lt; HiddenMin and value &gt; WarningMin)) and deviceId=#{deviceId,jdbcType=VARCHAR} and dealStatus = 0
+			    where ((value &gt; HiddenMax and value &lt; WarningMax)or(value &lt; HiddenMin and value &gt; WarningMin)) and deviceId=#{deviceId} and dealStatus = 0
 		  </select>
 		<!-- 查询具体隐患报警    查看警告-->
-		  <select id="selectDangerChannelDtoBySid" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
+		  <select id="selectDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
 		 	select id,deviceId,name,value,dateTime,channel,dealStatus,dealDetail
 			   from  v_hiddendanger_channel_data	
-			    where (value &gt;= WarningMax or  value &lt;= WarningMin)and deviceId=#{deviceId,jdbcType=VARCHAR} and dealStatus = 0
+			    where (value &gt;= WarningMax or  value &lt;= WarningMin)and deviceId=#{deviceId} and dealStatus = 0
 		  </select>
 		<!-- 查询全部 -->
 		<select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">

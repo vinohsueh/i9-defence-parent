@@ -183,7 +183,7 @@ var warningEditControl=warningEditModule.controller('warningEditControl',functio
     }
     //查看记录
     $scope.faultRecord = function (idNum) {
-    	$state.go('app.warningInfo',{id:idNum});
+    	$state.go('app.faultRecordInfo',{id:idNum,typeId:2});
     }
     //详情提交
     $scope.confirmBtn = function () {
