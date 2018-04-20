@@ -32,6 +32,7 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 				equipmentName : text,
 				systemId : text,
 				equipmentPosition : text,
+				orderByClause : "equipmentDate desc"
 			};
 		
 		httpService.post({url:'./equipment/pageEquipment',data:pageParam,showSuccessMsg:false}).then(function(data) {  

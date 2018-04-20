@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.EquipmentCategoryDao;
 import i9.defence.platform.dao.vo.EqCategorySearchDto;
-import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.service.EquipmentCategoryService;
