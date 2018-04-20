@@ -1,5 +1,7 @@
 package i9.defence.platform.dao.vo;
 
+import java.util.List;
+
 /** 
 * @author user: jiace
 * @version creatTime：2018年4月4日 下午4:50:36 
@@ -44,6 +46,8 @@ public class HiddenDangerDto {
 	 * 安全负责人
 	 */
 	private String personLiableMan;
+	
+	private List<EqChannelDataDto> eqChannelDataList;
 	
 	public String getPersonLiableMan() {
 		return personLiableMan;
@@ -100,5 +104,12 @@ public class HiddenDangerDto {
 	public void setWarningCount(Integer warningCount) {
 		this.warningCount = warningCount;
 	}
+	public List<EqChannelDataDto> getEqChannelDataList() {
+		return eqChannelDataList;
+	}
+	public void setEqChannelDataList(List<EqChannelDataDto> eqChannelDataList) {
+		this.eqChannelDataList = eqChannelDataList;
+	}
+	
 }
  

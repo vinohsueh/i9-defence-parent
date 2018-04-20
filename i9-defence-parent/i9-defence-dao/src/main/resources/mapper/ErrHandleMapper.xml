@@ -76,7 +76,7 @@
             OR eqDeviceId like CONCAT('%',CONCAT('${example.eqDeviceId}','%'))
         </if>
         <if test="example.managerId != null and example.managerId != ''">
-            AND handleManagerId in(select managerId from t_project_safe ps left join t_project p on ps.projectId = p.id WHERE p.distributorId = #{example.managerId})
+            AND handleManagerId in(select ps.managerId from t_project_safe ps left join t_project p on ps.projectId = p.id WHERE p.distributorId = #{example.managerId})
         </if>
     </trim>
   </sql>

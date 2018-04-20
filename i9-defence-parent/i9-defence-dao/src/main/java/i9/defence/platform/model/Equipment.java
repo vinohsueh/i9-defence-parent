@@ -3,6 +3,7 @@ package i9.defence.platform.model;
 import java.util.Date;
 import java.util.List;
 
+import i9.defence.platform.dao.vo.EqChannelDataDto;
 import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.StringUtil;
 
@@ -80,6 +81,9 @@ public class Equipment {
      * 设备一对多通道
      */
     private List<Passageway> passageways;
+    
+    //设备一对多 通道数据
+    private List<EqChannelDataDto> eqChannelDataList;
 
     public List<Passageway> getPassageways() {
 		return passageways;
@@ -240,4 +244,13 @@ public class Equipment {
 		str.append(this.equipmentName).append("--").append(this.equipmentPosition);
 		return this.equipmentName = str.toString();
 	}
+
+	public List<EqChannelDataDto> getEqChannelDataList() {
+		return eqChannelDataList;
+	}
+
+	public void setEqChannelDataList(List<EqChannelDataDto> eqChannelDataList) {
+		this.eqChannelDataList = eqChannelDataList;
+	}
+	
 }
