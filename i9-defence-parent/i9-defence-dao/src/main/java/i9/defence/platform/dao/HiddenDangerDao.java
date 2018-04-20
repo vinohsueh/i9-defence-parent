@@ -76,5 +76,11 @@ public interface HiddenDangerDao {
 	 * @throws Exception
 	 */
 	List<HiddenDanger> selectAllHiddendanger() throws Exception;
+	
+	/**
+	 * 查询有问题的设备
+	 * @return
+	 */
+	List<String> selectErrorEquipmentIds();
 
 }

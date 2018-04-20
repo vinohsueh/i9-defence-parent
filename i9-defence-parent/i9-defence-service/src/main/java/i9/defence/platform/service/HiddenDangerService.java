@@ -77,5 +77,12 @@ public interface HiddenDangerService {
 	 * @throws BusinessException
 	 */
 	List<HiddenDanger> selectAllHiddendanger() throws BusinessException;
+	
+	/**
+	 * 查询未处理的故障设备ids
+	 * @return
+	 * @throws BusinessException
+	 */
+	List<String> selectErrorEquipmentIds() throws BusinessException;
 
 }

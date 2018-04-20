@@ -34,4 +34,11 @@ public interface ErrHandleService {
      * @return
      */
     PageBounds<ErrHandle> selectByLimitPage(ErrHandleSearchDto errHandleSearchDto) throws BusinessException;
+    
+    /**
+     * 批量处理问题设备
+     * @param list
+     * @throws BusinessException
+     */
+	void handleErrorDevice(List<String> list) throws BusinessException;
 }

@@ -66,4 +66,24 @@ public class ErrHandleDaoImpl implements ErrHandleDao{
 		errHandleMapper.updateHandleHidden(eqDeviceId);		
 	}
 
+	@Override
+	public void updateBatchHandleFault(List<String> list) {
+		errHandleMapper.updateBatchHandleFault(list);
+	}
+
+	@Override
+	public void updateBatchHandlePolice(List<String> list) {
+		errHandleMapper.updateBatchHandlePolice(list);
+	}
+
+	@Override
+	public void updateBatchHandleHidden(List<String> list) {
+		errHandleMapper.updateBatchHandleHidden(list);
+	}
+
+	@Override
+	public void addBatchHandle(List<String> list) {
+		errHandleMapper.addBatchHandle(list);
+	}
+
 }

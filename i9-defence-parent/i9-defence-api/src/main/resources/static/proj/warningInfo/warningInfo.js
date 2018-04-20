@@ -33,6 +33,14 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 			};
 		httpService.post({url:'./errHandle/pageErrHandle',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.warningLists = data.data.data.pageList;
+			$scope.hasPrevious = data.data.data.hasPrevious;
+			$scope.currentPage = data.data.data.currentPage;
+			$scope.hasNext = data.data.data.hasNext;
+			$scope.total = data.data.data.totalSize;
+			$scope.start = data.data.data.offset+1;
+			$scope.end = data.data.data.offset+$scope.warningLists.length;
+			$scope.pages = data.data.data.loopPageNum;
+			$scope.currentPage = pageParam.currentPage;
 			for(i in $scope.warningLists){
 				console.log("----"+JSON.stringify($scope.warningLists[i].handleState));
 				if($scope.warningLists[i].handleState = 0){

@@ -84,4 +84,13 @@ public class HiddenDangerServiceImpl implements HiddenDangerService {
 		}
 	}
 
+	@Override
+	public List<String> selectErrorEquipmentIds() throws BusinessException {
+		try {
+			return hiddenDangerDao.selectErrorEquipmentIds();
+		} catch (Exception e) {
+			throw new BusinessException("查询故障设备失败", e.getMessage());
+		}
+	}
+
 }

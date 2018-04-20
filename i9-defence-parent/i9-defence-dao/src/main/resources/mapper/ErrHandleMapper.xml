@@ -285,4 +285,34 @@
    <update id="updateHandleHidden" parameterType="java.lang.String">
    		update t_channel_data set dealStatus = 1 where id in(select id from  v_hiddendanger_channel_data	where ((value &gt; HiddenMax and value &lt; WarningMax)or(value &lt; HiddenMin and value &gt; WarningMin)) and deviceId=#{eqDeviceId} and dealStatus = 0)
    </update>
+   
+   <update id="updateBatchHandleFault" parameterType="java.util.List">
+   		update t_channel_data set dealStatus = 1 where deviceId in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+		 and type = 0
+   </update>
+   <update id="updateBatchHandlePolice" parameterType="java.util.List">
+   		update t_channel_data set dealStatus = 1 where id in(select id from  v_hiddendanger_channel_data	where (value &gt;= WarningMax or  value &lt;= WarningMin)and deviceId
+		deviceId in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+ 		and dealStatus = 0)
+   </update>
+   <update id="updateBatchHandleHidden" parameterType="java.util.List">
+   		update t_channel_data set dealStatus = 1 where id in(select id from  v_hiddendanger_channel_data	where ((value &gt; HiddenMax and value &lt; WarningMax)or(value &lt; HiddenMin and value &gt; WarningMin)) and 
+		deviceId in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+ 		and dealStatus = 0)
+   </update>
+   <insert id="addBatchHandle" parameterType="java.util.List">
+   	insert into t_err_handle(eqDeviceId) values
+   	<foreach collection="list" item="item" separator=",">
+   		(#{item})
+   	</foreach>
+   </insert>
 </mapper>

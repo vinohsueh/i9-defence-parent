@@ -289,7 +289,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					            symbolSize: 10,
 					            itemStyle:{
 					                normal:{
-					                    color:'#ab56dc',
+					                    color:'#f05050',
 					                }
 					            },
 					            lineStyle:{
@@ -308,7 +308,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					            symbolSize: 10,
 					            itemStyle:{
 					                normal:{
-					                    color:'#e2d89c',
+					                    color:'#fad733',
 					                }
 					            },
 					            lineStyle:{

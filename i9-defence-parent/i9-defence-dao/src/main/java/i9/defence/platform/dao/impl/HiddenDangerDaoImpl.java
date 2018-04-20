@@ -53,4 +53,9 @@ public class HiddenDangerDaoImpl implements HiddenDangerDao {
 		return hiddenDangerMapper.selectByExample(example);
 	}
 
+	@Override
+	public List<String> selectErrorEquipmentIds() {
+		return hiddenDangerMapper.selectErrorEquipmentIds();
+	}
+
 }

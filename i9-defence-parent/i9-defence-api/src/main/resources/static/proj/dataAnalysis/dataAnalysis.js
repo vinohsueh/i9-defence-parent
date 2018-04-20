@@ -52,107 +52,6 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
 
-    
-	
-	/*$scope.option={
-	    title:{
-	        show:false,
-	    },
-	    toolbox:{
-	        show:false,
-	    },
-	    grid:{
-	        top:10,
-	        left:60,
-	        right:120,
-	        bottom:30,
-	        borderColor:'#566c93',
-	    },
-	    tooltip:{
-	        trigger:'axis'
-	    },
-	    dataZoom:{
-            type: 'inside',
-            realtime: true,
-            start: 90,
-            end: 100,
-            // xAxisIndex: [0, 1]
-	    },
-	    legend:{
-	        right:0,
-	        top:0,
-	        orient:'vertical',
-	        inactiveColor:'#666',
-	        textStyle:{
-	            color:'#fff',
-	        },
-	        data:['系列1','系列2',]
-	    },
-	    xAxis:{
-	        axisLabel: {        
-	            show: true,
-	            textStyle: {
-	                color: '#fff',
-	            }
-	        },
-	        data:['信息1','信息2','信息3','信息4','信息5','信息6','信息7','信息8','信息9','信息10','信息11','信息12',]
-	    },
-	    yAxis:{
-	        axisLabel: {        
-	            show: true,
-	            textStyle: {
-	                color: '#fff',
-	            }
-	        },
-	        splitLine:{
-	            show:true,
-	            lineStyle:{
-	                color:'#4960bf',
-	                type:'dashed'
-	            }
-	        },
-	    },
-	    series:[
-	        {
-	            type:'bar',
-	            name:'系列1',
-	            stack:'10',
-	            showAllSymbol: true,
-	            symbol: 'emptyCircle',
-	            symbolSize: 10,
-	            itemStyle:{
-	                normal:{
-	                    color:'#ab56dc',
-	                }
-	            },
-	            lineStyle:{
-	                normal:{
-	                    color:'#ab56dc',
-	                }
-	            },
-	            data:[40,20,10,75,30,20,78,55,51,31,46,36]
-	        },
-	        
-	        {
-	            type:'bar',
-	            name:'系列2',
-	            showAllSymbol: true,
-	            symbol: 'emptyCircle',
-	            symbolSize: 10,
-	            itemStyle:{
-	                normal:{
-	                    color:'#e2d89c',
-	                }
-	            },
-	            lineStyle:{
-	                normal:{
-	                    color:'#e2d89c',
-	                }
-	            },
-	            data:[70,30,20,15,40,50,28,35,71,21,16,56]
-	        },
-	    ],
-	}*/
 	$scope.chartsStatus = false;
     $scope.getDate = function (index){
 	    var date = new Date(); //当前日期
@@ -288,7 +187,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				            symbolSize: 10,
 				            itemStyle:{
 				                normal:{
-				                    color:'#ab56dc',
+				                    color:'#f05050',
 				                }
 				            },
 				            lineStyle:{
@@ -307,7 +206,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				            symbolSize: 10,
 				            itemStyle:{
 				                normal:{
-				                    color:'#e2d89c',
+				                    color:'#fad733',
 				                }
 				            },
 				            lineStyle:{

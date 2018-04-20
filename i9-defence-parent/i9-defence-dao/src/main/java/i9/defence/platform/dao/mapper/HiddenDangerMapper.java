@@ -31,4 +31,10 @@ public interface HiddenDangerMapper {
     int updateByPrimaryKey(HiddenDanger record);
     
     List<HiddenDanger> selectByLimitPage(@Param("example") HiddenDangerExample hiddenDangerExample, @Param("offset") int offset, @Param("limit") int pageSize);
+    
+    /**
+	 * 查询有问题的设备
+	 * @return
+	 */
+	List<String> selectErrorEquipmentIds();
 }

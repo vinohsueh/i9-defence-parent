@@ -255,4 +255,7 @@
         </if>
         limit #{offset},#{limit}
    </select>
+   <select id="selectErrorEquipmentIds" resultType="string">
+   	select deviceId from v_hiddendanger_edit where hiddeCount >0 or warningCount >0 or errorCount >0
+   </select>
 </mapper>

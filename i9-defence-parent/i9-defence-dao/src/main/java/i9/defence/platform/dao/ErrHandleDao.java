@@ -51,4 +51,12 @@ public interface ErrHandleDao {
     
   //批量处理设备隐患 type = 3 隐患
     void updateHandleHidden(String eqDeviceId) throws Exception;
+
+	void updateBatchHandleFault(List<String> list);
+
+	void updateBatchHandlePolice(List<String> list);
+
+	void updateBatchHandleHidden(List<String> list);
+
+	void addBatchHandle(List<String> list);
 }

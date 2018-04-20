@@ -40,4 +40,19 @@ public interface ErrHandleMapper {
     
   //批量处理设备隐患 type = 2 隐患
     void updateHandleHidden(String eqDeviceId);
+    
+    //批量处理故障
+	void updateBatchHandleFault(List<String> list);
+	
+	//批量处理报警
+	void updateBatchHandlePolice(List<String> list);
+	
+	//批量处理隐患
+	void updateBatchHandleHidden(List<String> list);
+	
+	/**
+	 * 批量添加记录
+	 * @param list
+	 */
+	void addBatchHandle(List<String> list);
 }

@@ -93,4 +93,21 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 		}
 	}
 
+	@Override
+	public void handleErrorDevice(List<String> list) throws BusinessException {
+		try {
+			//处理故障
+			errHandleDao.updateBatchHandleFault(list);
+			//处理报警
+			errHandleDao.updateBatchHandlePolice(list);
+			//处理隐患
+			errHandleDao.updateBatchHandleHidden(list);
+			//添加记录
+			errHandleDao.addBatchHandle(list);
+		} catch (Exception e) {
+			throw new BusinessException("自动处理失败", e.getMessage());
+		}
+		
+	}
+
 }

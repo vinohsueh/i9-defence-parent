@@ -80,9 +80,9 @@ public class ErrHandle {
     
     public String getHandleStateStr() {
     	if(handleState == 0) {
-			this.handleStateStr = "未处理";
+			this.handleStateStr = "待处理";
 		}else if (handleState == 1) {
-			this.handleStateStr = "报警";}
+			this.handleStateStr = "已处理";}
     	
         return handleStateStr;
     }
