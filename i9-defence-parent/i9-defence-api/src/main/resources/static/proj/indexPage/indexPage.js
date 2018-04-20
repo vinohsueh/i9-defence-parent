@@ -82,7 +82,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	    return time;
 	}
 
-	$scope.startTime = $scope.getDate(-7);
+	$scope.startTime = $scope.getDate(-360);
 	$scope.endTime = $scope.getDate(0);
 
 	$scope.pageInit = function(){
@@ -181,7 +181,10 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		})
 	}
 	$scope.pageInit();
-
+	
+	setTimeout(function () {
+		$scope.chartInit();
+	  }, 100);
 	//图标初始化
 	// $scope.Ids = [];
 	$scope.chartsStatus = false;
@@ -200,8 +203,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
 			projectId:[],
-			startTime:$scope.dateToString($scope.startTime),
-			endTime:$scope.dateToString($scope.endTime),
+			startTime:$scope.dateToString($("#startTime").val()),
+			endTime:$scope.dateToString($("#endTime").val()),
 
 		};
 		console.log(JSON.stringify(pageParam));
@@ -241,13 +244,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					    },
 					    tooltip:{
 					        trigger:'axis'
-					    },
-					    dataZoom:{
-				            type: 'inside',
-				            realtime: true,
-				            start: 90,
-				            end: 100,
-				            // xAxisIndex: [0, 1]
 					    },
 					    legend:{
 					        right:0,
@@ -332,15 +328,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			
 		})
 	};
-	$scope.chartInit();
-	//时间切换
-	$scope.changeTimeStatu = 1;
-	$scope.changeTime = function () {
-		$scope.changeTimeStatu = $scope.changeTimeStatu+1;
-		if($scope.changeTimeStatu>2){
-			$scope.chartInit();
-		}
-	}
 
 	$scope.searchBtn = function () {
 		$scope.pageInit();

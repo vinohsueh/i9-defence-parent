@@ -101,7 +101,6 @@ app.controller('NavController', ['$scope', '$http','$cookieStore','$cookies','re
          * 获取用户权限和页签
          */
 		$http.get('./security/noAllowedAuth').then(function (resp) {
-			console.log(resp)
        		$cookieStore.put("noAllowedAuthList",resp.data.data.data);
        		$scope.pages = resp.data.data.urls;
        		$scope.app.user = resp.data.data.user; 

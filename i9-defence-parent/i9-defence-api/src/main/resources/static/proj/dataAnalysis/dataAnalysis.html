@@ -38,12 +38,12 @@
       <div class="form-group">
         <label for="">登记时间:</label>
         <div class="input-group" ng-controller="dataAnalysisNgControl">
-          <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime"  ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+          <input type="text" id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime"  ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
           <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
         </div>
         <label for="">-</label>
         <div class="input-group" ng-controller="dataAnalysisNgControl">
-          <input type="text" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+          <input type="text" id="endTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
           <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
         </div>
       </div>

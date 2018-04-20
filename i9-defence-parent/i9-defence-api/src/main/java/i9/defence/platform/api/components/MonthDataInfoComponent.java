@@ -1,6 +1,7 @@
 package i9.defence.platform.api.components;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 import com.alibaba.fastjson.JSONObject;
 
+import i9.defence.platform.api.comparator.MonthComparator;
 import i9.defence.platform.dao.vo.MonthData;
 
 /** 
@@ -52,11 +54,11 @@ public class MonthDataInfoComponent {
 			hiddenDataMap.put(monthData.getMonth(), monthData.getCount());
 		}
 		
+		List<String> months = new ArrayList<String>(set);
+		Collections.sort(months, new MonthComparator());
+		jsonObject.put("months", months);
 		
-		
-		jsonObject.put("months", set);
-		
-		for (String string : set) {
+		for (String string : months) {
 			//添加报警柱状图数据
 			if (warningDataMap.containsKey(string)){
 				warningCount.add(warningDataMap.get(string));
