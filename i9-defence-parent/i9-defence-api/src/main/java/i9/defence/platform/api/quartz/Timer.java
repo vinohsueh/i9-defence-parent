@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling       //打开quartz定时器总开关  
 public class Timer {
 	
-	@Scheduled(cron="0/1 * *  * * ? ") //1秒执行一次
+	@Scheduled(cron="* * 0/7  * * ? ") //1秒执行一次
 	public void stepTimer(){  
 	    System.out.println(1);
 	    
