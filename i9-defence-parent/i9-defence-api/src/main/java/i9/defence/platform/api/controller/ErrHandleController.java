@@ -42,8 +42,7 @@ public class ErrHandleController {
         if(Arrays.asList(Constants.S_AGENCY).contains(role.getName())){
         	errHandleSearchDto.setManagerId(manager.getId());
         }
-        PageBounds<ErrHandle> pageBounds = errHandleService
-                .selectByLimitPage(errHandleSearchDto);
+        PageBounds<ErrHandle> pageBounds = errHandleService.selectByLimitPage(errHandleSearchDto);
         result.put("data", pageBounds);
         return result;
     }

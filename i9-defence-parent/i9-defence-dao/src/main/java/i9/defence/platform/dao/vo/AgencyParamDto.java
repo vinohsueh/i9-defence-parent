@@ -1,7 +1,6 @@
 package i9.defence.platform.dao.vo;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by 姜哲 on 2018/1/24--14:55
@@ -14,7 +13,7 @@ public class AgencyParamDto implements Serializable{
      */
     private static final long serialVersionUID = 6284929290549655304L;
 
-    private List<Integer> managerIdS;
+    private Integer[] managerIdS;
 
     private Integer parentId;
 
@@ -23,15 +22,16 @@ public class AgencyParamDto implements Serializable{
     //备用ID
     private Integer spareId;
 
-    public List<Integer> getManagerIdS() {
-        return managerIdS;
-    }
 
-    public void setManagerIdS(List<Integer> managerIdS) {
-        this.managerIdS = managerIdS;
-    }
+    public Integer[] getManagerIdS() {
+		return managerIdS;
+	}
 
-    public Integer getParentId() {
+	public void setManagerIdS(Integer[] managerIdS) {
+		this.managerIdS = managerIdS;
+	}
+
+	public Integer getParentId() {
         return parentId;
     }
 

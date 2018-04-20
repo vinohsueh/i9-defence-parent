@@ -75,9 +75,9 @@
     	<if test="example.eqDeviceId != null and example.eqDeviceId != ''">
             OR eqDeviceId like CONCAT('%',CONCAT('${example.eqDeviceId}','%'))
         </if>
-        <if test="example.managerId != null and example.managerId != ''">
+        <!--  <if test="example.managerId != null and example.managerId != ''">
             AND handleManagerId in(select ps.managerId from t_project_safe ps left join t_project p on ps.projectId = p.id WHERE p.distributorId = #{example.managerId})
-        </if>
+        </if>  -->
     </trim>
   </sql>
   <sql id="Base_Column_List">
@@ -176,7 +176,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" resultType="java.lang.Long">
+   <select id="countByExample"  resultType="java.lang.Integer">
     select count(*) from t_err_handle
     <if test="_parameter != null">
       <include refid="Query_By_Dto_Where_Clause" />

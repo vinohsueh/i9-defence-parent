@@ -34,13 +34,23 @@
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
-	            <th>事件类型</th>
-	            <th>数据信息</th>
+	            <th>处理内容</th>
+	            <th>处理人</th>
+	            <th>处理时间</th>
+	            <th>处理状态</th>
+	            <th>唯一标识</th>
+	            <th>设备地址</th>
+	            <th>类型</th>
 	        </thead>
 	        <tbody>
-	          <tr ng-repeat="i in warningList">
-		          <td>{{i.typeStr}}</td>
-		          <td>{{i.handleCon}}</td>
+	          <tr ng-repeat="warning in warningLists">
+		          <td>{{warning.handleCon}}</td>
+		           <td>{{warning.handleManager.username}}</td>
+		          <td>{{warning.handleDateStr}}</td>
+		          <td>{{warning.handleStateStr}}</td>
+		          <td>{{warning.eqDeviceId}}</td>
+		          <td>{{warning.eqAddRess}}</td>
+		          <td>{{warning.typeStr}}</td>
 	          </tr>
 	        </tbody>
 	      </table>

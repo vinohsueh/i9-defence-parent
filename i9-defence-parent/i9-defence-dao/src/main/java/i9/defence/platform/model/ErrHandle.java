@@ -9,8 +9,6 @@ public class ErrHandle {
 
     private String handleCon;
 
-    private Integer handleManagerId;
-
     private Date handleDate;
 
    //处理状态(0为处理)(1已处理)
@@ -25,6 +23,10 @@ public class ErrHandle {
     
     //处理记录的故障类型类型 前台获取
     private String typeStr;
+    
+    private String handleStateStr;
+    
+    private Integer handleManagerId;
     
     //处理人  一对一
     private Manager handleManager;
@@ -62,7 +64,7 @@ public class ErrHandle {
     }
     
     public String getHandleDateStr() {
-    	if(handleDate != null) {
+    	if(handleDate!=null) {
     		return StringUtil.dateToString(handleDate);
     	}
         return "";
@@ -74,6 +76,15 @@ public class ErrHandle {
 
     public void setHandleState(Integer handleState) {
         this.handleState = handleState;
+    }
+    
+    public String getHandleStateStr() {
+    	if(handleState == 0) {
+			this.handleStateStr = "未处理";
+		}else if (handleState == 1) {
+			this.handleStateStr = "报警";}
+    	
+        return handleStateStr;
     }
 
     public String getEqDeviceId() {
@@ -109,10 +120,6 @@ public class ErrHandle {
 	}
 
 	public String getTypeStr() {
-		return typeStr;
-	}
-
-	public void setTypeStr(String typeStr) {
 		if(type == 1) {
 			this.typeStr = "故障";
 		}else if (type == 2) {
@@ -120,6 +127,9 @@ public class ErrHandle {
 		}else {
 			this.typeStr = "隐患";
 		}
-	}    
+		return typeStr;
+	}
+
+	
 
 }
