@@ -85,13 +85,14 @@
 	                <input type="checkbox" id="totalCheck"><i></i>
 	              </label>
 	            </th> -->
-	            <th>隐患数量</th>
-	            <th>设备编号</th>
+	            <th width="100px">隐患数量</th>
+	            <th width="200px">设备标识</th>
+	            <th>设备名称</th>
 	            <th>设备位置</th>
 	            <th>设备类型</th>
 	            <th>项目安全负责人</th>
 	            <th>项目名称</th>
-	            <th width='100px'>故障记录</th>
+	            <th width='100px'>隐患记录</th>
 	          </tr>
 	        </thead>
 	        <tbody>
@@ -99,6 +100,7 @@
 	            <!--<td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.deviceId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>  -->
 	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.hiddeCount}}</td>
 	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.deviceId}}</td>
+	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentName}}</td>
 	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentPosition}}</td>
 	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.eqCategoryName}}</td>
 	            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.personLiableMan}}</td>

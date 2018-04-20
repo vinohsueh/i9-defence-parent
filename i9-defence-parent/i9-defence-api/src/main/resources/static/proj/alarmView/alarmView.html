@@ -55,19 +55,23 @@
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
+          	<th>设备标识</th>
+          	<th>设备名称</th>
+          	<th>设备位置</th>
             <th>设备类型</th>
             <th>项目安全负责人</th>
             <th>项目名称</th>
-            <th>设备位置</th>
             <th width='100px'>故障记录</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="hiddenEdit in equipments">
+          	<td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.deviceId}}</td>
+          	<td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentName}}</td>
+          	<td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentPosition}}</td>
             <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentCategory.eqCategoryName}}</td>
             <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.project.safeListStr}}</td>
             <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.project.projectName}}</td>
-            <td ng-click="handleInfo('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentPosition}}</td>
             <td><button type='button' class='btn btn-primary' ng-click="faultRecord('{{hiddenEdit.deviceId}}')">查看</button></td>
           </tr>
         </tbody>
