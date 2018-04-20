@@ -19,7 +19,7 @@ var dataAnalysisService = dataAnalysisNgModule.factory('dataAnalysisService',
 			});
 			return resource;
 	}]);
-var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,dataAnalysisService,httpService){
+var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl',function($rootScope, $scope,$stateParams,$interval,  $log, $http, $window, $state,$modal, toaster,dataAnalysisService,httpService){
 	//时间插件
     // Disable weekend selection
     $scope.disabled = function(date, mode) {
@@ -161,16 +161,8 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-	$scope.startTime = $scope.getDate(-7);
+	$scope.startTime = $scope.getDate(-360);
 	$scope.endTime = $scope.getDate(0);
-	//更换时间
-	$scope.changeTimeStatu = 1;
-	$scope.changeTime = function(){
-		$scope.changeTimeStatu = $scope.changeTimeStatu+1;
-		if($scope.changeTimeStatu>2){
-			$scope.pageInit();
-		}
-	}
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
 			$scope.selected ={
@@ -211,11 +203,10 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
     	if ($scope.projectId != null) {
     		Ids.push($scope.projectId);
     	}
-    	
 		var pageParam = {
 				projectId:Ids,
-				startTime:$scope.dateToString($scope.startTime),
-				endTime:$scope.dateToString($scope.endTime),
+				startTime:$scope.dateToString($("#startTime").val()),
+				endTime:$scope.dateToString($("#endTime").val()),
 				/*projectName : text,
 				projectAddress : text,*/
 			};
@@ -252,13 +243,6 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				    },
 				    tooltip:{
 				        trigger:'axis'
-				    },
-				    dataZoom:{
-			            type: 'inside',
-			            realtime: true,
-			            start: 90,
-			            end: 100,
-			            // xAxisIndex: [0, 1]
 				    },
 				    legend:{
 				        right:0,
@@ -341,7 +325,9 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 			
 		})
 	};
-	$scope.pageInit();
+	setTimeout(function () {
+		$scope.pageInit();
+	  }, 100);
 	// 地域
 	$scope.error = {};
 	$scope.division = division;
