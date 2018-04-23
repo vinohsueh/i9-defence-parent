@@ -144,13 +144,17 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			
 		})
 	};
+	$scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
 	$scope.pageInit();
 	$scope.passagewayInit = function (){
 		var text = $scope.searchText;
 		var pageParam = {
 				equipmentId:$scope.idNum,
-				startDateString:$scope.startTime,
-				endDateString:$scope.endTime,
+				startDateString:$scope.dateToString($("#startTime").val()),
+    			endDateString:$scope.dateToString($("#endTime").val()),
 				/*projectName : text,
 				projectAddress : text,*/
 			};
@@ -208,13 +212,13 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				    tooltip:{
 				        trigger:'axis'
 				    },
-				    dataZoom:{
+				    /*dataZoom:{
 			            type: 'inside',
 			            realtime: true,
 			            start: 90,
 			            end: 100,
 			            // xAxisIndex: [0, 1]
-				    },
+				    },*/
 				    legend:{
 				    	type:'scroll',
 				        right:0,
