@@ -170,7 +170,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     $scope.pageInit();
     $scope.passagewayInit = function (){
     	var text = $scope.searchText;
-    	alert($("#startTime").val())
     	var pageParam = {
     			equipmentId:$scope.idNum,
     			startDateString:$scope.dateToString($("#startTime").val()),
@@ -344,7 +343,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //时间切换
     $scope.changeTime = function () {
     	$scope.changeTimeStatu = $scope.changeTimeStatu+1;
-    	if($scope.changeTimeStatu>3){
+    	if($scope.changeTimeStatu>2){
     		setTimeout(function () {
     			$scope.passagewayInit();
         	  }, 100);
