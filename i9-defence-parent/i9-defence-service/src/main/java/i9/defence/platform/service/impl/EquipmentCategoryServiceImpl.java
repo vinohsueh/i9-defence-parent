@@ -96,7 +96,7 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
 				//如果是项目管理员
 				equipmentCategory.setPrijrctManagerId(loginManager.getId());
-				return eqCategoryDao.selectAllEqCategoryAndNum1(equipmentCategory);
+				return eqCategoryDao.selectAllEqCategoryAndNum(equipmentCategory);
 			}
 		} catch (Exception e) {
 			throw new BusinessException("查询全部项目类别失败",e.getMessage());

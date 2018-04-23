@@ -70,6 +70,6 @@ public interface EquipmentCategoryDao {
      * @param 
      * @throws Exception
      */
-    List<EquipmentCategory> selectAllEqCategoryAndNum1(EquipmentCategory equipmentCategory)throws Exception;
+//    List<EquipmentCategory> selectAllEqCategoryAndNum1(EquipmentCategory equipmentCategory)throws Exception;
     
 }
