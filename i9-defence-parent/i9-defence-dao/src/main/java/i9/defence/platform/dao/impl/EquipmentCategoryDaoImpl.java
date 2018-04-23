@@ -64,9 +64,9 @@ public class EquipmentCategoryDaoImpl implements EquipmentCategoryDao {
 		return eqCategoryMapper.selectAllEqCategoryAndNum(equipmentCategory);
 	}
 
-	@Override
+	/*@Override
 	public List<EquipmentCategory> selectAllEqCategoryAndNum1(EquipmentCategory equipmentCategory) throws Exception {
 		return eqCategoryMapper.selectAllEqCategoryAndNum1(equipmentCategory);
-	}
+	}*/
 
 }

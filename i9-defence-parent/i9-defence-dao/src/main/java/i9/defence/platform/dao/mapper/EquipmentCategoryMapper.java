@@ -37,5 +37,5 @@ public interface EquipmentCategoryMapper {
     
     List<EquipmentCategory> selectAllEqCategoryAndNum(@Param("example") EquipmentCategory equipmentCategory);
     
-    List<EquipmentCategory> selectAllEqCategoryAndNum1(@Param("example") EquipmentCategory equipmentCategory);
+//    List<EquipmentCategory> selectAllEqCategoryAndNum1(@Param("example") EquipmentCategory equipmentCategory);
 }

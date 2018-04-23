@@ -229,11 +229,15 @@
 	<if test="example.distributorId != null and example.distributorId != ''">
 		and distributorId ='${example.distributorId}'
 	</if>
+   <!--项目负责人  -->	
+	<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
+		and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
+	</if>
     ) 
    as eqNum from t_equipment_category ec
    </select>
-   <select id="selectAllEqCategoryAndNum1" resultType="i9.defence.platform.model.EquipmentCategory">
+   <!-- <select id="selectAllEqCategoryAndNum1" resultType="i9.defence.platform.model.EquipmentCategory">
    select ec.*,(select count(*) from t_equipment e left join t_project_safe ps on ps.projectId = e.projectId where
     e.equipmentCategoryId = ec.id and ps.managerId = '${example.prijrctManagerId}') as eqNum from t_equipment_category ec
-    </select>
+    </select> -->
 </mapper>
