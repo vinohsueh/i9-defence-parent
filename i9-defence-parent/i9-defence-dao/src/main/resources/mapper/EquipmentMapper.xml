@@ -638,13 +638,13 @@
 		</if>
 	</sql>
 	<select id="countErrorByExample"  resultType="java.lang.Integer">
-	    select count(*) from (select e.*,(select count(*) from t_channel_data cd where systemId = e.systemId and type = 5) as error from t_equipment e) a where a.error > 0 
+	    select count(*) from (select e.*,(select count(*) from t_channel_data cd where deviceId = e.deviceId and type = 0 and dealStatus = 0) as error from t_equipment e) a where a.error > 0 
 		<if test="_parameter != null">
 			<include refid="Query_Error_By_Dto_Where_Clause" />
 		</if>
     </select>
 	<select id="selectErrorEquipment" resultMap="BaseResultMap">
-		select * from (select e.*,(select count(*) from t_channel_data cd where systemId = e.systemId and type = 5) as error from t_equipment e) a where a.error > 0 
+		select * from (select e.*,(select count(*) from t_channel_data cd where deviceId = e.deviceId and type = 0 and dealStatus = 0) as error from t_equipment e) a where a.error > 0 
 		<if test="_parameter != null">
 			<include refid="Query_Error_By_Dto_Where_Clause" />
 		</if>

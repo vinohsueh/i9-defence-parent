@@ -191,7 +191,7 @@ var warningEditControl=warningEditModule.controller('warningEditControl',functio
     	var param = {
     		eqId:$scope.deviceId,
     		handleCon:handleCon,
-    		eqType:1
+    		eqType:2
     	}
     	if(handleCon.replace(/(^\s*)|(\s*$)/g,"").length!=0){
 	    	httpService.post({url:'./errHandle/handlingErrors',data:param,showSuccessMsg:false}).then(function(data) {

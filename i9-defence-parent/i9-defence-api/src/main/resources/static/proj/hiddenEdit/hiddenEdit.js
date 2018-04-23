@@ -190,7 +190,7 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
         	var param = {
         		eqId:$scope.deviceId,
         		handleCon:handleCon,
-        		eqType:1
+        		eqType:3
         	}
         	if(handleCon.replace(/(^\s*)|(\s*$)/g,"").length!=0){
     	    	httpService.post({url:'./errHandle/handlingErrors',data:param,showSuccessMsg:false}).then(function(data) {

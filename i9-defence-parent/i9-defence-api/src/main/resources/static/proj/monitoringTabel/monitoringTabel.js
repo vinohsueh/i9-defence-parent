@@ -302,8 +302,10 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	$scope.changeTime = function () {
 		$scope.changeTimeStatu = $scope.changeTimeStatu+1;
 		if($scope.changeTimeStatu>3){
-			$scope.passagewayInit();
-		}
+    		setTimeout(function () {
+    			$scope.passagewayInit();
+        	  }, 100);
+    	}
 	}
 
 	//添加通道
