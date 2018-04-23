@@ -5169,17 +5169,14 @@ a.text-#000000:hover {
 }
 .oneLever{
   background-color: #1b2446!important;
-  font-size: 20px;
   color: #FFFFFF;
   border-top:11px groove #161f45;
 }
 .twoLever{
-	font-size: 20px;
 	color: #FFFFFF;
   background-color: #202950!important;
 }
 .threeLever{
-	font-size: 20px;
 	color: #FFFFFF;
   background-color: #2d3764!important;
 }
@@ -5376,7 +5373,8 @@ a.text-#000000:hover {
   z-index: 9999;
   color: #333;
 }
-
-
+#agencyTable td{
+	padding :3px 15px !important;
+}
 
 
