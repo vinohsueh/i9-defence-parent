@@ -63,7 +63,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-	$scope.startTime = $scope.getDate(-7);
+	$scope.startTime = $scope.getDate(-180);
 	$scope.endTime = $scope.getDate(0);
 
     
@@ -71,7 +71,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     $scope.pageSize = 10;
     $scope.currentPage = 1;
     //图表显示隐藏状态
-    $scope.chartsStatus = false;
+    $scope.chartsStatus = true;
     $scope.idNum = 0;
     $scope.serchEqCategoryId = null;
 
@@ -170,23 +170,25 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     $scope.pageInit();
     $scope.passagewayInit = function (){
     	var text = $scope.searchText;
+    	alert($("#startTime").val())
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			startDateString:$scope.dateToString($scope.startTime),
-    			endDateString:$scope.dateToString($scope.endTime),
+    			startDateString:$scope.dateToString($("#startTime").val()),
+    			endDateString:$scope.dateToString($("#endTime").val()),
     			/*projectName : text,
     			projectAddress : text,*/
     		};
     	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
+    		var equipmentInfo = data.data.data;
     		$scope.warningCount = data.data.count.warningCount;
     		$scope.hiddenCount = data.data.count.hiddenCount;
     		$scope.projectInfo = data.data;
     		$scope.equipmentCheckArr = [];
     		$scope.equipmentItemArr = [];
-//    		console.log($scope.equipmentInfo)
-    		if($scope.equipmentInfo!= null){
+    		console.log($scope.equipmentInfo)
+    		if(equipmentInfo!= null){
     			$scope.chartsStatus = true;
     			for(i in $scope.equipmentInfo.channelData){
     				$scope.equipmentItemObj = {
@@ -343,7 +345,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     $scope.changeTime = function () {
     	$scope.changeTimeStatu = $scope.changeTimeStatu+1;
     	if($scope.changeTimeStatu>3){
-    		$scope.passagewayInit();
+    		setTimeout(function () {
+    			$scope.passagewayInit();
+        	  }, 100);
     	}
     }
     

@@ -28,7 +28,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	    return time;
 	}
 
-	$scope.startTime = $scope.getDate(-7);
+	$scope.startTime = $scope.getDate(-180);
 	$scope.endTime = $scope.getDate(0);
 
 	//地域

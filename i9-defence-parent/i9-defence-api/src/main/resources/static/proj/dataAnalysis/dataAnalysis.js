@@ -60,7 +60,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-	$scope.startTime = $scope.getDate(-360);
+	$scope.startTime = $scope.getDate(-180);
 	$scope.endTime = $scope.getDate(0);
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
