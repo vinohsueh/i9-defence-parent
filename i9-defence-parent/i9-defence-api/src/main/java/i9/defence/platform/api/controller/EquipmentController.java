@@ -190,12 +190,12 @@ public class EquipmentController {
 		Equipment equipment = equipmentService.getEquipmentById(channelDataSearchDto.getEquipmentId());
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(equipment.getDeviceId());
+		channelDataSearchDto.setOrderByClause("dateTime");
 		//只查询电流和温度的显示值
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());
 		typeList.add(DataTypeEnum.SHORT.getId());
 		channelDataSearchDto.setTypes(typeList);
-		channelDataSearchDto.setOrderByClause("dateTime desc");
 		//隐患报警数量
 		HiddenDangerDto hiddenDangerDto = equipmentService.selectHiddenDangerDtoByDeviceId(equipment.getDeviceId());
 		JSONObject jObject = new HiddenDangerDtoInfoComponent().setHiddenDangerDto(hiddenDangerDto).build();

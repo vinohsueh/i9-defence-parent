@@ -233,13 +233,13 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			    tooltip:{
     			        trigger:'axis'
     			    },
-    			    dataZoom:{
+    			   /* dataZoom:{
     		            type: 'inside',
     		            realtime: true,
     		            start: 90,
     		            end: 100,
     		            // xAxisIndex: [0, 1]
-    			    },
+    			    },*/
     			    legend:{
     			    	type:'scroll',
     			        right:0,
