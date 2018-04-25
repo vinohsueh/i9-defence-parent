@@ -8,8 +8,8 @@
         </button>
         <a href="#/" class="navbar-brand text-lt">
           <!-- <i class="fa fa-btc"></i> -->
-          <img src="img/logo.png" alt="." class="hide">
-          <span class="hidden-folded m-l-xs">合极电器</span>
+          <img src="./images/logo.png" alt="." style='display: inline-block;'  class="">
+          <span class="hidden-folded m-l-xs">合极电气</span>
         </a>
         <!-- / brand -->
       </div>
@@ -18,13 +18,14 @@
       <!-- navbar collapse -->
       <div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
         <!-- buttons -->
-        <div class="nav navbar-nav hidden-xs">
-          <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+        <div class="nav navbar-nav hidden-xs myNav">
+          <a href class="btn no-shadow navbar-btn mr-10" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
             <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
           </a>
           <!-- <a href class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user">
             <i class="icon-user fa-fw"></i>
           </a> -->
+          <span class='gray-3 mr-10'>智慧消防云平台</span><span class='gray-3'>Intelligent fire cloud platform</span>
         </div>
         <!-- / buttons -->
 
