@@ -83,15 +83,16 @@
           <div class="form-group">
             <label for="">登记时间:</label>
             <div class="input-group" ng-controller="monitoringChartNgControl">
-              <input type="text" id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <input type="text" id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
             <label for="">-</label>
             <div class="input-group" ng-controller="monitoringChartNgControl">
-              <input type="text" id="endTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <input type="text" id="endTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
           </div>
+          <button type='button' class='btn btn-primary' ng-click='passagewayInit()'><i class='glyphicon glyphicon-search'></i></button>
         </div>
       </div>
       <div class="body" ng-if="chartsStatus">

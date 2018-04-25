@@ -33,21 +33,20 @@
         <option value=''>全部</option>
       </select>
     </div>
-    <button type='button' class='btn btn-primary' ng-click="searchBtn()"><i class='glyphicon glyphicon-search'></i></button>
-    <div>
-      <div class="form-group">
-        <label for="">登记时间:</label>
-        <div class="input-group" ng-controller="dataAnalysisNgControl">
-          <input type="text" id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime"  ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-          <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-        </div>
-        <label for="">-</label>
-        <div class="input-group" ng-controller="dataAnalysisNgControl">
-          <input type="text" id="endTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-          <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-        </div>
+    
+    <div class="form-group">
+      <label for="">登记时间:</label>
+      <div class="input-group" ng-controller="dataAnalysisNgControl">
+        <input type="text" id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime"  ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+      </div>
+      <label for="">-</label>
+      <div class="input-group" ng-controller="dataAnalysisNgControl">
+        <input type="text" id="endTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="endTime" ng-change='changeTime()' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+        <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
       </div>
     </div>
+    <button type='button' class='btn btn-primary' ng-click="searchBtn()"><i class='glyphicon glyphicon-search'></i></button>
   </form>
   <div class="myBox" style='height: 300px;' ng-show='chartsStatus'>
     <div e-chart options="option"></div>
