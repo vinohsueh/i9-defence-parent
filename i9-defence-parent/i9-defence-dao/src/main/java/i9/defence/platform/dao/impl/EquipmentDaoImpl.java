@@ -168,6 +168,7 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	@Override
 	public List<ChannelData> selectErrorRecord(EquipmentSearchDto equipmentSearchDto) {
 		ChannelDataExample example = new ChannelDataExample();
+		example.setOrderByClause("dateTime desc");
 		example.createCriteria().andDeviceIdEqualTo(equipmentSearchDto.getDeviceId()).andTypeEqualTo(DataTypeEnum.ERROR.getId()).andDealStatusEqualTo(0);
 		return channelDataMapper.selectByExample(example);
 	}
