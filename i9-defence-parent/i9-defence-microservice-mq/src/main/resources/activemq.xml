@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amq="http://activemq.apache.org/schema/core"
-    xmlns:jms="http://www.springframework.org/schema/jms" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:amq="http://activemq.apache.org/schema/core"
+    xmlns:jms="http://www.springframework.org/schema/jms"
+    xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
@@ -12,8 +14,18 @@
         http://activemq.apache.org/schema/core
         http://activemq.apache.org/schema/core/activemq-core-5.7.0.xsd">
 
-    <amq:connectionFactory id="amqConnectionFactory"
-        brokerURL="tcp://127.0.0.1:61616" userName="admin" password="admin" />
+    <!-- <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:application-activemq-dev.properties</value>
+            </list>
+        </property>
+    </bean> -->
+    
+    <amq:connectionFactory
+        id="amqConnectionFactory" brokerURL="${activemq.brokerURL}"
+        userName="${activemq.username}" password="${activemq.password}" />
 
     <!-- 配置JMS连接工长 -->
     <bean id="connectionFactory"

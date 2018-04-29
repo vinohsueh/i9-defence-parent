@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import i9.defence.platform.microservice.push.service.ConsumerServiceRunnable;
+
 @Component
 public class ConsumerRunnable implements Runnable {
 
@@ -20,15 +22,18 @@ public class ConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                logger.info("save up stream origin data success, data : " + textMessage.getText());
+                consumerServiceRunnable.executePool(textMessage);
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("active mq receive push queue error, ", e);
             }
         }
     }
     
     private static final Logger logger = LoggerFactory.getLogger(ConsumerRunnable.class);
-
+    
     @Autowired
     private ConsumerService consumerService;
+    
+    @Autowired
+    private ConsumerServiceRunnable consumerServiceRunnable;
 }

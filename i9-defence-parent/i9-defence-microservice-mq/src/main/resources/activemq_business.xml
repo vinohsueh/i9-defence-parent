@@ -12,8 +12,6 @@
         http://activemq.apache.org/schema/core
         http://activemq.apache.org/schema/core/activemq-core-5.7.0.xsd">
         
-        
-
     <!-- 定义消息队列（Queue） -->
     <bean id="businessDestination" class="org.apache.activemq.command.ActiveMQTopic">
         <!-- 设置消息队列的名字 -->
