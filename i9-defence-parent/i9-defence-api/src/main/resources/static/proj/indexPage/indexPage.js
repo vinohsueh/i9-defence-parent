@@ -154,21 +154,24 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			    offset: new AMap.Pixel(0, -50),
 			});
 			var oHtml="";
+			$scope.mapOptions = [];
 			for(var i=0;i<myData.mark.length;i++){
-			    oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><th><i class='mIcon icon-address'></i>地址</th><th><i class='mIcon icon-floorArea'></i>建筑面积</th></tr><tr><td>"+myData.mark[i].address+"</td><td>"+myData.mark[i].area+"</td></tr><tr><th><i class='mIcon icon-clients'></i>项目负责人</th><th><i class='mIcon icon-charges'></i>安全负责人</th></tr><tr><td>"+myData.mark[i].clientListStr+"</td><td>"+myData.mark[i].saferList+"</td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
-			    marker = new AMap.Marker({
+				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><th><i class='mIcon icon-address'></i>地址</th><th><i class='mIcon icon-floorArea'></i>建筑面积</th></tr><tr><td>"+myData.mark[i].address+"</td><td>"+myData.mark[i].area+"</td></tr><tr><th><i class='mIcon icon-clients'></i>项目负责人</th><th><i class='mIcon icon-charges'></i>安全负责人</th></tr><tr><td>"+myData.mark[i].clientListStr+"</td><td>"+myData.mark[i].saferList+"</td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
+				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,content:oHtml};
+				$scope.mapOptions.push(a);
+				/*marker = new AMap.Marker({
 			        position: [myData.mark[i].positionX,myData.mark[i].positionY],
 			        zIndex: 101,
-			        /*icon:new AMap.Icon({            
+			        icon:new AMap.Icon({            
 			            // size: new AMap.Size(40, 50),  //图标大小
 			            // image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
 			            image: "./images/timg.jpg",
 			            // imageOffset: new AMap.Pixel(0, -60)
-			        }),*/
+			        }),
 			        map: map
 			    });
 			    marker.content = oHtml;
-			    marker.on('click', markerClick);
+			    marker.on('click', markerClick);*/
 			}
 			function markerClick(e) {
 			    infoWindow.setContent(e.target.content);

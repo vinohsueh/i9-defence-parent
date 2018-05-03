@@ -1,39 +1,7 @@
 <div id='selfMain'>
-    <div id="selfMap">
-        <!-- <div class='info'>
-            <div class="infoTitle"><p>国际创业中心</p> <span class='closeInfo'>x</span></div>
-            <table class='infoBody' cellspacing='0'>
-                <tr>
-                    <th><i class='mIcon icon-address'></i>地址</th>
-                    <th><i class='mIcon icon-floorArea'></i>建筑面积</th>
-                    <th><i class='mIcon icon-device'></i>消防设备</th>
-                </tr>
-                <tr>
-                    <td>华苑产业园华天道2号</td>
-                    <td>2000平米</td>
-                    <td>
-                        <p>A设备:200台</p>
-                        <p>B设备:200台</p>
-                        <p>C设备:200台</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class='mIcon icon-clients'></i>所属客户</th>
-                    <th><i class='mIcon icon-charges'></i>安全负责人</th>
-                    <th><i class='mIcon icon-phone'></i>联系电话</th>
-                </tr>
-                <tr>
-                    <td>国创中心</td>
-                    <td>李某</td>
-                    <td>
-                        <p>022-28978989</p>
-                        <p>022-22222222</p>
-                    </td>
-                </tr>
-            </table>
-            <div class="icon icon-arrowDown"></div>
-        </div> -->
-    </div>
+    <!-- <div id="selfMap">
+    </div> -->
+    <gaode-map options="mapOptions" style="height:400px"></gaode-map>
     <div id='projectList' style="height: 100%">
         <div class="projectTitle">
             <select class="form-control blue_bg areaItem" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
