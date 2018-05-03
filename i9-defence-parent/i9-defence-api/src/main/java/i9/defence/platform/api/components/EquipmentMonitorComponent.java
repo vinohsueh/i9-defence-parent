@@ -23,7 +23,9 @@ public class EquipmentMonitorComponent {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("name", equipment.getEquipmentName());
 		jsonObject.put("location", equipment.getEquipmentPosition());
+		jsonObject.put("remark", equipment.getEquipmentRemarks());
 		jsonObject.put("deviceId", equipment.getDeviceId());
+		jsonObject.put("eqCategoryName", equipment.getEquipmentCategory().getEqCategoryName());
 		return jsonObject;
 	}
 }

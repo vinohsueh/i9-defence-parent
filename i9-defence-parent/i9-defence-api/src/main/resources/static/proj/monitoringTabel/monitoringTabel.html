@@ -61,19 +61,19 @@
       <table class="table table-striped b-t b-b b-light" style="table-layout:fixed">
         <thead>
           <tr>
-            <th width='100px'>状态</th>
-            <th width='200px'>设备标识</th>
-            <th width='100px'>设备名称</th>
+          	<th width='150px'>设备分类</th>
+            <th width='150px'>设备地址</th>
             <th width='100px'>项目名称</th>
+            <th width='100px'>状态</th>
             <th>最新数据</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
-            <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
-           	<td>{{project.deviceId}}</td>
-            <td>{{project.equipmentName}}</td>
+           	<td>{{project.eqCategoryName}}</td>
+            <td>{{project.equipmentPosition}}</td>
             <td>{{project.projectName}}</td>
+            <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
             <td>
               <span class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
             </td>
@@ -117,9 +117,9 @@
     <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">设备信息</div>
       <div class="body">
-        <p>名称：{{projectInfo.equip.name}}</p>
+        <p>名称：{{projectInfo.equip.eqCategoryName}}</p>
         <p>位置：{{projectInfo.equip.location}}</p>
-        <p>设备标识：{{projectInfo.equip.deviceId}}</p>
+        <p>备注：{{projectInfo.equip.remark}}</p>
       </div>
     </div>
     <div class="mPane col-xs-12 col-sm-8">
