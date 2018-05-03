@@ -429,14 +429,14 @@ td.eventType span.hiddenDanger {
   box-sizing: border-box;
   padding-right: 30px;
 }
-#chartData .row {
+#chartData .clear {
   background-color: #1b285b;
   border-bottom: #253055;
   color: #fff;
   line-height: 40px;
   height: 40px;
   box-sizing: border-box;
-  padding: 0 50px;
+  padding: 0 10px;
 }
 #chartData .chartBody {
   width: 100%;

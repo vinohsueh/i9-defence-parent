@@ -118,7 +118,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				markItem.clientListStr = $scope.projectList[i].clientListStr;
 				$scope.markArr.push(markItem);
 			}
-			var mainHeight = $(window).height()-50;
+			var mainHeight = $(window).height()-51;
 			$('#selfMain').height(mainHeight);
 			var windowHeight = document.body.clientHeight,mapZoom=4;
 			if(windowHeight<720){
@@ -176,7 +176,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			}
 			//关闭信息窗体
 			$scope.closeInfoWindow =  function () {
-			   map.clearInfoWindow();
+			   	map.clearInfoWindow();
 			}
 		})
 	}
