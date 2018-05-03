@@ -14,7 +14,7 @@ public class RespMessageBuilder {
         
         ByteBuffer byteBuffer = ByteBuffer.allocate(6 + data.length);
         byteBuffer.put((byte) 0x10);
-        byteBuffer.put(messageEncodeConvert.getType());
+        byteBuffer.put((byte) 0x04);
         byteBuffer.putInt(index);
 //        byteBuffer.put((byte) data.length);
         byteBuffer.put(data);
