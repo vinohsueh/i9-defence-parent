@@ -261,6 +261,7 @@
       $event.stopPropagation();
 
       $scope.opened = true;
+      $('.dropdown-menu').css('bottom','34px');
     };
 
     $scope.dateOptions = {

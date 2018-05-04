@@ -36,7 +36,9 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
       $event.stopPropagation();
 
       $scope.opened = true;
+      $('.dropdown-menu').css('top','34px');
     };
+
     $scope.dateOptions = {
       formatYear: 'yy',
       startingDay: 1,

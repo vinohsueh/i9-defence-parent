@@ -36,6 +36,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
       $event.stopPropagation();
 
       $scope.opened = true;
+      $('.dropdown-menu').css('bottom','34px');
     };
 
     $scope.dateOptions = {
@@ -244,6 +245,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			    	type:'scroll',
     			        right:0,
     			        top:0,
+                        bottom:10,
+                        width:50,
     			        orient:'vertical',
     			        inactiveColor:'#666',
     			        selectedMode:'single',

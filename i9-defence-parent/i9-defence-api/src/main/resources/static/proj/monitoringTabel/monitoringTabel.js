@@ -27,7 +27,6 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-
 	$scope.startTime = $scope.getDate(-180);
 	$scope.endTime = $scope.getDate(0);
 
@@ -223,6 +222,15 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				    	type:'scroll',
 				        right:0,
 				        top:0,
+				        bottom:10,
+                        width:30,
+                        pageButtonItemGap:5,
+                        pageButtonGap:5,
+                        pageButtonPosition:'end',
+                        pageFormatter:{
+                        	current:1,
+                        	total:5
+                        },
 				        orient:'vertical',
 				        inactiveColor:'#666',
 				        selectedMode:'single',

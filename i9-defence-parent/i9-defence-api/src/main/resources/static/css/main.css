@@ -429,7 +429,7 @@ td.eventType span.hiddenDanger {
   box-sizing: border-box;
   padding-right: 30px;
 }
-#chartData .clear {
+#chartData .chartBodyTitle {
   background-color: #1b285b;
   border-bottom: #253055;
   color: #fff;
@@ -437,6 +437,7 @@ td.eventType span.hiddenDanger {
   height: 40px;
   box-sizing: border-box;
   padding: 0 10px;
+  position: relative;
 }
 #chartData .chartBody {
   width: 100%;

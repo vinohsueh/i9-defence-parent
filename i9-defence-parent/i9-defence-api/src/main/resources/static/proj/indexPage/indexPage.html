@@ -1,7 +1,7 @@
 <div id='selfMain'>
     <!-- <div id="selfMap">
     </div> -->
-    <gaode-map options="mapOptions" style="height:400px"></gaode-map>
+    <gaode-map options="mapOptions"></gaode-map>
     <div id='projectList' style="height: 100%">
         <div class="projectTitle">
             <select class="form-control blue_bg areaItem" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div id='chartData'>
-        <div class="clear text-right">
+        <div class="chartBodyTitle text-right">
             <p class='pull-left'>统计台</p>
             <div class='form-inline'>
                 <div class="form-group">

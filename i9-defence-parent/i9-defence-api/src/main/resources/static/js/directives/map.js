@@ -8,7 +8,7 @@ angular.module('app').directive(
 
 						replace : true,
 
-						template : '<div id="container"></div>',
+						template : '<div id="selfMap"></div>',
 
 						scope : {
 
@@ -17,12 +17,22 @@ angular.module('app').directive(
 						},
 
 						link : function($scope, elem, attr) {
+							var windowHeight = document.body.clientHeight,mapZoom=4;
+							if(windowHeight<720){
+							    mapZoom=3;
+							}else if(windowHeight>1300 && windowHeight<2700){
+							    mapZoom = 5;
+							}else if(windowHeight>=2700){
+							    mapZoom = 6;
+							}else{
+							    mapZoom = 4;
+							}
 
-							var map = new AMap.Map("container", {
+							var map = new AMap.Map("selfMap", {
 								resizeEnable : true,
 								mapStyle: 'amap://styles/9ef8e635e3bae06c3f40563eee898c64',//样式URL
-								zoom : 17
-
+								zoom:mapZoom,
+								// zooms:[mapZoom,mapZoom],
 							});
 								
 							var infoWindow = new AMap.InfoWindow({
@@ -61,6 +71,10 @@ angular.module('app').directive(
 									function markerClick(e) {
 									    infoWindow.setContent(e.target.content);
 									    infoWindow.open(map, e.target.getPosition());
+									};
+									//关闭信息窗体
+									$scope.closeInfoWindow =  function () {
+									   	map.clearInfoWindow();
 									}
 								}
 

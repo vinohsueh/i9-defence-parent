@@ -36,6 +36,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
       $event.stopPropagation();
 
       $scope.opened = true;
+      $('.dropdown-menu').css('bottom','34px');
     };
 
     $scope.dateOptions = {
@@ -120,7 +121,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			}
 			var mainHeight = $(window).height()-51;
 			$('#selfMain').height(mainHeight);
-			var windowHeight = document.body.clientHeight,mapZoom=4;
+			/*var windowHeight = document.body.clientHeight,mapZoom=4;
 			if(windowHeight<720){
 			    mapZoom=3;
 			}else if(windowHeight>1300 && windowHeight<2700){
@@ -129,17 +130,11 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			    mapZoom = 6;
 			}else{
 			    mapZoom = 4;
-			}
+			}*/
 			
-			/*var myData = {'mark':[
-			        {'positionX':'116.368904','positionY':'39.923423','text':'提示内容1'},
-			        {'positionX':'116.382122','positionY':'39.921176','text':'提示内容2'},
-			        {'positionX':'116.387271','positionY':'39.922501','text':'提示内容3'},
-			        {'positionX':'116.398258','positionY':'39.914600','text':'提示内容4'}
-			    ]}*/
 			var myData = {'mark':$scope.markArr};
 			    
-			var oHtml = "<div class='prompt'><p>提示内容</p></div>"
+			/*var oHtml = "<div class='prompt'><p>提示内容</p></div>"
 			var map = new AMap.Map("selfMap", {
 			    zoom:mapZoom,
 			    zooms:[mapZoom,mapZoom],
@@ -152,7 +147,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			    autoMove:true,
 			    // closeWhenClickMap:true,
 			    offset: new AMap.Pixel(0, -50),
-			});
+			});*/
 			var oHtml="";
 			$scope.mapOptions = [];
 			for(var i=0;i<myData.mark.length;i++){
@@ -179,7 +174,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			}
 			//关闭信息窗体
 			$scope.closeInfoWindow =  function () {
-			   	map.clearInfoWindow();
+				alert(1);
+			   	// map.clearInfoWindow();
 			}
 		})
 	}
@@ -249,8 +245,10 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					        trigger:'axis'
 					    },
 					    legend:{
+					    	type:'scroll',
 					        right:0,
 					        top:0,
+					        bottom:10,
 					        orient:'vertical',
 					        inactiveColor:'#666',
 					        textStyle:{
