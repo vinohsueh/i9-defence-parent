@@ -49,8 +49,8 @@ angular.module('app').directive(
 								if ($scope.options && $scope.options[0].lng
 										&& $scope.options[0].lat) {
 
-									/*map.setCenter([ $scope.options[0].lng,
-											$scope.options[0].lat ]);*/
+									map.setCenter([ $scope.options[0].lng,
+											$scope.options[0].lat ]);
 										
 									for(var i=0;i<$scope.options.length;i++){
 										marker = new AMap.Marker({

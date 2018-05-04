@@ -357,7 +357,7 @@
        <if test="delStatus != null">
         delStatus = #{delStatus,jdbcType=INTEGER},
       </if>
-       <if test="systemId != null">
+       <if test="deviceId != null">
         deviceId = #{deviceId,jdbcType=VARCHAR},
       </if>
     </set>

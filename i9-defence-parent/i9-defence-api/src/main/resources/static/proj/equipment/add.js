@@ -20,46 +20,22 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-//		if ($scope.equipment.equipmentName ==null ||$scope.equipment.equipmentName ==0) {
-//			$.toaster({
-//				title : "Error",
-//				priority : "danger",
-//				message : "设备名称不能为空!"
-//			});
-//			return false;
-//		}
-//		if ($scope.equipment.equipmentNum ==null ||$scope.equipment.equipmentNum ==0) {
-//			$.toaster({
-//				title : "Error",
-//				priority : "danger",
-//				message : "数量不能为空!"
-//			});
-//			return false;
-//		}
-		if ($scope.equipment.systemId ==null ||$scope.equipment.systemId ==0) {
+		if ($scope.equipment.loopl ==null ||$scope.equipment.loopl ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
-				message : "设备编号不能为空!"
+				message : "回路号不能为空!"
 			});
 			return false;
 		}
-//		if ($scope.equipment.equipmentPosition ==null ||$scope.equipment.equipmentPosition ==0) {
-//			$.toaster({
-//				title : "Error",
-//				priority : "danger",
-//				message : "位置不能为空!"
-//			});
-//			return false;
-//		}
-//		if ($scope.equipment.equipmentDate ==null ||$scope.equipment.equipmentDate ==0) {
-//			$.toaster({
-//				title : "Error",
-//				priority : "danger",
-//				message : "时间不能为空!"
-//			});
-//			return false;
-//		}
+		if ($scope.equipment.equipmentPosition ==null ||$scope.equipment.equipmentPosition ==0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "设备地址不能为空!"
+			});
+			return false;
+		}
 		if ($scope.equipment.equipmentRemarks ==null ||$scope.equipment.equipmentRemarks ==0) {
 			$.toaster({
 				title : "Error",
@@ -84,7 +60,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		console.log($scope.equCategorys);
+		console.log($scope.equipment);
 		httpService.post({url:'./equipment/addEquipment',data:$scope.equipment,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

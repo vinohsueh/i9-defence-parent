@@ -139,9 +139,9 @@ public class ChannelData {
 		return "";
     }
     
-	public void calDeviceId() {
+	public void calDeviceId(String loop) {
 		StringBuffer str = new StringBuffer();
-		str.append(this.systemType).append(this.systemId).append(this.deviceAddress);
+		str.append(this.systemType).append(loop).append(this.deviceAddress);
 		this.deviceId = str.toString();
 	}
 

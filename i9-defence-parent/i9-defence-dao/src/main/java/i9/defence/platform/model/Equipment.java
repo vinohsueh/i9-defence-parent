@@ -233,17 +233,6 @@ public class Equipment {
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
 	}
-	public String calDeviceId() {
-		StringBuffer str = new StringBuffer();
-		str.append(this.equipmentCategoryId).append(this.systemId).append(this.equipmentPosition);
-		return this.deviceId = str.toString();
-	}
-    
-	public String calEquipmentName() {
-		StringBuffer str = new StringBuffer();
-		str.append(this.equipmentName).append("--").append(this.equipmentPosition);
-		return this.equipmentName = str.toString();
-	}
 
 	public List<EqChannelDataDto> getEqChannelDataList() {
 		return eqChannelDataList;
