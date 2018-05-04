@@ -235,7 +235,7 @@ public class Equipment {
 	}
 	public String calDeviceId() {
 		StringBuffer str = new StringBuffer();
-		str.append(this.equipmentCategoryId).append(this.systemId).append(this.equipmentPosition);
+		str.append(this.equipmentCategory.getEqCategoryId()).append(this.systemId).append(this.equipmentPosition);
 		return this.deviceId = str.toString();
 	}
     
