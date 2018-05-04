@@ -13,7 +13,7 @@
         http://activemq.apache.org/schema/core/activemq-core-5.7.0.xsd">
 
     <amq:connectionFactory id="amqConnectionFactory"
-        brokerURL="tcp://127.0.0.1:61616" userName="admin" password="admin" />
+        brokerURL="${activemq.brokerURL}" userName="${activemq.username}" password="${activemq.password}" />
 
     <!-- 配置JMS连接工长 -->
     <bean id="connectionFactory"

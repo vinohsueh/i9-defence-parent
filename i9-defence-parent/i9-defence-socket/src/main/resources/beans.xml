@@ -11,6 +11,15 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
             http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
 
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:activemq.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <context:annotation-config />
 
     <context:component-scan base-package="i9.defence.platform.*"></context:component-scan>
