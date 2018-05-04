@@ -2,9 +2,7 @@ package i9.defence.platform.socket.netty;
 
 import i9.defence.platform.socket.netty.codec.MessageDecoder;
 import i9.defence.platform.socket.netty.codec.MessageEncoder;
-import i9.defence.platform.socket.netty.handler.CustomerInboundHandler;
 import i9.defence.platform.socket.netty.handler.ServiceHandler;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -15,7 +13,7 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new IdleStateHandler(36000, 36000, 36000));
+        pipeline.addLast(new IdleStateHandler(360, 360, 360));
 //        ByteBuf delimiter = Unpooled.copiedBuffer("#".getBytes());
 //        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
         // 字符串解码 和 编码
@@ -24,7 +22,7 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
         // 自己的逻辑Handler
         pipeline.addLast("handler", new ServiceHandler());
         
-        ChannelHandlerAdapter customerInboundHandler = new CustomerInboundHandler();
-        pipeline.addLast(customerInboundHandler);
+//        ChannelHandlerAdapter customerInboundHandler = new CustomerInboundHandler();
+//        pipeline.addLast(customerInboundHandler);
     }
 }
