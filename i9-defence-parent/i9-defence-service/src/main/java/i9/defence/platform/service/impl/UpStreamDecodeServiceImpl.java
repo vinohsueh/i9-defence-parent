@@ -19,6 +19,7 @@ import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -89,7 +90,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
 			channelData.setSystemType((String)jsonObject.get("systemType"));
 			channelData.setDeviceAddress(jsonObject.getString("deviceAddress"));
-			channelData.calDeviceId();
+			int loop = (int)jsonObject.get("loop");
+			channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
 			list.add(channelData);
 		}
 		try {

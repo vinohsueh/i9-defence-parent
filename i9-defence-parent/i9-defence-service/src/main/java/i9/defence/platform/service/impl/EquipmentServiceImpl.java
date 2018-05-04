@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.ApplyDao;
+import i9.defence.platform.dao.EquipmentCategoryDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.vo.DealStatusDto;
@@ -22,12 +23,14 @@ import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
+import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
 /**
  * 项目类别ServiceImpl
@@ -40,6 +43,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 	
 	@Autowired
 	private EquipmentDao equipmentDao;
+	@Autowired
+	private EquipmentCategoryDao equipmentCategoryDao;
 	@Autowired
 	private ManagerDao managerDao;
 	@Autowired
@@ -73,33 +78,20 @@ public class EquipmentServiceImpl implements EquipmentService {
 	@Override
 	public void addEquipment(Equipment equipment) throws BusinessException {
 		try {
+			EquipmentCategory equipmentCategory = equipmentCategoryDao.getEqCategoryById(equipment.getEquipmentCategoryId());
+			StringBuffer str = new StringBuffer();
+			str.append(equipmentCategory.getEqCategoryId()).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(equipment.getLoopl()))).append(equipment.getEquipmentPosition());
+			equipment.setDeviceId(str.toString());
 			if(equipment.getId()!=null) {
 				equipmentDao.updateEquipment(equipment);
 			}else {
-					List<Equipment> equipments = new ArrayList<>();
-					for(int i = 0;i<equipment.getEquipmentNum();i++) {
-						Equipment newEquipment = new Equipment();
-						newEquipment.setEquipmentName(equipment.getEquipmentName());
-						newEquipment.setSystemId(equipment.getSystemId());
-						newEquipment.setEquipmentDate(new Date());
-						newEquipment.setEquipmentRemarks(equipment.getEquipmentRemarks());
-						newEquipment.setEquipmentCategoryId(equipment.getEquipmentCategoryId());
-						newEquipment.setProjectId(equipment.getProjectId());
-						equipments.add(newEquipment);
-					}
-					equipmentDao.addEquipments(equipments);
-					for(int i = 0;i<equipments.size();i++) {
-						equipments.get(i).setEquipmentPosition(equipments.get(i).getEquipmentPositionStr());
-						equipments.get(i).setDeviceId(equipments.get(i).calDeviceId());
-						equipments.get(i).setEquipmentName(equipments.get(i).calEquipmentName());
-					}
-					equipmentDao.updateEquipmentByIds(equipments);
+				equipmentDao.addEquipment(equipment);
 			}
 		} catch (Exception e) {
 			throw new BusinessException("添加设备失败",e.getMessage());
 		}
 	}
-
+	
 	@Override
 	public void updateEquipment(Equipment equipment) throws BusinessException {
 		try {
