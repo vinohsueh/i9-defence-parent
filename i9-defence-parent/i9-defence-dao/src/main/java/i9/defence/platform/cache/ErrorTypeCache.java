@@ -22,10 +22,16 @@ public class ErrorTypeCache {
 	private EquipmentFaultDao equipmentFaultDao;
 	
 	/**
-     *  id和name
+     *  code和name
      *  
      */
     public static Map<String,String> dictMap = new HashMap<String,String>();
+    
+    /**
+     *  code和type
+     *  
+     */
+    public static Map<String,Integer> dictTypeMap = new HashMap<String,Integer>();
     //public static List<string> codetypeList = new ArrayList<string>();
     
     public void init() {
@@ -35,10 +41,16 @@ public class ErrorTypeCache {
   
          for (EquipmentFault equipmentFault : list) {
          	dictMap.put(equipmentFault.getCode(), equipmentFault.getName());
+         	dictTypeMap.put(equipmentFault.getCode(), equipmentFault.getType());
          }
          System.out.println("字典数据大小：  "+dictMap.size());
     }
     
+    /**
+     * 获取故障名称
+     * @param code
+     * @return
+     */
     public static String getCacheDict(String code){
     	for (Map.Entry<String,String> entry : dictMap.entrySet()) {
 			if(code.equals(entry.getKey())){
@@ -46,5 +58,19 @@ public class ErrorTypeCache {
 			}
 		}
     	return "未知故障";
+    }
+    
+    /**
+     * 获取故障类型
+     * @param code
+     * @return
+     */
+    public static Integer getCacheType(String code){
+    	for (Map.Entry<String,Integer> entry : dictTypeMap.entrySet()) {
+			if(code.equals(entry.getKey())){
+				return entry.getValue();
+			}
+		}
+    	return null;
     }
 }
