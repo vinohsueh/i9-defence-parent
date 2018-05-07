@@ -21,11 +21,11 @@
             <artifactId>i9-defence-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
              <groupId>i9.defence.platform</groupId>
             <artifactId>i9-defence-mq-libraries</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        </dependency> -->
     </dependencies>
     
     <build>
