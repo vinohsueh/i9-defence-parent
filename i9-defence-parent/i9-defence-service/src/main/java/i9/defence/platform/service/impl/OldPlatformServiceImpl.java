@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.TestDao;
 import i9.defence.platform.dao.vo.Demo;
-import i9.defence.platform.service.TestService;
+import i9.defence.platform.service.OldPlatformService;
 import i9.defence.platform.utils.TargetDataSource;
 
 /** 
@@ -19,12 +19,12 @@ import i9.defence.platform.utils.TargetDataSource;
 */
 @Service
 @Transactional
-public class TestServiceImpl implements TestService{
+public class OldPlatformServiceImpl implements OldPlatformService{
 	
 	@Autowired
 	private TestDao testDao;
 	
-	@TargetDataSource("ds1")
+	@TargetDataSource("hjxfweb")
 	@Override
 	public List<Demo> getListByDs1() {
 		return testDao.getList();

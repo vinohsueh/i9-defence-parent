@@ -10,7 +10,7 @@ import i9.defence.platform.dao.vo.Demo;
 * @version  
 * 
 */
-public interface TestService {
+public interface OldPlatformService {
 	
 	List<Demo> getListByDs1();
 }
