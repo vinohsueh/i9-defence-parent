@@ -21,7 +21,7 @@ var projectService = projectNgModule.factory('projectService',
 	}]);
 var projectNgControl=projectNgModule.controller('projectNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,projectService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 8;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){

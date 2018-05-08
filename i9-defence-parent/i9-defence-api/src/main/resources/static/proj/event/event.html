@@ -76,7 +76,7 @@
 					</div>
 				</div>-->
 			</div>
-	    <div class="table-responsive">
+	    <div class="table-responsive" style='min-height: 480px'>
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
@@ -115,7 +115,7 @@
 	          <button class="btn btn-sm btn-default">Apply</button>                  
 	        </div> -->
 
-					<div class="col-sm-5 m-b-xs">
+					<!-- <div class="col-sm-5 m-b-xs">
 						<select class="input-sm form-control w-sm inline v-middle"
 							ng-change="changePageSize()" ng-model="pageSize"
 							style="width: 65px">
@@ -125,12 +125,12 @@
 							<option value="50">50</option>
 							<option value="100">100</option>
 						</select>
-					</div>
+					</div> -->
 
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 	          <small class="text-muted inline m-t-sm m-b-sm">共 {{total}} 条数据</small>
 	        </div>
-	        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
+	        <div class="col-sm-offset-3 col-sm-6 text-right text-center-xs" ng-if="pages.length>0">                
 	          <ul class="pagination pagination-sm m-t-none m-b-none">
 	            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
 	            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>

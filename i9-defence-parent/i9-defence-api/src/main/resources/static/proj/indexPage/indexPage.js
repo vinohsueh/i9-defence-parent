@@ -114,6 +114,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				markItem.positionY = $scope.projectList[i].projectLatitude;
 				markItem.saferList = $scope.projectList[i].saferList;
 				markItem.area = $scope.projectList[i].area;
+				markItem.id = $scope.projectList[i].id;
 				markItem.address = $scope.projectList[i].address;
 				markItem.projectName = $scope.projectList[i].projectName;
 				markItem.clientListStr = $scope.projectList[i].clientListStr;
