@@ -21,6 +21,7 @@ public class ProjcetMonitorComponent {
 	
 	public JSONObject build(){
 		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("id", project.getId());
 		jsonObject.put("name", project.getProjectName());
 		jsonObject.put("manager", project.getClientListStr());
 		jsonObject.put("safeManager", project.getSafeListStr());

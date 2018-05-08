@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import i9.defence.platform.dao.ApplyDao;
-import i9.defence.platform.dao.EquipmentCategoryDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.vo.DealStatusDto;
@@ -23,7 +22,6 @@ import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
-import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.EquipmentService;
@@ -43,8 +41,6 @@ public class EquipmentServiceImpl implements EquipmentService {
 	
 	@Autowired
 	private EquipmentDao equipmentDao;
-	@Autowired
-	private EquipmentCategoryDao equipmentCategoryDao;
 	@Autowired
 	private ManagerDao managerDao;
 	@Autowired
