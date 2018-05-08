@@ -143,6 +143,7 @@ td.eventType span.hiddenDanger {
   -wibkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  padding: 0 5px;
   width: 60px;
   line-height: 35px;
   height: 35px;
@@ -151,7 +152,7 @@ td.eventType span.hiddenDanger {
   -o-text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
-  background-color: #495993;
+  background-color: #5cb85c;
   margin: 0 4px 10px;
   cursor: pointer;
 }
@@ -171,6 +172,9 @@ td.eventType span.hiddenDanger {
 .mLabel.faultLabel {
   background-color: #f0ad4e;
 }
+.mLabel.lineOutLabel {
+  background-color: #495993;
+}
 /*带title的盒子*/
 .mPane {
   padding: 0 10px 0 0;
@@ -189,7 +193,7 @@ td.eventType span.hiddenDanger {
 }
 .mPane .body {
   background-color: #19244c;
-  height: 105px;
+  height: 140px;
   padding: 5px 10px;
 }
 .mPane .body p {
@@ -224,7 +228,7 @@ td.eventType span.hiddenDanger {
 }
 .monitoring .faultType {
   float: left;
-  height: 500px;
+  height: 300px;
   overflow-y: auto;
 }
 .monitoring .faultType .item {
@@ -259,7 +263,7 @@ td.eventType span.hiddenDanger {
   -wibkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  height: 500px;
+  height: 300px;
   overflow-y: auto;
 }
 /*项目列表*/
@@ -369,12 +373,11 @@ td.eventType span.hiddenDanger {
   font-size: 12px;
 }
 .info {
-  width: 420px;
+  width: 240px;
   -wibkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   position: relative;
-  text-align: center;
   color: #fff;
 }
 .info .infoTitle {
@@ -400,6 +403,7 @@ td.eventType span.hiddenDanger {
   background-color: #253777;
   color: #9caade;
   font-size: 12px;
+  border-bottom: 1px solid #405396;
 }
 .info .infoBody th:nth-child(2) {
   border-style: solid;
@@ -408,15 +412,17 @@ td.eventType span.hiddenDanger {
 }
 .info .infoBody td {
   box-sizing: border-box;
-  width: 33.33333333%;
+  /*width:33.33333333%;*/
   padding: 5px 10px;
   background-color: #2a3f8a;
   font-size: 12px;
+  border-bottom: 1px solid #405396;
 }
 .info .infoBody td:nth-child(2) {
-  border-style: solid;
-  border-color: #405396;
-  border-width: 0 1px 0 1px;
+  /* border-style: solid;
+				border-color: #405396;
+				border-width: 0 1px 0 1px; */
+  border-left: 1px solid #405396;
 }
 .info .icon-arrowDown {
   position: absolute;
@@ -490,6 +496,11 @@ td.eventType span.hiddenDanger {
   display: inline-block;
   margin: 2px;
 }
+/*实时监控表格*/
+#myTable td {
+  overflow: hidden;
+  height: 71px;
+}
 .clear {
   zoom: 1;
 }
@@ -504,6 +515,9 @@ td.eventType span.hiddenDanger {
 }
 .mb-10 {
   margin-bottom: 10px;
+}
+.ml-10 {
+  margin-left: 10px;
 }
 .mr-10 {
   margin-right: 10px;

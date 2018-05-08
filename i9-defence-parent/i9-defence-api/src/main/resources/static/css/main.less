@@ -138,12 +138,13 @@ td.eventType{
 	display: inline-block;
 	vertical-align: middle;
 	.border-radius();
+	padding: 0 5px;
 	width:60px;
 	line-height: 35px;
 	height: 35px;
 	.textEll;
 	text-align: center;
-	background-color: #495993;
+	background-color: #5cb85c;
 	margin:0 4px 10px;
 	cursor: pointer;
 	&.sm-mLabel{
@@ -159,6 +160,9 @@ td.eventType{
 	}
 	&.faultLabel{
 		background-color: @yellowColor;
+	}
+	&.lineOutLabel{
+		background-color: #495993;
 	}
 }
 /*带title的盒子*/
@@ -178,7 +182,7 @@ td.eventType{
 	}
 	.body{
 		background-color: #19244c;
-		height: 105px;
+		height: 140px;
 		padding: 5px 10px;
 		p{
 			padding: 2px 0;
@@ -202,7 +206,7 @@ td.eventType{
 	.clear;
 	.faultType{
 		float: left;
-		height:500px;
+		height:300px;
 		overflow-y: auto;
 		.item{
 			width:115px;
@@ -233,7 +237,7 @@ td.eventType{
 		box-sizing: border-box;
 		padding: 20px;
 		.border-radius();
-		height:500px;
+		height:300px;
 		overflow-y: auto;
 	}
 }
@@ -321,10 +325,9 @@ td.eventType{
 	}
 }
 .info{
-	width:420px;
+	width:240px;
 	.border-radius();
 	position: relative;
-	text-align: center;
 	color: #fff;
 	.infoTitle{
 		background-color: #5f82ff;
@@ -348,6 +351,7 @@ td.eventType{
 			background-color: #253777;
 			color: #9caade;
 			font-size: 12px;
+			border-bottom: 1px solid #405396;
 			&:nth-child(2){
 				border-style: solid;
 				border-color: #405396;
@@ -356,14 +360,16 @@ td.eventType{
 		}
 		td{
 			box-sizing: border-box;
-			width:33.33333333%;
+			/*width:33.33333333%;*/
 			padding: 5px 10px;
 			background-color: #2a3f8a;
 			font-size: 12px;
+			border-bottom: 1px solid #405396;
 			&:nth-child(2){
-				border-style: solid;
+				/* border-style: solid;
 				border-color: #405396;
-				border-width: 0 1px 0 1px;
+				border-width: 0 1px 0 1px; */
+				border-left: 1px solid #405396;
 			}
 		}
 	}
@@ -439,6 +445,11 @@ td.eventType{
 	display: inline-block;
 	margin: 2px;
 }
+/*实时监控表格*/
+#myTable td{
+	overflow: hidden;
+	height: 71px;
+}
 //通用
 .clear{
     zoom: 1;
@@ -454,6 +465,9 @@ td.eventType{
 }
 .mb-10{
 	margin-bottom: 10px;
+}
+.ml-10{
+	margin-left: 10px;
 }
 .mr-10{
 	margin-right: 10px;

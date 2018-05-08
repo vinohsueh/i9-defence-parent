@@ -187,6 +187,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		$scope.projectInfo = data.data;
     		$scope.equipmentCheckArr = [];
     		$scope.equipmentItemArr = [];
+            $scope.passageway=0;
     		console.log($scope.equipmentInfo)
     		if(equipmentInfo!= null){
     			$scope.chartsStatus = true;
@@ -217,6 +218,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     				$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
     				$scope.equipmentItemArr.push($scope.equipmentItemObj);
     			}
+                /*$scope.$watch($scope.passageway,function () {
+                    alert(1);
+                })*/
     			$scope.option={
     			    title:{
     			        show:false,
@@ -352,8 +356,17 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         	  }, 100);
     	}
     }
-    
-    
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var leftHeight = domHeight-405;
+        var rightHeight = domHeight-445;
+        $('#faultType').height(leftHeight);
+        $('#equipmentData').height(rightHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })
     
     //设备类型切换
     $scope.changeType = function (idNum) {

@@ -151,7 +151,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			var oHtml="";
 			$scope.mapOptions = [];
 			for(var i=0;i<myData.mark.length;i++){
-				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><th><i class='mIcon icon-address'></i>地址</th><th><i class='mIcon icon-floorArea'></i>建筑面积</th></tr><tr><td>"+myData.mark[i].address+"</td><td>"+myData.mark[i].area+"</td></tr><tr><th><i class='mIcon icon-clients'></i>项目负责人</th><th><i class='mIcon icon-charges'></i>安全负责人</th></tr><tr><td>"+myData.mark[i].clientListStr+"</td><td>"+myData.mark[i].saferList+"</td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
+				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr><tr><td>消防设施</td><td>123个</td></tr><tr><td>消防设备电源监控系统</td><td>80个</td></tr><tr><td>故障电弧监控系统</td><td>60个</td></tr><tr><td>火灾监控系统</td><td>70个</td></tr><tr><td colspan='2' class='text-center'>所属客户：(经销商)</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
 				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml};
 				$scope.mapOptions.push(a);
 				/*marker = new AMap.Marker({
@@ -206,7 +206,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			endTime:$scope.dateToString($("#endTime").val()),
 
 		};
-		console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];

@@ -16,7 +16,7 @@ angular.module('app').directive(
 
 						},
 
-						link : function($scope, elem, attr) {
+						link : function($scope, elem, attr, $state) {
 							var windowHeight = document.body.clientHeight,mapZoom=4;
 							/*if(windowHeight<720){
 							    mapZoom=3;
@@ -45,7 +45,6 @@ angular.module('app').directive(
 
 							$scope.$watch("options", function(newValue,
 									oldValue) {
-								console.log(JSON.stringify($scope.options));
 								if ($scope.options && $scope.options[0].lng
 										&& $scope.options[0].lat) {
 
@@ -80,6 +79,13 @@ angular.module('app').directive(
 									//关闭信息窗体
 									$scope.closeInfoWindow =  function () {
 									   	map.clearInfoWindow();
+									}
+									//跳转项目页面
+									$scope.goTo = function(id){
+										var thisHref = window.location.href;
+										var thisHrefApp = thisHref.slice(0,thisHref.lastIndexOf('app/'));
+										window.location.href=thisHrefApp+"app/monitoringChart?id="+id;
+										// $state.go('app.monitoringChart',{id:id});
 									}
 								}
 

@@ -41,24 +41,8 @@
     <button type='button' class='btn btn-primary' ng-click='subSearch()'><i class='glyphicon glyphicon-search'></i></button>
   </form>
   <div class="myBox">
-    <div class="row mb-10">
-      <div class="col-sm-4">
-        <select class=" form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style='width:100px;'>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-      </div>
-      <!-- <div class="col-sm-8 text-right">
-        <button class="btn btn-success proj_add">新增</button>
-        <button class="btn btn-danger del_proj">删除</button>
-        <button class="btn btn-warning invite_code">邀请码</button>
-      </div> -->
-    </div>
-    <div class="table-responsive">
-      <table class="table table-striped b-t b-b b-light" style="table-layout:fixed">
+    <div class="table-responsive" style='min-height:350px'>
+      <table id='myTable' class="table table-striped b-t b-b b-light" style="table-layout:fixed">
         <thead>
           <tr>
           	<th width='150px'>设备分类</th>
@@ -68,7 +52,7 @@
             <th>最新数据</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id='myTableBody'>
           <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
            	<td>{{project.eqCategoryName}}</td>
             <td>{{project.equipmentPosition}}</td>
@@ -81,7 +65,7 @@
         </tbody>
       </table>
     </div>
-    <div class="row wrapper">
+    <div class="row">
       <div class="col-sm-4">
         <small class="text-muted inline m-t-sm m-b-sm">共 {{total}} 条数据 </small>
       </div>
@@ -109,17 +93,20 @@
     <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">项目信息</div>
       <div class="body">
-        <p>项目名称：{{projectInfo.project.name}}</p>
-        <p>项目负责人：{{projectInfo.project.manager}}</p>
-        <p>项目安全负责人：{{projectInfo.project.safeManager}}</p>
+        <!-- <p>项目名称：{{projectInfo.project.name}}</p> -->
+        <p>负责人：{{projectInfo.project.manager}}</p>
+        <p>负责人电话：18738790000</p>
+        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
+        <p>安全负责人电话：17837890000</p>
       </div>
     </div>
     <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">设备信息</div>
       <div class="body">
-        <p>名称：{{projectInfo.equip.eqCategoryName}}</p>
-        <p>位置：{{projectInfo.equip.location}}</p>
+        <p>种类：{{projectInfo.equip.eqCategoryName}}</p>
+        <p>地址：{{projectInfo.equip.location}}</p>
         <p>备注：{{projectInfo.equip.remark}}</p>
+        <p>注册时间：2017-03-22</p>
       </div>
     </div>
     <div class="mPane col-xs-12 col-sm-8">
@@ -127,16 +114,45 @@
         具体数据
         <div class='pull-right form-inline'>
           <div class="form-group">
+            <label for="">通道选择:</label>
+            <select name="" id="" class='form-control blue_bg' ng-change='changeLine()' ng-model="passageway" ng-options="x as y for (x, y) in equipmentCheckArr">
+              <!-- <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option> -->
+            </select>
             <label for="">登记时间:</label>
             <div class="input-group" ng-controller="DatepickerDemoCtrl">
               <input type="text"  id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
             <label for="">-</label>
-            <div class="input-group" ng-controller="DatepickerDemoCtrl">
-              <input type="text" id="endTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="endTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
-              <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
-            </div>
+            <select name="" id="" class='form-control blue_bg'>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+            </select>
           </div>
           <button type='button' class='btn btn-primary' ng-click='passagewayInit()'><i class='glyphicon glyphicon-search'></i></button>
         </div>
