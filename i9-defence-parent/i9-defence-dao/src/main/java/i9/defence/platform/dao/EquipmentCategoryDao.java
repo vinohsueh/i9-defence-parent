@@ -65,6 +65,9 @@ public interface EquipmentCategoryDao {
      */
     List<EquipmentCategory> selectAllEqCategoryAndNum(EquipmentCategory equipmentCategory)throws Exception;
     
+    //查询总数
+	int selectSumEqNum(EquipmentCategory equipmentCategory)throws Exception;
+    
     /**
      * 查询数量
      * @param 

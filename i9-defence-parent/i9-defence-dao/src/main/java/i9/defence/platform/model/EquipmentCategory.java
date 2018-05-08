@@ -26,7 +26,18 @@ public class EquipmentCategory {
     
     private Integer eqNum;
     
-    /*
+    private Integer eqNums;
+    
+    
+    public Integer getEqNums() {
+		return eqNums;
+	}
+
+	public void setEqNums(Integer eqNums) {
+		this.eqNums = eqNums;
+	}
+
+	/*
 	 * 项目负责人
 	 */
 	private Integer prijrctManagerId;
