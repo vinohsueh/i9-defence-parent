@@ -5,6 +5,7 @@ import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
@@ -206,4 +207,13 @@ public interface EquipmentDao {
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto);
 	
+	/**
+	 * 根据项目id查询每种设备类型的设备数量
+	* @Title: selectEquipStatistic 
+	* @Description: TODO
+	* @param ProjectId
+	* @return
+	* @throws Exception
+	 */
+	List<EquipmentStatisticDto> selectEquipStatistic(Integer ProjectId)throws Exception;
 }

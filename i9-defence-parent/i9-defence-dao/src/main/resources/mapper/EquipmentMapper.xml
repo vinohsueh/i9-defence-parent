@@ -738,4 +738,27 @@
 			)
 		ORDER BY `cd`.`channel`
 	</select>
+	
+	<select id="selectEquipStatistic"  parameterType="java.lang.Integer"  resultType="i9.defence.platform.dao.vo.EquipmentStatisticDto">
+	SELECT
+		count( * ) as equipCount,
+		ec.eqCategoryName  as  eqCategoryName ,
+		p.projectAddress  as  projectAddress,
+		p.projectArea as  projectArea,
+		p.distributorId as distributorId,
+		
+		(
+	    select m.`name`
+		   from t_manager m 
+			 where m.id=p.distributorId
+		) as mangerName
+	FROM
+		t_equipment e
+		LEFT JOIN t_equipment_category ec ON ec.id = e.equipmentCategoryId 
+		LEFT JOIN t_project p on e.projectId =p.id
+	WHERE	
+		e.projectId = 2 
+	GROUP BY
+		e.equipmentCategoryId
+	</select>
 </mapper>
