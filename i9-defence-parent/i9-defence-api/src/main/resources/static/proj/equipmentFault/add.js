@@ -18,15 +18,8 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-		
-		$scope.permissionArray = [];
-    	angular.forEach(angular.element.find(".ckbox"), function(dom){
-    		if(angular.element(dom).prop("checked") == true){
-    			$scope.permissionArray.push(angular.element(dom).attr("data-id"))
-    		}
-		});
-    	$scope.equipmentFault.permissionIds = $scope.permissionArray;
-		if ($scope.equipmentFault.name == null ||$scope.equipmentFault.name == 0) {
+		console.log($scope.equipmentFault)
+		if ($scope.equipmentFault.name == null ||$scope.equipmentFault.name.length == 0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
@@ -34,11 +27,20 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 			});
 			return false;
 		}
-		if ($scope.equipmentFault.code == null ||$scope.equipmentFault.code == 0) {
+		if ($scope.equipmentFault.code == null ||$scope.equipmentFault.code.length == 0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
 				message : "故障代码不能为空!"
+			});
+			return false;
+		}
+		
+		if ($scope.equipmentFault.type == null ||$scope.equipmentFault.type.length == 0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "故障类型不能为空!"
 			});
 			return false;
 		}

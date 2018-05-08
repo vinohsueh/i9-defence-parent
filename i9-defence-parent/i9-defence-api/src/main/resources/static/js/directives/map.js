@@ -18,7 +18,7 @@ angular.module('app').directive(
 
 						link : function($scope, elem, attr) {
 							var windowHeight = document.body.clientHeight,mapZoom=4;
-							if(windowHeight<720){
+							/*if(windowHeight<720){
 							    mapZoom=3;
 							}else if(windowHeight>1300 && windowHeight<2700){
 							    mapZoom = 5;
@@ -26,12 +26,12 @@ angular.module('app').directive(
 							    mapZoom = 6;
 							}else{
 							    mapZoom = 4;
-							}
+							}*/
 
 							var map = new AMap.Map("selfMap", {
 								resizeEnable : true,
 								mapStyle: 'amap://styles/9ef8e635e3bae06c3f40563eee898c64',//样式URL
-								zoom:mapZoom,
+								zoom:4,
 								// zooms:[mapZoom,mapZoom],
 							});
 								
@@ -45,13 +45,12 @@ angular.module('app').directive(
 
 							$scope.$watch("options", function(newValue,
 									oldValue) {
-
+								console.log(JSON.stringify($scope.options));
 								if ($scope.options && $scope.options[0].lng
 										&& $scope.options[0].lat) {
 
 									map.setCenter([ $scope.options[0].lng,
 											$scope.options[0].lat ]);
-										
 									for(var i=0;i<$scope.options.length;i++){
 										marker = new AMap.Marker({
 											position: [$scope.options[i].lng,$scope.options[i].lat],
@@ -66,6 +65,12 @@ angular.module('app').directive(
 									    });
 										marker.content = $scope.options[i].content;
 										marker.on('click', markerClick);
+										if($scope.options[i].projectName == '万达中心'){
+											infoWindow.setContent($scope.options[i].content);
+										    infoWindow.open(map, [117.238581,39.105172]);
+											// infoWindow.open(map, [117.238581,39.105172]);
+										}
+										
 									}
 									
 									function markerClick(e) {

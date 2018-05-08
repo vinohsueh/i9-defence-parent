@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import i9.defence.platform.service.OldPlatformService;
+
 @Component
 public class ConsumerServiceRunnable {
 
@@ -17,12 +19,19 @@ public class ConsumerServiceRunnable {
 
     private final ExecutorService pool = Executors.newCachedThreadPool();
     
+    private OldPlatformService oldPlatformService;
     public void executePool(final TextMessage textMessage) {
         pool.execute(new TimerTask() {
             
             @Override
             public void run() {
-                logger.info("push message : " + textMessage.toString());
+            	try {
+                    oldPlatformService.saveAlertOrigin(textMessage.getText());
+                    logger.info("push message : " + textMessage.toString());
+                } catch (Exception e) {
+                    logger.error("save up stream decode error, ex : ", e);
+                }
+                
             }
         });
     }

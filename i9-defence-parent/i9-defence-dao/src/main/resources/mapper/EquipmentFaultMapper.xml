@@ -6,6 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
     <!-- 查询设备型号名称-->
     <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, code, equipmentId
+     id, name, code, equipmentId, type
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentFaultExample" resultMap="BaseResultMap">
     select
@@ -108,10 +109,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_equipment_fault (name, code, equipmentId
-      )
-    values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{equipmentId,jdbcType=INTEGER}
-      )
+   insert into t_equipment_fault (name, code, equipmentId, 
+      type)
+    values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{equipmentId,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.EquipmentFault">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -128,6 +129,9 @@
       <if test="equipmentId != null">
         equipmentId,
       </if>
+      <if test="type != null">
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -138,6 +142,9 @@
       </if>
       <if test="equipmentId != null">
         #{equipmentId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -162,17 +169,21 @@
       <if test="record.equipmentId != null">
         equipmentId = #{record.equipmentId,jdbcType=INTEGER},
       </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_equipment_fault
+     update t_equipment_fault
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       code = #{record.code,jdbcType=VARCHAR},
-      equipmentId = #{record.equipmentId,jdbcType=INTEGER}
+      equipmentId = #{record.equipmentId,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -189,14 +200,18 @@
       <if test="equipmentId != null">
         equipmentId = #{equipmentId,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.EquipmentFault">
-    update t_equipment_fault
+     update t_equipment_fault
     set name = #{name,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
-      equipmentId = #{equipmentId,jdbcType=INTEGER}
+      equipmentId = #{equipmentId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

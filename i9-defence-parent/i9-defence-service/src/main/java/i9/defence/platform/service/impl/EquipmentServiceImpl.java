@@ -78,9 +78,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 	@Override
 	public void addEquipment(Equipment equipment) throws BusinessException {
 		try {
-			EquipmentCategory equipmentCategory = equipmentCategoryDao.getEqCategoryById(equipment.getEquipmentCategoryId());
 			StringBuffer str = new StringBuffer();
-			str.append(equipmentCategory.getEqCategoryId()).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(equipment.getLoopl()))).append(equipment.getEquipmentPosition());
+			str.append(equipment.getSystemId()).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(equipment.getLoopl()))).append(equipment.getEquipmentPosition());
 			equipment.setDeviceId(str.toString());
 			if(equipment.getId()!=null) {
 				equipmentDao.updateEquipment(equipment);
