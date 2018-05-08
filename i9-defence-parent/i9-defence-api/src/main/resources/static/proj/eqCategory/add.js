@@ -11,7 +11,7 @@ var eqCategoryEditCtrl = eqCategoryEditNgModule.controller('eqCategoryEditCtrl',
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-		if ($scope.eqCategory.eqCategoryName ==null ||$scope.eqCategory.eqCategoryName ==0) {
+		if ($scope.eqCategory.eqCategoryName ==null ||$scope.eqCategory.eqCategoryName.length ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
@@ -19,7 +19,7 @@ var eqCategoryEditCtrl = eqCategoryEditNgModule.controller('eqCategoryEditCtrl',
 			});
 			return false;
 		}
-		if ($scope.eqCategory.eqCategoryId ==null ||$scope.eqCategory.eqCategoryId ==0) {
+		if ($scope.eqCategory.eqCategoryId ==null ||$scope.eqCategory.eqCategoryId.length ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",

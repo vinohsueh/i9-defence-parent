@@ -650,7 +650,7 @@
 		</if>
 		limit #{offset},#{limit}
 	</select>
-	<select id="selectMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+	<!-- <select id="selectMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
 		where (cd.value &gt;= cd.WarningMax or  cd.value &lt;= cd.WarningMin)  
 		<if test="example.projectId != null ">
@@ -663,7 +663,7 @@
 	        cd.dateTime &gt; startTime 
         </if>
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
-	</select>
+	</select> -->
 	
 	<select id="selectWarningMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 

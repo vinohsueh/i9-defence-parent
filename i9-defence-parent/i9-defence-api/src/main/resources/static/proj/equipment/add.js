@@ -20,7 +20,15 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-		if ($scope.equipment.loopl ==null ||$scope.equipment.loopl ==0) {
+		if ($scope.equipment.systemId ==null ||$scope.equipment.systemId.length ==0) {
+			$.toaster({
+				title : "Error",
+				priority : "danger",
+				message : "设备编号不能为空!"
+			});
+			return false;
+		}
+		if ($scope.equipment.loopl ==null ||$scope.equipment.loopl.length ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
@@ -28,7 +36,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		if ($scope.equipment.equipmentPosition ==null ||$scope.equipment.equipmentPosition ==0) {
+		if ($scope.equipment.equipmentPosition ==null ||$scope.equipment.equipmentPosition.length ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",
@@ -36,7 +44,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		if ($scope.equipment.equipmentRemarks ==null ||$scope.equipment.equipmentRemarks ==0) {
+		if ($scope.equipment.equipmentRemarks ==null ||$scope.equipment.equipmentRemarks.length ==0) {
 			$.toaster({
 				title : "Error",
 				priority : "danger",

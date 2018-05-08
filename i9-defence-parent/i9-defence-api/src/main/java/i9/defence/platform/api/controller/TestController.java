@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.Demo;
-import i9.defence.platform.service.TestService;
+import i9.defence.platform.service.OldPlatformService;
 
 /**
  * 创建时间：2018年5月7日 上午10:08:31
@@ -22,7 +22,7 @@ import i9.defence.platform.service.TestService;
 public class TestController {
 	
 	@Autowired
-	private TestService testService;
+	private OldPlatformService testService;
 	
 	@RequestMapping("/select")
 	public HashMap<String, Object> select() {

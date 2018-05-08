@@ -1,5 +1,7 @@
 package i9.defence.platform.model;
 
+import i9.defence.platform.enums.FaultTypeEnum;
+
 public class EquipmentFault {
     /**
      * id
@@ -26,8 +28,21 @@ public class EquipmentFault {
      */
     private String eqCategoryId;
     
+    /**
+     * 0：报警 1：故障
+     */
+    private Integer type;
     
-    public String getEqCategoryId() {
+    
+    public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getEqCategoryId() {
 		return eqCategoryId;
 	}
 
@@ -73,5 +88,10 @@ public class EquipmentFault {
 
     public void setEquipmentId(Integer equipmentId) {
         this.equipmentId = equipmentId;
+    }
+    
+    
+    public String getTypeName(){
+    	return FaultTypeEnum.getNameById(type);
     }
 }
