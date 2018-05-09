@@ -69,9 +69,9 @@
       <div class="title">项目信息</div>
       <div class="body">
         <p>负责人：{{projectInfo.project.manager}}</p>
-        <p>负责人电话：{{12312312312}}</p>
+        <p>负责人电话：{{dataAndManager.phones}}</p>
         <p>安全负责人：{{projectInfo.project.safeManager}}</p>
-        <p title='{{12312312312}}'>安全负责人电话：{{12312312312}}</p>
+        <p title='{{12312312312}}'>安全负责人电话：{{dataAndManager.phones1}}</p>
       </div>
     </div>
     <div class="mPane hFull col-xs-6 col-sm-2">
@@ -80,7 +80,7 @@
         <p>种类：{{projectInfo.equip.eqCategoryName}}</p>
         <p>地址：{{projectInfo.equip.location}}</p>
         <p>备注：{{projectInfo.equip.remark}}</p>
-        <p>注册时间：2018-02-05</p>
+        <p>注册时间：{{dataAndManager.equipmentDateStr}}</p>
       </div>
     </div>
     <div class="mPane col-xs-12 col-sm-8">
