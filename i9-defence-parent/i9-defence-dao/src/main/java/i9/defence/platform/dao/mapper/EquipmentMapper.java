@@ -112,6 +112,8 @@ public interface EquipmentMapper {
 	 * @return
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
+	//查询设备创建时间和负责人，安全负责人手机号
+	Equipment selectDataAndManager(String deviceId);
 	
 	/**
 	 * 查询各个状态设备总数

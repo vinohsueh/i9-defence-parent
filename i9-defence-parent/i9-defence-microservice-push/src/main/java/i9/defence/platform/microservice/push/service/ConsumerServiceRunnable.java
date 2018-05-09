@@ -10,30 +10,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.service.OldPlatformService;
-
 @Component
 public class ConsumerServiceRunnable {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceRunnable.class);
 
     private final ExecutorService pool = Executors.newCachedThreadPool();
-    
-    private OldPlatformService oldPlatformService;
+
+    private ThirdPlatformService thirdPlatformService;
+
     public void executePool(final TextMessage textMessage) {
         pool.execute(new TimerTask() {
-            
+
             @Override
             public void run() {
-            	try {
-                    oldPlatformService.saveAlertOrigin(textMessage.getText());
+                try {
+                    thirdPlatformService.saveAlertOrigin(textMessage.getText());
                     logger.info("push message : " + textMessage.toString());
                 } catch (Exception e) {
                     logger.error("save up stream decode error, ex : ", e);
                 }
-                
             }
         });
     }
-    
+
 }

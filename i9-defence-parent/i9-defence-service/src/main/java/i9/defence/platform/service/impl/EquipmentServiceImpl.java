@@ -409,6 +409,13 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
+	public Equipment selectDataAndManager(String deviceId) throws BusinessException {
+		try {
+			return equipmentDao.selectDataAndManager(deviceId);
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
+	}
 	public TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) throws BusinessException {
 		try {
 			return equipmentDao.selectTotalEquipmentDto(monthDataDto);

@@ -1,5 +1,7 @@
 package i9.defence.platform.microservice.push;
 
+import i9.defence.platform.microservice.push.datasource.DynamicDataSourceRegister;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +10,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -27,6 +30,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan // 扫描使用注解方式的servlet
 @ImportResource("classpath:activemq.xml")
 @EnableAutoConfiguration
+@Import({DynamicDataSourceRegister.class})
 public class Application extends SpringBootServletInitializer{
     
     public static void main(String[] args) {

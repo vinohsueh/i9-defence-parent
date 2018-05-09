@@ -83,7 +83,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         httpService.post({url:'./eqCategory/serchEqCategory',data:pageParam,showSuccessMsg:false}).then(function(data) { 
             $scope.serchEqCategory  = data.data.data;
             $scope.serchEqNums = data.data.eqNums;
-            console.log("----"+$scope.serchEqNums)
         })
     }
     $scope.serchEqCategory();
@@ -185,6 +184,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		$scope.warningCount = data.data.count.warningCount;
     		$scope.hiddenCount = data.data.count.hiddenCount;
     		$scope.projectInfo = data.data;
+    		$scope.dataAndManager = data.data.dataAndManager;
+    		console.log("---1111-"+JSON.stringify($scope.dataAndManager))
     		$scope.equipmentCheckArr = [];
             $scope.equipmentItemArr = [];
 
