@@ -407,5 +407,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 		return null;
 	}
 
+	@Override
+	public Equipment selectDataAndManager(String deviceId) throws BusinessException {
+		try {
+			return equipmentDao.selectDataAndManager(deviceId);
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
+	}
+
 }
 

@@ -165,5 +165,7 @@ public interface EquipmentService {
 	 * @return
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
+	//查询设备创建时间和负责人，安全负责人手机号
+	Equipment selectDataAndManager(String deviceId)throws BusinessException;
 	
 }

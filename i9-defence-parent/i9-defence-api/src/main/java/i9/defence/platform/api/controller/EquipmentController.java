@@ -188,6 +188,11 @@ public class EquipmentController {
 	public HashMap<String, Object> selectEquipInfoAndData(@RequestBody ChannelDataSearchDto channelDataSearchDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		Equipment equipment = equipmentService.getEquipmentById(channelDataSearchDto.getEquipmentId());
+		//查询设备创建时间和负责人，安全负责人手机号
+		Equipment dataAndManager = equipmentService.selectDataAndManager(equipment.getDeviceId());
+		String strings[] = dataAndManager.getPhones1().split(",");
+		dataAndManager.setPhones1(strings[0]);
+		result.put("dataAndManager", dataAndManager);
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(equipment.getDeviceId());
 		channelDataSearchDto.setOrderByClause("dateTime");

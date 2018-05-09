@@ -204,4 +204,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		return equipmentMapper.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
 	}
 
+	@Override
+	public Equipment selectDataAndManager(String deviceId) {
+		return equipmentMapper.selectDataAndManager(deviceId);
+	}
+
 }
