@@ -630,26 +630,42 @@
 		<select id="selectDataAndManager" parameterType="string" resultType="i9.defence.platform.model.Equipment">
 			SELECT
 				e.equipmentDate,
+				(
+			SELECT
+				GROUP_CONCAT( m.phone ) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
+				) as phones ,
+				(
+			SELECT
+				GROUP_CONCAT( m.phone) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
+				)as phones1 ,
+				(
+			SELECT
+				GROUP_CONCAT( m.name) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
+				)as name ,
 					(
-				SELECT
-					GROUP_CONCAT( m.phone ) 
-				FROM
-						t_manager m 
-					WHERE
-						m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
-						) as phones ,
-						(
-						SELECT
-							GROUP_CONCAT( m.phone) 
-						FROM
-							t_manager m 
-						WHERE
-							m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
-							)as phones1
-						FROM
-							t_equipment e 
-						WHERE
-					e.deviceId = #{deviceId}
+			SELECT
+				GROUP_CONCAT( m.name) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
+				)as name1
+			FROM
+				t_equipment e 
+			WHERE
+				e.deviceId = #{deviceId}
 		</select>
 		
 	<!-- ———————————— 隐患与报警———————————— -->

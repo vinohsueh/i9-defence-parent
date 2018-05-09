@@ -51,7 +51,7 @@
 		            <!-- <th>隐患类型名称</th> -->
 		            <th>隐患提醒名称</th>
 		            <th colspan=2 class='text-center'>隐患阀值</th>
-		            <th colspan=2 class='text-center'>报警阀值</th>
+		            <!-- <th colspan=2 class='text-center'>报警阀值</th> -->
 		            <th>设备类型</th>
 		            <th>操作</th>
 		         </tr>
@@ -62,8 +62,8 @@
       					<td>{{hiddendanger.name}}</td>	
       					<td class='eventType text-center'><span class='warning'>最高{{hiddendanger.hiddenMax}}</span></td>
       					<td class='eventType text-center'><span class='warning'>最低{{hiddendanger.hiddenMin}}</span></td>
-      					<td class='eventType text-center'><span class='danger'>最高{{hiddendanger.warningMax}}</span></td>
-      					<td class='eventType text-center'><span class='danger'>最低{{hiddendanger.warningMin}}</span></td>
+      				<!-- 	<td class='eventType text-center'><span class='danger'>最高{{hiddendanger.warningMax}}</span></td>
+      					<td class='eventType text-center'><span class='danger'>最低{{hiddendanger.warningMin}}</span></td> -->
       					<td>{{hiddendanger.equipmentCategory.eqCategoryName}}</td>
 		         		<td ng-click="edit({{hiddendanger.id}})"><button class="btn btn-primary"><i class='glyphicon glyphicon-edit'></i></button></td>
 		          </tr>

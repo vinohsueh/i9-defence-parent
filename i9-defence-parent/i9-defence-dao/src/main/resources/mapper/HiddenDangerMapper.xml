@@ -110,10 +110,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_hidden_danger (name, HiddenMax, HiddenMin, 
-      WarningMax, WarningMin, EquipCategoryId
+       EquipCategoryId
       )
     values (#{name,jdbcType=VARCHAR}, #{hiddenMax,jdbcType=DOUBLE}, #{hiddenMin,jdbcType=DOUBLE}, 
-      #{warningMax,jdbcType=DOUBLE}, #{warningMin,jdbcType=DOUBLE}, #{equipCategoryId,jdbcType=INTEGER}
+       #{equipCategoryId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.HiddenDanger">
@@ -239,8 +239,6 @@
     set name = #{name,jdbcType=VARCHAR},
       HiddenMax = #{hiddenMax,jdbcType=DOUBLE},
       HiddenMin = #{hiddenMin,jdbcType=DOUBLE},
-      WarningMax = #{warningMax,jdbcType=DOUBLE},
-      WarningMin = #{warningMin,jdbcType=DOUBLE},
       EquipCategoryId = #{equipCategoryId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

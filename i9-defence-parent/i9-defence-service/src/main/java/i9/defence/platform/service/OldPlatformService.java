@@ -11,12 +11,12 @@ import i9.defence.platform.dao.vo.Demo;
 * 
 */
 public interface OldPlatformService {
-	
-	List<Demo> getListByDs1();
-	
-	/**
-	 * 保存故障
-	 * @param text
-	 */
-	void saveAlertOrigin(String text) throws Exception;
+    
+    List<Demo> getListByDs1();
+    
+    /**
+     * 保存故障
+     * @param text
+     */
+    void saveAlertOrigin(String text) throws Exception;
 }
