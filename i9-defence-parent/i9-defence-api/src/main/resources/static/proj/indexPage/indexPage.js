@@ -200,7 +200,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		var pageParam = {
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
-			projectId:[],
+			projectId:null,
 			startTime:$scope.dateToString($("#startTime").val()),
 			endTime:$scope.dateToString($("#endTime").val()),
 

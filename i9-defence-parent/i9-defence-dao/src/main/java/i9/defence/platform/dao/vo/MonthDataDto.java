@@ -7,7 +7,7 @@ package i9.defence.platform.dao.vo;
 */
 public class MonthDataDto {
 	
-	private Integer[] projectId;
+	private Integer projectId;
 	
 	private String startTime;
 	
@@ -19,11 +19,33 @@ public class MonthDataDto {
     private String projectCity;
     //项目所在县/区
     private String projectCounty;
-	public Integer[] getProjectId() {
+    
+    private Integer projectManagerId;
+    
+    private Integer distributorId;
+    
+    
+	public Integer getProjectManagerId() {
+		return projectManagerId;
+	}
+
+	public void setProjectManagerId(Integer projectManagerId) {
+		this.projectManagerId = projectManagerId;
+	}
+
+	public Integer getDistributorId() {
+		return distributorId;
+	}
+
+	public void setDistributorId(Integer distributorId) {
+		this.distributorId = distributorId;
+	}
+
+	public Integer getProjectId() {
 		return projectId;
 	}
 
-	public void setProjectId(Integer[] projectId) {
+	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
 	}
 

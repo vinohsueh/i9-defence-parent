@@ -2,11 +2,13 @@ package i9.defence.platform.service;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
@@ -164,6 +166,23 @@ public interface EquipmentService {
 	 * @param hiddenDangerSearchDto
 	 * @return
 	 */
-	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
+	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException;
 	
+	/**
+	 * 查询设备总数
+	 * @param monthDataDto
+	 * @return
+	 * @throws BusinessException
+	 */
+	TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) throws BusinessException;
+	
+	/**
+	 * 根据项目id查询每种设备类型的设备数量
+	* @Title: selectEquipStatistic 
+	* @Description: TODO
+	* @param ProjectId
+	* @return
+	* @throws Exception
+	 */
+	List<EquipmentStatisticDto> selectEquipStatistic(Integer ProjectId)throws BusinessException;
 }

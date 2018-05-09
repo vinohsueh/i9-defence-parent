@@ -58,6 +58,8 @@ public interface EquipmentCategoryService {
      * @throws BusinessException
      */
     List<EquipmentCategory> serchEqCategory()throws BusinessException;
+    //
+	int selectSumEqNum()throws BusinessException;
     
 //    /**
 //     * 查询数量

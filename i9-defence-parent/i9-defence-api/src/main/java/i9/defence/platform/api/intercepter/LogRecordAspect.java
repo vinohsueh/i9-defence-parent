@@ -78,7 +78,7 @@ public class LogRecordAspect {
         } catch (BindingResultException exception) {
             result = new HashMap<String, Object>();
             result.put("result", -1);
-            result.put("errorMsg", exception.toErrors());
+            result.put("errorMsg",  "参数格式错误");
             exception.printStackTrace();
             logger.error(exception.getErrorMessage());
             if (uri.equals(Constants.S_LOGIN_URL)) {

@@ -104,6 +104,31 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 		return null;
 	}
 
+	@Override
+	public int selectSumEqNum() throws BusinessException {
+		try {
+			Manager loginManager = managerService.getLoginManager();
+			EquipmentCategory equipmentCategory = new EquipmentCategory();
+			//如果为网站用户（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				return eqCategoryDao.selectSumEqNum(equipmentCategory);
+			}
+			//如果为经销商和管理员
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+				equipmentCategory.setDistributorId(loginManager.getId());
+				return eqCategoryDao.selectSumEqNum(equipmentCategory);
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员
+				equipmentCategory.setPrijrctManagerId(loginManager.getId());
+				return eqCategoryDao.selectSumEqNum(equipmentCategory);
+			}
+		} catch (Exception e) {
+			throw new BusinessException("查询全部项目类别失败",e.getMessage());
+		}
+		return 0;
+	}
+	
+
 //	@Override
 //	public List<EqCategorySearchDto> selectAllEqCategoryAndNum() throws BusinessException {
 //		try {

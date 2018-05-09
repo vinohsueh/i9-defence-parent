@@ -5,10 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
+import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Passageway;
@@ -93,7 +96,7 @@ public interface EquipmentMapper {
 	 * @param endTime
 	 * @return
 	 */
-	List<MonthData> selectWarningMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	List<MonthData> selectWarningMonthData(MonthDataDto monthDataDto);
 		
 	/**
 	 * 查询月隐患
@@ -102,7 +105,7 @@ public interface EquipmentMapper {
 	 * @param endTime
 	 * @return
 	 */
-	List<MonthData> selectHiddenMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto);
 	
 	/**
 	 * 查询全部
@@ -110,5 +113,19 @@ public interface EquipmentMapper {
 	 * @return
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
+	
+	/**
+	 * 查询各个状态设备总数
+	 * @param monthDataDto
+	 * @return
+	 */
+	TotalEquipmentDto selectTotalEquipmentDto(@Param("example") MonthDataDto monthDataDto);
+	/** 根据项目id查询每种设备类型的设备数量
+	* @Title: selectEquipStatistic 
+	* @Description: TODO
+	* @param projectId
+	* @return
+	 */
+	List<EquipmentStatisticDto> selectEquipStatistic(@Param("projectId") Integer projectId);
 	
 }

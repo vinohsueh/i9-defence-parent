@@ -20,9 +20,11 @@ import i9.defence.platform.api.components.MonthDataInfoComponent;
 import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
+import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.enums.DataTypeEnum;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
@@ -256,18 +258,40 @@ public class EquipmentController {
 	@RequestMapping("/selectMonthData")
 	public HashMap<String, Object> selectMonthData(@RequestBody MonthDataDto monthDataDto){
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		//说明 查询的是单个项目的信息
+		/*//说明 查询的是单个项目的信息
 		if(monthDataDto.getProjectId().length < 0) {
 			List<Integer> projectIds = projectService.selectIdsByMonthDataDto(monthDataDto);
 			Integer[] array = projectIds.toArray(new Integer[0]);
 			monthDataDto.setProjectId(array);
-		}
+		}*/
 		//报警数据
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
 		//故障数据
 		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
 		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();
 		result.put("data", jsonObject);
+		return result;
+	}
+	
+	/**
+	 * 查询设备数量
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping("/selectTotalEquipmentDto")
+	public HashMap<String, Object> selectEquipmentNumber(@RequestBody MonthDataDto monthDataDto) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		TotalEquipmentDto totalEquipmentDto = equipmentService.selectTotalEquipmentDto(monthDataDto);
+		result.put("data", totalEquipmentDto);
+		return result;
+	}
+	
+	
+	@RequestMapping("/selectEquipStatistic")
+	public HashMap<String, Object> selectEquipStatistic( Integer Id){
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		List<EquipmentStatisticDto> list = equipmentService.selectEquipStatistic(Id);
+		result.put("data", list) ;
 		return result;
 	}
 }

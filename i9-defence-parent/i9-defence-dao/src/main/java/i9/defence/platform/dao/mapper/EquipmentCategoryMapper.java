@@ -36,6 +36,8 @@ public interface EquipmentCategoryMapper {
     EquipmentCategory selectByeqEqCategoryId(String eqCategoryId);
     
     List<EquipmentCategory> selectAllEqCategoryAndNum(@Param("example") EquipmentCategory equipmentCategory);
+
+	int selectSumEqNum(@Param("example")EquipmentCategory equipmentCategory);
     
 //    List<EquipmentCategory> selectAllEqCategoryAndNum1(@Param("example") EquipmentCategory equipmentCategory);
 }
