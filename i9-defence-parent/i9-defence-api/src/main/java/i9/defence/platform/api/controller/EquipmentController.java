@@ -195,8 +195,10 @@ public class EquipmentController {
 		Equipment equipment = equipmentService.getEquipmentById(channelDataSearchDto.getEquipmentId());
 		//查询设备创建时间和负责人，安全负责人手机号
 		Equipment dataAndManager = equipmentService.selectDataAndManager(equipment.getDeviceId());
-		String strings[] = dataAndManager.getPhones1().split(",");
-		dataAndManager.setPhones1(strings[0]);
+		if (dataAndManager.getPhones1() != null) {
+			String strings[] = dataAndManager.getPhones1().split(",");
+			dataAndManager.setPhones1(strings[0]);
+		}
 		result.put("dataAndManager", dataAndManager);
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(equipment.getDeviceId());
