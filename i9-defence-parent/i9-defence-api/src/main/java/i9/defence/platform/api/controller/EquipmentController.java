@@ -20,7 +20,6 @@ import i9.defence.platform.api.components.MonthDataInfoComponent;
 import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
-import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
@@ -272,11 +271,4 @@ public class EquipmentController {
 		return result;
 	}
 	
-	@RequestMapping("/selectEquipStatistic")
-	public HashMap<String, Object> selectEquipStatistic( Integer Id){
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<EquipmentStatisticDto> list = equipmentService.selectEquipStatistic(Id);
-		result.put("data", list) ;
-		return result;
-	}
 }

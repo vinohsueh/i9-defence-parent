@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.utils.StringUtil;
 /**
  * 项目实体类
@@ -62,8 +63,23 @@ public class Project {
     private List<Manager> safeList;
     //接收前台传参  项目安全责任人IDS们
     private List<Integer> safeIds;
+    
+    /**
+     * 项目下不用类型的设备个数
+     */
+    private List<EquipmentStatisticDto> equipmentStatis;
 
-    public Integer getDelCount() {
+    
+    
+	public List<EquipmentStatisticDto> getEquipmentStatis() {
+		return equipmentStatis;
+	}
+
+	public void setEquipmentStatis(List<EquipmentStatisticDto> equipmentStatis) {
+		this.equipmentStatis = equipmentStatis;
+	}
+
+	public Integer getDelCount() {
 		return delCount;
 	}
 

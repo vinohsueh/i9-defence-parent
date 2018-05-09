@@ -1,8 +1,10 @@
 package i9.defence.platform.service;
 
+import java.util.Date;
+import java.util.List;
+
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
-import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
@@ -13,9 +15,6 @@ import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * 设备Service
@@ -166,14 +165,4 @@ public interface EquipmentService {
 	 * @return
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
-	
-	/**
-	 * 根据项目id查询每种设备类型的设备数量
-	* @Title: selectEquipStatistic 
-	* @Description: TODO
-	* @param ProjectId
-	* @return
-	* @throws Exception
-	 */
-	List<EquipmentStatisticDto> selectEquipStatistic(Integer ProjectId)throws BusinessException;
 }
