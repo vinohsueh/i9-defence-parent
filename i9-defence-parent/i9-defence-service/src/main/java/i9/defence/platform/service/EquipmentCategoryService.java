@@ -8,7 +8,7 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 项目Service
+ * Service
  * @author gbq
  * @create 
  */
