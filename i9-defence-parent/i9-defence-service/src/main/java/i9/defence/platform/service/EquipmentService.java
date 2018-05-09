@@ -1,5 +1,8 @@
 package i9.defence.platform.service;
 
+import java.util.Date;
+import java.util.List;
+
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
@@ -7,14 +10,12 @@ import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * 设备Service
@@ -167,5 +168,13 @@ public interface EquipmentService {
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
 	//查询设备创建时间和负责人，安全负责人手机号
 	Equipment selectDataAndManager(String deviceId)throws BusinessException;
+	
+	/**
+	 * 查询设备总数
+	 * @param monthDataDto
+	 * @return
+	 * @throws BusinessException
+	 */
+	TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) throws BusinessException;
 	
 }

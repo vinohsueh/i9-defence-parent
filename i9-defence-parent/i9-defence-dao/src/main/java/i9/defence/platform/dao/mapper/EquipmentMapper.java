@@ -9,6 +9,8 @@ import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
+import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Passageway;
@@ -93,7 +95,7 @@ public interface EquipmentMapper {
 	 * @param endTime
 	 * @return
 	 */
-	List<MonthData> selectWarningMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	List<MonthData> selectWarningMonthData(MonthDataDto monthDataDto);
 		
 	/**
 	 * 查询月隐患
@@ -102,7 +104,7 @@ public interface EquipmentMapper {
 	 * @param endTime
 	 * @return
 	 */
-	List<MonthData> selectHiddenMonthData(@Param("projectIds")List<Integer> projectIds,@Param("startTime")String startTime,@Param("endTime")String endTime);
+	List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto);
 	
 	/**
 	 * 查询全部
@@ -112,5 +114,12 @@ public interface EquipmentMapper {
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 	//查询设备创建时间和负责人，安全负责人手机号
 	Equipment selectDataAndManager(String deviceId);
+	
+	/**
+	 * 查询各个状态设备总数
+	 * @param monthDataDto
+	 * @return
+	 */
+	TotalEquipmentDto selectTotalEquipmentDto(@Param("example") MonthDataDto monthDataDto);
 	
 }

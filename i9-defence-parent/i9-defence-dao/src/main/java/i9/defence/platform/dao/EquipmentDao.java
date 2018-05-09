@@ -10,6 +10,7 @@ import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Passageway;
@@ -208,4 +209,18 @@ public interface EquipmentDao {
 	//查询设备创建时间和负责人，安全负责人手机号
 	Equipment selectDataAndManager(String deviceId);
 	
+	/**
+	 * 查询设备总数
+	 * @param monthDataDto
+	 * @return
+	 */
+	TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto);
+	
+	/** 根据项目id查询每种设备类型的设备数量
+	* @Title: selectEquipStatistic 
+	* @Description: TODO
+	* @param ProjectId
+	* @return
+	* @throws Exception
+	 */
 }

@@ -689,14 +689,19 @@
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select> -->
 	
-	<select id="selectWarningMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+	<select id="selectWarningMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
 		where (cd.value &gt;= cd.WarningMax or  cd.value &lt;= cd.WarningMin)  
-		<if test="projectIds != null  and  projectIds.size > 0">
-	         and p.id in
-	         <foreach collection="projectIds" item="projectId" open="(" separator=","  close=")">
-				#{projectId}
-			</foreach>
+		<if test="projectId != null">
+	         and p.id = #{projectId}
+        </if>
+        <if test="projectId == null and projectProvince != null and projectProvince != ''">
+	         <if test="projectCity == null || projectCity == ''">
+	        	 and p.id in (select id from t_project where projectProvince = #{projectProvince})
+        	 </if>
+	         <if test="projectCity != null and projectCity != ''">
+	        	 and p.id in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
+        	 </if>
         </if>
         <if test="endTime != null and endTime != ''">
 	        and cd.dateTime &lt; #{endTime}
@@ -725,14 +730,19 @@
         </if>
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select> -->
-	<select id="selectHiddenMonthData" resultType="i9.defence.platform.dao.vo.MonthData">
+	<select id="selectHiddenMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto"  resultType="i9.defence.platform.dao.vo.MonthData">
 		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from t_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
-			<if test="projectIds != null  and  projectIds.size > 0 ">
-		          and p.id in
-		         <foreach collection="projectIds" item="projectId" open="(" separator=","  close=")">
-					#{projectId}
-				</foreach>
+			<if test="projectId != null">
+		         and p.id = #{projectId}
+	        </if>
+	        <if test="projectId == null and projectProvince != null and projectProvince != ''">
+		         <if test="projectCity == null || projectCity == ''">
+		        	 and p.id in (select id from t_project where projectProvince = #{projectProvince})
+	        	 </if>
+		         <if test="projectCity != null and projectCity != ''">
+		        	 and p.id in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
+	        	 </if>
 	        </if>
 	        <if test="endTime != null and endTime != ''">
 		        and cd.dateTime &lt; #{endTime}
@@ -749,6 +759,7 @@
 			LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
 			
 		WHERE `e`.`id` = #{id} 
+			AND cd.channel IN ( SELECT channel FROM  t_passageway where categoryId = (select equipmentCategoryId from t_equipment where id = #{id} )) 
 			AND `cd`.`dateTime` = (
 				SELECT `t_channel_data`.`dateTime`
 				FROM `t_channel_data`
@@ -762,4 +773,32 @@
 			)
 		ORDER BY `cd`.`channel`
 	</select>
+	
+	<sql id="Query_By_Dto_Where_Clause4">
+	    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+	    	<if test="example.projectId != null">
+	    		AND p.projectId = #{example.projectId}
+	    	</if>
+	    	<if test="example.projectId == null">
+		    	<if test="example.projectProvince != null and example.projectProvince != ''">
+		          AND p.projectProvince = #{example.projectProvince}
+		        </if>
+		        <if test="example.projectCity != null and example.projectCity != ''">
+		          AND p.projectCity = #{example.projectCity}
+		        </if>
+	    	</if>
+	    	<if test="example.projectManagerId != null">
+	    		AND ps.projectManagerId = #{example.projectManagerId}
+	    	</if>
+	    	<if test="example.distributorId != null">
+	    		AND p.distributorId = #{example.distributorId}
+	    	</if>
+	    </trim>
+    </sql>
+	<select id="selectTotalEquipmentDto" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="i9.defence.platform.dao.vo.TotalEquipmentDto">
+		select count(DISTINCT e.id) as total from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
+		<if test="_parameter != null">
+	      <include refid="Query_By_Dto_Where_Clause4" />
+	    </if>
+	 </select>
 </mapper>

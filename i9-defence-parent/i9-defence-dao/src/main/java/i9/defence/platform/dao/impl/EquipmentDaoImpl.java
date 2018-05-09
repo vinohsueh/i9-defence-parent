@@ -1,6 +1,5 @@
 package i9.defence.platform.dao.impl;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.enums.DataTypeEnum;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ChannelDataExample;
@@ -191,12 +191,12 @@ public class EquipmentDaoImpl implements EquipmentDao{
 
 	@Override
 	public List<MonthData> selectMonthWarningData(MonthDataDto monthDataDto) {
-		return equipmentMapper.selectWarningMonthData(Arrays.asList(monthDataDto.getProjectId()), monthDataDto.getStartTime(), monthDataDto.getEndTime());
+		return equipmentMapper.selectWarningMonthData(monthDataDto);
 	}
 
 	@Override
 	public List<MonthData> selectHiddenMonthData(MonthDataDto monthDataDto) {
-		return equipmentMapper.selectHiddenMonthData(Arrays.asList(monthDataDto.getProjectId()), monthDataDto.getStartTime(), monthDataDto.getEndTime());
+		return equipmentMapper.selectHiddenMonthData(monthDataDto);
 	}
 
 	@Override
@@ -209,4 +209,7 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		return equipmentMapper.selectDataAndManager(deviceId);
 	}
 
+	public TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) {
+		return equipmentMapper.selectTotalEquipmentDto(monthDataDto);
+	}
 }
