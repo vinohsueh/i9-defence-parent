@@ -46,7 +46,6 @@ public class HiddenDangerEditController {
 	/*
      *分页查询
      */
-    //@RequiresPermissions("client_list")
     @RequestMapping("/pageHiddenDangerEdit")
     public HashMap<String, Object> pageHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();

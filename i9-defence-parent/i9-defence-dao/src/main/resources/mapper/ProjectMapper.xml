@@ -19,7 +19,9 @@
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
   	<collection property="safeList" column="id" select="i9.defence.platform.dao.mapper.ManagerMapper.selectSafeByProjectId"/>
+    <collection property="equipmentStatis" column="id" select="selectEquipStatistic"></collection>
   </resultMap>
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -476,4 +478,13 @@
           <include refid="Query_By_Dto4_Where_Clause" />
         </if>
    </select>
+   <select id="selectEquipStatistic"  resultType="i9.defence.platform.dao.vo.EquipmentStatisticDto" parameterType="java.lang.Integer">
+    select 
+		 count(*) as equipCount,
+		 ec.eqCategoryName as eqCategoryName
+		 from t_equipment e left join t_equipment_category ec on ec.id = e.equipmentCategoryId
+		 where e.projectId = #{id}
+		 GROUP BY  e.equipmentCategoryId
+   </select>
+   
 </mapper>

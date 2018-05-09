@@ -63,13 +63,11 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	   $scope.error.area = false;
 	   $scope.selected2 = "";
 	   $scope.selected3 = "";
-	   $scope.queryProjects();
 	};
 	$scope.c2 = function () {       
 	   $scope.error.city = false;
 	   $scope.error.area = false;
 	   $scope.selected3 = "";
-	   $scope.queryProjects();
 	};
 	/*$scope.c3 = function () {
 	   $scope.error.area = false;
@@ -85,7 +83,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 
 	$scope.startTime = $scope.getDate(-180);
 	$scope.endTime = $scope.getDate(0);
-
 	$scope.pageInit = function(){
 		$scope.markArr = [];
 		if($scope.selected == null || $scope.selected == ''){
@@ -102,7 +99,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
 			projectName:$scope.searchText,
-			projectAddress:$scope.searchText,
+			// projectAddress:$scope.searchText,
 		};
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
@@ -152,6 +149,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			var oHtml="";
 			$scope.mapOptions = [];
 			for(var i=0;i<myData.mark.length;i++){
+				
 				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr><tr><td>消防设施</td><td>123个</td></tr><tr><td>消防设备电源监控系统</td><td>80个</td></tr><tr><td>故障电弧监控系统</td><td>60个</td></tr><tr><td>火灾监控系统</td><td>70个</td></tr><tr><td colspan='2' class='text-center'>所属客户：(经销商)</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
 				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml};
 				$scope.mapOptions.push(a);
@@ -169,15 +167,15 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			    marker.content = oHtml;
 			    marker.on('click', markerClick);*/
 			}
-			function markerClick(e) {
+			/*function markerClick(e) {
 			    infoWindow.setContent(e.target.content);
 			    infoWindow.open(map, e.target.getPosition());
-			}
+			}*/
 			//关闭信息窗体
-			$scope.closeInfoWindow =  function () {
+			/*$scope.closeInfoWindow =  function () {
 				// alert(1);
 			   	map.clearInfoWindow();
-			}
+			}*/
 		})
 	}
 	$scope.pageInit();
@@ -202,7 +200,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		var pageParam = {
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
-			projectId:[],
+			projectId:null,
 			startTime:$scope.dateToString($("#startTime").val()),
 			endTime:$scope.dateToString($("#endTime").val()),
 
