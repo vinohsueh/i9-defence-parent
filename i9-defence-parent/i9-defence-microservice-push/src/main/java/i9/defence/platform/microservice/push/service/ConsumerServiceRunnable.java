@@ -18,22 +18,22 @@ public class ConsumerServiceRunnable {
     private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceRunnable.class);
 
     private final ExecutorService pool = Executors.newCachedThreadPool();
-    
+
     private OldPlatformService oldPlatformService;
+
     public void executePool(final TextMessage textMessage) {
         pool.execute(new TimerTask() {
-            
+
             @Override
             public void run() {
-            	try {
+                try {
                     oldPlatformService.saveAlertOrigin(textMessage.getText());
                     logger.info("push message : " + textMessage.toString());
                 } catch (Exception e) {
                     logger.error("save up stream decode error, ex : ", e);
                 }
-                
             }
         });
     }
-    
+
 }
