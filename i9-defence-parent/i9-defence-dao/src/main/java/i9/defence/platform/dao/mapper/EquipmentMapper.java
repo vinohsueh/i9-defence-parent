@@ -10,7 +10,6 @@ import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
-import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentExample;
 import i9.defence.platform.model.Passageway;
@@ -116,10 +115,17 @@ public interface EquipmentMapper {
 	Equipment selectDataAndManager(String deviceId);
 	
 	/**
-	 * 查询各个状态设备总数
+	 * 查询用户登进来的设备总数
 	 * @param monthDataDto
 	 * @return
 	 */
-	TotalEquipmentDto selectTotalEquipmentDto(@Param("example") MonthDataDto monthDataDto);
+	int selectTotalEquipmentDto(@Param("example") MonthDataDto monthDataDto);
+	
+	/**
+	 * 查询用户登进来的设备报警总数
+	 * @param monthDataDto
+	 * @return
+	 */
+	int selectTotalAlertEquipmentDto(@Param("example") MonthDataDto monthDataDto);
 	
 }
