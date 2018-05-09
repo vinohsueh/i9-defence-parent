@@ -31,7 +31,7 @@
     </dependencies>
 
     <build>
-        <finalName>i9-defence-microservice-config</finalName>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
