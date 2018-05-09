@@ -1,6 +1,6 @@
 package i9.defence.platform.microservice.push.datasource;
 
-import i9.defence.platform.microservice.push.util.TargetDataSource;
+import i9.defence.platform.utils.TargetDataSource;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
