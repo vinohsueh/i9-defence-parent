@@ -64,6 +64,12 @@ public class EquipmentCategoryDaoImpl implements EquipmentCategoryDao {
 		return eqCategoryMapper.selectAllEqCategoryAndNum(equipmentCategory);
 	}
 
+	@Override
+	public int selectSumEqNum(EquipmentCategory equipmentCategory) throws Exception {
+		// TODO Auto-generated method stub
+		return eqCategoryMapper.selectSumEqNum(equipmentCategory);
+	}
+
 	/*@Override
 	public List<EquipmentCategory> selectAllEqCategoryAndNum1(EquipmentCategory equipmentCategory) throws Exception {
 		return eqCategoryMapper.selectAllEqCategoryAndNum1(equipmentCategory);

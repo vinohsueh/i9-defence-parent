@@ -55,7 +55,9 @@ public class EquipmentCategoryController {
     public HashMap<String, Object> serchEqCategory() {
         HashMap<String, Object> result = new HashMap<String, Object>();
         List<EquipmentCategory> list = eqCategoryService.serchEqCategory();
+        int eqNums=eqCategoryService.selectSumEqNum();
         result.put("data", list);
+        result.put("eqNums", eqNums);
         return result;
     }
     
