@@ -16,6 +16,8 @@ public class ConsumerServiceRunnable extends TimerTask {
         try {
             upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
             logger.info("save up stream decode success, data : " + textMessage.getText());
+            
+            // TODO 在这里处理推送到第三方平台数据接口
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);
         }
