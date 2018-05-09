@@ -19,6 +19,7 @@ import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
+import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
@@ -405,6 +406,15 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询失败",e.getMessage());
 		}
 		return null;
+	}
+
+	@Override
+	public TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) throws BusinessException {
+		try {
+			return equipmentDao.selectTotalEquipmentDto(monthDataDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
 	}
 
 }
