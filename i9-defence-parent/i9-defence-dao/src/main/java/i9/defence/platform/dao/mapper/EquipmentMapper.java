@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
-import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
@@ -120,12 +119,5 @@ public interface EquipmentMapper {
 	 * @return
 	 */
 	TotalEquipmentDto selectTotalEquipmentDto(@Param("example") MonthDataDto monthDataDto);
-	/** 根据项目id查询每种设备类型的设备数量
-	* @Title: selectEquipStatistic 
-	* @Description: TODO
-	* @param projectId
-	* @return
-	 */
-	List<EquipmentStatisticDto> selectEquipStatistic(@Param("projectId") Integer projectId);
 	
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
-import i9.defence.platform.dao.vo.EquipmentStatisticDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
@@ -222,5 +221,4 @@ public interface EquipmentDao {
 	* @return
 	* @throws Exception
 	 */
-	List<EquipmentStatisticDto> selectEquipStatistic(Integer ProjectId)throws Exception;
 }
