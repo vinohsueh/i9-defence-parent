@@ -45,9 +45,7 @@ angular.module('app').directive(
 
 							$scope.$watch("options", function(newValue,
 									oldValue) {
-								console.log(JSON.stringify(oldValue));
-								
-								if ($scope.options && $scope.options[0].lng
+								if ($scope.options.length>=1 && $scope.options[0].lng
 										&& $scope.options[0].lat) {
 									var map = new AMap.Map("selfMap", {
 										resizeEnable : true,
@@ -95,6 +93,14 @@ angular.module('app').directive(
 										window.location.href=thisHrefApp+"app/monitoringChart?id="+id;
 										// $state.go('app.monitoringChart',{id:id});
 									}
+								}else{
+									var map = new AMap.Map("selfMap", {
+										resizeEnable : true,
+										mapStyle: 'amap://styles/9ef8e635e3bae06c3f40563eee898c64',//样式URL
+										zoom:4,
+										// zooms:[mapZoom,mapZoom],
+									});
+									map.setCenter([116.39,39.9]);
 								}
 
 							}, true);
