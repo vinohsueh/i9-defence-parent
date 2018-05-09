@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 创建时间：2018年5月7日 下午1:55:48
+ * 与第三方通信接口
  * 
  * @author lby
  * @version
