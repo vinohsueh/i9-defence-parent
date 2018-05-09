@@ -81,6 +81,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 			if(equipment.getId()!=null) {
 				equipmentDao.updateEquipment(equipment);
 			}else {
+				equipment.setEquipmentDate(new Date());
 				equipmentDao.addEquipment(equipment);
 			}
 		} catch (Exception e) {

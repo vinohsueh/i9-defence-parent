@@ -10,54 +10,53 @@ public class TotalEquipmentDto {
 	/**
 	 * 总数
 	 */
-	private Integer total;
+	private int total;
 	
 	/**
-	 * 故障
+	 * 隐患
 	 */
-	private Integer fault;
+	private int fault;
 	
 	/**
 	 * 报警
 	 */
-	private Integer alert;
+	private int alert;
 		
 	/**
 	 * 离线
 	 */
-	private Integer offline;
+	private int offline;
 
-	public Integer getTotal() {
+	public int getTotal() {
 		return total;
 	}
 
-	public void setTotal(Integer total) {
+	public void setTotal(int total) {
 		this.total = total;
 	}
 
-	public Integer getFault() {
+	public int getFault() {
 		return fault;
 	}
 
-	public void setFault(Integer fault) {
+	public void setFault(int fault) {
 		this.fault = fault;
 	}
 
-	public Integer getAlert() {
+	public int getAlert() {
 		return alert;
 	}
 
-	public void setAlert(Integer alert) {
+	public void setAlert(int alert) {
 		this.alert = alert;
 	}
 
-	public Integer getOffline() {
+	public int getOffline() {
 		return offline;
 	}
 
-	public void setOffline(Integer offline) {
+	public void setOffline(int offline) {
 		this.offline = offline;
 	}
-	
 	
 }

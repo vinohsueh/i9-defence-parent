@@ -28,13 +28,16 @@ import i9.defence.platform.enums.DataTypeEnum;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ChannelDataService;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.PassagewayService;
 import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -57,7 +60,8 @@ public class EquipmentController {
 	private ChannelDataService channelDataServicel;
 	@Autowired
 	private PassagewayService passagewayService;
-
+	@Autowired
+	private ManagerService managerService;
 	/**
 	 * 分页查询设备列表
 	 * @Title:pageEquipment
@@ -191,8 +195,14 @@ public class EquipmentController {
 		Equipment equipment = equipmentService.getEquipmentById(channelDataSearchDto.getEquipmentId());
 		//查询设备创建时间和负责人，安全负责人手机号
 		Equipment dataAndManager = equipmentService.selectDataAndManager(equipment.getDeviceId());
-		String strings[] = dataAndManager.getPhones1().split(",");
-		dataAndManager.setPhones1(strings[0]);
+		if (dataAndManager.getPhones1() != null) {
+			String strings[] = dataAndManager.getPhones1().split(",");
+			dataAndManager.setPhones1(strings[0]);
+		}
+		if (dataAndManager.getName1() != null) {
+			String strings[] = dataAndManager.getName1().split(",");
+			dataAndManager.setName1(strings[0]);
+		}
 		result.put("dataAndManager", dataAndManager);
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(equipment.getDeviceId());
@@ -285,6 +295,15 @@ public class EquipmentController {
 	@RequestMapping("/selectTotalEquipmentDto")
 	public HashMap<String, Object> selectEquipmentNumber(@RequestBody MonthDataDto monthDataDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		//获取登录人
+		Manager loginManager = managerService.getLoginManager();
+		//如果为经销商和管理员
+		if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+			monthDataDto.setDistributorId(loginManager.getId());
+		}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+			//如果是项目管理员
+			monthDataDto.setProjectManagerId(loginManager.getId());
+		}
 		TotalEquipmentDto totalEquipmentDto = equipmentService.selectTotalEquipmentDto(monthDataDto);
 		result.put("data", totalEquipmentDto);
 		return result;

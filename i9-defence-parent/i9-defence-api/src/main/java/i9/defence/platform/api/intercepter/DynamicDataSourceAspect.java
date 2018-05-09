@@ -1,6 +1,4 @@
-package i9.defence.platform.microservice.push.datasource;
-
-import i9.defence.platform.utils.TargetDataSource;
+package i9.defence.platform.api.intercepter;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -10,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import i9.defence.platform.api.datasource.DynamicDataSourceContextHolder;
+import i9.defence.platform.utils.TargetDataSource;
 
 /** 
 * 切换数据源Advice

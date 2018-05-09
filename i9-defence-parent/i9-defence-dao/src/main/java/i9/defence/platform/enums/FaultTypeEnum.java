@@ -12,13 +12,12 @@ import java.util.List;
 * 
 */
 public enum FaultTypeEnum {
-	ALERT(0,"报警"),FAULT(1,"故障"),NORMAL(2,"正常");
+	ALERT(0,"报警"),NORMAL(2,"正常");
     
     private static final List<FaultTypeEnum> DATATYPES = new ArrayList<FaultTypeEnum>();
     
     static {
     	DATATYPES.add(ALERT);
-    	DATATYPES.add(FAULT);
     	DATATYPES.add(NORMAL);
     }
     

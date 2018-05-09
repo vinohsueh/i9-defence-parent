@@ -210,6 +210,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	public TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) {
-		return equipmentMapper.selectTotalEquipmentDto(monthDataDto);
+		TotalEquipmentDto totalEquipmentDto = new TotalEquipmentDto();
+		int totalEquipment = equipmentMapper.selectTotalEquipmentDto(monthDataDto);
+		int totalAlertEquipment = equipmentMapper.selectTotalAlertEquipmentDto(monthDataDto);
+		totalEquipmentDto.setTotal(totalEquipment);
+		totalEquipmentDto.setAlert(totalAlertEquipment);
+		return totalEquipmentDto;
 	}
 }

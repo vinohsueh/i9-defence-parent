@@ -467,6 +467,15 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	$scope.goTo = function(id){
 		$state.go('app.monitoringChart',{id:id});
 	}
+	
+	var pageParam = {
+		projectProvince:$scope.selected.name,
+		projectCity:$scope.selected2.name,
+		projectId:null,
+	};
+	httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		$scope.totalCount = data.data.data;
+	})
 	/*$scope.pieOption = {
         tooltip: {
             trigger: 'item',

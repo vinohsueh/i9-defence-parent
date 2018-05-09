@@ -630,26 +630,42 @@
 		<select id="selectDataAndManager" parameterType="string" resultType="i9.defence.platform.model.Equipment">
 			SELECT
 				e.equipmentDate,
+				(
+			SELECT
+				GROUP_CONCAT( m.phone ) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
+				) as phones ,
+				(
+			SELECT
+				GROUP_CONCAT( m.phone) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
+				)as phones1 ,
+				(
+			SELECT
+				GROUP_CONCAT( m.name) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
+				)as name ,
 					(
-				SELECT
-					GROUP_CONCAT( m.phone ) 
-				FROM
-						t_manager m 
-					WHERE
-						m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
-						) as phones ,
-						(
-						SELECT
-							GROUP_CONCAT( m.phone) 
-						FROM
-							t_manager m 
-						WHERE
-							m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
-							)as phones1
-						FROM
-							t_equipment e 
-						WHERE
-					e.deviceId = #{deviceId}
+			SELECT
+				GROUP_CONCAT( m.name) 
+			FROM
+				t_manager m 
+			WHERE
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
+				)as name1
+			FROM
+				t_equipment e 
+			WHERE
+				e.deviceId = #{deviceId}
 		</select>
 		
 	<!-- ———————————— 隐患与报警———————————— -->
@@ -795,10 +811,34 @@
 	    	</if>
 	    </trim>
     </sql>
-	<select id="selectTotalEquipmentDto" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="i9.defence.platform.dao.vo.TotalEquipmentDto">
-		select count(DISTINCT e.id) as total from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
+	<select id="selectTotalEquipmentDto" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="int">
+		select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
 		<if test="_parameter != null">
 	      <include refid="Query_By_Dto_Where_Clause4" />
 	    </if>
+	 </select>
+	 
+	 <select id="selectTotalAlertEquipmentDto" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="int">
+		select count(DISTINCT id) from  v_hiddendanger_edit 
+		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
+			<if test="example.projectId != null">
+	    		AND projectId = #{example.projectId}
+	    	</if>
+	    	<if test="example.projectId == null">
+		    	<if test="example.projectProvince != null and example.projectProvince != ''">
+		          AND projectProvince = #{example.projectProvince}
+		        </if>
+		        <if test="example.projectCity != null and example.projectCity != ''">
+		          AND projectCity = #{example.projectCity}
+		        </if>
+	    	</if>
+	    	<if test="example.projectManagerId != null">
+	    		AND projectId in  (select projectId from t_project_safe where managerId = #{example.projectManagerId})
+	    	</if>
+	    	<if test="example.distributorId != null">
+	    		AND distributorId = #{example.distributorId}
+	    	</if>
+	    	and warningCount > 0
+    	</trim>
 	 </select>
 </mapper>
