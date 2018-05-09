@@ -28,12 +28,12 @@ angular.module('app').directive(
 							    mapZoom = 4;
 							}*/
 
-							var map = new AMap.Map("selfMap", {
+							/*var map = new AMap.Map("selfMap", {
 								resizeEnable : true,
 								mapStyle: 'amap://styles/9ef8e635e3bae06c3f40563eee898c64',//样式URL
 								zoom:4,
 								// zooms:[mapZoom,mapZoom],
-							});
+							});*/
 								
 							var infoWindow = new AMap.InfoWindow({
 							    isCustom:true,
@@ -45,11 +45,19 @@ angular.module('app').directive(
 
 							$scope.$watch("options", function(newValue,
 									oldValue) {
+								console.log(JSON.stringify(oldValue));
+								
 								if ($scope.options && $scope.options[0].lng
 										&& $scope.options[0].lat) {
-
+									var map = new AMap.Map("selfMap", {
+										resizeEnable : true,
+										mapStyle: 'amap://styles/9ef8e635e3bae06c3f40563eee898c64',//样式URL
+										zoom:4,
+										// zooms:[mapZoom,mapZoom],
+									});
 									map.setCenter([ $scope.options[0].lng,
 											$scope.options[0].lat ]);
+									
 									for(var i=0;i<$scope.options.length;i++){
 										marker = new AMap.Marker({
 											position: [$scope.options[i].lng,$scope.options[i].lat],

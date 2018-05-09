@@ -89,11 +89,11 @@
         <div class='pull-right form-inline'>
           <div class="form-group">
             <label for="">通道选择:</label>
-            <select name="" id="" class='form-control blue_bg' ng-model="passageway">
-              <option value="1">1</option>
+            <select name="" id="" class='form-control blue_bg' ng-change='changeLine()' ng-model="passageway" ng-options="x as y for (x, y) in equipmentCheckArr">
+              <!-- <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
-              <option value="4">4</option>
+              <option value="4">4</option> -->
             </select>
             <label for="">登记时间:</label>
             <div class="input-group" ng-controller="monitoringChartNgControl">

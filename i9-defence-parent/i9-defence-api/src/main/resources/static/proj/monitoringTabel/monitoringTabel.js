@@ -168,7 +168,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			if($scope.equipmentInfo!= null){
 				$scope.chartsStatus = true;
 				for(i in $scope.equipmentInfo.channelData){
-					$scope.equipmentItemObj = {
+					/*$scope.equipmentItemObj = {
 			            type:'line',
 			            stack:'10',
 			            symbol: 'emptyCircle',
@@ -183,16 +183,16 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			                    color:'#ab56dc',
 			                }
 			            },
-			        };
+			        };*/
 					if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
     					$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
-    					$scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
+    					// $scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
     				}else{
     					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-    					$scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+    					// $scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
     				}
-    				$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
-    				$scope.equipmentItemArr.push($scope.equipmentItemObj);
+    				/*$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
+    				$scope.equipmentItemArr.push($scope.equipmentItemObj);*/
 				}
 				$scope.passageway='0';
 				$scope.chartData = $scope.equipmentInfo.channelData[0].value;
