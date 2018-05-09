@@ -199,6 +199,10 @@ public class EquipmentController {
 			String strings[] = dataAndManager.getPhones1().split(",");
 			dataAndManager.setPhones1(strings[0]);
 		}
+		if (dataAndManager.getName1() != null) {
+			String strings[] = dataAndManager.getName1().split(",");
+			dataAndManager.setName1(strings[0]);
+		}
 		result.put("dataAndManager", dataAndManager);
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(equipment.getDeviceId());
