@@ -53,7 +53,10 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
     	var date = new Date(d);
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
-    
+    //项目id初始化
+    $scope.projectId = null;
+
+
 	//地域
 	$scope.error = {};
 	$scope.division = division;
@@ -103,7 +106,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		};
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
-			console.log(JSON.stringify(data));
 			var markItem = {};
 			
 			for(i in $scope.projectList){
@@ -186,10 +188,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	}
 	$scope.pageInit();
 	
-	setTimeout(function () {
-		$scope.chartInit();
-	}, 100);
-	//图标初始化
+	
+	//图表初始化
 	// $scope.Ids = [];
 	$scope.chartsStatus = false;
 	$scope.chartInit = function (){
@@ -206,12 +206,13 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		var pageParam = {
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
-			projectId:null,
+			projectId:$scope.projectId,
 			startTime:$scope.dateToString($("#startTime").val()),
 			endTime:$scope.dateToString($("#endTime").val()),
 
 		};
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data));
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
 			$scope.projectWarning = [];
@@ -332,12 +333,31 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			
 		})
 	};
-
+	$scope.chartInit();
+	// 设备数量检测
+	$scope.equipmentNum = function () {
+		alert(1);
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectId:$scope.projectId,
+		};
+		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.totalCount = data.data.data;
+		})
+	}
+	$scope.equipmentNum();
+	// 搜索
 	$scope.searchBtn = function () {
 		$scope.pageInit();
 		$scope.chartInit();
 	}
-
+	//项目选择
+	$scope.choiceProject = function (idNum) {
+		$scope.projectId = idNum;
+		$scope.equipmentNum();
+		$scope.chartInit();
+	}
 	$(function () {
 	    // 右侧样式
 	    var mainWidth = parseInt($('#selfMain').width()*0.03);
@@ -468,14 +488,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		$state.go('app.monitoringChart',{id:id});
 	}
 	
-	var pageParam = {
-		projectProvince:$scope.selected.name,
-		projectCity:$scope.selected2.name,
-		projectId:null,
-	};
-	httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-		$scope.totalCount = data.data.data;
-	})
 	/*$scope.pieOption = {
         tooltip: {
             trigger: 'item',
