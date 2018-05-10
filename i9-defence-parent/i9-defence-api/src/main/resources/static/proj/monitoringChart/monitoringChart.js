@@ -114,7 +114,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 		};
 		
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
-			$scope.projectss  = data.data.data;
+			$scope.projectss  = data.data.data; 
 		})
 	}
 	$scope.queryProjects();
@@ -139,6 +139,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			/*projectName : text,
     			projectAddress : text,*/
     		};
+		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.totalCount = data.data.data;
+		})
     	
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;
