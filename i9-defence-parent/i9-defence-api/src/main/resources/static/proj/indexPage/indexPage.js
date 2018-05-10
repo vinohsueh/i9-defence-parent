@@ -251,7 +251,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					        textStyle:{
 					            color:'#fff',
 					        },
-					        data:['报警','故障',]
+					        data:['报警','隐患',]
 					    },
 					    xAxis:{
 					        axisLabel: {        
@@ -300,7 +300,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					        
 					        {
 					            type:'bar',
-					            name:'故障',
+					            name:'隐患',
 					            showAllSymbol: true,
 					            symbol: 'emptyCircle',
 					            symbolSize: 10,

@@ -706,26 +706,37 @@
 	</select> -->
 	
 	<select id="selectWarningMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="i9.defence.platform.dao.vo.MonthData">
-		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from v_hiddendanger_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
-		where (cd.value &gt;= cd.WarningMax or  cd.value &lt;= cd.WarningMin)  
-		<if test="projectId != null">
-	         and p.id = #{projectId}
-        </if>
-        <if test="projectId == null and projectProvince != null and projectProvince != ''">
-	         <if test="projectCity == null || projectCity == ''">
-	        	 and p.id in (select id from t_project where projectProvince = #{projectProvince})
-        	 </if>
-	         <if test="projectCity != null and projectCity != ''">
-	        	 and p.id in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
-        	 </if>
-        </if>
-        <if test="endTime != null and endTime != ''">
-	        and cd.dateTime &lt; #{endTime}
-        </if>
-        <if test="startTime != null and startTime != ''">
-	        and cd.dateTime &gt; #{startTime}
-        </if>
-		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
+		SELECT COUNT(*) AS count, tab.mon AS month
+		FROM (
+			SELECT cd.deviceId, COUNT(*)
+				, DATE_FORMAT(cd.dateTime, '%Y-%m') AS mon
+			FROM t_channel_data cd
+				LEFT JOIN `t_equipment_fault` `ef` ON `cd`.`value` = `ef`.`code` left join t_equipment e on e.deviceId = cd.deviceId
+			WHERE `ef`.`type` = 0
+				AND cd.deviceId IN (
+					SELECT deviceId
+					FROM t_equipment
+				)
+				<if test="projectId != null">
+			         and e.projectId = #{projectId}
+		        </if>
+		        <if test="projectId == null and projectProvince != null and projectProvince != ''">
+			         <if test="projectCity == null || projectCity == ''">
+			        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince})
+		        	 </if>
+			         <if test="projectCity != null and projectCity != ''">
+			        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
+		        	 </if>
+		        </if>
+		        <if test="endTime != null and endTime != ''">
+			        and cd.dateTime &lt; #{endTime}
+		        </if>
+		        <if test="startTime != null and startTime != ''">
+			        and cd.dateTime &gt; #{startTime} 
+		        </if>
+			GROUP BY DATE_FORMAT(cd.dateTime, '%Y-%m'), cd.deviceId
+		) tab
+		GROUP BY tab.mon
 	</select>
 	
 	
