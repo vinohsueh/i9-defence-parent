@@ -336,7 +336,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	$scope.chartInit();
 	// 设备数量检测
 	$scope.equipmentNum = function () {
-		alert(1);
 		var pageParam = {
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
@@ -350,6 +349,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	// 搜索
 	$scope.searchBtn = function () {
 		$scope.pageInit();
+		$scope.equipmentNum();
 		$scope.chartInit();
 	}
 	//项目选择
