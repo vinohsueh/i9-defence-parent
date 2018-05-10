@@ -804,7 +804,7 @@
 	<sql id="Query_By_Dto_Where_Clause4">
 	    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
 	    	<if test="example.projectId != null">
-	    		AND p.projectId = #{example.projectId}
+	    		AND p.id = #{example.projectId}
 	    	</if>
 	    	<if test="example.projectId == null">
 		    	<if test="example.projectProvince != null and example.projectProvince != ''">
