@@ -215,6 +215,13 @@ public interface EquipmentDao {
 	 * @return
 	 */
 	TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto);
+	 /**
+     * 根据用户名搜索
+     * @param equipmentName
+     * @return
+     * @throws Exception
+     */
+	Equipment getEquipmentByName(String equipmentName);
 	
 	/** 根据项目id查询每种设备类型的设备数量
 	* @Title: selectEquipStatistic 

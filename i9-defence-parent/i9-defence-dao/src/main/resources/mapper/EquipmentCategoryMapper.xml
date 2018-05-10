@@ -6,6 +6,7 @@
     <result column="eqCategoryName" jdbcType="VARCHAR" property="eqCategoryName" />
     <result column="eqCategoryId" jdbcType="VARCHAR" property="eqCategoryId" />
     <result column="eqCategoryExplain" jdbcType="VARCHAR" property="eqCategoryExplain" />
+    <result column="eqSystemtypeId" jdbcType="INTEGER" property="eqSystemtypeId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, eqCategoryName,eqCategoryId,eqCategoryExplain
+    id, eqCategoryName,eqCategoryId,eqCategoryExplain,eqSystemtypeId
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentCategoryExample" resultMap="BaseResultMap">
     select
@@ -109,7 +110,7 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_equipment_category (eqCategoryName,eqCategoryId,eqCategoryExplain)
+    insert into t_equipment_category (eqCategoryName,eqCategoryId,)
     values (#{eqCategoryName,jdbcType=VARCHAR},#{eqCategoryId,jdbcType=VARCHAR},#{eqCategoryExplain,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.EquipmentCategory">
@@ -127,6 +128,9 @@
        <if test="eqCategoryExplain != null">
         eqCategoryExplain,
       </if>
+       <if test="eqSystemtypeId != null">
+        eqSystemtypeId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="eqCategoryName != null">
@@ -137,6 +141,9 @@
       </if>
       <if test="eqCategoryExplain != null">
         #{eqCategoryExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="eqSystemtypeId != null">
+        #{eqSystemtypeId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -161,6 +168,9 @@
       <if test="record.eqCategoryExplain != null">
         eqCategoryExplain = #{record.eqCategoryExplain,jdbcType=VARCHAR},
       </if>
+       <if test="record.eqSystemtypeId != null">
+        id = #{record.eqSystemtypeId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -171,7 +181,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       eqCategoryName = #{record.eqCategoryName,jdbcType=VARCHAR},
       eqCategoryId = #{record.eqCategoryId,jdbcType=VARCHAR},
-      eqCategoryExplain = #{record.eqCategoryExplain,jdbcType=VARCHAR}
+      eqCategoryExplain = #{record.eqCategoryExplain,jdbcType=VARCHAR},
+      eqSystemtypeId = #{record.eqSystemtypeId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -188,6 +199,9 @@
       <if test="eqCategoryExplain != null">
         eqCategoryExplain = #{eqCategoryExplain,jdbcType=VARCHAR},
       </if>
+      <if test="eqSystemtypeId != null">
+        eqSystemtypeId = #{eqSystemtypeId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -195,7 +209,8 @@
     update t_equipment_category
     set eqCategoryName = #{eqCategoryName,jdbcType=VARCHAR},
     eqCategoryId = #{eqCategoryId,jdbcType=VARCHAR},
-    eqCategoryExplain = #{eqCategoryExplain,jdbcType=VARCHAR}
+    eqCategoryExplain = #{eqCategoryExplain,jdbcType=VARCHAR},
+    eqSystemtypeId = #{eqSystemtypeId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <sql id="Query_By_Dto_Where_Clause">
@@ -251,5 +266,11 @@
 	</if>
     )) 
      as eqNums from t_equipment_category ec
+   </select>
+   <select id="findEquipmentSystemCategory2" resultType="i9.defence.platform.model.EquipmentCategory">
+   SELECT * FROM `t_equipment_category` where eqSystemtypeId = #{eqSystemtypeId}  
+   </select>
+    <select id="selectEqCategory" resultType="i9.defence.platform.model.EquipmentCategory">
+   	 select * from t_equipment_category WHERE eqSystemtypeId in (SELECT eqSystemtypeId from t_equipment_category ec where ec.id in (SELECT equipmentCategoryId FROM t_equipment e where e.id =#{id} ))
    </select>
 </mapper>

@@ -28,8 +28,33 @@ public class EquipmentCategory {
     
     private Integer eqNums;
     
+    //类型类型
+    private String systemCategory;
     
-    public Integer getEqNums() {
+    public String getSystemCategory() {
+		return systemCategory;
+	}
+
+	public void setSystemCategory(String systemCategory) {
+		this.systemCategory = systemCategory;
+	}
+
+	/**
+     * 设备分类一级id
+     */
+    private Integer eqSystemtypeId;
+    
+    
+    
+    public Integer getEqSystemtypeId() {
+		return eqSystemtypeId;
+	}
+
+	public void setEqSystemtypeId(Integer eqSystemtypeId) {
+		this.eqSystemtypeId = eqSystemtypeId;
+	}
+
+	public Integer getEqNums() {
 		return eqNums;
 	}
 

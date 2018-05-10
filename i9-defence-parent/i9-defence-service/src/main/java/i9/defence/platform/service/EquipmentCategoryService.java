@@ -60,6 +60,10 @@ public interface EquipmentCategoryService {
     List<EquipmentCategory> serchEqCategory()throws BusinessException;
     //
 	int selectSumEqNum()throws BusinessException;
+
+	List<EquipmentCategory> findEquipmentSystemCategory2(int id)throws BusinessException;
+
+	List<EquipmentCategory> selectEqCategory(Integer id)throws BusinessException;
     
 //    /**
 //     * 查询数量
