@@ -39,6 +39,8 @@ public class ProjcetMonitorComponent {
 		jsonObject.put("area", project.getProjectAddress());
 		jsonObject.put("clientListStr", project.getClientListStr());
 		jsonObject.put("saferList", project.getSafeListStr());
+		jsonObject.put("equipmentStatis", project.getEquipmentStatis());
+		jsonObject.put("distributorName", project.getDistributor().getName());
 		return jsonObject;
 	}
 }
