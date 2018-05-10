@@ -71,6 +71,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //分页条件
     $scope.pageSize = 10;
     $scope.currentPage = 1;
+    //类型切换
+    $scope.type = 0;
     //图表显示隐藏状态
     $scope.chartsStatus = true;
     $scope.idNum = 0;
@@ -112,7 +114,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 		};
 		
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
-			$scope.projectss  = data.data.data;
+			$scope.projectss  = data.data.data; 
 		})
 	}
 	$scope.queryProjects();
@@ -137,6 +139,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			/*projectName : text,
     			projectAddress : text,*/
     		};
+		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.totalCount = data.data.data;
+		})
     	
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;
@@ -491,10 +496,15 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     
     //设备类型切换
     $scope.changeType = function (idNum) {
-        $scope.type=idNum;
-        $scope.serchEqCategoryId = idNum;
-        $scope.pageInit();
-
+        if(idNum === 0){
+            $scope.type=idNum;
+            $scope.serchEqCategoryId = null;
+            $scope.pageInit();
+        }else{
+            $scope.type=idNum;
+            $scope.serchEqCategoryId = idNum;
+            $scope.pageInit();
+        }
     }
     //添加通道
     $scope.add = function () {  

@@ -16,12 +16,13 @@
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
  	<result column="delCount" jdbcType="INTEGER" property="delCount"/> 
+ 	<result column="warningCount" jdbcType="INTEGER" property="warningCount"/>
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<association property="warningCount" column="id" select="selectEquipTypeCount"></association>
   	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
   	<collection property="safeList" column="id" select="i9.defence.platform.dao.mapper.ManagerMapper.selectSafeByProjectId"/>
     <collection property="equipmentStatis" column="id" select="selectEquipStatistic"></collection>
   </resultMap>
-  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -482,9 +483,14 @@
     select 
 		 count(*) as equipCount,
 		 ec.eqCategoryName as eqCategoryName
-		 from t_equipment e left join t_equipment_category ec on ec.id = e.equipmentCategoryId
+		 from t_equipment e left join t_equipment_category ec on e.systemId=ec.eqCategoryId
 		 where e.projectId = #{id}
 		 GROUP BY  e.equipmentCategoryId
    </select>
    
+   <select id="selectEquipTypeCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   		 select count(*) as warningCount
+   		 from v_hiddendanger_edit he 
+		 where he.projectId = #{id} and he.warningCount > 0
+   </select>
 </mapper>

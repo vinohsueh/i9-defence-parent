@@ -53,7 +53,10 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
     	var date = new Date(d);
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
-    
+    //项目id初始化
+    $scope.projectId = null;
+
+
 	//地域
 	$scope.error = {};
 	$scope.division = division;
@@ -92,7 +95,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		}
 		if($scope.selected2 == null || $scope.selected2 == ''){
 			$scope.selected2 ={
-				name:''
+				name:null
 			}
 		}
 		var pageParam = {
@@ -115,6 +118,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				markItem.address = $scope.projectList[i].address;
 				markItem.projectName = $scope.projectList[i].projectName;
 				markItem.clientListStr = $scope.projectList[i].clientListStr;
+				markItem.equipmentStatis = $scope.projectList[i].equipmentStatis;
+				markItem.distributorName = $scope.projectList[i].distributorName;
 				$scope.markArr.push(markItem);
 			}
 			var mainHeight = $(window).height()-51;
@@ -146,11 +151,14 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			    // closeWhenClickMap:true,
 			    offset: new AMap.Pixel(0, -50),
 			});*/
-			var oHtml="";
+			var oHtml="";var equipmentStatis="";
 			$scope.mapOptions = [];
 			for(var i=0;i<myData.mark.length;i++){
-				
-				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr><tr><td>消防设施</td><td>123个</td></tr><tr><td>消防设备电源监控系统</td><td>80个</td></tr><tr><td>故障电弧监控系统</td><td>60个</td></tr><tr><td>火灾监控系统</td><td>70个</td></tr><tr><td colspan='2' class='text-center'>所属客户：(经销商)</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
+				equipmentStatis='';
+				for(j in myData.mark[i].equipmentStatis){
+					equipmentStatis += "<tr><td>"+myData.mark[i].equipmentStatis[j].eqCategoryName+"</td><td>"+myData.mark[i].equipmentStatis[j].equipCount+"个</td></tr>"
+				}
+				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr>"+equipmentStatis+"<tr><td colspan='2' class='text-center'>所属客户："+myData.mark[i].distributorName+"</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
 				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml};
 				$scope.mapOptions.push(a);
 				/*marker = new AMap.Marker({
@@ -180,10 +188,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	}
 	$scope.pageInit();
 	
-	setTimeout(function () {
-		$scope.chartInit();
-	  }, 100);
-	//图标初始化
+	
+	//图表初始化
 	// $scope.Ids = [];
 	$scope.chartsStatus = false;
 	$scope.chartInit = function (){
@@ -200,12 +206,13 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		var pageParam = {
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
-			projectId:null,
+			projectId:$scope.projectId,
 			startTime:$scope.dateToString($("#startTime").val()),
 			endTime:$scope.dateToString($("#endTime").val()),
 
 		};
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data));
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
 			$scope.projectWarning = [];
@@ -251,7 +258,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					        textStyle:{
 					            color:'#fff',
 					        },
-					        data:['报警','故障',]
+					        data:['报警','隐患',]
 					    },
 					    xAxis:{
 					        axisLabel: {        
@@ -300,7 +307,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					        
 					        {
 					            type:'bar',
-					            name:'故障',
+					            name:'隐患',
 					            showAllSymbol: true,
 					            symbol: 'emptyCircle',
 					            symbolSize: 10,
@@ -326,12 +333,31 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			
 		})
 	};
-
+	$scope.chartInit();
+	// 设备数量检测
+	$scope.equipmentNum = function () {
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectId:$scope.projectId,
+		};
+		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.totalCount = data.data.data;
+		})
+	}
+	$scope.equipmentNum();
+	// 搜索
 	$scope.searchBtn = function () {
 		$scope.pageInit();
+		$scope.equipmentNum();
 		$scope.chartInit();
 	}
-
+	//项目选择
+	$scope.choiceProject = function (idNum) {
+		$scope.projectId = idNum;
+		$scope.equipmentNum();
+		$scope.chartInit();
+	}
 	$(function () {
 	    // 右侧样式
 	    var mainWidth = parseInt($('#selfMain').width()*0.03);
@@ -462,14 +488,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		$state.go('app.monitoringChart',{id:id});
 	}
 	
-	var pageParam = {
-		projectProvince:$scope.selected.name,
-		projectCity:$scope.selected2.name,
-		projectId:null,
-	};
-	httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-		$scope.totalCount = data.data.data;
-	})
 	/*$scope.pieOption = {
         tooltip: {
             trigger: 'item',
