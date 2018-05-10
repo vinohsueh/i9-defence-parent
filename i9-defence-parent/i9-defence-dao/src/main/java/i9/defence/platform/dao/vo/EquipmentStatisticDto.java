@@ -19,7 +19,20 @@ public class EquipmentStatisticDto {
 	 */
 	private  String eqCategoryName;
 	
+	/**
+	 * 所有设备个数
+	 */
+	private Integer allEquipCount;
 	
+	
+	public Integer getAllEquipCount() {
+		return allEquipCount;
+	}
+
+	public void setAllEquipCount(Integer allEquipCount) {
+		this.allEquipCount = allEquipCount;
+	}
+
 	public Integer getEquipCount() {
 		return equipCount;
 	}

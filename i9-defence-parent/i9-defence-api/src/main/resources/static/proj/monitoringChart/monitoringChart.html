@@ -38,7 +38,7 @@
           <i class='glyphicon glyphicon-map-marker'></i>&nbsp;地点:{{projectInfo.project.location}}<i class='ml-10 glyphicon glyphicon-hdd'></i>&nbsp;项目名称:{{projectInfo.project.name}}
         </div>
         <div class="col-md-4 text-right">
-          <p><span class='mr-10'>总数:{{serchEqNums}}</span><span class='mr-10'>报警:{{warningCount}}</span><span class='mr-10'>隐患:{{hiddenCount}}</span>离线:1</p>
+          <p><span class='mr-10'>总数:{{totalCount.total}}</span><span class='mr-10'>报警:{{totalCount.alert}}</span><span class='mr-10'>隐患:{{totalCount.fault}}</span>离线:{{totalCount.offline}}</p>
         </div>
         <div class="col-md-4 text-right">
           实时监控设备状态：
