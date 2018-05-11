@@ -13,7 +13,7 @@ import i9.defence.platform.model.EquipmentCategoryExample;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 项目DaoImpl
+ * DaoImpl
  * @author gbq
  * @create 
  */
@@ -66,9 +66,31 @@ public class EquipmentCategoryDaoImpl implements EquipmentCategoryDao {
 
 	@Override
 	public int selectSumEqNum(EquipmentCategory equipmentCategory) throws Exception {
-		// TODO Auto-generated method stub
 		return eqCategoryMapper.selectSumEqNum(equipmentCategory);
 	}
+
+	@Override
+	public List<EquipmentCategory> findEquipmentSystemCategory2(int id) throws Exception {
+		return eqCategoryMapper.findEquipmentSystemCategory2(id);
+	}
+
+	@Override
+	public List<EquipmentCategory> selectEqCategory(Integer id) throws Exception {
+		return eqCategoryMapper.selectEqCategory(id);
+	}
+
+	@Override
+	public EquipmentCategory getEqCategoryId(String eqCategoryId) {
+		EquipmentCategoryExample example = new EquipmentCategoryExample();
+	        example.createCriteria().andEqCategoryIdEqualTo(eqCategoryId);
+	        List<EquipmentCategory> list = eqCategoryMapper.selectByExample(example);
+	        if(list.size() > 0){
+	            return list.get(0);
+	        }
+	        return null;
+	}
+
+	
 
 	/*@Override
 	public List<EquipmentCategory> selectAllEqCategoryAndNum1(EquipmentCategory equipmentCategory) throws Exception {

@@ -7,7 +7,7 @@ import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.utils.PageBounds;
 
 /**
- * 项目 Dao
+ *  Dao
  * @author gbq
  * @create 2018年1月8日
  */
@@ -67,6 +67,12 @@ public interface EquipmentCategoryDao {
     
     //查询总数
 	int selectSumEqNum(EquipmentCategory equipmentCategory)throws Exception;
+	//查询二级类别
+	List<EquipmentCategory> findEquipmentSystemCategory2(int id)throws Exception;
+	//通过id查询全部
+	List<EquipmentCategory> selectEqCategory(Integer id)throws Exception;
+	//查询eqCategoryId是否重复
+	EquipmentCategory getEqCategoryId(String eqCategoryId);
     
     /**
      * 查询数量

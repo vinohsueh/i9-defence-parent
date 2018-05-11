@@ -6,9 +6,9 @@ import i9.defence.platform.dao.vo.EqCategorySearchDto;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
-
+ 
 /**
- * 项目Service
+ * Service
  * @author gbq
  * @create 
  */
@@ -63,6 +63,10 @@ public interface EquipmentCategoryService {
     //
 	int selectSumEqNum(EquipmentCategory equipmentCategory)throws BusinessException;
  
+	List<EquipmentCategory> findEquipmentSystemCategory2(int id)throws BusinessException;
+
+	List<EquipmentCategory> selectEqCategory(Integer id)throws BusinessException;
+    
 //    /**
 //     * 查询数量
 //     * @param 

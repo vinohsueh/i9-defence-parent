@@ -28,10 +28,12 @@ import i9.defence.platform.enums.DataTypeEnum;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.EquipmentCategory;
+import i9.defence.platform.model.EquipmentSystemtype;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ChannelDataService;
+import i9.defence.platform.service.EqSystemCategoryService;
 import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ManagerService;
@@ -62,6 +64,9 @@ public class EquipmentController {
 	private PassagewayService passagewayService;
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private EqSystemCategoryService eqSystemCategoryService;
+	
 	/**
 	 * 分页查询设备列表
 	 * @Title:pageEquipment
@@ -133,9 +138,11 @@ public class EquipmentController {
 	 */
 	@RequiresPermissions("equip_list")
 	@RequestMapping("/getEquipment")
-	public HashMap<String, Object> getEquipment(@RequestBody Integer equipmentId) {
+	public HashMap<String, Object> getEquipment(@RequestBody Integer id) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		Equipment equipment = equipmentService.getEquipmentById(equipmentId);
+		Equipment equipment = equipmentService.getEquipmentById(id);
+		List<EquipmentCategory> equCategory = eqCategoryService.selectEqCategory(id);
+		result.put("equCategory", equCategory);
 		result.put("data", equipment);
 		return result;
 	}
@@ -155,18 +162,31 @@ public class EquipmentController {
 	}
 
 	/**
-	 * @Title findEquipment
-	 * @param ids
+	 * @Title findEquipmentSystemCategory
 	 * @return
 	 */
-	@RequestMapping("/findEquipment")
-	public HashMap<String, Object> findEquipment() {
+	@RequestMapping("/findEquipmentSystemCategory")
+	public HashMap<String, Object> findEquipmentSystemCategory() {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		EquipmentCategory equipmentCategory = new EquipmentCategory();
 		List<EquipmentCategory> eqCategory = eqCategoryService.serchEqCategory(equipmentCategory);
+		List<EquipmentSystemtype> eqSystemCategory=eqSystemCategoryService.findEquipmentSystemCategory();
 		List<Project> project = projectService.findAllProject();
-		result.put("equCategorys", eqCategory);
+		result.put("eqCategory", eqCategory);
+		result.put("eqSystemCategory", eqSystemCategory);
 		result.put("projects", project);
+		return result;
+	}
+	
+	/**
+	 * @Title findEquipmentSystemCategory2
+	 * @return
+	 */
+	@RequestMapping("/findEquipmentSystemCategory2")
+	public HashMap<String, Object> findEquipmentSystemCategory2(@RequestBody Integer Id) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		List<EquipmentCategory> equipmentCategory=eqCategoryService.findEquipmentSystemCategory2(Id);
+		result.put("equipmentCategory", equipmentCategory);
 		return result;
 	}
 
