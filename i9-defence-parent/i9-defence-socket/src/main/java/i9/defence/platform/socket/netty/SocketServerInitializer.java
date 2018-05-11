@@ -22,7 +22,7 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("encoder", new MessageEncoder());
         // 自己的逻辑Handler
         pipeline.addLast("handler", new ServiceHandler());
-        pipeline.addLast("handler", new HeartbeatServerHandler());
+        pipeline.addLast(new HeartbeatServerHandler());
         
 //        ChannelHandlerAdapter customerInboundHandler = new CustomerInboundHandler();
 //        pipeline.addLast(customerInboundHandler);
