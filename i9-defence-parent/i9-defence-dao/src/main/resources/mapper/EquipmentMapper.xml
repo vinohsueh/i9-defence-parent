@@ -874,4 +874,7 @@
 	    	and warningCount > 0
     	</trim>
 	 </select>
+	 <update id="updateEquipmentStatusByDeviceId">
+	 	update t_equipment set status = #{status} where deviceId = #{deviceId}
+	 </update>
 </mapper>
