@@ -80,14 +80,14 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 
     $scope.changeTimeStatu = 1;
     
-    $scope.serchEqCategory = function(){      
+   /* $scope.serchEqCategory = function(){      
         var pageParam = {};
         httpService.post({url:'./eqCategory/serchEqCategory',data:pageParam,showSuccessMsg:false}).then(function(data) { 
             $scope.serchEqCategory  = data.data.data;
             $scope.serchEqNums = data.data.eqNums;
         })
     }
-    $scope.serchEqCategory();
+    $scope.serchEqCategory();*/
 
     
     $scope.queryProjects = function(){
@@ -114,7 +114,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 		};
 		
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
-			$scope.projectss  = data.data.data;
+			$scope.projectss  = data.data.data; 
 		})
 	}
 	$scope.queryProjects();
@@ -135,10 +135,18 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			currentPage:$scope.currentPage,*/
     			projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
-                equipmentCategoryId:$scope.serchEqCategoryId,
+                systemId:$scope.serchEqCategoryId,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
+		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.totalCount = data.data.data;
+		});
+		
+        httpService.post({url:'./eqCategory/serchEqCategory',data:pageParam,showSuccessMsg:false}).then(function(data) { 
+            $scope.serchEqCategory  = data.data.data;
+            $scope.serchEqNums = data.data.eqNums;
+        })
     	
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;

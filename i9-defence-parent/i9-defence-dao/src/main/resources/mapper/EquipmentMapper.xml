@@ -16,8 +16,9 @@
     <result column="unit" jdbcType="INTEGER" property="unit" />
     <result column="loopl" jdbcType="INTEGER" property="loopl" />
     <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
-     <result column="status" jdbcType="INTEGER" property="status" />
-    <association property="equipmentCategory" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByPrimaryKey"></association>
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <association property="equipmentSystemtype" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
+    <association property="equipmentCategory" column="systemId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
   	<collection column="equipmentCategoryId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></collection>
   	<collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"></collection>
@@ -594,8 +595,8 @@
 				<if test="example.distributorId != null and example.distributorId != ''">
 					and distributorId ='${example.distributorId}'
 				</if>
-				<if test="example.equipmentCategoryId != null">
-					and equipmentCategoryId = #{example.equipmentCategoryId}
+				<if test="example.systemId != null">
+					and systemId = #{example.systemId}
 				</if>
 				<!-- <if test="example.startDate != null and example.startDate != ''">
 					and example.startDate &lt; equipmentDate

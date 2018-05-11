@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper">
+  <resultMap id="BaseResultMap" type="i9.defence.platform.model.EquipmentSystemtype">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="systemType" jdbcType="VARCHAR" property="systemType" />
+    <result column="systemCategory" jdbcType="VARCHAR" property="systemCategory" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, systemType, systemCategory
+  </sql>
+  <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentSystemtypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_equipment_systemtype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_equipment_systemtype
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.List" >
+    delete from t_equipment_systemtype
+    where id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
+  </delete>
+  <delete id="deleteByExample" parameterType="i9.defence.platform.model.EquipmentSystemtypeExample">
+    delete from t_equipment_systemtype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="i9.defence.platform.model.EquipmentSystemtype">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_equipment_systemtype (systemType, systemCategory)
+    values (#{systemType,jdbcType=VARCHAR}, #{systemCategory,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="i9.defence.platform.model.EquipmentSystemtype">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_equipment_systemtype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="systemType != null">
+        systemType,
+      </if>
+      <if test="systemCategory != null">
+        systemCategory,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="systemType != null">
+        #{systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCategory != null">
+        #{systemCategory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample"  resultType="java.lang.Integer">
+    select count(*) from t_equipment_systemtype
+    <if test="_parameter != null">
+      <include refid="Query_By_Dto_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_equipment_systemtype
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.systemType != null">
+        systemType = #{record.systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemCategory != null">
+        systemCategory = #{record.systemCategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_equipment_systemtype
+    set id = #{record.id,jdbcType=INTEGER},
+      systemType = #{record.systemType,jdbcType=VARCHAR},
+      systemCategory = #{record.systemCategory,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="i9.defence.platform.model.EquipmentSystemtype">
+    update t_equipment_systemtype
+    <set>
+      <if test="systemType != null">
+        systemType = #{systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="systemCategory != null">
+        systemCategory = #{systemCategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.EquipmentSystemtype">
+    update t_equipment_systemtype
+    set systemType = #{systemType,jdbcType=VARCHAR},
+      systemCategory = #{systemCategory,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_equipment_systemtype
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
+    <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.systemType != null and example.systemType != ''">
+            OR (systemType LIKE CONCAT(CONCAT('%','${example.systemType}'),'%' )
+        </if>
+        <if test="example.systemCategory != null and example.systemCategory != ''">
+            OR (systemCategory LIKE CONCAT(CONCAT('%','${example.systemCategory}'),'%' )
+        </if>
+    </trim>
+  </sql>
+</mapper>

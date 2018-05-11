@@ -195,6 +195,23 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.eqSystemtype', {
+                  url: '/eqSystemtype',
+                  templateUrl: 'proj/eqSystemtype/eqSystemtype.html',
+              	  controller : "eqSystemtypeNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'eqSystemtypeNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/eqSystemtype/eqSystemtype.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.pageUrl', {
                   url: '/pageUrl',
                   templateUrl: 'proj/page/page.html',

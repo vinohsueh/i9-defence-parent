@@ -68,9 +68,20 @@ public class Project {
      * 项目下不用类型的设备个数
      */
     private List<EquipmentStatisticDto> equipmentStatis;
+    
+    /**
+     * 统计项目下设备报警个数
+     */
+    private Integer warningCount;
 
-    
-    
+	public Integer getWarningCount() {
+		return warningCount;
+	}
+
+	public void setWarningCount(Integer warningCount) {
+		this.warningCount = warningCount;
+	}
+
 	public List<EquipmentStatisticDto> getEquipmentStatis() {
 		return equipmentStatis;
 	}

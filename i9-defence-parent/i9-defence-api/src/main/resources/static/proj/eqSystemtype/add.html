@@ -5,30 +5,16 @@
 </div>
 <div class="modal-body">
 	<form class="form-horizontal" role="form">
-		 <div class="form-group">
-				<label class="col-md-2 control-label"><span class="required">*</span>所属一级分类</label>
-				<div class="col-md-8">
-					<select   class="input-sm form-control w-sm inline v-middle" ng-model="eqCategory.eqSystemtypeId"  ng-options="item.id as item.systemType for item in eqSystemCategorys">
-	        			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白 -->
-	    			</select>
-				</div>
-			</div>
 		<div class="form-group">
 			<label class="col-md-3 control-label"><span class="required">*</span>设备类别名称</label>
 			<div class="col-md-8">
-				<input type="text" class="form-control" id="name" ng-model="eqCategory.eqCategoryName" placeholder="">
+				<input type="text" class="form-control" id="name" ng-model="eqSystemtype.systemType" placeholder="">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-3 control-label"><span class="required">*</span>设备类别编号</label>
+			<label class="col-md-3 control-label"><span class="required">*</span>设备分类类型</label>
 			<div class="col-md-8">
-				<input type="text" class="form-control" id="name" ng-model="eqCategory.eqCategoryId" placeholder="">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-3 control-label"><span class="required">*</span>设备类别说明</label>
-			<div class="col-md-8">
-				<input type="text" class="form-control" id="name" ng-model="eqCategory.eqCategoryExplain" placeholder="">
+				<input type="text" class="form-control" id="name" ng-model="eqSystemtype.systemCategory" placeholder="">
 			</div>
 		</div>
 		<div class="form-group" style="display: none;">

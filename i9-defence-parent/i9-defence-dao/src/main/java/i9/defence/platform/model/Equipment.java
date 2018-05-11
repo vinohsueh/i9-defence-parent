@@ -45,6 +45,8 @@ public class Equipment {
      */
     private EquipmentCategory equipmentCategory;
     
+    private EquipmentSystemtype equipmentSystemtype;
+    
     /**
      * 项目id
      */
@@ -124,6 +126,14 @@ public class Equipment {
 
 	public void setPhones1(String phones1) {
 		this.phones1 = phones1;
+	}
+
+	public EquipmentSystemtype getEquipmentSystemtype() {
+		return equipmentSystemtype;
+	}
+
+	public void setEquipmentSystemtype(EquipmentSystemtype equipmentSystemtype) {
+		this.equipmentSystemtype = equipmentSystemtype;
 	}
 
 	//设备一对多 通道数据

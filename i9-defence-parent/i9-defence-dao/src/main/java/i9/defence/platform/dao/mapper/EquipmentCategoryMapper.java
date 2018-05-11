@@ -38,6 +38,10 @@ public interface EquipmentCategoryMapper {
     List<EquipmentCategory> selectAllEqCategoryAndNum(@Param("example") EquipmentCategory equipmentCategory);
 
 	int selectSumEqNum(@Param("example")EquipmentCategory equipmentCategory);
-    
+
+	List<EquipmentCategory> findEquipmentSystemCategory2(int eqSystemtypeId);
+
+	List<EquipmentCategory> selectEqCategory(Integer id);
+
 //    List<EquipmentCategory> selectAllEqCategoryAndNum1(@Param("example") EquipmentCategory equipmentCategory);
 }

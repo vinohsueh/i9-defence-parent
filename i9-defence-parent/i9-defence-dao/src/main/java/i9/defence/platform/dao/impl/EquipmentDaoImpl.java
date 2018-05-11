@@ -217,4 +217,15 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		totalEquipmentDto.setAlert(totalAlertEquipment);
 		return totalEquipmentDto;
 	}
+
+	@Override
+	public Equipment getEquipmentByName(String equipmentName) {
+		EquipmentExample example = new EquipmentExample();
+		example.createCriteria().andEquipmentNameEqualTo(equipmentName);
+		List<Equipment> list = equipmentMapper.selectByExample(example);
+        if(list.size() > 0){
+            return list.get(0);
+        }
+        return null;
+	}
 }

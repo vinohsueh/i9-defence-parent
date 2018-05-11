@@ -59,7 +59,15 @@ public class HiddenDangerSearchDto extends PageListDto{
 	 */
 	private Integer hiddenCount1;
 	
+	private String systemId;
 	
+	
+	public String getSystemId() {
+		return systemId;
+	}
+	public void setSystemId(String systemId) {
+		this.systemId = systemId;
+	}
 	public Integer getHiddenCount1() {
 		return hiddenCount1;
 	}

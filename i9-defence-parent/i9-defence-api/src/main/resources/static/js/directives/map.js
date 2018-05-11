@@ -60,12 +60,12 @@ angular.module('app').directive(
 											marker = new AMap.Marker({
 												position: [$scope.options[i].lng,$scope.options[i].lat],
 										        zIndex: 101,
-										        /*icon:new AMap.Icon({            
+										        icon:new AMap.Icon({            
 										            // size: new AMap.Size(40, 50),  //图标大小
 										            // image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
-										            image: "./images/timg.jpg",
+										            image: "./images/mark.png",
 										            // imageOffset: new AMap.Pixel(0, -60)
-										        }),*/
+										        }),
 										        map: map
 										    });
 											marker.content = $scope.options[i].content;

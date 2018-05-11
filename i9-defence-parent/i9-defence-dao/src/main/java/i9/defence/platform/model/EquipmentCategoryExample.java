@@ -374,6 +374,67 @@ public class EquipmentCategoryExample {
             return (Criteria) this;
         }
         
+        public Criteria andEqSystemtypeIdIsNull() {
+            addCriterion("eqSystemtypeId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdIsNotNull() {
+            addCriterion("eqSystemtypeId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdEqualTo(Integer value) {
+            addCriterion("eqSystemtypeId =", value, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdNotEqualTo(Integer value) {
+            addCriterion("eqSystemtypeId <>", value, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdGreaterThan(Integer value) {
+            addCriterion("eqSystemtypeId >", value, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("eqSystemtypeId >=", value, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdLessThan(Integer value) {
+            addCriterion("eqSystemtypeId <", value, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdLessThanOrEqualTo(Integer value) {
+            addCriterion("eqSystemtypeId <=", value, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdIn(List<Integer> values) {
+            addCriterion("eqSystemtypeId in", values, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdNotIn(List<Integer> values) {
+            addCriterion("eqSystemtypeId not in", values, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdBetween(Integer value1, Integer value2) {
+            addCriterion("eqSystemtypeId between", value1, value2, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEqSystemtypeIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("eqSystemtypeId not between", value1, value2, "eqSystemtypeId");
+            return (Criteria) this;
+        }
+
+        
     }
 
     public static class Criteria extends GeneratedCriteria {

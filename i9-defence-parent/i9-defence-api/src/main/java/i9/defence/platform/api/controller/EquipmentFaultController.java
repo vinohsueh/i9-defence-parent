@@ -38,7 +38,8 @@ public class EquipmentFaultController {
     @RequestMapping("/pageEquipmentFault")
     public HashMap<String, Object> pageEquipmentFault(@RequestBody EquipmentFaultSearchDto equipmentFaultSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory();
+        EquipmentCategory category = new EquipmentCategory();
+        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(category);
         PageBounds<EquipmentFault> pageBounds = equipmentFaultService.selectByLimitPage(equipmentFaultSearchDto);
         result.put("data",pageBounds);
         result.put("equipmentCategory",equipmentCategory);

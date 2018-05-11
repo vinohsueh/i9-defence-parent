@@ -38,25 +38,17 @@
               </label>
             </th>
             <th>设备分类名称</th>
-            <th>设备类别编号</th>
-            <th>设备类别说明</th>
-            <th>添加通道</th>
-            <th>设备一级分类名称</th>
+            <th>设备分类类型</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="eqCategory in eqCategorys">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{eqCategory.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td >{{eqCategory.eqCategoryName}}</td>
-            <td >{{eqCategory.eqCategoryId}}</td>
-            <td >{{eqCategory.eqCategoryExplain}}</td>
+          <tr ng-repeat="eqSystemtype in eqSystemtypes">
+            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{eqSystemtype.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+            <td >{{eqSystemtype.systemType}}</td>
+            <td >{{eqSystemtype.systemCategory}}</td>
             <td>
-              <button type='button' class='btn btn-primary' ng-click="addPassageway({{eqCategory.id}})">添加通道</button>
-            </td>
-            <td >{{eqCategory.equipmentSystemtype.systemType}}</td>
-            <td>
-            <button ng-click="edit({{eqCategory.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
+            <button ng-click="edit({{eqSystemtype.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
             </td>
           </tr>
         </tbody>
