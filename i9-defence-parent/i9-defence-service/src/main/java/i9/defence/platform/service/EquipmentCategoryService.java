@@ -54,13 +54,15 @@ public interface EquipmentCategoryService {
     
     /**
      * 查询全部
+     * @param equipmentCategory 
+     * @param projectId 
      * @param 
-     * @throws BusinessException
+     * @throws BusinessException 
      */
-    List<EquipmentCategory> serchEqCategory()throws BusinessException;
+    List<EquipmentCategory> serchEqCategory(EquipmentCategory equipmentCategory)throws BusinessException;
     //
-	int selectSumEqNum()throws BusinessException;
-    
+	int selectSumEqNum(EquipmentCategory equipmentCategory)throws BusinessException;
+ 
 //    /**
 //     * 查询数量
 //     * @param 

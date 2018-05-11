@@ -224,7 +224,10 @@
    <select id="selectAllEqCategoryAndNum" resultType="i9.defence.platform.model.EquipmentCategory">
    select ec.*,(select count(*) from t_equipment e left join 
    t_project p on p.id = e.projectId where 
-   e.equipmentCategoryId = ec.id 
+   e.systemId = ec.eqCategoryId 
+   <if test="example.projectId !=null and example.projectId !=''">
+   		and projectId='${example.projectId}'
+   </if>
    <!--经销商  -->	
 	<if test="example.distributorId != null and example.distributorId != ''">
 		and distributorId ='${example.distributorId}'
@@ -241,6 +244,9 @@
    select sum((select count(*) from t_equipment e left join 
    t_project p on p.id = e.projectId where 
    e.equipmentCategoryId = ec.id
+   <if test="example.projectId !=null and example.projectId !=''">
+   		and projectId='${example.projectId}'
+   </if>
    <!--经销商  -->	
 	<if test="example.distributorId != null and example.distributorId != ''">
 		and distributorId ='${example.distributorId}'

@@ -573,8 +573,8 @@
 				<if test="example.distributorId != null and example.distributorId != ''">
 					and distributorId ='${example.distributorId}'
 				</if>
-				<if test="example.equipmentCategoryId != null">
-					and equipmentCategoryId = #{example.equipmentCategoryId}
+				<if test="example.systemId != null">
+					and systemId = #{example.systemId}
 				</if>
 				<!-- <if test="example.startDate != null and example.startDate != ''">
 					and example.startDate &lt; equipmentDate

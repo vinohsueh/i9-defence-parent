@@ -28,8 +28,17 @@ public class EquipmentCategory {
     
     private Integer eqNums;
     
+    private Integer projectId;
     
-    public Integer getEqNums() {
+    public Integer getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+
+	public Integer getEqNums() {
 		return eqNums;
 	}
 

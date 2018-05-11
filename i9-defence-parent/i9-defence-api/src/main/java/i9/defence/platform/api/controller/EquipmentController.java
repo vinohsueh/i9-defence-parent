@@ -162,7 +162,8 @@ public class EquipmentController {
 	@RequestMapping("/findEquipment")
 	public HashMap<String, Object> findEquipment() {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<EquipmentCategory> eqCategory = eqCategoryService.serchEqCategory();
+		EquipmentCategory equipmentCategory = new EquipmentCategory();
+		List<EquipmentCategory> eqCategory = eqCategoryService.serchEqCategory(equipmentCategory);
 		List<Project> project = projectService.findAllProject();
 		result.put("equCategorys", eqCategory);
 		result.put("projects", project);
