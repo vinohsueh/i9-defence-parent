@@ -7,6 +7,7 @@
     <result column="eqCategoryId" jdbcType="VARCHAR" property="eqCategoryId" />
     <result column="eqCategoryExplain" jdbcType="VARCHAR" property="eqCategoryExplain" />
     <result column="eqSystemtypeId" jdbcType="INTEGER" property="eqSystemtypeId" />
+    <association property="equipmentSystemtype" column="eqSystemtypeId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -169,7 +170,7 @@
         eqCategoryExplain = #{record.eqCategoryExplain,jdbcType=VARCHAR},
       </if>
        <if test="record.eqSystemtypeId != null">
-        id = #{record.eqSystemtypeId,jdbcType=INTEGER},
+        eqSystemtypeId = #{record.eqSystemtypeId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
