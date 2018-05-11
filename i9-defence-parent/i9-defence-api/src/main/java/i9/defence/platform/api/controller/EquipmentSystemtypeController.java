@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.EqSystemCategorySearchDto;
-import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.EquipmentSystemtype;
 import i9.defence.platform.service.EqSystemCategoryService;
 import i9.defence.platform.utils.PageBounds;
