@@ -58,7 +58,7 @@ public interface EquipmentCategoryService {
      * @throws BusinessException
      */
     List<EquipmentCategory> serchEqCategory()throws BusinessException;
-    //
+    
 	int selectSumEqNum()throws BusinessException;
 
 	List<EquipmentCategory> findEquipmentSystemCategory2(int id)throws BusinessException;
