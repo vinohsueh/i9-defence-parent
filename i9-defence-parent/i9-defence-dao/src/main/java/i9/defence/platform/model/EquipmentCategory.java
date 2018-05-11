@@ -28,9 +28,18 @@ public class EquipmentCategory {
     
     private Integer eqNums;
     
+    private Integer projectId;
     //类型类型
     private String systemCategory;
     
+    public Integer getProjectId() {
+		return projectId;
+	}
+ 
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+	
     public String getSystemCategory() {
 		return systemCategory;
 	}

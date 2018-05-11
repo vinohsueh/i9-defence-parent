@@ -52,14 +52,14 @@ public class EquipmentCategoryController {
      * @return
      */
     @RequestMapping("/serchEqCategory")
-    public HashMap<String, Object> serchEqCategory() {
+    public HashMap<String, Object> serchEqCategory(@RequestBody EquipmentCategory equipmentCategory) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        List<EquipmentCategory> list = eqCategoryService.serchEqCategory();
-        int eqNums=eqCategoryService.selectSumEqNum();
+        List<EquipmentCategory> list = eqCategoryService.serchEqCategory(equipmentCategory);
+        int eqNums=eqCategoryService.selectSumEqNum(equipmentCategory); 
         result.put("data", list);
         result.put("eqNums", eqNums);
         return result;
-    }
+    } 
     
     /**
      * 查询项目分类全部和数量

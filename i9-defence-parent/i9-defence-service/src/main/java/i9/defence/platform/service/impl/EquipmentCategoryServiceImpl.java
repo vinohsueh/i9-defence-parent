@@ -88,10 +88,9 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 	}
 
 	@Override
-	public List<EquipmentCategory> serchEqCategory() throws BusinessException {
+	public List<EquipmentCategory> serchEqCategory(EquipmentCategory equipmentCategory) throws BusinessException {
 		try {
 			Manager loginManager = managerService.getLoginManager();
-			EquipmentCategory equipmentCategory = new EquipmentCategory();
 			//如果为网站用户显示全部（type=0）
 			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
 				return eqCategoryDao.selectAllEqCategoryAndNum(equipmentCategory);
@@ -112,10 +111,9 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 	}
 
 	@Override
-	public int selectSumEqNum() throws BusinessException {
+	public int selectSumEqNum(EquipmentCategory equipmentCategory) throws BusinessException {
 		try {
 			Manager loginManager = managerService.getLoginManager();
-			EquipmentCategory equipmentCategory = new EquipmentCategory();
 			//如果为网站用户（type=0）
 			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
 				return eqCategoryDao.selectSumEqNum(equipmentCategory);
@@ -152,7 +150,6 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 			throw new BusinessException("查询二级类别失败",e.getMessage());
 		}
 	}
-	
 
 //	@Override
 //	public List<EqCategorySearchDto> selectAllEqCategoryAndNum() throws BusinessException {

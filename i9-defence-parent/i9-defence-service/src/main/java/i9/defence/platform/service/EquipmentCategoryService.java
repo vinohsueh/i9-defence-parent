@@ -6,7 +6,7 @@ import i9.defence.platform.dao.vo.EqCategorySearchDto;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
-
+ 
 /**
  * Service
  * @author gbq
@@ -54,13 +54,19 @@ public interface EquipmentCategoryService {
     
     /**
      * 查询全部
+     * @param equipmentCategory 
+     * @param projectId 
      * @param 
-     * @throws BusinessException
+     * @throws BusinessException 
      */
     List<EquipmentCategory> serchEqCategory()throws BusinessException;
     
 	int selectSumEqNum()throws BusinessException;
 
+    List<EquipmentCategory> serchEqCategory(EquipmentCategory equipmentCategory)throws BusinessException;
+    //
+	int selectSumEqNum(EquipmentCategory equipmentCategory)throws BusinessException;
+ 
 	List<EquipmentCategory> findEquipmentSystemCategory2(int id)throws BusinessException;
 
 	List<EquipmentCategory> selectEqCategory(Integer id)throws BusinessException;

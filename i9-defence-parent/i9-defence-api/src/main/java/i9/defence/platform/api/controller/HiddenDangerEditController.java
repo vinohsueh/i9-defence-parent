@@ -50,7 +50,7 @@ public class HiddenDangerEditController {
     public HashMap<String, Object> pageHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         PageBounds<HiddenDangerDto> pageBounds = equipmentService.selectHiddenDangerByLimitPage(hiddenDangerSearchDto);
-        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory();
+        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(new EquipmentCategory());
         List<Project> project = projectService.findAllProject();
         result.put("data",pageBounds);
         result.put("equipmentCategory",equipmentCategory);
@@ -61,13 +61,13 @@ public class HiddenDangerEditController {
     /**
      * 查询全部
      * @param hiddenDangerSearchDto
-     * @return
+     * @return 
      */
     @RequestMapping("/selectAllHiddenDangerEdit")
     public HashMap<String, Object> selectAllHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         List<HiddenDangerDto> list = equipmentService.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
-        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory();
+        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(new EquipmentCategory());
         List<Project> project = projectService.findAllProject();
         result.put("data",list);
         result.put("equipmentCategory",equipmentCategory);
