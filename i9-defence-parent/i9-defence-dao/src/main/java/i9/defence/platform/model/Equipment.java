@@ -75,7 +75,11 @@ public class Equipment {
      * 唯一标识
      */
     private String deviceId;
-    
+    	
+    /**
+     * 设备状态
+     */
+    private Integer status;
     /**
      * 设备一对多通道
      */
@@ -90,7 +94,15 @@ public class Equipment {
     private String name1;
     
     
-    public String getName() {
+    public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public String getName() {
 		return name;
 	}
 
