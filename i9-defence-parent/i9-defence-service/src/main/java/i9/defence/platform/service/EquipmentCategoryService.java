@@ -59,10 +59,7 @@ public interface EquipmentCategoryService {
      * @param 
      * @throws BusinessException 
      */
-    List<EquipmentCategory> serchEqCategory()throws BusinessException;
     
-	int selectSumEqNum()throws BusinessException;
-
     List<EquipmentCategory> serchEqCategory(EquipmentCategory equipmentCategory)throws BusinessException;
     //
 	int selectSumEqNum(EquipmentCategory equipmentCategory)throws BusinessException;
