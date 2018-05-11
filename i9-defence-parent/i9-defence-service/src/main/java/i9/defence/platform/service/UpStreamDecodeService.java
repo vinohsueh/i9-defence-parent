@@ -3,6 +3,7 @@ package i9.defence.platform.service;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
+import i9.defence.platform.model.ConnectLog;
 import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
@@ -37,5 +38,18 @@ public interface UpStreamDecodeService {
 	    void deleteUpStreamDecode(List<Integer> ids) throws BusinessException;
 
         void saveUpStreamDecode(String jsonStr) throws Exception;
+        
+        /**
+         * 跟新设备的状态
+         * @param deviceId
+         * @param status
+         */
+		void updateEquipmentStatus(String deviceId, int status);
+		
+		/**
+		 * 添加链掉线记录
+		 * @param connectLog
+		 */
+		void insertConnectRecord(ConnectLog connectLog);
 }
  
