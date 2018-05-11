@@ -2,6 +2,7 @@ package i9.defence.platform.socket.netty;
 
 import i9.defence.platform.socket.netty.codec.MessageDecoder;
 import i9.defence.platform.socket.netty.codec.MessageEncoder;
+import i9.defence.platform.socket.netty.handler.HeartbeatServerHandler;
 import i9.defence.platform.socket.netty.handler.ServiceHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -21,6 +22,7 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("encoder", new MessageEncoder());
         // 自己的逻辑Handler
         pipeline.addLast("handler", new ServiceHandler());
+        pipeline.addLast("handler", new HeartbeatServerHandler());
         
 //        ChannelHandlerAdapter customerInboundHandler = new CustomerInboundHandler();
 //        pipeline.addLast(customerInboundHandler);
