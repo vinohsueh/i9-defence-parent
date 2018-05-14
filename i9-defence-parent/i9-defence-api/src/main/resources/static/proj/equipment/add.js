@@ -38,6 +38,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 		}
 		
 	};
+	$scope.change();
 	$scope.change2 = function(){
 	};
 	
