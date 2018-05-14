@@ -259,7 +259,7 @@
     <select id="selectSumEqNum" resultType="java.lang.Integer">
    select sum((select count(*) from t_equipment e left join 
    t_project p on p.id = e.projectId where 
-   e.equipmentCategoryId = ec.id
+   e.systemId = ec.eqCategoryId 
    <if test="example.projectId !=null and example.projectId !=''">
    		and projectId='${example.projectId}'
    </if>
