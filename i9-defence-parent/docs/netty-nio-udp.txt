@@ -11,7 +11,7 @@ Netty4.x中文教程系列(七)UDP协议
         Netty开发基于UDP协议的服务端需要使用Bootstrap
 
         
-
+https://www.cnblogs.com/zou90512/p/4567287.html
 
 复制代码
  1 package dev.tinyz.game;
@@ -156,48 +156,28 @@ Netty4.x中文教程系列(七)UDP协议
 59 }
 复制代码
         和上面的“服务端”代码最大的差别就是，监听的端口号修改成0.为
-
         使用Netty的Channel发送DatagramPacket。写好目标地址，然后运行起来就可以自己测试一下了。
 
-        3.        JAVA原生UDP
-        有朋友这个时候就会问：为什么不是有JAVA原生的UDP呢？
+package dev.tinyz.game;
 
-        其实很简单。说白了Netty使用的也是Java底层的代码。只是做了一层封装，以便于使用。服务端使用Netty框架构建高性能，高扩展的UDP服务器。
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
 
-        客户端则使用JAVA或者任意其他的语言的API（遵循UDP协议即可）。
+/**
+ * @author TinyZ on 2015/6/10.
+ */
+public class UdpTest {
 
-        下面上一段博主使用的的JAVA
-
-        
-
-
-复制代码
- 1 package dev.tinyz.game;
- 2 
- 3 import java.io.IOException;
- 4 import java.net.DatagramPacket;
- 5 import java.net.DatagramSocket;
- 6 import java.net.InetSocketAddress;
- 7 import java.nio.charset.Charset;
- 8 
- 9 /**
-10  * @author TinyZ on 2015/6/10.
-11  */
-12 public class UdpTest {
-13 
-14     public static void main(String[] args) throws IOException {
-15         final String data = "博主邮箱:zou90512@126.com";
-16         byte[] bytes = data.getBytes(Charset.forName("UTF-8"));
-17         InetSocketAddress targetHost = new InetSocketAddress("192.168.2.29", 9009);
-18 
-19         // 发送udp内容
-20         DatagramSocket socket = new DatagramSocket();
-21         socket.send(new DatagramPacket(bytes, 0, bytes.length, targetHost));
-22     }
-23 }
-复制代码
-        ..
-
-        ps.UDP协议最大特点就是效率高，速度快。用于某些场合可以极大改善系统的性能。
-
-        博主在这里引入这个Netty实现UDP的服务端，主要目的。嘻嘻。就是想开源拙作：eyeOfSauron日志系统。
+    public static void main(String[] args) throws IOException {
+        final String data = "博主邮箱:zou90512@126.com";
+        byte[] bytes = data.getBytes(Charset.forName("UTF-8"));
+        InetSocketAddress targetHost = new InetSocketAddress("192.168.2.29", 9009);
+        // 发送udp内容
+        DatagramSocket socket = new DatagramSocket();
+        socket.send(new DatagramPacket(bytes, 0, bytes.length, targetHost));
+    }
+}
+ps.UDP协议最大特点就是效率高，速度快。用于某些场合可以极大改善系统的性能。
