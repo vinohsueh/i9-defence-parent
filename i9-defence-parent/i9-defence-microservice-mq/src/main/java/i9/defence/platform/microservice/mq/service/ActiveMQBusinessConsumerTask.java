@@ -1,4 +1,4 @@
-package i9.defence.platform.microservice.mq.pool;
+package i9.defence.platform.microservice.mq.service;
 
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.model.ConnectLog;
@@ -14,7 +14,7 @@ import javax.jms.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ActiveMQConsumerTask extends TimerTask {
+public class ActiveMQBusinessConsumerTask extends TimerTask {
 
     @Override
     public void run() {
@@ -43,13 +43,13 @@ public class ActiveMQConsumerTask extends TimerTask {
         }
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(ActiveMQBusinessConsumerTask.class);
 
     private final UpStreamDecodeService upStreamDecodeService;
     
     private final TextMessage textMessage;
 
-    public ActiveMQConsumerTask(UpStreamDecodeService upStreamDecodeService, TextMessage textMessage) {
+    public ActiveMQBusinessConsumerTask(UpStreamDecodeService upStreamDecodeService, TextMessage textMessage) {
         this.upStreamDecodeService = upStreamDecodeService;
         this.textMessage = textMessage;
     }

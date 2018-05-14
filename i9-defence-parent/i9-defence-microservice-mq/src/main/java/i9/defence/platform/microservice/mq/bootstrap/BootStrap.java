@@ -1,6 +1,8 @@
 package i9.defence.platform.microservice.mq.bootstrap;
 
-import i9.defence.platform.microservice.mq.pool.ActiveMQConsumerRunnable;
+import i9.defence.platform.microservice.mq.pool.ActiveMQBusinessConsumerRunnable;
+import i9.defence.platform.microservice.mq.pool.ActiveMQConnectConsumerRunnable;
+import i9.defence.platform.microservice.mq.pool.ActiveMQDisConnectConsumerRunnable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +18,18 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Thread thread = new Thread(activeMQConsumerRunnable);
-        thread.start();
+        new Thread(activeMQBusinessConsumerRunnable).start();
+        new Thread(activeMQConnectConsumerRunnable).start();
+        new Thread(activeMQDisConnectConsumerRunnable).start();
         logger.info("消息队列服务器已启动");
     }
     
     @Autowired
-    private ActiveMQConsumerRunnable activeMQConsumerRunnable;
+    private ActiveMQBusinessConsumerRunnable activeMQBusinessConsumerRunnable;
+    
+    @Autowired
+    private ActiveMQConnectConsumerRunnable activeMQConnectConsumerRunnable;
+    
+    @Autowired
+    private ActiveMQDisConnectConsumerRunnable activeMQDisConnectConsumerRunnable;
 }

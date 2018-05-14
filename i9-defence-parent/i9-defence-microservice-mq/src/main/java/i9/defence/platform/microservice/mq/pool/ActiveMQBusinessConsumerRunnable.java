@@ -1,11 +1,9 @@
 package i9.defence.platform.microservice.mq.pool;
 
+import i9.defence.platform.microservice.mq.service.ActiveMQBusinessConsumerTask;
 import i9.defence.platform.mq.libraries.consumer.ActiveMQConsumerService;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.service.UpStreamDecodeService;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.annotation.Resource;
 import javax.jms.TextMessage;
@@ -14,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActiveMQConsumerRunnable implements Runnable {
-
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
+public class ActiveMQBusinessConsumerRunnable implements Runnable {
 
     @Override
     public void run() {
@@ -28,7 +24,7 @@ public class ActiveMQConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                executorService.execute(new ActiveMQConsumerTask(upStreamDecodeService, textMessage));
+                activeMQBusinessPool.execute(new ActiveMQBusinessConsumerTask(upStreamDecodeService, textMessage));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -39,5 +35,8 @@ public class ActiveMQConsumerRunnable implements Runnable {
     private ActiveMQConsumerService activeMQConsumerService;
 
     @Autowired
-    private final UpStreamDecodeService upStreamDecodeService = null;
+    private UpStreamDecodeService upStreamDecodeService;
+    
+    @Autowired
+    private ActiveMQBusinessPool activeMQBusinessPool;
 }
