@@ -40,9 +40,9 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
     // 初始化
     $scope.pageInit = function (){
 	    var pageParam = {
-	        id:$scope.addPassageway,
+	    	id:$scope.addPassageway,
         };    
-	    httpService.post({url:'./passageWay/selectPassagewaysByCategoryId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+	    httpService.post({url:'./passageWay/selectPassagewaysBySystemId',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 	      $scope.passagewayList = data.data.data;
 	      $scope.hiddenDanger = data.data.dangers;
 	      $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
@@ -95,7 +95,6 @@ var addPassagewayEditCtrl = addPassagewayEditNgModule.controller('addPassagewayE
   // 确认删除
     $scope.confirmDel = function(them) {
       var thisDom = $(them.target).closest('tr');
-      alert(1)
       thisDom.remove();
     };
     // 确认移除

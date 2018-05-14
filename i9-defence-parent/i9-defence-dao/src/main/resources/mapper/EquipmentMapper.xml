@@ -20,7 +20,7 @@
     <association property="equipmentSystemtype" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
     <association property="equipmentCategory" column="systemId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
-  	<collection column="equipmentCategoryId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysByCategoryId"></collection>
+  	<collection column="systemId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysBySystemId"></collection>
   	<collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"></collection>
   </resultMap>
   <resultMap id="BaseResultMapDto" type="i9.defence.platform.dao.vo.HiddenDangerDto">
@@ -803,12 +803,12 @@
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select>
 	<select id="selectEqChannelDataDto" parameterType="java.lang.Integer" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
-		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.categoryId = e.equipmentCategoryId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,cd.type as type
+		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,cd.type as type
 		FROM `t_channel_data` `cd`
 			LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
 			
 		WHERE `e`.`id` = #{id} 
-			AND cd.channel IN ( SELECT channel FROM  t_passageway where categoryId = (select equipmentCategoryId from t_equipment where id = #{id} )) 
+			AND cd.channel IN ( SELECT channel FROM  t_passageway where systemId = (select systemId from t_equipment where id = #{id} )) 
 			AND `cd`.`dateTime` = (
 				SELECT `t_channel_data`.`dateTime`
 				FROM `t_channel_data`
