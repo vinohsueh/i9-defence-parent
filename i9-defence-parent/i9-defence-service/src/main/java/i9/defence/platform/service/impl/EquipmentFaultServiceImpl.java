@@ -40,10 +40,17 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 	public void add(EquipmentFault equipmentFault) throws BusinessException {
 		try {
 			//id为null 则为添加
+			EquipmentFault existEquipmentFault = equipmentFaultDao.getEquipmentId(equipmentFault.getCode(),equipmentFault.getEquipmentId());
 			if(equipmentFault.getId() ==null) {
+				if (existEquipmentFault != null) {
+		                throw new BusinessException("数据已存在!");
+				}
 				equipmentFaultDao.add(equipmentFault);
 			}else {
 			//id不为null则为更新
+				if (existEquipmentFault != null) {
+	                throw new BusinessException("数据已存在!");
+				}
 				equipmentFaultDao.update(equipmentFault);
 			}
 			errorTypeCache.init();

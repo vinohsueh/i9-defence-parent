@@ -32,4 +32,6 @@ public interface EquipmentFaultMapper {
     int updateByPrimaryKey(EquipmentFault record);
     //分页查询
     List<EquipmentFault> selectByLimitPage(@Param("example") EquipmentFaultSearchDto equipmentFaultSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+
+	EquipmentFault getEquipmentId(@Param("code")String code, @Param("equipmentId")Integer equipmentId);
 }

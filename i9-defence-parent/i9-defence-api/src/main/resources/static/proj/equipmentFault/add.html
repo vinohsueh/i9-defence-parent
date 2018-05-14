@@ -34,7 +34,7 @@
 						class="required">*</span>设备类型</label>
 					<div class="col-md-8">
 						<select ng-model="equipmentFault.equipmentId"
-							ng-options="item.id as item.eqCategoryName for item in equipmentCategory">
+							ng-options="item.id as item.systemType for item in eqSystemCategorys">
 							<option value="">请选择设备类型</option>
 							<!-- 不加这句代码，会出现空白 -->
 						</select>
