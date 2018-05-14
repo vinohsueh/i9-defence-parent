@@ -50,8 +50,13 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
     $scope.format = $scope.formats[1];
 	
     $scope.dateToString = function(d){
-    	var date = new Date(d);
-    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    	if (d) {
+    		var date = new Date(d);
+        	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    	}else{
+    		return null;
+    	}
+    	
     }
     //项目id初始化
     $scope.projectId = null;
@@ -212,7 +217,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 
 		};
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(JSON.stringify(data));
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
 			$scope.projectWarning = [];
