@@ -1,8 +1,8 @@
 package i9.defence.platform.microservice.mq.bootstrap;
 
-import i9.defence.platform.microservice.mq.pool.ActiveMQBusinessConsumerRunnable;
-import i9.defence.platform.microservice.mq.pool.ActiveMQConnectConsumerRunnable;
-import i9.defence.platform.microservice.mq.pool.ActiveMQDisConnectConsumerRunnable;
+import i9.defence.platform.microservice.mq.pool.runnable.ActiveMQBusinessConsumerRunnable;
+import i9.defence.platform.microservice.mq.pool.runnable.ActiveMQConnectConsumerRunnable;
+import i9.defence.platform.microservice.mq.pool.runnable.ActiveMQDisConnectConsumerRunnable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
