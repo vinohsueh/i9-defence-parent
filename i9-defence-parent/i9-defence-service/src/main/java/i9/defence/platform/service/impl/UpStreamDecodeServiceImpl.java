@@ -13,9 +13,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.dao.ChannelDataDao;
+import i9.defence.platform.dao.ConnectLogDao;
+import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.UpStreamDecodeDao;
 import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
 import i9.defence.platform.model.ChannelData;
+import i9.defence.platform.model.ConnectLog;
 import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
@@ -33,9 +36,12 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 
     @Autowired
     private UpStreamDecodeDao upStreamDecodeDao;
-    
+    @Autowired
+    private EquipmentDao equipmentDao;
     @Autowired
     private ChannelDataDao channelDataDao;
+    @Autowired
+    private ConnectLogDao connectLogDao;
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
         try {
@@ -101,4 +107,14 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			throw new BusinessException(e.getMessage());
 		}
     }
+
+	@Override
+	public void updateEquipmentStatus(String deviceId, int status) {
+		equipmentDao.updateEquipmentStatusByDeviceId(deviceId,status);
+	}
+
+	@Override
+	public void insertConnectRecord(ConnectLog connectLog) {
+		connectLogDao.add(connectLog);
+	}
 }

@@ -223,11 +223,11 @@ public interface EquipmentDao {
      */
 	Equipment getEquipmentByName(String equipmentName);
 	
-	/** 根据项目id查询每种设备类型的设备数量
-	* @Title: selectEquipStatistic 
-	* @Description: TODO
-	* @param ProjectId
-	* @return
-	* @throws Exception
+
+	/**
+	 * 更新设备 状态
+	 * @param deviceId
+	 * @param status
 	 */
+	void updateEquipmentStatusByDeviceId(String deviceId, int status);
 }
