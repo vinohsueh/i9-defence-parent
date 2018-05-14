@@ -28,8 +28,50 @@ public class EquipmentCategory {
     
     private Integer eqNums;
     
+    private Integer projectId;
+    //类型类型
+//    private String systemCategory;
     
-    public Integer getEqNums() {
+    public Integer getProjectId() {
+		return projectId;
+	}
+ 
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+	
+//    public String getSystemCategory() {
+//		return systemCategory;
+//	}
+//
+//	public void setSystemCategory(String systemCategory) {
+//		this.systemCategory = systemCategory;
+//	}
+
+	/**
+     * 设备分类一级id
+     */
+    private Integer eqSystemtypeId;
+    
+    private EquipmentSystemtype equipmentSystemtype;
+    
+    public EquipmentSystemtype getEquipmentSystemtype() {
+		return equipmentSystemtype;
+	}
+
+	public void setEquipmentSystemtype(EquipmentSystemtype equipmentSystemtype) {
+		this.equipmentSystemtype = equipmentSystemtype;
+	}
+
+	public Integer getEqSystemtypeId() {
+		return eqSystemtypeId;
+	}
+
+	public void setEqSystemtypeId(Integer eqSystemtypeId) {
+		this.eqSystemtypeId = eqSystemtypeId;
+	}
+
+	public Integer getEqNums() {
 		return eqNums;
 	}
 

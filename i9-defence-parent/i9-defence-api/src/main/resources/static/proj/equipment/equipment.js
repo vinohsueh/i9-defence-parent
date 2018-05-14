@@ -77,8 +77,9 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	}
 	
 	$scope.add = function () {
-		httpService.post({url:'./equipment/findEquipment',showSuccessMsg:false}).then(function(data) {  
-			$scope.equCategorys = data.data.equCategorys;
+		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+			$scope.eqSystemCategorys = data.data.eqSystemCategory;
+			$scope.eqCategorys = data.data.eqCategory;
 			$scope.projects = data.data.projects;
 			var modalInstance = $modal.open({ 
 	            templateUrl: 'proj/equipment/add.html',  
@@ -97,8 +98,14 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	        		equipment: function () {  
 	                    return {};  
 	                },
+	                eqSystemCategorys: function () {  
+	                    return $scope.eqSystemCategorys;  
+	                },
 	                equCategorys: function () {  
-	                    return $scope.equCategorys;  
+	                    return null;  
+	                },
+	                eqCategorys: function () {  
+	                    return $scope.eqCategorys;  
 	                },
 	                projects: function () {  
 	                    return $scope.projects;  
@@ -140,10 +147,13 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
     $scope.edit = function (id) { 
     	httpService.post({url:'./equipment/getEquipment',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipment = data.data.data;
-    		httpService.post({url:'./equipment/findEquipment',showSuccessMsg:false}).then(function(data) {  
-    			$scope.equCategorys = data.data.equCategorys;
+    		$scope.equCategorys = data.data.equCategory;
+//    		console.log(JSON.stringify($scope.equCategorys));
+//    		console.log(JSON.stringify(data.data.data));
+    		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+    			$scope.eqSystemCategorys = data.data.eqSystemCategory;
     			$scope.projects = data.data.projects;
-			var modalInstance = $modal.open({  
+			    var modalInstance = $modal.open({  
 	            templateUrl: 'proj/equipment/add.html',  
 	            controller: 'equipmentEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
@@ -162,6 +172,9 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	                },
 	                equCategorys: function () {  
 	                    return $scope.equCategorys;  
+	                },
+	                eqSystemCategorys: function () {  
+	                    return $scope.eqSystemCategorys;  
 	                },
 	                projects: function () {  
 	                    return $scope.projects;  

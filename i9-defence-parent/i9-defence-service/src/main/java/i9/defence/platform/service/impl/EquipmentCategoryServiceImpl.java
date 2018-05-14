@@ -17,7 +17,7 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 /**
- * 项目类别ServiceImpl
+ * 类别ServiceImpl
  * @author gbq
  * @create 2018年1月8日
  */
@@ -43,9 +43,18 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 	@Override
 	public void addEqCategory(EquipmentCategory eqCategory) throws BusinessException {
 		try {
+			EquipmentCategory existEquipmentCategory = eqCategoryDao.getEqCategoryId(eqCategory.getEqCategoryId());
 			if(eqCategory.getId()!=null) {
+				if (existEquipmentCategory != null) {
+					if (existEquipmentCategory.getId() - eqCategory.getId() != 0) {
+		                   throw new BusinessException("项目类别已存在!");
+					}
+				}
 				eqCategoryDao.updateEqCategory(eqCategory);
 			}else {
+				if (existEquipmentCategory != null){
+                    throw new BusinessException("项目类别已存在!");
+                }
 				eqCategoryDao.addEqCategory(eqCategory);
 			}
 		} catch (Exception e) {
@@ -81,10 +90,9 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 	}
 
 	@Override
-	public List<EquipmentCategory> serchEqCategory() throws BusinessException {
+	public List<EquipmentCategory> serchEqCategory(EquipmentCategory equipmentCategory) throws BusinessException {
 		try {
 			Manager loginManager = managerService.getLoginManager();
-			EquipmentCategory equipmentCategory = new EquipmentCategory();
 			//如果为网站用户显示全部（type=0）
 			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
 				return eqCategoryDao.selectAllEqCategoryAndNum(equipmentCategory);
@@ -105,10 +113,9 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 	}
 
 	@Override
-	public int selectSumEqNum() throws BusinessException {
+	public int selectSumEqNum(EquipmentCategory equipmentCategory) throws BusinessException {
 		try {
 			Manager loginManager = managerService.getLoginManager();
-			EquipmentCategory equipmentCategory = new EquipmentCategory();
 			//如果为网站用户（type=0）
 			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
 				return eqCategoryDao.selectSumEqNum(equipmentCategory);
@@ -127,7 +134,24 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 		}
 		return 0;
 	}
-	
+
+	@Override
+	public List<EquipmentCategory> findEquipmentSystemCategory2(int id) throws BusinessException {
+		try {
+			return eqCategoryDao.findEquipmentSystemCategory2(id);
+		} catch (Exception e) {
+			throw new BusinessException("查询二级类别失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<EquipmentCategory> selectEqCategory(Integer id) throws BusinessException {
+		try {
+			return eqCategoryDao.selectEqCategory(id);
+		} catch (Exception e) {
+			throw new BusinessException("查询二级类别失败",e.getMessage());
+		}
+	}
 
 //	@Override
 //	public List<EqCategorySearchDto> selectAllEqCategoryAndNum() throws BusinessException {

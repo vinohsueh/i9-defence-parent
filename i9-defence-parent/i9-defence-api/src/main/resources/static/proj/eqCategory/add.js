@@ -3,8 +3,9 @@ var eqCategoryEditNgModule = angular.module('eqCategoryEditNgModule', [ 'ngResou
 
 var eqCategoryEditCtrl = eqCategoryEditNgModule.controller('eqCategoryEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		eqCategory,httpService) {
+		eqCategory,eqSystemCategorys,httpService) {
 	
+	$scope.eqSystemCategorys = eqSystemCategorys;
 	$scope.eqCategory = eqCategory;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');

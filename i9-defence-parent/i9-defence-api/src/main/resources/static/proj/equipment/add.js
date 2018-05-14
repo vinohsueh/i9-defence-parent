@@ -3,10 +3,11 @@ var equipmentEditNgModule = angular.module('equipmentEditNgModule', [ 'ngResourc
 
 var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		equipment,equCategorys,projects,httpService) {
+		equipment,eqSystemCategorys,equCategorys,projects,httpService) {
 	
 	$scope.equipment = equipment;
-	$scope.equCategorys = equCategorys;
+	$scope.eqSystemCategorys = eqSystemCategorys;
+	$scope.secondData =equCategorys;
 	$scope.projects = projects;
 
 	//设备数量修改
@@ -14,20 +15,50 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 	if($scope.equipment.id != null){
 		$scope.equipmentNumStatu = true;
 	}
-	console.log($scope.equipment);
+//	console.log($scope.equipment);
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
+	//初始化第二个参数显示状态
+	$scope.choiceFirst = false;
+	if(equipment.equipmentCategoryId){
+		$scope.choiceFirst = true;
+	}
+	$scope.change = function(){
+//		alert($scope.equipment.equipmentCategoryId);
+		if($scope.equipment.equipmentCategoryId != null && $scope.equipment.equipmentCategoryId != ''){
+			$scope.choiceFirst = true;
+			httpService.post({url:'./equipment/findEquipmentSystemCategory2',data:$scope.equipment.equipmentCategoryId,showSuccessMsg:true}).then(function(data) {  
+//				console.log(JSON.stringify(data))
+				$scope.secondData = data.data.equipmentCategory;
+				
+			})
+		}else{
+			$scope.choiceFirst = false;
+		}
+		
+	};
+	$scope.change();
+	$scope.change2 = function(){
+	};
+	
+	
+	/*$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {  
+		$scope.equipment.equipmentCategory = $scope.equipment.equipmentCategory.id;
+		console.log($scope.equipment.equipmentCategory);
+  
+    }); */ 
+//	$scope.aa = 1;
 	// 确认添加
 	$scope.confirmAdd = function() {
-		if ($scope.equipment.systemId ==null ||$scope.equipment.systemId.length ==0) {
-			$.toaster({
-				title : "Error",
-				priority : "danger",
-				message : "设备编号不能为空!"
-			});
-			return false;
-		}
+//		if ($scope.equipment.systemId ==null ||$scope.equipment.systemId.length ==0) {
+//			$.toaster({
+//				title : "Error",
+//				priority : "danger",
+//				message : "设备编号不能为空!"
+//			});
+//			return false;
+//		}
 		if ($scope.equipment.loopl ==null ||$scope.equipment.loopl.length ==0) {
 			$.toaster({
 				title : "Error",
@@ -68,7 +99,8 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		console.log($scope.equipment);
+		$scope.equipment.systemId  = $scope.equipment.equipmentCategory.eqCategoryId;
+		console.log($scope.equipment.equipmentCategory.id);
 		httpService.post({url:'./equipment/addEquipment',data:$scope.equipment,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

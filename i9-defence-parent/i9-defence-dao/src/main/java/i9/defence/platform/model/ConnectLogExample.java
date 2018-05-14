@@ -1,16 +1,17 @@
 package i9.defence.platform.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class EquipmentCategoryExample {
+public class ConnectLogExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public EquipmentCategoryExample() {
+    public ConnectLogExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -164,277 +165,195 @@ public class EquipmentCategoryExample {
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameIsNull() {
-            addCriterion("eqCategoryName is null");
+        public Criteria andDeviceIdIsNull() {
+            addCriterion("deviceId is null");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameIsNotNull() {
-            addCriterion("eqCategoryName is not null");
+        public Criteria andDeviceIdIsNotNull() {
+            addCriterion("deviceId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameEqualTo(String value) {
-            addCriterion("eqCategoryName =", value, "eqCategoryName");
+        public Criteria andDeviceIdEqualTo(String value) {
+            addCriterion("deviceId =", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameNotEqualTo(String value) {
-            addCriterion("eqCategoryName <>", value, "eqCategoryName");
+        public Criteria andDeviceIdNotEqualTo(String value) {
+            addCriterion("deviceId <>", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameGreaterThan(String value) {
-            addCriterion("eqCategoryName >", value, "eqCategoryName");
+        public Criteria andDeviceIdGreaterThan(String value) {
+            addCriterion("deviceId >", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameGreaterThanOrEqualTo(String value) {
-            addCriterion("eqCategoryName >=", value, "eqCategoryName");
+        public Criteria andDeviceIdGreaterThanOrEqualTo(String value) {
+            addCriterion("deviceId >=", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameLessThan(String value) {
-            addCriterion("eqCategoryName <", value, "eqCategoryName");
+        public Criteria andDeviceIdLessThan(String value) {
+            addCriterion("deviceId <", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameLessThanOrEqualTo(String value) {
-            addCriterion("eqCategoryName <=", value, "eqCategoryName");
+        public Criteria andDeviceIdLessThanOrEqualTo(String value) {
+            addCriterion("deviceId <=", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameLike(String value) {
-            addCriterion("eqCategoryName like", value, "eqCategoryName");
+        public Criteria andDeviceIdLike(String value) {
+            addCriterion("deviceId like", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameNotLike(String value) {
-            addCriterion("eqCategoryName not like", value, "eqCategoryName");
+        public Criteria andDeviceIdNotLike(String value) {
+            addCriterion("deviceId not like", value, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameIn(List<String> values) {
-            addCriterion("eqCategoryName in", values, "eqCategoryName");
+        public Criteria andDeviceIdIn(List<String> values) {
+            addCriterion("deviceId in", values, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameNotIn(List<String> values) {
-            addCriterion("eqCategoryName not in", values, "eqCategoryName");
+        public Criteria andDeviceIdNotIn(List<String> values) {
+            addCriterion("deviceId not in", values, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameBetween(String value1, String value2) {
-            addCriterion("eqCategoryName between", value1, value2, "eqCategoryName");
+        public Criteria andDeviceIdBetween(String value1, String value2) {
+            addCriterion("deviceId between", value1, value2, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryNameNotBetween(String value1, String value2) {
-            addCriterion("eqCategoryName not between", value1, value2, "eqCategoryName");
-            return (Criteria) this;
-        }
-        
-        public Criteria andEqCategoryIdIsNull() {
-            addCriterion("eqCategoryId is null");
+        public Criteria andDeviceIdNotBetween(String value1, String value2) {
+            addCriterion("deviceId not between", value1, value2, "deviceId");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdIsNotNull() {
-            addCriterion("eqCategoryId is not null");
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdEqualTo(String value) {
-            addCriterion("eqCategoryId =", value, "eqCategoryId");
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdNotEqualTo(String value) {
-            addCriterion("eqCategoryName <>", value, "eqCategoryId");
+        public Criteria andStatusEqualTo(Integer value) {
+            addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdGreaterThan(String value) {
-            addCriterion("eqCategoryId >", value, "eqCategoryId");
+        public Criteria andStatusNotEqualTo(Integer value) {
+            addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdGreaterThanOrEqualTo(String value) {
-            addCriterion("eqCategoryId >=", value, "eqCategoryId");
+        public Criteria andStatusGreaterThan(Integer value) {
+            addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdLessThan(String value) {
-            addCriterion("eqCategoryId <", value, "eqCategoryId");
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdLessThanOrEqualTo(String value) {
-            addCriterion("eqCategoryId <=", value, "eqCategoryId");
+        public Criteria andStatusLessThan(Integer value) {
+            addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdLike(String value) {
-            addCriterion("eqCategoryId like", value, "eqCategoryId");
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdNotLike(String value) {
-            addCriterion("eqCategoryId not like", value, "eqCategoryId");
+        public Criteria andStatusIn(List<Integer> values) {
+            addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdIn(List<String> values) {
-            addCriterion("eqCategoryId in", values, "eqCategoryId");
+        public Criteria andStatusNotIn(List<Integer> values) {
+            addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdNotIn(List<String> values) {
-            addCriterion("eqCategoryId not in", values, "eqCategoryId");
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
+            addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdBetween(String value1, String value2) {
-            addCriterion("eqCategoryId between", value1, value2, "eqCategoryId");
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryIdNotBetween(String value1, String value2) {
-            addCriterion("eqCategoryId not between", value1, value2, "eqCategoryId");
-            return (Criteria) this;
-        }
-        
-        public Criteria andEqCategoryExplainIsNull() {
-            addCriterion("eqCategoryExplain is null");
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("createTime is null");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainIsNotNull() {
-            addCriterion("eqCategoryExplain is not null");
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("createTime is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainEqualTo(String value) {
-            addCriterion("eqCategoryExplain =", value, "eqCategoryExplain");
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("createTime =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainNotEqualTo(String value) {
-            addCriterion("eqCategoryExplain <>", value, "eqCategoryExplain");
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("createTime <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainGreaterThan(String value) {
-            addCriterion("eqCategoryExplain >", value, "eqCategoryExplain");
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("createTime >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainGreaterThanOrEqualTo(String value) {
-            addCriterion("eqCategoryExplain >=", value, "eqCategoryExplain");
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("createTime >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainLessThan(String value) {
-            addCriterion("eqCategoryExplain <", value, "eqCategoryExplain");
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("createTime <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainLessThanOrEqualTo(String value) {
-            addCriterion("eqCategoryExplain <=", value, "eqCategoryExplain");
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("createTime <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainLike(String value) {
-            addCriterion("eqCategoryExplain like", value, "eqCategoryExplain");
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("createTime in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainNotLike(String value) {
-            addCriterion("eqCategoryExplain not like", value, "eqCategoryExplain");
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("createTime not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainIn(List<String> values) {
-            addCriterion("eqCategoryExplain in", values, "eqCategoryExplain");
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("createTime between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andEqCategoryExplainNotIn(List<String> values) {
-            addCriterion("eqCategoryExplain not in", values, "eqCategoryExplain");
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("createTime not between", value1, value2, "createTime");
             return (Criteria) this;
         }
-
-        public Criteria andEqCategoryExplainBetween(String value1, String value2) {
-            addCriterion("eqCategoryExplain between", value1, value2, "eqCategoryExplain");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqCategoryExplainNotBetween(String value1, String value2) {
-            addCriterion("eqCategoryExplain not between", value1, value2, "eqCategoryExplain");
-            return (Criteria) this;
-        }
-        
-        public Criteria andEqSystemtypeIdIsNull() {
-            addCriterion("eqSystemtypeId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdIsNotNull() {
-            addCriterion("eqSystemtypeId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdEqualTo(Integer value) {
-            addCriterion("eqSystemtypeId =", value, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdNotEqualTo(Integer value) {
-            addCriterion("eqSystemtypeId <>", value, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdGreaterThan(Integer value) {
-            addCriterion("eqSystemtypeId >", value, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("eqSystemtypeId >=", value, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdLessThan(Integer value) {
-            addCriterion("eqSystemtypeId <", value, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdLessThanOrEqualTo(Integer value) {
-            addCriterion("eqSystemtypeId <=", value, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdIn(List<Integer> values) {
-            addCriterion("eqSystemtypeId in", values, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdNotIn(List<Integer> values) {
-            addCriterion("eqSystemtypeId not in", values, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdBetween(Integer value1, Integer value2) {
-            addCriterion("eqSystemtypeId between", value1, value2, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andEqSystemtypeIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("eqSystemtypeId not between", value1, value2, "eqSystemtypeId");
-            return (Criteria) this;
-        }
-
-        
     }
 
     public static class Criteria extends GeneratedCriteria {
