@@ -106,6 +106,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		};
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
+			// console.log(JSON.stringify($scope.projectList));
 			var markItem = {};
 			
 			for(i in $scope.projectList){
@@ -120,37 +121,13 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				markItem.clientListStr = $scope.projectList[i].clientListStr;
 				markItem.equipmentStatis = $scope.projectList[i].equipmentStatis;
 				markItem.distributorName = $scope.projectList[i].distributorName;
+				markItem.warningCount = $scope.projectList[i].warningCount; //错误数量
 				$scope.markArr.push(markItem);
 			}
 			var mainHeight = $(window).height()-51;
 			$('#selfMain').height(mainHeight);
-			/*var windowHeight = document.body.clientHeight,mapZoom=4;
-			if(windowHeight<720){
-			    mapZoom=3;
-			}else if(windowHeight>1300 && windowHeight<2700){
-			    mapZoom = 5;
-			}else if(windowHeight>=2700){
-			    mapZoom = 6;
-			}else{
-			    mapZoom = 4;
-			}*/
 			
 			var myData = {'mark':$scope.markArr};
-			    
-			/*var oHtml = "<div class='prompt'><p>提示内容</p></div>"
-			var map = new AMap.Map("selfMap", {
-			    zoom:mapZoom,
-			    zooms:[mapZoom,mapZoom],
-			    // center:[117.190182,39.125596],
-			    mapStyle: 'amap://styles/9ef8e635e3bae06c3f40563eee898c64',//样式URL
-			    resizeEnable:true,
-			});
-			var infoWindow = new AMap.InfoWindow({
-			    isCustom:true,
-			    autoMove:true,
-			    // closeWhenClickMap:true,
-			    offset: new AMap.Pixel(0, -50),
-			});*/
 			var oHtml="";var equipmentStatis="";
 			$scope.mapOptions = [];
 			for(var i=0;i<myData.mark.length;i++){
@@ -159,31 +136,9 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					equipmentStatis += "<tr><td>"+myData.mark[i].equipmentStatis[j].eqCategoryName+"</td><td>"+myData.mark[i].equipmentStatis[j].equipCount+"个</td></tr>"
 				}
 				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr>"+equipmentStatis+"<tr><td colspan='2' class='text-center'>所属客户："+myData.mark[i].distributorName+"</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
-				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml};
+				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningCount':myData.mark[i].warningCount};
 				$scope.mapOptions.push(a);
-				/*marker = new AMap.Marker({
-			        position: [myData.mark[i].positionX,myData.mark[i].positionY],
-			        zIndex: 101,
-			        icon:new AMap.Icon({            
-			            // size: new AMap.Size(40, 50),  //图标大小
-			            // image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
-			            image: "./images/timg.jpg",
-			            // imageOffset: new AMap.Pixel(0, -60)
-			        }),
-			        map: map
-			    });
-			    marker.content = oHtml;
-			    marker.on('click', markerClick);*/
 			}
-			/*function markerClick(e) {
-			    infoWindow.setContent(e.target.content);
-			    infoWindow.open(map, e.target.getPosition());
-			}*/
-			//关闭信息窗体
-			/*$scope.closeInfoWindow =  function () {
-				// alert(1);
-			   	map.clearInfoWindow();
-			}*/
 		})
 	}
 	$scope.pageInit();
@@ -212,7 +167,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 
 		};
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(JSON.stringify(data));
+			// console.log(JSON.stringify(data));
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
 			$scope.projectWarning = [];

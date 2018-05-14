@@ -57,24 +57,46 @@ angular.module('app').directive(
 												$scope.options[0].lat ]);
 										
 										for(var i=0;i<$scope.options.length;i++){
-											marker = new AMap.Marker({
-												position: [$scope.options[i].lng,$scope.options[i].lat],
-										        zIndex: 101,
-										        icon:new AMap.Icon({            
-										            // size: new AMap.Size(40, 50),  //图标大小
-										            // image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
-										            image: "./images/mark.png",
-										            // imageOffset: new AMap.Pixel(0, -60)
-										        }),
-										        map: map
-										    });
-											marker.content = $scope.options[i].content;
-											marker.on('click', markerClick);
-											if($scope.options[i].projectName == '万达中心'){
-												infoWindow.setContent($scope.options[i].content);
-											    infoWindow.open(map, [117.238581,39.105172]);
-												// infoWindow.open(map, [117.238581,39.105172]);
+											if($scope.options[i].warningCount>0){
+												marker = new AMap.Marker({
+													position: [$scope.options[i].lng,$scope.options[i].lat],
+											        zIndex: 101,
+											        icon:new AMap.Icon({            
+											            // size: new AMap.Size(40, 50),  //图标大小
+											            // image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
+											            image: "./images/mark.png",
+											            // imageOffset: new AMap.Pixel(0, -60)
+											        }),
+											        map: map
+											    });
+												marker.content = $scope.options[i].content;
+												marker.on('click', markerClick);
+												if($scope.options[i].projectName == '万达中心'){
+													infoWindow.setContent($scope.options[i].content);
+												    infoWindow.open(map, [117.238581,39.105172]);
+													// infoWindow.open(map, [117.238581,39.105172]);
+												}
+											}else{
+												marker = new AMap.Marker({
+													position: [$scope.options[i].lng,$scope.options[i].lat],
+											        zIndex: 101,
+											        /*icon:new AMap.Icon({            
+											            // size: new AMap.Size(40, 50),  //图标大小
+											            // image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
+											            image: "./images/mark.png",
+											            // imageOffset: new AMap.Pixel(0, -60)
+											        }),*/
+											        map: map
+											    });
+												marker.content = $scope.options[i].content;
+												marker.on('click', markerClick);
+												if($scope.options[i].projectName == '万达中心'){
+													infoWindow.setContent($scope.options[i].content);
+												    infoWindow.open(map, [117.238581,39.105172]);
+													// infoWindow.open(map, [117.238581,39.105172]);
+												}
 											}
+											
 											
 										}
 										
