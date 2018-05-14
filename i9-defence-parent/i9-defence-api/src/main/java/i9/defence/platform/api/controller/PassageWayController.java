@@ -16,6 +16,7 @@ import i9.defence.platform.dao.vo.PassagewayDto;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
+import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.HiddenDangerService;
 import i9.defence.platform.service.PassagewayService;
 
@@ -37,22 +38,8 @@ public class PassageWayController {
 
 	@Autowired
 	private HiddenDangerService hiddenDangerService;
-	
-	
-	/*@RequestMapping("/selectPassagewaysByEquipId")
-	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody Equipment equipment) {
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = passagewayService.selectPassagewaysByEquipId(equipment.getId());
-		JSONArray jsonArray = new JSONArray();
-		for (Passageway passageway : list) {
-			JSONObject jsonObject = new PassagewayInfoComponent().setPassageway(passageway).build();
-			jsonArray.add(jsonObject);
-		}
-		List<HiddenDanger> hiddenDangers = hiddernDangerService.selectAllHiddendanger();
-		result.put("dangers", hiddenDangers);
-		result.put("data", jsonArray);
-		return result;
-	}*/
+	@Autowired
+	private EquipmentCategoryService equipmentCategoryService;
 	
 	/**
 	 * 根据设备类型查询通道
@@ -61,10 +48,11 @@ public class PassageWayController {
 	 * @param Id
 	 * @return
 	 */
-	@RequestMapping("/selectPassagewaysByCategoryId")
+	@RequestMapping("/selectPassagewaysBySystemId")
 	public HashMap<String, Object> selectPassagewaysByEquipId(@RequestBody EquipmentCategory equipmentCategory) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Passageway> list = passagewayService.selectPassagewaysByCategoryId(equipmentCategory.getId());
+		equipmentCategory = equipmentCategoryService.getEqCategoryById(equipmentCategory.getId());
+		List<Passageway> list = passagewayService.selectPassagewaysBySystemId(equipmentCategory.getEqCategoryId());
 		result.put("data",list);
 		JSONArray jsonArray = new JSONArray();
 		for (Passageway passageway : list) {

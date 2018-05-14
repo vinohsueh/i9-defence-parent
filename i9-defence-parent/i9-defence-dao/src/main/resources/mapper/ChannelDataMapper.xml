@@ -420,7 +420,7 @@
 	c.type as type,c.value as value,c.systemType as systemType,c.dealStatus as dealStatus,
 	c.dealDetail as dealDetail,c.deviceAddress as deviceAddress,c.deviceId as deviceId,hd.WarningMin as WarningMin,
 	hd.WarningMax as WarningMax ,hd.HiddenMin as HiddenMin, hd.HiddenMax as HiddenMax, hd.name as name from t_channel_data  c 
-	LEFT JOIN t_passageway p on c.channel=p.channel  and (p.categoryId = (select e.equipmentCategoryId from t_equipment e where e.deviceId = c.deviceId )) LEFT join t_hidden_danger hd on hd.id = p.hiddenDangerId
+	LEFT JOIN t_passageway p on c.channel=p.channel  and (p.systemId = (select e.systemId from t_equipment e where e.deviceId = c.deviceId )) LEFT join t_hidden_danger hd on hd.id = p.hiddenDangerId
        <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
        </if>

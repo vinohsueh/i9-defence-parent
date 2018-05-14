@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import i9.defence.platform.dao.EquipmentCategoryDao;
 import i9.defence.platform.dao.PassageWayDao;
 import i9.defence.platform.dao.vo.PassagewayDto;
+import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.service.PassagewayService;
 import i9.defence.platform.utils.BusinessException;
@@ -19,11 +21,12 @@ public class PassagewayServiceImpl implements PassagewayService {
 
 	@Autowired
 	private PassageWayDao passageWayDao;
-
+	@Autowired
+	private EquipmentCategoryDao equipmentCategoryDao;
 	@Override
-	public List<Passageway> selectPassagewaysByCategoryId(Integer id) throws BusinessException {
+	public List<Passageway> selectPassagewaysBySystemId(String systemId) throws BusinessException {
 		try {
-			return passageWayDao.selectPassagewaysByCategoryId(id);
+			return passageWayDao.selectPassagewaysBySystemId(systemId);
 		} catch (Exception e) {
 			throw new BusinessException("根据设备id查询通道失败", e.getMessage());
 		}
@@ -32,10 +35,11 @@ public class PassagewayServiceImpl implements PassagewayService {
 	@Override
 	public void addPassageway(PassagewayDto passagewayDto) throws BusinessException {
 		try {
-			passageWayDao.delPassagewayByCategoryId(passagewayDto.getCategoryId());
+			EquipmentCategory equipmentCategory = equipmentCategoryDao.getEqCategoryById(passagewayDto.getCategoryId());
+			passageWayDao.delPassagewayBySystemId(equipmentCategory.getEqCategoryId());
 			List<Passageway> passageways = Arrays.asList(passagewayDto.getPassageways());
 			for (Passageway passageway : passageways) {
-				passageway.setCategoryId(passagewayDto.getCategoryId());
+				passageway.setSystemId(equipmentCategory.getEqCategoryId());
 			}
 			passageWayDao.addPassageway(passageways);
 		} catch (BusinessException e) {

@@ -21,7 +21,7 @@ public interface PassageWayDao {
 	* @return
 	* @throws Exception
 	 */
-	List<Passageway> selectPassagewaysByCategoryId(Integer categoryId)throws Exception;
+	List<Passageway> selectPassagewaysBySystemId(String systemId)throws Exception;
 	
 	
 	/**
@@ -38,7 +38,7 @@ public interface PassageWayDao {
 	 * @param systemId
 	 * @throws Exception
 	 */
-	void delPassagewayByCategoryId(Integer categoryId) throws Exception;
+	void delPassagewayBySystemId(String systemId) throws Exception;
 	
 	/**
 	 * 根据类型和通道查询

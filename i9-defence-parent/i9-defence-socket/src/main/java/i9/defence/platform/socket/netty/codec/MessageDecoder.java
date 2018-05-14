@@ -1,12 +1,7 @@
 package i9.defence.platform.socket.netty.codec;
 
-import java.nio.ByteBuffer;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import i9.defence.platform.mq.libraries.observer.ObserverProducerService;
+import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
+import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.MessageDecodeConvert;
 import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
@@ -17,6 +12,12 @@ import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
+
+import java.nio.ByteBuffer;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
 
@@ -71,8 +72,9 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         ByteBuffer byteBuffer = ByteBuffer.allocate(1 + 1 + 1 + 4 + dst.length + 1 + 1);
         byteBuffer.put(start).put(version).put(type).putInt(index).put(dst).put(sumcheck).put(end);
         String decoderStr = EncryptUtils.bytesToHexString(byteBuffer.array());
-        ObserverProducerService observerProducerService = SpringBeanService.getBean(ObserverProducerService.class);
-        observerProducerService.sendMessage(decoderStr);
+        
+        ActiveMQProducerService activeMQProducerService = SpringBeanService.getBean(ActiveMQProducerService.class);
+        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_OBSERVER, decoderStr);
         
         Message message = new Message();
         message.setType(type);

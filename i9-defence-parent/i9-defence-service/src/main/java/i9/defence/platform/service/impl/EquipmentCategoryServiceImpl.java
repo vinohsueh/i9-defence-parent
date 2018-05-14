@@ -57,6 +57,8 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
                 }
 				eqCategoryDao.addEqCategory(eqCategory);
 			}
+		} catch (BusinessException e) {
+			throw new BusinessException(e.getErrorMessage());
 		} catch (Exception e) {
 			throw new BusinessException("添加项目类别失败",e.getMessage());
 		}

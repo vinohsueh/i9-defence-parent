@@ -240,7 +240,7 @@ public class EquipmentController {
 		//通道数据
 		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
 		//通道对应关系
-		List<Passageway> passageWays = passagewayService.selectPassagewaysByCategoryId(equipment.getEquipmentCategoryId());
+		List<Passageway> passageWays = passagewayService.selectPassagewaysBySystemId(equipment.getSystemId());
 		//分通道处理后的数据
 		result.put("data", null);
 		if (list.size() > 0) {
@@ -279,7 +279,7 @@ public class EquipmentController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<ChannelData> list = equipmentService.selectErrorRecord(equipmentSearchDto);
 		Equipment equipment = equipmentService.getEquipmentByIdentifier(equipmentSearchDto.getDeviceId());
-		List<Passageway> passageways = passagewayService.selectPassagewaysByCategoryId(equipment.getEquipmentCategoryId());
+		List<Passageway> passageways = passagewayService.selectPassagewaysBySystemId(equipment.getSystemId());
 		JSONObject jsonObject = new ChannelDataComponent().setChannelDataComponent(list).setPassageways(passageways).errorBuild();
 		result.put("data", jsonObject);
 		return result;
