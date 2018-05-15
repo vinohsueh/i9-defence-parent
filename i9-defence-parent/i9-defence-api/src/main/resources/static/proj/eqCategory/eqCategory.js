@@ -105,62 +105,73 @@ var eqCategoryNgControl=eqCategoryNgModule.controller('eqCategoryNgControl',func
 	     
 	};
 
-	$scope.add = function () {  
-        var modalInstance = $modal.open({  
-            templateUrl: 'proj/eqCategory/add.html',  
-            controller: 'eqCategoryEditCtrl', 
-            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-            resolve: {  
-            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-        			return $ocLazyLoad.load({
-        				name : 'eqCategoryEditNgModule',
-        				insertBefore : '#ng_load_plugins_before',
-        				files : [
-        				         'proj/eqCategory/add.js',
-        				]
-        			});
-        		}],
-        		eqCategory: function () {  
-                    return {};  
-                },
-            }  
-        }); 
-        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-            $scope.selected = data;
-        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-        	$scope.initTable();
-        });
-         
+	$scope.add = function () {
+		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+			$scope.eqSystemCategorys = data.data.eqSystemCategory;
+			    var modalInstance = $modal.open({  
+			        templateUrl: 'proj/eqCategory/add.html',  
+			        controller: 'eqCategoryEditCtrl', 
+			        backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+			        resolve: {  
+			        	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+			    			return $ocLazyLoad.load({
+			    				name : 'eqCategoryEditNgModule',
+			    				insertBefore : '#ng_load_plugins_before',
+			    				files : [
+			    				         'proj/eqCategory/add.js',
+			    				]
+			    			});
+			    		}],
+			    		eqCategory: function () {  
+			                return {};  
+			            },
+			            eqSystemCategorys: function () {  
+		                    return $scope.eqSystemCategorys;  
+		                },
+			        }  
+			    }); 
+	        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+	            $scope.selected = data;
+	        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+	        	$scope.initTable();
+        	});
+		});  
     };  
     //编辑
     $scope.edit = function (id) { 
     	httpService.post({url:'./eqCategory/getEqCategory',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.eqCategory = data.data.data;
-			var modalInstance = $modal.open({  
-	            templateUrl: 'proj/eqCategory/add.html',  
-	            controller: 'eqCategoryEditCtrl', 
-	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-	            resolve: {  
-	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-	        			return $ocLazyLoad.load({
-	        				name : 'eqCategoryEditNgModule',
-	        				insertBefore : '#ng_load_plugins_before',
-	        				files : [
-	        				         'proj/eqCategory/add.js',
-	        				]
-	        			});
-	        		}],
-	        		eqCategory: function () {  
-	                    return $scope.eqCategory;  
-	                },
-	            }  
-	        });
-			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-	            $scope.selected = data;
-	        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-	        	$scope.initTable();
-	        });
-    	})
+    		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+    			$scope.eqSystemCategorys = data.data.eqSystemCategory;
+				var modalInstance = $modal.open({  
+		            templateUrl: 'proj/eqCategory/add.html',  
+		            controller: 'eqCategoryEditCtrl', 
+		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+		            resolve: {  
+		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+		        			return $ocLazyLoad.load({
+		        				name : 'eqCategoryEditNgModule',
+		        				insertBefore : '#ng_load_plugins_before',
+		        				files : [
+		        				         'proj/eqCategory/add.js',
+		        				]
+		        			});
+		        		}],
+		        		eqCategory: function () {  
+		                    return $scope.eqCategory;  
+		                },
+		                eqSystemCategorys: function () {  
+		                    return $scope.eqSystemCategorys;  
+		                },
+		            }  
+		        });
+				modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+		            $scope.selected = data;
+		        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+		        	$scope.initTable();
+		        });
+    	     })
+    	 });
     };  
     $scope.del = function(){
     	$scope.delArray = [];

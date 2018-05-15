@@ -128,4 +128,11 @@ public interface EquipmentMapper {
 	 */
 	int selectTotalAlertEquipmentDto(@Param("example") MonthDataDto monthDataDto);
 	
+	/**
+	 * 更新设备状态
+	 * @param deviceId
+	 * @param status
+	 */
+	void updateEquipmentStatusByDeviceId(@Param("deviceId") String deviceId,@Param("status") int status);
+	
 }

@@ -4,7 +4,7 @@ public class EquipmentSystemtype {
     private Integer id;
     //一级类别名称
     private String systemType;
-    //类型类型
+    //类型
     private String systemCategory;
 
     public Integer getId() {

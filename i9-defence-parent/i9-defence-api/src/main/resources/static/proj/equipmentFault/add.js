@@ -6,9 +6,10 @@ var equipmentFaultEditNgModule = angular.module('equipmentFaultEditNgModule', [ 
 
 var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFaultEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		equipmentFault,httpService) {
+		equipmentFault,eqSystemCategorys,httpService) {
 	
 	$scope.equipmentFault = equipmentFault;
+	$scope.eqSystemCategorys = eqSystemCategorys;
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
@@ -48,7 +49,7 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 			$modalInstance.dismiss('cancel')
 		})
 	};
-	httpService.post({url:'./eqCategory/serchEqCategory',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
-		$scope.equipmentCategory = data.data.data;
-	})
+//	httpService.post({url:'./eqCategory/serchEqCategory',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
+//		$scope.equipmentCategory = data.data.data;
+//	})
 });

@@ -58,5 +58,17 @@ public class EquipmentFaultDaoImpl implements EquipmentFaultDao{
 		EquipmentFaultExample example = new EquipmentFaultExample();
 		return equipmentFaultMapper.selectByExample(example);
 	}
+
+	@Override
+	public EquipmentFault getEquipmentId(String code,Integer equipmentId) throws Exception {
+//		EquipmentFaultExample example = new EquipmentFaultExample();
+//        example.createCriteria().andCodeEqualTo(code);
+//        example.createCriteria().andEquipmentIdEqualTo(equipmentId);
+//        List<EquipmentFault> list = equipmentFaultMapper.selectByExample(example);
+//        if(list.size() > 0){
+//            return list.get(0);
+//        }
+        return equipmentFaultMapper.getEquipmentId(code,equipmentId);
+	}
 }
  

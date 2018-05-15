@@ -32,7 +32,6 @@ public class BootStrap extends HttpServlet {
         
         bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new LoggingHandler(LogLevel.INFO))
             .childHandler(new SocketServerInitializer());
-        
         InetSocketAddress address = new InetSocketAddress("0.0.0.0", 9000);
         try {
             bootstrap.bind(address).sync();
@@ -41,20 +40,5 @@ public class BootStrap extends HttpServlet {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
-        /*new Thread(new Runnable() {
-            
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        ProducerService producerService = SpringBeanService.getBean(ProducerService.class);
-                        producerService.sendMessage(UUID.randomUUID().toString());
-                        Thread.sleep(3000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();*/
     }
 }

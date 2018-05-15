@@ -165,6 +165,76 @@ public class EquipmentExample {
 			return (Criteria) this;
 		}
 
+		public Criteria andSystemIdIsNull() {
+			addCriterion("systemId is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdIsNotNull() {
+			addCriterion("systemId is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdEqualTo(String value) {
+			addCriterion("systemId =", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotEqualTo(String value) {
+			addCriterion("systemId <>", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdGreaterThan(String value) {
+			addCriterion("systemId >", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdGreaterThanOrEqualTo(String value) {
+			addCriterion("systemId >=", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdLessThan(String value) {
+			addCriterion("systemId <", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdLessThanOrEqualTo(String value) {
+			addCriterion("systemId <=", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdLike(String value) {
+			addCriterion("systemId like", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotLike(String value) {
+			addCriterion("systemId not like", value, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdIn(List<String> values) {
+			addCriterion("systemId in", values, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotIn(List<String> values) {
+			addCriterion("systemId not in", values, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdBetween(String value1, String value2) {
+			addCriterion("systemId between", value1, value2, "systemId");
+			return (Criteria) this;
+		}
+
+		public Criteria andSystemIdNotBetween(String value1, String value2) {
+			addCriterion("systemId not between", value1, value2, "systemId");
+			return (Criteria) this;
+		}
+
 		public Criteria andEquipmentNameIsNull() {
 			addCriterion("equipmentName is null");
 			return (Criteria) this;
@@ -565,66 +635,6 @@ public class EquipmentExample {
 			return (Criteria) this;
 		}
 
-		public Criteria andDeviceIdIsNull() {
-			addCriterion("deviceId is null");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdIsNotNull() {
-			addCriterion("deviceId is not null");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdEqualTo(String value) {
-			addCriterion("deviceId =", value, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdNotEqualTo(String value) {
-			addCriterion("deviceId <>", value, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdGreaterThan(String value) {
-			addCriterion("deviceId >", value, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdGreaterThanOrEqualTo(Integer value) {
-			addCriterion("deviceId >=", value, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdLessThan(String value) {
-			addCriterion("deviceId <", value, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdLessThanOrEqualTo(String value) {
-			addCriterion("deviceId <=", value, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdIn(List<String> values) {
-			addCriterion("deviceId in", values, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdNotIn(List<String> values) {
-			addCriterion("deviceId not in", values, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdBetween(String value1, String value2) {
-			addCriterion("deviceId between", value1, value2, "deviceId");
-			return (Criteria) this;
-		}
-
-		public Criteria andDeviceIdNotBetween(String value1, String value2) {
-			addCriterion("deviceId not between", value1, value2, "deviceId");
-			return (Criteria) this;
-		}
-		
 		public Criteria andEquipmentCategoryIdIsNull() {
 			addCriterion("equipmentCategoryId is null");
 			return (Criteria) this;
@@ -684,7 +694,7 @@ public class EquipmentExample {
 			addCriterion("equipmentCategoryId not between", value1, value2, "equipmentCategoryId");
 			return (Criteria) this;
 		}
-		
+
 		public Criteria andProjectIdIsNull() {
 			addCriterion("projectId is null");
 			return (Criteria) this;
@@ -744,7 +754,7 @@ public class EquipmentExample {
 			addCriterion("projectId not between", value1, value2, "projectId");
 			return (Criteria) this;
 		}
-		
+
 		public Criteria andUnitIsNull() {
 			addCriterion("unit is null");
 			return (Criteria) this;
@@ -804,6 +814,7 @@ public class EquipmentExample {
 			addCriterion("unit not between", value1, value2, "unit");
 			return (Criteria) this;
 		}
+
 		public Criteria andLooplIsNull() {
 			addCriterion("loopl is null");
 			return (Criteria) this;
@@ -863,77 +874,7 @@ public class EquipmentExample {
 			addCriterion("loopl not between", value1, value2, "loopl");
 			return (Criteria) this;
 		}
-	
-		
-		public Criteria andSystemIdIsNull() {
-			addCriterion("systemId is null");
-			return (Criteria) this;
-		}
 
-		public Criteria andSystemIdIsNotNull() {
-			addCriterion("systemId is not null");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdEqualTo(String value) {
-			addCriterion("systemId =", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdNotEqualTo(String value) {
-			addCriterion("systemId <>", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdGreaterThan(String value) {
-			addCriterion("systemId >", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdGreaterThanOrEqualTo(String value) {
-			addCriterion("systemId >=", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdLessThan(String value) {
-			addCriterion("systemId <", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdLessThanOrEqualTo(String value) {
-			addCriterion("systemId <=", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdLike(String value) {
-			addCriterion("systemId like", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdNotLike(String value) {
-			addCriterion("systemId not like", value, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdIn(List<String> values) {
-			addCriterion("systemId in", values, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdNotIn(List<String> values) {
-			addCriterion("systemId not in", values, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdBetween(String value1, String value2) {
-			addCriterion("systemId between", value1, value2, "systemId");
-			return (Criteria) this;
-		}
-
-		public Criteria andSystemIdNotBetween(String value1, String value2) {
-			addCriterion("systemId not between", value1, value2, "systemId");
-			return (Criteria) this;
-		}
 		public Criteria andDelStatusIsNull() {
 			addCriterion("delStatus is null");
 			return (Criteria) this;
@@ -993,7 +934,136 @@ public class EquipmentExample {
 			addCriterion("delStatus not between", value1, value2, "delStatus");
 			return (Criteria) this;
 		}
-		
+
+		public Criteria andDeviceIdIsNull() {
+			addCriterion("deviceId is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdIsNotNull() {
+			addCriterion("deviceId is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdEqualTo(String value) {
+			addCriterion("deviceId =", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotEqualTo(String value) {
+			addCriterion("deviceId <>", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdGreaterThan(String value) {
+			addCriterion("deviceId >", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdGreaterThanOrEqualTo(String value) {
+			addCriterion("deviceId >=", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdLessThan(String value) {
+			addCriterion("deviceId <", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdLessThanOrEqualTo(String value) {
+			addCriterion("deviceId <=", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdLike(String value) {
+			addCriterion("deviceId like", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotLike(String value) {
+			addCriterion("deviceId not like", value, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdIn(List<String> values) {
+			addCriterion("deviceId in", values, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotIn(List<String> values) {
+			addCriterion("deviceId not in", values, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdBetween(String value1, String value2) {
+			addCriterion("deviceId between", value1, value2, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andDeviceIdNotBetween(String value1, String value2) {
+			addCriterion("deviceId not between", value1, value2, "deviceId");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusIsNull() {
+			addCriterion("status is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusIsNotNull() {
+			addCriterion("status is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusEqualTo(Integer value) {
+			addCriterion("status =", value, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusNotEqualTo(Integer value) {
+			addCriterion("status <>", value, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusGreaterThan(Integer value) {
+			addCriterion("status >", value, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
+			addCriterion("status >=", value, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusLessThan(Integer value) {
+			addCriterion("status <", value, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusLessThanOrEqualTo(Integer value) {
+			addCriterion("status <=", value, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusIn(List<Integer> values) {
+			addCriterion("status in", values, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusNotIn(List<Integer> values) {
+			addCriterion("status not in", values, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusBetween(Integer value1, Integer value2) {
+			addCriterion("status between", value1, value2, "status");
+			return (Criteria) this;
+		}
+
+		public Criteria andStatusNotBetween(Integer value1, Integer value2) {
+			addCriterion("status not between", value1, value2, "status");
+			return (Criteria) this;
+		}
 	}
 
 	public static class Criteria extends GeneratedCriteria {

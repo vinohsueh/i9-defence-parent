@@ -46,7 +46,9 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 			EquipmentCategory existEquipmentCategory = eqCategoryDao.getEqCategoryId(eqCategory.getEqCategoryId());
 			if(eqCategory.getId()!=null) {
 				if (existEquipmentCategory != null) {
-	                   throw new BusinessException("项目类别已存在!");
+					if (existEquipmentCategory.getId() - eqCategory.getId() != 0) {
+		                   throw new BusinessException("项目类别已存在!");
+					}
 				}
 				eqCategoryDao.updateEqCategory(eqCategory);
 			}else {
@@ -55,6 +57,8 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
                 }
 				eqCategoryDao.addEqCategory(eqCategory);
 			}
+		} catch (BusinessException e) {
+			throw new BusinessException(e.getErrorMessage());
 		} catch (Exception e) {
 			throw new BusinessException("添加项目类别失败",e.getMessage());
 		}

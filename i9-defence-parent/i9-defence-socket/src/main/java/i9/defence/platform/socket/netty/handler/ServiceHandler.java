@@ -11,6 +11,7 @@ import i9.defence.platform.socket.context.ChannelPackerServerContext;
 import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.socket.service.impl.DisConnectionService;
 import i9.defence.platform.socket.util.ServiceMapping;
 import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.channel.ChannelHandlerContext;
@@ -81,8 +82,9 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) {
         String channelId = ctx.channel().id().asLongText();
         ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
-        channelPackerServerContext.removeChannelPacker(channelId);
-        logger.info("netty 服务器，客户端断开连接 : " + channelId);
+        ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
+        DisConnectionService service = SpringBeanService.getBean(DisConnectionService.class);
+        service.doPost(channelPacker);
     }
     
     // 异常通知

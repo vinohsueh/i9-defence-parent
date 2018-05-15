@@ -30,7 +30,7 @@ public class EquipmentCategory {
     
     private Integer projectId;
     //类型类型
-    private String systemCategory;
+//    private String systemCategory;
     
     public Integer getProjectId() {
 		return projectId;
@@ -40,22 +40,30 @@ public class EquipmentCategory {
 		this.projectId = projectId;
 	}
 	
-    public String getSystemCategory() {
-		return systemCategory;
-	}
-
-	public void setSystemCategory(String systemCategory) {
-		this.systemCategory = systemCategory;
-	}
+//    public String getSystemCategory() {
+//		return systemCategory;
+//	}
+//
+//	public void setSystemCategory(String systemCategory) {
+//		this.systemCategory = systemCategory;
+//	}
 
 	/**
      * 设备分类一级id
      */
     private Integer eqSystemtypeId;
     
+    private EquipmentSystemtype equipmentSystemtype;
     
-    
-    public Integer getEqSystemtypeId() {
+    public EquipmentSystemtype getEquipmentSystemtype() {
+		return equipmentSystemtype;
+	}
+
+	public void setEquipmentSystemtype(EquipmentSystemtype equipmentSystemtype) {
+		this.equipmentSystemtype = equipmentSystemtype;
+	}
+
+	public Integer getEqSystemtypeId() {
 		return eqSystemtypeId;
 	}
 

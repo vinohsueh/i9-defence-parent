@@ -1,13 +1,7 @@
 package i9.defence.platform.socket.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.alibaba.fastjson.JSONObject;
-
-import i9.defence.platform.mq.libraries.business.BusinessProducerService;
+import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
+import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.req.DataMessage;
@@ -15,6 +9,13 @@ import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSONObject;
 
 @Service
 public class UpStreamService implements ICoreService {
@@ -32,7 +33,7 @@ public class UpStreamService implements ICoreService {
         JSONObject jsonObject = upStreamReqMessage.toJSONObject();
         String jsonStr = jsonObject.toJSONString();
         try {
-            producerService.sendMessage(jsonStr);
+            activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_BUSINESS, jsonStr);
             logger.info("发送到MQ服务器消息成功, jsonStr : " + jsonStr);
         }
         catch (Exception exception) {
@@ -43,5 +44,5 @@ public class UpStreamService implements ICoreService {
     private final static Logger logger = LoggerFactory.getLogger(UpStreamService.class);
     
     @Autowired
-    private BusinessProducerService producerService;
+    private ActiveMQProducerService activeMQProducerService;
 }

@@ -39,4 +39,7 @@ public interface EquipmentFaultDao {
 	
 	//查询全部
 	List<EquipmentFault> getAllTypes();
+	
+	//通过故障编号查询设备类型id是否存在
+	EquipmentFault getEquipmentId(String code, Integer equipmentId)throws Exception;
 }

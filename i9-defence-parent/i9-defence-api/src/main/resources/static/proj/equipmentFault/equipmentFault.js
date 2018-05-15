@@ -79,8 +79,8 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
 	}
 	
 	$scope.add = function () {  
-		httpService.post({url:'./eqCategory/serchEqCategory',data:$scope.equipmentCategory,showSuccessMsg:false}).then(function(data) {  
-			$scope.equipmentCategory = data.data.data;
+		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+			$scope.eqSystemCategorys = data.data.eqSystemCategory;
 			//$modalInstance.dismiss('cancel')
 			  var modalInstance = $modal.open({  
 		            templateUrl: 'proj/equipmentFault/add.html',  
@@ -99,6 +99,9 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
 		        		equipmentFault: function () {  
 		                    return {};  
 		                },
+		                eqSystemCategorys: function () {  
+		                    return $scope.eqSystemCategorys;  
+		                },
 		            }  
 		        }); 
 		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
@@ -113,35 +116,41 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
     $scope.edit = function (id) { 
     	httpService.post({url:'./equipmentFault/getById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentFault = data.data.data;
-    		//$scope.equipmentCategory = data.data.equipmentCategory;
-			var modalInstance = $modal.open({  
-	            templateUrl: 'proj/equipmentFault/add.html',  
-	            controller: 'equipmentFaultEditCtrl', 
-	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-	            resolve: {  
-	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-	        			return $ocLazyLoad.load({
-	        				name : 'equipmentFaultEditNgModule',
-	        				insertBefore : '#ng_load_plugins_before',
-	        				files : [
-	        				         'proj/equipmentFault/add.js',
-	        				]
-	        			});
-	        		}],
-	        		equipmentFault: function () {  
-	                    return $scope.equipmentFault;  
-	                },
-//	                equipmentCategory: function () {  
-//	                    return $scope.equipmentCategory;  
-//	                },
-	            }  
-	        });
-			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-	            $scope.selected = data;
-	        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-	        	$scope.initTable();
-	        });
-    	})
+    		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+    			$scope.eqSystemCategorys = data.data.eqSystemCategory;
+	    		//$scope.equipmentCategory = data.data.equipmentCategory;
+				var modalInstance = $modal.open({  
+		            templateUrl: 'proj/equipmentFault/add.html',  
+		            controller: 'equipmentFaultEditCtrl', 
+		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+		            resolve: {  
+		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+		        			return $ocLazyLoad.load({
+		        				name : 'equipmentFaultEditNgModule',
+		        				insertBefore : '#ng_load_plugins_before',
+		        				files : [
+		        				         'proj/equipmentFault/add.js',
+		        				]
+		        			});
+		        		}],
+		        		equipmentFault: function () {  
+		                    return $scope.equipmentFault;  
+		                },
+		                eqSystemCategorys: function () {  
+		                    return $scope.eqSystemCategorys;  
+		                },
+	//	                equipmentCategory: function () {  
+	//	                    return $scope.equipmentCategory;  
+	//	                },
+		            }  
+		        });
+				modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+		            $scope.selected = data;
+		        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+		        	$scope.initTable();
+		        });
+	    	})
+    	 });	
     };  
     $scope.del = function(){
     	$scope.delArray = [];
