@@ -20,10 +20,12 @@ public class ActiveMQConnectConsumerRunnable implements Runnable {
     public void run() {
         while (true) {
             try {
+//                Stopwatch watch = Stopwatch.createStarted();
                 final TextMessage textMessage = activeMQConsumerService.receive(ActiveMQQueueEnum.I9_CONNECT);
+//                logger.info("I9_CONNECT time {} ms.", watch.elapsed(TimeUnit.MILLISECONDS));
                 // 如果数据为空就延迟3秒钟
                 if (textMessage == null) {
-                    Thread.sleep(3000);
+//                    Thread.sleep(3000);
                     continue;
                 }
                 // 处理消息

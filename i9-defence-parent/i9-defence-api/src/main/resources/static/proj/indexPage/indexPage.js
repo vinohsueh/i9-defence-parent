@@ -50,6 +50,9 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
     $scope.format = $scope.formats[1];
 	
     $scope.dateToString = function(d){
+    	if (!d) {
+    		return null;
+    	}
     	var date = new Date(d);
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
@@ -83,7 +86,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-
+	
+	
 	$scope.startTime = $scope.getDate(-180);
 	$scope.endTime = $scope.getDate(0);
 	$scope.pageInit = function(){
@@ -205,6 +209,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				name:''
 			}
 		}
+		
 		var pageParam = {
 			projectProvince:$scope.selected.name,
 			projectCity:$scope.selected2.name,
