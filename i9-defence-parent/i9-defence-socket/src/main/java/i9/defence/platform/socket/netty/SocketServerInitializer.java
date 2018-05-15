@@ -23,8 +23,5 @@ public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
         // 自己的逻辑Handler
         pipeline.addLast("handler", new ServiceHandler());
         pipeline.addLast(new HeartbeatServerHandler());
-        
-//        ChannelHandlerAdapter customerInboundHandler = new CustomerInboundHandler();
-//        pipeline.addLast(customerInboundHandler);
     }
 }

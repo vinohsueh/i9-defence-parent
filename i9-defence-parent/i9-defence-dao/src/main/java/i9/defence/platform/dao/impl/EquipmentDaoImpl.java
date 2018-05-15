@@ -205,8 +205,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public Equipment selectDataAndManager(String deviceId) {
-		return equipmentMapper.selectDataAndManager(deviceId);
+	public Equipment selectDataAndManager(int id) {
+		return equipmentMapper.selectDataAndManager(id);
 	}
 
 	public TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) {

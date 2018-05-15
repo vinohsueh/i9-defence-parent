@@ -4,7 +4,7 @@ var projectEditNgModule = angular.module('projectEditNgModule', [ 'ngResource',
 var projectEditCtrl = projectEditNgModule.controller('projectEditCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
 		project,clientList,safeList,httpService) {
-	
+    
 	$scope.project = project;
 	$scope.clientList = clientList;
 	$scope.safeList = safeList;

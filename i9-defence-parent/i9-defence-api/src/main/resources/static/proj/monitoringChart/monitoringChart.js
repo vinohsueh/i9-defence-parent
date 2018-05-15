@@ -115,7 +115,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 		
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectss  = data.data.data; 
-            console.log(JSON.stringify($scope.projectss));
 		})
 	}
 	$scope.queryProjects();
@@ -151,7 +150,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;
-            // console.log(JSON.stringify(data));
     		for(i in $scope.projects){
     			if($scope.projects[i].warningCount>0){
     				$scope.projects[i].status = 'dangerLabel';
@@ -193,8 +191,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
-    		$scope.warningCount = data.data.count.warningCount;
-    		$scope.hiddenCount = data.data.count.hiddenCount;
     		$scope.projectInfo = data.data;
     		$scope.dataAndManager = data.data.dataAndManager;
     		$scope.equipmentCheckArr = [];

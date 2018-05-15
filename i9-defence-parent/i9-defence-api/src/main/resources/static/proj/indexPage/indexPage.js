@@ -20,6 +20,34 @@ var indexPageService = indexPageNgModule.factory('indexPageService',
 			return resource;
 	}]);
 var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,indexPageService,httpService){
+	//时间插件
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    $scope.toggleMin = function() {
+      $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+
+    $scope.open = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.opened = true;
+      $('.dropdown-menu').css('bottom','34px');
+    };
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1,
+      class: 'datepicker'
+    };
+
+    $scope.initDate = new Date('2016-15-20');
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[1];
 	
     $scope.dateToString = function(d){
     	var date = new Date(d);
@@ -126,17 +154,15 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			    offset: new AMap.Pixel(0, -50),
 			});*/
 			var oHtml="";var equipmentStatis="";
-			$scope.mapOptions={};
-			$scope.mapOptions.project = [];
+			$scope.mapOptions = [];
 			for(var i=0;i<myData.mark.length;i++){
 				equipmentStatis='';
 				for(j in myData.mark[i].equipmentStatis){
 					equipmentStatis += "<tr><td>"+myData.mark[i].equipmentStatis[j].eqCategoryName+"</td><td>"+myData.mark[i].equipmentStatis[j].equipCount+"个</td></tr>"
 				}
 				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr>"+equipmentStatis+"<tr><td colspan='2' class='text-center'>所属客户："+myData.mark[i].distributorName+"</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
-				// var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml};
-				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningCount':myData.mark[i].warningCount,'id':myData.mark[i].id};
-				$scope.mapOptions.project.push(a);
+				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningCount':myData.mark[i].warningCount};
+				$scope.mapOptions.push(a);
 				/*marker = new AMap.Marker({
 			        position: [myData.mark[i].positionX,myData.mark[i].positionY],
 			        zIndex: 101,
@@ -187,8 +213,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			endTime:$scope.dateToString($("#endTime").val()),
 
 		};
-		console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			console.log(JSON.stringify(data));
 			// console.log(JSON.stringify(data));
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
@@ -332,7 +358,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	//项目选择
 	$scope.choiceProject = function (idNum) {
 		$scope.projectId = idNum;
-		$scope.mapOptions.choiceItemId = idNum;
 		$scope.equipmentNum();
 		$scope.chartInit();
 	}

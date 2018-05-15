@@ -17,13 +17,9 @@ import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.dao.vo.HiddenDangerSearchDto;
-import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.Manager;
-import i9.defence.platform.model.Project;
-import i9.defence.platform.service.EquipmentCategoryService;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ManagerService;
-import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
 
 /** 
@@ -38,10 +34,6 @@ public class HiddenDangerEditController {
 	@Autowired
 	private EquipmentService equipmentService;
 	@Autowired
-	private EquipmentCategoryService equipmentCategoryService;
-	@Autowired
-    private ProjectService projectService;
-	@Autowired
 	private ManagerService managerService;
 	/*
      *分页查询
@@ -50,11 +42,7 @@ public class HiddenDangerEditController {
     public HashMap<String, Object> pageHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         PageBounds<HiddenDangerDto> pageBounds = equipmentService.selectHiddenDangerByLimitPage(hiddenDangerSearchDto);
-        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(new EquipmentCategory());
-        List<Project> project = projectService.findAllProject();
         result.put("data",pageBounds);
-        result.put("equipmentCategory",equipmentCategory);
-        result.put("project",project);
         return result;
     }
     
@@ -67,11 +55,11 @@ public class HiddenDangerEditController {
     public HashMap<String, Object> selectAllHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         List<HiddenDangerDto> list = equipmentService.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
-        List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(new EquipmentCategory());
-        List<Project> project = projectService.findAllProject();
+        //List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(new EquipmentCategory());
+        //List<Project> project = projectService.findAllProject();
         result.put("data",list);
-        result.put("equipmentCategory",equipmentCategory);
-        result.put("project",project);
+        //result.put("equipmentCategory",equipmentCategory);
+        //result.put("project",project);
         return result;
     }
     /**

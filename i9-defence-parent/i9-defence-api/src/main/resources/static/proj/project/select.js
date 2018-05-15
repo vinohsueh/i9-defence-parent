@@ -114,10 +114,14 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
     			value : ''
     		}
     	}
+    	
 		$scope.project.projectProvince = $scope.selected.name;
 		$scope.project.projectCity = $scope.selected2.name;
 		$scope.project.projectCounty = $scope.selected3.value;
-
+		
+		$scope.project.projectStartDate=$("#projectStartDate").val();
+		$scope.project.projectEndDate=$("#projectEndDate").val();
+		console.log(JSON.stringify($scope.project))
         httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
             $modalInstance.dismiss('cancel')
         })

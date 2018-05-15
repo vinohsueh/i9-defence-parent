@@ -25,7 +25,7 @@ public class EquipmentMonitorComponent {
 		jsonObject.put("location", equipment.getEquipmentPosition());
 		jsonObject.put("remark", equipment.getEquipmentRemarks());
 		jsonObject.put("deviceId", equipment.getDeviceId());
-		jsonObject.put("eqCategoryName", equipment.getEquipmentCategory().getEqCategoryName());
+		jsonObject.put("eqCategoryName", equipment.getEquipmentCategoryName());
 		return jsonObject;
 	}
 }
