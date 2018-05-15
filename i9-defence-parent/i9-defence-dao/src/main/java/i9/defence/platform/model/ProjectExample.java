@@ -484,6 +484,130 @@ public class ProjectExample {
             addCriterion("projectDate not between", value1, value2, "projectDate");
             return (Criteria) this;
         }
+        
+        
+        public Criteria andProjectEndDateIsNull() {
+            addCriterion("projectEndDate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateIsNotNull() {
+            addCriterion("projectEndDate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateEqualTo(Date value) {
+            addCriterion("projectEndDate =", value, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateNotEqualTo(Date value) {
+            addCriterion("projectEndDate <>", value, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateGreaterThan(Date value) {
+            addCriterion("projectEndDate >", value, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("projectEndDate >=", value, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateLessThan(Date value) {
+            addCriterion("projectEndDate <", value, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateLessThanOrEqualTo(Date value) {
+            addCriterion("projectEndDate <=", value, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateIn(List<Date> values) {
+            addCriterion("projectEndDate in", values, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateNotIn(List<Date> values) {
+            addCriterion("projectEndDate not in", values, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateBetween(Date value1, Date value2) {
+            addCriterion("projectEndDate between", value1, value2, "projectEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectEndDateNotBetween(Date value1, Date value2) {
+            addCriterion("projectEndDate not between", value1, value2, "projectEndDate");
+            return (Criteria) this;
+        }
+        
+        public Criteria andProjectStartDateIsNull() {
+            addCriterion("projectStartDate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateIsNotNull() {
+            addCriterion("projectStartDate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateEqualTo(Date value) {
+            addCriterion("projectStartDate =", value, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateNotEqualTo(Date value) {
+            addCriterion("projectStartDate <>", value, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateGreaterThan(Date value) {
+            addCriterion("projectStartDate >", value, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("projectStartDate >=", value, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateLessThan(Date value) {
+            addCriterion("projectStartDate <", value, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateLessThanOrEqualTo(Date value) {
+            addCriterion("projectStartDate <=", value, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateIn(List<Date> values) {
+            addCriterion("projectStartDate in", values, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateNotIn(List<Date> values) {
+            addCriterion("projectStartDate not in", values, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateBetween(Date value1, Date value2) {
+            addCriterion("projectStartDate between", value1, value2, "projectStartDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectStartDateNotBetween(Date value1, Date value2) {
+            addCriterion("projectStartDate not between", value1, value2, "projectStartDate");
+            return (Criteria) this;
+        }
+        
+        
+        
 
         public Criteria andProjectAreaIsNull() {
             addCriterion("projectArea is null");
