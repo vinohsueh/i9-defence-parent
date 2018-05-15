@@ -17,6 +17,8 @@
     <result column="projectState" jdbcType="INTEGER" property="projectState" />
  	<result column="delCount" jdbcType="INTEGER" property="delCount"/> 
  	<result column="warningCount" jdbcType="INTEGER" property="warningCount"/>
+ 	<result column="projectStartDate" jdbcType="TIMESTAMP" property="projectStartDate"/>
+  	<result column="projectEndDate" jdbcType="TIMESTAMP" property="projectEndDate"/>
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   	<association property="warningCount" column="id" select="selectEquipTypeCount"></association>
   	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
@@ -156,7 +158,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, projectName, projectProvince, projectCity, projectCounty,projectAddress, projectLongitude, projectLatitude, projectDate, 
-    projectArea, distributorId, remarks, projectState
+    projectArea, distributorId, remarks, projectState,projectStartDate,projectEndDate
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.ProjectExample" resultMap="BaseResultMap">
     select
@@ -194,10 +196,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey> 
     insert into t_project (projectName, projectProvince, projectCity, projectCounty, projectAddress, projectLongitude, 
-      projectLatitude, projectDate, projectArea, distributorId, remarks, projectState)
+      projectLatitude, projectDate, projectArea, distributorId, remarks, projectState,projectStartDate,projectEndDate)
     values (#{projectName,jdbcType=VARCHAR}, #{projectProvince,jdbcType=VARCHAR}, #{projectCity,jdbcType=VARCHAR}, #{projectCounty,jdbcType=VARCHAR},#{projectAddress,jdbcType=VARCHAR}, #{projectLongitude,jdbcType=DOUBLE}, 
       #{projectLatitude,jdbcType=DOUBLE}, #{projectDate,jdbcType=TIMESTAMP}, #{projectArea,jdbcType=DOUBLE}, 
-      #{distributorId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER})
+      #{distributorId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER},#{projectStartDate,jdbcType=TIMESTAMP},#{projectEndDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Project">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -241,6 +243,12 @@
       <if test="projectState != null">
         projectState,
       </if>
+      <if test="projectStartDate != null">
+      projectStartDate,
+      </if>
+      <if test="projectEndDate != null">
+      projectEndDate,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectName != null">
@@ -278,6 +286,12 @@
       </if>
       <if test="projectState != null">
         #{projectState,jdbcType=INTEGER},
+      </if>
+      <if test="projectStartDate != null">
+      	#{projectStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectEndDate != null">
+      	#{projectEndDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -329,6 +343,12 @@
       <if test="record.projectState != null">
         projectState = #{record.projectState,jdbcType=INTEGER},
       </if>
+      <if test="projectStartDate != null">
+     	projectStartDate = #{projectStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectEndDate != null">
+      	projectEndDate = #{projectEndDate,jdbcType=TIMESTAMP}
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -348,7 +368,9 @@
       projectArea = #{record.projectArea,jdbcType=DOUBLE},
       distributorId = #{record.distributorId,jdbcType=INTEGER},
       remarks = #{record.remarks,jdbcType=VARCHAR},
-      projectState = #{record.projectState,jdbcType=INTEGER}
+      projectState = #{record.projectState,jdbcType=INTEGER},
+      projectStartDate = #{projectStartDate,jdbcType=TIMESTAMP},
+      projectEndDate  = #{projectEndDate,jdbcType=TIMESTAMP},
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -392,6 +414,12 @@
       <if test="projectState != null">
         projectState = #{projectState,jdbcType=INTEGER},
       </if>
+      <if test="projectStartDate != null">
+     	projectStartDate = #{projectStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectEndDate != null">
+      	projectEndDate = #{projectEndDate,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -408,7 +436,9 @@
       projectArea = #{projectArea,jdbcType=DOUBLE},
       distributorId = #{distributorId,jdbcType=INTEGER},
       remarks = #{remarks,jdbcType=VARCHAR},
-      projectState = #{projectState,jdbcType=INTEGER}
+      projectState = #{projectState,jdbcType=INTEGER},
+      projectStartDate = #{projectStartDate,jdbcType=TIMESTAMP},
+      projectEndDate  = #{projectEndDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">

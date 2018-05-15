@@ -73,6 +73,41 @@ public class Project {
      * 统计项目下设备报警个数
      */
     private Integer warningCount;
+    
+    
+    /**
+     * 项目起止时间
+     */
+    private Date projectStartDate;
+    
+    /**
+     * 项目结束时间
+     */
+    private Date projectEndDate;
+    
+    
+
+	public String getProjectStartDateStr() {
+		if(null !=projectStartDate) {
+			return StringUtil.dateToStringWithoutTime(projectStartDate);
+		}
+		return "";
+	}
+
+	public void setProjectStartDate(Date projectStartDate) {
+		this.projectStartDate = projectStartDate;
+	}
+
+	public String getProjectEndDateStr() {
+		if(null !=projectEndDate) {
+			return StringUtil.dateToStringWithoutTime(projectEndDate);
+		}
+		return "";
+	}
+
+	public void setProjectEndDate(Date projectEndDate) {
+		this.projectEndDate = projectEndDate;
+	}
 
 	public Integer getWarningCount() {
 		return warningCount;
