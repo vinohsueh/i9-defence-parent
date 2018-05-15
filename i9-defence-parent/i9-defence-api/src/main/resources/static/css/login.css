@@ -5,7 +5,9 @@ html,body,head,div,span,p,input,button,form{
 body{
 	text-align: center;
 	color:#666;
-	background-color: #F0F3F4;
+	background-color: ;
+	background: #151c35 url('../images/loginBg.jpg') no-repeat center center;
+	background-size: contain;
 	font-size: 14px;
 	line-height: 1.8em;
 	font-family: "Microsoft Yahei","微软雅黑",Tahoma,Helvetica,STHeiti;
