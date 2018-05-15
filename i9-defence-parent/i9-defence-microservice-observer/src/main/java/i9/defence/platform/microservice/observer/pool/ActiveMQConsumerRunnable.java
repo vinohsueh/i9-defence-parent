@@ -2,7 +2,6 @@ package i9.defence.platform.microservice.observer.pool;
 
 import i9.defence.platform.mq.libraries.consumer.ActiveMQConsumerService;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
-import i9.defence.platform.service.UpStreamOriginService;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,15 +24,12 @@ public class ActiveMQConsumerRunnable implements Runnable {
                     Thread.sleep(3000);
                     continue;
                 }
-                executorService.execute(new ActiveMQConsumerTask(upStreamOriginService, textMessage));
+                executorService.execute(new ActiveMQConsumerTask(textMessage));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-    
-    @Autowired
-    private UpStreamOriginService upStreamOriginService;
     
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     
