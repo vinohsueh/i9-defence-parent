@@ -17,6 +17,8 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -112,9 +114,20 @@ public class ShiroConfiguration {
         Collection<SessionListener> listeners = new ArrayList<SessionListener>();
         listeners.add(new MySessionListener());
         sessionManager.setSessionListeners(listeners);
-        sessionManager.setGlobalSessionTimeout(3600000);
+        sessionManager.setGlobalSessionTimeout(24*60*60*1000);
         return sessionManager;
     }
+    
+    @Bean
+    public EmbeddedServletContainerCustomizer containerCustomizer(){
+        return new EmbeddedServletContainerCustomizer() {
+	        @Override
+	        public void customize(ConfigurableEmbeddedServletContainer container) {
+	          container.setSessionTimeout(24*60*60);//单位为S
+	        }
+        };
+    }
+    
     
     /**
      * Shiro Realm 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的

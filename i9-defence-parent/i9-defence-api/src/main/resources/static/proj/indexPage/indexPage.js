@@ -50,8 +50,13 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
     $scope.format = $scope.formats[1];
 	
     $scope.dateToString = function(d){
-    	var date = new Date(d);
-    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    	if (d) {
+    		var date = new Date(d);
+        	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    	}else{
+    		return null;
+    	}
+    	
     }
     //项目id初始化
     $scope.projectId = null;
@@ -161,8 +166,9 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 					equipmentStatis += "<tr><td>"+myData.mark[i].equipmentStatis[j].eqCategoryName+"</td><td>"+myData.mark[i].equipmentStatis[j].equipCount+"个</td></tr>"
 				}
 				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr>"+equipmentStatis+"<tr><td colspan='2' class='text-center'>所属客户："+myData.mark[i].distributorName+"</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
-				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml};
+				//var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml};
 				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningCount':myData.mark[i].warningCount};
+				$scope.mapOptions.project = [];
 				$scope.mapOptions.project.push(a);
 				/*marker = new AMap.Marker({
 			        position: [myData.mark[i].positionX,myData.mark[i].positionY],

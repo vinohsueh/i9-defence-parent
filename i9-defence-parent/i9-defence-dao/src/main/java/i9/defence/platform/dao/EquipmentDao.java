@@ -207,7 +207,7 @@ public interface EquipmentDao {
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto);
 	//查询设备创建时间和负责人，安全负责人手机号
-	Equipment selectDataAndManager(String deviceId);
+	Equipment selectDataAndManager(int id);
 	
 	/**
 	 * 查询设备总数
