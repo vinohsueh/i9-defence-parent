@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 处理ActiveMQ设备连接消息通知任务
+ * 处理ActiveMQ设备掉线消息通知任务
  * @author r12
  * 
  */
@@ -41,6 +41,8 @@ public class ActiveMQDisConnectionConsumerTask extends ActiveMQConsumerTask {
 
             // 通过设备唯一标识更新状态
             String deviceId = StringUtil.getDeviceId(systemId, loop, address);
+            
+            // 更新设备连接信息
             int status = 0;
             upStreamDecodeService.updateEquipmentStatus(deviceId, status);
             logger.info("update device status success, deviceId : {}, status : {}", deviceId, status);
