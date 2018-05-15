@@ -1,4 +1,6 @@
-package i9.defence.platform.microservice.push.service;
+package i9.defence.platform.microservice.push.pool;
+
+import i9.defence.platform.microservice.push.service.ThirdPlatformService;
 
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
@@ -11,9 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ConsumerServiceRunnable {
+public class ActiveMQConsumerRunnablePool {
 
-    private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceRunnable.class);
+    private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerRunnablePool.class);
 
     private final ExecutorService pool = Executors.newCachedThreadPool();
 

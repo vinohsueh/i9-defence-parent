@@ -260,6 +260,6 @@
        </foreach> 
   </insert>
   <select id="getPageByRoleId" parameterType="int" resultType="i9.defence.platform.model.PageUrl">
-    select pu.* from t_page_url pu left join t_role_page rp on pu.id = rp.pageId where rp.roleId = #{id}
+    select pu.* from t_page_url pu left join t_role_page rp on pu.id = rp.pageId where rp.roleId = #{id} order by pu.orderNumber
   </select>
 </mapper>

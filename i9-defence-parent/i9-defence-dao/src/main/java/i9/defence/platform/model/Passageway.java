@@ -23,7 +23,7 @@ public class Passageway   {
     /**
      * 设备类型Id
      */
-    private Integer categoryId;
+    private String systemId;
     
     /**
      * 类型实体
@@ -84,12 +84,12 @@ public class Passageway   {
         this.name = name == null ? null : name.trim();
     }
 
-	public Integer getCategoryId() {
-		return categoryId;
+	public String getSystemId() {
+		return systemId;
 	}
 
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
+	public void setSystemId(String systemId) {
+		this.systemId = systemId;
 	}
 
 	public EquipmentCategory getEquipmentCategory() {

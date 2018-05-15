@@ -8,8 +8,6 @@
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
-    <!-- 查询设备型号名称-->
-    <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
   	<!--查询设备型号编号  -->
   	<association property="eqCategoryId" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEqCategoryId"></association>
   </resultMap>
@@ -235,10 +233,14 @@
    </select>
 	<!-- 查询设备名称By EquipmentId -->
 	<select id="selectEquipmentByEquipmentId" parameterType="int" resultType="string">
-		select eqCategoryName from t_equipment_category where id = #{equipmentId,jdbcType=INTEGER}
+		select systemType from t_equipment_systemtype where id = #{equipmentId,jdbcType=INTEGER}
 	</select>
 	<!--查询设备型号编号  -->
 	<select id="selectEquipmentByEqCategoryId" parameterType="int" resultType="string">
 		select eqCategoryId from t_equipment_category where id = #{equipmentId,jdbcType=INTEGER}
+	</select>
+	<!-- 查询故障代码和类型名称 -->
+	<select id="getEquipmentId" resultMap="BaseResultMap" >
+		SELECT * FROM `t_equipment_fault` where equipmentId = #{equipmentId,jdbcType=INTEGER} and  `code` = #{code,jdbcType=VARCHAR}
 	</select>
 </mapper>

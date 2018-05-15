@@ -83,7 +83,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         String channelId = ctx.channel().id().asLongText();
         ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
         ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
-        DisConnectionService service = new DisConnectionService();
+        DisConnectionService service = SpringBeanService.getBean(DisConnectionService.class);
         service.doPost(channelPacker);
     }
     

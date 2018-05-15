@@ -23,7 +23,7 @@ public interface PassagewayService {
 	* @return
 	* @throws BusinessException
 	 */
-	List<Passageway> selectPassagewaysByCategoryId(Integer id)throws BusinessException;
+	List<Passageway> selectPassagewaysBySystemId(String systemId)throws BusinessException;
 	
 
 	/**

@@ -15,8 +15,8 @@ public class PassageWayDaoImpl implements PassageWayDao {
 	@Autowired
 	private PassagewayMapper passagewayMapper;
 	@Override
-	public List<Passageway> selectPassagewaysByCategoryId(Integer categoryId) throws Exception {
-		return passagewayMapper.selectPassagewaysByCategoryId(categoryId); 
+	public List<Passageway> selectPassagewaysBySystemId(String systemId) throws Exception {
+		return passagewayMapper.selectPassagewaysBySystemId(systemId); 
 	}
  
 	@Override 
@@ -25,8 +25,8 @@ public class PassageWayDaoImpl implements PassageWayDao {
 	}
 
 	@Override
-	public void delPassagewayByCategoryId(Integer categoryId) throws Exception {
-		passagewayMapper.delPassagewayByCategoryId(categoryId);
+	public void delPassagewayBySystemId(String systemId) throws Exception {
+		passagewayMapper.delPassagewayBySystemId(systemId);
 	}
 
 	@Override
