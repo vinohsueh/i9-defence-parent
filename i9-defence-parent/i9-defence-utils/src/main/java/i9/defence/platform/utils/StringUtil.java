@@ -85,4 +85,17 @@ public class StringUtil {
             return null;
         }
 	}
+	
+	/**
+	 * 获取设备唯一id
+	 * @param systemId 设备编号
+	 * @param loop 回路号
+	 * @param address 设备地址
+	 * @return
+	 */
+	public static String getDeviceId(String systemId,int loop,String address){
+		StringBuffer str = new StringBuffer();
+		str.append(systemId).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop))).append(address);
+		return str.toString();
+	}
 }
