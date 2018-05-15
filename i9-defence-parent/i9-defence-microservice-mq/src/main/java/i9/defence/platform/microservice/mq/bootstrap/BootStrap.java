@@ -16,11 +16,20 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger logger = LoggerFactory.getLogger(BootStrap.class);
 
+    /**
+     * 服务器启动执行线程
+     */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        new Thread(activeMQBusinessConsumerRunnable).start();
-        new Thread(activeMQConnectConsumerRunnable).start();
-        new Thread(activeMQDisConnectConsumerRunnable).start();
+        // 启动业务消息队列线程
+        new Thread(activeMQBusinessConsumerRunnable, "BusinessThread").start();
+        
+        // 启动设备连接通知线程
+        new Thread(activeMQConnectConsumerRunnable, "ConnectThread").start();
+        
+        // 启动设备掉线通知线程
+        new Thread(activeMQDisConnectConsumerRunnable, "DisConnectThread").start();
+        
         logger.info("消息队列服务器已启动");
     }
     

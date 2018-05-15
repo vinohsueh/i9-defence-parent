@@ -1,10 +1,9 @@
 package i9.defence.platform.microservice.mq.pool.runnable;
 
 import i9.defence.platform.microservice.mq.pool.ActiveMQBusinessPool;
-import i9.defence.platform.microservice.mq.service.ActiveMQBusinessConsumerTask;
+import i9.defence.platform.microservice.mq.service.impl.ActiveMQBusinessConsumerTask;
 import i9.defence.platform.mq.libraries.consumer.ActiveMQConsumerService;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
-import i9.defence.platform.service.UpStreamDecodeService;
 
 import javax.annotation.Resource;
 import javax.jms.TextMessage;
@@ -21,13 +20,15 @@ public class ActiveMQBusinessConsumerRunnable implements Runnable {
     public void run() {
         while (true) {
             try {
+                // 读取消息队列中I9_BUSINESS消息
                 final TextMessage textMessage = activeMQConsumerService.receive(ActiveMQQueueEnum.I9_BUSINESS);
                 // 如果数据为空就延迟3秒钟
                 if (textMessage == null) {
                     Thread.sleep(3000);
                     continue;
                 }
-                activeMQBusinessPool.execute(new ActiveMQBusinessConsumerTask(upStreamDecodeService, textMessage));
+                // 处理消息
+                activeMQBusinessPool.execute(new ActiveMQBusinessConsumerTask(textMessage));
                 logger.info("I9_BUSINESS {}, SUCCESS", textMessage.getText());
             } catch (Exception e) {
                 logger.info("I9_BUSINESS RECEIVE, ERROR", e);
@@ -40,9 +41,6 @@ public class ActiveMQBusinessConsumerRunnable implements Runnable {
     @Resource
     private ActiveMQConsumerService activeMQConsumerService;
 
-    @Autowired
-    private UpStreamDecodeService upStreamDecodeService;
-    
     @Autowired
     private ActiveMQBusinessPool activeMQBusinessPool;
 }
