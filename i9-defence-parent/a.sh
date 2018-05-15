@@ -5,7 +5,7 @@ cd $M_PATH
 git pull
 
 cd $M_PATH
-mvn -U clean compile package install -DskipTests
+mvn -U clean compile package install -DskipTests -Pprod
 
 rm -rf /tmp/ROOT.war
 rm -rf /tmp/i9-defence-microservice-mq.war
