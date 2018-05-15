@@ -7,21 +7,22 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
-/** 
+/**
  * 创建时间：2017年11月16日 下午5:07:21
- * @author  lby
- * @version  
+ * 
+ * @author lby
+ * @version
  * 
  */
 public class StringUtil {
+    
     public static String MD5(String str) {
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.reset();
             messageDigest.update(str.getBytes("UTF-8"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         byte[] byteArray = messageDigest.digest();
@@ -34,68 +35,65 @@ public class StringUtil {
         }
         return md5StrBuff.toString();
     }
-    
-    public static String dateToString(Date date){
-        if (date != null) {
-            SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            return sdm.format(date);
-        }else {
+
+    public static String dateToString(Date date) {
+        if (date == null) {
             return "";
         }
-        
+        SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdm.format(date);
     }
-    
-    public static String dateToStringByRep(Date date,String rep){
-        if (date != null) {
-            SimpleDateFormat sdm = new SimpleDateFormat(rep);
-            return sdm.format(date);
-        }else {
+
+    public static String dateToStringByRep(Date date, String rep) {
+        if (date == null) {
             return "";
         }
+        SimpleDateFormat sdm = new SimpleDateFormat(rep);
+        return sdm.format(date);
     }
+
     /**
      * 日期转换
+     * 
      * @param date
      * @return
      */
     public static String dateToStringWithoutTime(Date date) {
-        if (null != date) {
-            SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
-            return sdm.format(date);
-        } else {
-            return "";
-        }
+        if (date == null) return "";
+        SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
+        return sdm.format(date);
     }
-    
+
     /**
      * 时间转日期
+     * 
      * @param endDateString
      * @param string
      * @return
      */
-	public static Date stringToDateByRep(String endDateString, String rep) {
-		if (StringUtils.isNotBlank(endDateString)) {
-            SimpleDateFormat sdm = new SimpleDateFormat(rep);
-            try {
-				return sdm.parse(endDateString);
-			} catch (ParseException e) {
-				return null;
-			}
-        }else {
+    public static Date stringToDateByRep(String endDateString, String rep) {
+        if (StringUtils.isBlank(endDateString)) {
             return null;
         }
-	}
-	
-	/**
-	 * 获取设备唯一id
-	 * @param systemId 设备编号
-	 * @param loop 回路号
-	 * @param address 设备地址
-	 * @return
-	 */
-	public static String getDeviceId(String systemId,int loop,String address){
-		StringBuffer str = new StringBuffer();
-		str.append(systemId).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop))).append(address);
-		return str.toString();
-	}
+        SimpleDateFormat sdm = new SimpleDateFormat(rep);
+        try {
+            return sdm.parse(endDateString);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 获取设备唯一id
+     * 
+     * @param systemId 设备编号
+     * @param loop 回路号
+     * @param address 设备地址
+     * @return
+     */
+    public static String getDeviceId(String systemId, int loop, String address) {
+        StringBuffer str = new StringBuffer();
+        str.append(systemId).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop))).append(address);
+        return str.toString();
+    }
 }
