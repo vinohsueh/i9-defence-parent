@@ -1,5 +1,6 @@
 package i9.defence.platform.microservice.observer.pool;
 
+import i9.defence.platform.microservice.observer.util.SpringBeanService;
 import i9.defence.platform.service.UpStreamOriginService;
 
 import java.util.TimerTask;
@@ -13,8 +14,9 @@ public class ActiveMQConsumerTask extends TimerTask {
 
     @Override
     public void run() {
+        UpStreamOriginService upStreamOriginService = SpringBeanService.getBean(UpStreamOriginService.class);
         try {
-            this.upStreamOriginService.saveUpStreamOrigin(textMessage.getText());
+            upStreamOriginService.saveUpStreamOrigin(textMessage.getText());
             logger.info("save up stream decode success, data : " + textMessage.getText());
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);
@@ -25,10 +27,7 @@ public class ActiveMQConsumerTask extends TimerTask {
 
     private final TextMessage textMessage;
 
-    private UpStreamOriginService upStreamOriginService;
-
-    public ActiveMQConsumerTask(UpStreamOriginService upStreamOriginService, TextMessage textMessage) {
-        this.upStreamOriginService = upStreamOriginService;
+    public ActiveMQConsumerTask(TextMessage textMessage) {
         this.textMessage = textMessage;
     }
 }

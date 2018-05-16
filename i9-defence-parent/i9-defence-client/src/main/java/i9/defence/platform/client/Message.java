@@ -6,6 +6,7 @@ import i9.defence.platform.netty.libraries.DataEnum;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.req.DataMessage;
+import i9.defence.platform.netty.libraries.req.LoginReqMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
 
 public class Message {
@@ -13,6 +14,15 @@ public class Message {
     public int count = 1;
     
     public String[] state = {"00000000", "00000001", "00000002", "00000003", "00000004"};
+    
+    public LoginReqMessage makeLoginReqMessage() {
+        LoginReqMessage loginReqMessage = new LoginReqMessage();
+        loginReqMessage.dataLen = 11;
+        loginReqMessage.deviceAddress = "1000FFD7";
+        loginReqMessage.loop = (byte) 0;
+        loginReqMessage.systemId = "000000000001";
+        return loginReqMessage;
+    }
 
     public UpStreamReqMessage makeUpStreamReqMessage() {
         UpStreamReqMessage upStreamReqMessage = new UpStreamReqMessage();

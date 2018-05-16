@@ -35,22 +35,22 @@ public class DynamicDataSourceAspect {
      */
     @Before("@annotation(targetDataSource)")
     public void changeDataSource(JoinPoint point, TargetDataSource targetDataSource) throws Throwable {
-       //获取当前的指定的数据源;
+        // 获取当前的指定的数据源;
         String dsId = targetDataSource.value();
-        //如果不在我们注入的所有的数据源范围之内，那么输出警告信息，系统自动使用默认的数据源。
+        // 如果不在我们注入的所有的数据源范围之内，那么输出警告信息，系统自动使用默认的数据源。
         if (!DynamicDataSourceContextHolder.containsDataSource(dsId)) {
-        	DS_LOGGER.error("数据源[{}]不存在，使用默认数据源 > {}"+targetDataSource.value()+point.getSignature());
+            DS_LOGGER.error("数据源[{}]不存在，使用默认数据源 > {}" + targetDataSource.value() + point.getSignature());
         } else {
-        	DS_LOGGER.info("Use DataSource : {} > {}"+targetDataSource.value()+point.getSignature());
-            //找到的话，那么设置到动态数据源上下文中。
+            DS_LOGGER.info("Use DataSource : {} > {}" + targetDataSource.value() + point.getSignature());
+            // 找到的话，那么设置到动态数据源上下文中。
             DynamicDataSourceContextHolder.setDataSourceType(targetDataSource.value());
         }
     }
    
     @After("@annotation(targetDataSource)")
     public void restoreDataSource(JoinPoint point, TargetDataSource targetDataSource) {
-    	DS_LOGGER.info("Revert DataSource : {} > {}"+targetDataSource.value()+point.getSignature());
-       //方法执行完毕之后，销毁当前数据源信息，进行垃圾回收。
+        DS_LOGGER.info("Revert DataSource : {} > {}" + targetDataSource.value() + point.getSignature());
+        // 方法执行完毕之后，销毁当前数据源信息，进行垃圾回收。
         DynamicDataSourceContextHolder.clearDataSourceType();
     }
    

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -167,7 +168,7 @@ public interface EquipmentService {
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
 	//查询设备创建时间和负责人，安全负责人手机号
-	Equipment selectDataAndManager(String deviceId)throws BusinessException;
+	EquipmentProjectDto selectDataAndManager(int id)throws BusinessException;
 	
 	/**
 	 * 查询设备总数

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -112,7 +113,7 @@ public interface EquipmentMapper {
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 	//查询设备创建时间和负责人，安全负责人手机号
-	Equipment selectDataAndManager(String deviceId);
+	EquipmentProjectDto selectDataAndManager(int id);
 	
 	/**
 	 * 查询用户登进来的设备总数
@@ -128,6 +129,12 @@ public interface EquipmentMapper {
 	 */
 	int selectTotalAlertEquipmentDto(@Param("example") MonthDataDto monthDataDto);
 	
+	/**
+	 * 查询离线设备
+	 * @param monthDataDto
+	 * @return
+	 */
+	int selectOfflineEquipment(@Param("example") MonthDataDto monthDataDto);
 	/**
 	 * 更新设备状态
 	 * @param deviceId

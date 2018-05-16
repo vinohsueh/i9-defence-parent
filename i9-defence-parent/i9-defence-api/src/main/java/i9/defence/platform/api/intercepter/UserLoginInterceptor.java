@@ -21,15 +21,15 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class UserLoginInterceptor extends HandlerInterceptorAdapter{
 
     @Override
-    public boolean preHandle(HttpServletRequest request,
-            HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Subject subject = SecurityUtils.getSubject();
         Session shiroSession = subject.getSession();
         Manager loginUser = (Manager) shiroSession.getAttribute("loginUser");
         String url = request.getRequestURL().toString();
-        if (!url.endsWith("login") && !url.endsWith("regist") && !url.endsWith("login.html") && !url.endsWith("regist.html")) {
+        if (!url.endsWith("login") && !url.endsWith("regist") && !url.endsWith("login.html")
+                && !url.endsWith("regist.html")) {
             if (loginUser == null) {
-             // 跳转登录
+                // 跳转登录
                 response.sendRedirect(Constants.S_LOGIN_PAGE);
                 return false;
             }
@@ -38,9 +38,8 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter{
     }
 
     @Override
-    public void postHandle(HttpServletRequest request,
-            HttpServletResponse response, Object handler,
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
     }
-    
+
 }

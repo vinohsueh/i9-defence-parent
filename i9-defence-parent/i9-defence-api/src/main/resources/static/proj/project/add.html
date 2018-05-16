@@ -41,6 +41,31 @@
 				<input type="text" class="form-control" id="projectAddress" ng-model="project.projectAddress" placeholder="">
 			</div>
 		</div>
+		<div class='form-group'>
+        	<label class="col-md-3 control-label">起始时间</label>
+        	<div class="input-group date form_date col-md-8" style='padding:0 15px' data-date=""
+	           data-date-format="dd MM yyyy" data-link-field="dtp_input1"
+	           data-link-format="yyyy-mm-dd">
+	           <input class="form-control" size="16" placeholder="选择起始时间"
+	               id="projectStartDate" type="text" ng-model="project.projectStartDateStr" readonly>
+	           <span class="input-group-addon whiteBc"><span
+	               class="glyphicon glyphicon-remove"></span></span> <span
+	               class="input-group-addon whiteBc"><span
+	               class="glyphicon glyphicon-calendar whiteBc"></span></span>
+	        </div>
+	        <br/>
+	        <label class="col-md-3 control-label">终止时间</label>
+        	<div class="input-group date form_date col-md-8" style='padding:0 15px' data-date=""
+	           data-date-format="dd MM yyyy" data-link-field="dtp_input1"
+	           data-link-format="yyyy-mm-dd">
+	           <input class="form-control" size="16" placeholder="选择起始时间"
+	               id="projectEndDate" type="text" ng-model="project.projectEndDateStr" readonly>
+	           <span class="input-group-addon whiteBc"><span
+	               class="glyphicon glyphicon-remove"></span></span> <span
+	               class="input-group-addon whiteBc"><span
+	               class="glyphicon glyphicon-calendar whiteBc"></span></span>
+	        </div>
+        </div>
 		<div class="form-group">
 			<label class="col-md-3 control-label"><span class="required">*</span>经纬度</label>
 			<div class="col-md-4">
@@ -51,6 +76,7 @@
 			</div>
 			<button type='button' class='btn btn-primary' ng-click='map()'><i class='glyphicon glyphicon-map-marker'></i></button>
 		</div>
+		
 		<!-- <div class="form-group">
 			<label class="col-md-3 control-label"><span class="required">*</span>纬度</label>
 			<div class="col-md-8">
@@ -85,6 +111,7 @@
 		    </ui-select>
 		  </div>
 		</div>
+		
 		<div class="form-group">
 			<label class="col-md-3 control-label"><span class="required">*</span>备注</label>
 			<div class="col-md-8">
@@ -104,3 +131,17 @@
 		data-dismiss="modal">取消</button>
 	<button type="button" class="btn btn-primary" ng-click="confirmAdd()">确认</button>
 </div>
+<script>
+//时间插件
+$('.form_date').datetimepicker({
+    format : 'yyyy-mm-dd',
+    language : 'zh-CN',
+    weekStart : 1,
+    todayBtn : 1,
+    autoclose : 1,
+    todayHighlight : 1,
+    startView : 2,
+    minView : 2,
+    forceParse : 0
+});
+</script>

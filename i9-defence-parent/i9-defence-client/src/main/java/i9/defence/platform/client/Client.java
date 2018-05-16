@@ -1,8 +1,12 @@
 package i9.defence.platform.client;
 
+import i9.defence.platform.netty.libraries.req.LoginReqMessage;
+import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 public class Client {
 
@@ -28,7 +32,7 @@ public class Client {
     }
 
     public Client() {
-        this.connect("127.0.0.1", 9000);
+        this.connect("103.248.102.21", 9000);
     }
 
     public static Client getInstance() {
@@ -49,5 +53,31 @@ public class Client {
             System.out.println("客户端发送消息失败");
             e.printStackTrace();
         }
+    }
+
+    public ByteBuffer randomMessageByteBuffer(int index) {
+        Message message = new Message();
+        byte[] data;
+        byte m;
+        if (index != 0) {
+            UpStreamReqMessage upStreamReqMessage = message.makeUpStreamReqMessage();
+            data = upStreamReqMessage.getByteArray();
+            m = 0x01;
+        }
+        else {
+            LoginReqMessage loginReqMessage = message.makeLoginReqMessage();
+            data = loginReqMessage.getByteArray();
+            m = 0x00;
+        }
+        int len = data.length + 1 + 1 + 1 + 4 + 1 + 1;
+        ByteBuffer byteBuffer2 = ByteBuffer.allocate(len);
+        byteBuffer2.put((byte) 0x40);
+        byteBuffer2.put((byte) 0x10);
+        byteBuffer2.put(m);
+        byteBuffer2.putInt(1);
+        byteBuffer2.put(data);
+        byteBuffer2.put((byte) 0x00);
+        byteBuffer2.put((byte) 0x23);
+        return byteBuffer2;
     }
 }

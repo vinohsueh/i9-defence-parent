@@ -25,25 +25,28 @@ public class ErrorTypeCache {
      *  code和name
      *  
      */
-    public static Map<String,String> dictMap = new HashMap<String,String>();
+    public static Map<String, String> dictMap = new HashMap<String, String>();
     
     /**
      *  code和type
      *  
      */
-    public static Map<String,Integer> dictTypeMap = new HashMap<String,Integer>();
+    public static Map<String, Integer> dictTypeMap = new HashMap<String, Integer>();
     //public static List<string> codetypeList = new ArrayList<string>();
     
     public void init() {
-    	 List<EquipmentFault> list = equipmentFaultDao.getAllTypes();
-         //清空缓存数据
-         ErrorTypeCache.dictMap.clear();
-  
-         for (EquipmentFault equipmentFault : list) {
-         	dictMap.put(equipmentFault.getCode(), equipmentFault.getName());
-         	dictTypeMap.put(equipmentFault.getCode(), equipmentFault.getType());
-         }
-         System.out.println("字典数据大小：  "+dictMap.size());
+        List<EquipmentFault> list = equipmentFaultDao.getAllTypes();
+        // 清空缓存数据
+        //ErrorTypeCache.dictMap.clear();
+        Map<String, String> dictMap = new HashMap<String, String>();
+        Map<String, Integer> dictTypeMap = new HashMap<String, Integer>();
+        for (EquipmentFault equipmentFault : list) {
+            dictMap.put(equipmentFault.getCode(), equipmentFault.getName());
+            dictTypeMap.put(equipmentFault.getCode(), equipmentFault.getType());
+        }
+        ErrorTypeCache.dictMap = dictMap;
+        ErrorTypeCache.dictTypeMap = dictTypeMap;
+        System.out.println("字典数据大小： " + dictMap.size());
     }
     
     /**
@@ -51,13 +54,13 @@ public class ErrorTypeCache {
      * @param code
      * @return
      */
-    public static String getCacheDict(String code){
-    	for (Map.Entry<String,String> entry : dictMap.entrySet()) {
-			if(code.equals(entry.getKey())){
-				return entry.getValue();
-			}
-		}
-    	return "未知故障";
+    public static String getCacheDict(String code) {
+        for (Map.Entry<String, String> entry : dictMap.entrySet()) {
+            if (code.equals(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+        return "未知故障";
     }
     
     /**
@@ -65,12 +68,12 @@ public class ErrorTypeCache {
      * @param code
      * @return
      */
-    public static Integer getCacheType(String code){
-    	for (Map.Entry<String,Integer> entry : dictTypeMap.entrySet()) {
-			if(code.equals(entry.getKey())){
-				return entry.getValue();
-			}
-		}
-    	return null;
+    public static Integer getCacheType(String code) {
+        for (Map.Entry<String, Integer> entry : dictTypeMap.entrySet()) {
+            if (code.equals(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 }

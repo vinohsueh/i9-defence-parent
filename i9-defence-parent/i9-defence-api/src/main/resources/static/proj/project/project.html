@@ -57,6 +57,8 @@
              -->
              <th>备注</th>
             <th>创建日期</th>
+            <th>起始日期</th>
+            <th>终止日期</th>
             <th>开关</th>
             <th>操作</th>
           </tr>
@@ -77,6 +79,8 @@
              -->
              <td>{{project.remarks}}</td>
             <td>{{project.projectDateStr}}</td>
+            <td>{{project.projectStartDateStr}}</td>
+            <td>{{project.projectEndDateStr}}</td>
             <td ng-if="project.projectState==0">
             	<label class="i-switch m-t-xs m-r">
 	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox"/>
