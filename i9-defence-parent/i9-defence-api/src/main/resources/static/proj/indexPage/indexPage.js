@@ -20,34 +20,6 @@ var indexPageService = indexPageNgModule.factory('indexPageService',
 			return resource;
 	}]);
 var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,indexPageService,httpService){
-	//时间插件
-    // Disable weekend selection
-    $scope.disabled = function(date, mode) {
-      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-
-    $scope.toggleMin = function() {
-      $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-
-    $scope.open = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-
-      $scope.opened = true;
-      $('.dropdown-menu').css('bottom','34px');
-    };
-
-    $scope.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1,
-      class: 'datepicker'
-    };
-
-    $scope.initDate = new Date('2016-15-20');
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[1];
 	
     $scope.dateToString = function(d){
     	if (!d) {
@@ -219,7 +191,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 
 		};
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			console.log(JSON.stringify(data));
 			// console.log(JSON.stringify(data));
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];

@@ -96,12 +96,12 @@
               <option value="4">4</option> -->
             </select>
             <label for="">登记时间:</label>
-            <div class="input-group" ng-controller="monitoringChartNgControl">
+            <div class="input-group" ng-controller="DatepickerDemoCtrl">
               <input type="text" id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
             <label for="">-</label>
-            <select name="" id="" class='form-control blue_bg'>
+            <select name="" id="" class='form-control blue_bg' ng-model='startHours'>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
