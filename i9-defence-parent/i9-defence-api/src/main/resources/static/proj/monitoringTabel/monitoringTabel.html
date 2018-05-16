@@ -94,19 +94,19 @@
       <div class="title">项目信息</div>
       <div class="body">
         <!-- <p>项目名称：{{projectInfo.project.name}}</p> -->
-        <p>负责人：{{projectInfo.project.manager}}</p>
-        <p>负责人电话：18738790000</p>
-        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
-        <p>安全负责人电话：17837890000</p>
+        <p>负责人：{{equipment.clientName}}</p>
+        <p>负责人电话：{{equipment.clientPhone}}</p>
+        <p>安全负责人：{{equipment.safeName}}</p>
+        <p>安全负责人电话：{{equipment.safePhone}}</p>
       </div>
     </div>
     <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">设备信息</div>
       <div class="body">
-        <p>种类：{{projectInfo.equip.eqCategoryName}}</p>
-        <p>地址：{{projectInfo.equip.location}}</p>
-        <p>备注：{{projectInfo.equip.remark}}</p>
-        <p>注册时间：2017-03-22</p>
+        <p>种类：{{equipment.equipmentCategoryName}}</p>
+        <p>地址：{{equipment.equipmentPosition}}</p>
+        <p>备注：{{equipment.equipmentRemarks}}</p>
+        <p>注册时间：{{equipment.dateString}}</p>
       </div>
     </div>
     <div class="mPane col-xs-12 col-sm-8">

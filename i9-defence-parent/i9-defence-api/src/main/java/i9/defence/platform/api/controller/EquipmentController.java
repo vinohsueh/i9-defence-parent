@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.api.components.ChannelDataComponent;
-import i9.defence.platform.api.components.EquipmentMonitorComponent;
 import i9.defence.platform.api.components.MonthDataInfoComponent;
-import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
@@ -212,15 +211,7 @@ public class EquipmentController {
 	public HashMap<String, Object> selectEquipInfoAndData(@RequestBody ChannelDataSearchDto channelDataSearchDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		//查询设备创建时间和负责人，安全负责人手机号
-		Equipment dataAndManager = equipmentService.selectDataAndManager(channelDataSearchDto.getEquipmentId());
-		if (dataAndManager.getPhones1() != null) {
-			String strings[] = dataAndManager.getPhones1().split(",");
-			dataAndManager.setPhones1(strings[0]);
-		}
-		if (dataAndManager.getName1() != null) {
-			String strings[] = dataAndManager.getName1().split(",");
-			dataAndManager.setName1(strings[0]);
-		}
+		EquipmentProjectDto dataAndManager = equipmentService.selectDataAndManager(channelDataSearchDto.getEquipmentId());
 		result.put("dataAndManager", dataAndManager);
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(dataAndManager.getDeviceId());
@@ -230,10 +221,6 @@ public class EquipmentController {
 		typeList.add(DataTypeEnum.FLOAT.getId());
 		typeList.add(DataTypeEnum.SHORT.getId());
 		channelDataSearchDto.setTypes(typeList);
-		//隐患报警数量
-		/*HiddenDangerDto hiddenDangerDto = equipmentService.selectHiddenDangerDtoByDeviceId(dataAndManager.getDeviceId());
-		JSONObject jObject = new HiddenDangerDtoInfoComponent().setHiddenDangerDto(hiddenDangerDto).build();
-		result.put("count", jObject);*/
 		//通道数据
 		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
 		//通道对应关系
@@ -245,10 +232,7 @@ public class EquipmentController {
 			result.put("data", jsonObject);
 		}
 		//设备信息
-		result.put("equip", new EquipmentMonitorComponent().setEquipment(dataAndManager).build());
-		//项目信息
-		Project project = projectService.getProjectById(dataAndManager.getProjectId());
-		result.put("project", new ProjcetMonitorComponent().setProject(project).build());
+		result.put("equip", dataAndManager);
 		return result;
 	}
 	

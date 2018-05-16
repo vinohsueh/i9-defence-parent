@@ -13,6 +13,7 @@ import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -410,7 +411,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public Equipment selectDataAndManager(int id) throws BusinessException {
+	public EquipmentProjectDto selectDataAndManager(int id) throws BusinessException {
 		try {
 			return equipmentDao.selectDataAndManager(id);
 		} catch (Exception e) {

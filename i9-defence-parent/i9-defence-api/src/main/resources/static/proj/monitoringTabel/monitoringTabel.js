@@ -160,7 +160,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 		
 		httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.equipmentInfo = data.data.data;
-			$scope.projectInfo = data.data;
+			$scope.equipment = data.data.equip;
 			$scope.equipmentCheckArr = [];
 			$scope.equipmentItemArr = [];
 

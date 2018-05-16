@@ -191,7 +191,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
-    		$scope.projectInfo = data.data;
+    		$scope.equipment = data.data.equip;
     		$scope.dataAndManager = data.data.dataAndManager;
     		$scope.equipmentCheckArr = [];
             $scope.equipmentItemArr = [];

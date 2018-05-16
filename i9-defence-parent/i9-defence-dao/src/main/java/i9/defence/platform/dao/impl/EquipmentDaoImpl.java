@@ -10,6 +10,7 @@ import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.mapper.ChannelDataMapper;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -205,7 +206,7 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public Equipment selectDataAndManager(int id) {
+	public EquipmentProjectDto selectDataAndManager(int id) {
 		return equipmentMapper.selectDataAndManager(id);
 	}
 
@@ -213,8 +214,10 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		TotalEquipmentDto totalEquipmentDto = new TotalEquipmentDto();
 		int totalEquipment = equipmentMapper.selectTotalEquipmentDto(monthDataDto);
 		int totalAlertEquipment = equipmentMapper.selectTotalAlertEquipmentDto(monthDataDto);
+		int offlineEquipment = equipmentMapper.selectOfflineEquipment(monthDataDto);
 		totalEquipmentDto.setTotal(totalEquipment);
 		totalEquipmentDto.setAlert(totalAlertEquipment);
+		totalEquipmentDto.setOffline(offlineEquipment);
 		return totalEquipmentDto;
 	}
 
