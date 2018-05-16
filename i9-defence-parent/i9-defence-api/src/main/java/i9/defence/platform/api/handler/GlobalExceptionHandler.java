@@ -21,22 +21,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-	
-	@ExceptionHandler(value = AuthorizationException.class)
+    
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(value = AuthorizationException.class)
     public HashMap<String, Object> authorizationErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		logger.info("---authorizationErrorHandler---Host {} invokes url {} ERROR: {}", req.getRemoteHost(), req.getRequestURL(), e.getMessage());
-		map.put("result", -2);
-		map.put("errorMsg", "您没有权限!");
-		return map;
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        logger.info("---authorizationErrorHandler---Host {} invokes url {} ERROR: {}", req.getRemoteHost(),
+                req.getRequestURL(), e.getMessage());
+        map.put("result", -2);
+        map.put("errorMsg", "您没有权限!");
+        return map;
     }
-	
-	@ExceptionHandler(value = UnavailableSecurityManagerException.class)
+
+    @ExceptionHandler(value = UnavailableSecurityManagerException.class)
     public HashMap<String, Object> baseErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		logger.info("---BaseException Handler---Host {} invokes url {} ERROR: {}", req.getRemoteHost(), req.getRequestURL(), e.getMessage());
-		return map;
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        logger.info("---BaseException Handler---Host {} invokes url {} ERROR: {}", req.getRemoteHost(),
+                req.getRequestURL(), e.getMessage());
+        return map;
     }
-	
+
 }

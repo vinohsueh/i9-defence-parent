@@ -2,10 +2,14 @@ html,body,head,div,span,p,input,button,form{
 	margin:0;
 	padding: 0;
 }
+html{
+	height: 100%;
+	background: #151c35 url('../images/loginBg.jpg') no-repeat center center;
+	background-size: cover;
+}
 body{
 	text-align: center;
 	color:#666;
-	background-color: #F0F3F4;
 	font-size: 14px;
 	line-height: 1.8em;
 	font-family: "Microsoft Yahei","微软雅黑",Tahoma,Helvetica,STHeiti;
@@ -16,11 +20,35 @@ body{
 .pt-10{
 	padding-top: 10px;
 }
+.whiteText{
+	color: #fff;
+}
+.logo{
+	padding-top: 80px;
+}
+.logo.regist{
+	padding-top: 20px;
+}
 .title{
-	font-size: 20px;
+	font-size: 48px;
 	padding: 20px 0;
 	margin-top: 20px;
-	color: #333;
+	margin-bottom: 0;
+	color: #fff;
+}
+.title.regist{
+	font-size:30px;
+	margin-top: 0;
+	padding:10px 0;
+}
+.smallTitle{
+	font-size: 20px;
+	color: #fff;
+	margin-bottom: 50px;
+}
+.smallTitle.regist{
+	font-size: 18px;
+	margin-bottom: 10px;
 }
 #loginData{
 	width:350px;
@@ -52,9 +80,10 @@ button{
 	padding: 12px 0;
 	font-size: 16px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 #submitBtn{
-	background-color: #9E97CE;
+	background-color: #1f306d;
 	color: #fff;
 }
 #forgetData>span:hover{

@@ -650,45 +650,45 @@
 		<select id="selectHiddenDangerDtoByDeviceId" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select * from v_hiddenDanger_edit where deviceId = #{deviceId}
 		</select>
-		<select id="selectDataAndManager" parameterType="string" resultType="i9.defence.platform.model.Equipment">
+		<select id="selectDataAndManager" parameterType="int" resultType="i9.defence.platform.dao.vo.EquipmentProjectDto">
 			SELECT
 				e.equipmentDate,
 				(
-			SELECT
-				GROUP_CONCAT( m.phone ) 
+			SELECT  c.phone 
 			FROM
-				t_manager m 
+				t_client c 
 			WHERE
-				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
-				) as phones ,
+				c.id IN ( SELECT clientId  FROM t_project_client ps WHERE ps.projectId = e.projectId ) limit 1
+				)  as clientPhone ,
+				
 				(
 			SELECT
-				GROUP_CONCAT( m.phone) 
+				 c.name
 			FROM
-				t_manager m 
+				t_client c 
 			WHERE
-				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
-				)as phones1 ,
+				c.id IN ( SELECT clientId  FROM t_project_client ps WHERE ps.projectId = e.projectId) limit 1
+				)as clientName,
 				(
 			SELECT
-				GROUP_CONCAT( m.name) 
+				 m.phone
 			FROM
 				t_manager m 
 			WHERE
-				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =0) 
-				)as name ,
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) limit 1
+				)as safePhone  ,
 					(
 			SELECT
-				GROUP_CONCAT( m.name) 
+				 m.name
 			FROM
 				t_manager m 
 			WHERE
-				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) 
-				)as name1
+				m.id IN ( SELECT managerId  FROM t_project_safe ps WHERE ps.projectId = e.projectId and ps.safe =1) limit 1
+				)as safeName,e.deviceId,e.systemId,e.projectId,e.equipmentPosition,e.equipmentRemarks,e.equipmentName,ec.eqCategoryName as equipmentCategoryName,p.projectName as projectName,CONCAT(p.projectProvince,p.projectCity,p.projectCounty,p.projectAddress) as projectLocation
 			FROM
-				t_equipment e 
+				t_equipment e left join t_equipment_category ec on e.systemId = ec.eqCategoryId left join t_project p on e.projectId = p.id
 			WHERE
-				e.deviceId = #{deviceId}
+				e.id = #{id}
 		</select>
 		
 	<!-- ———————————— 隐患与报警———————————— -->
@@ -838,7 +838,7 @@
 		        </if>
 	    	</if>
 	    	<if test="example.projectManagerId != null">
-	    		AND ps.projectManagerId = #{example.projectManagerId}
+	    		AND ps.managerId = #{example.projectManagerId}
 	    	</if>
 	    	<if test="example.distributorId != null">
 	    		AND p.distributorId = #{example.distributorId}
@@ -875,6 +875,29 @@
 	    	and warningCount > 0
     	</trim>
 	 </select>
+	 
+	 <select id="selectOfflineEquipment" resultType="int">
+	 	select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
+		where e.status = 0
+		<if test="example.projectId != null">
+    		AND p.id = #{example.projectId}
+    	</if>
+    	<if test="example.projectId == null">
+	    	<if test="example.projectProvince != null and example.projectProvince != ''">
+	          AND p.projectProvince = #{example.projectProvince}
+	        </if>
+	        <if test="example.projectCity != null and example.projectCity != ''">
+	          AND p.projectCity = #{example.projectCity}
+	        </if>
+    	</if>
+    	<if test="example.projectManagerId != null">
+    		AND ps.managerId = #{example.projectManagerId}
+    	</if>
+    	<if test="example.distributorId != null">
+    		AND p.distributorId = #{example.distributorId}
+    	</if>
+	 </select>
+	 
 	 <update id="updateEquipmentStatusByDeviceId">
 	 	update t_equipment set status = #{status} where deviceId = #{deviceId}
 	 </update>

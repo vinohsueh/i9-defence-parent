@@ -20,7 +20,6 @@ public class ActiveMQConsumerRunnable implements Runnable {
                 TextMessage textMessage = activeMQConsumerService.receive(ActiveMQQueueEnum.I9_PUSH);
                 // 如果数据为空就延迟3秒钟
                 if (textMessage == null) {
-                    Thread.sleep(3000);
                     continue;
                 }
                 activeMQConsumerRunnablePool.executePool(textMessage);

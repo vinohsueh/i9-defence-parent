@@ -299,7 +299,23 @@ angular.module('app')
 //	                }]
 //	              }
 //	          })
-	         
+	          .state('app.connectLog', {
+                  url: '/connectLog',
+                  templateUrl: 'proj/connectLog/connectLog.html',
+              	  controller : "connectLogNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'connectLogNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/connectLog/connectLog.js',
+            				]
+            			})
+                    }]
+                  }
+              })
 	          
 	          
 	          

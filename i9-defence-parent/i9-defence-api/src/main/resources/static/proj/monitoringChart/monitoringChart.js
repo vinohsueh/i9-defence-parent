@@ -20,7 +20,7 @@ var monitoringChartService = monitoringChartNgModule.factory('monitoringChartSer
 		return resource;
 	}]);
 var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
-	//时间插件
+	/*//时间插件
     // Disable weekend selection
     $scope.disabled = function(date, mode) {
       return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
@@ -47,7 +47,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 
     $scope.initDate = new Date('2016-15-20');
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[1];
+    $scope.format = $scope.formats[1];*/
 	
     $scope.dateToString = function(d){
     	var date = new Date(d);
@@ -115,7 +115,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 		
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectss  = data.data.data; 
-            console.log(JSON.stringify($scope.projectss));
 		})
 	}
 	$scope.queryProjects();
@@ -151,7 +150,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;
-            // console.log(JSON.stringify(data));
+            // console.log(JSON.stringify($scope.projects));
     		for(i in $scope.projects){
     			if($scope.projects[i].warningCount>0){
     				$scope.projects[i].status = 'dangerLabel';
@@ -193,9 +192,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
-    		$scope.warningCount = data.data.count.warningCount;
-    		$scope.hiddenCount = data.data.count.hiddenCount;
-    		$scope.projectInfo = data.data;
+    		$scope.equipment = data.data.equip;
     		$scope.dataAndManager = data.data.dataAndManager;
     		$scope.equipmentCheckArr = [];
             $scope.equipmentItemArr = [];

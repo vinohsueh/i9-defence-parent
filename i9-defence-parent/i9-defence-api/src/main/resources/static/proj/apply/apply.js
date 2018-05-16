@@ -126,6 +126,7 @@ var applyNgControl=applyNgModule.controller('applyNgControl',function($rootScope
     $scope.changeType = function(){
     	if($scope.destorId){
     		$scope.destriId = $scope.destorId;
+    		console.log($scope.destriId)
     	}else{
     		$scope.destriId= 0;
     	}

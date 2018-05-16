@@ -95,8 +95,19 @@ public class Equipment {
     
     private String name1;
     
+    private String equipmentCategoryName;
     
-    public Integer getStatus() {
+    
+    
+    public String getEquipmentCategoryName() {
+		return equipmentCategoryName;
+	}
+
+	public void setEquipmentCategoryName(String equipmentCategoryName) {
+		this.equipmentCategoryName = equipmentCategoryName;
+	}
+
+	public Integer getStatus() {
 		return status;
 	}
 

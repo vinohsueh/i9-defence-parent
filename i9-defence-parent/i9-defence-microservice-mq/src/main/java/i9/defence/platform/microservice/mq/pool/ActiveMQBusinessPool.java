@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActiveMQBusinessPool {
 
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-    
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+
     public void execute(Runnable command) {
         this.executorService.execute(command);
     }
