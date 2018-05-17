@@ -34,6 +34,7 @@
     <result column="eqCategoryName" jdbcType="VARCHAR" property="eqCategoryName" />
     <result column="personLiableMan" jdbcType="VARCHAR" property="personLiableMan" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks"/>
+    <result column="newestTime" jdbcType="VARCHAR" property="newestTime" />
     <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"/>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -605,6 +606,7 @@
 				<if test="example.endDate != null and example.endDate != ''">
 					and example.endDate &gt; equipmentDate
 				</if> -->
+				and `status`!=1 and warningCount !=0 and hiddeCount !=0
 			</trim>
 		</sql>
 		
@@ -619,7 +621,28 @@
 		</select>
 		<!-- 分页查询 -->
 		<select id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto">
-			select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			SELECT
+				id,
+				deviceId,
+				equipmentRemarks,
+				eqCategoryName,
+				projectName,
+				hiddeCount,
+				warningCount,
+			CASE
+				1 
+				WHEN warningCount > 0 
+				THEN
+				getNewestTime ( deviceId )	 
+				WHEN warningCount =0 and hiddeCount >0 
+				THEN
+				'2018-5-17 10:46:11'
+				WHEN warningCount =0 and hiddeCount =0
+				THEN
+				getLiXianTime( deviceId)
+				End as newestTime
+			FROM 
+			v_hiddendanger_edit he 
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
