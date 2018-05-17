@@ -85,23 +85,21 @@
 	                <input type="checkbox" id="totalCheck"><i></i>
 	              </label>
 	            </th> -->
-	            <th>事件</th>
-	            <th>设备编号</th>
-	            <th>设备位置</th>
-	            <th>设备类型</th>
-	            <th>项目安全负责人</th>
+	            <th>状态</th>
 	            <th>项目名称</th>
+	            <th>设备分类</th>
+	            <th>备注</th>
+	            <th>时间</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
 	           <!--  <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.deviceId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td> -->
 	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.statusText}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.deviceId}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentPosition}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.eqCategoryName}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.personLiableMan}}</td>
 	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.projectName}}</td>
+	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentRemarks}}</td>
+	            <td>2018年5月16日09:45:15</td>
 	          </tr>
 	        </tbody>
 	      </table>

@@ -49,6 +49,17 @@ public class HiddenDangerDto {
 	
 	private List<EqChannelDataDto> eqChannelDataList;
 	
+	/**
+	 * 设备备注
+	 */
+	private String equipmentRemarks;
+	
+	public String getEquipmentRemarks() {
+		return equipmentRemarks;
+	}
+	public void setEquipmentRemarks(String equipmentRemarks) {
+		this.equipmentRemarks = equipmentRemarks;
+	}
 	public String getPersonLiableMan() {
 		return personLiableMan;
 	}
