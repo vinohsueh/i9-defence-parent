@@ -110,4 +110,17 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 		
 	}
 
+	@Override
+	public void errHandleEdit(ErrHandle errHandle) throws BusinessException {
+		try {
+			errHandle.setHandleDate(new Date());
+			errHandleDao.updateErrHandle(errHandle);
+		} catch (Exception e) {
+			throw new BusinessException("处理失败", e.getMessage());
+		}
+		
+	}
+
+
+
 }

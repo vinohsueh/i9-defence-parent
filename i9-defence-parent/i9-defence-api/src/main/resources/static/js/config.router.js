@@ -477,6 +477,24 @@ angular.module('app')
                   }
               }) 
               
+               .state('app.errHandle', {
+                  url: '/errHandle',
+                  templateUrl: 'proj/errHandle/errHandle.html',
+              	  controller : "errHandleControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'errHandleModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/errHandle/errHandle.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+              
               .state('app.warningEdit', {
                   url: '/warningEdit',
                   templateUrl: 'proj/warningEdit/warningEdit.html',
