@@ -75,6 +75,9 @@
     	<if test="example.eqDeviceId != null and example.eqDeviceId != ''">
             OR eqDeviceId like CONCAT('%',CONCAT('${example.eqDeviceId}','%'))
         </if>
+         <if test="example.handleState != null ">
+          and handleState =#{example.handleState}
+        </if>
         <!--  <if test="example.managerId != null and example.managerId != ''">
             AND handleManagerId in(select ps.managerId from t_project_safe ps left join t_project p on ps.projectId = p.id WHERE p.distributorId = #{example.managerId})
         </if>  -->

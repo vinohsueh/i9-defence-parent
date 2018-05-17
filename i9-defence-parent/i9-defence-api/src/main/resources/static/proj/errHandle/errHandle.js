@@ -1,5 +1,5 @@
-var warningInfoModule=angular.module('warningInfoModule',['ngAnimate','ui.bootstrap','app']);
-var warningInfoService = warningInfoModule.factory('warningInfoService',
+var errHandleModule=angular.module('errHandleModule',['ngAnimate','ui.bootstrap','app']);
+var warningInfoService = errHandleModule.factory('warningInfoService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -19,17 +19,21 @@ var warningInfoService = warningInfoModule.factory('warningInfoService',
 			});
 			return resource;
 	}]);
-var warningInfoControl=warningInfoModule.controller('warningInfoControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,warningInfoService,httpService){
+var errHandleControl=errHandleModule.controller('errHandleControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,warningInfoService,httpService){
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
+//	初始化底部信息
+	$scope.ifshow = false;
+//	初始化id
+	$scope.deviceId=0;
 	//初始化
 	$scope.initTable = function (){
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				orderByClause: "handleDate desc",
-				handleState: 1 ,
+				handleState: 0 ,
 				eqDeviceId:$stateParams.id
 			};
 		httpService.post({url:'./errHandle/pageErrHandle',data:pageParam,showSuccessMsg:false}).then(function(data) {  
@@ -81,5 +85,31 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 	$scope.search = function(){
 		$scope.initTable();
 	}
-
+	//项目选择
+	$scope.choiceItem = function(idNum){
+		$scope.ifshow = true;
+		$scope.id = idNum;
+		console.log(idNum);
+	}
+	
+	   //详情提交
+    $scope.confirmBtn = function () {
+    	var handleCon = $('#handleCon').val();
+    	var param = {
+    		id:$scope.id,
+    		handleCon:handleCon,
+    		handleState:1
+    	}
+    	console.log(param);
+    	if(handleCon.replace(/(^\s*)|(\s*$)/g,"").length!=0){
+	    	httpService.post({url:'./errHandle/errHandleEdit',data:param,showSuccessMsg:false}).then(function(data) {
+	    		$scope.ifshow = false;
+	    		$('#handleCon').val('');
+	    		$scope.initTable();
+	    	});
+    	}else{
+    		alert('请输入内容！');
+    	}
+    	
+    }
 })
