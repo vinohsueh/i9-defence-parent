@@ -54,13 +54,13 @@
               <div class="name">所有设备</div>
                <div class="body">{{serchEqNums}}</div>
             </div> 
-            <div class="item " ng-class="{true:'active'}[type==i.id]" ng-click='changeType(i.eqCategoryId)' ng-repeat='i in serchEqCategory'>
+            <div class="item " ng-class="{true:'active'}[type==i.eqCategoryId]" ng-click='changeType(i.eqCategoryId)' ng-repeat='i in serchEqCategory'>
               <div class="name">{{i.eqCategoryName}}</div>
                <div class="body">{{i.eqNum}}</div>
             </div>
           </div>
           <div class="equipmentData" id='equipmentData'>
-            <span class="mLabel {{i.status}}" ng-click='checkItem(i.id)' ng-repeat='i in projects'>{{i.equipmentPosition}}</span>
+            <span class="mLabel {{i.status}}" ng-click='checkItem(i.id)' ng-repeat='i in projects'>{{i.equipmentRemarks}}</span>
           </div>
       </div>
   </div>

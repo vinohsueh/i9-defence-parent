@@ -156,8 +156,10 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     				$scope.projects[i].status = 'dangerLabel';
     			}else if($scope.projects[i].hiddeCount>0){
     				$scope.projects[i].status = 'faultLabel';
+    			}else if ($scope.projects[i].status == 0){
+    				$scope.projects[i].status = 'lineOutLabel';
     			}else{
-    				$scope.projects[i].status = ''
+    				$scope.projects[i].status = '';
     			}
     		}
 
