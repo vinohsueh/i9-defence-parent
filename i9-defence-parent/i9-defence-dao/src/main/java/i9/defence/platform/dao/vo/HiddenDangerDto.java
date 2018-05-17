@@ -47,6 +47,8 @@ public class HiddenDangerDto {
 	 */
 	private String personLiableMan;
 	
+	private Integer status;
+	
 	private List<EqChannelDataDto> eqChannelDataList;
 	
 	/**
@@ -54,6 +56,14 @@ public class HiddenDangerDto {
 	 */
 	private String equipmentRemarks;
 	
+	
+	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 	public String getEquipmentRemarks() {
 		return equipmentRemarks;
 	}

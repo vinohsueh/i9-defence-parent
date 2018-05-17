@@ -277,8 +277,7 @@ public class EquipmentController {
 		//报警数据
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
 		//隐患数据
-		//List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
-		List<MonthData> hiddenData = new ArrayList<MonthData>();
+		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
 		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();
 		result.put("data", jsonObject);
 		return result;

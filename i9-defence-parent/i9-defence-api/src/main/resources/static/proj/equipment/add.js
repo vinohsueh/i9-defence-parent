@@ -28,7 +28,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 //		alert($scope.equipment.equipmentCategoryId);
 		if($scope.equipment.equipmentCategoryId != null && $scope.equipment.equipmentCategoryId != ''){
 			$scope.choiceFirst = true;
-			httpService.post({url:'./equipment/findEquipmentSystemCategory2',data:$scope.equipment.equipmentCategoryId,showSuccessMsg:true}).then(function(data) {  
+			httpService.post({url:'./equipment/findEquipmentSystemCategory2',data:$scope.equipment.equipmentCategoryId,showSuccessMsg:false}).then(function(data) {  
 //				console.log(JSON.stringify(data))
 				$scope.secondData = data.data.equipmentCategory;
 				
@@ -100,7 +100,6 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			return false;
 		}
 		$scope.equipment.systemId  = $scope.equipment.equipmentCategory.eqCategoryId;
-		console.log($scope.equipment.equipmentCategory.id);
 		httpService.post({url:'./equipment/addEquipment',data:$scope.equipment,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

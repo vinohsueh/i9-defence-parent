@@ -215,9 +215,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		int totalEquipment = equipmentMapper.selectTotalEquipmentDto(monthDataDto);
 		int totalAlertEquipment = equipmentMapper.selectTotalAlertEquipmentDto(monthDataDto);
 		int offlineEquipment = equipmentMapper.selectOfflineEquipment(monthDataDto);
+		int hiddenEquipment = equipmentMapper.selectHiddenEquipment(monthDataDto);
 		totalEquipmentDto.setTotal(totalEquipment);
 		totalEquipmentDto.setAlert(totalAlertEquipment);
 		totalEquipmentDto.setOffline(offlineEquipment);
+		totalEquipmentDto.setFault(hiddenEquipment);
 		return totalEquipmentDto;
 	}
 

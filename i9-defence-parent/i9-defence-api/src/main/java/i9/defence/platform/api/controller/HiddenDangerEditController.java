@@ -55,11 +55,7 @@ public class HiddenDangerEditController {
     public HashMap<String, Object> selectAllHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         List<HiddenDangerDto> list = equipmentService.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
-        //List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(new EquipmentCategory());
-        //List<Project> project = projectService.findAllProject();
         result.put("data",list);
-        //result.put("equipmentCategory",equipmentCategory);
-        //result.put("project",project);
         return result;
     }
     /**

@@ -46,9 +46,9 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
 		
 	};
 	
-	httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data){
+	/*httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data){
 		$scope.eqCategorys = data.data.data;
-	})
+	})*/
 	$scope.initTable();
 	
 	//取相应的设备类型
@@ -90,10 +90,13 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
 	}
 	
 	$scope.add = function () {  
-		httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data){
+		/*httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data){
 			$scope.eqCategorys = data.data.data;
 			console.log($scope.eqCategorys);
-			var modalInstance = $modal.open({  
+			
+            }  
+         */
+		var modalInstance = $modal.open({  
             templateUrl: 'proj/hiddendanger/add.html',  
             controller: 'hiddendangerEditCtrl', 
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
@@ -110,26 +113,23 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
         		hiddendanger: function () {  
                     return {};  
                 },
-                eqCategorys: function () {  
+                /*eqCategorys: function () {  
                     return $scope.eqCategorys;  
-                },
-            }  
-        }); 
-        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+                },*/
+            }
+        });
+		modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
             $scope.selected = data;
-        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
         	$scope.initTable();
-        	});
-		});
+        });
     };  
     
   //编辑 
     $scope.edit = function (id) { 
     	httpService.post({url:'./hiddendanger/getHiddendangerById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.hiddendanger = data.data.data;
-    		httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data){	
-    			$scope.eqCategorys = data.data.data;
-    			var modalInstance = $modal.open({  
+    		var modalInstance = $modal.open({  
 	            templateUrl: 'proj/hiddendanger/add.html',  
 	            controller: 'hiddendangerEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
@@ -146,17 +146,20 @@ var hiddendangerNgControl=hiddendangerNgModule.controller('hiddendangerNgControl
 	        		hiddendanger: function () {  
 	                    return $scope.hiddendanger;  
 	                },
-	                eqCategorys: function () {  
+	                /*eqCategorys: function () {  
 	                    return $scope.eqCategorys;  
-	                },
+	                },*/
 	            }  
-	        });
+    		});
+    		/*httpService.post({url:'./eqCategory/serchEqCategory',showSuccessMsg:false}).then(function(data){	
+    			$scope.eqCategorys = data.data.data;
+    			
+	        });*/
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
 	            $scope.selected = data;
 	        },function(reason){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
 	        	$scope.initTable();
 	        });
-    		})
     	});
     }
   //删除

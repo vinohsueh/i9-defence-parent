@@ -135,11 +135,18 @@ public interface EquipmentMapper {
 	 * @return
 	 */
 	int selectOfflineEquipment(@Param("example") MonthDataDto monthDataDto);
+	
+	/**
+	 * 查询隐患设备数量
+	 * @param monthDataDto
+	 * @return
+	 */
+	int selectHiddenEquipment(@Param("example") MonthDataDto monthDataDto);
 	/**
 	 * 更新设备状态
 	 * @param deviceId
 	 * @param status
 	 */
 	void updateEquipmentStatusByDeviceId(@Param("deviceId") String deviceId,@Param("status") int status);
-	
+
 }
