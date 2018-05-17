@@ -41,4 +41,6 @@ public interface ErrHandleService {
      * @throws BusinessException
      */
 	void handleErrorDevice(List<String> list) throws BusinessException;
+	//处理待处理列表状态和处理详情
+	void errHandleEdit(ErrHandle errHandle)throws BusinessException;
 }

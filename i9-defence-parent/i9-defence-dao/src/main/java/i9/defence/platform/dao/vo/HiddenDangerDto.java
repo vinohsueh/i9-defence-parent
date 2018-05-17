@@ -64,6 +64,18 @@ public class HiddenDangerDto {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	/**
+	 * 时间
+	 */
+	private String newestTime;
+	
+	public String getNewestTime() {
+		return newestTime;
+	}
+	public void setNewestTime(String newestTime) {
+		this.newestTime = newestTime;
+	}
+	
 	public String getEquipmentRemarks() {
 		return equipmentRemarks;
 	}

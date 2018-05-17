@@ -15,8 +15,19 @@ public class ErrHandleUnifiedDto implements Serializable{
 	//处理内容
 	private String handleCon;
 	
+	private Integer handleState;
+	
 	//处理设备 故障类型
 	private Integer eqType;
+	
+
+	public Integer getHandleState() {
+		return handleState;
+	}
+
+	public void setHandleState(Integer handleState) {
+		this.handleState = handleState;
+	}
 
 	public Integer getEqId() {
 		return eqId;
