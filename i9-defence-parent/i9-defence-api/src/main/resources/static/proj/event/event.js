@@ -72,7 +72,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 				hiddenCount1 : 1,
 				orderByClause: 'warningCount desc'
 			};
-		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit2',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
 			console.log($scope.hiddenEdits)
 			$scope.equipmentCategorys = data.data.equipmentCategory;

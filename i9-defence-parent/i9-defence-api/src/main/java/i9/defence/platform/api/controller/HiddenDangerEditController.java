@@ -46,6 +46,18 @@ public class HiddenDangerEditController {
         return result;
     }
     
+    
+	/*
+     *分页查询
+     */
+    @RequestMapping("/pageHiddenDangerEdit2")
+    public HashMap<String, Object> pageHiddenDangerEdit2(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        PageBounds<HiddenDangerDto> pageBounds = equipmentService.selectHiddenDangerByLimitPage2(hiddenDangerSearchDto);
+        result.put("data",pageBounds);
+        return result;
+    }
+    
     /**
      * 查询全部
      * @param hiddenDangerSearchDto

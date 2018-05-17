@@ -19,8 +19,10 @@ public interface EquipmentMapper {
 	int countByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
 	
 	int countHiddenDangerByExample(@Param("example")HiddenDangerSearchDto hiddenDangerSearchDto);
-
-    int deleteByExample(EquipmentExample example);
+	
+	int countHiddenDangerByExample2(@Param("example")HiddenDangerSearchDto hiddenDangerSearchDto);
+  
+	int deleteByExample(EquipmentExample example);
 
     int deleteByPrimaryKey(List<Integer> ids);
 
@@ -58,6 +60,8 @@ public interface EquipmentMapper {
     //隐患报警分页查询
     List<HiddenDangerDto> selectHiddenDangerByLimitPage(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
+    List<HiddenDangerDto> selectHiddenDangerByLimitPage2(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    
     //查询具体隐患报警--隐患
     List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(@Param("deviceId")String systemId);
     //查询具体隐患报警--报警

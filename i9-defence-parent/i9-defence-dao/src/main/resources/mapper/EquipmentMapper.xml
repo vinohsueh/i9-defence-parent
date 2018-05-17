@@ -555,7 +555,69 @@
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
 		</select>
+		
+		<select id="countHiddenDangerByExample2" resultType="java.lang.Integer">
+			select count(*) from v_hiddenDanger_edit
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
+			</if>
+		</select>
+		
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<!--根据项目名称 模糊搜索  -->	
+				<if test="example.projectId != null">
+					and projectId = #{example.projectId}
+				</if>
+				<!--根据设备类型 模糊搜索  -->	
+				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">
+					and eqCategoryName ='${example.eqCategoryName}'
+				</if>
+				<!--根据项目所在省 模糊搜索  -->	
+				<if test="example.projectProvince != null and example.projectProvince != ''">
+					and projectProvince ='${example.projectProvince}'
+				</if>
+				<!--根据项目所在市 模糊搜索  -->	
+				<if test="example.projectCity != null and example.projectCity != ''">
+					and projectCity ='${example.projectCity}'
+				</if>
+				<!--根据项目所在县/区 模糊搜索  -->	
+				<if test="example.projectCounty != null and example.projectCounty != ''">
+					and projectCounty ='${example.projectCounty}'
+				</if>
+				<!--隐患不为0  -->	
+				<if test="example.hidden != null and example.hidden != ''">
+					and hiddeCount != 0 and warningCount = 0 
+				</if>
+				<!--报警不为0  -->	
+				<if test="example.danger != null and example.danger != ''">
+					and warningCount != 0 
+				</if>
+				<!--隐患或报警大于0  -->	
+				<if test="example.hiddenCount1 != null">
+					and (hiddeCount > 0 or warningCount > 0 )
+				</if>
+				<!--项目负责人  -->	
+				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
+					and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
+				</if>
+				<!--经销商  -->	
+				<if test="example.distributorId != null and example.distributorId != ''">
+					and distributorId ='${example.distributorId}'
+				</if>
+				<if test="example.systemId != null">
+					and systemId = #{example.systemId}
+				</if>
+				<!-- <if test="example.startDate != null and example.startDate != ''">
+					and example.startDate &lt; equipmentDate
+				</if>
+				<if test="example.endDate != null and example.endDate != ''">
+					and example.endDate &gt; equipmentDate
+				</if> -->
+			</trim>
+		</sql>
+		
+		<sql id="Query_HiddenDanger_By_Dto_Where_Clause2">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
 				<if test="example.projectId != null">
@@ -610,6 +672,7 @@
 			</trim>
 		</sql>
 		
+		
 		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,hiddeCount,personLiableMan,warningCount,status from v_hiddenDanger_edit
 			<if test="_parameter != null">
@@ -620,8 +683,18 @@
 			</if>
 		</select>
 		<!-- 分页查询 -->
-		<select id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto">
-			<!-- select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount,status from v_hiddenDanger_edit -->
+		<select  id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto">
+		select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount,status from v_hiddenDanger_edit
+		<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
+			<if test="example.orderByClause != null">
+				order by ${example.orderByClause}
+			</if>
+		limit #{offset},#{limit}
+		</select>
+		
+		<select id="selectHiddenDangerByLimitPage2" resultMap="BaseResultMapDto">
 			SELECT
 				id,
 				deviceId,
@@ -645,7 +718,7 @@
 			FROM 
 			v_hiddendanger_edit he 
 			<if test="_parameter != null">
-				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 			</if>
 			<if test="example.orderByClause != null">
 				order by ${example.orderByClause}
