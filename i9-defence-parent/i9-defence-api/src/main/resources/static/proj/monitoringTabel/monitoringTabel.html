@@ -47,6 +47,7 @@
           <tr>
           	<th width='150px'>设备分类</th>
             <th width='150px'>设备地址</th>
+            <th width='150px'>设备备注</th>
             <th width='100px'>项目名称</th>
             <th width='100px'>状态</th>
             <th>最新数据</th>
@@ -56,6 +57,7 @@
           <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
            	<td>{{project.eqCategoryName}}</td>
             <td>{{project.equipmentPosition}}</td>
+            <td>{{project.equipmentRemarks}}</td>
             <td>{{project.projectName}}</td>
             <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
             <td>

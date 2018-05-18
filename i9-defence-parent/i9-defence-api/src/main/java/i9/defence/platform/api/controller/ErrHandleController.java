@@ -61,7 +61,7 @@ public class ErrHandleController {
     public HashMap<String, Object> errHandleEdit(@RequestBody ErrHandle errHandle) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         errHandleService.errHandleEdit(errHandle);
-        return result;
+        return result;    
     }
     
     //批量删除记录

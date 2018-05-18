@@ -127,7 +127,7 @@ public class ChannelDataComponent {
 			JSONArray jsonArrays = new JSONArray();
 			for (ChannelData channelData : entry.getValue()) {
 				//channelData.setErrorName(ErrorTypeCache.getCacheDict(channelData.getValue()));
-				channelData.setValue(ErrorTypeCache.getCacheDict(channelData.getValue()));
+				channelData.setValue(ErrorTypeCache.getCacheDict(channelData.getValue()+channelData.getEquipmentCatId()));
 				jsonArrays.add(JSONObject.toJSON(channelData));
 			}
 			channelObject.put("data", jsonArrays);
