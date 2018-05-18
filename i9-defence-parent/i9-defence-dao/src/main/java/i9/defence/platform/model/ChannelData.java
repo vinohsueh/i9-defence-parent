@@ -33,10 +33,23 @@ public class ChannelData {
 	
 	private Integer dealManagerId;
 	
+	/**
+	 * 设备一级分类类型id
+	 */
+	private Integer equipmentCatId;
 	//一对一 处理人信息
 	private Manager dealManager;
 	
-    public String getErrorName() {
+	
+    public Integer getEquipmentCatId() {
+		return equipmentCatId;
+	}
+
+	public void setEquipmentCatId(Integer equipmentCatId) {
+		this.equipmentCatId = equipmentCatId;
+	}
+
+	public String getErrorName() {
 		return errorName;
 	}
 
