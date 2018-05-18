@@ -85,6 +85,18 @@ public interface EquipmentService {
      * @return
      */
     PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException;
+    
+    /**
+     * 分页查询隐患报警
+     * @param equipmentSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage2(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException;
+    
+    
+    
     /**
      * 新增通道
      * @param passageway

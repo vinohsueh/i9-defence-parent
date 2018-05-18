@@ -43,14 +43,14 @@
 	            <th>处理状态</th>
 	        </thead>
 	        <tbody>
-	          <tr ng-repeat="warning in warningLists">
-	          	  <td>{{warning.eqDeviceId}}</td>
-	          	  <td>{{warning.eqAddRess}}</td>
-		          <td>{{warning.typeStr}}</td>
-		          <td>{{warning.handleCon}}</td>
-		          <td>{{warning.handleManager.username}}</td>
-		          <td>{{warning.handleDateStr}}</td>
-		          <td>{{warning.handleStateStr}}</td>
+	          <tr ng-repeat="warning in warningLists" ng-click='choiceItem(warning.id)'>
+	          	  <td ng-click="{{warning.id}}">{{warning.eqDeviceId}}</td>
+	          	  <td ng-click="{{warning.id}}">{{warning.eqAddRess}}</td>
+		          <td ng-click="{{warning.id}}">{{warning.typeStr}}</td>
+		          <td ng-click="{{warning.id}}">{{warning.handleCon}}</td>
+		          <td ng-click="{{warning.id}}">{{warning.handleManager.username}}</td>
+		          <td ng-click="{{warning.id}}">{{warning.handleDateStr}}</td>
+		          <td ng-click="{{warning.id}}">{{warning.handleStateStr}}</td>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -78,7 +78,33 @@
 	      </div>
 	    </footer>
 	  </div>
-	</div>
+	   <div class='row' ng-if="ifshow">
+    <div class="mPane hFull col-xs-6 col-sm-3">
+      <div class="title">项目信息</div>
+      <div class="body">
+        <p>名称：{{projectInfo.project.name}}</p>
+        <p>负责人：{{projectInfo.project.manager}}</p>
+        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-3">
+      <div class="title">设备信息</div>
+      <div class="body">
+        <p>名称：{{projectInfo.equip.name}}</p>
+        <p>位置：{{projectInfo.equip.location}}</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-6">
+      <div class="title">处理详情</div>
+      <div class="body">
+        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon'></textarea>
+        <div class='text-right'>
+          <button type='' class='btn btn-success' ng-click='confirmBtn()'>确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+   </div>
 </div>
 <script>
 </script>

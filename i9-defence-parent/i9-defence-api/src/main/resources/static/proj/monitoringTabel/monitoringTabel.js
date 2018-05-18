@@ -118,7 +118,10 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				}else if($scope.projects[i].hiddeCount>0){
 					$scope.projects[i].status = 'warning';
 					$scope.projects[i].statusText = '隐患';
-				}else {
+				}else if ($scope.projects[i].status == 0){
+					$scope.projects[i].status = 'lineOut'
+					$scope.projects[i].statusText = '离线';
+    			}else {
 					$scope.projects[i].status = ''
 					$scope.projects[i].statusText = '正常';
 				}

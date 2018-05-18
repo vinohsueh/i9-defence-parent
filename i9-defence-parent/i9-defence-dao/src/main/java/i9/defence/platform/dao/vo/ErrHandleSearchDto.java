@@ -13,10 +13,20 @@ public class ErrHandleSearchDto extends PageListDto implements Serializable{
 	
 	private String eqDeviceId;
 	
+	private Integer handleState;
+	
 	private Integer managerId;
 
 	public String getOrderByClause() {
 		return orderByClause;
+	}
+
+	public Integer getHandleState() {
+		return handleState;
+	}
+
+	public void setHandleState(Integer handleState) {
+		this.handleState = handleState;
 	}
 
 	public void setOrderByClause(String orderByClause) {

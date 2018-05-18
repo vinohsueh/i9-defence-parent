@@ -47,12 +47,34 @@ public class HiddenDangerDto {
 	 */
 	private String personLiableMan;
 	
+	private Integer status;
+	
 	private List<EqChannelDataDto> eqChannelDataList;
 	
 	/**
 	 * 设备备注
 	 */
 	private String equipmentRemarks;
+	
+	
+	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	/**
+	 * 时间
+	 */
+	private String newestTime;
+	
+	public String getNewestTime() {
+		return newestTime;
+	}
+	public void setNewestTime(String newestTime) {
+		this.newestTime = newestTime;
+	}
 	
 	public String getEquipmentRemarks() {
 		return equipmentRemarks;

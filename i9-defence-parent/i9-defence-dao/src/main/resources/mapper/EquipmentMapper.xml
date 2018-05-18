@@ -34,6 +34,7 @@
     <result column="eqCategoryName" jdbcType="VARCHAR" property="eqCategoryName" />
     <result column="personLiableMan" jdbcType="VARCHAR" property="personLiableMan" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks"/>
+    <result column="newestTime" jdbcType="VARCHAR" property="newestTime" />
     <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"/>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -554,6 +555,14 @@
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
 		</select>
+		
+		<select id="countHiddenDangerByExample2" resultType="java.lang.Integer">
+			select count(*) from v_hiddenDanger_edit
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
+			</if>
+		</select>
+		
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
@@ -608,8 +617,64 @@
 			</trim>
 		</sql>
 		
+		<sql id="Query_HiddenDanger_By_Dto_Where_Clause2">
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<!--根据项目名称 模糊搜索  -->	
+				<if test="example.projectId != null">
+					and projectId = #{example.projectId}
+				</if>
+				<!--根据设备类型 模糊搜索  -->	
+				<if test="example.eqCategoryName != null and example.eqCategoryName != ''">
+					and eqCategoryName ='${example.eqCategoryName}'
+				</if>
+				<!--根据项目所在省 模糊搜索  -->	
+				<if test="example.projectProvince != null and example.projectProvince != ''">
+					and projectProvince ='${example.projectProvince}'
+				</if>
+				<!--根据项目所在市 模糊搜索  -->	
+				<if test="example.projectCity != null and example.projectCity != ''">
+					and projectCity ='${example.projectCity}'
+				</if>
+				<!--根据项目所在县/区 模糊搜索  -->	
+				<if test="example.projectCounty != null and example.projectCounty != ''">
+					and projectCounty ='${example.projectCounty}'
+				</if>
+				<!--隐患不为0  -->	
+				<if test="example.hidden != null and example.hidden != ''">
+					and hiddeCount != 0 and warningCount = 0 
+				</if>
+				<!--报警不为0  -->	
+				<if test="example.danger != null and example.danger != ''">
+					and warningCount != 0 
+				</if>
+				<!--隐患或报警大于0  -->	
+				<if test="example.hiddenCount1 != null">
+					and (hiddeCount > 0 or warningCount > 0 )
+				</if>
+				<!--项目负责人  -->	
+				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
+					and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
+				</if>
+				<!--经销商  -->	
+				<if test="example.distributorId != null and example.distributorId != ''">
+					and distributorId ='${example.distributorId}'
+				</if>
+				<if test="example.systemId != null">
+					and systemId = #{example.systemId}
+				</if>
+				<!-- <if test="example.startDate != null and example.startDate != ''">
+					and example.startDate &lt; equipmentDate
+				</if>
+				<if test="example.endDate != null and example.endDate != ''">
+					and example.endDate &gt; equipmentDate
+				</if> -->
+				and `status`+warningCount+hiddeCount!=1 and status!=1
+			</trim>
+		</sql>
+		
+		
 		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
+			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,hiddeCount,personLiableMan,warningCount,status from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -618,10 +683,43 @@
 			</if>
 		</select>
 		<!-- 分页查询 -->
-		<select id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto">
-			select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
-			<if test="_parameter != null">
+		<select  id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto">
+		select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount,status from v_hiddenDanger_edit
+		<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+			</if>
+			<if test="example.orderByClause != null">
+				order by ${example.orderByClause}
+			</if>
+		limit #{offset},#{limit}
+		</select>
+		
+		<select id="selectHiddenDangerByLimitPage2" resultMap="BaseResultMapDto">
+			SELECT
+				id,
+				deviceId,
+				equipmentRemarks,
+				eqCategoryName,
+				projectName,
+				hiddeCount,
+				warningCount,
+				status,
+			CASE
+				1 
+				WHEN warningCount > 0 
+				THEN
+				getNewestTime ( deviceId )	 
+				WHEN warningCount =0 and hiddeCount >0 
+				THEN
+				'2018-5-17 10:46:11'
+				WHEN warningCount =0 and hiddeCount =0
+				THEN
+				getLiXianTime( deviceId)
+				End as newestTime
+			FROM 
+			v_hiddendanger_edit he 
+			<if test="_parameter != null">
+				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 			</if>
 			<if test="example.orderByClause != null">
 				order by ${example.orderByClause}
@@ -781,27 +879,44 @@
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select> -->
 	<select id="selectHiddenMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto"  resultType="i9.defence.platform.dao.vo.MonthData">
-		select count(*) as count,DATE_FORMAT(cd.dateTime,'%Y-%m') as month  from t_channel_data cd left join t_equipment e on e.deviceId = cd.deviceId left join t_project p on p.id = e.projectId 
-		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
-			<if test="projectId != null">
-		         and p.id = #{projectId}
-	        </if>
-	        <if test="projectId == null and projectProvince != null and projectProvince != ''">
-		         <if test="projectCity == null || projectCity == ''">
-		        	 and p.id in (select id from t_project where projectProvince = #{projectProvince})
-	        	 </if>
-		         <if test="projectCity != null and projectCity != ''">
-		        	 and p.id in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
-	        	 </if>
-	        </if>
-	        <if test="endTime != null and endTime != ''">
-		        and cd.dateTime &lt; #{endTime}
-	        </if>
-	        <if test="startTime != null and startTime != ''">
-		        and cd.dateTime &gt; #{startTime} 
-	        </if>
-        </trim>
-		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
+		SELECT COUNT(*) AS count, tab.mon AS MONTH
+		FROM (
+			SELECT cd.deviceId, COUNT(*)
+				, DATE_FORMAT(cd.dateTime, '%Y-%m') AS mon
+			FROM `t_channel_data` `cd`
+				LEFT JOIN t_equipment e ON e.deviceId = cd.deviceId
+				LEFT JOIN `t_passageway` `ps`
+				ON `cd`.`systemId` = `ps`.`systemId`
+					AND `cd`.`channel` = `ps`.`channel`
+				LEFT JOIN `t_hidden_danger` `hd` ON `ps`.`hiddenDangerId` = `hd`.`id`
+			WHERE `cd`.`channel` IN (
+					SELECT `ps`.`channel`
+					FROM `t_passageway` `ps`
+					WHERE `ps`.`systemId` = `e`.`systemId`
+				)
+				AND (`cd`.`deviceId` = `e`.`deviceId`)
+				AND (`cd`.`value` &gt; `hd`.`HiddenMax`
+					OR `cd`.`value` &lt; `hd`.`HiddenMin`)
+				<if test="projectId != null">
+			         and e.projectId = #{projectId}
+		        </if>
+		        <if test="projectId == null and projectProvince != null and projectProvince != ''">
+			         <if test="projectCity == null || projectCity == ''">
+			        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince})
+		        	 </if>
+			         <if test="projectCity != null and projectCity != ''">
+			        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
+		        	 </if>
+		        </if>
+		        <if test="endTime != null and endTime != ''">
+			        and cd.dateTime &lt; #{endTime}
+		        </if>
+		        <if test="startTime != null and startTime != ''">
+			        and cd.dateTime &gt; #{startTime} 
+		        </if>
+			GROUP BY DATE_FORMAT(cd.dateTime, '%Y-%m'), cd.deviceId
+		) tab
+		GROUP BY tab.mon
 	</select>
 	<select id="selectEqChannelDataDto" parameterType="java.lang.Integer" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
 		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,cd.type as type
@@ -896,6 +1011,30 @@
     	<if test="example.distributorId != null">
     		AND p.distributorId = #{example.distributorId}
     	</if>
+	 </select>
+	 
+	 <select id="selectHiddenEquipment" resultType="int">
+	 	select count(DISTINCT id) from  v_hiddendanger_edit 
+		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
+			<if test="example.projectId != null">
+	    		AND projectId = #{example.projectId}
+	    	</if>
+	    	<if test="example.projectId == null">
+		    	<if test="example.projectProvince != null and example.projectProvince != ''">
+		          AND projectProvince = #{example.projectProvince}
+		        </if>
+		        <if test="example.projectCity != null and example.projectCity != ''">
+		          AND projectCity = #{example.projectCity}
+		        </if>
+	    	</if>
+	    	<if test="example.projectManagerId != null">
+	    		AND projectId in  (select projectId from t_project_safe where managerId = #{example.projectManagerId})
+	    	</if>
+	    	<if test="example.distributorId != null">
+	    		AND distributorId = #{example.distributorId}
+	    	</if>
+	    	and hiddeCount>0 and warningCount = 0
+    	</trim>
 	 </select>
 	 
 	 <update id="updateEquipmentStatusByDeviceId">

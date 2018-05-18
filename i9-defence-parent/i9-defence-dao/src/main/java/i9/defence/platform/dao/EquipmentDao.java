@@ -134,6 +134,18 @@ public interface EquipmentDao {
             int currectPage, int pageSize) throws Exception;
     
     /**
+     * 分页查询隐患报警2
+     * @param hiddenDangerSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage2(HiddenDangerSearchDto hiddenDangerSearchDto,
+            int currectPage, int pageSize) throws Exception;
+    
+    
+    
+    /**
      * 查询具体隐患报警--隐患
      * @param HiddenDangerChannelDto
      * @return
