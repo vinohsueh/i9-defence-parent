@@ -11,7 +11,7 @@
 				<select  ng-change="change()" class="input-sm form-control w-sm inline v-middle" ng-model="equipment.equipmentCategoryId"  ng-options="item.id as item.systemType for item in eqSystemCategorys">
         			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白 -->
     			</select>
-			</div>
+			</div> 
 			<div class="col-md-4" ng-show='choiceFirst'>
 				<select  class="input-sm form-control w-sm inline v-middle" ng-model="equipment.equipmentCategory.eqCategoryId" ng-change="change2()"  ng-options="item.eqCategoryId as item.eqCategoryName for item in secondData">
         			<option value="">----请选择----</option> <!-- 不加这句代码，会出现空白 -->
