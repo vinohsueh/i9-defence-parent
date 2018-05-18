@@ -150,9 +150,9 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	};
     //查看记录
     $scope.faultRecord = function (idNum,statuText) {
-    	if(statuText='报警'){
+    	if(statuText=='报警'){
     		$state.go('app.faultRecordInfo',{id:idNum,typeId:2});
-    	}else if(statuText='隐患'){
+    	}else if(statuText=='隐患'){
     		$state.go('app.faultRecordInfo',{id:idNum,typeId:3});
     	}
     }
