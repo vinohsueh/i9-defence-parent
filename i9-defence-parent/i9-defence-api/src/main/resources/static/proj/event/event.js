@@ -147,6 +147,14 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	   $scope.error.area = false;
 	   $scope.queryProjects();
 	};
+    //查看记录
+    $scope.faultRecord = function (idNum,statuText) {
+    	if(statuText='报警'){
+    		$state.go('app.faultRecordInfo',{id:idNum,typeId:2});
+    	}else if(statuText='隐患'){
+    		$state.go('app.faultRecordInfo',{id:idNum,typeId:3});
+    	}
+    }
 //	$scope.add = function () {  
 //			$scope.equipmentCategory = data.data.equipmentCategory;
 //			//$modalInstance.dismiss('cancel')

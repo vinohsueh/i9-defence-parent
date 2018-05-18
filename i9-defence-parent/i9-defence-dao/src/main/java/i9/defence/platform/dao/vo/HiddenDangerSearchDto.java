@@ -61,7 +61,6 @@ public class HiddenDangerSearchDto extends PageListDto{
 	
 	private String systemId;
 	
-	
 	public String getSystemId() {
 		return systemId;
 	}
