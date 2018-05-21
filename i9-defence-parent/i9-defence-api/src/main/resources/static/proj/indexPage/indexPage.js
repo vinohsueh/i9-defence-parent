@@ -161,6 +161,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				// alert(1);
 			   	map.clearInfoWindow();
 			}*/
+			$('#stationPosition').remove();
 		})
 	}
 	$scope.pageInit();
@@ -336,19 +337,20 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		$scope.chartInit();
 	}
 	$(function () {
+		$('#stationPosition').css('height',($(window).height()-50)*0.7+'px');
 	    // 右侧样式
 	    var mainWidth = parseInt($('#selfMain').width()*0.03);
 	    var rightWidth = parseInt($('#selfMain').width()*0.2);
-	    // $('#projectList,#pieChart').css({'right':mainWidth+'px','width':rightWidth+'px'});
+	    $('#projectList,#pieChart').css({'right':mainWidth+'px','width':rightWidth+'px'});
 	    $('#projectList').css({'right':mainWidth+'px','width':rightWidth+'px'});
 	    // var projectListHeight = parseInt($('#selfMain').height()*0.7-136);
-	    var projectListHeight = parseInt($(window).height()-150);
+	    var projectListHeight = parseInt(($(window).height()-50)*0.7-105);
 	    $('#projectList .projectNameList').css('height',projectListHeight+'px');
 	    
 	    // 图表样式
 	    var chartBodyHeight = parseInt(($(window).height()-50)*0.3-40);
-	    // $('#chartData .chartBody,#pieChart .chartBody').css('height',chartBodyHeight+'px');
-	    $('#chartData .chartBody').css('height',chartBodyHeight+'px');
+	    $('#chartData .chartBody,#pieChart .chartBody').css('height',chartBodyHeight+'px');
+	    // $('#chartData .chartBody').css('height',chartBodyHeight+'px');
 
 
 

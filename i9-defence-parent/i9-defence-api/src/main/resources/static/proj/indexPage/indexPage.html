@@ -1,8 +1,11 @@
 <div id='selfMain'>
     <!-- <div id="selfMap">
     </div> -->
+    <div id="stationPosition">
+        <img src="../../images/Spinner-1s-120px.gif" alt="">
+    </div>
     <gaode-map options="mapOptions"></gaode-map>
-    <div id='projectList' style="height: 100%">
+    <div id='projectList'>
         <div class="projectTitle">
             <select class="form-control blue_bg areaItem" ng-model="selected" ng-options="s.name for s in division" ng-change="c()">
               <option value=''>请选择</option>
@@ -48,12 +51,15 @@
             <div e-chart options="option"></div>
         </div>
     </div>
-    <!-- <div id="pieChart">
+    <div id="pieChart">
         <div class="sTitle">
-            <div class="text">设备分布饼图</div>
+            <div class="text">工作台</div>
         </div>
-        <div class="chartBody" id='pieChartBody'>
-            <div e-chart options="pieOption"></div>
+        <div class="chartBody wrap" id='pieChartBody'>
+            <!-- <div e-chart options="pieOption"></div> -->
+            <p>报警：123</p>
+            <p>故障：123</p>
+            <p>隐患：123</p>
         </div>
-    </div> -->
+    </div>
 </div>
