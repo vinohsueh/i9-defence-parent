@@ -781,6 +781,7 @@
 		<select id="selectDataAndManager" parameterType="int" resultType="i9.defence.platform.dao.vo.EquipmentProjectDto">
 			SELECT
 				e.equipmentDate,
+				e.systemId,
 				(
 			SELECT  c.phone 
 			FROM

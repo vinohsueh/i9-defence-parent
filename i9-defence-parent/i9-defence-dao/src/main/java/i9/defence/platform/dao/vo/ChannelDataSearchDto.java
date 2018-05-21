@@ -27,6 +27,28 @@ public class ChannelDataSearchDto  extends PageListDto{
     
     private String endDateString;
     
+    private String hour;
+    
+    private String systemId;
+    
+    
+    
+	public String getSystemId() {
+		return systemId;
+	}
+
+	public void setSystemId(String systemId) {
+		this.systemId = systemId;
+	}
+
+	public String getHour() {
+		return hour;
+	}
+
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+
 	public int getEquipmentId() {
 		return equipmentId;
 	}

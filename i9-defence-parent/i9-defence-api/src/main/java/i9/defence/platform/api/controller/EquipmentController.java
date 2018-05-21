@@ -96,22 +96,6 @@ public class EquipmentController {
 	}
 
 	/**
-	 * 删除设备
-	 * @Title delEquipment
-	 * @param ids
-	 * @return
-	 */
-	/*
-	 * 删除项目
-	 * @param ids
-	 * @return
-	 * @RequestMapping("/delEquipment") public HashMap<String, Object>
-	 * delEquipment(@RequestBody Integer[] ids) { HashMap<String, Object> result
-	 * = new HashMap<String, Object>();
-	 * equipmentService.deleteEquipment(Arrays.asList(ids)); return result; }
-	 */
-
-	/**
 	 * 申请删除设备
 	 * 
 	 * @Title: applyDelEquipment
@@ -165,10 +149,9 @@ public class EquipmentController {
 	@RequestMapping("/findEquipmentSystemCategory")
 	public HashMap<String, Object> findEquipmentSystemCategory() {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		EquipmentCategory equipmentCategory = new EquipmentCategory();
-		List<EquipmentCategory> eqCategory = eqCategoryService.serchEqCategory(equipmentCategory);
+		List<EquipmentCategory> eqCategory = eqCategoryService.findEqCategoryName();
 		List<EquipmentSystemtype> eqSystemCategory=eqSystemCategoryService.findEquipmentSystemCategory();
-		List<Project> project = projectService.findAllProject();
+		List<Project> project = projectService.findProjectName();
 		result.put("eqCategory", eqCategory);
 		result.put("eqSystemCategory", eqSystemCategory);
 		result.put("projects", project);
@@ -216,6 +199,7 @@ public class EquipmentController {
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(dataAndManager.getDeviceId());
 		channelDataSearchDto.setOrderByClause("dateTime");
+		channelDataSearchDto.setSystemId(dataAndManager.getSystemId());
 		//只查询电流和温度的显示值
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());

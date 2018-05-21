@@ -287,4 +287,22 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 
+	@Override
+	public List<Project> findProjectName()throws BusinessException{
+		try {
+			return projectDao.findProjectName();
+		} catch (Exception e) {
+			throw new BusinessException("查询失败", e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Integer> selectWarningProjectIds(ProjectSearchDto projectSearchDto) {
+		try {
+			return projectDao.selectWarningProjectIds(projectSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException("查询失败", e.getMessage());
+		}
+	}
+
 }

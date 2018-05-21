@@ -130,6 +130,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			});*/
 			var oHtml="";var equipmentStatis="";
 			$scope.mapOptions = [];
+			console.log(data.data.warningIds)
 			for(var i=0;i<myData.mark.length;i++){
 				equipmentStatis='';
 				for(j in myData.mark[i].equipmentStatis){

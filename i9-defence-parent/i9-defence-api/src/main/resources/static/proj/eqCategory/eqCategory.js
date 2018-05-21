@@ -106,7 +106,7 @@ var eqCategoryNgControl=eqCategoryNgModule.controller('eqCategoryNgControl',func
 	};
 
 	$scope.add = function () {
-		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./eqCategory/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
 			$scope.eqSystemCategorys = data.data.eqSystemCategory;
 			    var modalInstance = $modal.open({  
 			        templateUrl: 'proj/eqCategory/add.html',  
@@ -141,7 +141,7 @@ var eqCategoryNgControl=eqCategoryNgModule.controller('eqCategoryNgControl',func
     $scope.edit = function (id) { 
     	httpService.post({url:'./eqCategory/getEqCategory',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.eqCategory = data.data.data;
-    		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
+    		httpService.post({url:'./eqCategory/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
     			$scope.eqSystemCategorys = data.data.eqSystemCategory;
 				var modalInstance = $modal.open({  
 		            templateUrl: 'proj/eqCategory/add.html',  
