@@ -20,8 +20,8 @@
     <association property="equipmentSystemtype" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
     <association property="equipmentCategory" column="systemId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
-  	<collection column="systemId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysBySystemId"></collection>
-  	<collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"></collection>
+  	<!-- <collection column="systemId" ofType="i9.defence.platform.model.Passageway" property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysBySystemId"></collection> -->
+  	<!-- <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"></collection> -->
   </resultMap>
   <resultMap id="BaseResultMapDto" type="i9.defence.platform.dao.vo.HiddenDangerDto">
     <result column="id" jdbcType="INTEGER" property="id" />
@@ -781,6 +781,7 @@
 		<select id="selectDataAndManager" parameterType="int" resultType="i9.defence.platform.dao.vo.EquipmentProjectDto">
 			SELECT
 				e.equipmentDate,
+				e.systemId,
 				(
 			SELECT  c.phone 
 			FROM

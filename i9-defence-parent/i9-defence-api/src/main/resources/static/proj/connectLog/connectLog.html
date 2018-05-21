@@ -37,9 +37,10 @@
             <th>时间</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           <tr ng-repeat="connectLog in connectLogs">
-            <td >{{connectLog.projectName}}</td>
+            <td ng-if="connectLog.projectName == null" >非法设备</td>
+            <td ng-if="connectLog.projectName != null" >{{connectLog.projectName}}</td>
             <td >{{connectLog.eqCategoryName}}</td>
             <!-- <td >{{connectLog.connectLogDateStr}}</td> -->
             <td >{{connectLog.equipmentPosition}}</td>

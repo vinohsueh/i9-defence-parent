@@ -43,5 +43,7 @@ public interface EquipmentCategoryMapper {
 
 	List<EquipmentCategory> selectEqCategory(Integer id);
 
+	List<EquipmentCategory> findEqCategoryName();
+
 //    List<EquipmentCategory> selectAllEqCategoryAndNum1(@Param("example") EquipmentCategory equipmentCategory);
 }

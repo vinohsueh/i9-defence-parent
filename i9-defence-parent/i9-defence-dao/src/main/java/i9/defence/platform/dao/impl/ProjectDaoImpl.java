@@ -119,4 +119,14 @@ public class ProjectDaoImpl implements ProjectDao{
 	public List<Integer> selectIdsByMonthDataDto(MonthDataDto monthDataDto) throws Exception {
 		return projectMapper.selectIdsByMonthDataDto(monthDataDto);
 	}
+
+	@Override
+	public List<Project> findProjectName()throws Exception {
+		return projectMapper.findProjectName();
+	}
+
+	@Override
+	public List<Integer> selectWarningProjectIds(ProjectSearchDto projectSearchDto) {
+		return projectMapper.selectWarningProjectIds(projectSearchDto);
+	}
 }

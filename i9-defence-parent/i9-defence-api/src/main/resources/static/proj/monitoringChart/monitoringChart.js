@@ -64,9 +64,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
-
+	$scope.startTime = $scope.getDate(0);
+	$("#hour").val(new Date().getHours());
     
     //分页条件
     $scope.pageSize = 10;
@@ -186,8 +185,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	var text = $scope.searchText;
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			startDateString:$scope.dateToString($("#startTime").val()),
-    			endDateString:$scope.dateToString($("#endTime").val()),
+    			startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
+    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
     			/*projectName : text,
     			projectAddress : text,*/
     		};

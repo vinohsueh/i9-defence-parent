@@ -280,6 +280,9 @@ public class Project {
 	}
 	
 	public String getClientListStr() {
+		if (clientList == null) {
+			return "暂无";
+		}
 		if(clientList.size()>0) {
 			StringBuffer clientListStr = new StringBuffer();
 			Integer num = clientList.size();
@@ -301,6 +304,9 @@ public class Project {
 	}
 //这个是  初始化 传到前端 的参数   用来展示默认选中的
 	public List<Integer> getClientIds() {
+		if (clientList == null) {
+			return null;
+		}
 		List<Integer> cList = new ArrayList<>();
 		if(clientList.size()>0) {
 			for(Client client:clientList) {
@@ -324,6 +330,9 @@ public class Project {
 	}
 	
 	public String getSafeListStr() {
+		if (safeList == null) {
+			return "暂无";
+		}
 		if(safeList.size()>0) {
 			StringBuffer safeListStr = new StringBuffer();
 			Integer num = safeList.size();
@@ -346,13 +355,16 @@ public class Project {
 
 	public List<Integer> getSafeIds() {
 		List<Integer> sList = new ArrayList<>();
-		if(safeList.size()>0) {
-			for(Manager manager:safeList) {
-				sList.add(manager.getId());
+		if (safeList != null){
+			if(safeList.size()>0) {
+				for(Manager manager:safeList) {
+					sList.add(manager.getId());
+				}
+				return sList;
 			}
 			return sList;
 		}
-		return sList;
+		return null;
 	}
 
 	public void setSafeIds(List<Integer> safeIds) {

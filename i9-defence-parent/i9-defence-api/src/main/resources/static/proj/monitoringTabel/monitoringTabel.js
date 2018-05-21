@@ -27,9 +27,8 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
-
+	$scope.startTime = $scope.getDate(0);
+	$("#hour").val(new Date().getHours());
 	//地域
 	$scope.error = {};
 	$scope.division = division;
@@ -155,12 +154,12 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 		var text = $scope.searchText;
 		var pageParam = {
 				equipmentId:$scope.idNum,
-				startDateString:$scope.dateToString($("#startTime").val()),
-    			endDateString:$scope.dateToString($("#endTime").val()),
+				startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
+    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
 				/*projectName : text,
 				projectAddress : text,*/
 			};
-		
+		console.log(pageParam)
 		httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.equipmentInfo = data.data.data;
 			$scope.equipment = data.data.equip;
