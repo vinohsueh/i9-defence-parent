@@ -111,4 +111,6 @@ public interface ProjectDao {
 	
 	//根据 项目的 省市区  查询项目ID
 	List<Integer> selectIdsByMonthDataDto(MonthDataDto monthDataDto) throws Exception;
+
+	List<Project> findProjectName()throws Exception;
 }

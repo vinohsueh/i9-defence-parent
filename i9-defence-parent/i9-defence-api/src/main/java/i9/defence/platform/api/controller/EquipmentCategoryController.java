@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import i9.defence.platform.dao.vo.EqCategorySearchDto;
 import i9.defence.platform.model.EquipmentCategory;
 import i9.defence.platform.model.EquipmentSystemtype;
-import i9.defence.platform.model.Project;
 import i9.defence.platform.service.EqSystemCategoryService;
 import i9.defence.platform.service.EquipmentCategoryService;
-import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -30,8 +28,6 @@ import i9.defence.platform.utils.PageBounds;
 public class EquipmentCategoryController {
     @Autowired
     private EquipmentCategoryService eqCategoryService;
-	@Autowired
-	private ProjectService projectService;
 	@Autowired
 	private EqSystemCategoryService eqSystemCategoryService;
     
@@ -134,13 +130,8 @@ public class EquipmentCategoryController {
 	@RequestMapping("/findEquipmentSystemCategory")
 	public HashMap<String, Object> findEquipmentSystemCategory() {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		EquipmentCategory equipmentCategory = new EquipmentCategory();
-		List<EquipmentCategory> eqCategory = eqCategoryService.serchEqCategory(equipmentCategory);
 		List<EquipmentSystemtype> eqSystemCategory=eqSystemCategoryService.findEquipmentSystemCategory();
-		List<Project> project = projectService.findAllProject();
-		result.put("eqCategory", eqCategory);
 		result.put("eqSystemCategory", eqSystemCategory);
-		result.put("projects", project);
 		return result;
 	}
 }

@@ -523,4 +523,7 @@
    		 from v_hiddendanger_edit he 
 		 where he.projectId = #{id} and he.warningCount > 0
    </select>
+    <select id="findProjectName" resultType="i9.defence.platform.model.Project">
+   	select id , projectName from t_project
+   </select>
 </mapper>

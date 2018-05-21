@@ -67,6 +67,8 @@ public interface EquipmentCategoryService {
 	List<EquipmentCategory> findEquipmentSystemCategory2(int id)throws BusinessException;
 
 	List<EquipmentCategory> selectEqCategory(Integer id)throws BusinessException;
+
+	List<EquipmentCategory> findEqCategoryName()throws BusinessException;
     
 //    /**
 //     * 查询数量

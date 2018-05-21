@@ -7,8 +7,7 @@
     <result column="eqCategoryId" jdbcType="VARCHAR" property="eqCategoryId" />
     <result column="eqCategoryExplain" jdbcType="VARCHAR" property="eqCategoryExplain" />
     <result column="eqSystemtypeId" jdbcType="INTEGER" property="eqSystemtypeId" />
-    <association property="equipmentSystemtype" column="eqSystemtypeId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
-  </resultMap>
+    <association property="equipmentSystemtype" column="eqSystemtypeId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -279,5 +278,8 @@
    </select>
     <select id="selectEqCategory" resultType="i9.defence.platform.model.EquipmentCategory">
    	 select * from t_equipment_category WHERE eqSystemtypeId in (SELECT eqSystemtypeId from t_equipment_category ec where ec.id in (SELECT equipmentCategoryId FROM t_equipment e where e.id =#{id} ))
+   </select>
+    <select id="findEqCategoryName" resultType="i9.defence.platform.model.EquipmentCategory">
+   	select id , eqCategoryName from t_equipment_category
    </select>
 </mapper>
