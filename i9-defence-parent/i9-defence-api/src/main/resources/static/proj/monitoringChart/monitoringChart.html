@@ -101,7 +101,8 @@
               <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
             </div>
             <label for="">-</label>
-            <select name="" id="" class='form-control blue_bg' ng-model='startHours'>
+            <select name="" id="hour" class='form-control blue_bg'>
+              <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -125,7 +126,6 @@
               <option value="21">21</option>
               <option value="22">22</option>
               <option value="23">23</option>
-              <option value="24">24</option>
             </select>
           </div>
           <button type='button' class='btn btn-primary' ng-click='passagewayInit()'><i class='glyphicon glyphicon-search'></i></button>

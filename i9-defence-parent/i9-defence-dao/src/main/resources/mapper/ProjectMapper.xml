@@ -19,11 +19,11 @@
  	<result column="warningCount" jdbcType="INTEGER" property="warningCount"/>
  	<result column="projectStartDate" jdbcType="TIMESTAMP" property="projectStartDate"/>
   	<result column="projectEndDate" jdbcType="TIMESTAMP" property="projectEndDate"/>
-  	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<!-- <association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   	<association property="warningCount" column="id" select="selectEquipTypeCount"></association>
   	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
-  	<collection property="safeList" column="id" select="i9.defence.platform.dao.mapper.ManagerMapper.selectSafeByProjectId"/>
-    <collection property="equipmentStatis" column="id" select="selectEquipStatistic"></collection>
+  	<collection property="safeList" column="id" select="i9.defence.platform.dao.mapper.ManagerMapper.selectSafeByProjectId"/> -->
+    <!-- <collection property="equipmentStatis" column="id" select="selectEquipStatistic"></collection> -->
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
