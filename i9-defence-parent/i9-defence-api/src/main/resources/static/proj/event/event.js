@@ -26,7 +26,9 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
-	
+	$scope.statusText = '';
+	$scope.equipId =0;
+	$scope.eqType=0;
 	
     $scope.dateToString = function(d){
     	var date = new Date(d);
@@ -128,234 +130,28 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	    		$scope.dataAndManager = data.data.dataAndManager;
 	    		$scope.equipmentCheckArr = [];
 	            $scope.equipmentItemArr = [];
-
-	            
-	            if($scope.equipmentInfo!= null){
-	                $scope.chartsStatus = true;
-	                for(i in $scope.equipmentInfo.channelData){
-	                    /*$scope.equipmentItemObj = {
-	                        type:'line',
-	                        stack:'10',
-	                        symbol: 'emptyCircle',
-	                        symbolSize: 10,
-	                        itemStyle:{
-	                            normal:{
-	                                color:'#ab56dc',
-	                            }
-	                        },
-	                        lineStyle:{
-	                            normal:{
-	                                color:'#ab56dc',
-	                            }
-	                        },
-	                    };*/
-	                    if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
-	                        $scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
-	                        // $scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
-	                    }else{
-	                        $scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-	                        // $scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
-	                    }
-	                    /*$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
-	                    $scope.equipmentItemArr.push($scope.equipmentItemObj);*/
-	                }
-	                $scope.passageway='0';
-	                $scope.chartData = $scope.equipmentInfo.channelData[0].value;
-	                $scope.changeLine = function () {
-	                    var chengeIndex = parseInt($scope.passageway);
-	                    $scope.chartData = $scope.equipmentInfo.channelData[chengeIndex].value;
-	                    $scope.option={
-	                        title:{
-	                            show:false,
-	                        },
-	                        toolbox:{
-	                            show:false,
-	                        },
-	                        grid:{
-	                            top:10,
-	                            left:60,
-	                            right:60,
-	                            bottom:30,
-	                            borderColor:'#566c93',
-	                        },
-	                        tooltip:{
-	                            trigger:'axis'
-	                        },
-	                        /*dataZoom:{
-	                            type: 'inside',
-	                            realtime: true,
-	                            start: 90,
-	                            end: 100,
-	                            // xAxisIndex: [0, 1]
-	                        },*/
-	                        /*legend:{
-	                            type:'scroll',
-	                            right:0,
-	                            top:0,
-	                            bottom:10,
-	                            width:30,
-	                            pageButtonItemGap:5,
-	                            pageButtonGap:5,
-	                            pageButtonPosition:'end',
-	                            pageFormatter:{
-	                                current:1,
-	                                total:5
-	                            },
-	                            orient:'vertical',
-	                            inactiveColor:'#666',
-	                            selectedMode:'single',
-	                            textStyle:{
-	                                color:'#fff',
-	                            },
-	                            data:$scope.equipmentCheckArr,
-	                            // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
-	                        },*/
-	                        xAxis:{
-	                            // type:'time',
-	                            axisLabel: {        
-	                                show: true,
-	                                textStyle: {
-	                                    color: '#fff',
-	                                }
-	                            },
-	                            data:$scope.equipmentInfo.date,
-	                        },
-	                        yAxis:{
-	                            axisLabel: {        
-	                                show: true,
-	                                textStyle: {
-	                                    color: '#fff',
-	                                }
-	                            },
-	                            splitLine:{
-	                                show:true,
-	                                lineStyle:{
-	                                    color:'#4960bf',
-	                                    type:'dashed'
-	                                }
-	                            },
-	                        },
-	                        // series:$scope.equipmentItemArr,
-	                        series:[{
-
-	                            type:'line',
-	                            stack:'10',
-	                            symbol: 'emptyCircle',
-	                            symbolSize: 10,
-	                            itemStyle:{
-	                                normal:{
-	                                    color:'#ab56dc',
-	                                }
-	                            },
-	                            lineStyle:{
-	                                normal:{
-	                                    color:'#ab56dc',
-	                                }
-	                            },
-	                            data:$scope.chartData,
-	                        }]
-	                    }
-	                }
-
-	                $scope.option={
-	                    title:{
-	                        show:false,
-	                    },
-	                    toolbox:{
-	                        show:false,
-	                    },
-	                    grid:{
-	                        top:10,
-	                        left:60,
-	                        right:60,
-	                        bottom:30,
-	                        borderColor:'#566c93',
-	                    },
-	                    tooltip:{
-	                        trigger:'axis'
-	                    },
-	                    /*dataZoom:{
-	                        type: 'inside',
-	                        realtime: true,
-	                        start: 90,
-	                        end: 100,
-	                        // xAxisIndex: [0, 1]
-	                    },*/
-	                    /*legend:{
-	                        type:'scroll',
-	                        right:0,
-	                        top:0,
-	                        bottom:10,
-	                        width:30,
-	                        pageButtonItemGap:5,
-	                        pageButtonGap:5,
-	                        pageButtonPosition:'end',
-	                        pageFormatter:{
-	                            current:1,
-	                            total:5
-	                        },
-	                        orient:'vertical',
-	                        inactiveColor:'#666',
-	                        selectedMode:'single',
-	                        textStyle:{
-	                            color:'#fff',
-	                        },
-	                        data:$scope.equipmentCheckArr,
-	                        // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
-	                    },*/
-	                    xAxis:{
-	                        // type:'time',
-	                        axisLabel: {        
-	                            show: true,
-	                            textStyle: {
-	                                color: '#fff',
-	                            }
-	                        },
-	                        data:$scope.equipmentInfo.date,
-	                    },
-	                    yAxis:{
-	                        axisLabel: {        
-	                            show: true,
-	                            textStyle: {
-	                                color: '#fff',
-	                            }
-	                        },
-	                        splitLine:{
-	                            show:true,
-	                            lineStyle:{
-	                                color:'#4960bf',
-	                                type:'dashed'
-	                            }
-	                        },
-	                    },
-	                    // series:$scope.equipmentItemArr,
-	                    series:[{
-
-	                        type:'line',
-	                        stack:'10',
-	                        symbol: 'emptyCircle',
-	                        symbolSize: 10,
-	                        itemStyle:{
-	                            normal:{
-	                                color:'#ab56dc',
-	                            }
-	                        },
-	                        lineStyle:{
-	                            normal:{
-	                                color:'#ab56dc',
-	                            }
-	                        },
-	                        data:$scope.chartData,
-	                    }]
-	                }
-	            }else{
-	                $scope.chartsStatus = false;
-	            }
-	    		
 	    	})
 	    };
 	
-	
+	    $scope.dealEq = function() { 
+	    	$scope.EquipId =$scope.equipId;
+	    	var handleCon = $('#handleCon').val();
+	    	if('' !=$scope.statusText && null != $scope.statusText){
+	    		if('报警' == $scope.statusText){
+	    			$scope.eqType = 2;
+	    		}else if('隐患' == $scope.statusText){
+	    			$scope.eqType = 3;
+	    		}
+	    	}
+	    	var pageParam = {
+	    			handleCon :handleCon,
+	    			eqId  :  $scope.EquipId,
+	    			eqType : $scope.eqType
+	    	}
+	    	httpService.post({url:'./errHandle/handlingErrors',data:pageParam,showSuccessMsg:true}).then(function(data) {
+    		
+	    	})
+    	};  
 	
 	
 	$scope.initTable();
@@ -416,37 +212,11 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
     		$state.go('app.faultRecordInfo',{id:idNum2,typeId:3});
     	}
     }
-//	$scope.add = function () {  
-//			$scope.equipmentCategory = data.data.equipmentCategory;
-//			//$modalInstance.dismiss('cancel')
-//			  var modalInstance = $modal.open({  
-//		            templateUrl: 'proj/hiddenEdit/add.html',  
-//		            controller: 'hiddenEditEditNgCtrl', 
-//		            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
-//		            resolve: {  
-//		            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
-//		        			return $ocLazyLoad.load({
-//		        				name : 'hiddenEditEditNgModule',
-//		        				insertBefore : '#ng_load_plugins_before',
-//		        				files : [
-//		        				         'proj/hiddenEdit/add.js',
-//		        				]
-//		        			});
-//		        		}],
-//		        		hiddenEdit: function () {  
-//		                    return {};  
-//		                },
-//		            }  
-//		        }); 
-//		        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
-//		            $scope.selected = data;
-//		        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
-//		        	$scope.initTable();
-//		        });
-//    };  
     //编辑
-    $scope.edit = function (idNum) { 
+    $scope.edit = function (idNum,statusText) { 
     	$scope.idNum = idNum;
+    	$scope.equipId = idNum;
+    	$scope.statusText = statusText;
     	$scope.passagewayInit();    	 
     };  
     

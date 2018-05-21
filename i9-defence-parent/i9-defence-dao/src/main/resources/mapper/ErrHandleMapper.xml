@@ -283,10 +283,10 @@
    		update t_channel_data set dealStatus = 1 where deviceId = #{eqDeviceId} and type = 0
    </update>
    <update id="updateHandlePolice" parameterType="java.lang.String">
-   		update t_channel_data set dealStatus = 1 where id in(select id from  v_hiddendanger_channel_data	where (value &gt;= WarningMax or  value &lt;= WarningMin)and deviceId=#{eqDeviceId} and dealStatus = 0)
+   		update t_channel_data set dealStatus = 1 where deviceId=#{eqDeviceId} and dealStatus = 0
    </update>
    <update id="updateHandleHidden" parameterType="java.lang.String">
-   		update t_channel_data set dealStatus = 1 where id in(select id from  v_hiddendanger_channel_data	where ((value &gt; HiddenMax and value &lt; WarningMax)or(value &lt; HiddenMin and value &gt; WarningMin)) and deviceId=#{eqDeviceId} and dealStatus = 0)
+   		update t_channel_data set dealStatus = 1 where deviceId=#{eqDeviceId} and dealStatus = 0
    </update>
    
    <update id="updateBatchHandleFault" parameterType="java.util.List">
