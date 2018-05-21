@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONArray;
 
 import i9.defence.platform.api.components.HiddendangerChannelDataInFoComponents;
+import i9.defence.platform.dao.vo.ChannelDataQuery;
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -78,9 +79,9 @@ public class HiddenDangerEditController {
 	 * @return
 	 */
 	@RequestMapping("/selectHiddenDangerChannelDtoBySid")
-	public HashMap<String, Object> selectHiddenDangerChannelDtoBySid(@RequestBody String systemId) {
+	public HashMap<String, Object> selectHiddenDangerChannelDtoBySid(@RequestBody ChannelDataQuery channelDataQuery) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<HiddenDangerChannelDto> list = equipmentService.selectHiddenDangerChannelDtoBySid(systemId);
+		List<HiddenDangerChannelDto> list = equipmentService.selectHiddenDangerChannelDtoBySid(channelDataQuery.getDeviceId(),channelDataQuery.getCount());
 		JSONArray data = new HiddendangerChannelDataInFoComponents().setHiddenDangerChannelDto(list).build();
 		result.put("data", data);
 		return result;
@@ -117,9 +118,9 @@ public class HiddenDangerEditController {
 	 * @return
 	 */
 	@RequestMapping("/selectDangerChannelDtoBySid")
-	public HashMap<String, Object> selectDangerChannelDtoBySid(@RequestBody String systemId) {
+	public HashMap<String, Object> selectDangerChannelDtoBySid(@RequestBody ChannelDataQuery channelDataQuery) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<HiddenDangerChannelDto> list = equipmentService.selectDangerChannelDtoBySid(systemId);
+		List<HiddenDangerChannelDto> list = equipmentService.selectDangerChannelDtoBySid(channelDataQuery.getDeviceId(),channelDataQuery.getCount());
 		JSONArray data = new HiddendangerChannelDataInFoComponents().setHiddenDangerChannelDto(list).build();
 		result.put("data", data);
 		return result;

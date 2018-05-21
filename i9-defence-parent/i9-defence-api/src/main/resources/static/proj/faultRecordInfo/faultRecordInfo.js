@@ -17,12 +17,12 @@ var faultRecordInfoControl=faultRecordInfoModule.controller('faultRecordInfoCont
 					console.log($scope.warningList)
 				})
 			}else if($scope.typeId==2){
-				httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:$stateParams.id,showSuccessMsg:false}).then(function(data) {  
+				httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:{deviceId:$stateParams.id,count:16},showSuccessMsg:false}).then(function(data) {  
 					$scope.warningList = data.data.data;
 					console.log($scope.warningList)
 				})
 			}else if($scope.typeId==3){
-				httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:$stateParams.id,showSuccessMsg:false}).then(function(data) {  
+				httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:{deviceId:$stateParams.id,count:16},showSuccessMsg:false}).then(function(data) {  
 					$scope.warningList = data.data.data;
 					console.log($scope.warningList)
 				})
