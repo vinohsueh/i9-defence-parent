@@ -63,9 +63,9 @@ public interface EquipmentMapper {
     List<HiddenDangerDto> selectHiddenDangerByLimitPage2(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
     
     //查询具体隐患报警--隐患
-    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(@Param("deviceId")String systemId);
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(@Param("deviceId")String deviceId,@Param("count") int count);
     //查询具体隐患报警--报警
-    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(@Param("deviceId") String systemId);
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(@Param("deviceId") String systemId,@Param("count") int count);
     //隐患报警 全部查询
     List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
     /**
