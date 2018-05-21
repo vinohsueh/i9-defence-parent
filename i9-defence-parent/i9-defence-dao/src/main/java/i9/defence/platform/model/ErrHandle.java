@@ -30,8 +30,40 @@ public class ErrHandle {
     
     //处理人  一对一
     private Manager handleManager;
+    
+    private String eqCategoryName;
+    
+    private String projectName;
+    
+    private String equipmentRemarks;
+    
+    
+    
+    public String getEqCategoryName() {
+		return eqCategoryName;
+	}
 
-    public Integer getId() {
+	public void setEqCategoryName(String eqCategoryName) {
+		this.eqCategoryName = eqCategoryName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getEquipmentRemarks() {
+		return equipmentRemarks;
+	}
+
+	public void setEquipmentRemarks(String equipmentRemarks) {
+		this.equipmentRemarks = equipmentRemarks;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -120,9 +152,7 @@ public class ErrHandle {
 	}
 
 	public String getTypeStr() {
-		if(type == 1) {
-			this.typeStr = "故障";
-		}else if (type == 2) {
+		if (type == 1) {
 			this.typeStr = "报警";
 		}else {
 			this.typeStr = "隐患";
