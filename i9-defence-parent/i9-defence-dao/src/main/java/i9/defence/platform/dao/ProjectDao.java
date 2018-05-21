@@ -113,4 +113,11 @@ public interface ProjectDao {
 	List<Integer> selectIdsByMonthDataDto(MonthDataDto monthDataDto) throws Exception;
 
 	List<Project> findProjectName()throws Exception;
+	
+	/**
+	 * 查询报警的项目ids
+	 * @param projectSearchDto
+	 * @return
+	 */
+	List<Integer> selectWarningProjectIds(ProjectSearchDto projectSearchDto);
 }
