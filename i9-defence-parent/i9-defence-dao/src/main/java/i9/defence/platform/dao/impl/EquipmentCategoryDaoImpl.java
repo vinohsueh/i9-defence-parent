@@ -90,6 +90,11 @@ public class EquipmentCategoryDaoImpl implements EquipmentCategoryDao {
 	        return null;
 	}
 
+	@Override
+	public List<EquipmentCategory> findEqCategoryName() throws Exception {
+		return eqCategoryMapper.findEqCategoryName();
+	}
+
 	
 
 	/*@Override

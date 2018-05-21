@@ -155,6 +155,15 @@ public class EquipmentCategoryServiceImpl implements EquipmentCategoryService {
 		}
 	}
 
+	@Override
+	public List<EquipmentCategory> findEqCategoryName()throws BusinessException {
+		try {
+			return eqCategoryDao.findEqCategoryName();
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
+	}
+
 //	@Override
 //	public List<EqCategorySearchDto> selectAllEqCategoryAndNum() throws BusinessException {
 //		try {

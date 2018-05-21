@@ -34,7 +34,7 @@ td.eventType span.warning {
   border-color: #EDAC50;
   color: #EDAC50;
 }
-td.eventType span.hiddenDanger {
+td.eventType span.lineOut {
   border-color: #f5f5f5;
   color: #f5f5f5;
 }
