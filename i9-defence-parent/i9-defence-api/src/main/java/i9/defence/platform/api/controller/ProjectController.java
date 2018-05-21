@@ -97,6 +97,9 @@ public class ProjectController {
         	projectArray.add(projectObject);
         }
         result.put("data", projectArray);
+        //查询报警的项目ids
+        List<Integer> ids = projectService.selectWarningProjectIds(projectSearchDto);
+        result.put("warningIds", ids);
         return result;
     }
     

@@ -114,4 +114,11 @@ public interface ProjectService {
   	//查询项目名称和id
 	List<Project> findProjectName()throws BusinessException;
 	
+	/**
+	 * 查询报警的项目ids
+	 * @param projectSearchDto
+	 * @return
+	 */
+	List<Integer> selectWarningProjectIds(ProjectSearchDto projectSearchDto);
+	
 }

@@ -62,4 +62,6 @@ public interface ProjectMapper {
   	List<Integer> selectIdsByMonthDataDto(@Param("example") MonthDataDto monthDataDto);
 
 	List<Project> findProjectName();
+
+	List<Integer> selectWarningProjectIds(@Param("example") ProjectSearchDto projectSearchDto);
 }

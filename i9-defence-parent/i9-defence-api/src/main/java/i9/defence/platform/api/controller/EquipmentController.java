@@ -199,6 +199,7 @@ public class EquipmentController {
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(dataAndManager.getDeviceId());
 		channelDataSearchDto.setOrderByClause("dateTime");
+		channelDataSearchDto.setSystemId(dataAndManager.getSystemId());
 		//只查询电流和温度的显示值
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());

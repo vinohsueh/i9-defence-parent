@@ -20,10 +20,13 @@
  	<result column="projectStartDate" jdbcType="TIMESTAMP" property="projectStartDate"/>
   	<result column="projectEndDate" jdbcType="TIMESTAMP" property="projectEndDate"/>
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
-  	<association property="warningCount" column="id" select="selectEquipTypeCount"></association>
+  	<!-- <association property="warningCount" column="id" select="selectEquipTypeCount"></association> -->
   	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
   	<collection property="safeList" column="id" select="i9.defence.platform.dao.mapper.ManagerMapper.selectSafeByProjectId"/>
-    <collection property="equipmentStatis" column="id" select="selectEquipStatistic"></collection>
+  </resultMap>
+  
+  <resultMap id="DetailResultMap" extends="BaseResultMap" type="i9.defence.platform.model.Project">
+  	<collection property="equipmentStatis" column="id" select="selectEquipStatistic"></collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -497,11 +500,14 @@
             #{safeId}
         </foreach>
    </update>
-   <select id="selectProject" resultMap="BaseResultMap">
+   <select id="selectProject" resultMap="DetailResultMap">
    		select DISTINCT <include refid="Base_Column_List" /> from t_project p left join t_project_safe ps on p.id = ps.projectId
         <if test="_parameter != null" >
           <include refid="Query_By_Dto2_Where_Clause" />
         </if>
+   </select>
+   <select id="selectWarningProjectIds" resultType="int">
+   	select projectId from v_hiddendanger_edit WHERE warningCount > 0 
    </select>
    <select id="selectIdsByMonthDataDto" resultType="java.lang.Integer">
    		select id from t_project
