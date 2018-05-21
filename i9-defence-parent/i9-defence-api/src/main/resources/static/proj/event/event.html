@@ -96,15 +96,16 @@
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
 	           <!--  <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.deviceId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td> -->
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.statusText}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.projectName}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.eqCategoryName}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.equipmentRemarks}}</td>
-	            <td ng-click="edit('{{hiddenEdit.deviceId}}')">{{hiddenEdit.newestTime}}</td>
+	            <td ng-click="edit('{{hiddenEdit.id}}')">{{hiddenEdit.statusText}}</td>
+	            <td ng-click="edit('{{hiddenEdit.id}}')">{{hiddenEdit.projectName}}</td>
+	            <td ng-click="edit('{{hiddenEdit.id}}')">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="edit('{{hiddenEdit.id}}')">{{hiddenEdit.equipmentRemarks}}</td>
+	            <td ng-click="edit('{{hiddenEdit.id}}')">{{hiddenEdit.newestTime}}</td>
 	            <td ng-if="hiddenEdit.statusText!='离线'"><button type='button' class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
 	          </tr>
 	        </tbody>
 	      </table>
+   
 	    </div>
 	    <footer class="panel-footer">
 	      <div class="row">
@@ -140,6 +141,78 @@
 	          </ul>
 	        </div>
 	      </div>
+	      <div class='row'>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">项目信息</div>
+      <div class="body">
+        <p>负责人：{{equipment.clientName}}</p>
+        <p>负责人电话：{{equipment.clientPhone}}</p>
+        <p>安全负责人：{{equipment.safeName}}</p>
+        <p>安全负责人电话：{{equipment.safePhone}}</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-2">
+      <div class="title">设备信息</div>
+      <div class="body">
+        <p>种类：{{equipment.equipmentCategoryName}}</p>
+        <p>地址：{{equipment.equipmentPosition}}</p>
+        <p>备注：{{equipment.equipmentRemarks}}</p>
+        <p>注册时间：{{equipment.dateString}}</p>
+      </div>
+    </div>
+    <div class="mPane col-xs-12 col-sm-8">
+      <div class="title clearify">
+        具体数据
+        <div class='pull-right form-inline'>
+          <div class="form-group">
+            <label for="">通道选择:</label>
+            <select name="" id="" class='form-control blue_bg' ng-change='changeLine()' ng-model="passageway" ng-options="x as y for (x, y) in equipmentCheckArr">
+              <!-- <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option> -->
+            </select>
+            <label for="">登记时间:</label>
+            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+              <input type="text" id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+              <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+            </div>
+            <label for="">-</label>
+            <select name="" id="" class='form-control blue_bg' ng-model='startHours'>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+            </select>
+          </div>
+          <button type='button' class='btn btn-primary' ng-click='passagewayInit()'><i class='glyphicon glyphicon-search'></i></button>
+        </div>
+      </div>
+      <div class="body" ng-if="chartsStatus">
+        <div e-chart options="option"></div>
+      </div>
+    </div>
+  </div>
 	    </footer>
 	  </div>
 	</div>
