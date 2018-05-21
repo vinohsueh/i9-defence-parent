@@ -82,7 +82,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		};
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
-			// console.log(JSON.stringify($scope.projectList));
 			var markItem = {};
 			
 			for(i in $scope.projectList){
@@ -191,7 +190,6 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 
 		};
 		httpService.post({url:'./equipment/selectMonthData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			// console.log(JSON.stringify(data));
 			$scope.projectInfo = data.data.data;
 			$scope.projectTime = [];
 			$scope.projectWarning = [];

@@ -150,7 +150,7 @@ public interface EquipmentDao {
      * @param HiddenDangerChannelDto
      * @return
      */
-    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count);
     
     /**
      * 
@@ -169,7 +169,7 @@ public interface EquipmentDao {
      * @param HiddenDangerChannelDto
      * @return
      */
-    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId);
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String deviceId,int count);
     
     /**
      * 分页查询故障设备
