@@ -91,7 +91,10 @@ public class EquipmentController {
 	@RequestMapping("/addEquipment")
 	public HashMap<String, Object> addEquipment(@RequestBody Equipment equipment) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		equipmentService.addEquipment(equipment);
+		Equipment equipment2 = equipmentService.addEquipment(equipment);
+		Equipment equipmentToOldPlat = equipmentService.getEquipmentById(equipment2.getId());
+		//向老平台插入设备
+		equipmentService.addEquipmentToOldPlat(equipmentToOldPlat);
 		return result;
 	}
 
