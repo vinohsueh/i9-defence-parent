@@ -4,33 +4,43 @@ var faultRecordInfoControl=faultRecordInfoModule.controller('faultRecordInfoCont
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
 	$scope.typeId=$stateParams.typeId;
-	console.log($scope.typeId);
+
+	$scope.itemNum = 32;
 	//初始化
 	$scope.initTable = function (){
+
 		var pageParam = {
+				count:$scope.itemNum,
 				deviceId:$stateParams.id
 			};
+			console.log(JSON.stringify(pageParam));
 		if($scope.typeId){
 			if($scope.typeId==1){
 				httpService.post({url:'./equipment/selectErrorRecord',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 					$scope.warningList = data.data.data.channelData;
-					console.log($scope.warningList)
+					// console.log($scope.warningList)
 				})
 			}else if($scope.typeId==2){
-				httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:$stateParams.id,showSuccessMsg:false}).then(function(data) {  
+				httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:{deviceId:$stateParams.id,count:16},showSuccessMsg:false}).then(function(data) {  
 					$scope.warningList = data.data.data;
-					console.log($scope.warningList)
+					// console.log($scope.warningList)
 				})
 			}else if($scope.typeId==3){
-				httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:$stateParams.id,showSuccessMsg:false}).then(function(data) {  
+				httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:{deviceId:$stateParams.id,count:16},showSuccessMsg:false}).then(function(data) {  
 					$scope.warningList = data.data.data;
-					console.log($scope.warningList)
+					// console.log($scope.warningList)
 				})
 			}
 		}
 	};
 	$scope.initTable();
 	
+	//加载更多
+	$scope.countAdd = function () {
+		$scope.itemNum = $scope.itemNum+=32;
+		$scope.initTable();
+	}
+
 	//修改分页大小
 	$scope.changePageSize = function(){
 		$scope.currentPage = 1;

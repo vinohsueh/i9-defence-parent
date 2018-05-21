@@ -108,7 +108,7 @@ public interface EquipmentService {
      * @param selectHiddenDangerChannelDtoBySid
      * @return
      */
-    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId)throws BusinessException;
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count)throws BusinessException;
     /**
      * 查询全部隐患报警
      */
@@ -125,7 +125,7 @@ public interface EquipmentService {
      * @param selectHiddenDangerChannelDtoBySid
      * @return
      */
-    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId)throws BusinessException;
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String deviceId,int count)throws BusinessException;
     
     /**
      * 分页查询故障设备

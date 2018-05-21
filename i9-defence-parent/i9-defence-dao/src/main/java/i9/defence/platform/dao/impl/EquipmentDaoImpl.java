@@ -137,8 +137,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) {
-		return equipmentMapper.selectHiddenDangerChannelDtoBySid(systemId);
+	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count) {
+		return equipmentMapper.selectHiddenDangerChannelDtoBySid(deviceId,count);
 	}
 	
 	@Override
@@ -163,8 +163,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) {
-		return equipmentMapper.selectDangerChannelDtoBySid(systemId);
+	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String deviceId,int count) {
+		return equipmentMapper.selectDangerChannelDtoBySid(deviceId,count);
 	}
 
 	@Override
