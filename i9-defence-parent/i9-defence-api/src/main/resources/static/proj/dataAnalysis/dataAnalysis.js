@@ -105,7 +105,9 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
     		Ids.push($scope.projectId);
     	}
 		var pageParam = {
-				projectId:Ids,
+				projectProvince:$scope.selected.name,
+				projectCity:$scope.selected2.name,
+				projectId:$scope.projectId,
 				startTime:$scope.dateToString($("#startTime").val()),
 				endTime:$scope.dateToString($("#endTime").val()),
 				/*projectName : text,
