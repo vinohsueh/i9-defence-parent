@@ -1,11 +1,17 @@
 package i9.defence.platform.service.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +29,7 @@ import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ChannelData;
+import i9.defence.platform.model.Client;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
@@ -32,6 +39,7 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.TargetDataSource;
 /**
  * 项目类别ServiceImpl
  * @author gbq
@@ -49,7 +57,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 	private ManagerService managerService;
 	@Autowired
 	private ApplyDao applyDao; 
-	
+	@Resource
+    private JdbcTemplate jdbcTemplate;
 	@Override
 	public PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto)
 			throws BusinessException {
@@ -74,7 +83,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public void addEquipment(Equipment equipment) throws BusinessException {
+	public Equipment addEquipment(Equipment equipment) throws BusinessException {
 		try {
 			StringBuffer str = new StringBuffer();
 			str.append(equipment.getSystemId()).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(equipment.getLoopl()))).append(equipment.getEquipmentPosition());
@@ -85,9 +94,40 @@ public class EquipmentServiceImpl implements EquipmentService {
 				equipment.setEquipmentDate(new Date());
 				equipmentDao.addEquipment(equipment);
 			}
+			return equipment;
 		} catch (Exception e) {
 			throw new BusinessException("添加设备失败",e.getMessage());
 		}
+	}
+	
+	@TargetDataSource("xfjcxt")
+	@Override
+	public void addEquipmentToOldPlat(final Equipment equipment) throws BusinessException {
+		
+		String sql = "insert into device_list(device_type,device_code,device_name,device_org,device_address,longitude,latitude,remark,link_man,phone) values(?,?,?,?,?,?,?,?,?,?)";  
+        jdbcTemplate.update(sql,new PreparedStatementSetter(){
+
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1,equipment.getEquipmentSystemtype().getSystemType());
+				ps.setInt(2,equipment.getId());
+			    ps.setString(3,equipment.getEquipmentCategory().getEqCategoryName());
+			    ps.setString(4, equipment.getProject().getProjectName());
+			    ps.setString(5, equipment.getProject().getProjectAddressStr());
+			    ps.setString(6, equipment.getProject().getProjectLongitude().toString());
+			    ps.setString(7, equipment.getProject().getProjectLatitude().toString());
+			    ps.setString(8, equipment.getEquipmentRemarks());
+			    List<Client> list = equipment.getProject().getClientList();
+			    ps.setString(9, null);
+			    ps.setString(10, null);
+			    if (list.size()>0){
+			    	ps.setString(9, list.get(0).getName());
+				    ps.setString(10, list.get(0).getPhone());
+			    }
+			    
+			}
+        	
+        });  
 	}
 	
 	@Override
@@ -451,6 +491,5 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询失败",e.getMessage());
 		}	
 	}
-
 }
 

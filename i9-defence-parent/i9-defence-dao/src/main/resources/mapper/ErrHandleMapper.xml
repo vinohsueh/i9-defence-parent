@@ -11,6 +11,9 @@
     <result column="eqAddRess" jdbcType="VARCHAR" property="eqAddRess" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <association property="handleManager" column="handleManagerId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+  	<association property="eqCategoryName" column="eqDeviceId" select="selectEqCategoryName"/>
+  	<association property="projectName" column="eqDeviceId" select="selectProjectName"/>
+  	<association property="equipmentRemarks" column="eqDeviceId" select="selectEquipmentRemarks"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -283,10 +286,10 @@
    		update t_channel_data set dealStatus = 1 where deviceId = #{eqDeviceId} and type = 0
    </update>
    <update id="updateHandlePolice" parameterType="java.lang.String">
-   		update t_channel_data set dealStatus = 1 where id in(select id from  v_hiddendanger_channel_data	where (value &gt;= WarningMax or  value &lt;= WarningMin)and deviceId=#{eqDeviceId} and dealStatus = 0)
+   		update t_channel_data set dealStatus = 1 where deviceId=#{eqDeviceId} and dealStatus = 0
    </update>
    <update id="updateHandleHidden" parameterType="java.lang.String">
-   		update t_channel_data set dealStatus = 1 where id in(select id from  v_hiddendanger_channel_data	where ((value &gt; HiddenMax and value &lt; WarningMax)or(value &lt; HiddenMin and value &gt; WarningMin)) and deviceId=#{eqDeviceId} and dealStatus = 0)
+   		update t_channel_data set dealStatus = 1 where deviceId=#{eqDeviceId} and dealStatus = 0
    </update>
    
    <update id="updateBatchHandleFault" parameterType="java.util.List">
@@ -318,4 +321,13 @@
    		(#{item})
    	</foreach>
    </insert>
+   <select id="selectEqCategoryName" parameterType="string" resultType="string">
+   		select eqCategoryName from t_equipment_category where eqCategoryId = (select systemId from t_equipment where deviceId = #{deviceId})
+   </select>
+   <select id="selectProjectName" resultType="string" parameterType="string">
+   		select projectName from t_project where id = (select projectId from t_equipment where deviceId = #{deviceId})
+   </select>
+   <select id="selectEquipmentRemarks" resultType="string" parameterType="string">
+   		select equipmentRemarks from t_equipment where deviceId = #{deviceId}
+   </select>
 </mapper>

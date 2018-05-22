@@ -38,7 +38,14 @@ public interface EquipmentService {
      * @param equipment
      * @throws Exception
      */
-    void addEquipment(Equipment equipment) throws BusinessException;
+    Equipment addEquipment(Equipment equipment) throws BusinessException;
+    
+    /**
+     * 向老平台插入设备
+     * @param equipment
+     * @throws Exception
+     */
+    void addEquipmentToOldPlat(Equipment equipment) throws BusinessException;
     
     /**
      * 更新设备
