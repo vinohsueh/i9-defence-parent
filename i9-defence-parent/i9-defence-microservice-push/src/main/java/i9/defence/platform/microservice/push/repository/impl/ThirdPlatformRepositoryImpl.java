@@ -100,7 +100,7 @@ public class ThirdPlatformRepositoryImpl implements ThirdPlatformRepository {
 	}
 
 	@Override
-	public void updateDeviceStatus(int id,String status) {
+	public void updateDeviceStatus(final int id,final String status) {
 		try {
 			jdbcTemplate.update(SqlUtil.UPDATE_EQUIPMENT_SQL,new PreparedStatementSetter(){
 			       public void setValues(PreparedStatement ps) throws SQLException {
