@@ -208,6 +208,18 @@ td.eventType span.lineOut {
   width: 100%;
   height: 100%;
 }
+#selfMain #stationPosition {
+  height: 70%;
+  width: 77%;
+  background-color: #fff;
+  position: relative;
+}
+#selfMain #stationPosition img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 #selfMain #selfMap {
   width: 77%;
   height: 70%;
@@ -466,6 +478,16 @@ td.eventType span.lineOut {
   line-height: 40px;
   box-sizing: border-box;
   padding: 0 10px;
+}
+#pieChart .chartBody {
+  padding: 10px 10px 5px;
+  background-color: #233168;
+}
+#pieChart .chartBody p {
+  margin-bottom: 5px;
+  cursor: pointer;
+  padding-left: 20px;
+  text-decoration: underline;
 }
 /*选择经纬度*/
 #map {

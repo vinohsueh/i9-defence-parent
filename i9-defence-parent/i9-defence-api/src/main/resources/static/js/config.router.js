@@ -390,6 +390,7 @@ angular.module('app')
               })
               .state('app.monitoringTabel', {
                   url: '/monitoringTabel',
+                  params: {'id': null},
                   templateUrl: 'proj/monitoringTabel/monitoringTabel.html',
                   controller : "monitoringTabelNgControl",
                   resolve: {

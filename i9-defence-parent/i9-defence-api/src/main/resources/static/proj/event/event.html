@@ -76,7 +76,7 @@
 					</div>
 				</div>-->
 			</div>
-	    <div class="table-responsive" style='min-height: 480px'>
+	    <div class="table-responsive" style='min-height: 300px'>
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
@@ -101,7 +101,7 @@
 	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.eqCategoryName}}</td>
 	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.equipmentRemarks}}</td>
 	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.newestTime}}</td>
-	            <td ng-if="hiddenEdit.statusText!='离线'"><button type='button' class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
+	            <td ><button type='button'  ng-if="hiddenEdit.statusText!='离线'"  class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -142,7 +142,7 @@
 	        </div>
 	      </div>
 	      <div class='row'>
-    <div class="mPane hFull col-xs-6 col-sm-2">
+    <div class="mPane hFull col-xs-6 col-sm-3">
       <div class="title">项目信息</div>
       <div class="body">
         <p>负责人：{{equipment.clientName}}</p>
@@ -151,7 +151,7 @@
         <p>安全负责人电话：{{equipment.safePhone}}</p>
       </div>
     </div>
-    <div class="mPane hFull col-xs-6 col-sm-2">
+    <div class="mPane hFull col-xs-6 col-sm-3">
       <div class="title">设备信息</div>
       <div class="body">
         <p>种类：{{equipment.equipmentCategoryName}}</p>

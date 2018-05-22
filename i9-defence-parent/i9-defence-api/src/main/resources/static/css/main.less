@@ -195,6 +195,19 @@ td.eventType{
 	background-color: #151c35;
 	width: 100%;
 	height: 100%;
+	#stationPosition{
+		height: 70%;
+		width: 77%;
+		background-color: #fff;
+		position: relative;
+		img{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%,-50%);
+
+		}
+	}
 	#selfMap{
 		width:77%;
 		height: 70%;
@@ -417,7 +430,14 @@ td.eventType{
 		padding: 0 10px;
 	}
 	.chartBody{
-		
+		padding:10px 10px 5px;
+		background-color: #233168;
+		p{
+			margin-bottom: 5px;
+			cursor: pointer;
+			padding-left: 20px;
+			text-decoration: underline;
+		}
 	}
 }
 /*选择经纬度*/
