@@ -15,4 +15,9 @@ public interface ThirdPlatformService {
      * @param text
      */
     void saveAlertOrigin(String text) throws Exception;
+    
+    /**
+     * 每天创建一张表
+     */
+    void createTableEveryday();
 }
