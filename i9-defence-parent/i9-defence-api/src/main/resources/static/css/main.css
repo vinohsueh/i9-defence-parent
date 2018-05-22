@@ -481,10 +481,13 @@ td.eventType span.lineOut {
 }
 #pieChart .chartBody {
   padding: 10px 10px 5px;
-  background-color: #3d4b83;
+  background-color: #233168;
 }
 #pieChart .chartBody p {
   margin-bottom: 5px;
+  cursor: pointer;
+  padding-left: 20px;
+  text-decoration: underline;
 }
 /*选择经纬度*/
 #map {

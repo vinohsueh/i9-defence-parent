@@ -53,13 +53,13 @@
     </div>
     <div id="pieChart">
         <div class="sTitle">
-            <div class="text">工作台</div>
+            <div class="text">事件工作台</div>
         </div>
         <div class="chartBody wrap" id='pieChartBody'>
             <!-- <div e-chart options="pieOption"></div> -->
-            <p>报警：123</p>
-            <p>故障：123</p>
-            <p>隐患：123</p>
+            <p ng-click='toProjectInfo()'>项目报警数量：{{totalCount.alert}}</p>
+            <p ng-click='toProjectInfo()'>项目隐患数量：{{totalCount.fault}}</p>
+            <p ng-click='toProjectInfo()'>项目离线数量：{{totalCount.offline}}</p>
         </div>
     </div>
 </div>

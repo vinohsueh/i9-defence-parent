@@ -30,7 +30,8 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
     }
     //项目id初始化
     $scope.projectId = null;
-
+    //右下角工作台可否点击控制
+    $scope.clickStatu = false;
 
 	//地域
 	$scope.error = {};
@@ -96,7 +97,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				markItem.clientListStr = $scope.projectList[i].clientListStr;
 				markItem.equipmentStatis = $scope.projectList[i].equipmentStatis;
 				markItem.distributorName = $scope.projectList[i].distributorName;
-				markItem.warningCount = $scope.projectList[i].warningCount; //错误数量
+				// markItem.warningCount = $scope.projectList[i].warningCount; //错误数量
 				$scope.markArr.push(markItem);
 			}
 			var mainHeight = $(window).height()-51;
@@ -130,38 +131,22 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 			});*/
 			var oHtml="";var equipmentStatis="";
 			$scope.mapOptions = [];
-			console.log(data.data.warningIds)
+			console.log(data.data.warningIds);
 			for(var i=0;i<myData.mark.length;i++){
 				equipmentStatis='';
 				for(j in myData.mark[i].equipmentStatis){
 					equipmentStatis += "<tr><td>"+myData.mark[i].equipmentStatis[j].eqCategoryName+"</td><td>"+myData.mark[i].equipmentStatis[j].equipCount+"个</td></tr>"
 				}
 				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr>"+equipmentStatis+"<tr><td colspan='2' class='text-center'>所属客户："+myData.mark[i].distributorName+"</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
-				var a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningCount':myData.mark[i].warningCount};
+				var a = {};
+				if(jQuery.inArray(myData.mark[i].id, data.data.warningIds) != -1){
+					a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningBoolean':true};
+				}else{
+					a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningBoolean':false};
+				}
 				$scope.mapOptions.push(a);
-				/*marker = new AMap.Marker({
-			        position: [myData.mark[i].positionX,myData.mark[i].positionY],
-			        zIndex: 101,
-			        icon:new AMap.Icon({            
-			            // size: new AMap.Size(40, 50),  //图标大小
-			            // image: "http://webapi.amap.com/theme/v1.3/images/newpc/way_btn2.png",
-			            image: "./images/timg.jpg",
-			            // imageOffset: new AMap.Pixel(0, -60)
-			        }),
-			        map: map
-			    });
-			    marker.content = oHtml;
-			    marker.on('click', markerClick);*/
 			}
-			/*function markerClick(e) {
-			    infoWindow.setContent(e.target.content);
-			    infoWindow.open(map, e.target.getPosition());
-			}*/
-			//关闭信息窗体
-			/*$scope.closeInfoWindow =  function () {
-				// alert(1);
-			   	map.clearInfoWindow();
-			}*/
+			// console.log(JSON.stringify($scope.mapOptions));
 			$('#stationPosition').remove();
 		})
 	}
@@ -327,6 +312,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	$scope.equipmentNum();
 	// 搜索
 	$scope.searchBtn = function () {
+		$scope.clickStatu = false;
 		$scope.pageInit();
 		$scope.equipmentNum();
 		$scope.chartInit();
@@ -334,9 +320,24 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	//项目选择
 	$scope.choiceProject = function (idNum) {
 		$scope.projectId = idNum;
+		$scope.clickStatu = true;
 		$scope.equipmentNum();
 		$scope.chartInit();
 	}
+	//跳转项目页面
+	$scope.goTo = function(id){
+		$state.go('app.monitoringChart',{id:id});
+	}
+	//工作台跳转
+	$scope.toProjectInfo = function () {
+		if($scope.clickStatu == false){
+			return;
+		}
+		var id=$scope.projectId;
+		$state.go('app.monitoringTabel',{id:id});
+
+	}
+
 	$(function () {
 		$('#stationPosition').css('height',($(window).height()-50)*0.7+'px');
 	    // 右侧样式
@@ -463,10 +464,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	}*/
 	
 	
-	//跳转项目页面
-	$scope.goTo = function(id){
-		$state.go('app.monitoringChart',{id:id});
-	}
+	
 	
 	/*$scope.pieOption = {
         tooltip: {
