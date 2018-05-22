@@ -20,6 +20,9 @@ var monitoringTabelService = monitoringTabelNgModule.factory('monitoringTabelSer
 			return resource;
 	}]);
 var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabelNgControl',function($rootScope,$timeout, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringTabelService,httpService){
+	// 接收传过来的id
+	$scope.projectId=$stateParams.id;
+	// alert($scope.projectId);
 	$scope.getDate = function (index){
 	    var date = new Date(); 
 	    var newDate = new Date();
@@ -92,18 +95,16 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	//初始化
 	$scope.searchText = '';
 	$scope.pageInit = function (){
-		
-		if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.projectName;
-		}else{
-			$scope.searchText = "";
-		}
-		 
+		if ($scope.projectId != null) {
+    		$scope.searchText = $scope.projectId;
+    	}else{
+            $scope.searchText = '';
+        }
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				projectName : $scope.searchText,
-				projectAddress : $scope.searchText,
+				projectId : $scope.searchText,
+				// projectAddress : $scope.searchText,
 				/*projectProvince:$scope.selected.name,
 				projectCity:$scope.selected2.name,
 				projectCounty:$scope.selected3.value,*/

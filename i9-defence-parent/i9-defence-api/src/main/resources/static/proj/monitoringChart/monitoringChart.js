@@ -56,7 +56,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     
     
 	//首页跳转过来的项目id
-	$scope.projectId=$stateParams.id;
+    $scope.projectId=$stateParams.id;
+	console.log($scope.projectId);
+
 	$scope.getDate = function (index){
 	    var date = new Date(); //当前日期
 	    var newDate = new Date();
@@ -121,14 +123,11 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	$scope.searchText = '';
     //初始化
     $scope.pageInit = function (){
-    	if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.id;
-		}else{
-			$scope.searchText = "";
-		}
     	if ($scope.projectId != null) {
     		$scope.searchText = $scope.projectId;
-    	}
+    	}else{
+            $scope.searchText = '';
+        }
     	var pageParam = {
     			/*pageSize:$scope.pageSize,
     			currentPage:$scope.currentPage,*/
@@ -138,6 +137,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			/*projectName : text,
     			projectAddress : text,*/
     		};
+            console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.totalCount = data.data.data;
 		});
@@ -175,7 +175,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 				$scope.idNum = $scope.projects[0].id;
 				$scope.passagewayInit();
 			}else{
-				$scope.projectInfo = {};
+				// $scope.projectInfo = {};
+                $scope.equipment = {};
 				$scope.chartsStatus = false;
 			}
     	})
