@@ -24,7 +24,7 @@ var eventService = eventModule.factory('eventService',
 	}]);
 var eventControl=eventModule.controller('eventControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,eventService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 5;
 	$scope.currentPage = 1;
 	$scope.statusText = '';
 	$scope.equipId =0;
