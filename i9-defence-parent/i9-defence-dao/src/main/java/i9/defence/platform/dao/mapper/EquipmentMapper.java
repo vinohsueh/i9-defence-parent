@@ -152,5 +152,7 @@ public interface EquipmentMapper {
 	 * @param status
 	 */
 	void updateEquipmentStatusByDeviceId(@Param("deviceId") String deviceId,@Param("status") int status);
+	//查询设备地址
+	Equipment findEquipmentPosition(String equipmentPosition);
 
 }

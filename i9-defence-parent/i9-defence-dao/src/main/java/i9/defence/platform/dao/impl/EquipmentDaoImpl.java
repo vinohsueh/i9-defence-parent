@@ -248,4 +248,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public void updateEquipmentStatusByDeviceId(String deviceId, int status) {
 		equipmentMapper.updateEquipmentStatusByDeviceId(deviceId,status);
 	}
+
+	@Override
+	public Equipment findEquipmentPosition(String equipmentPosition) {
+		return equipmentMapper.findEquipmentPosition(equipmentPosition);
+	}
 }
