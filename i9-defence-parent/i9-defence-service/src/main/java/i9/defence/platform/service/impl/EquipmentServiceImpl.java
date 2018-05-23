@@ -103,31 +103,58 @@ public class EquipmentServiceImpl implements EquipmentService {
 	@TargetDataSource("xfjcxt")
 	@Override
 	public void addEquipmentToOldPlat(final Equipment equipment) throws BusinessException {
-		
-		String sql = "insert into device_list(device_type,device_code,device_name,device_org,device_address,longitude,latitude,remark,link_man,phone) values(?,?,?,?,?,?,?,?,?,?)";  
-        jdbcTemplate.update(sql,new PreparedStatementSetter(){
-
-			@Override
-			public void setValues(PreparedStatement ps) throws SQLException {
-				ps.setString(1,equipment.getEquipmentSystemtype().getSystemType());
-				ps.setInt(2,equipment.getId());
-			    ps.setString(3,equipment.getEquipmentCategory().getEqCategoryName());
-			    ps.setString(4, equipment.getProject().getProjectName());
-			    ps.setString(5, equipment.getProject().getProjectAddressStr());
-			    ps.setString(6, equipment.getProject().getProjectLongitude().toString());
-			    ps.setString(7, equipment.getProject().getProjectLatitude().toString());
-			    ps.setString(8, equipment.getEquipmentRemarks());
-			    List<Client> list = equipment.getProject().getClientList();
-			    ps.setString(9, null);
-			    ps.setString(10, null);
-			    if (list.size()>0){
-			    	ps.setString(9, list.get(0).getName());
-				    ps.setString(10, list.get(0).getPhone());
-			    }
-			    
-			}
-        	
-        });  
+		String querySql = "select num from device_list where device_code = ?";
+		final List<Integer> nums = jdbcTemplate.queryForList(querySql, Integer.class,equipment.getId());
+		if (nums.size()>0){
+			String sql = "update device_list set device_type =?,device_code=?,device_name=?,device_org=?,device_address=?,longitude=?,latitude=?,remark=?,link_man=?,phone=? where num = ?";  
+	        jdbcTemplate.update(sql,new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1,equipment.getEquipmentSystemtype().getSystemType());
+					ps.setInt(2,equipment.getId());
+				    ps.setString(3,equipment.getEquipmentCategory().getEqCategoryName());
+				    ps.setString(4, equipment.getProject().getProjectName());
+				    ps.setString(5, equipment.getProject().getProjectAddressStr());
+				    ps.setString(6, equipment.getProject().getProjectLongitude().toString());
+				    ps.setString(7, equipment.getProject().getProjectLatitude().toString());
+				    ps.setString(8, equipment.getEquipmentRemarks());
+				    List<Client> list = equipment.getProject().getClientList();
+				    ps.setString(9, null);
+				    ps.setString(10, null);
+				    if (list.size()>0){
+				    	ps.setString(9, list.get(0).getName());
+					    ps.setString(10, list.get(0).getPhone());
+				    }
+				    ps.setInt(11, nums.get(0));
+				    
+				}
+	        	
+	        });  
+		}else{
+			String sql = "insert into device_list(device_type,device_code,device_name,device_org,device_address,longitude,latitude,remark,link_man,phone) values(?,?,?,?,?,?,?,?,?,?)";  
+	        jdbcTemplate.update(sql,new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1,equipment.getEquipmentSystemtype().getSystemType());
+					ps.setInt(2,equipment.getId());
+				    ps.setString(3,equipment.getEquipmentCategory().getEqCategoryName());
+				    ps.setString(4, equipment.getProject().getProjectName());
+				    ps.setString(5, equipment.getProject().getProjectAddressStr());
+				    ps.setString(6, equipment.getProject().getProjectLongitude().toString());
+				    ps.setString(7, equipment.getProject().getProjectLatitude().toString());
+				    ps.setString(8, equipment.getEquipmentRemarks());
+				    List<Client> list = equipment.getProject().getClientList();
+				    ps.setString(9, null);
+				    ps.setString(10, null);
+				    if (list.size()>0){
+				    	ps.setString(9, list.get(0).getName());
+					    ps.setString(10, list.get(0).getPhone());
+				    }
+				    
+				}
+	        	
+	        });  
+		}
 	}
 	
 	@Override

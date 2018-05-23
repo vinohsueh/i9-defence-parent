@@ -12,6 +12,7 @@ import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
@@ -29,7 +30,8 @@ public class ActiveMQConsumerRunnablePool {
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerRunnablePool.class);
 
     private final ExecutorService pool = Executors.newCachedThreadPool();
-
+    
+    @Autowired
     private ThirdPlatformService thirdPlatformService;
 
     public void executePool(final TextMessage textMessage) {
