@@ -88,9 +88,17 @@ public class EquipmentServiceImpl implements EquipmentService {
 			StringBuffer str = new StringBuffer();
 			str.append(equipment.getSystemId()).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(equipment.getLoopl()))).append(equipment.getEquipmentPosition());
 			equipment.setDeviceId(str.toString());
+			//查询设备地址
+			Equipment existEquipment=equipmentDao.findEquipmentPosition(equipment.getEquipmentPosition());
 			if(equipment.getId()!=null) {
-			  equipmentDao.updateEquipment(equipment);
+				if(existEquipment != null){
+		            throw new BusinessException("设备地址已存在!");
+				}
+				equipmentDao.updateEquipment(equipment);
 			}else {
+				if(existEquipment != null){
+					throw new BusinessException("设备地址已存在!");
+				}
 				equipment.setEquipmentDate(new Date());
 				equipmentDao.addEquipment(equipment);
 			}

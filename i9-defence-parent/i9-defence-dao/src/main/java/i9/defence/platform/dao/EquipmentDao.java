@@ -243,4 +243,6 @@ public interface EquipmentDao {
 	 * @param status
 	 */
 	void updateEquipmentStatusByDeviceId(String deviceId, int status);
+	//查询设备地址
+	Equipment findEquipmentPosition(String equipmentPosition);
 }
