@@ -1,6 +1,7 @@
 package i9.defence.platform.dao.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ErrHandleUnifiedDto implements Serializable{
 	
@@ -20,6 +21,22 @@ public class ErrHandleUnifiedDto implements Serializable{
 	//处理设备 故障类型
 	private Integer eqType;
 	
+	/**
+	 * 被处理的设备Ids
+	 */
+	private List<Integer> eqIds;
+	
+	public List<Integer> getEqIds() {
+		return eqIds;
+	}
+
+	public void setEqIds(List<Integer> eqIds) {
+		this.eqIds = eqIds;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public Integer getHandleState() {
 		return handleState;

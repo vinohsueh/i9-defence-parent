@@ -726,6 +726,22 @@
 			</if>
 			limit #{offset},#{limit}
 		</select>
+		<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto" parameterType="java.util.List">	
+			SELECT
+				deviceId,
+				equipmentPosition,
+				warningCount,
+				hiddeCount 
+			FROM
+				v_hiddendanger_edit 
+			WHERE id in
+				<foreach collection="Items" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+		</select>
+		
+		
+		
 		<!-- 查询具体隐患报警    查看隐患-->
 		 <select id="selectHiddenDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
 			  SELECT cd.*

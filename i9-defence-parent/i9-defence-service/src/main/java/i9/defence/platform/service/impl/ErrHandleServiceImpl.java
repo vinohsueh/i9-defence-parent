@@ -1,5 +1,6 @@
 package i9.defence.platform.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ErrHandleDao;
 import i9.defence.platform.dao.vo.ErrHandleSearchDto;
 import i9.defence.platform.dao.vo.ErrHandleUnifiedDto;
-import i9.defence.platform.model.Equipment;
+import i9.defence.platform.dao.vo.HiddenDangerDto;
 import i9.defence.platform.model.ErrHandle;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.service.ErrHandleService;
@@ -37,7 +38,31 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 		try {
 			//当前登录人
 			Manager manager = managerService.getLoginManager();
-			//设备
+			//封装所有的历史记录
+			List<ErrHandle> errHandles= new ArrayList<ErrHandle>();
+			//封装所有的deviceId
+			List<String> deviceIdsList=new ArrayList<String>(); 
+			//根据ids获取到所有
+			List<HiddenDangerDto> equipProblems = equipmentDao.selectHiddenDangerByIds(errHandleUnifiedDto.getEqIds());
+			for(HiddenDangerDto hiddenDangerDto:equipProblems) {
+				ErrHandle errHandle = new ErrHandle();
+				errHandle.setHandleManagerId(manager.getId());
+				errHandle.setHandleDate(new Date());
+				errHandle.setHandleState(1);
+				errHandle.setEqDeviceId(hiddenDangerDto.getDeviceId());
+				errHandle.setEqAddRess(hiddenDangerDto.getEquipmentPosition());
+				errHandle.setHandleCon(errHandleUnifiedDto.getHandleCon());
+				if(hiddenDangerDto.getWarningCount()>0) {
+					errHandle.setType(2); 
+				}else if(hiddenDangerDto.getHiddeCount()>0) {
+					errHandle.setType(3); 
+				}
+				errHandles.add(errHandle);
+				deviceIdsList.add(hiddenDangerDto.getDeviceId());
+			}
+			errHandleDao.addErrHandle(errHandles);
+			errHandleDao.updateBatchHandleFault(deviceIdsList);
+			/*//设备
 			Equipment equipment = equipmentDao.getEquipmentById(errHandleUnifiedDto.getEqId());
 			//设备故障类型（1 故障）（2 报警）（3 隐患）
 			Integer eqType = errHandleUnifiedDto.getEqType();
@@ -56,7 +81,7 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 			errHandle.setEqAddRess(equipment.getEquipmentPosition());
 			errHandle.setType(eqType);
 			errHandle.setHandleCon(errHandleUnifiedDto.getHandleCon());
-			errHandleDao.addErrHandle(errHandle);
+			errHandleDao.addErrHandle(errHandle);*/
 		} catch (Exception e) {
 			throw new BusinessException("批量处理设备错误失败", e.getMessage());
 		}		

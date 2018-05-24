@@ -526,5 +526,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询失败",e.getMessage());
 		}	
 	}
+
+	@Override
+	public List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids)throws BusinessException {
+		try {
+			return equipmentDao.selectHiddenDangerByIds(ids);
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
+	}
 }
 

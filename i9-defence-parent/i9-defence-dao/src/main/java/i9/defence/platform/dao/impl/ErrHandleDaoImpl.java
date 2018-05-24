@@ -52,18 +52,8 @@ public class ErrHandleDaoImpl implements ErrHandleDao{
 	}
 
 	@Override
-	public void updateHandleFault(String eqDeviceId) throws Exception {
-		errHandleMapper.updateHandleFault(eqDeviceId);	
-	}
-
-	@Override
-	public void updateHandlePolice(String eqDeviceId) throws Exception {
-		errHandleMapper.updateHandlePolice(eqDeviceId);		
-	}
-
-	@Override
-	public void updateHandleHidden(String eqDeviceId) throws Exception {
-		errHandleMapper.updateHandleHidden(eqDeviceId);		
+	public void updateHandleFault(List<String> eqDeviceIds) throws Exception {
+		errHandleMapper.updateHandleFault(eqDeviceIds);	
 	}
 
 	@Override
@@ -84,6 +74,11 @@ public class ErrHandleDaoImpl implements ErrHandleDao{
 	@Override
 	public void addBatchHandle(List<String> list) {
 		errHandleMapper.addBatchHandle(list);
+	}
+
+	@Override
+	public void addErrHandle(List<ErrHandle> errHandles) throws Exception {
+		errHandleMapper.addErrHandles(errHandles);
 	}
 
 }
