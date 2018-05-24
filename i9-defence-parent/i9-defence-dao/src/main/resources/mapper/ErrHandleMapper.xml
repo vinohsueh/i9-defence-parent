@@ -282,14 +282,11 @@
         </if>
         limit #{offset},#{limit}
    </select>
-   <update id="updateHandleFault" parameterType="java.lang.String">
-   		update t_channel_data set dealStatus = 1 where deviceId = #{eqDeviceId} and type = 0
-   </update>
-   <update id="updateHandlePolice" parameterType="java.lang.String">
-   		update t_channel_data set dealStatus = 1 where deviceId=#{eqDeviceId} and dealStatus = 0
-   </update>
-   <update id="updateHandleHidden" parameterType="java.lang.String">
-   		update t_channel_data set dealStatus = 1 where deviceId=#{eqDeviceId} and dealStatus = 0
+   <update id="updateHandleFault" parameterType="java.util.List">
+   		update t_channel_data set dealStatus = 1 where deviceId in
+   		<foreach collection="items" item="item" open="(" close=")" separator=",">
+   			 #{item}
+   		</foreach>
    </update>
    
    <update id="updateBatchHandleFault" parameterType="java.util.List">
@@ -330,4 +327,12 @@
    <select id="selectEquipmentRemarks" resultType="string" parameterType="string">
    		select equipmentRemarks from t_equipment where deviceId = #{deviceId}
    </select>
+   
+   <insert id="addErrHandles" parameterType="java.util.List">
+   		insert into t_err_handle(handleCon,handleManagerId,handleDate,handleState,eqDeviceId,eqAddRess,type)
+   		values 
+   		<foreach collection="items" item="item" index="index" separator=",">
+   			(#{item.handleCon},#{item.handleManagerId},#{item.handleDate},#{item.handleState},#{item.eqDeviceId},#{item.eqAddRess},#{item.type})
+   		</foreach>
+   </insert>
 </mapper>

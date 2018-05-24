@@ -42,11 +42,11 @@
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="warning in warningLists" ng-click='choiceItem(warning.id)'>
-	          	  <td ng-click="{{warning.id}}">{{warning.typeStr}}</td>
-	          	  <td ng-click="{{warning.id}}">{{warning.projectName}}</td>
-	          	  <td ng-click="{{warning.id}}">{{warning.eqCategoryName}}</td>
-		          <td ng-click="{{warning.id}}">{{warning.equipmentRemarks}}</td>
-		          <td ng-click="{{warning.id}}">{{warning.handleDateStr}}</td>
+	          	  <td>{{warning.typeStr}}</td>
+	          	  <td>{{warning.projectName}}</td>
+	          	  <td>{{warning.eqCategoryName}}</td>
+		          <td>{{warning.equipmentRemarks}}</td>
+		          <td>{{warning.handleDateStr}}</td>
 	          </tr>
 	        </tbody>
 	      </table>
