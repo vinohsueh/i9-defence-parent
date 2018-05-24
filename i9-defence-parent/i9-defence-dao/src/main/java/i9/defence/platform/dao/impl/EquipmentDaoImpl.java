@@ -250,7 +250,7 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public Equipment findEquipmentPosition(String equipmentPosition) {
-		return equipmentMapper.findEquipmentPosition(equipmentPosition);
+	public Equipment findEquipmentDeviceId(String deviceId) {
+		return equipmentMapper.findEquipmentDeviceId(deviceId);
 	}
 }

@@ -244,5 +244,5 @@ public interface EquipmentDao {
 	 */
 	void updateEquipmentStatusByDeviceId(String deviceId, int status);
 	//查询设备地址
-	Equipment findEquipmentPosition(String equipmentPosition);
+	Equipment findEquipmentDeviceId(String deviceId);
 }

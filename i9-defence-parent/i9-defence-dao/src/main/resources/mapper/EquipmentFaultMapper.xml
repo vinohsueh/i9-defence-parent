@@ -240,7 +240,7 @@
 		select eqCategoryId from t_equipment_category where id = #{equipmentId,jdbcType=INTEGER}
 	</select>
 	<!-- 查询故障代码和类型名称 -->
-	<select id="getEquipmentId" resultMap="BaseResultMap" >
+	<select id="getEquipmentId" resultType="i9.defence.platform.model.EquipmentFault" >
 		SELECT * FROM `t_equipment_fault` where equipmentId = #{equipmentId,jdbcType=INTEGER} and  `code` = #{code,jdbcType=VARCHAR}
 	</select>
 </mapper>
