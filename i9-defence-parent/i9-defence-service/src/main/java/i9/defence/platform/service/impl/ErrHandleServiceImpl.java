@@ -64,8 +64,12 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 				errHandles.add(errHandle);
 			}
 			errHandleDao.addErrHandle(errHandles);
-			errHandleDao.updateHandleFault(deviceIdsWarning);
-			errHandleDao.updateHandleHidden(deviceIdsHidden);
+			if(0!= deviceIdsWarning.size()) {
+				errHandleDao.updateHandleFault(deviceIdsWarning);
+			}
+			if(0!= deviceIdsHidden.size()) {
+				errHandleDao.updateHandleHidden(deviceIdsHidden);
+			}
 			/*//设备
 			Equipment equipment = equipmentDao.getEquipmentById(errHandleUnifiedDto.getEqId());
 			//设备故障类型（1 故障）（2 报警）（3 隐患）
