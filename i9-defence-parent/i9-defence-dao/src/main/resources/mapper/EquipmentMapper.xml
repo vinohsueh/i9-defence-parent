@@ -705,13 +705,12 @@
 				warningCount,
 				status,
 			CASE
-				1 
 				WHEN warningCount > 0 
 				THEN
 				getNewestTime ( deviceId )	 
 				WHEN warningCount =0 and hiddeCount >0 
 				THEN
-				'2018-5-17 10:46:11'
+				getNewestHiddenTime(deviceId,systemId)
 				WHEN warningCount =0 and hiddeCount =0
 				THEN
 				getLiXianTime( deviceId)
@@ -1088,8 +1087,8 @@
 	 <update id="updateEquipmentStatusByDeviceId">
 	 	update t_equipment set status = #{status} where deviceId = #{deviceId}
 	 </update>
-	 <select id="findEquipmentPosition" parameterType="string" resultType="i9.defence.platform.model.Equipment">
-    select  * from t_equipment where equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR}
+	 <select id="findEquipmentDeviceId" parameterType="string" resultType="i9.defence.platform.model.Equipment">
+    select  * from t_equipment where deviceId = #{deviceId,jdbcType=VARCHAR}
   </select>
 	 
 </mapper>

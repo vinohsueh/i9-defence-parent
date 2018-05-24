@@ -75,7 +75,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 				projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
 				eqCategoryName : $scope.eqCategoryName,
-				orderByClause: 'warningCount desc'
+				// orderByClause: 'warningCount desc'
 			};
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit2',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
@@ -89,9 +89,12 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 					$scope.hiddenEdits[i].status = 'warning';
 					$scope.hiddenEdits[i].statusText = '隐患';
 				}else if ($scope.hiddenEdits[i].status == 0){
-    				$scope.hiddenEdits[i].status = 'lineOutLabel';
+    				$scope.hiddenEdits[i].status = 'lineOut';
     				$scope.hiddenEdits[i].statusText = '离线';
-    			}
+    			}else {
+					$scope.projects[i].status = ''
+					$scope.projects[i].statusText = '正常';
+				}
 			}
 			
 			$scope.hasPrevious = data.data.data.hasPrevious;

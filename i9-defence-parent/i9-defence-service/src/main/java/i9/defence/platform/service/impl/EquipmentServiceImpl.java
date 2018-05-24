@@ -89,21 +89,23 @@ public class EquipmentServiceImpl implements EquipmentService {
 			str.append(equipment.getSystemId()).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(equipment.getLoopl()))).append(equipment.getEquipmentPosition());
 			equipment.setDeviceId(str.toString());
 			//查询设备地址
-			Equipment existEquipment=equipmentDao.findEquipmentPosition(equipment.getEquipmentPosition());
+			Equipment existEquipment=equipmentDao.findEquipmentDeviceId(equipment.getDeviceId());
 			if(equipment.getId()!=null) {
-				if(existEquipment != null){
-		            throw new BusinessException("设备地址已存在!");
+				if(existEquipment != null && existEquipment.getId() - equipment.getId() !=0){
+		            throw new BusinessException("设备已存在!");
 				}
 				equipmentDao.updateEquipment(equipment);
 			}else {
 				if(existEquipment != null){
-					throw new BusinessException("设备地址已存在!");
+					throw new BusinessException("设备已存在!");
 				}
 				equipment.setEquipmentDate(new Date());
 				equipmentDao.addEquipment(equipment);
 			}
 			return equipment;
-		} catch (Exception e) {
+		}catch (BusinessException e) {
+			throw new BusinessException(e.getErrorMessage());
+		}catch (Exception e) {
 			throw new BusinessException("添加设备失败",e.getMessage());
 		}
 	}

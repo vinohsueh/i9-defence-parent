@@ -80,10 +80,12 @@
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
+	            
 	            <th style="width:20px;">
 	              <label class="i-checks m-b-none" id="checkLabel">
 	                <input type="checkbox" id="totalCheck"><i></i>
 	              </label>
+	            
 	            </th>
 	            <th>状态</th>
 	            <th>项目名称</th>
@@ -95,8 +97,8 @@
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
-	            <td><label class="i-checks m-b-none" ng-if="hiddenEdit.statusText!='离线'"><input class="o-checks" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.statusText}}</td>
+				<td><label class="i-checks m-b-none" ng-if="hiddenEdit.statusText!='离线'"><input class="o-checks" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)" class='eventType'><span class='{{hiddenEdit.status}}'>{{hiddenEdit.statusText}}</span></td>
 	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.projectName}}</td>
 	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.eqCategoryName}}</td>
 	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentRemarks}}</td>

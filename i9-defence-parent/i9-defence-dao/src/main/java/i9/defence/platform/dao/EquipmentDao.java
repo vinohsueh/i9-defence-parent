@@ -254,5 +254,5 @@ public interface EquipmentDao {
 	 */
 	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids);
 	//查询设备地址
-	Equipment findEquipmentPosition(String equipmentPosition);
+	Equipment findEquipmentDeviceId(String deviceId);
 }

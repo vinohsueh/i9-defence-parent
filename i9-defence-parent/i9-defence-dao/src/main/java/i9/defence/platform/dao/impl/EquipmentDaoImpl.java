@@ -250,11 +250,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids) {
-		return equipmentMapper.selectHiddenDangerByIds(ids);
+	public Equipment findEquipmentDeviceId(String deviceId) {
+		return equipmentMapper.findEquipmentDeviceId(deviceId);
 	}
 	@Override
-	public Equipment findEquipmentPosition(String equipmentPosition) {
-		return equipmentMapper.findEquipmentPosition(equipmentPosition);
+	public List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids) {
+		return equipmentMapper.selectHiddenDangerByIds(ids);
 	}
 }
