@@ -152,5 +152,13 @@ public interface EquipmentMapper {
 	 * @param status
 	 */
 	void updateEquipmentStatusByDeviceId(@Param("deviceId") String deviceId,@Param("status") int status);
-
+	
+	/**
+	 * 根据ids查询视图数据
+	* @Title: selectHiddenDangerByIds 
+	* @Description: TODO
+	* @param ids
+	* @return
+	 */
+	List<HiddenDangerDto> selectHiddenDangerByIds(@Param("Items") List<Integer> ids);
 }

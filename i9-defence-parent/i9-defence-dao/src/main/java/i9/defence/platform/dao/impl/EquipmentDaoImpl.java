@@ -248,4 +248,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public void updateEquipmentStatusByDeviceId(String deviceId, int status) {
 		equipmentMapper.updateEquipmentStatusByDeviceId(deviceId,status);
 	}
+
+	@Override
+	public List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids) {
+		return equipmentMapper.selectHiddenDangerByIds(ids);
+	}
 }

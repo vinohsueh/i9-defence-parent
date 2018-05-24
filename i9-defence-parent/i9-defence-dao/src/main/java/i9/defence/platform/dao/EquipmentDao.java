@@ -243,4 +243,14 @@ public interface EquipmentDao {
 	 * @param status
 	 */
 	void updateEquipmentStatusByDeviceId(String deviceId, int status);
+	
+	
+	/**
+	 * 根据ids查询视图数据
+	* @Title: selectHiddenDangerByIds 
+	* @Description: TODO
+	* @param ids
+	* @return
+	 */
+	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids);
 }
