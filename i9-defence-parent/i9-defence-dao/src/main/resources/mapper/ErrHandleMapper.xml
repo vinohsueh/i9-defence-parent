@@ -287,6 +287,14 @@
    		<foreach collection="items" item="item" open="(" close=")" separator=",">
    			 #{item}
    		</foreach>
+   		 and type = 0
+   </update>
+ 	<update id="updateHandleHidden" parameterType="java.util.List">
+   		update t_channel_data set dealStatus = 1 where deviceId in
+   		<foreach collection="items" item="item" open="(" close=")" separator=",">
+   			 #{item}
+   		</foreach>
+   		and type in (2,5) 
    </update>
    
    <update id="updateBatchHandleFault" parameterType="java.util.List">

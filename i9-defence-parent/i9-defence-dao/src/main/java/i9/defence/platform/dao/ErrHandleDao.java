@@ -43,14 +43,14 @@ public interface ErrHandleDao {
      */
     PageBounds<ErrHandle> selectByLimitPage(ErrHandleSearchDto errHandleSearchDto) throws Exception;
 
-    //批量处理设备故障 type = 1 故障
+    //批量处理设备故障 type = 2 报警
     void updateHandleFault(List<String> eqDeviceIds) throws Exception;
     
 /*    //批量处理设备报警 type = 2 报警
-    void updateHandlePolice(String eqDeviceId) throws Exception;
+    void updateHandlePolice(String eqDeviceId) throws Exception;*/
     
     //批量处理设备隐患 type = 3 隐患
-    void updateHandleHidden(String eqDeviceId) throws Exception;*/
+    void updateHandleHidden(List<String> eqDeviceIds) throws Exception;
 
 	void updateBatchHandleFault(List<String> list);
 

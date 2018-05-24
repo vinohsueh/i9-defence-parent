@@ -40,8 +40,10 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 			Manager manager = managerService.getLoginManager();
 			//封装所有的历史记录
 			List<ErrHandle> errHandles= new ArrayList<ErrHandle>();
-			//封装所有的deviceId
-			List<String> deviceIdsList=new ArrayList<String>(); 
+			//封装所有的报警deviceId
+			List<String> deviceIdsWarning=new ArrayList<String>(); 
+			//封装所有的隐患deviceId
+			List<String> deviceIdsHidden=new ArrayList<String>(); 
 			//根据ids获取到所有
 			List<HiddenDangerDto> equipProblems = equipmentDao.selectHiddenDangerByIds(errHandleUnifiedDto.getEqIds());
 			for(HiddenDangerDto hiddenDangerDto:equipProblems) {
@@ -54,14 +56,16 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 				errHandle.setHandleCon(errHandleUnifiedDto.getHandleCon());
 				if(hiddenDangerDto.getWarningCount()>0) {
 					errHandle.setType(2); 
+					deviceIdsWarning.add(hiddenDangerDto.getDeviceId());
 				}else if(hiddenDangerDto.getHiddeCount()>0) {
 					errHandle.setType(3); 
+					deviceIdsHidden.add(hiddenDangerDto.getDeviceId());
 				}
 				errHandles.add(errHandle);
-				deviceIdsList.add(hiddenDangerDto.getDeviceId());
 			}
 			errHandleDao.addErrHandle(errHandles);
-			errHandleDao.updateBatchHandleFault(deviceIdsList);
+			errHandleDao.updateHandleFault(deviceIdsWarning);
+			errHandleDao.updateHandleHidden(deviceIdsHidden);
 			/*//设备
 			Equipment equipment = equipmentDao.getEquipmentById(errHandleUnifiedDto.getEqId());
 			//设备故障类型（1 故障）（2 报警）（3 隐患）
