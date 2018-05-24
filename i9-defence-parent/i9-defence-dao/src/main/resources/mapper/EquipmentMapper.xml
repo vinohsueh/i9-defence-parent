@@ -1088,4 +1088,8 @@
 	 <update id="updateEquipmentStatusByDeviceId">
 	 	update t_equipment set status = #{status} where deviceId = #{deviceId}
 	 </update>
+	 <select id="findEquipmentPosition" parameterType="string" resultType="i9.defence.platform.model.Equipment">
+    select  * from t_equipment where equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR}
+  </select>
+	 
 </mapper>

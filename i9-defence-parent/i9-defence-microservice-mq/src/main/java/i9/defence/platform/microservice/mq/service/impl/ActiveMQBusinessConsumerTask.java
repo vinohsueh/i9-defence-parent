@@ -1,12 +1,15 @@
 package i9.defence.platform.microservice.mq.service.impl;
 
-import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
-import i9.defence.platform.service.UpStreamDecodeService;
-
 import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
+import i9.defence.platform.microservice.mq.util.SpringBeanService;
+import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
+import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
+import i9.defence.platform.service.UpStreamDecodeService;
 
 /**
  * 处理ActiveMQ业务消息处理任务
@@ -21,9 +24,9 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
         try {
             upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
             logger.info("save up stream decode success, data : " + textMessage.getText());
-            // TODO 在这里处理推送到第三方平台数据接口
-            // ActiveMQProducerService activeMQProducerService = SpringBeanService.getBean(ActiveMQProducerService.class);
-            // activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_PUSH, "this is Test");
+            // 处理推送到第三方平台数据接口
+             ActiveMQProducerService activeMQProducerService = SpringBeanService.getBean(ActiveMQProducerService.class);
+             activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_PUSH, textMessage.getText());
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);
         }
