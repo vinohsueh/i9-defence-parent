@@ -96,7 +96,7 @@
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
 	           <!--  <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.deviceId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td> -->
-	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.statusText}}</td>
+	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)" class='eventType'><span class='{{hiddenEdit.status}}'>{{hiddenEdit.statusText}}</span></td>
 	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.projectName}}</td>
 	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.eqCategoryName}}</td>
 	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.equipmentRemarks}}</td>

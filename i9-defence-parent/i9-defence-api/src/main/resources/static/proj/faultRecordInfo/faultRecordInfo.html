@@ -39,7 +39,7 @@
 	  </tbody>
 	</table> -->
 	<div class="row">
-		<div class="col-sm-12 b-b" ng-repeat='i in warningList'>
+		<div class="col-sm-12 b-b mb-10" ng-repeat='i in warningList'>
 			<p ng-if="i.name != null">{{i.name}}</p>
 			<p ng-if="i.name == null">通道{{i.channelNumber}}</p>
 			<div class="error" ng-repeat = "x in i.data">
