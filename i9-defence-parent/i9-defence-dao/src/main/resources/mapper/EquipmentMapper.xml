@@ -705,13 +705,12 @@
 				warningCount,
 				status,
 			CASE
-				1 
 				WHEN warningCount > 0 
 				THEN
 				getNewestTime ( deviceId )	 
 				WHEN warningCount =0 and hiddeCount >0 
 				THEN
-				'2018-5-17 10:46:11'
+				getNewestHiddenTime(deviceId,systemId)
 				WHEN warningCount =0 and hiddeCount =0
 				THEN
 				getLiXianTime( deviceId)
