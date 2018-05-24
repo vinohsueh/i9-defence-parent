@@ -80,11 +80,13 @@
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
-	            <!-- <th style="width:20px;">
+	            
+	            <th style="width:20px;">
 	              <label class="i-checks m-b-none" id="checkLabel">
 	                <input type="checkbox" id="totalCheck"><i></i>
 	              </label>
-	            </th> -->
+	            
+	            </th>
 	            <th>状态</th>
 	            <th>项目名称</th>
 	            <th>设备分类</th>
@@ -95,12 +97,12 @@
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="hiddenEdit in hiddenEdits">
-	           <!--  <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.deviceId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td> -->
-	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.statusText}}</td>
-	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.projectName}}</td>
-	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.eqCategoryName}}</td>
-	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.equipmentRemarks}}</td>
-	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)">{{hiddenEdit.newestTime}}</td>
+				<td><label class="i-checks m-b-none" ng-if="hiddenEdit.statusText!='离线'"><input class="o-checks" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)" class='eventType'><span class='{{hiddenEdit.status}}'>{{hiddenEdit.statusText}}</span></td>
+	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.projectName}}</td>
+	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentRemarks}}</td>
+	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.newestTime}}</td>
 	            <td ><button type='button'  ng-if="hiddenEdit.statusText!='离线'"  class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
 	          </tr>
 	        </tbody>

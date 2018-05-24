@@ -26,9 +26,6 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	//分页条件
 	$scope.pageSize = 5;
 	$scope.currentPage = 1;
-	$scope.statusText = '';
-	$scope.equipId =0;
-	$scope.eqType=0;
 	
     $scope.dateToString = function(d){
     	var date = new Date(d);
@@ -78,7 +75,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 				projectId : $scope.searchText,
 				projectAddress : $scope.searchText,
 				eqCategoryName : $scope.eqCategoryName,
-				orderByClause: 'warningCount desc'
+				// orderByClause: 'warningCount desc'
 			};
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit2',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
@@ -92,9 +89,12 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 					$scope.hiddenEdits[i].status = 'warning';
 					$scope.hiddenEdits[i].statusText = '隐患';
 				}else if ($scope.hiddenEdits[i].status == 0){
-    				$scope.hiddenEdits[i].status = 'lineOutLabel';
+    				$scope.hiddenEdits[i].status = 'lineOut';
     				$scope.hiddenEdits[i].statusText = '离线';
-    			}
+    			}else {
+					$scope.projects[i].status = ''
+					$scope.projects[i].statusText = '正常';
+				}
 			}
 			
 			$scope.hasPrevious = data.data.data.hasPrevious;
@@ -134,22 +134,20 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	    };
 	
 	    $scope.dealEq = function() { 
-	    	$scope.EquipId =$scope.equipId;
-	    	var handleCon = $('#handleCon').val();
-	    	if('' !=$scope.statusText && null != $scope.statusText){
-	    		if('报警' == $scope.statusText){
-	    			$scope.eqType = 2;
-	    		}else if('隐患' == $scope.statusText){
-	    			$scope.eqType = 3;
+	       	$scope.delArray = [];
+	    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+	    		if(angular.element(dom).prop("checked") == true){
+	    			$scope.delArray.push(angular.element(dom).attr("data-id"))
 	    		}
-	    	}
+			});
+	    	var handleCon = $('#handleCon').val();
 	    	var pageParam = {
 	    			handleCon :handleCon,
-	    			eqId  :  $scope.EquipId,
-	    			eqType : $scope.eqType
+	    			eqIds  :  $scope.delArray,
 	    	}
 	    	httpService.post({url:'./errHandle/handlingErrors',data:pageParam,showSuccessMsg:true}).then(function(data) {
-    		
+	    		$('#handleCon').val("");
+	    		$scope.initTable();
 	    	})
     	};  
 	
@@ -213,10 +211,8 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
     	}
     }
     //编辑
-    $scope.edit = function (idNum,statusText) { 
+    $scope.edit = function (idNum) { 
     	$scope.idNum = idNum;
-    	$scope.equipId = idNum;
-    	$scope.statusText = statusText;
     	$scope.passagewayInit();    	 
     };  
     
