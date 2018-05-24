@@ -92,12 +92,12 @@ public class EquipmentServiceImpl implements EquipmentService {
 			Equipment existEquipment=equipmentDao.findEquipmentDeviceId(equipment.getDeviceId());
 			if(equipment.getId()!=null) {
 				if(existEquipment != null && existEquipment.getId() - equipment.getId() !=0){
-		            throw new BusinessException("设备地址已存在!");
+		            throw new BusinessException("设备已存在!");
 				}
 				equipmentDao.updateEquipment(equipment);
 			}else {
 				if(existEquipment != null){
-					throw new BusinessException("设备地址已存在!");
+					throw new BusinessException("设备已存在!");
 				}
 				equipment.setEquipmentDate(new Date());
 				equipmentDao.addEquipment(equipment);
