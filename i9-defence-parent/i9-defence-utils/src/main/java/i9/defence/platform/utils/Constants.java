@@ -66,4 +66,8 @@ public class Constants {
 
 	public static final String[] NOT_DJUGE_NULL_LIST = {};
     
+	/**
+	 * 判断隐患的数据类型
+	 */
+	public static final int [] DATATYPE = {2,5};
 }
