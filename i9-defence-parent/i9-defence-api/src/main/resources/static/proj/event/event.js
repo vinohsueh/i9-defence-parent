@@ -42,6 +42,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	//图表显示隐藏状态
 	$scope.chartsStatus = false;
 	$scope.idNum = 0;
+	$scope.changeTimeStatu = 1;
 	
     $scope.dateToString = function(d){
     	var date = new Date(d);
@@ -130,12 +131,19 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 			}
 		})
 	};
+		$scope.dateToString = function(d){
+	    	var date = new Date(d);
+	    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+	    }
+		setTimeout(function () {
+		    $scope.pageInit();
+		},600000);
 	
 	    $scope.passagewayInit = function (){
 	    	var pageParam = {
 	    			equipmentId:$scope.idNum,
-	    			startDateString:$scope.dateToString($("#startTime").val()),
-	    			endDateString:$scope.dateToString($("#endTime").val()),
+	    			startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
+	    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
 	    			/*projectName : text,
 	    			projectAddress : text,*/
 	    		};
