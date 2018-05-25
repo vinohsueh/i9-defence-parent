@@ -153,6 +153,9 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	
 	
 	$scope.initTable();
+	setTimeout(function () {
+	    $scope.initTable();
+	},600000);
 	//修改分页大小
 	$scope.changePageSize = function(){
 		$scope.currentPage = 1;

@@ -151,6 +151,9 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
 	$scope.pageInit();
+	setTimeout(function () {
+	    $scope.pageInit();
+	},600000);
 	$scope.passagewayInit = function (){
 		var text = $scope.searchText;
 		var pageParam = {
