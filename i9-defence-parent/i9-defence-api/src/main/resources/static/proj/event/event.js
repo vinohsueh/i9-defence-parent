@@ -99,7 +99,22 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 			$scope.equipmentCategorys = data.data.equipmentCategory;
 			$scope.projects = data.data.project;
 			for(i in $scope.hiddenEdits){
-				if($scope.hiddenEdits[i].warningCount>0){
+				if($scope.hiddenEdits[i].status == 0){
+					$scope.hiddenEdits[i].status = 'lineOut'
+					$scope.hiddenEdits[i].statusText = '离线';
+    			}else{
+    				if($scope.hiddenEdits[i].dataStatus==0){
+    					$scope.hiddenEdits[i].status = ''
+    						$scope.hiddenEdits[i].statusText = '正常';
+        			}else if ($scope.hiddenEdits[i].dataStatus == 1){
+        				$scope.hiddenEdits[i].status = 'danger';
+    					$scope.hiddenEdits[i].statusText = '报警';
+        			}else{
+        				$scope.hiddenEdits[i].status = 'warning';
+    					$scope.hiddenEdits[i].statusText = '隐患';
+        			}
+    			} 
+				/*if($scope.hiddenEdits[i].warningCount>0){
 					$scope.hiddenEdits[i].status = 'danger';
 					$scope.hiddenEdits[i].statusText = '报警';
 				}else if($scope.hiddenEdits[i].hiddeCount>0){
@@ -111,7 +126,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
     			}else {
 					$scope.projects[i].status = ''
 					$scope.projects[i].statusText = '正常';
-				}
+				}*/
 			}
 			
 			$scope.hasPrevious = data.data.data.hasPrevious;

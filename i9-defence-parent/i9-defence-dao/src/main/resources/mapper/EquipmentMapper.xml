@@ -36,7 +36,7 @@
     <result column="personLiableMan" jdbcType="VARCHAR" property="personLiableMan" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks"/>
     <result column="newestTime" jdbcType="VARCHAR" property="newestTime" />
-    <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"/>
+    <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataFaultDto"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -565,14 +565,14 @@
 	<!-- ———————————— 隐患与报警———————————— -->
 
 		<select id="countHiddenDangerByExample" resultType="java.lang.Integer">
-			select count(*) from v_hiddenDanger_edit
+			select count(*) from v_equipment
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
 		</select>
 		
 		<select id="countHiddenDangerByExample2" resultType="java.lang.Integer">
-			select count(*) from v_hiddenDanger_edit
+			select count(*) from v_equipment
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 			</if>
@@ -601,17 +601,17 @@
 					and projectCounty ='${example.projectCounty}'
 				</if>
 				<!--隐患不为0  -->	
-				<if test="example.hidden != null and example.hidden != ''">
+				<!-- <if test="example.hidden != null and example.hidden != ''">
 					and hiddeCount != 0 and warningCount = 0 
-				</if>
+				</if> -->
 				<!--报警不为0  -->	
-				<if test="example.danger != null and example.danger != ''">
+				<!-- <if test="example.danger != null and example.danger != ''">
 					and warningCount != 0 
-				</if>
+				</if> -->
 				<!--隐患或报警大于0  -->	
-				<if test="example.hiddenCount1 != null">
+				<!-- <if test="example.hiddenCount1 != null">
 					and (hiddeCount > 0 or warningCount > 0 )
-				</if>
+				</if> -->
 				<!--项目负责人  -->	
 				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
 					and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
@@ -655,17 +655,17 @@
 					and projectCounty ='${example.projectCounty}'
 				</if>
 				<!--隐患不为0  -->	
-				<if test="example.hidden != null and example.hidden != ''">
+				<!-- <if test="example.hidden != null and example.hidden != ''">
 					and hiddeCount != 0 and warningCount = 0 
-				</if>
+				</if> -->
 				<!--报警不为0  -->	
-				<if test="example.danger != null and example.danger != ''">
+				<!-- <if test="example.danger != null and example.danger != ''">
 					and warningCount != 0 
-				</if>
+				</if> -->
 				<!--隐患或报警大于0  -->	
-				<if test="example.hiddenCount1 != null">
+				<!-- <if test="example.hiddenCount1 != null">
 					and (hiddeCount > 0 or warningCount > 0 )
-				</if>
+				</if> -->
 				<!--项目负责人  -->	
 				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
 					and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
@@ -683,13 +683,14 @@
 				<if test="example.endDate != null and example.endDate != ''">
 					and example.endDate &gt; equipmentDate
 				</if> -->
-				and (status=0) or (status=1 and warningCount+hiddeCount!=0)
+				<!-- and (status=0) or (status=1 and warningCount+hiddeCount!=0) -->
+				and (status=0) or (status=1 and dataStatus!=0)
 			</trim>
 		</sql>
 		
 		
 		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,hiddeCount,personLiableMan,warningCount,status from v_hiddenDanger_edit
+			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,dataStatus from v_equipment
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -699,7 +700,7 @@
 		</select>
 		<!-- 分页查询 -->
 		<select  id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto">
-		select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount,status from v_hiddenDanger_edit
+		select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,personLiableMan,status,dataStatus from v_equipment
 		<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -710,7 +711,7 @@
 		</select>
 		
 		<select id="selectHiddenDangerByLimitPage2" resultMap="BaseResultMapDto">
-			SELECT
+			<!-- SELECT
 				id,
 				deviceId,
 				equipmentRemarks,
@@ -731,7 +732,29 @@
 				getLiXianTime( deviceId)
 				End as newestTime
 			FROM 
-			v_hiddendanger_edit he 
+			v_hiddendanger_edit he  -->
+			SELECT
+				id,
+				deviceId,
+				equipmentRemarks,
+				eqCategoryName,
+				projectName,
+				dataStatus,
+				status,
+				status,
+			CASE
+				WHEN dataStatus  =1 and status = 1
+				THEN
+				getNewestTime ( deviceId )	 
+				WHEN dataStatus  =2 and status = 1
+				THEN
+				getNewestHiddenTime(deviceId,systemId)
+				WHEN status = 0
+				THEN
+				getLiXianTime( deviceId)
+				End as newestTime
+			FROM 
+			v_equipment he
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 			</if>
@@ -994,7 +1017,7 @@
 		GROUP BY tab.mon
 	</select>
 	<select id="selectEqChannelDataDto" parameterType="java.lang.Integer" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
-		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,cd.type as type
+		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,e.equipmentCategoryId as equipmentCategoryId,cd.type as type
 		FROM `t_channel_data` `cd`
 			LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
 			
@@ -1008,12 +1031,32 @@
 					FROM `t_equipment`
 					WHERE `t_equipment`.`id` = #{id}
 				)
-				ORDER BY `t_channel_data`.`dateTime` DESC
+				ORDER BY `t_channel_data`.`id` DESC
 				LIMIT 1
 			)
 		ORDER BY `cd`.`channel`
 	</select>
-	
+	<select id="selectEqChannelDataFaultDto" parameterType="java.lang.Integer" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
+		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,e.equipmentCategoryId as equipmentCategoryId,cd.type as type
+		FROM `t_channel_data` `cd`
+			LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
+			
+		WHERE `e`.`id` = #{id} 
+			AND cd.channel IN ( SELECT channel FROM  t_passageway where systemId = (select systemId from t_equipment where id = #{id} )) 
+			and cd.type = 0
+			AND `cd`.`dateTime` = (
+				SELECT `t_channel_data`.`dateTime`
+				FROM `t_channel_data`
+				WHERE `t_channel_data`.`deviceId` = (
+					SELECT `t_equipment`.`deviceId`
+					FROM `t_equipment`
+					WHERE `t_equipment`.`id` = #{id}
+				)
+				ORDER BY `t_channel_data`.`id` DESC
+				LIMIT 1
+			)
+		ORDER BY `cd`.`channel`
+	</select>
 	<sql id="Query_By_Dto_Where_Clause4">
 	    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
 	    	<if test="example.projectId != null">
@@ -1043,7 +1086,7 @@
 	 </select>
 	 
 	 <select id="selectTotalAlertEquipmentDto" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="int">
-		select count(DISTINCT id) from  v_hiddendanger_edit 
+		select count(DISTINCT id) from  v_equipment 
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
 			<if test="example.projectId != null">
 	    		AND projectId = #{example.projectId}
@@ -1062,7 +1105,7 @@
 	    	<if test="example.distributorId != null">
 	    		AND distributorId = #{example.distributorId}
 	    	</if>
-	    	and warningCount > 0
+	    	and dataStatus = 1 and status = 1
     	</trim>
 	 </select>
 	 
@@ -1089,7 +1132,7 @@
 	 </select>
 	 
 	 <select id="selectHiddenEquipment" resultType="int">
-	 	select count(DISTINCT id) from  v_hiddendanger_edit 
+	 	select count(DISTINCT id) from  v_equipment 
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
 			<if test="example.projectId != null">
 	    		AND projectId = #{example.projectId}
@@ -1108,7 +1151,7 @@
 	    	<if test="example.distributorId != null">
 	    		AND distributorId = #{example.distributorId}
 	    	</if>
-	    	and hiddeCount>0 and warningCount = 0
+	    	and dataStatus = 2 and status = 1
     	</trim>
 	 </select>
 	 

@@ -16,6 +16,7 @@ public class EqChannelDataDto implements Serializable {
 
     private Integer type;
 
+    private Integer equipmentCategoryId;
     public Integer getType() {
         return type;
     }
@@ -45,13 +46,21 @@ public class EqChannelDataDto implements Serializable {
 
     public String getChannelValue() {
         if (type == 0) {
-            return ErrorTypeCache.getCacheDict(channelValue);
+            return ErrorTypeCache.getCacheDict(channelValue+equipmentCategoryId);
         } else {
             return channelValue;
         }
     }
+    
+    public Integer getEquipmentCategoryId() {
+		return equipmentCategoryId;
+	}
 
-    public void setChannelValue(String channelValue) {
+	public void setEquipmentCategoryId(Integer equipmentCategoryId) {
+		this.equipmentCategoryId = equipmentCategoryId;
+	}
+
+	public void setChannelValue(String channelValue) {
         this.channelValue = channelValue;
     }
 }

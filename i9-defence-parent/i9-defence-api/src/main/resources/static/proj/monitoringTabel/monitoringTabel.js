@@ -112,7 +112,22 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
 			for(i in $scope.projects){
-				if($scope.projects[i].warningCount>0){
+				if($scope.projects[i].status == 0){
+					$scope.projects[i].status = 'lineOut'
+					$scope.projects[i].statusText = '离线';
+    			}else{
+    				if($scope.projects[i].dataStatus==0){
+    					$scope.projects[i].status = ''
+    						$scope.projects[i].statusText = '正常';
+        			}else if ($scope.projects[i].dataStatus == 1){
+        				$scope.projects[i].status = 'danger';
+    					$scope.projects[i].statusText = '报警';
+        			}else{
+        				$scope.projects[i].status = 'warning';
+    					$scope.projects[i].statusText = '隐患';
+        			}
+    			} 
+				/*if($scope.projects[i].warningCount>0){
 					$scope.projects[i].status = 'danger';
 					$scope.projects[i].statusText = '报警';
 				}else if($scope.projects[i].hiddeCount>0){
@@ -124,7 +139,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
     			}else {
 					$scope.projects[i].status = ''
 					$scope.projects[i].statusText = '正常';
-				}
+				}*/
 			}
 
 			$scope.hasPrevious = data.data.data.hasPrevious;

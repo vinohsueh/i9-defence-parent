@@ -149,17 +149,19 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;
-            // console.log(JSON.stringify($scope.projects));
     		for(i in $scope.projects){
-    			if($scope.projects[i].warningCount>0){
-    				$scope.projects[i].status = 'dangerLabel';
-    			}else if($scope.projects[i].hiddeCount>0){
-    				$scope.projects[i].status = 'faultLabel';
-    			}else if ($scope.projects[i].status == 0){
+    			if($scope.projects[i].status == 0){
     				$scope.projects[i].status = 'lineOutLabel';
+    				
     			}else{
-    				$scope.projects[i].status = '';
-    			}
+    				if($scope.projects[i].dataStatus==0){
+        				$scope.projects[i].status = '';
+        			}else if ($scope.projects[i].dataStatus == 1){
+        				$scope.projects[i].status = 'dangerLabel';
+        			}else{
+        				$scope.projects[i].status = 'faultLabel';
+        			}
+    			} 
     		}
 
     		$scope.hasPrevious = data.data.data.hasPrevious;

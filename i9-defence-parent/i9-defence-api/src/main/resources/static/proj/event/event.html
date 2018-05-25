@@ -157,7 +157,7 @@
         <p>安全负责人电话：{{equipment.safePhone}}</p>
       </div>
     </div>
-    <div class="mPane col-xs-12 col-sm-8">
+    <div class="mPane col-xs-12 col-sm-6">
       <div class="title clearify">
         具体数据
         <div class='pull-right form-inline'>
@@ -209,10 +209,10 @@
         <div e-chart options="option"></div>
       </div>
     </div>
-    <div class="mPane hFull col-xs-6 col-sm-6">
+    <div class="mPane hFull col-xs-6 col-sm-3">
       <div class="title" >处理详情</div>
       <div class="body"  ng-if="statusText !='离线'">
-        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
+        <textarea style="resize:none;" cols="30" rows="4" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
         <div class='text-right'>
           <button type='' class='btn btn-success' ng-click="dealEq()" >确定</button>
         </div>
