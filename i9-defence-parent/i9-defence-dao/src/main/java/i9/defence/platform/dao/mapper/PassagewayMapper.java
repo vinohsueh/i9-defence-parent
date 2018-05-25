@@ -20,4 +20,11 @@ public interface PassagewayMapper {
 	
 	//删除通告
 	void delPassageway(Passageway passageway);
+	
+	/**
+	 * 通过设备编号查询设备关注的通道号
+	 * @param systemId
+	 * @return
+	 */
+	List<Integer> selectChannelsBySystemId(String systemId);
 }

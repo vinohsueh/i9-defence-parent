@@ -668,7 +668,7 @@
 				<if test="example.endDate != null and example.endDate != ''">
 					and example.endDate &gt; equipmentDate
 				</if> -->
-				and `status`+warningCount+hiddeCount!=1 and status!=1
+				and (status=0) or (status=1 and warningCount+hiddeCount!=0)
 			</trim>
 		</sql>
 		
