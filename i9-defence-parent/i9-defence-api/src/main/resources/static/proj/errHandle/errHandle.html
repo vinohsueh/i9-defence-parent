@@ -34,6 +34,12 @@
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
+	          <th style="width:20px;">
+	              <label class="i-checks m-b-none" id="checkLabel">
+	                <input type="checkbox" id="totalCheck"><i></i>
+	              </label>
+	            
+              </th>
 	          	<th>状态</th>
 	            <th>项目名称</th>
 	            <th>设备分类</th>
@@ -42,11 +48,12 @@
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="warning in warningLists" ng-click='choiceItem(warning.id)'>
-	          	  <td>{{warning.typeStr}}</td>
-	          	  <td>{{warning.projectName}}</td>
-	          	  <td>{{warning.eqCategoryName}}</td>
-		          <td>{{warning.equipmentRemarks}}</td>
-		          <td>{{warning.handleDateStr}}</td>
+          		  <td><label class="i-checks m-b-none" ng-if="warning.typeStr!='离线'"><input class="o-checks" data-id="{{warning.equipmentId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	          	  <td ng-click="edit(warning.equipmentId)">{{warning.typeStr}}</td>
+	          	  <td ng-click="edit(warning.equipmentId)">{{warning.projectName}}</td>
+	          	  <td ng-click="edit(warning.equipmentId)">{{warning.eqCategoryName}}</td>
+		          <td ng-click="edit(warning.equipmentId)">{{warning.equipmentRemarks}}</td>
+		          <td ng-click="edit(warning.equipmentId)">{{warning.handleDateStr}}</td>
 	          </tr>
 	        </tbody>
 	      </table>
@@ -72,35 +79,46 @@
 	          </ul>
 	        </div>
 	      </div>
-	    </footer>
-	  </div>
-	   <div class='row' ng-if="ifshow">
+	      	      <div class='row'>
     <div class="mPane hFull col-xs-6 col-sm-3">
       <div class="title">项目信息</div>
       <div class="body">
-        <p>名称：{{projectInfo.project.name}}</p>
-        <p>负责人：{{projectInfo.project.manager}}</p>
-        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
+        <p>负责人：{{equipment.clientName}}</p>
+        <p>负责人电话：{{equipment.clientPhone}}</p>
+        <p>安全负责人：{{equipment.safeName}}</p>
+        <p>安全负责人电话：{{equipment.safePhone}}</p>
       </div>
     </div>
     <div class="mPane hFull col-xs-6 col-sm-3">
       <div class="title">设备信息</div>
       <div class="body">
-        <p>名称：{{projectInfo.equip.name}}</p>
-        <p>位置：{{projectInfo.equip.location}}</p>
+        <p>种类：{{equipment.equipmentCategoryName}}</p>
+        <p>地址：{{equipment.equipmentPosition}}</p>
+        <p>备注：{{equipment.equipmentRemarks}}</p>
+        <p>注册时间：{{equipment.dateString}}</p>
       </div>
     </div>
-    <div class="mPane hFull col-xs-6 col-sm-6">
-      <div class="title">处理详情</div>
-      <div class="body">
-        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon'></textarea>
+   <div class="mPane hFull col-xs-6 col-sm-6">
+      <div class="title" >处理详情</div>
+      <div class="body"  ng-if="statusText !='离线'">
+        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
         <div class='text-right'>
-          <button type='' class='btn btn-success' ng-click='confirmBtn()'>确定</button>
+          <button type='' class='btn btn-success' ng-click="dealEq()" >确定</button>
         </div>
       </div>
     </div>
-  </div>
+    </div>
+	    </footer>
+		</div>
    </div>
 </div>
 <script>
+$("#checkLabel").click(function(){
+    if($("#totalCheck").prop("checked") == true){
+        $(".o-checks").prop("checked",true);
+    }else{
+        $(".o-checks").prop("checked",false);
+    }
+    
+})
 </script>

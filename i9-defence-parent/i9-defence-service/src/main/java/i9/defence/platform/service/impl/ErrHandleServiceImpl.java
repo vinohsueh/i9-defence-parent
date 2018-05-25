@@ -144,10 +144,39 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 	}
 
 	@Override
-	public void errHandleEdit(ErrHandle errHandle) throws BusinessException {
+	public void errHandleEdit(ErrHandleUnifiedDto errHandleUnifiedDto) throws BusinessException {
 		try {
-			errHandle.setHandleDate(new Date());
-			errHandleDao.updateErrHandle(errHandle);
+				//当前登录人
+				Manager manager = managerService.getLoginManager();
+				//封装所有的历史记录
+				List<ErrHandle> errHandles= new ArrayList<ErrHandle>();
+				//封装所有的报警deviceId
+				List<String> deviceIdsWarning=new ArrayList<String>(); 
+				//封装所有的隐患deviceId
+				List<String> deviceIdsHidden=new ArrayList<String>(); 
+				//根据ids获取到所有
+				List<HiddenDangerDto> equipProblems = equipmentDao.selectHiddenDangerByIds(errHandleUnifiedDto.getEqIds());
+				for(HiddenDangerDto hiddenDangerDto:equipProblems) {
+					ErrHandle errHandle = new ErrHandle();
+					errHandle.setHandleManagerId(manager.getId());
+					errHandle.setHandleDate(new Date());
+					errHandle.setHandleState(1);
+					errHandle.setEqDeviceId(hiddenDangerDto.getDeviceId());
+					errHandle.setHandleCon(errHandleUnifiedDto.getHandleCon());
+					if(hiddenDangerDto.getWarningCount()>0) {
+						deviceIdsWarning.add(hiddenDangerDto.getDeviceId());
+					}else if(hiddenDangerDto.getHiddeCount()>0) {
+						deviceIdsHidden.add(hiddenDangerDto.getDeviceId());
+					}
+					errHandles.add(errHandle);
+				}
+				errHandleDao.updateErrHandles(errHandles);
+				if(0!= deviceIdsWarning.size()) {
+					errHandleDao.updateHandleFault(deviceIdsWarning);
+				}
+				if(0!= deviceIdsHidden.size()) {
+					errHandleDao.updateHandleHidden(deviceIdsHidden);
+				}
 		} catch (Exception e) {
 			throw new BusinessException("处理失败", e.getMessage());
 		}

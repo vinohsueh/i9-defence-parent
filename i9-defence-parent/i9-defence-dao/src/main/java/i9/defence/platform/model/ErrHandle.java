@@ -37,9 +37,20 @@ public class ErrHandle {
     
     private String equipmentRemarks;
     
+    /**
+     * 设备Id
+     */
+    private Integer equipmentId;
     
-    
-    public String getEqCategoryName() {
+    public Integer getEquipmentId() {
+		return equipmentId;
+	}
+
+	public void setEquipmentId(Integer equipmentId) {
+		this.equipmentId = equipmentId;
+	}
+
+	public String getEqCategoryName() {
 		return eqCategoryName;
 	}
 
@@ -152,7 +163,7 @@ public class ErrHandle {
 	}
 
 	public String getTypeStr() {
-		if (type == 1) {
+		if (type == 2) {
 			this.typeStr = "报警";
 		}else {
 			this.typeStr = "隐患";
