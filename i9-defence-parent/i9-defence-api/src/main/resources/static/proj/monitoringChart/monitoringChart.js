@@ -182,6 +182,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	})
     };
     $scope.pageInit();
+    setTimeout(function () {
+        $scope.pageInit();
+    },600000);
     $scope.passagewayInit = function (){
     	var text = $scope.searchText;
     	var pageParam = {
