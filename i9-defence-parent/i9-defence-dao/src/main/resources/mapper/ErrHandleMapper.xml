@@ -10,6 +10,7 @@
     <result column="eqDeviceId" jdbcType="VARCHAR" property="eqDeviceId" />
     <result column="eqAddRess" jdbcType="VARCHAR" property="eqAddRess" />
     <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="equipmentId" jdbcType="INTEGER" property="equipmentId"/>
     <association property="handleManager" column="handleManagerId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   	<association property="eqCategoryName" column="eqDeviceId" select="selectEqCategoryName"/>
   	<association property="projectName" column="eqDeviceId" select="selectProjectName"/>
@@ -273,7 +274,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
-        select DISTINCT <include refid="Base_Column_List" /> from t_err_handle
+        select DISTINCT <include refid="Base_Column_List" /> ,
+	        (
+				SELECT  e.id from t_equipment e where e.deviceId = eh.eqDeviceId
+			) AS equipmentId
+         from t_err_handle eh
         <if test="_parameter != null" >
           <include refid="Query_By_Dto_Where_Clause" />
         </if>
@@ -343,4 +348,34 @@
    			(#{item.handleCon},#{item.handleManagerId},#{item.handleDate},#{item.handleState},#{item.eqDeviceId},#{item.eqAddRess},#{item.type})
    		</foreach>
    </insert>
+   <update id="updateErrHandles" parameterType="java.util.List">
+   		update t_err_handle
+   		<trim prefix="set" suffixOverrides=",">
+   			<trim prefix="handleManagerId =case" suffix="end,">
+   				<foreach collection="errHandles" item="item" index="index">
+   					when eqDeviceId=#{item.eqDeviceId} then #{item.handleManagerId}
+   				</foreach>
+   			</trim>
+   			<trim prefix="handleDate =case" suffix="end,">
+   				<foreach collection="errHandles" item="item" index="index">
+   					when eqDeviceId=#{item.eqDeviceId} then #{item.handleDate}
+   				</foreach>
+   			</trim>
+   			<trim prefix="handleState =case" suffix="end,">
+   				<foreach collection="errHandles" item="item" index="index">
+   					when eqDeviceId=#{item.eqDeviceId} then #{item.handleState}
+   				</foreach>
+   			</trim>
+   			<trim prefix="handleCon =case" suffix="end,">
+   				<foreach collection="errHandles" item="item" index="index">
+   					when eqDeviceId=#{item.eqDeviceId} then #{item.handleCon}
+   				</foreach>
+   			</trim>
+   		</trim>
+   		<where>
+   			<foreach collection="errHandles" separator="or" item="item" index="index"  open="(" close=")">
+                        eqDeviceId=#{item.eqDeviceId}
+            </foreach>
+   		</where>
+   </update>
 </mapper>

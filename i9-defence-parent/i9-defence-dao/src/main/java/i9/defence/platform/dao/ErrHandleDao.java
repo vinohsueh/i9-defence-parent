@@ -68,4 +68,14 @@ public interface ErrHandleDao {
 	* @throws Exception
 	 */
 	void addErrHandle(List<ErrHandle> errHandles) throws Exception;
+	
+	
+	/**
+	 * 批量更改历史记录
+	* @Title: updateErrHandles 
+	* @Description: TODO
+	* @param errHandles
+	* @throws Exception
+	 */
+	void updateErrHandles(List<ErrHandle> errHandles) throws Exception;
 }

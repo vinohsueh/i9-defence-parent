@@ -46,6 +46,10 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
 			$scope.end = data.data.data.offset+$scope.warningLists.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
+			if($scope.warningLists.length > 0){
+				$scope.idNum =$scope.warningLists[0].equipmentId;
+				$scope.passagewayInit();
+			}
 //			for(i in $scope.warningLists){
 //				console.log("----"+JSON.stringify($scope.warningLists[i].handleState));
 //				if($scope.warningLists[i].handleState = 0){
@@ -56,6 +60,43 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
 //			}
 		})
 	};
+	
+    $scope.passagewayInit = function (){
+    	var pageParam = {
+    			equipmentId:$scope.idNum,
+    			/*startDateString:$scope.dateToString($("#startTime").val()),
+    			endDateString:$scope.dateToString($("#endTime").val()),*/
+    			/*projectName : text,
+    			projectAddress : text,*/
+    		};
+    	
+    	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.equipmentInfo = data.data.data;
+    		$scope.equipment = data.data.equip;
+    		$scope.dataAndManager = data.data.dataAndManager;
+    		$scope.equipmentCheckArr = [];
+            $scope.equipmentItemArr = [];
+    	})
+    };
+    
+    $scope.dealEq = function() { 
+       	$scope.delArray = [];
+    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+    		if(angular.element(dom).prop("checked") == true){
+    			$scope.delArray.push(angular.element(dom).attr("data-id"))
+    		}
+		});
+    	var handleCon = $('#handleCon').val();
+    	var pageParam = {
+    			handleCon :handleCon,
+    			eqIds  :  $scope.delArray,
+    	}
+    	httpService.post({url:'./errHandle/errHandleEdit',data:pageParam,showSuccessMsg:true}).then(function(data) {
+    		$('#handleCon').val("");
+    		$scope.initTable();
+    	})
+	};  
+	
 	$scope.initTable();
 	
 	//修改分页大小
@@ -112,4 +153,11 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
     	}
     	
     }
+    
+    //编辑
+    $scope.edit = function (idNum) { 
+    	$scope.idNum = idNum;
+    	$scope.passagewayInit();    	 
+    };  
+    
 })
