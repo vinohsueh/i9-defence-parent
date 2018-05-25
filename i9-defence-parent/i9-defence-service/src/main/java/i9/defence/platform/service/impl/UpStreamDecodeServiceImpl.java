@@ -28,6 +28,7 @@ import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
+import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.SqlUtil;
 import i9.defence.platform.utils.StringUtil;
@@ -138,7 +139,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			channelData.setSystemType((String)jsonObject.get("systemType"));
 			channelData.setDeviceAddress(address);
 			
-			channelData.calDeviceId(deviceId);
+			channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
 			list.add(channelData);
 		}
 		try {
