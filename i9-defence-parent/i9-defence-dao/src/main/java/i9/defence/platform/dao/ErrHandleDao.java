@@ -43,14 +43,14 @@ public interface ErrHandleDao {
      */
     PageBounds<ErrHandle> selectByLimitPage(ErrHandleSearchDto errHandleSearchDto) throws Exception;
 
-    //批量处理设备故障 type = 1 故障
-    void updateHandleFault(String eqDeviceId) throws Exception;
+    //批量处理设备故障 type = 2 报警
+    void updateHandleFault(List<String> eqDeviceIds) throws Exception;
     
-    //批量处理设备报警 type = 2 报警
-    void updateHandlePolice(String eqDeviceId) throws Exception;
+/*    //批量处理设备报警 type = 2 报警
+    void updateHandlePolice(String eqDeviceId) throws Exception;*/
     
-  //批量处理设备隐患 type = 3 隐患
-    void updateHandleHidden(String eqDeviceId) throws Exception;
+    //批量处理设备隐患 type = 3 隐患
+    void updateHandleHidden(List<String> eqDeviceIds) throws Exception;
 
 	void updateBatchHandleFault(List<String> list);
 
@@ -59,4 +59,13 @@ public interface ErrHandleDao {
 	void updateBatchHandleHidden(List<String> list);
 
 	void addBatchHandle(List<String> list);
+	
+	/**
+	 * 批量插入历史记录
+	* @Title: addErrHandle 
+	* @Description: TODO
+	* @param errHandles
+	* @throws Exception
+	 */
+	void addErrHandle(List<ErrHandle> errHandles) throws Exception;
 }

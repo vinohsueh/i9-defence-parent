@@ -29,6 +29,7 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				orderByClause: "handleDate desc",
+				handleState: 1 ,
 				eqDeviceId:$stateParams.id
 			};
 		httpService.post({url:'./errHandle/pageErrHandle',data:pageParam,showSuccessMsg:false}).then(function(data) {  
@@ -41,14 +42,14 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 			$scope.end = data.data.data.offset+$scope.warningLists.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
-			for(i in $scope.warningLists){
-				console.log("----"+JSON.stringify($scope.warningLists[i].handleState));
-				if($scope.warningLists[i].handleState = 0){
-					$scope.warningLists[i].statusText = '未处理';
-				}else if($scope.warningLists[i].handleState = 1){
-					$scope.warningLists[i].statusText = '已处理';
-				}
-			}
+//			for(i in $scope.warningLists){
+//				console.log("----"+JSON.stringify($scope.warningLists[i].handleState));
+//				if($scope.warningLists[i].handleState = 0){
+//					$scope.warningLists[i].statusText = '未处理';
+//				}else if($scope.warningLists[i].handleState = 1){
+//					$scope.warningLists[i].statusText = '已处理';
+//				}
+//			}
 		})
 	};
 	$scope.initTable();

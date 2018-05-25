@@ -41,19 +41,21 @@ public class EquipmentFaultServiceImpl implements EquipmentFaultService{
 		try {
 			//id为null 则为添加
 			EquipmentFault existEquipmentFault = equipmentFaultDao.getEquipmentId(equipmentFault.getCode(),equipmentFault.getEquipmentId());
-			if(equipmentFault.getId() ==null) {
-				if (existEquipmentFault != null) {
+			if(equipmentFault.getId() !=null) {
+				if (existEquipmentFault != null && existEquipmentFault.getId() - equipmentFault.getId() !=0) {
 		                throw new BusinessException("数据已存在!");
 				}
-				equipmentFaultDao.add(equipmentFault);
+				equipmentFaultDao.update(equipmentFault);
 			}else {
 			//id不为null则为更新
-				if (existEquipmentFault != null) {
+				if (existEquipmentFault != null  ) {
 	                throw new BusinessException("数据已存在!");
 				}
-				equipmentFaultDao.update(equipmentFault);
+				equipmentFaultDao.add(equipmentFault);
 			}
 			errorTypeCache.init();
+		}catch (BusinessException e) {
+			throw new BusinessException(e.getErrorMessage());
 		}catch (Exception e) {
             throw new BusinessException("添加失败",e.getMessage());
         }

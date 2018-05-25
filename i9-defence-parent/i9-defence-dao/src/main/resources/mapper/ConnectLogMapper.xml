@@ -135,10 +135,10 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="i9.defence.platform.model.ConnectLogExample" resultType="java.lang.Long">
+  <select id="countByExample"  resultType="java.lang.Integer">
     select count(*) from t_connect_log
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
+      <include refid="Query_By_Dto_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
@@ -193,4 +193,28 @@
       createTime = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+   <select id="selectByLimitPage" resultType="i9.defence.platform.dao.vo.ConnectLogDto">
+	    SELECT
+			cl.createTime as createTime ,
+			cl.STATUS as status,
+			( SELECT e.equipmentPosition FROM t_equipment e WHERE e.deviceId = cl.deviceId ) AS equipmentPosition,
+			( SELECT e.equipmentRemarks FROM t_equipment e WHERE e.deviceId = cl.deviceId ) AS equipmentRemarks ,
+			( SELECT p.projectName FROM t_project p WHERE p.id IN ( SELECT e.projectId from t_equipment e where e.projectId = p.id and e.deviceId = cl.deviceId) ) as projectName ,
+			( SELECT ec.eqCategoryName FROM t_equipment_category ec WHERE ec.eqCategoryId IN ( SELECT e.systemId from t_equipment e where e.systemId = ec.eqCategoryId and e.deviceId = cl.deviceId) ) as eqCategoryName
+		 FROM t_connect_log cl 
+        <if test="_parameter != null" >
+          <include refid="Query_By_Dto_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null" >
+          order by ${example.orderByClause}
+        </if>
+        limit #{offset},#{limit}
+   </select>
+   <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+         <if test="example.status != null ">
+          and status =#{example.status}
+        </if>
+    </trim>
+  </sql>
 </mapper>

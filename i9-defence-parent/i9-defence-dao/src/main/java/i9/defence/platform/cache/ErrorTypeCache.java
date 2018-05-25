@@ -41,8 +41,8 @@ public class ErrorTypeCache {
         Map<String, String> dictMap = new HashMap<String, String>();
         Map<String, Integer> dictTypeMap = new HashMap<String, Integer>();
         for (EquipmentFault equipmentFault : list) {
-            dictMap.put(equipmentFault.getCode(), equipmentFault.getName());
-            dictTypeMap.put(equipmentFault.getCode(), equipmentFault.getType());
+            dictMap.put(equipmentFault.getCode()+equipmentFault.getEquipmentId(), equipmentFault.getName());
+            dictTypeMap.put(equipmentFault.getCode()+equipmentFault.getEquipmentId(), equipmentFault.getType());
         }
         ErrorTypeCache.dictMap = dictMap;
         ErrorTypeCache.dictTypeMap = dictTypeMap;

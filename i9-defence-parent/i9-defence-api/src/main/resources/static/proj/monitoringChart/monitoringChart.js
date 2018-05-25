@@ -20,7 +20,7 @@ var monitoringChartService = monitoringChartNgModule.factory('monitoringChartSer
 		return resource;
 	}]);
 var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChartNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringChartService,httpService){
-	//时间插件
+	/*//时间插件
     // Disable weekend selection
     $scope.disabled = function(date, mode) {
       return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
@@ -47,7 +47,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 
     $scope.initDate = new Date('2016-15-20');
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[1];
+    $scope.format = $scope.formats[1];*/
 	
     $scope.dateToString = function(d){
     	var date = new Date(d);
@@ -56,7 +56,9 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     
     
 	//首页跳转过来的项目id
-	$scope.projectId=$stateParams.id;
+    $scope.projectId=$stateParams.id;
+	console.log($scope.projectId);
+
 	$scope.getDate = function (index){
 	    var date = new Date(); //当前日期
 	    var newDate = new Date();
@@ -64,9 +66,8 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
-
+	$scope.startTime = $scope.getDate(0);
+	$("#hour").val(new Date().getHours());
     
     //分页条件
     $scope.pageSize = 10;
@@ -122,14 +123,11 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 	$scope.searchText = '';
     //初始化
     $scope.pageInit = function (){
-    	if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.id;
-		}else{
-			$scope.searchText = "";
-		}
     	if ($scope.projectId != null) {
     		$scope.searchText = $scope.projectId;
-    	}
+    	}else{
+            $scope.searchText = '';
+        }
     	var pageParam = {
     			/*pageSize:$scope.pageSize,
     			currentPage:$scope.currentPage,*/
@@ -139,6 +137,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			/*projectName : text,
     			projectAddress : text,*/
     		};
+            console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.totalCount = data.data.data;
 		});
@@ -150,13 +149,16 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;
+            // console.log(JSON.stringify($scope.projects));
     		for(i in $scope.projects){
     			if($scope.projects[i].warningCount>0){
     				$scope.projects[i].status = 'dangerLabel';
     			}else if($scope.projects[i].hiddeCount>0){
     				$scope.projects[i].status = 'faultLabel';
+    			}else if ($scope.projects[i].status == 0){
+    				$scope.projects[i].status = 'lineOutLabel';
     			}else{
-    				$scope.projects[i].status = ''
+    				$scope.projects[i].status = '';
     			}
     		}
 
@@ -173,25 +175,29 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
 				$scope.idNum = $scope.projects[0].id;
 				$scope.passagewayInit();
 			}else{
-				$scope.projectInfo = {};
+				// $scope.projectInfo = {};
+                $scope.equipment = {};
 				$scope.chartsStatus = false;
 			}
     	})
     };
     $scope.pageInit();
+    setTimeout(function () {
+        $scope.pageInit();
+    },600000);
     $scope.passagewayInit = function (){
     	var text = $scope.searchText;
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			startDateString:$scope.dateToString($("#startTime").val()),
-    			endDateString:$scope.dateToString($("#endTime").val()),
+    			startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
+    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
     			/*projectName : text,
     			projectAddress : text,*/
     		};
     	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
-    		$scope.projectInfo = data.data;
+    		$scope.equipment = data.data.equip;
     		$scope.dataAndManager = data.data.dataAndManager;
     		$scope.equipmentCheckArr = [];
             $scope.equipmentItemArr = [];

@@ -32,14 +32,14 @@ public interface ErrHandleMapper {
     
     List<ErrHandle> selectByLimitPage(@Param("example") ErrHandleSearchDto errHandleSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
-  //批量处理设备故障 type = 1 故障
-    void updateHandleFault(String eqDeviceId);
+  //批量处理设备故障 type = 2,报警
+    void updateHandleFault(@Param("items") List<String> eqDeviceIds); 
     
-    //批量处理设备报警 type = 2 报警
-    void updateHandlePolice(String eqDeviceId);
+/*    //批量处理设备报警 type 
+    void updateHandlePolice(String eqDeviceId);*/
     
-  //批量处理设备隐患 type = 2 隐患
-    void updateHandleHidden(String eqDeviceId);
+  //批量处理设备隐患 type = 3 隐患
+    void updateHandleHidden(@Param("items") List<String> eqDeviceId);
     
     //批量处理故障
 	void updateBatchHandleFault(List<String> list);
@@ -55,4 +55,10 @@ public interface ErrHandleMapper {
 	 * @param list
 	 */
 	void addBatchHandle(List<String> list);
+	/**
+	 * 批量添加历史记录
+	* @Title: addErrHandles 
+	* @Description: TODO
+	 */
+	void addErrHandles(@Param("items") List<ErrHandle> ErrHandles);
 }

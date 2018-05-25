@@ -10,6 +10,7 @@ import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.mapper.ChannelDataMapper;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -124,10 +125,20 @@ public class EquipmentDaoImpl implements EquipmentDao{
         pageBounds.setPageList(list);
         return pageBounds;
 	}
+	
+	@Override
+	public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage2(HiddenDangerSearchDto hiddenDangerSearchDto,
+			int currectPage, int pageSize) throws Exception {
+		final int totalSize = equipmentMapper.countHiddenDangerByExample2(hiddenDangerSearchDto);
+        PageBounds<HiddenDangerDto> pageBounds = new PageBounds<HiddenDangerDto>(currectPage, totalSize, pageSize);
+        List<HiddenDangerDto> list = equipmentMapper.selectHiddenDangerByLimitPage2(hiddenDangerSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
+        pageBounds.setPageList(list);
+        return pageBounds;
+	}
 
 	@Override
-	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) {
-		return equipmentMapper.selectHiddenDangerChannelDtoBySid(systemId);
+	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count) {
+		return equipmentMapper.selectHiddenDangerChannelDtoBySid(deviceId,count);
 	}
 	
 	@Override
@@ -152,8 +163,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) {
-		return equipmentMapper.selectDangerChannelDtoBySid(systemId);
+	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String deviceId,int count) {
+		return equipmentMapper.selectDangerChannelDtoBySid(deviceId,count);
 	}
 
 	@Override
@@ -205,7 +216,7 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public Equipment selectDataAndManager(int id) {
+	public EquipmentProjectDto selectDataAndManager(int id) {
 		return equipmentMapper.selectDataAndManager(id);
 	}
 
@@ -213,8 +224,12 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		TotalEquipmentDto totalEquipmentDto = new TotalEquipmentDto();
 		int totalEquipment = equipmentMapper.selectTotalEquipmentDto(monthDataDto);
 		int totalAlertEquipment = equipmentMapper.selectTotalAlertEquipmentDto(monthDataDto);
+		int offlineEquipment = equipmentMapper.selectOfflineEquipment(monthDataDto);
+		int hiddenEquipment = equipmentMapper.selectHiddenEquipment(monthDataDto);
 		totalEquipmentDto.setTotal(totalEquipment);
 		totalEquipmentDto.setAlert(totalAlertEquipment);
+		totalEquipmentDto.setOffline(offlineEquipment);
+		totalEquipmentDto.setFault(hiddenEquipment);
 		return totalEquipmentDto;
 	}
 
@@ -232,5 +247,14 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	@Override
 	public void updateEquipmentStatusByDeviceId(String deviceId, int status) {
 		equipmentMapper.updateEquipmentStatusByDeviceId(deviceId,status);
+	}
+
+	@Override
+	public Equipment findEquipmentDeviceId(String deviceId) {
+		return equipmentMapper.findEquipmentDeviceId(deviceId);
+	}
+	@Override
+	public List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids) {
+		return equipmentMapper.selectHiddenDangerByIds(ids);
 	}
 }

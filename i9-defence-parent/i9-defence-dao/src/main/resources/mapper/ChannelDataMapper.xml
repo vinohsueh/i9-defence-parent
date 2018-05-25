@@ -15,7 +15,8 @@
     	<result column="deviceAddress" jdbcType="VARCHAR" property="deviceAddress"/>
 		<result column="dealDate" jdbcType="TIMESTAMP" property="dealDate" />
 		<result column="dealManagerId" jdbcType="INTEGER" property="dealManagerId" />
-		<association property="dealManager" column="dealManagerId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
+		<!-- <association property="dealManager" column="dealManagerId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/> -->
+		<association property="equipmentCatId" column="deviceId" select="selectEquipmentCatId"/>
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -96,6 +97,9 @@
 			<if test="deviceId != null and deviceId != ''">
 			 and deviceId = #{deviceId}
 			</if>
+			<if test="systemId != null and systemId != ''">
+		 	AND channel IN ( SELECT `t_passageway`.`channel` FROM `t_passageway` WHERE  `t_passageway`.`systemId` =#{systemId} ) 
+			</if>
 			<if test="channel != null">
 			 and channel = #{channel}
 			</if>
@@ -105,17 +109,20 @@
 			 		#{item}
 			 	</foreach>
 			</if>
-			<if test="startDate != null">
-			 and  dateTime &gt; #{startDate}
+			<if test="startDateString != null and startDateString != ''">
+			 and  dateTime &gt; #{startDateString}
 			</if>
-			<if test="endDate != null">
-			 and  dateTime &lt; date_add(#{endDate}, INTERVAL 1 day)
+			<if test="endDateString != null and endDateString != ''">
+			 and  dateTime &lt; #{endDateString}
 			</if>
 		</trim>
 	</sql>
 	<sql id="Base_Column_List">
 	    id, systemId, channel, dateTime, type, value, systemType, dealStatus, dealDetail,deviceId,deviceAddress,dealDate,dealManagerId
     </sql>
+    <select id="selectEquipmentCatId" parameterType="string" resultType="int">
+    	select equipmentCategoryId from t_equipment where deviceId = #{deviceId}
+    </select>
 	<select id="selectByExample" parameterType="i9.defence.platform.model.ChannelDataExample"
 		resultMap="BaseResultMap">
 		select

@@ -73,6 +73,8 @@ public interface EquipmentCategoryDao {
 	List<EquipmentCategory> selectEqCategory(Integer id)throws Exception;
 	//查询eqCategoryId是否重复
 	EquipmentCategory getEqCategoryId(String eqCategoryId);
+
+	List<EquipmentCategory> findEqCategoryName()throws Exception;
     
     /**
      * 查询数量

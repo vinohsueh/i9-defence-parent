@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -18,8 +19,10 @@ public interface EquipmentMapper {
 	int countByExample(@Param("example") EquipmentSearchDto equipmentSearchDto);
 	
 	int countHiddenDangerByExample(@Param("example")HiddenDangerSearchDto hiddenDangerSearchDto);
-
-    int deleteByExample(EquipmentExample example);
+	
+	int countHiddenDangerByExample2(@Param("example")HiddenDangerSearchDto hiddenDangerSearchDto);
+  
+	int deleteByExample(EquipmentExample example);
 
     int deleteByPrimaryKey(List<Integer> ids);
 
@@ -57,10 +60,12 @@ public interface EquipmentMapper {
     //隐患报警分页查询
     List<HiddenDangerDto> selectHiddenDangerByLimitPage(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
+    List<HiddenDangerDto> selectHiddenDangerByLimitPage2(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    
     //查询具体隐患报警--隐患
-    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(@Param("deviceId")String systemId);
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(@Param("deviceId")String deviceId,@Param("count") int count);
     //查询具体隐患报警--报警
-    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(@Param("deviceId") String systemId);
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(@Param("deviceId") String systemId,@Param("count") int count);
     //隐患报警 全部查询
     List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
     /**
@@ -112,7 +117,7 @@ public interface EquipmentMapper {
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
 	//查询设备创建时间和负责人，安全负责人手机号
-	Equipment selectDataAndManager(int id);
+	EquipmentProjectDto selectDataAndManager(int id);
 	
 	/**
 	 * 查询用户登进来的设备总数
@@ -129,10 +134,34 @@ public interface EquipmentMapper {
 	int selectTotalAlertEquipmentDto(@Param("example") MonthDataDto monthDataDto);
 	
 	/**
+	 * 查询离线设备
+	 * @param monthDataDto
+	 * @return
+	 */
+	int selectOfflineEquipment(@Param("example") MonthDataDto monthDataDto);
+	
+	/**
+	 * 查询隐患设备数量
+	 * @param monthDataDto
+	 * @return
+	 */
+	int selectHiddenEquipment(@Param("example") MonthDataDto monthDataDto);
+	/**
 	 * 更新设备状态
 	 * @param deviceId
 	 * @param status
 	 */
 	void updateEquipmentStatusByDeviceId(@Param("deviceId") String deviceId,@Param("status") int status);
 	
+	/**
+	 * 根据ids查询视图数据
+	* @Title: selectHiddenDangerByIds 
+	* @Description: TODO
+	* @param ids
+	* @return
+	 */
+	List<HiddenDangerDto> selectHiddenDangerByIds(@Param("Items") List<Integer> ids);
+	//查询设备地址
+	Equipment findEquipmentDeviceId(String deviceId);
+
 }

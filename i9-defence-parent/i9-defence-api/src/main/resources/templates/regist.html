@@ -6,7 +6,9 @@
 	<link rel="stylesheet" href="css/login.css">	
 </head>
 <body>
-	<div class="title">合极电器</div>
+	<!-- <div class='logo regist'><img src="images/logoBig.png" alt="" height='50px;'></div> -->
+	<h1 class="title regist">智慧消防电气安全监管云平台</h1>
+	<!-- <p class='smallTitle regist'>intellgent fire electric safety supervision cloud playform</p> -->
 	<form th:action="@{/regist}" method="post" th:object="${managerApply}" id="loginData">
 		<input type="text" placeholder='*请输入用户名' th:field="*{username}">
         <input type="password" placeholder='*请输入您的密码' th:field="*{password}">
@@ -29,11 +31,13 @@
 	    <input type="text" id="shareCode" style="display: none" placeholder='*请输入邀请码' th:field="*{shareCode}">
 	</form>
 	
-	<button type='button' id='submitBtn'>确认</button>
+	<div><button type='button' id='submitBtn'>确认</button></div>
+	<!-- <p class='whiteText'>已经有账户了?</p> -->
+	<div><button type='button' id='jumpPage' onclick='login()'>去登陆</button></div>
 	<p class="loginAlert mb-10" style="color: red" th:text="(${exception} == null)?'':${exception.errorMessage}"></p>
 	<p class="loginAlert mb-10" style="color: green" th:text="(${success} == null)?'':${success}"></p>
-	<p class='pt-10'>已经有账户了?</p>
-	<button type='button' id='jumpPage' onclick='login()'>去登陆</button>
+	
+	
 </body>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script>
@@ -42,7 +46,12 @@
 	}
 	$("#submitBtn").click(function(){
 		$("#loginData").submit();
-	})
+	});
+    $(document).keydown(function (event) {
+	    if(event.keyCode == 13){
+	    	$("#loginData").submit();
+	    }
+	});
 	function changeRole(){
 		if($("#jurisdiction").val() != "省级经销商" && $("#jurisdiction").val() != "地市级经销商"){
 	        $("#shareCode,#productSecurity").show();

@@ -299,7 +299,23 @@ angular.module('app')
 //	                }]
 //	              }
 //	          })
-	         
+	          .state('app.connectLog', {
+                  url: '/connectLog',
+                  templateUrl: 'proj/connectLog/connectLog.html',
+              	  controller : "connectLogNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'connectLogNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/connectLog/connectLog.js',
+            				]
+            			})
+                    }]
+                  }
+              })
 	          
 	          
 	          
@@ -374,6 +390,7 @@ angular.module('app')
               })
               .state('app.monitoringTabel', {
                   url: '/monitoringTabel',
+                  params: {'id': null},
                   templateUrl: 'proj/monitoringTabel/monitoringTabel.html',
                   controller : "monitoringTabelNgControl",
                   resolve: {
@@ -455,6 +472,24 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/hiddenEdit/hiddenEdit.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+              
+               .state('app.errHandle', {
+                  url: '/errHandle',
+                  templateUrl: 'proj/errHandle/errHandle.html',
+              	  controller : "errHandleControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'errHandleModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/errHandle/errHandle.js',
             				    ]
             			})
                     }]

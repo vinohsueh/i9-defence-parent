@@ -1,0 +1,106 @@
+<div controlled-rescode>
+	<!-- <div class="bg-light lter b-b wrapper-md">
+	  <h1 class="m-n font-thin h3">删除设备/项目申请表管理</h1>
+	</div> -->
+	<div class="wrapper-md">  
+	  <div class="panel panel-default">
+	    <!-- <div class="panel-heading">
+            <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button>
+	    </div> -->
+	    <div class="row wrapper">
+	      <!-- <div class="col-sm-5 m-b-xs">
+	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
+	          <option value="5">5</option>
+	          <option value="10">10</option>
+	          <option value="20">20</option>
+	          <option value="50">50</option>
+	          <option value="100">100</option>
+	        </select>
+	        <button class="btn btn-sm btn-default">Apply</button>                
+	      </div> -->
+	      <div class="col-sm-4">
+	      </div>
+	      <div class="col-sm-3">
+	        <div class="input-group">
+	          <!-- <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
+	          <!-- <span class="input-group-btn">
+	            <button class="btn btn-sm btn-default" type="button">Go!</button>
+	          </span> -->
+	        </div>
+	        <!-- <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button> -->
+	      </div>
+	    </div>
+	    <div class="table-responsive" style='min-height: 520px'>
+	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+	        <thead>
+	          <tr>
+	          	<th>状态</th>
+	            <th>项目名称</th>
+	            <th>设备分类</th>
+	            <th>备注</th>
+	            <th>时间</th>
+	        </thead>
+	        <tbody>
+	          <tr ng-repeat="warning in warningLists" ng-click='choiceItem(warning.id)'>
+	          	  <td>{{warning.typeStr}}</td>
+	          	  <td>{{warning.projectName}}</td>
+	          	  <td>{{warning.eqCategoryName}}</td>
+		          <td>{{warning.equipmentRemarks}}</td>
+		          <td>{{warning.handleDateStr}}</td>
+	          </tr>
+	        </tbody>
+	      </table>
+	    </div>
+	    <footer class="panel-footer">
+	      <div class="row">
+	        <!-- <div class="col-sm-4 hidden-xs">
+	          <select class="input-sm form-control w-sm inline v-middle">
+	            <option value="0">删除</option>
+	          </select>
+	          <button class="btn btn-sm btn-default">Apply</button>                  
+	        </div> -->
+	        <div class="col-sm-4">
+	          <small class="text-muted inline m-t-sm m-b-sm">共 {{total}} 条数据</small>
+	        </div>
+	        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
+	          <ul class="pagination pagination-sm m-t-none m-b-none">
+	            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
+	            <li ng-if="hasNext"><a ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	          </ul>
+	        </div>
+	      </div>
+	    </footer>
+	  </div>
+	   <div class='row' ng-if="ifshow">
+    <div class="mPane hFull col-xs-6 col-sm-3">
+      <div class="title">项目信息</div>
+      <div class="body">
+        <p>名称：{{projectInfo.project.name}}</p>
+        <p>负责人：{{projectInfo.project.manager}}</p>
+        <p>安全负责人：{{projectInfo.project.safeManager}}</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-3">
+      <div class="title">设备信息</div>
+      <div class="body">
+        <p>名称：{{projectInfo.equip.name}}</p>
+        <p>位置：{{projectInfo.equip.location}}</p>
+      </div>
+    </div>
+    <div class="mPane hFull col-xs-6 col-sm-6">
+      <div class="title">处理详情</div>
+      <div class="body">
+        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon'></textarea>
+        <div class='text-right'>
+          <button type='' class='btn btn-success' ng-click='confirmBtn()'>确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+   </div>
+</div>
+<script>
+</script>

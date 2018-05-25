@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.api.components.ChannelDataComponent;
-import i9.defence.platform.api.components.EquipmentMonitorComponent;
 import i9.defence.platform.api.components.MonthDataInfoComponent;
-import i9.defence.platform.api.components.ProjcetMonitorComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
 import i9.defence.platform.dao.vo.MonthDataDto;
@@ -92,25 +91,12 @@ public class EquipmentController {
 	@RequestMapping("/addEquipment")
 	public HashMap<String, Object> addEquipment(@RequestBody Equipment equipment) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		equipmentService.addEquipment(equipment);
+		Equipment equipment2 = equipmentService.addEquipment(equipment);
+		Equipment equipmentToOldPlat = equipmentService.getEquipmentById(equipment2.getId());
+		//向老平台插入设备
+		equipmentService.addEquipmentToOldPlat(equipmentToOldPlat);
 		return result;
 	}
-
-	/**
-	 * 删除设备
-	 * @Title delEquipment
-	 * @param ids
-	 * @return
-	 */
-	/*
-	 * 删除项目
-	 * @param ids
-	 * @return
-	 * @RequestMapping("/delEquipment") public HashMap<String, Object>
-	 * delEquipment(@RequestBody Integer[] ids) { HashMap<String, Object> result
-	 * = new HashMap<String, Object>();
-	 * equipmentService.deleteEquipment(Arrays.asList(ids)); return result; }
-	 */
 
 	/**
 	 * 申请删除设备
@@ -166,10 +152,9 @@ public class EquipmentController {
 	@RequestMapping("/findEquipmentSystemCategory")
 	public HashMap<String, Object> findEquipmentSystemCategory() {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		EquipmentCategory equipmentCategory = new EquipmentCategory();
-		List<EquipmentCategory> eqCategory = eqCategoryService.serchEqCategory(equipmentCategory);
+		List<EquipmentCategory> eqCategory = eqCategoryService.findEqCategoryName();
 		List<EquipmentSystemtype> eqSystemCategory=eqSystemCategoryService.findEquipmentSystemCategory();
-		List<Project> project = projectService.findAllProject();
+		List<Project> project = projectService.findProjectName();
 		result.put("eqCategory", eqCategory);
 		result.put("eqSystemCategory", eqSystemCategory);
 		result.put("projects", project);
@@ -212,28 +197,17 @@ public class EquipmentController {
 	public HashMap<String, Object> selectEquipInfoAndData(@RequestBody ChannelDataSearchDto channelDataSearchDto) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		//查询设备创建时间和负责人，安全负责人手机号
-		Equipment dataAndManager = equipmentService.selectDataAndManager(channelDataSearchDto.getEquipmentId());
-		if (dataAndManager.getPhones1() != null) {
-			String strings[] = dataAndManager.getPhones1().split(",");
-			dataAndManager.setPhones1(strings[0]);
-		}
-		if (dataAndManager.getName1() != null) {
-			String strings[] = dataAndManager.getName1().split(",");
-			dataAndManager.setName1(strings[0]);
-		}
+		EquipmentProjectDto dataAndManager = equipmentService.selectDataAndManager(channelDataSearchDto.getEquipmentId());
 		result.put("dataAndManager", dataAndManager);
 		//根据设备编号查询
 		channelDataSearchDto.setDeviceId(dataAndManager.getDeviceId());
 		channelDataSearchDto.setOrderByClause("dateTime");
+		channelDataSearchDto.setSystemId(dataAndManager.getSystemId());
 		//只查询电流和温度的显示值
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());
 		typeList.add(DataTypeEnum.SHORT.getId());
 		channelDataSearchDto.setTypes(typeList);
-		//隐患报警数量
-		/*HiddenDangerDto hiddenDangerDto = equipmentService.selectHiddenDangerDtoByDeviceId(dataAndManager.getDeviceId());
-		JSONObject jObject = new HiddenDangerDtoInfoComponent().setHiddenDangerDto(hiddenDangerDto).build();
-		result.put("count", jObject);*/
 		//通道数据
 		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
 		//通道对应关系
@@ -245,10 +219,7 @@ public class EquipmentController {
 			result.put("data", jsonObject);
 		}
 		//设备信息
-		result.put("equip", new EquipmentMonitorComponent().setEquipment(dataAndManager).build());
-		//项目信息
-		Project project = projectService.getProjectById(dataAndManager.getProjectId());
-		result.put("project", new ProjcetMonitorComponent().setProject(project).build());
+		result.put("equip", dataAndManager);
 		return result;
 	}
 	
@@ -293,8 +264,7 @@ public class EquipmentController {
 		//报警数据
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
 		//隐患数据
-		//List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
-		List<MonthData> hiddenData = new ArrayList<MonthData>();
+		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
 		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();
 		result.put("data", jsonObject);
 		return result;

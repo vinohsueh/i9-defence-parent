@@ -1,11 +1,17 @@
 package i9.defence.platform.service.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +19,7 @@ import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -22,6 +29,7 @@ import i9.defence.platform.dao.vo.MonthDataDto;
 import i9.defence.platform.dao.vo.TotalEquipmentDto;
 import i9.defence.platform.model.Apply;
 import i9.defence.platform.model.ChannelData;
+import i9.defence.platform.model.Client;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Passageway;
@@ -31,6 +39,7 @@ import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.TargetDataSource;
 /**
  * 项目类别ServiceImpl
  * @author gbq
@@ -48,7 +57,8 @@ public class EquipmentServiceImpl implements EquipmentService {
 	private ManagerService managerService;
 	@Autowired
 	private ApplyDao applyDao; 
-	
+	@Resource
+    private JdbcTemplate jdbcTemplate;
 	@Override
 	public PageBounds<Equipment> selectByLimitPage(EquipmentSearchDto equipmentSearchDto)
 			throws BusinessException {
@@ -73,19 +83,87 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public void addEquipment(Equipment equipment) throws BusinessException {
+	public Equipment addEquipment(Equipment equipment) throws BusinessException {
 		try {
 			StringBuffer str = new StringBuffer();
 			str.append(equipment.getSystemId()).append(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(equipment.getLoopl()))).append(equipment.getEquipmentPosition());
 			equipment.setDeviceId(str.toString());
+			//查询设备地址
+			Equipment existEquipment=equipmentDao.findEquipmentDeviceId(equipment.getDeviceId());
 			if(equipment.getId()!=null) {
-			  equipmentDao.updateEquipment(equipment);
+				if(existEquipment != null && existEquipment.getId() - equipment.getId() !=0){
+		            throw new BusinessException("设备已存在!");
+				}
+				equipmentDao.updateEquipment(equipment);
 			}else {
+				if(existEquipment != null){
+					throw new BusinessException("设备已存在!");
+				}
 				equipment.setEquipmentDate(new Date());
 				equipmentDao.addEquipment(equipment);
 			}
-		} catch (Exception e) {
+			return equipment;
+		}catch (BusinessException e) {
+			throw new BusinessException(e.getErrorMessage());
+		}catch (Exception e) {
 			throw new BusinessException("添加设备失败",e.getMessage());
+		}
+	}
+	
+	@TargetDataSource("xfjcxt")
+	@Override
+	public void addEquipmentToOldPlat(final Equipment equipment) throws BusinessException {
+		String querySql = "select num from device_list where device_code = ?";
+		final List<Integer> nums = jdbcTemplate.queryForList(querySql, Integer.class,equipment.getId());
+		if (nums.size()>0){
+			String sql = "update device_list set device_type =?,device_code=?,device_name=?,device_org=?,device_address=?,longitude=?,latitude=?,remark=?,link_man=?,phone=? where num = ?";  
+	        jdbcTemplate.update(sql,new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1,equipment.getEquipmentSystemtype().getSystemType());
+					ps.setInt(2,equipment.getId());
+				    ps.setString(3,equipment.getEquipmentCategory().getEqCategoryName());
+				    ps.setString(4, equipment.getProject().getProjectName());
+				    ps.setString(5, equipment.getProject().getProjectAddressStr());
+				    ps.setString(6, equipment.getProject().getProjectLongitude().toString());
+				    ps.setString(7, equipment.getProject().getProjectLatitude().toString());
+				    ps.setString(8, equipment.getEquipmentRemarks());
+				    List<Client> list = equipment.getProject().getClientList();
+				    ps.setString(9, null);
+				    ps.setString(10, null);
+				    if (list.size()>0){
+				    	ps.setString(9, list.get(0).getName());
+					    ps.setString(10, list.get(0).getPhone());
+				    }
+				    ps.setInt(11, nums.get(0));
+				    
+				}
+	        	
+	        });  
+		}else{
+			String sql = "insert into device_list(device_type,device_code,device_name,device_org,device_address,longitude,latitude,remark,link_man,phone) values(?,?,?,?,?,?,?,?,?,?)";  
+	        jdbcTemplate.update(sql,new PreparedStatementSetter(){
+				@Override
+				public void setValues(PreparedStatement ps) throws SQLException {
+					ps.setString(1,equipment.getEquipmentSystemtype().getSystemType());
+					ps.setInt(2,equipment.getId());
+				    ps.setString(3,equipment.getEquipmentCategory().getEqCategoryName());
+				    ps.setString(4, equipment.getProject().getProjectName());
+				    ps.setString(5, equipment.getProject().getProjectAddressStr());
+				    ps.setString(6, equipment.getProject().getProjectLongitude().toString());
+				    ps.setString(7, equipment.getProject().getProjectLatitude().toString());
+				    ps.setString(8, equipment.getEquipmentRemarks());
+				    List<Client> list = equipment.getProject().getClientList();
+				    ps.setString(9, null);
+				    ps.setString(10, null);
+				    if (list.size()>0){
+				    	ps.setString(9, list.get(0).getName());
+					    ps.setString(10, list.get(0).getPhone());
+				    }
+				    
+				}
+	        	
+	        });  
 		}
 	}
 	
@@ -271,11 +349,37 @@ public class EquipmentServiceImpl implements EquipmentService {
 		}
 		return null;
 	}
+	
+	@Override
+	public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage2(HiddenDangerSearchDto hiddenDangerSearchDto)
+			throws BusinessException {
+		try {
+			//获取登录人
+			Manager loginManager = managerService.getLoginManager();
+			//如果为网站用户显示全部（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				return equipmentDao.selectHiddenDangerByLimitPage2(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}
+			//如果为经销商和管理员
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+				hiddenDangerSearchDto.setDistributorId(loginManager.getId());
+				return equipmentDao.selectHiddenDangerByLimitPage2(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员
+				hiddenDangerSearchDto.setPrijrctManagerId(loginManager.getId());
+				return equipmentDao.selectHiddenDangerByLimitPage2(hiddenDangerSearchDto, hiddenDangerSearchDto.getCurrentPage(), hiddenDangerSearchDto.getPageSize());
+			}
+		} catch (Exception e) {
+			throw new BusinessException("分页报警隐患查询失败",e.getMessage());
+		}
+		return null;
+	}
+	
 
 	@Override
-	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId) throws BusinessException {
+	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count) throws BusinessException {
 		try {
-			return equipmentDao.selectHiddenDangerChannelDtoBySid(systemId);
+			return equipmentDao.selectHiddenDangerChannelDtoBySid(deviceId,count);
 		} catch (Exception e) {
 			throw new BusinessException("根据设备编号查询报警隐患失败",e.getMessage());
 		}
@@ -319,9 +423,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId) throws BusinessException {
+	public List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String deviceId,int count) throws BusinessException {
 		try {
-			return equipmentDao.selectDangerChannelDtoBySid(systemId);
+			return equipmentDao.selectDangerChannelDtoBySid(deviceId,count);
 		} catch (Exception e) {
 			throw new BusinessException("根据设备编号查询报警隐患失败",e.getMessage());
 		}
@@ -410,7 +514,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 	}
 
 	@Override
-	public Equipment selectDataAndManager(int id) throws BusinessException {
+	public EquipmentProjectDto selectDataAndManager(int id) throws BusinessException {
 		try {
 			return equipmentDao.selectDataAndManager(id);
 		} catch (Exception e) {
@@ -425,5 +529,13 @@ public class EquipmentServiceImpl implements EquipmentService {
 		}	
 	}
 
+	@Override
+	public List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids)throws BusinessException {
+		try {
+			return equipmentDao.selectHiddenDangerByIds(ids);
+		} catch (Exception e) {
+			throw new BusinessException("查询失败",e.getMessage());
+		}
+	}
 }
 

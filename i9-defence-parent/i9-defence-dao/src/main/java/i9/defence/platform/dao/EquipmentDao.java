@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -133,11 +134,23 @@ public interface EquipmentDao {
             int currectPage, int pageSize) throws Exception;
     
     /**
+     * 分页查询隐患报警2
+     * @param hiddenDangerSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage2(HiddenDangerSearchDto hiddenDangerSearchDto,
+            int currectPage, int pageSize) throws Exception;
+    
+    
+    
+    /**
      * 查询具体隐患报警--隐患
      * @param HiddenDangerChannelDto
      * @return
      */
-    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId);
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count);
     
     /**
      * 
@@ -156,7 +169,7 @@ public interface EquipmentDao {
      * @param HiddenDangerChannelDto
      * @return
      */
-    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId);
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String deviceId,int count);
     
     /**
      * 分页查询故障设备
@@ -207,7 +220,7 @@ public interface EquipmentDao {
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto);
 	//查询设备创建时间和负责人，安全负责人手机号
-	Equipment selectDataAndManager(int id);
+	EquipmentProjectDto selectDataAndManager(int id);
 	
 	/**
 	 * 查询设备总数
@@ -230,4 +243,16 @@ public interface EquipmentDao {
 	 * @param status
 	 */
 	void updateEquipmentStatusByDeviceId(String deviceId, int status);
+	
+	
+	/**
+	 * 根据ids查询视图数据
+	* @Title: selectHiddenDangerByIds 
+	* @Description: TODO
+	* @param ids
+	* @return
+	 */
+	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids);
+	//查询设备地址
+	Equipment findEquipmentDeviceId(String deviceId);
 }

@@ -54,6 +54,7 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 		//console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
+			console.log(JSON.stringify($scope.projects));
 			// console.log(JSON.stringify($scope.projects));
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;

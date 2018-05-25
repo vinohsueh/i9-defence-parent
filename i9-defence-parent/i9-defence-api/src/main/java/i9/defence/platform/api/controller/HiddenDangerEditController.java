@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONArray;
 
 import i9.defence.platform.api.components.HiddendangerChannelDataInFoComponents;
+import i9.defence.platform.dao.vo.ChannelDataQuery;
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -46,6 +47,18 @@ public class HiddenDangerEditController {
         return result;
     }
     
+    
+	/*
+     *分页查询
+     */
+    @RequestMapping("/pageHiddenDangerEdit2")
+    public HashMap<String, Object> pageHiddenDangerEdit2(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        PageBounds<HiddenDangerDto> pageBounds = equipmentService.selectHiddenDangerByLimitPage2(hiddenDangerSearchDto);
+        result.put("data",pageBounds);
+        return result;
+    }
+    
     /**
      * 查询全部
      * @param hiddenDangerSearchDto
@@ -55,11 +68,7 @@ public class HiddenDangerEditController {
     public HashMap<String, Object> selectAllHiddenDangerEdit(@RequestBody HiddenDangerSearchDto hiddenDangerSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         List<HiddenDangerDto> list = equipmentService.selectAllHiddenDangerEdit(hiddenDangerSearchDto);
-        //List<EquipmentCategory> equipmentCategory = equipmentCategoryService.serchEqCategory(new EquipmentCategory());
-        //List<Project> project = projectService.findAllProject();
         result.put("data",list);
-        //result.put("equipmentCategory",equipmentCategory);
-        //result.put("project",project);
         return result;
     }
     /**
@@ -70,9 +79,9 @@ public class HiddenDangerEditController {
 	 * @return
 	 */
 	@RequestMapping("/selectHiddenDangerChannelDtoBySid")
-	public HashMap<String, Object> selectHiddenDangerChannelDtoBySid(@RequestBody String systemId) {
+	public HashMap<String, Object> selectHiddenDangerChannelDtoBySid(@RequestBody ChannelDataQuery channelDataQuery) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<HiddenDangerChannelDto> list = equipmentService.selectHiddenDangerChannelDtoBySid(systemId);
+		List<HiddenDangerChannelDto> list = equipmentService.selectHiddenDangerChannelDtoBySid(channelDataQuery.getDeviceId(),channelDataQuery.getCount());
 		JSONArray data = new HiddendangerChannelDataInFoComponents().setHiddenDangerChannelDto(list).build();
 		result.put("data", data);
 		return result;
@@ -109,9 +118,9 @@ public class HiddenDangerEditController {
 	 * @return
 	 */
 	@RequestMapping("/selectDangerChannelDtoBySid")
-	public HashMap<String, Object> selectDangerChannelDtoBySid(@RequestBody String systemId) {
+	public HashMap<String, Object> selectDangerChannelDtoBySid(@RequestBody ChannelDataQuery channelDataQuery) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<HiddenDangerChannelDto> list = equipmentService.selectDangerChannelDtoBySid(systemId);
+		List<HiddenDangerChannelDto> list = equipmentService.selectDangerChannelDtoBySid(channelDataQuery.getDeviceId(),channelDataQuery.getCount());
 		JSONArray data = new HiddendangerChannelDataInFoComponents().setHiddenDangerChannelDto(list).build();
 		result.put("data", data);
 		return result;

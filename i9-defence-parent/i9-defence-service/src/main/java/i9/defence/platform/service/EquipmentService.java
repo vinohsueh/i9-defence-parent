@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
 import i9.defence.platform.dao.vo.HiddenDangerDto;
@@ -37,7 +38,14 @@ public interface EquipmentService {
      * @param equipment
      * @throws Exception
      */
-    void addEquipment(Equipment equipment) throws BusinessException;
+    Equipment addEquipment(Equipment equipment) throws BusinessException;
+    
+    /**
+     * 向老平台插入设备
+     * @param equipment
+     * @throws Exception
+     */
+    void addEquipmentToOldPlat(Equipment equipment) throws BusinessException;
     
     /**
      * 更新设备
@@ -84,6 +92,18 @@ public interface EquipmentService {
      * @return
      */
     PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException;
+    
+    /**
+     * 分页查询隐患报警
+     * @param equipmentSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage2(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException;
+    
+    
+    
     /**
      * 新增通道
      * @param passageway
@@ -95,7 +115,7 @@ public interface EquipmentService {
      * @param selectHiddenDangerChannelDtoBySid
      * @return
      */
-    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String systemId)throws BusinessException;
+    List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count)throws BusinessException;
     /**
      * 查询全部隐患报警
      */
@@ -112,7 +132,7 @@ public interface EquipmentService {
      * @param selectHiddenDangerChannelDtoBySid
      * @return
      */
-    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String systemId)throws BusinessException;
+    List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(String deviceId,int count)throws BusinessException;
     
     /**
      * 分页查询故障设备
@@ -167,7 +187,7 @@ public interface EquipmentService {
 	 */
 	List<HiddenDangerDto> selectAllHiddenDangerEdit(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
 	//查询设备创建时间和负责人，安全负责人手机号
-	Equipment selectDataAndManager(int id)throws BusinessException;
+	EquipmentProjectDto selectDataAndManager(int id)throws BusinessException;
 	
 	/**
 	 * 查询设备总数
@@ -176,5 +196,14 @@ public interface EquipmentService {
 	 * @throws BusinessException
 	 */
 	TotalEquipmentDto selectTotalEquipmentDto(MonthDataDto monthDataDto) throws BusinessException;
+
+	/**
+	 * 根据ids查询视图数据
+	* @Title: selectHiddenDangerByIds 
+	* @Description: TODO
+	* @param ids
+	* @return
+	 */
+	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids)throws BusinessException;
 	
 }

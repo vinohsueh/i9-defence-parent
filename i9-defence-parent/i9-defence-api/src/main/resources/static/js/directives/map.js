@@ -57,7 +57,7 @@ angular.module('app').directive(
 												$scope.options[0].lat ]);
 										
 										for(var i=0;i<$scope.options.length;i++){
-											if($scope.options[i].warningCount>0){
+											if($scope.options[i].warningBoolean == true){
 												marker = new AMap.Marker({
 													position: [$scope.options[i].lng,$scope.options[i].lat],
 											        zIndex: 101,

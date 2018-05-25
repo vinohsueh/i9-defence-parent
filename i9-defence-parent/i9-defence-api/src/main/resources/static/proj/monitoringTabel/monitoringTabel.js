@@ -20,6 +20,9 @@ var monitoringTabelService = monitoringTabelNgModule.factory('monitoringTabelSer
 			return resource;
 	}]);
 var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabelNgControl',function($rootScope,$timeout, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,monitoringTabelService,httpService){
+	// 接收传过来的id
+	$scope.projectId=$stateParams.id;
+	// alert($scope.projectId);
 	$scope.getDate = function (index){
 	    var date = new Date(); 
 	    var newDate = new Date();
@@ -27,9 +30,8 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
 	    return time;
 	}
-	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
-
+	$scope.startTime = $scope.getDate(0);
+	$("#hour").val(new Date().getHours());
 	//地域
 	$scope.error = {};
 	$scope.division = division;
@@ -93,18 +95,16 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	//初始化
 	$scope.searchText = '';
 	$scope.pageInit = function (){
-		
-		if ($scope.projectName != null) {
-			$scope.searchText =$scope.projectName.projectName;
-		}else{
-			$scope.searchText = "";
-		}
-		 
+		if ($scope.projectId != null) {
+    		$scope.searchText = $scope.projectId;
+    	}else{
+            $scope.searchText = '';
+        }
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				projectName : $scope.searchText,
-				projectAddress : $scope.searchText,
+				projectId : $scope.searchText,
+				// projectAddress : $scope.searchText,
 				/*projectProvince:$scope.selected.name,
 				projectCity:$scope.selected2.name,
 				projectCounty:$scope.selected3.value,*/
@@ -118,7 +118,10 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				}else if($scope.projects[i].hiddeCount>0){
 					$scope.projects[i].status = 'warning';
 					$scope.projects[i].statusText = '隐患';
-				}else {
+				}else if ($scope.projects[i].status == 0){
+					$scope.projects[i].status = 'lineOut'
+					$scope.projects[i].statusText = '离线';
+    			}else {
 					$scope.projects[i].status = ''
 					$scope.projects[i].statusText = '正常';
 				}
@@ -148,19 +151,22 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
 	$scope.pageInit();
+	setTimeout(function () {
+	    $scope.pageInit();
+	},600000);
 	$scope.passagewayInit = function (){
 		var text = $scope.searchText;
 		var pageParam = {
 				equipmentId:$scope.idNum,
-				startDateString:$scope.dateToString($("#startTime").val()),
-    			endDateString:$scope.dateToString($("#endTime").val()),
+				startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
+    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
 				/*projectName : text,
 				projectAddress : text,*/
 			};
-		
+		console.log(pageParam)
 		httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.equipmentInfo = data.data.data;
-			$scope.projectInfo = data.data;
+			$scope.equipment = data.data.equip;
 			$scope.equipmentCheckArr = [];
 			$scope.equipmentItemArr = [];
 
