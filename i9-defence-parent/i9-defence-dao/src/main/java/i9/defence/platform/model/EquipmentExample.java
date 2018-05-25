@@ -1064,6 +1064,66 @@ public class EquipmentExample {
 			addCriterion("status not between", value1, value2, "status");
 			return (Criteria) this;
 		}
+
+		public Criteria andDataStatusIsNull() {
+			addCriterion("dataStatus is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusIsNotNull() {
+			addCriterion("dataStatus is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusEqualTo(Integer value) {
+			addCriterion("dataStatus =", value, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusNotEqualTo(Integer value) {
+			addCriterion("dataStatus <>", value, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusGreaterThan(Integer value) {
+			addCriterion("dataStatus >", value, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusGreaterThanOrEqualTo(Integer value) {
+			addCriterion("dataStatus >=", value, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusLessThan(Integer value) {
+			addCriterion("dataStatus <", value, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusLessThanOrEqualTo(Integer value) {
+			addCriterion("dataStatus <=", value, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusIn(List<Integer> values) {
+			addCriterion("dataStatus in", values, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusNotIn(List<Integer> values) {
+			addCriterion("dataStatus not in", values, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusBetween(Integer value1, Integer value2) {
+			addCriterion("dataStatus between", value1, value2, "dataStatus");
+			return (Criteria) this;
+		}
+
+		public Criteria andDataStatusNotBetween(Integer value1, Integer value2) {
+			addCriterion("dataStatus not between", value1, value2, "dataStatus");
+			return (Criteria) this;
+		}
 	}
 
 	public static class Criteria extends GeneratedCriteria {

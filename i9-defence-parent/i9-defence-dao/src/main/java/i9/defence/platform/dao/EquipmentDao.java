@@ -255,4 +255,11 @@ public interface EquipmentDao {
 	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids);
 	//查询设备地址
 	Equipment findEquipmentDeviceId(String deviceId);
+	
+	/**
+	 * 更新设备数据状态
+	 * @param deviceId
+	 * @param datastatus
+	 */
+	void updateEquipmentDataStatus(String deviceId, int datastatus);
 }

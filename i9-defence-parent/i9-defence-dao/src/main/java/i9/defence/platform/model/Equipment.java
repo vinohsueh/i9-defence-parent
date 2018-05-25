@@ -82,6 +82,11 @@ public class Equipment {
      * 设备状态
      */
     private Integer status;
+    
+    /***
+     * 报警隐患状态
+     */
+    private Integer dataStatus;
     /**
      * 设备一对多通道
      */
@@ -99,7 +104,15 @@ public class Equipment {
     
     
     
-    public String getEquipmentCategoryName() {
+    public Integer getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+
+	public String getEquipmentCategoryName() {
 		return equipmentCategoryName;
 	}
 

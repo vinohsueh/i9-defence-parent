@@ -28,7 +28,6 @@ import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
-import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.SqlUtil;
 import i9.defence.platform.utils.StringUtil;
@@ -93,6 +92,10 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
         String systemId = jsonObject.getString("systemId");
+        int loop = (int)jsonObject.get("loop");
+        String address = jsonObject.getString("deviceAddress");
+        //设备唯一编号
+        String deviceId = StringUtil.getDeviceId(systemId, loop, address);
         //根据编号id查询设备关注的所有通道
         List<Passageway> passageways = passageWayDao.selectPassagewaysBySystemId(systemId);
         List<Integer> channels = new ArrayList<>();
@@ -133,14 +136,23 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
 			channelData.setSystemType((String)jsonObject.get("systemType"));
-			channelData.setDeviceAddress(jsonObject.getString("deviceAddress"));
-			int loop = (int)jsonObject.get("loop");
-			channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
+			channelData.setDeviceAddress(address);
+			
+			channelData.calDeviceId(deviceId);
 			list.add(channelData);
 		}
 		try {
 			this.addUpStreamDecode(upStreamDecode);
 			channelDataDao.insertBatch(list);
+			//设置 设备的 数据状态
+			int datastatus = 0;
+			if (alertNum > 0) {
+				datastatus = 1;
+			}else if (0 == alertNum && hiddenNum > 0) {
+				datastatus = 2;
+			}
+			//更新设备的数据状态
+			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus);
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}

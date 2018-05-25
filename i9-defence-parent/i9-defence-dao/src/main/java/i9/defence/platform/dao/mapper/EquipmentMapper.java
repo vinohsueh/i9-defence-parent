@@ -163,5 +163,13 @@ public interface EquipmentMapper {
 	List<HiddenDangerDto> selectHiddenDangerByIds(@Param("Items") List<Integer> ids);
 	//查询设备地址
 	Equipment findEquipmentDeviceId(String deviceId);
+	
+	
+	/**
+	 * 更新设备数据状态
+	 * @param deviceId
+	 * @param datastatus
+	 */
+	void updateEquipmentDataStatus(@Param("deviceId") String deviceId,@Param("datastatus") int datastatus);
 
 }

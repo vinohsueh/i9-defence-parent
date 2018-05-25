@@ -17,6 +17,7 @@
     <result column="loopl" jdbcType="INTEGER" property="loopl" />
     <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="dataStatus" jdbcType="INTEGER" property="dataStatus" />
     <association property="equipmentSystemtype" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
     <association property="equipmentCategory" column="systemId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
@@ -111,7 +112,7 @@
   <sql id="Base_Column_List">
     id, systemId, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, 
     equipmentDate, equipmentRemarks, equipmentCategoryId, projectId, unit, loopl, delStatus, 
-    deviceId, status
+    deviceId, status, dataStatus
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
     select
@@ -152,14 +153,14 @@
       equipmentIdentifier, equipmentPosition, 
       equipmentDate, equipmentRemarks, equipmentCategoryId, 
       projectId, unit, loopl, 
-      delStatus, deviceId, status
-      )
+      delStatus, deviceId, status, 
+      dataStatus)
     values (#{systemId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, 
       #{equipmentIdentifier,jdbcType=VARCHAR}, #{equipmentPosition,jdbcType=VARCHAR}, 
       #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, #{equipmentCategoryId,jdbcType=INTEGER}, 
       #{projectId,jdbcType=INTEGER}, #{unit,jdbcType=INTEGER}, #{loopl,jdbcType=INTEGER}, 
-      #{delStatus,jdbcType=INTEGER}, #{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
-      )
+      #{delStatus,jdbcType=INTEGER}, #{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{dataStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -209,6 +210,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="dataStatus != null">
+        dataStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="equipmentName != null">
@@ -252,6 +256,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dataStatus != null">
+        #{dataStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -312,6 +319,9 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.dataStatus != null">
+        dataStatus = #{record.dataStatus,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -333,7 +343,8 @@
       loopl = #{record.loopl,jdbcType=INTEGER},
       delStatus = #{record.delStatus,jdbcType=INTEGER},
       deviceId = #{record.deviceId,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}   
+      status = #{record.status,jdbcType=INTEGER},
+      dataStatus = #{record.dataStatus,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -383,6 +394,9 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="dataStatus != null">
+        dataStatus = #{dataStatus,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -401,7 +415,8 @@
       loopl = #{loopl,jdbcType=INTEGER},
       delStatus = #{delStatus,jdbcType=INTEGER},
       deviceId = #{deviceId,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      dataStatus = #{dataStatus,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
@@ -1088,7 +1103,10 @@
 	 	update t_equipment set status = #{status} where deviceId = #{deviceId}
 	 </update>
 	 <select id="findEquipmentDeviceId" parameterType="string" resultType="i9.defence.platform.model.Equipment">
-    select  * from t_equipment where deviceId = #{deviceId,jdbcType=VARCHAR}
-  </select>
+	    select  * from t_equipment where deviceId = #{deviceId,jdbcType=VARCHAR}
+	  </select>
+	 <update id="updateEquipmentDataStatus">
+	 	update t_equipment set dataStatus = #{datastatus} where deviceId = #{deviceId}
+	 </update>
 	 
 </mapper>
