@@ -87,4 +87,10 @@ public class ErrHandleDaoImpl implements ErrHandleDao{
 		errHandleMapper.addErrHandles(errHandles);
 	}
 
+	@Override
+	public void updateErrHandles(List<ErrHandle> errHandles) throws Exception {
+		errHandleMapper.updateErrHandles(errHandles);
+	} 
+	
+
 }

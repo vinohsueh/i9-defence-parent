@@ -48,7 +48,7 @@ public class ErrHandleController {
     }
     
     /**
-     *批量处理设备故障 type = 1 故障 或者 设备报警 type = 2 报警  或者 设备隐患 type = 3 隐患
+     *批量处理 设备报警 type = 2 报警  或者 设备隐患 type = 3 隐患
      */
     @RequestMapping("/handlingErrors")
     public HashMap<String, Object> handlingErrors(@RequestBody ErrHandleUnifiedDto errHandleUnifiedDto) {
@@ -57,10 +57,17 @@ public class ErrHandleController {
         return result;
     }
     
+    /**
+     * 批量更新  超过6天的  未处理的type = 2 报警  或者 设备隐患 type = 3 隐患
+    * @Title: errHandleEdit 
+    * @Description: TODO
+    * @param errHandleUnifiedDto
+    * @return
+     */
     @RequestMapping("/errHandleEdit")
-    public HashMap<String, Object> errHandleEdit(@RequestBody ErrHandle errHandle) {
+    public HashMap<String, Object> errHandleEdit(@RequestBody ErrHandleUnifiedDto errHandleUnifiedDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        errHandleService.errHandleEdit(errHandle);
+        errHandleService.errHandleEdit(errHandleUnifiedDto);
         return result;    
     }
     

@@ -61,4 +61,12 @@ public interface ErrHandleMapper {
 	* @Description: TODO
 	 */
 	void addErrHandles(@Param("items") List<ErrHandle> ErrHandles);
+	
+	/**
+	 * 批量更改历史记录
+	* @Title: updateErrHandles 
+	* @Description: TODO
+	* @param errHandles
+	 */
+	void updateErrHandles(@Param("errHandles") List<ErrHandle> errHandles);
 }

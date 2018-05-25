@@ -161,6 +161,25 @@ angular.module('app')
                     }]
                   }
               })
+              
+               .state('app.equipmentLoop', {
+                  url: '/equipmentLoop',
+                  templateUrl: 'proj/equipmentLoop/equipmentLoop.html',
+              	  controller : "equipmentLoopNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'equipmentLoopModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/equipmentLoop/equipmentLoop.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              
                .state('app.streamOrigin', {
                   url: '/streamOrigin',
                   templateUrl: 'proj/streamOrigin/streamOrigin.html',

@@ -161,6 +161,16 @@ public interface EquipmentMapper {
 	* @return
 	 */
 	List<HiddenDangerDto> selectHiddenDangerByIds(@Param("Items") List<Integer> ids);
+	
+	/**
+	 * 根据deviceId查询视图
+	* @Title: selectHiddenDangerByIds 
+	* @Description: TODO
+	* @param ids
+	* @return
+	 */
+	List<HiddenDangerDto> selectHiddenDangerByDevicedIds(@Param("Items") List<Integer> ids);
+	
 	//查询设备地址
 	Equipment findEquipmentDeviceId(String deviceId);
 	

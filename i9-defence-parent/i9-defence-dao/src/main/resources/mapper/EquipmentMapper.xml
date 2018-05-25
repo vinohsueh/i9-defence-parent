@@ -753,6 +753,19 @@
 					#{item}
 				</foreach>
 		</select>
+		<select id="selectHiddenDangerByDevicedIds" resultMap="BaseResultMapDto" parameterType="java.util.List">	
+			SELECT
+				deviceId,
+				equipmentPosition,
+				warningCount,
+				hiddeCount 
+			FROM
+				v_hiddendanger_edit 
+			WHERE deviceId in
+				<foreach collection="Items" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+		</select>
 		
 		
 		
