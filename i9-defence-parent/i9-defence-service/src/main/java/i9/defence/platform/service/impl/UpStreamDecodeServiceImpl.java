@@ -2,7 +2,9 @@ package i9.defence.platform.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,21 @@ import com.alibaba.fastjson.JSONObject;
 import i9.defence.platform.dao.ChannelDataDao;
 import i9.defence.platform.dao.ConnectLogDao;
 import i9.defence.platform.dao.EquipmentDao;
+import i9.defence.platform.dao.PassageWayDao;
 import i9.defence.platform.dao.UpStreamDecodeDao;
 import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ConnectLog;
+import i9.defence.platform.model.HiddenDanger;
+import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.SqlUtil;
+import i9.defence.platform.utils.StringUtil;
 
 /**
  * @author user: jiace
@@ -42,6 +50,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     private ChannelDataDao channelDataDao;
     @Autowired
     private ConnectLogDao connectLogDao;
+    @Autowired
+    private PassageWayDao passageWayDao;
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
         try {
@@ -82,16 +92,44 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         //将数据添加到通道数据表中
         
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+        String systemId = jsonObject.getString("systemId");
+        //根据编号id查询设备关注的所有通道
+        List<Passageway> passageways = passageWayDao.selectPassagewaysBySystemId(systemId);
+        List<Integer> channels = new ArrayList<>();
+        HashMap<Integer, HiddenDanger> map = new HashMap<Integer, HiddenDanger>();
+        for (Passageway passageway : passageways) {
+        	map.put(passageway.getChannel(), passageway.getHiddenDanger());
+        	channels.add(passageway.getChannel());
+		}
+        
+        //定义报警的通道数量
+        int alertNum = 0;
+        //定义隐患的通道数量 
+        int hiddenNum = 0;
 		//获取通道数据
 		List<ChannelData> list = new ArrayList<ChannelData>();
 		JSONArray object = (JSONArray) jsonObject.get("dataList");
 		for (Object object2 : object) {
 			ChannelData channelData = new ChannelData();
-			channelData.setSystemId((String)jsonObject.get("systemId"));
+			channelData.setSystemId(systemId);
 			JSONObject jsonObject2 = (JSONObject)object2;
-			channelData.setType((int)jsonObject2.get("type"));
-			channelData.setChannel((int)jsonObject2.get("channel"));
-			channelData.setValue(String.valueOf(jsonObject2.get("value")));
+			int type = (int)jsonObject2.get("type");
+			channelData.setType(type);
+			int channel = (int)jsonObject2.get("channel");
+			channelData.setChannel(channel);
+			String value = String.valueOf(jsonObject2.get("value"));
+			channelData.setValue(value);
+			//如果数据类型是0 且 错误代码不为00000000  时  记录记录
+			if (0 == type && !SqlUtil.NORMAL_CODE.equals(value) && channels.contains(channel)) {
+				alertNum++;
+			}
+			//查询是否是隐患数据
+			if (Arrays.asList(Constants.DATATYPE).contains(type)) {
+				HiddenDanger hiddenDanger = map.get(channel);
+				if (Double.valueOf(value)>hiddenDanger.getHiddenMax() || Double.valueOf(value)<hiddenDanger.getHiddenMin()){
+					hiddenNum++;
+				}
+			}
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
 			channelData.setSystemType((String)jsonObject.get("systemType"));

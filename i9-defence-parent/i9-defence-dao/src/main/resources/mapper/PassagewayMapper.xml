@@ -41,4 +41,7 @@
 	<delete id="delPassageway" parameterType="i9.defence.platform.model.Passageway">
 		delete from t_passageway where systemId = #{systemId} and channel = #{channel}
 	</delete>
+	<select id="selectChannelsBySystemId" parameterType="string" resultType="int">
+		select channel from t_passageway where systemId = #{systemId}
+	</select>
 </mapper>

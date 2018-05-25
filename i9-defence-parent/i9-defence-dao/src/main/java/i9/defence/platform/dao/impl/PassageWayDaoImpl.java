@@ -39,4 +39,9 @@ public class PassageWayDaoImpl implements PassageWayDao {
 		passagewayMapper.delPassageway(passageway);
 	}
 
+	@Override
+	public List<Integer> selectChannelsBySystemId(String systemId) {
+		return passagewayMapper.selectChannelsBySystemId(systemId);
+	}
+
 }

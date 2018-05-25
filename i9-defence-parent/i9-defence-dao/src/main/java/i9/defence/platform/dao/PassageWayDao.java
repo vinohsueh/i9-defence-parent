@@ -53,4 +53,11 @@ public interface PassageWayDao {
 	 * @param passageway
 	 */
 	void delPassageway(Passageway passageway) throws Exception;
+
+	/**
+	 * 通过设备编号查询设备关注的通道号
+	 * @param systemId
+	 * @return
+	 */
+	List<Integer> selectChannelsBySystemId(String systemId);
 }
