@@ -34,7 +34,7 @@ public class ChannelPacker {
         return this.channel.id().asLongText();
     }
     
-    private AtomicBoolean isLogin;
+    public AtomicBoolean isLogin;
     
     public boolean checkIsLogin() {
         return this.isLogin.get();

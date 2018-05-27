@@ -14,6 +14,10 @@ public class HeartbeatService implements ICoreService {
     public void doPost(Message message, ChannelPacker channelPacker) {
         HeartbeatReqMessage heartbeatReqMessage = (HeartbeatReqMessage) message.getMessageDecodeConvert();
         heartbeatReqMessage.showInfo();
+        channelPacker.systemId = heartbeatReqMessage.systemId;
+        channelPacker.deviceAddress = heartbeatReqMessage.deviceAddress;
+        channelPacker.loop = heartbeatReqMessage.loop;
+        channelPacker.isLogin.set(true);
     }
     
 //    private static final Logger logger = LoggerFactory.getLogger(HeartbeatService.class);
