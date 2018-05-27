@@ -21,4 +21,12 @@ public class ChannelPackerServerContext {
         ChannelPacker channelPacker = this.context.get(channelId);
         return channelPacker;
     }
+    
+//    public void init() {
+//    	for (ChannelPacker channelPacker : this.context.values()) {
+//    		if (channelPacker.canTimeout()) {
+//    			channelPacker.channelClose();
+//    		}
+//    	}
+//    }
 }
