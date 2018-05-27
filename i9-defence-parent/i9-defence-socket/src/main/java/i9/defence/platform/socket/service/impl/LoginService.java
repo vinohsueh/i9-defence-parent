@@ -20,13 +20,13 @@ public class LoginService implements ICoreService {
         LoginReqMessage loginReqMessage = (LoginReqMessage) message.getMessageDecodeConvert();
         loginReqMessage.showInfo();
         channelPacker.saveLoginInfo(loginReqMessage);
-        
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("channelId", channelPacker.getChannelId());
         jsonObject.put("systemId", channelPacker.systemId);
         jsonObject.put("loop", channelPacker.loop);
         jsonObject.put("deviceAddress", channelPacker.deviceAddress);
-        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_CONNECT, jsonObject.toJSONString());
+        jsonObject.put("status", 1);
+        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
     }
     
     @Autowired

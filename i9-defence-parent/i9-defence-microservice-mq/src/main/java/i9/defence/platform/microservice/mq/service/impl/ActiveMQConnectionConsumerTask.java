@@ -39,10 +39,11 @@ public class ActiveMQConnectionConsumerTask extends ActiveMQConsumerTask {
             String systemId = jsonObject.getString("systemId");
             int loop = jsonObject.getInteger("loop");
             String address = jsonObject.getString("deviceAddress");
+            int status = jsonObject.getIntValue("status");
 
             // 通过设备唯一标识更新状态
             String deviceId = StringUtil.getDeviceId(systemId, loop, address);
-            int status = 1;
+//            int status = 1;
             upStreamDecodeService.updateEquipmentStatus(deviceId, status);
             logger.info("update device status success, deviceId : {}, status : {}", deviceId, status);
 

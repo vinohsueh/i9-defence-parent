@@ -24,7 +24,12 @@ public class DisConnectionService {
             jsonObject.put("systemId", channelPacker.systemId);
             jsonObject.put("loop", channelPacker.loop);
             jsonObject.put("deviceAddress", channelPacker.deviceAddress);
-            activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DISCONNECT, jsonObject.toJSONString());
+            jsonObject.put("status", 0);
+            activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
+        }
+        else {
+            logger.info("设备通道号 : " + channelId + "未登录, systemId : {}, loop : {}, deviceAddress : {}", 
+            		channelPacker.systemId, channelPacker.loop, channelPacker.deviceAddress);
         }
         channelPacker.disConnection();
         logger.info("netty 服务器，客户端断开连接 : " + channelId);
