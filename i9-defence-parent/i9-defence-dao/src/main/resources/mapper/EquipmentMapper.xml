@@ -1068,7 +1068,7 @@
 			
 		WHERE `e`.`id` = #{id} 
 			AND cd.channel IN ( SELECT channel FROM  t_passageway where systemId = (select systemId from t_equipment where id = #{id} )) 
-			and cd.type = in(2,5)
+			and cd.type in (2,5)
 			AND `cd`.`dateTime` = (
 				SELECT `t_channel_data`.`dateTime`
 				FROM `t_channel_data`
@@ -1157,7 +1157,7 @@
 	 
 	 <select id="selectOfflineEquipment" resultType="int">
 	 	select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
-		where e.status = 0
+		where e.status in (0,2)
 		<if test="example.projectId != null">
     		AND p.id = #{example.projectId}
     	</if>
