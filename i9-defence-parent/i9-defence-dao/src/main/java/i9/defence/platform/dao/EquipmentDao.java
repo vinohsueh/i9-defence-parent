@@ -261,7 +261,7 @@ public interface EquipmentDao {
 	 * @param deviceId
 	 * @param datastatus
 	 */
-	void updateEquipmentDataStatus(String deviceId, int datastatus);
+	void updateEquipmentDataStatus(String deviceId, int datastatus,int alertStatus);
 	
 	/**
 	 * 更改设备状态

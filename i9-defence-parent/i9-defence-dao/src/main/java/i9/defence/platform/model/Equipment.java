@@ -102,9 +102,17 @@ public class Equipment {
     
     private String equipmentCategoryName;
     
+    private Integer remainAlert;
     
-    
-    public Integer getDataStatus() {
+    public Integer getRemainAlert() {
+		return remainAlert;
+	}
+
+	public void setRemainAlert(Integer remainAlert) {
+		this.remainAlert = remainAlert;
+	}
+
+	public Integer getDataStatus() {
 		return dataStatus;
 	}
 

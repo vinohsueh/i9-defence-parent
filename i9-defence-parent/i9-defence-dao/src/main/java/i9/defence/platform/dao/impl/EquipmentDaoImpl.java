@@ -259,8 +259,8 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	}
 
 	@Override
-	public void updateEquipmentDataStatus(String deviceId, int datastatus) {
-		equipmentMapper.updateEquipmentDataStatus(deviceId,datastatus);
+	public void updateEquipmentDataStatus(String deviceId, int datastatus,int alertStatus) {
+		equipmentMapper.updateEquipmentDataStatus(deviceId,datastatus,alertStatus);
 	}
 
 	@Override
