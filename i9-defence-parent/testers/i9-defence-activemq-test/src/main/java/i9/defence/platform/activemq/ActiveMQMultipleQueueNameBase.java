@@ -13,15 +13,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@ContextConfiguration(classes = SpringConfiguration.class)
-@RunWith(SpringJUnit4ClassRunner.class)
-public class ActiveMQMultipleQueueNameBase extends AbstractJUnit4SpringContextTests {
+public class ActiveMQMultipleQueueNameBase {
     
     @Autowired
     private ActiveMQConsumerService activeMQConsumerService;
 
     @Test
     public void main() throws Exception {
+        
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         executorService.execute(new Runnable() {
             @Override
