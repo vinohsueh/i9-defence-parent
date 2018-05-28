@@ -15,17 +15,18 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 处理ActiveMQ设备掉线消息通知任务
+ * 处理ActiveMQ设备连接消息通知任务
+ * 
  * @author r12
  * 
  */
-public class ActiveMQDisConnectionConsumerTask extends ActiveMQConsumerTask {
+public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(ActiveMQDisConnectionConsumerTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(ActiveMQDeviceStatusConsumerTask.class);
 
     private final TextMessage textMessage;
 
-    public ActiveMQDisConnectionConsumerTask(TextMessage textMessage) {
+    public ActiveMQDeviceStatusConsumerTask(TextMessage textMessage) {
         this.textMessage = textMessage;
     }
 
@@ -38,12 +39,11 @@ public class ActiveMQDisConnectionConsumerTask extends ActiveMQConsumerTask {
             String systemId = jsonObject.getString("systemId");
             int loop = jsonObject.getInteger("loop");
             String address = jsonObject.getString("deviceAddress");
+            int status = jsonObject.getIntValue("status");
 
             // 通过设备唯一标识更新状态
             String deviceId = StringUtil.getDeviceId(systemId, loop, address);
-            
-            // 更新设备连接信息
-            int status = 0;
+//            int status = 1;
             upStreamDecodeService.updateEquipmentStatus(deviceId, status);
             logger.info("update device status success, deviceId : {}, status : {}", deviceId, status);
 

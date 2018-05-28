@@ -36,6 +36,8 @@
     <result column="personLiableMan" jdbcType="VARCHAR" property="personLiableMan" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks"/>
     <result column="newestTime" jdbcType="VARCHAR" property="newestTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="dataStatus" jdbcType="INTEGER" property="dataStatus" />
     <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataFaultDto"/>
   </resultMap>
   <resultMap id="BaseResultMapDto2" type="i9.defence.platform.dao.vo.HiddenDangerDto">
@@ -543,6 +545,16 @@
 		</foreach>
 	</where>
    </update>
+   <update id="updateEquipStatusByIds" parameterType="java.util.List">
+   		update  t_equipment set status = 2
+   		where id in
+   		<foreach collection="items" item="item" separator="," open="(" close=")">
+   			#{item}
+   		</foreach>
+   </update>
+   
+   
+   
    <!-- ———————————— 批量添加设备———————————— -->
    <insert id="insertEquipments" parameterType="java.util.List" useGeneratedKeys="true"
     keyProperty="id">
@@ -649,7 +661,7 @@
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause2">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
-				<if test="example.projectId != null">
+				<if test="example.projectId != null">	
 					and projectId = #{example.projectId}
 				</if>
 				<!--根据设备类型 模糊搜索  -->	
@@ -753,14 +765,13 @@
 				equipmentRemarks,
 				eqCategoryName,
 				projectName,
-				dataStatus,
-				status,
+				datastatus as dataStatus,
 				status,
 			CASE
-				WHEN dataStatus  =1 and status = 1
+				WHEN datastatus  =1 and status = 1
 				THEN
 				getNewestTime ( deviceId )	 
-				WHEN dataStatus  =2 and status = 1
+				WHEN datastatus  =2 and status = 1
 				THEN
 				getNewestHiddenTime(deviceId,systemId)
 				WHEN status = 0
@@ -779,12 +790,13 @@
 		</select>
 		<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto" parameterType="java.util.List">	
 			SELECT
+				id,
 				deviceId,
 				equipmentPosition,
-				warningCount,
-				hiddeCount 
+				datastatus as dataStatus,
+				status as status
 			FROM
-				v_hiddendanger_edit 
+				v_equipment 
 			WHERE id in
 				<foreach collection="Items" item="item" open="(" close=")" separator=",">
 					#{item}

@@ -48,7 +48,7 @@
 	        </thead>
 	        <tbody>
 	          <tr ng-repeat="warning in warningLists" ng-click='choiceItem(warning.id)'>
-          		  <td><label class="i-checks m-b-none" ng-if="warning.typeStr!='离线'"><input class="o-checks" data-id="{{warning.equipmentId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+          		  <td><label class="i-checks m-b-none" ><input class="o-checks" data-id="{{warning.equipmentId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
 	          	  <td ng-click="edit(warning.equipmentId)">{{warning.typeStr}}</td>
 	          	  <td ng-click="edit(warning.equipmentId)">{{warning.projectName}}</td>
 	          	  <td ng-click="edit(warning.equipmentId)">{{warning.eqCategoryName}}</td>

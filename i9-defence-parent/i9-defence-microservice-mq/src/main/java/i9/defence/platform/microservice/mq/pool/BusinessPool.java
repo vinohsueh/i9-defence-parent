@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActiveMQBusinessPool {
+public class BusinessPool {
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
