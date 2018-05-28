@@ -54,6 +54,11 @@ public class HiddenDangerDto {
 	 */
 	private Integer dataStatus;
 	
+	/**
+	 * 旧数据状态
+	 */
+	private Integer remainAlert;
+	
 	private List<EqChannelDataDto> eqChannelDataList;
 	
 	/**
@@ -79,6 +84,13 @@ public class HiddenDangerDto {
 	}
 	public void setDataStatus(Integer dataStatus) {
 		this.dataStatus = dataStatus;
+	}
+	
+	public Integer getRemainAlert() {
+		return remainAlert;
+	}
+	public void setRemainAlert(Integer remainAlert) {
+		this.remainAlert = remainAlert;
 	}
 	public String getNewestTime() {
 		return newestTime;

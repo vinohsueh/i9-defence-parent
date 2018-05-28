@@ -62,11 +62,11 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 					EquipIdsOffLine.add(errHandle.getId());
 				}else{
 					//报警
-					if(1 ==hiddenDangerDto.getDataStatus()) {
+					if(1 ==hiddenDangerDto.getRemainAlert()) {
 						errHandle.setType(2); 
 						deviceIdsWarning.add(hiddenDangerDto.getDeviceId());
 				    //隐患
-					}else if(2 ==hiddenDangerDto.getDataStatus()){
+					}else if(2 ==hiddenDangerDto.getRemainAlert()){
 						errHandle.setType(3); 
 						deviceIdsHidden.add(hiddenDangerDto.getDeviceId());
 					}

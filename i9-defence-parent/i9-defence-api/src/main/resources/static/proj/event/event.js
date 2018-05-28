@@ -107,10 +107,10 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
     				$scope.hiddenEdits[i].status = 'lineOut'
 					$scope.hiddenEdits[i].statusText = '离线';
     			}else{
-    				if($scope.hiddenEdits[i].dataStatus==0){
+    				if($scope.hiddenEdits[i].remainAlert==0){
     					$scope.hiddenEdits[i].status = ''
-    						$scope.hiddenEdits[i].statusText = '正常';
-        			}else if ($scope.hiddenEdits[i].dataStatus == 1){
+						$scope.hiddenEdits[i].statusText = '正常';
+        			}else if ($scope.hiddenEdits[i].remainAlert == 1){
         				$scope.hiddenEdits[i].status = 'danger';
     					$scope.hiddenEdits[i].statusText = '报警';
         			}else{
