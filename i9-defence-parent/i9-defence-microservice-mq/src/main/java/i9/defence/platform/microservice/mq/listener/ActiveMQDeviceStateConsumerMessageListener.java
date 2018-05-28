@@ -1,5 +1,9 @@
 package i9.defence.platform.microservice.mq.listener;
 
+import i9.defence.platform.microservice.mq.pool.ActiveMQBusinessPool;
+import i9.defence.platform.microservice.mq.service.impl.ActiveMQDeviceStatusConsumerTask;
+import i9.defence.platform.mq.libraries.consumer.ActiveMQConsumerService;
+
 import javax.annotation.Resource;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -10,10 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.microservice.mq.pool.ActiveMQBusinessPool;
-import i9.defence.platform.microservice.mq.service.impl.ActiveMQConnectionConsumerTask;
-import i9.defence.platform.mq.libraries.consumer.ActiveMQConsumerService;
-
 @Component
 public class ActiveMQDeviceStateConsumerMessageListener implements MessageListener {  
 
@@ -22,7 +22,7 @@ public class ActiveMQDeviceStateConsumerMessageListener implements MessageListen
         try {
         	TextMessage textMessage = (TextMessage) message; 
             // 处理消息
-            activeMQBusinessPool.execute(new ActiveMQConnectionConsumerTask(textMessage));
+            activeMQBusinessPool.execute(new ActiveMQDeviceStatusConsumerTask(textMessage));
             logger.info("I9_DEVICE_STATE {}, SUCCESS", textMessage.getText());
         } catch (Exception e) {
             logger.info("I9_DEVICE_STATE RECEIVE, ERROR", e);
