@@ -59,7 +59,7 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 				//离线
 				if(0 ==hiddenDangerDto.getStatus()) {
 					errHandle.setType(1); 
-					EquipIdsOffLine.add(errHandle.getId());
+					EquipIdsOffLine.add(hiddenDangerDto.getId());
 				}else{
 					//报警
 					if(1 ==hiddenDangerDto.getRemainAlert()) {

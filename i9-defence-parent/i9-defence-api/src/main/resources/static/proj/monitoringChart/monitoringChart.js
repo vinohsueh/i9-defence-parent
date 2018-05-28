@@ -149,7 +149,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	httpService.post({url:'./hiddenDangerEdit/selectAllHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.projects = data.data.data;
     		for(i in $scope.projects){
-    			if($scope.projects[i].status == 0){
+    			if($scope.projects[i].status == 0 || $scope.projects[i].status == 2){
     				$scope.projects[i].status = 'lineOutLabel';
     				
     			}else{

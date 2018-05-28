@@ -113,7 +113,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
 			for(i in $scope.projects){
-				if($scope.projects[i].status == 0){
+				if($scope.projects[i].status == 0 || $scope.projects[i].status == 2){
 					$scope.projects[i].status = 'lineOut'
 					$scope.projects[i].statusText = '离线';
     			}else{
