@@ -49,3 +49,7 @@
 /i9-defence-parent/i9-defence-observer/.classpath
 /i9-defence-parent/i9-defence-observer/.project
 /i9-defence-parent/i9-defence-observer/.settings
+
+/i9-defence-parent/testers/i9-defence-activemq-test/.classpath
+/i9-defence-parent/testers/i9-defence-activemq-test/.project
+/i9-defence-parent/testers/i9-defence-activemq-test/.settings
