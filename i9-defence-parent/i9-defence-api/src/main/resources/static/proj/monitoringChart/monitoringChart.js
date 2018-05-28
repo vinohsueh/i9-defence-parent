@@ -136,7 +136,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			/*projectName : text,
     			projectAddress : text,*/
     		};
-            console.log(JSON.stringify(pageParam));
+            // console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./equipment/selectTotalEquipmentDto',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.totalCount = data.data.data;
 		});
