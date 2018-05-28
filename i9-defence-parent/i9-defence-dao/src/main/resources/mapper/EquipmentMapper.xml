@@ -1155,7 +1155,7 @@
 	 
 	 <select id="selectOfflineEquipment" resultType="int">
 	 	select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
-		where e.status = 0
+		where e.status in (0,2)
 		<if test="example.projectId != null">
     		AND p.id = #{example.projectId}
     	</if>
