@@ -145,15 +145,19 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 		try {
 			this.addUpStreamDecode(upStreamDecode);
 			channelDataDao.insertBatch(list);
-			//设置 设备的 数据状态
+			//设置 设备当前的 数据状态
 			int datastatus = 0;
+			//设置 设备未处理的状态   
+			int alertStatus = 0;
 			if (alertNum > 0) {
 				datastatus = 1;
+				alertStatus = 1;
 			}else if (0 == alertNum && hiddenNum > 0) {
 				datastatus = 2;
+				alertStatus = 2;
 			}
 			//更新设备的数据状态
-			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus);
+			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus,alertStatus);
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}

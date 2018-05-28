@@ -261,5 +261,14 @@ public interface EquipmentDao {
 	 * @param deviceId
 	 * @param datastatus
 	 */
-	void updateEquipmentDataStatus(String deviceId, int datastatus);
+	void updateEquipmentDataStatus(String deviceId, int datastatus,int alertStatus);
+	
+	/**
+	 * 更改设备状态
+	* @Title: updateEquipStatusByIds 
+	* @Description: TODO
+	* @param ids
+	* @throws Exception
+	 */
+	void updateEquipStatusByIds(List<Integer> ids)throws Exception ;
 }

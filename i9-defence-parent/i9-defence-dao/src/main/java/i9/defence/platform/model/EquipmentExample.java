@@ -1124,6 +1124,66 @@ public class EquipmentExample {
 			addCriterion("dataStatus not between", value1, value2, "dataStatus");
 			return (Criteria) this;
 		}
+
+		public Criteria andRemainAlertIsNull() {
+			addCriterion("remainAlert is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertIsNotNull() {
+			addCriterion("remainAlert is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertEqualTo(Integer value) {
+			addCriterion("remainAlert =", value, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertNotEqualTo(Integer value) {
+			addCriterion("remainAlert <>", value, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertGreaterThan(Integer value) {
+			addCriterion("remainAlert >", value, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertGreaterThanOrEqualTo(Integer value) {
+			addCriterion("remainAlert >=", value, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertLessThan(Integer value) {
+			addCriterion("remainAlert <", value, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertLessThanOrEqualTo(Integer value) {
+			addCriterion("remainAlert <=", value, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertIn(List<Integer> values) {
+			addCriterion("remainAlert in", values, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertNotIn(List<Integer> values) {
+			addCriterion("remainAlert not in", values, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertBetween(Integer value1, Integer value2) {
+			addCriterion("remainAlert between", value1, value2, "remainAlert");
+			return (Criteria) this;
+		}
+
+		public Criteria andRemainAlertNotBetween(Integer value1, Integer value2) {
+			addCriterion("remainAlert not between", value1, value2, "remainAlert");
+			return (Criteria) this;
+		}
 	}
 
 	public static class Criteria extends GeneratedCriteria {

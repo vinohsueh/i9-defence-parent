@@ -57,6 +57,9 @@ public interface EquipmentMapper {
     void insertPassageWay(@Param("Passageway") Passageway passageway);
     
     void updateEquipments(@Param("applies") List<Equipment> applies) ;
+    
+    void updateEquipStatusByIds(@Param("items") List<Integer> ids) ;
+    
     //隐患报警分页查询
     List<HiddenDangerDto> selectHiddenDangerByLimitPage(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
@@ -180,6 +183,6 @@ public interface EquipmentMapper {
 	 * @param deviceId
 	 * @param datastatus
 	 */
-	void updateEquipmentDataStatus(@Param("deviceId") String deviceId,@Param("datastatus") int datastatus);
+	void updateEquipmentDataStatus(@Param("deviceId") String deviceId,@Param("datastatus") int datastatus,@Param("alertStatus") int alertStatus);
 
 }

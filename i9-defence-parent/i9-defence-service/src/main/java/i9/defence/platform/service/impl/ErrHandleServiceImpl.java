@@ -44,6 +44,8 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 			List<String> deviceIdsWarning=new ArrayList<String>(); 
 			//封装所有的隐患deviceId
 			List<String> deviceIdsHidden=new ArrayList<String>(); 
+			//封装所有的离线deviceId
+			List<Integer> EquipIdsOffLine=new ArrayList<Integer>(); 
 			//根据ids获取到所有
 			List<HiddenDangerDto> equipProblems = equipmentDao.selectHiddenDangerByIds(errHandleUnifiedDto.getEqIds());
 			for(HiddenDangerDto hiddenDangerDto:equipProblems) {
@@ -54,16 +56,27 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 				errHandle.setEqDeviceId(hiddenDangerDto.getDeviceId());
 				errHandle.setEqAddRess(hiddenDangerDto.getEquipmentPosition());
 				errHandle.setHandleCon(errHandleUnifiedDto.getHandleCon());
-				if(hiddenDangerDto.getWarningCount()>0) {
-					errHandle.setType(2); 
-					deviceIdsWarning.add(hiddenDangerDto.getDeviceId());
-				}else if(hiddenDangerDto.getHiddeCount()>0) {
-					errHandle.setType(3); 
-					deviceIdsHidden.add(hiddenDangerDto.getDeviceId());
+				//离线
+				if(0 ==hiddenDangerDto.getStatus()) {
+					errHandle.setType(1); 
+					EquipIdsOffLine.add(errHandle.getId());
+				}else{
+					//报警
+					if(1 ==hiddenDangerDto.getDataStatus()) {
+						errHandle.setType(2); 
+						deviceIdsWarning.add(hiddenDangerDto.getDeviceId());
+				    //隐患
+					}else if(2 ==hiddenDangerDto.getDataStatus()){
+						errHandle.setType(3); 
+						deviceIdsHidden.add(hiddenDangerDto.getDeviceId());
+					}
 				}
 				errHandles.add(errHandle);
 			}
 			errHandleDao.addErrHandle(errHandles);
+			if(0 !=EquipIdsOffLine.size()) {
+				equipmentDao.updateEquipStatusByIds(EquipIdsOffLine);
+			}
 			if(0!= deviceIdsWarning.size()) {
 				errHandleDao.updateHandleFault(deviceIdsWarning);
 			}
