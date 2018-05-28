@@ -12,8 +12,7 @@
         http://activemq.apache.org/schema/core
         http://activemq.apache.org/schema/core/activemq-core-5.7.0.xsd">
 
-	<context:component-scan base-package="i9.defence.platform" use-default-filters="false">
-	</context:component-scan>
+	<context:component-scan base-package="i9.defence.platform"></context:component-scan>
 
 	<amq:connectionFactory id="amqConnectionFactory"
 		brokerURL="tcp://103.248.102.21:61616" userName="admin" password="admin" />
