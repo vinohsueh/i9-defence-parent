@@ -20,7 +20,8 @@ public class ActiveMQMultipleQueueNameBase {
 
     @Test
     public void main() throws Exception {
-        
+        String[] path = { "classpath:spring_activemq.xml" };
+        ApplicationContext context = new FileSystemXmlApplicationContext(path);
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         executorService.execute(new Runnable() {
             @Override
