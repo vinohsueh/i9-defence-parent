@@ -23,13 +23,13 @@ public class HeartbeatService implements ICoreService {
         channelPacker.deviceAddress = heartbeatReqMessage.deviceAddress;
         channelPacker.loop = heartbeatReqMessage.loop;
         if (channelPacker.isLogin.get() == false) {
-        	JSONObject jsonObject = new JSONObject();
-            jsonObject.put("channelId", channelPacker.getChannelId());
-            jsonObject.put("systemId", channelPacker.systemId);
-            jsonObject.put("loop", channelPacker.loop);
-            jsonObject.put("deviceAddress", channelPacker.deviceAddress);
-            jsonObject.put("status", 1);
-            activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
+	    	JSONObject jsonObject = new JSONObject();
+	        jsonObject.put("channelId", channelPacker.getChannelId());
+	        jsonObject.put("systemId", channelPacker.systemId);
+	        jsonObject.put("loop", channelPacker.loop);
+	        jsonObject.put("deviceAddress", channelPacker.deviceAddress);
+	        jsonObject.put("status", 1);
+	        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
         }
         channelPacker.isLogin.set(true);
     }
