@@ -727,13 +727,13 @@
 					and example.endDate &gt; equipmentDate
 				</if> -->
 				<!-- and (status=0) or (status=1 and warningCount+hiddeCount!=0) -->
-				and (status=0) or (status=1 and dataStatus!=0)
+				and (status=0) or (status=1 and remainAlert!=0)
 			</trim>
 		</sql>
 		
 		
 		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,dataStatus from v_equipment
+			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -743,7 +743,7 @@
 		</select>
 		<!-- 分页查询 -->
 		<select  id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto2">
-		select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,personLiableMan,status,dataStatus from v_equipment
+		select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment
 		<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -784,11 +784,12 @@
 				projectName,
 				datastatus as dataStatus,
 				status,
+				remainAlert,
 			CASE
-				WHEN datastatus  =1 and status = 1
+				WHEN remainAlert  =1 and status = 1
 				THEN
 				getNewestTime ( deviceId )	 
-				WHEN datastatus  =2 and status = 1
+				WHEN remainAlert  =2 and status = 1
 				THEN
 				getNewestHiddenTime(deviceId,systemId)
 				WHEN status = 0
@@ -811,7 +812,8 @@
 				deviceId,
 				equipmentPosition,
 				datastatus as dataStatus,
-				status as status
+				status as status,
+				remainAlert
 			FROM
 				v_equipment 
 			WHERE id in

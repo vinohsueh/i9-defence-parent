@@ -94,7 +94,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 				eqCategoryName : $scope.eqCategoryName,
 				// orderByClause: 'warningCount desc'
 			};
-			console.log(JSON.stringify(pageParam));
+			// console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit2',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
 			$scope.equipmentCategorys = data.data.equipmentCategory;
@@ -107,10 +107,10 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
     				$scope.hiddenEdits[i].status = 'lineOut'
 					$scope.hiddenEdits[i].statusText = '离线';
     			}else{
-    				if($scope.hiddenEdits[i].dataStatus==0){
+    				if($scope.hiddenEdits[i].remainAlert==0){
     					$scope.hiddenEdits[i].status = ''
-    						$scope.hiddenEdits[i].statusText = '正常';
-        			}else if ($scope.hiddenEdits[i].dataStatus == 1){
+						$scope.hiddenEdits[i].statusText = '正常';
+        			}else if ($scope.hiddenEdits[i].remainAlert == 1){
         				$scope.hiddenEdits[i].status = 'danger';
     					$scope.hiddenEdits[i].statusText = '报警';
         			}else{
