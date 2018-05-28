@@ -94,6 +94,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 				eqCategoryName : $scope.eqCategoryName,
 				// orderByClause: 'warningCount desc'
 			};
+			console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit2',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
 			$scope.equipmentCategorys = data.data.equipmentCategory;
@@ -150,9 +151,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	    	var date = new Date(d);
 	    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
 	    }
-		setTimeout(function () {
-		    $scope.pageInit();
-		},600000);
+		
 	
 	    $scope.passagewayInit = function (){
 	    	var pageParam = {
@@ -414,9 +413,13 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	
 	
 	$scope.initTable();
-	setTimeout(function () {
+	var myInterval = setInterval(function () {
 	    $scope.initTable();
-	},600000);
+	},10000);
+	$scope.$on("$destroy", function() {
+	    clearInterval(myInterval);
+	    myInterval = undefined;
+	});
 	//修改分页大小
 	$scope.changePageSize = function(){
 		$scope.currentPage = 1;

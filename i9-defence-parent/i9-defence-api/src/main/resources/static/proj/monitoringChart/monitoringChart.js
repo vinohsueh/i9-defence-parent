@@ -57,7 +57,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     
 	//首页跳转过来的项目id
     $scope.projectId=$stateParams.id;
-	console.log($scope.projectId);
 
 	$scope.getDate = function (index){
 	    var date = new Date(); //当前日期
@@ -184,9 +183,13 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     	})
     };
     $scope.pageInit();
-    setTimeout(function () {
+    var myInterval = setInterval(function () {
         $scope.pageInit();
-    },600000);
+    },10000);
+    $scope.$on("$destroy", function() {
+        clearInterval(myInterval);
+        myInterval = undefined;
+    });
     $scope.passagewayInit = function (){
     	var text = $scope.searchText;
     	var pageParam = {

@@ -109,6 +109,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				projectCity:$scope.selected2.name,
 				projectCounty:$scope.selected3.value,*/
 			};
+			console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
 			for(i in $scope.projects){
@@ -166,9 +167,13 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
 	$scope.pageInit();
-	setTimeout(function () {
+	var myInterval = setInterval(function () {
 	    $scope.pageInit();
-	},600000);
+	},10000);
+	$scope.$on("$destroy", function() {
+	    clearInterval(myInterval);
+	    myInterval = undefined;
+	});
 	$scope.passagewayInit = function (){
 		var text = $scope.searchText;
 		var pageParam = {
@@ -178,7 +183,6 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 				/*projectName : text,
 				projectAddress : text,*/
 			};
-		console.log(pageParam)
 		httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.equipmentInfo = data.data.data;
 			$scope.equipment = data.data.equip;
