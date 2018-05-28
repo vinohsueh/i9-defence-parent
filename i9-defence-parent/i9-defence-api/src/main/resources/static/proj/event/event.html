@@ -148,7 +148,7 @@
 	        </div>
 	      </div>
 	      <div class='row'>
-    <div class="mPane hFull col-xs-6 col-sm-3">
+    <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title">项目信息</div>
       <div class="body">
         <p>负责人：{{equipment.clientName}}</p>
@@ -157,13 +157,13 @@
         <p>安全负责人电话：{{equipment.safePhone}}</p>
       </div>
     </div>
-    <div class="mPane col-xs-12 col-sm-6">
+    <div class="mPane col-xs-12 col-sm-8">
       <div class="title clearify">
         具体数据
         <div class='pull-right form-inline'>
           <div class="form-group">
             <label for="">通道选择:</label>
-            <select name="" id="" class='form-control blue_bg' ng-change='changeLine()' ng-model="passageway" ng-options="x as y for (x, y) in equipmentCheckArr">
+            <select name="" id="" class='form-control blue_bg' ng-change='changeLine()' ng-model="passageway" ng-options="x as y for (x, y) in equipmentCheckArr" style='max-width: 130px;'>
               <!-- <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -209,7 +209,7 @@
         <div e-chart options="option"></div>
       </div>
     </div>
-    <div class="mPane hFull col-xs-6 col-sm-3">
+    <div class="mPane hFull col-xs-6 col-sm-2">
       <div class="title" >处理详情</div>
       <div class="body"  ng-if="statusText !='离线'">
         <textarea style="resize:none;" cols="30" rows="4" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>

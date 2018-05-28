@@ -39,7 +39,7 @@
         </thead>
         <tbody >
           <tr ng-repeat="connectLog in connectLogs">
-            <td ng-if="connectLog.projectName == null" >非法设备</td>
+            <td ng-if="connectLog.projectName == null" >未知设备</td>
             <td ng-if="connectLog.projectName != null" >{{connectLog.projectName}}</td>
             <td >{{connectLog.eqCategoryName}}</td>
             <!-- <td >{{connectLog.connectLogDateStr}}</td> -->
