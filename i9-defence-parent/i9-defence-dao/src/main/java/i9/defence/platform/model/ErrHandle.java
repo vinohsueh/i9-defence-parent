@@ -163,10 +163,14 @@ public class ErrHandle {
 	}
 
 	public String getTypeStr() {
-		if (type == 2) {
+		if (2 ==type) {
 			this.typeStr = "报警";
-		}else {
+		}else if(3 ==type) {
 			this.typeStr = "隐患";
+		}else if(1 ==type){
+			this.typeStr = "离线";
+		}else {
+			this.typeStr = "正常";
 		}
 		return typeStr;
 	}

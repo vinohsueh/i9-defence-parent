@@ -18,6 +18,7 @@
     <result column="delStatus" jdbcType="INTEGER" property="delStatus" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="dataStatus" jdbcType="INTEGER" property="dataStatus" />
+    <result column="remainAlert" jdbcType="INTEGER" property="remainAlert" />
     <association property="equipmentSystemtype" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
     <association property="equipmentCategory" column="systemId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
@@ -36,6 +37,9 @@
     <result column="personLiableMan" jdbcType="VARCHAR" property="personLiableMan" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks"/>
     <result column="newestTime" jdbcType="VARCHAR" property="newestTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="dataStatus" jdbcType="INTEGER" property="dataStatus" />
+   	<result column="remainAlert" jdbcType="INTEGER" property="remainAlert" />
     <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataFaultDto"/>
   </resultMap>
   <resultMap id="BaseResultMapDto2" type="i9.defence.platform.dao.vo.HiddenDangerDto">
@@ -50,6 +54,7 @@
     <result column="personLiableMan" jdbcType="VARCHAR" property="personLiableMan" />
     <result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks"/>
     <result column="newestTime" jdbcType="VARCHAR" property="newestTime" />
+   	<result column="remainAlert" jdbcType="INTEGER" property="remainAlert" />
     <collection column="id"  property="eqChannelDataList" select="selectEqChannelDataDto"/>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -124,9 +129,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, systemId, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, 
+     id, systemId, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, 
     equipmentDate, equipmentRemarks, equipmentCategoryId, projectId, unit, loopl, delStatus, 
-    deviceId, status, dataStatus
+    deviceId, status, dataStatus, remainAlert
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
     select
@@ -168,13 +173,13 @@
       equipmentDate, equipmentRemarks, equipmentCategoryId, 
       projectId, unit, loopl, 
       delStatus, deviceId, status, 
-      dataStatus)
+      dataStatus, remainAlert)
     values (#{systemId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, 
       #{equipmentIdentifier,jdbcType=VARCHAR}, #{equipmentPosition,jdbcType=VARCHAR}, 
       #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, #{equipmentCategoryId,jdbcType=INTEGER}, 
       #{projectId,jdbcType=INTEGER}, #{unit,jdbcType=INTEGER}, #{loopl,jdbcType=INTEGER}, 
       #{delStatus,jdbcType=INTEGER}, #{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{dataStatus,jdbcType=INTEGER})
+      #{dataStatus,jdbcType=INTEGER}, #{remainAlert,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -227,6 +232,9 @@
       <if test="dataStatus != null">
         dataStatus,
       </if>
+      <if test="remainAlert != null">
+        remainAlert,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="equipmentName != null">
@@ -273,6 +281,9 @@
       </if>
       <if test="dataStatus != null">
         #{dataStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remainAlert != null">
+        #{remainAlert,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -336,6 +347,9 @@
       <if test="record.dataStatus != null">
         dataStatus = #{record.dataStatus,jdbcType=INTEGER},
       </if>
+      <if test="record.remainAlert != null">
+        remainAlert = #{record.remainAlert,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -358,7 +372,8 @@
       delStatus = #{record.delStatus,jdbcType=INTEGER},
       deviceId = #{record.deviceId,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
-      dataStatus = #{record.dataStatus,jdbcType=INTEGER}
+      dataStatus = #{record.dataStatus,jdbcType=INTEGER},
+      remainAlert = #{record.remainAlert,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -411,6 +426,9 @@
       <if test="dataStatus != null">
         dataStatus = #{dataStatus,jdbcType=INTEGER},
       </if>
+      <if test="remainAlert != null">
+        remainAlert = #{remainAlert,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -430,7 +448,8 @@
       delStatus = #{delStatus,jdbcType=INTEGER},
       deviceId = #{deviceId,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
-      dataStatus = #{dataStatus,jdbcType=INTEGER}
+      dataStatus = #{dataStatus,jdbcType=INTEGER},
+      remainAlert = #{remainAlert,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
@@ -543,6 +562,16 @@
 		</foreach>
 	</where>
    </update>
+   <update id="updateEquipStatusByIds" parameterType="java.util.List">
+   		update  t_equipment set status = 2
+   		where id in
+   		<foreach collection="items" item="item" separator="," open="(" close=")">
+   			#{item}
+   		</foreach>
+   </update>
+   
+   
+   
    <!-- ———————————— 批量添加设备———————————— -->
    <insert id="insertEquipments" parameterType="java.util.List" useGeneratedKeys="true"
     keyProperty="id">
@@ -649,7 +678,7 @@
 		<sql id="Query_HiddenDanger_By_Dto_Where_Clause2">
 			<trim prefix="WHERE" prefixOverrides="AND|OR">
 				<!--根据项目名称 模糊搜索  -->	
-				<if test="example.projectId != null">
+				<if test="example.projectId != null">	
 					and projectId = #{example.projectId}
 				</if>
 				<!--根据设备类型 模糊搜索  -->	
@@ -753,14 +782,13 @@
 				equipmentRemarks,
 				eqCategoryName,
 				projectName,
-				dataStatus,
-				status,
+				datastatus as dataStatus,
 				status,
 			CASE
-				WHEN dataStatus  =1 and status = 1
+				WHEN datastatus  =1 and status = 1
 				THEN
 				getNewestTime ( deviceId )	 
-				WHEN dataStatus  =2 and status = 1
+				WHEN datastatus  =2 and status = 1
 				THEN
 				getNewestHiddenTime(deviceId,systemId)
 				WHEN status = 0
@@ -779,12 +807,13 @@
 		</select>
 		<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto" parameterType="java.util.List">	
 			SELECT
+				id,
 				deviceId,
 				equipmentPosition,
-				warningCount,
-				hiddeCount 
+				datastatus as dataStatus,
+				status as status
 			FROM
-				v_hiddendanger_edit 
+				v_equipment 
 			WHERE id in
 				<foreach collection="Items" item="item" open="(" close=")" separator=",">
 					#{item}
@@ -1037,6 +1066,7 @@
 			
 		WHERE `e`.`id` = #{id} 
 			AND cd.channel IN ( SELECT channel FROM  t_passageway where systemId = (select systemId from t_equipment where id = #{id} )) 
+			and cd.type in (2,5)
 			AND `cd`.`dateTime` = (
 				SELECT `t_channel_data`.`dateTime`
 				FROM `t_channel_data`
@@ -1125,7 +1155,7 @@
 	 
 	 <select id="selectOfflineEquipment" resultType="int">
 	 	select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
-		where e.status = 0
+		where e.status in (0,2)
 		<if test="example.projectId != null">
     		AND p.id = #{example.projectId}
     	</if>
@@ -1176,7 +1206,7 @@
 	    select  * from t_equipment where deviceId = #{deviceId,jdbcType=VARCHAR}
 	  </select>
 	 <update id="updateEquipmentDataStatus">
-	 	update t_equipment set dataStatus = #{datastatus} where deviceId = #{deviceId}
+	 	update t_equipment set dataStatus = #{datastatus},alertStatus = #{alertStatus} where deviceId = #{deviceId}
 	 </update>
 	 
 </mapper>

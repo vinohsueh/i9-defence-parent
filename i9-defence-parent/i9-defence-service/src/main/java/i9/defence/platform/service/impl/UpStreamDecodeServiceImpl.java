@@ -22,6 +22,7 @@ import i9.defence.platform.dao.UpStreamDecodeDao;
 import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ConnectLog;
+import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.UpStreamDecode;
@@ -145,15 +146,38 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 		try {
 			this.addUpStreamDecode(upStreamDecode);
 			channelDataDao.insertBatch(list);
-			//设置 设备的 数据状态
+			Equipment equipment = equipmentDao.findEquipmentDeviceId(deviceId);
+			//设置 设备当前的 数据状态
 			int datastatus = 0;
 			if (alertNum > 0) {
 				datastatus = 1;
 			}else if (0 == alertNum && hiddenNum > 0) {
 				datastatus = 2;
 			}
+			//设置 设备未处理的状态   
+			int alertStatus = 0;
+			//设备的遗留状态
+			int equipmentRemainStatus = equipment.getRemainAlert();
+			//如果遗留状态为正常
+			if (0 == equipmentRemainStatus) {
+				if (alertNum > 0) {
+					alertStatus = 1;
+				}else if (0 == alertNum && hiddenNum > 0) {
+					alertStatus = 2;
+				}
+			}else if (1 == equipmentRemainStatus){
+				//如果遗留状态为报警
+				alertStatus = 1;
+			}else if (2 == equipmentRemainStatus){
+				//如果遗留状态为隐患
+				if (alertNum > 0) {
+					alertStatus = 1;
+				}else{
+					alertStatus = 2;
+				}
+			}
 			//更新设备的数据状态
-			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus);
+			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus,alertStatus);
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
