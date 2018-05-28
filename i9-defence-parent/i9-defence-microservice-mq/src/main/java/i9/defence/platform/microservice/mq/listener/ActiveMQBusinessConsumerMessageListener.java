@@ -1,5 +1,9 @@
 package i9.defence.platform.microservice.mq.listener;
 
+import i9.defence.platform.microservice.mq.pool.BusinessPool;
+import i9.defence.platform.microservice.mq.service.impl.ActiveMQBusinessConsumerTask;
+import i9.defence.platform.mq.libraries.consumer.ActiveMQConsumerService;
+
 import javax.annotation.Resource;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -10,10 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import i9.defence.platform.microservice.mq.pool.ActiveMQBusinessPool;
-import i9.defence.platform.microservice.mq.service.impl.ActiveMQBusinessConsumerTask;
-import i9.defence.platform.mq.libraries.consumer.ActiveMQConsumerService;
-
 @Component
 public class ActiveMQBusinessConsumerMessageListener implements MessageListener {
 
@@ -22,7 +22,7 @@ public class ActiveMQBusinessConsumerMessageListener implements MessageListener 
         try {
         	TextMessage textMessage = (TextMessage) message; 
             // 处理消息
-            activeMQBusinessPool.execute(new ActiveMQBusinessConsumerTask(textMessage));
+        	pool.execute(new ActiveMQBusinessConsumerTask(textMessage));
             logger.info("I9_BUSINESS {}, SUCCESS", textMessage.getText());
         } catch (Exception e) {
             logger.info("I9_BUSINESS RECEIVE, ERROR", e);
@@ -35,5 +35,5 @@ public class ActiveMQBusinessConsumerMessageListener implements MessageListener 
     private ActiveMQConsumerService activeMQConsumerService;
 
     @Autowired
-    private ActiveMQBusinessPool activeMQBusinessPool;
+    private BusinessPool pool;
 }
