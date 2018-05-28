@@ -2,7 +2,6 @@ package i9.defence.platform.api.controller;
 
 import java.util.HashMap;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,6 @@ public class ConnectLogController {
 	     * @param pageSize
 	     * @return
 	     */
-	    @RequiresPermissions("equip_classify_list")
 	    @RequestMapping("/pageConnectLog")
 	    public HashMap<String, Object> pageConnectLog(@RequestBody ConnectLogDto connectLogDto) {
 	        HashMap<String, Object> result = new HashMap<String, Object>();
