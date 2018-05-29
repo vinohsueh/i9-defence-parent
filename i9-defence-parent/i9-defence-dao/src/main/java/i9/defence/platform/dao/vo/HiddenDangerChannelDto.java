@@ -1,7 +1,9 @@
 package i9.defence.platform.dao.vo;
 
 import java.util.Date;
+import java.util.List;
 
+import i9.defence.platform.cache.ErrorTypeCache;
 import i9.defence.platform.utils.StringUtil;
 
 /**
@@ -43,6 +45,36 @@ public class HiddenDangerChannelDto {
 	 * 处理详情
 	 */
 	private String dealDetail;
+	
+	private Integer type;
+	
+	private Integer equipmentCategoryId;
+	
+	private String channelName;
+	
+	public String getChannelName() {
+		return channelName;
+	}
+
+	public void setChannelName(String channelName) {
+		this.channelName = channelName;
+	}
+
+	public Integer getEquipmentCategoryId() {
+		return equipmentCategoryId;
+	}
+
+	public void setEquipmentCategoryId(Integer equipmentCategoryId) {
+		this.equipmentCategoryId = equipmentCategoryId;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
 	public Integer getDealStatus() {
 		return dealStatus;
@@ -114,4 +146,36 @@ public class HiddenDangerChannelDto {
 		}
 		return "";
 	}
+	
+	public String getChannelValue() {
+        if (type == 0) {
+        	if (ErrorTypeCache.getCacheJhType(value+equipmentCategoryId) == 1) {
+        		String faultNames = ErrorTypeCache.getCacheDict(value+equipmentCategoryId);
+        		String [] faultNameArray = faultNames.split("/");
+        		if (faultNameArray.length < 2 ){
+        			return "未知故障(格式定义错误)";
+        		}
+        		List<Integer> fault1Channels = ErrorTypeCache.getCacheFault1Channels(value+equipmentCategoryId);
+        		if (fault1Channels != null && fault1Channels.size() != 0) {
+        			if (fault1Channels.contains(channel)){
+            			return faultNameArray[0];
+            		} 
+        		}
+        		
+        		List<Integer> fault2Channels = ErrorTypeCache.getCacheFault2Channels(value+equipmentCategoryId);
+        		if (fault2Channels != null && fault2Channels.size() != 0) {
+        			if (fault2Channels.contains(channel)){
+            			return faultNameArray[1];
+            		} 
+        		}
+        		
+    			return "未定义该通道故障名称";
+        	
+        	}else{
+        		return ErrorTypeCache.getCacheDict(value+equipmentCategoryId);
+        	}
+        } else {
+            return value;
+        }
+    }
 }

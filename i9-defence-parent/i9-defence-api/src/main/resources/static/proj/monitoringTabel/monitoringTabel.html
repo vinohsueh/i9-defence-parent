@@ -61,7 +61,7 @@
             <td>{{project.projectName}}</td>
             <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
             <td>
-              <span class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
+              <span ng-if="project.statusText != '离线'" class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
             </td>
           </tr>
         </tbody>
