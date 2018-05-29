@@ -9,7 +9,7 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 		equipmentFault,eqSystemCategorys,httpService) {
 	
 	//选择状态判断
-	$scope.checkMore = true;	//是否选择过温过流
+	$scope.checkMore = false;	//是否选择过温过流
 
 
 
