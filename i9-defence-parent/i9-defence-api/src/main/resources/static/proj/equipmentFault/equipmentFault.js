@@ -116,6 +116,8 @@ var equipmentFaultControl=equipmentFaultModule.controller('equipmentFaultControl
     $scope.edit = function (id) { 
     	httpService.post({url:'./equipmentFault/getById',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentFault = data.data.data;
+    		$scope.equipmentFault.activationOneStr = data.data.activationOneStr;
+    		$scope.equipmentFault.activationTwoStr = data.data.activationTwoStr;
     		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
     			$scope.eqSystemCategorys = data.data.eqSystemCategory;
 	    		//$scope.equipmentCategory = data.data.equipmentCategory;

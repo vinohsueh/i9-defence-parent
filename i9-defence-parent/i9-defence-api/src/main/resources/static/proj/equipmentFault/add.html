@@ -72,42 +72,24 @@
 				</div>
 				<div class="row" ng-if='checkMore' id='checkUp'>
 					<p class='col-md-offset-2 col-md-8'>
-						<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='8'><i></i>8
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='9'><i></i>9
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='10'><i></i>10
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='11'><i></i>11
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='12'><i></i>12
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='13'><i></i>13
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='14'><i></i>14
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='15'><i></i>15
+						<label class="i-checks m-b-none" ng-repeat="i in chooseObj1">
+	                		<input type="checkbox" class="ckbox" ng-checked="i.check" ng-value='i.value'><i></i>{{i.value}}
 	              		</label>
 					</p>
 				</div>
 				<div class="row" ng-if='checkMore'>
 					<p class='col-md-offset-2'>
-			      		名称一
+			      		名称二
 						<!-- <input type="checkbox" id='checkUp'>
 						<label for="checkUp">过温激活</label> -->
 					</p>
 				</div>
 				<div class="row" ng-if='checkMore' id='checkDown'>
 					<p class='col-md-offset-2 col-md-8'>
-						<label class="i-checks m-b-none">
+						<label class="i-checks m-b-none" ng-repeat="i in chooseObj2">
+	                		<input type="checkbox" class="ckbox" ng-checked="i.check" ng-value='i.value'><i></i>{{i.value}}
+	              		</label>
+						<!-- <label class="i-checks m-b-none">
 	                		<input type="checkbox" class="ckbox" value='8'><i></i>8
 	              		</label>
 	              		<label class="i-checks m-b-none">
@@ -130,7 +112,7 @@
 	              		</label>
 	              		<label class="i-checks m-b-none">
 	                		<input type="checkbox" class="ckbox" value='15'><i></i>15
-	              		</label>
+	              		</label> -->
 					</p>
 				</div>
 			</form>

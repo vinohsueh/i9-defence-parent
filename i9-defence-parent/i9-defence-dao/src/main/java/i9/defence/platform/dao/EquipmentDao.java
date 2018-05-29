@@ -271,4 +271,13 @@ public interface EquipmentDao {
 	* @throws Exception
 	 */
 	void updateEquipStatusByIds(List<Integer> ids)throws Exception ;
+	
+	/**
+	 * 更改设备旧状态
+	* @Title: updateEquipRemainAlertByDeviceIds 
+	* @Description: TODO
+	* @param ids
+	* @throws Exception
+	 */
+	void updateEquipRemainAlertByDeviceIds(List<String> deviceIds)throws Exception ;
 }

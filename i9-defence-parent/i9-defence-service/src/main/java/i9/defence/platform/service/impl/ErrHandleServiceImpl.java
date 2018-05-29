@@ -79,9 +79,11 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 			}
 			if(0!= deviceIdsWarning.size()) {
 				errHandleDao.updateHandleFault(deviceIdsWarning);
+				equipmentDao.updateEquipRemainAlertByDeviceIds(deviceIdsWarning);
 			}
 			if(0!= deviceIdsHidden.size()) {
 				errHandleDao.updateHandleHidden(deviceIdsHidden);
+				equipmentDao.updateEquipRemainAlertByDeviceIds(deviceIdsHidden);
 			}
 			/*//设备
 			Equipment equipment = equipmentDao.getEquipmentById(errHandleUnifiedDto.getEqId());

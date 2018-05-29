@@ -185,4 +185,12 @@ public interface EquipmentMapper {
 	 */
 	void updateEquipmentDataStatus(@Param("deviceId") String deviceId,@Param("datastatus") int datastatus,@Param("alertStatus") int alertStatus);
 
+	/**
+	 * 更改设备旧状态
+	* @Title: updateEquipRemainAlertByDeviceIds 
+	* @Description: TODO
+	* @param ids
+	 */
+	void updateEquipRemainAlertByDeviceIds(@Param("items") List<String> deviceIds);
+
 }
