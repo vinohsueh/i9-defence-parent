@@ -53,16 +53,26 @@
 						</select>
 					</div>
 				</div>
-				<div class="row">
+				<div class="form-group">
+						<label class="col-md-2 control-label">多名称故障</label>
+						<div class="col-md-10" style="padding-top: 11px;">
+							<label class="i-checks m-b-none" for='checkMore'>
+								<input type="checkbox" id='checkMore' class="ckbox" ng-model='checkMore'><i></i>多名称故障
+							</label>
+							<span class='required pt-0'>如需选择多名称，请按照此格式填名称（名称一/名称二）</span>
+						</div>
+					</p>
+				</div>
+				<!-- <div class="row">
 					<p class='col-md-offset-1'>
 			      		<label class="i-checks m-b-none" for='checkMore'>
 	                		<input type="checkbox" id='checkMore' class="ckbox" ng-model='checkMore'><i></i>多名称故障
 	              		</label>
 	              		<span class='required pt-0'>如需选择多名称，请按照此格式（名称一/名称二）</span>
-						<!-- <input type="checkbox" id='checkMore' ng-model='checkMore'>
-						<label for="checkMore">过温激活/过流激活</label> -->
+						<input type="checkbox" id='checkMore' ng-model='checkMore'>
+						<label for="checkMore">过温激活/过流激活</label>
 					</p>
-				</div>
+				</div> -->
 				<div class="row" ng-if='checkMore'>
 					<p class='col-md-offset-2'>
 			      		名称一
