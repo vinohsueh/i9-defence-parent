@@ -43,6 +43,7 @@
 	          	<th>状态</th>
 	            <th>项目名称</th>
 	            <th>设备分类</th>
+	            <th>设备地址</th>
 	            <th>设备位置</th>
 	            <th>时间</th>
 	            <th width="90px">报警记录</th>
@@ -54,6 +55,7 @@
 	          	  <td ng-click="edit(warning.equipmentId)">{{warning.typeStr}}</td>
 	          	  <td ng-click="edit(warning.equipmentId)">{{warning.projectName}}</td>
 	          	  <td ng-click="edit(warning.equipmentId)">{{warning.eqCategoryName}}</td>
+		          <td ng-click="edit(warning.equipmentId)">{{warning.equipmentPosition}}</td>
 		          <td ng-click="edit(warning.equipmentId)">{{warning.equipmentRemarks}}</td>
 		          <td ng-click="edit(warning.equipmentId)">{{warning.handleDateStr}}</td>
 		          <td ><button type='button'  ng-if="warning.type!=1" class='btn btn-primary' ng-click="faultRecord(warning.eqDeviceId,warning.type)">查看</button></td>
