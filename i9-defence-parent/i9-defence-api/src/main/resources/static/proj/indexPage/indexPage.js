@@ -83,6 +83,14 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		};
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
+			//音频播放判断
+			var myAudio = document.getElementById('myAudio');
+			if(data.data.warningIds.length>0){
+				myAudio.play();
+			}else{
+				myAudio.pause();
+			}
+
 			var markItem = {};
 			
 			for(i in $scope.projectList){
