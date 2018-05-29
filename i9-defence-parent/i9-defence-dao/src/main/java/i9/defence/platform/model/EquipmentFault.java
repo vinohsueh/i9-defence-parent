@@ -33,8 +33,48 @@ public class EquipmentFault {
      */
     private Integer type;
     
+    /**
+     * 判断是否为多名称
+     */
+    private Integer jhType;
     
-    public Integer getType() {
+    /**
+     * 多名称一
+     */
+    private String activationOne;
+    
+    /**
+     * 多名称二
+     */
+    private String activationTwo;
+    
+    
+    public Integer getJhType() {
+		return jhType;
+	}
+
+	public void setJhType(Integer jhType) {
+		this.jhType = jhType;
+	}
+
+
+	public String getActivationOne() {
+		return activationOne;
+	}
+
+	public void setActivationOne(String activationOne) {
+		this.activationOne = activationOne;
+	}
+
+	public String getActivationTwo() {
+		return activationTwo;
+	}
+
+	public void setActivationTwo(String activationTwo) {
+		this.activationTwo = activationTwo;
+	}
+
+	public Integer getType() {
 		return type;
 	}
 

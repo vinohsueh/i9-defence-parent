@@ -507,7 +507,7 @@
         </if>
    </select>
    <select id="selectWarningProjectIds" resultType="int">
-   	select projectId from v_hiddendanger_edit WHERE warningCount > 0 
+   	select p.id from t_project p where (select count(*) from t_equipment e where e.projectId = p.id and e.dataStatus = 1 and e.status = 1)
    </select>
    <select id="selectIdsByMonthDataDto" resultType="java.lang.Integer">
    		select id from t_project

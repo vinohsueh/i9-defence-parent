@@ -8,6 +8,11 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
 		equipmentFault,eqSystemCategorys,httpService) {
 	
+	//选择状态判断
+	$scope.checkMore = false;	//是否选择过温过流
+
+
+
 	$scope.equipmentFault = equipmentFault;
 	$scope.eqSystemCategorys = eqSystemCategorys;
 	$scope.closeBtn = function() {
@@ -19,7 +24,6 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 	}
 	// 确认添加
 	$scope.confirmAdd = function() {
-		console.log($scope.equipmentFault)
 		if ($scope.equipmentFault.name == null ||$scope.equipmentFault.name.length == 0) {
 			$.toaster({
 				title : "Error",
@@ -45,6 +49,32 @@ var equipmentFaultEditCtrl = equipmentFaultEditNgModule.controller('equipmentFau
 			});
 			return false;
 		}
+		$scope.equipmentFault.activationOne = '';
+		$scope.equipmentFault.activationTwo = '';
+		var activationOneArr = [];
+		var activationTwoArr = [];
+		if($scope.checkMore == true){
+			$scope.equipmentFault.jhType=1;		//多选状态
+			$('#checkUp>p>label').each(function () {
+				if($(this).find('input').prop('checked')==true){
+					activationOneArr.push($(this).find('input').val());
+
+				}
+			});
+			$scope.equipmentFault.activationOne = activationOneArr.join(',');
+			$('#checkDown>p>label').each(function () {
+				if($(this).find('input').prop('checked')==true){
+					activationTwoArr.push($(this).find('input').val());
+				}
+			});
+			$scope.equipmentFault.activationTwo = activationTwoArr.join(',');
+		}else{
+			$scope.equipmentFault.jhType=0;
+			$scope.equipmentFault.activationOne = '';
+			$scope.equipmentFault.activationTwo = '';
+		}
+		
+		// console.log(JSON.stringify($scope.equipmentFault));
 		httpService.post({url:'./equipmentFault/updateAndAdd',data:$scope.equipmentFault,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})

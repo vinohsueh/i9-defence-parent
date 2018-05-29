@@ -423,6 +423,186 @@ public class EquipmentFaultExample {
 			addCriterion("type not between", value1, value2, "type");
 			return (Criteria) this;
 		}
+		
+		public Criteria andJhTypeIsNull() {
+			addCriterion("jhType is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeIsNotNull() {
+			addCriterion("jhType is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeEqualTo(Integer value) {
+			addCriterion("jhType =", value, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeNotEqualTo(Integer value) {
+			addCriterion("jhType <>", value, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeGreaterThan(Integer value) {
+			addCriterion("jhType >", value, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeGreaterThanOrEqualTo(Integer value) {
+			addCriterion("jhType >=", value, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeLessThan(Integer value) {
+			addCriterion("jhType <", value, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeLessThanOrEqualTo(Integer value) {
+			addCriterion("jhType <=", value, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeIn(List<Integer> values) {
+			addCriterion("jhType in", values, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeNotIn(List<Integer> values) {
+			addCriterion("jhType not in", values, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeBetween(Integer value1, Integer value2) {
+			addCriterion("jhType between", value1, value2, "jhType");
+			return (Criteria) this;
+		}
+
+		public Criteria andJhTypeNotBetween(Integer value1, Integer value2) {
+			addCriterion("jhType not between", value1, value2, "jhType");
+			return (Criteria) this;
+		}
+		
+		public Criteria andActivationOneIsNull() {
+			addCriterion("activationOne is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneIsNotNull() {
+			addCriterion("activationOne is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneEqualTo(String value) {
+			addCriterion("activationOne =", value, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneNotEqualTo(String value) {
+			addCriterion("activationOne <>", value, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneGreaterThan(String value) {
+			addCriterion("activationOne >", value, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneGreaterThanOrEqualTo(String value) {
+			addCriterion("activationOne >=", value, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneLessThan(String value) {
+			addCriterion("activationOne <", value, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneLessThanOrEqualTo(String value) {
+			addCriterion("activationOne <=", value, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneIn(List<String> values) {
+			addCriterion("activationOne in", values, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneNotIn(List<String> values) {
+			addCriterion("activationOne not in", values, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneBetween(String value1, String value2) {
+			addCriterion("activationOne between", value1, value2, "activationOne");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationOneNotBetween(String value1, String value2) {
+			addCriterion("activationOne not between", value1, value2, "activationOne");
+			return (Criteria) this;
+		}
+		
+		public Criteria andActivationTwoIsNull() {
+			addCriterion("activationTwo is null");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoIsNotNull() {
+			addCriterion("activationTwo is not null");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoEqualTo(String value) {
+			addCriterion("activationTwo =", value, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoNotEqualTo(String value) {
+			addCriterion("activationTwo <>", value, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoGreaterThan(String value) {
+			addCriterion("activationTwo >", value, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoGreaterThanOrEqualTo(String value) {
+			addCriterion("activationTwo >=", value, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoLessThan(String value) {
+			addCriterion("activationTwo <", value, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoLessThanOrEqualTo(String value) {
+			addCriterion("activationTwo <=", value, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoIn(List<String> values) {
+			addCriterion("activationTwo in", values, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoNotIn(List<String> values) {
+			addCriterion("activationTwo not in", values, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoBetween(String value1, String value2) {
+			addCriterion("activationTwo between", value1, value2, "activationTwo");
+			return (Criteria) this;
+		}
+
+		public Criteria andActivationTwoNotBetween(String value1, String value2) {
+			addCriterion("activationTwo not between", value1, value2, "activationTwo");
+			return (Criteria) this;
+		}
 	}
 
 	public static class Criteria extends GeneratedCriteria {

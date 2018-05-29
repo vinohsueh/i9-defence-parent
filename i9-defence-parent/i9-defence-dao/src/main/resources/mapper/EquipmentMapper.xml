@@ -737,20 +737,17 @@
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
-			<if test="example.orderByClause != null">
-				order by ${example.orderByClause}
-			</if>
+			<!-- order by field(concat( `e`.`status`, `e`.`dataStatus` ),11,12,'20','00',21,22,20,11,12,10 ) -->
+			order by equipmentDate desc
 		</select>
 		<!-- 分页查询 -->
 		<select  id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto2">
-		select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment
-		<if test="_parameter != null">
+			select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment
+			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
-			<if test="example.orderByClause != null">
-				order by ${example.orderByClause}
-			</if>
-		limit #{offset},#{limit}
+			order by field(concat(status, dataStatus),11,12,'20','00',21,22,20,11,12,10 )
+			limit #{offset},#{limit}
 		</select>
 		
 		<select id="selectHiddenDangerByLimitPage2" resultMap="BaseResultMapDto">
@@ -782,6 +779,7 @@
 				equipmentRemarks,
 				eqCategoryName,
 				projectName,
+				equipmentPosition,
 				datastatus as dataStatus,
 				status,
 				remainAlert,
@@ -801,9 +799,7 @@
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 			</if>
-			<if test="example.orderByClause != null">
-				order by ${example.orderByClause}
-			</if>
+			order by field(remainAlert,1,2,0 ), status 
 			limit #{offset},#{limit}
 		</select>
 		<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto" parameterType="java.util.List">	
@@ -1208,7 +1204,7 @@
 	    select  * from t_equipment where deviceId = #{deviceId,jdbcType=VARCHAR}
 	  </select>
 	 <update id="updateEquipmentDataStatus">
-	 	update t_equipment set dataStatus = #{datastatus},alertStatus = #{alertStatus} where deviceId = #{deviceId}
+	 	update t_equipment set dataStatus = #{datastatus},remainAlert = #{alertStatus} where deviceId = #{deviceId}
 	 </update>
 	 
 </mapper>
