@@ -569,6 +569,13 @@
    			#{item}
    		</foreach>
    </update>
+   <update id="updateEquipRemainAlertByDeviceIds" parameterType="java.util.List">
+   		update  t_equipment set remainAlert = 0
+   		where deviceId in
+   		<foreach collection="items" item="item" separator="," open="(" close=")">
+   			#{item}
+   		</foreach>
+   </update>
    
    
    
