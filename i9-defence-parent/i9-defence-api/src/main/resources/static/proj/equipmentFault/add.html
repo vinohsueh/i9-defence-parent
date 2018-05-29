@@ -33,7 +33,7 @@
 					<label class="col-md-2 control-label"><span
 						class="required">*</span>设备类型</label>
 					<div class="col-md-8">
-						<select ng-model="equipmentFault.equipmentId"
+						<select class="form-control" ng-model="equipmentFault.equipmentId"
 							ng-options="item.id as item.systemType for item in eqSystemCategorys">
 							<option value="">请选择设备类型</option>
 							<!-- 不加这句代码，会出现空白 -->
@@ -53,16 +53,26 @@
 						</select>
 					</div>
 				</div>
-				<div class="row">
+				<div class="form-group">
+						<label class="col-md-2 control-label">多名称故障</label>
+						<div class="col-md-10" style="padding-top: 11px;">
+							<label class="i-checks m-b-none" for='checkMore'>
+								<input type="checkbox" id='checkMore' class="ckbox" ng-model='checkMore'><i></i>多名称故障
+							</label>
+							<span class='required pt-0'>如需选择多名称，请按照此格式填名称（名称一/名称二）</span>
+						</div>
+					</p>
+				</div>
+				<!-- <div class="row">
 					<p class='col-md-offset-1'>
 			      		<label class="i-checks m-b-none" for='checkMore'>
 	                		<input type="checkbox" id='checkMore' class="ckbox" ng-model='checkMore'><i></i>多名称故障
 	              		</label>
 	              		<span class='required pt-0'>如需选择多名称，请按照此格式（名称一/名称二）</span>
-						<!-- <input type="checkbox" id='checkMore' ng-model='checkMore'>
-						<label for="checkMore">过温激活/过流激活</label> -->
+						<input type="checkbox" id='checkMore' ng-model='checkMore'>
+						<label for="checkMore">过温激活/过流激活</label>
 					</p>
-				</div>
+				</div> -->
 				<div class="row" ng-if='checkMore'>
 					<p class='col-md-offset-2'>
 			      		名称一
@@ -72,42 +82,24 @@
 				</div>
 				<div class="row" ng-if='checkMore' id='checkUp'>
 					<p class='col-md-offset-2 col-md-8'>
-						<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='8'><i></i>8
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='9'><i></i>9
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='10'><i></i>10
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='11'><i></i>11
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='12'><i></i>12
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='13'><i></i>13
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='14'><i></i>14
-	              		</label>
-	              		<label class="i-checks m-b-none">
-	                		<input type="checkbox" class="ckbox" value='15'><i></i>15
+						<label class="i-checks m-b-none" ng-repeat="i in chooseObj1">
+	                		<input type="checkbox" class="ckbox" ng-checked="i.check" ng-value='i.value'><i></i>{{i.value}}
 	              		</label>
 					</p>
 				</div>
 				<div class="row" ng-if='checkMore'>
 					<p class='col-md-offset-2'>
-			      		名称一
+			      		名称二
 						<!-- <input type="checkbox" id='checkUp'>
 						<label for="checkUp">过温激活</label> -->
 					</p>
 				</div>
 				<div class="row" ng-if='checkMore' id='checkDown'>
 					<p class='col-md-offset-2 col-md-8'>
-						<label class="i-checks m-b-none">
+						<label class="i-checks m-b-none" ng-repeat="i in chooseObj2">
+	                		<input type="checkbox" class="ckbox" ng-checked="i.check" ng-value='i.value'><i></i>{{i.value}}
+	              		</label>
+						<!-- <label class="i-checks m-b-none">
 	                		<input type="checkbox" class="ckbox" value='8'><i></i>8
 	              		</label>
 	              		<label class="i-checks m-b-none">
@@ -130,7 +122,7 @@
 	              		</label>
 	              		<label class="i-checks m-b-none">
 	                		<input type="checkbox" class="ckbox" value='15'><i></i>15
-	              		</label>
+	              		</label> -->
 					</p>
 				</div>
 			</form>

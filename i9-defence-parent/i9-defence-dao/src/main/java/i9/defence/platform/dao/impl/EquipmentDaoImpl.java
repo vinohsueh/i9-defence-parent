@@ -267,4 +267,9 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public void updateEquipStatusByIds(List<Integer> ids) throws Exception {
 		equipmentMapper.updateEquipStatusByIds(ids);
 	}
+
+	@Override
+	public void updateEquipRemainAlertByDeviceIds(List<String> deviceIds) throws Exception {
+		equipmentMapper.updateEquipRemainAlertByDeviceIds(deviceIds); 
+	}
 }

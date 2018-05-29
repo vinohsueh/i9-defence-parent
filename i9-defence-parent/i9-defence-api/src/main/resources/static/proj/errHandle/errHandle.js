@@ -130,7 +130,6 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
 	$scope.choiceItem = function(idNum){
 		$scope.ifshow = true;
 		$scope.id = idNum;
-		console.log(idNum);
 	}
 	
 	   //详情提交
@@ -141,7 +140,6 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
     		handleCon:handleCon,
     		handleState:1
     	}
-    	console.log(param);
     	if(handleCon.replace(/(^\s*)|(\s*$)/g,"").length!=0){
 	    	httpService.post({url:'./errHandle/errHandleEdit',data:param,showSuccessMsg:false}).then(function(data) {
 	    		$scope.ifshow = false;
@@ -169,4 +167,14 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
     $(window).resize(function () {
         resizeWin();
     })
+    
+    //查看记录
+    $scope.faultRecord = function (idNum2,status) {
+    	if(status==2){
+    		$state.go('app.faultRecordInfo',{id:idNum2,typeId:2});
+    	}else if(status==3){
+    		$state.go('app.faultRecordInfo',{id:idNum2,typeId:3});
+    	}
+    }
+    
 })
