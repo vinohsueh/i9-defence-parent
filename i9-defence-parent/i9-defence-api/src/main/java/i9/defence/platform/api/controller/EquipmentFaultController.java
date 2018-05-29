@@ -73,6 +73,14 @@ public class EquipmentFaultController {
      public HashMap<String, Object> getById(@RequestBody Integer id) {
          HashMap<String, Object> result = new HashMap<String, Object>();
          EquipmentFault equipmentFault = equipmentFaultService.getById(id);
+         if(equipmentFault.getActivationOne() != null){
+        	 String[]  equipmentFaultStr1=equipmentFault.getActivationOne().split(",");
+        	 result.put("activationOneStr", equipmentFaultStr1);
+         }
+         if(equipmentFault.getActivationTwo() != null){
+        	 String[]  equipmentFaultStr2=equipmentFault.getActivationTwo().split(",");
+        	 result.put("activationTwoStr", equipmentFaultStr2);
+         }
          result.put("data",equipmentFault);
          return result;
      }
