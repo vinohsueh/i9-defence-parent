@@ -806,7 +806,7 @@
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 			</if>
-			order by field(remainAlert,1,2,0 ), status 
+			order by field(remainAlert,1,2,0 ), status desc
 			limit #{offset},#{limit}
 		</select>
 		<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto" parameterType="java.util.List">	
