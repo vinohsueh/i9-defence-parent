@@ -34,17 +34,17 @@ public class EquipmentFault {
     private Integer type;
     
     /**
-     * 1:过流激活 2：过温激活
+     * 判断是否为多名称
      */
     private Integer jhType;
     
     /**
-     * 过流激活
+     * 多名称一
      */
     private String activationOne;
     
     /**
-     * 过流激活
+     * 多名称二
      */
     private String activationTwo;
     
