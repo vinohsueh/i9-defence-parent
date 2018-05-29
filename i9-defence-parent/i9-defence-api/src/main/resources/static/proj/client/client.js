@@ -24,7 +24,7 @@ var clientService = clientModule.factory('clientService',
 	}]);
 var clientControl=clientModule.controller('clientControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,clientService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 9;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
@@ -156,5 +156,14 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
-      
+    // 窗口适应
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var bodyHeight = domHeight-280;
+        $('#myTableBody').height(bodyHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })
 })

@@ -1,6 +1,7 @@
 package i9.defence.platform.api.components;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
+import i9.defence.platform.utils.StringUtil;
 
 /** 
 * @author user: jiace
@@ -25,26 +27,26 @@ public class HiddendangerChannelDataInFoComponents {
 	}
 	public JSONArray build() {
 		JSONArray jsonArray = new JSONArray();
-		Map<Integer,List<HiddenDangerChannelDto>> map = new HashMap<Integer,List<HiddenDangerChannelDto>>();
+		Map<Date,List<HiddenDangerChannelDto>> map = new HashMap<Date,List<HiddenDangerChannelDto>>();
 		for (HiddenDangerChannelDto hiddenDangerChannelDtoInFo : hiddenDangerChannelDto) {
-			if(map.containsKey(hiddenDangerChannelDtoInFo.getChannel())) {
+			if(map.containsKey(hiddenDangerChannelDtoInFo.getDateTime())) {
 				List<HiddenDangerChannelDto> list=map.get(hiddenDangerChannelDtoInFo.getChannel());
 				list.add(hiddenDangerChannelDtoInFo);
-				map.put(hiddenDangerChannelDtoInFo.getChannel(),list);
+				map.put(hiddenDangerChannelDtoInFo.getDateTime(),list);
 			}else {
 				List<HiddenDangerChannelDto> list= new ArrayList<HiddenDangerChannelDto>();
 				list.add(hiddenDangerChannelDtoInFo);
-				map.put(hiddenDangerChannelDtoInFo.getChannel(), list);
+				map.put(hiddenDangerChannelDtoInFo.getDateTime(), list);
 			}
 		}
-		for(Map.Entry<Integer,List<HiddenDangerChannelDto>> entry : map.entrySet()) {
+		for(Map.Entry<Date,List<HiddenDangerChannelDto>> entry : map.entrySet()) {
 			JSONObject jsonObjects = new JSONObject();
-			jsonObjects.put("channel", entry.getKey());
-			jsonObjects.put("name", entry.getValue().get(0).getName());
+			jsonObjects.put("date", StringUtil.dateToStringByRep(entry.getKey(), "yyyy-MM-dd HH:mm:ss"));
+			//jsonObjects.put("name", entry.getValue().get(0).getName());
 			List<HiddenDangerChannelDto> lists = entry.getValue();
 			JSONArray jsonArrays = new JSONArray();
 			for(HiddenDangerChannelDto hiddenDangerChannelDto :lists) {
-				jsonArrays.add(JSONObject.toJSON(hiddenDangerChannelDto));
+				jsonArrays.add(hiddenDangerChannelDto);
 			}
 			jsonObjects.put("data", jsonArrays);
 			jsonArray.add(jsonObjects);

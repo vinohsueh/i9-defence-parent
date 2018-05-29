@@ -842,7 +842,7 @@
 		
 		<!-- 查询具体隐患报警    查看隐患-->
 		 <select id="selectHiddenDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-			  SELECT cd.*
+			  SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, cd.*,e.equipmentCategoryId
 			FROM `t_channel_data` `cd`
 				LEFT JOIN `t_passageway` `ps`
 				ON `cd`.`systemId` = `ps`.`systemId`
@@ -864,9 +864,9 @@
 		  </select>
 		<!-- 查询具体隐患报警    查看警告-->
 		  <select id="selectDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-		 	SELECT cd.*
+		 	SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, cd.*,e.equipmentCategoryId
 			FROM `t_channel_data` `cd`
-				LEFT JOIN `t_equipment_fault` `ef` ON `cd`.`value` = `ef`.`code`
+				LEFT JOIN `t_equipment_fault` `ef` ON `cd`.`value` = `ef`.`code` LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
 			WHERE `cd`.`deviceId` = #{deviceId}
 				AND `ef`.`type` = 0
 				AND `cd`.`dealStatus` = 0

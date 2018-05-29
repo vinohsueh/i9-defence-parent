@@ -29,7 +29,7 @@
 	          <button class="btn m-b-xs w-xs btn-danger btn-rounded equipmentFault_del" ng-click="del()">删除</button>
 		  </div>
 		</div>
-	    <div class="table-responsive" style='min-height: 480px'>
+	    <div class="table-responsive">
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
@@ -44,16 +44,21 @@
 	            <th>类型</th>
 	          </tr>
 	        </thead>
-	        <tbody>
-	          <tr ng-repeat="equipmentFault in equipmentFaults">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipmentFault.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.name}}</td>
-	            <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.code}}</td>
-	            <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.equipmentName}}</td>
-	            <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.typeName}}</td>
-	          </tr>
-	        </tbody>
 	      </table>
+	      <div id='myTableBody'>
+	      	<table class="table table-striped b-t b-light" style="table-layout:fixed">
+			  <tbody>
+			    <tr ng-repeat="equipmentFault in equipmentFaults">
+			      <td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipmentFault.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+			      <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.name}}</td>
+			      <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.code}}</td>
+			      <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.equipmentName}}</td>
+			      <td ng-click="edit({{equipmentFault.id}})">{{equipmentFault.typeName}}</td>
+			    </tr>
+			  </tbody>
+			</table>
+	      </div>  
+	        
 	    </div>
 	    <footer class="panel-footer">
 	      <div class="row">

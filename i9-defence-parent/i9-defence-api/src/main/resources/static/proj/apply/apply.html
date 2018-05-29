@@ -39,7 +39,7 @@
 	        
 	      </div>
 	    </div>
-	    <div class="table-responsive" style='min-height: 480px'>
+	    <div class="table-responsive">
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
@@ -62,22 +62,24 @@
    	            <th>申请时间</th>
 	         </tr>
 	        </thead>
-	        <tbody>
-	          <tr ng-repeat="apply in applys">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{apply.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-if="apply.equipmentId!=null">{{apply.equipment.equipmentName}}</td>
-	            <td ng-if="apply.projectId!=null">{{apply.project.projectName}}</td>
-	            <td ng-if="apply.type==null"></td>	   
-	            <td ng-if="apply.type==1">删除设备</td>
-                <td ng-if="apply.type==0">删除项目</td>
-<!-- 				<td ng-if="apply.state==null"></td>
-				<td ng-if="apply.state==1">已处理</td>
-				<td ng-if="apply.state==0">未处理</td> -->
-   	            <td>{{apply.applyManager.name}}</td>  	   
-   	            <td>{{apply.applyDate}}</td>
-	          </tr>
-	        </tbody>
 	      </table>
+	      <div id='myTableBody'>
+	      	<table class="table table-striped b-t b-light" style="table-layout:fixed">
+		        <tbody>
+		          <tr ng-repeat="apply in applys">
+		            <td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{apply.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+		            <td ng-if="apply.equipmentId!=null">{{apply.equipment.equipmentName}}</td>
+		            <td ng-if="apply.projectId!=null">{{apply.project.projectName}}</td>
+		            <td ng-if="apply.type==null"></td>	   
+		            <td ng-if="apply.type==1">删除设备</td>
+	                <td ng-if="apply.type==0">删除项目</td>
+	   	            <td>{{apply.applyManager.name}}</td>  	   
+	   	            <td>{{apply.applyDate}}</td>
+		          </tr>
+		        </tbody>
+		    </table>
+	      </div>  
+	        
 	    </div>
 	    <footer class="panel-footer">
 	      <div class="row">

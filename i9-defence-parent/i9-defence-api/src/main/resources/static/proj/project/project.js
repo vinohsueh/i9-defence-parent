@@ -21,7 +21,7 @@ var projectService = projectNgModule.factory('projectService',
 	}]);
 var projectNgControl=projectNgModule.controller('projectNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,projectService,httpService){
 	//分页条件
-	$scope.pageSize = 8;
+	$scope.pageSize = 6;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
@@ -266,4 +266,14 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 	$scope.c3 = function () {
 	   $scope.error.area = false;
 	};
+	// 窗口适应
+	function resizeWin() {
+	    var domHeight = $(window).height();
+	    var bodyHeight = domHeight-335;
+	    $('#myTableBody').height(bodyHeight);
+	}
+	resizeWin()
+	$(window).resize(function () {
+	    resizeWin();
+	})
 })

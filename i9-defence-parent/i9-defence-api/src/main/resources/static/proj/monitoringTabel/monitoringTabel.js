@@ -152,15 +152,18 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			$scope.end = data.data.data.offset+$scope.projects.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
-
-			if($scope.projects.length>0){
-				$scope.idNum = $scope.projects[0].id;
-				$scope.passagewayInit();
+			if($scope.idNum == 0){
+			    if($scope.projects.length>0){
+			        $scope.idNum = $scope.projects[0].id;
+			        $scope.passagewayInit();
+			    }else{
+			        // $scope.projectInfo = {};
+			        $scope.equipment = {};
+			        $scope.chartsStatus = false;
+			    }
 			}else{
-				$scope.projectInfo = {};
-				$scope.chartsStatus = false;
-			}
-			
+			    $scope.passagewayInit();
+			}	
 		})
 	};
 	$scope.dateToString = function(d){
@@ -170,7 +173,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 	$scope.pageInit();
 	var myInterval = setInterval(function () {
 	    $scope.pageInit();
-	},10000);
+	},30000);
 	$scope.$on("$destroy", function() {
 	    clearInterval(myInterval);
 	    myInterval = undefined;
@@ -464,7 +467,15 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
         	  }, 100);
     	}
 	}
-
+	function resizeWin() {
+	    var domHeight = $(window).height();
+	    var rightHeight = domHeight-465;
+	    $('#myTableBody').height(rightHeight);
+	}
+	resizeWin()
+	$(window).resize(function () {
+	    resizeWin();
+	})
 	//添加通道
 	$scope.add = function () {  
 	    var modalInstance = $modal.open({  

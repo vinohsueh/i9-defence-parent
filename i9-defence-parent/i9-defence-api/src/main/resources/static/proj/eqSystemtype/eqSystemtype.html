@@ -28,7 +28,7 @@
         <button class="btn m-b-xs w-xs btn-danger btn-rounded equip_classify_del" ng-click="del()">删除</button>
       </div>
     </div>
-    <div class="table-responsive" style='min-height: 480px'>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
@@ -42,17 +42,22 @@
             <th>操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr ng-repeat="eqSystemtype in eqSystemtypes">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{eqSystemtype.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td >{{eqSystemtype.systemType}}</td>
-            <td >{{eqSystemtype.systemCategory}}</td>
-            <td>
-            <button ng-click="edit({{eqSystemtype.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
-            </td>
-          </tr>
-        </tbody>
       </table>
+      <div id='myTableBody'>
+        <table class="table table-striped b-t b-light" style="table-layout:fixed">
+          <tbody>
+            <tr ng-repeat="eqSystemtype in eqSystemtypes">
+              <td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{eqSystemtype.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+              <td >{{eqSystemtype.systemType}}</td>
+              <td >{{eqSystemtype.systemCategory}}</td>
+              <td>
+              <button ng-click="edit({{eqSystemtype.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>  
+        
     </div>
     <footer class="panel-footer">
       <div class="row">

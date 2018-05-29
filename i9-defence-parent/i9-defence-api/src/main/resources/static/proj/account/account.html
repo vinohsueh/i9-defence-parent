@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="table-responsive" style='min-height: 420px'>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
@@ -53,37 +53,42 @@
             <th>开关</th>
           </tr>
         </thead>
-        <tbody>
-          <tr ng-repeat="account in accounts">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{account.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td>{{account.createTimeStr}}</td>
-            <td>{{account.username}}</td>
-            <td>{{account.name}}</td>
-            <td>{{account.role.name}}</td>
-            <td>{{account.area}}</td>
-            <td>{{account.phone}}</td>
-            <td>{{account.address}}</td>
-            <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{account.email}}</td>
-            <td ng-if="account.projectName != null">{{account.projectName}}</td>
-            <td ng-if="account.projectName == null"></td>
-            <td ng-if="account.securitier==null"></td>
-            <td ng-if="account.securitier==0">否</td>
-            <td ng-if="account.securitier==1">是</td>
-            <td ng-if="account.status==0">
-            	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{account.id}},{{account.status}})" type="checkbox"/>
-	              <i></i>
-            	</label>
-            </td>
-            <td ng-if="account.status==1">
-             	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{account.id}},{{account.status}})" type="checkbox" checked/>
-	              <i></i>
-            	</label>
-            </td>
-          </tr>
-        </tbody>
       </table>
+      <div id='myTableBody'>
+        <table class="table table-striped b-t b-light" style="table-layout:fixed">
+          <tbody>
+            <tr ng-repeat="account in accounts">
+              <td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{account.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+              <td>{{account.createTimeStr}}</td>
+              <td>{{account.username}}</td>
+              <td>{{account.name}}</td>
+              <td>{{account.role.name}}</td>
+              <td>{{account.area}}</td>
+              <td>{{account.phone}}</td>
+              <td>{{account.address}}</td>
+              <td style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{account.email}}</td>
+              <td ng-if="account.projectName != null">{{account.projectName}}</td>
+              <td ng-if="account.projectName == null"></td>
+              <td ng-if="account.securitier==null"></td>
+              <td ng-if="account.securitier==0">否</td>
+              <td ng-if="account.securitier==1">是</td>
+              <td ng-if="account.status==0">
+                <label class="i-switch m-t-xs m-r">
+                  <input ng-click="changeStatus({{account.id}},{{account.status}})" type="checkbox"/>
+                  <i></i>
+                </label>
+              </td>
+              <td ng-if="account.status==1">
+                <label class="i-switch m-t-xs m-r">
+                  <input ng-click="changeStatus({{account.id}},{{account.status}})" type="checkbox" checked/>
+                  <i></i>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>  
+      </div>  
+        
     </div>
     <footer class="panel-footer">
       <div class="row">
