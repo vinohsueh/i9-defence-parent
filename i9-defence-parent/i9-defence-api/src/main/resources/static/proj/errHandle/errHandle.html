@@ -56,9 +56,9 @@
 	          	  <td ng-click="edit(warning.equipmentId)">{{warning.eqCategoryName}}</td>
 		          <td ng-click="edit(warning.equipmentId)">{{warning.equipmentRemarks}}</td>
 		          <td ng-click="edit(warning.equipmentId)">{{warning.handleDateStr}}</td>
-		          <td ><button type='button'  ng-if="hiddenEdit.statusText!='离线'"  class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
+		          <td ><button type='button'  class='btn btn-primary' ng-click="faultRecord(warning.eqDeviceId,warning.type)">查看</button></td>
 	              <td>
-	             		 <span class='passageway' ng-repeat="i in hiddenEdit.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
+	             		 <span class='passageway' ng-repeat="i in warning.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
 	              </td>
 	          </tr>
 	        </tbody>
