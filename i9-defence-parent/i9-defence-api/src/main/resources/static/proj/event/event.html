@@ -90,6 +90,7 @@
 	            <th>状态</th>
 	            <th>项目名称</th>
 	            <th>设备分类</th>
+	            <th>设备地址</th>
 	            <th>设备位置</th>
 	            <th>时间</th>
 	            <th width="90px">报警记录</th>
@@ -102,6 +103,7 @@
 	            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)" class='eventType'><span class='{{hiddenEdit.status}}'>{{hiddenEdit.statusText}}</span></td>
 	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.projectName}}</td>
 	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.eqCategoryName}}</td>
+	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentPosition}}</td>
 	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentRemarks}}</td>
 	            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.newestTime}}</td>
 	            <td ><button type='button'  ng-if="hiddenEdit.statusText!='离线'"  class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>

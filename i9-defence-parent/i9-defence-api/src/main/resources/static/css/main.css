@@ -546,6 +546,9 @@ td.eventType span.lineOut {
 .mr-10 {
   margin-right: 10px;
 }
+.pt-0 {
+  padding-top: 0;
+}
 .max-w50 {
   width: 30%;
 }
