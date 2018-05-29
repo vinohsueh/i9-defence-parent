@@ -33,8 +33,48 @@ public class EquipmentFault {
      */
     private Integer type;
     
+    /**
+     * 1:过流激活 2：过温激活
+     */
+    private Integer jhType;
     
-    public Integer getType() {
+    /**
+     * 过流激活
+     */
+    private String activationOne;
+    
+    /**
+     * 过流激活
+     */
+    private String activationTwo;
+    
+    
+    public Integer getJhType() {
+		return jhType;
+	}
+
+	public void setJhType(Integer jhType) {
+		this.jhType = jhType;
+	}
+
+
+	public String getActivationOne() {
+		return activationOne;
+	}
+
+	public void setActivationOne(String activationOne) {
+		this.activationOne = activationOne;
+	}
+
+	public String getActivationTwo() {
+		return activationTwo;
+	}
+
+	public void setActivationTwo(String activationTwo) {
+		this.activationTwo = activationTwo;
+	}
+
+	public Integer getType() {
 		return type;
 	}
 
