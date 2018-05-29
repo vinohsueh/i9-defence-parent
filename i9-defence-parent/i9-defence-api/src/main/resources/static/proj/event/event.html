@@ -109,8 +109,8 @@
 		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentPosition}}</td>
 		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentRemarks}}</td>
 		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.newestTime}}</td>
-		            <td ><button type='button'  ng-if="hiddenEdit.statusText!='离线'"  class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
-	              	<td>
+		            <td  width="90px"><button type='button'  ng-if="hiddenEdit.statusText!='离线'"  class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
+	              	<td width="30%">
 	             		 <span class='passageway' ng-repeat="i in hiddenEdit.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
 	            	</td>
 		          </tr>

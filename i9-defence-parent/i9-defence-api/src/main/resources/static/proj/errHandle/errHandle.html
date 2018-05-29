@@ -69,59 +69,60 @@
 	      </div>  
 	        	
 	      </div>  
-	        
-	    </div>
-	    <footer class="panel-footer">
-	      <div class="row">
-	        <!-- <div class="col-sm-4 hidden-xs">
-	          <select class="input-sm form-control w-sm inline v-middle">
-	            <option value="0">删除</option>
-	          </select>
-	          <button class="btn btn-sm btn-default">Apply</button>                  
-	        </div> -->
-	        <div class="col-sm-4">
-	          <small class="text-muted inline m-t-sm m-b-sm">共 {{total}} 条数据</small>
+	      <footer class="panel-footer">
+	        <div class="row">
+	          <!-- <div class="col-sm-4 hidden-xs">
+	            <select class="input-sm form-control w-sm inline v-middle">
+	              <option value="0">删除</option>
+	            </select>
+	            <button class="btn btn-sm btn-default">Apply</button>                  
+	          </div> -->
+	          <div class="col-sm-4">
+	            <small class="text-muted inline m-t-sm m-b-sm">共 {{total}} 条数据</small>
+	          </div>
+	          <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
+	            <ul class="pagination pagination-sm m-t-none m-b-none">
+	              <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	              <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	              <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
+	              <li ng-if="hasNext"><a ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	              <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	            </ul>
+	          </div>
 	        </div>
-	        <div class="col-sm-offset-4 col-sm-4 text-right text-center-xs" ng-if="pages.length>0">                
-	          <ul class="pagination pagination-sm m-t-none m-b-none">
-	            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
-	            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
-	            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
-	            <li ng-if="hasNext"><a ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
-	            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
-	          </ul>
+	        	      
+	      </footer>
+	    </div>
+	    
+  	      <div class='row'>
+	        <div class="mPane hFull col-xs-6 col-sm-3">
+	          <div class="title">项目信息</div>
+	          <div class="body">
+	            <p>负责人：{{equipment.clientName}}</p>
+	            <p>负责人电话：{{equipment.clientPhone}}</p>
+	            <p>安全负责人：{{equipment.safeName}}</p>
+	            <p>安全负责人电话：{{equipment.safePhone}}</p>
+	          </div>
+	        </div>
+	        <div class="mPane hFull col-xs-6 col-sm-3">
+	          <div class="title">设备信息</div>
+	          <div class="body">
+	            <p>种类：{{equipment.equipmentCategoryName}}</p>
+	            <p>地址：{{equipment.equipmentPosition}}</p>
+	            <p>设备位置：{{equipment.equipmentRemarks}}</p>
+	            <p>注册时间：{{equipment.dateString}}</p>
+	          </div>
+	        </div>
+	        <div class="mPane hFull col-xs-6 col-sm-6">
+	          <div class="title" >处理详情</div>
+	          <div class="body"  ng-if="statusText !='离线'">
+	            <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
+	            <div class='text-right'>
+	              <button type='' class='btn btn-success' ng-click="dealEq()" >确定</button>
+	            </div>
+	          </div>
 	        </div>
 	      </div>
-	      	      <div class='row'>
-    <div class="mPane hFull col-xs-6 col-sm-3">
-      <div class="title">项目信息</div>
-      <div class="body">
-        <p>负责人：{{equipment.clientName}}</p>
-        <p>负责人电话：{{equipment.clientPhone}}</p>
-        <p>安全负责人：{{equipment.safeName}}</p>
-        <p>安全负责人电话：{{equipment.safePhone}}</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-3">
-      <div class="title">设备信息</div>
-      <div class="body">
-        <p>种类：{{equipment.equipmentCategoryName}}</p>
-        <p>地址：{{equipment.equipmentPosition}}</p>
-        <p>设备位置：{{equipment.equipmentRemarks}}</p>
-        <p>注册时间：{{equipment.dateString}}</p>
-      </div>
-    </div>
-   <div class="mPane hFull col-xs-6 col-sm-6">
-      <div class="title" >处理详情</div>
-      <div class="body"  ng-if="statusText !='离线'">
-        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
-        <div class='text-right'>
-          <button type='' class='btn btn-success' ng-click="dealEq()" >确定</button>
-        </div>
-      </div>
-    </div>
-    </div>
-	    </footer>
 		</div>
    </div>
 </div>
