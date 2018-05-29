@@ -39,6 +39,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	//分页条件
 	$scope.pageSize = 5;
 	$scope.currentPage = 1;
+	$scope.hour =0;
 	//图表显示隐藏状态
 	$scope.chartsStatus = false;
 	$scope.idNum = 0;
@@ -161,7 +162,6 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
 	
-
     $scope.passagewayInit = function (){
     	var pageParam = {
     			equipmentId:$scope.idNum,

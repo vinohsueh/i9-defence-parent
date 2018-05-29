@@ -30,6 +30,8 @@ public class ErrHandle {
     
     private Integer handleManagerId;
     
+    private String equipmentPosition;
+    
     //处理人  一对一
     private Manager handleManager;
     
@@ -47,7 +49,16 @@ public class ErrHandle {
     private List<EqChannelDataDto> eqChannelDataList;
     
     
-    public List<EqChannelDataDto> getEqChannelDataList() {
+    
+    public String getEquipmentPosition() {
+		return equipmentPosition;
+	}
+
+	public void setEquipmentPosition(String equipmentPosition) {
+		this.equipmentPosition = equipmentPosition;
+	}
+
+	public List<EqChannelDataDto> getEqChannelDataList() {
 		return eqChannelDataList;
 	}
 
