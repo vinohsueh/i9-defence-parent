@@ -71,6 +71,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //分页条件
     $scope.pageSize = 10;
     $scope.currentPage = 1;
+    $scope.hour =0;
     //类型切换
     $scope.type = 0;
     //图表显示隐藏状态
@@ -191,11 +192,18 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
         myInterval = undefined;
     });
     $scope.passagewayInit = function (){
+    	  if($("#hour").val()==24){
+    	    	$scope.startDateString=$scope.dateToString($("#startTime").val())+" "+$scope.hour;
+    			$scope.endDateString=$scope.dateToString($("#startTime").val())+" "+(parseInt($scope.hour)+24);
+    	    }else{
+    	    	$scope.startDateString=$scope.dateToString($("#startTime").val())+" "+$("#hour").val();
+    	    	$scope.endDateString=$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1);
+    	    }
     	var text = $scope.searchText;
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
-    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
+    			startDateString:$scope.startDateString,
+    			endDateString:$scope.endDateString,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
