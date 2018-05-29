@@ -30,7 +30,7 @@
         <button class="btn m-b-xs w-xs btn-danger btn-rounded equip_del" ng-click="del()">删除</button>
       </div>
     </div>
-    <div class="table-responsive" style='min-height: 480px'>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
@@ -41,33 +41,31 @@
             </th>
             <th>设备分类</th>
             <th>设备地址</th>
-            <!-- <th>设备创建时间</th>  -->
             <th>设备位置</th>
             <th>所属项目</th>
-        <!--<th>系统编号</th>
-            <th>装置数量</th>
-            <th>回路</th> -->  
             <th>操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr ng-repeat="equipment in equipments">
-            <td ng-if="equipment.delStatus==1"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td ng-if="equipment.delStatus==0"></td>
-            <td >{{equipment.equipmentCategory.eqCategoryName}}</td>
-            <td >{{equipment.equipmentPosition}}</td>
-            <!-- <td >{{equipment.equipmentDateStr}}</td> -->
-            <td >{{equipment.equipmentRemarks}}</td>
-            <td >{{equipment.project.projectName}}</td>
-       <!-- <td >{{equipment.systemId}}</td>
-            <td >{{equipment.unit}}</td>
-            <td >{{equipment.loopl}}</td>-->
-        	<td >
-        		<button ng-click="edit({{equipment.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
-        	</td>
-          </tr>
-        </tbody>
-      </table>
+      </table>  
+        <div id='myTableBody'>
+          <table class="table table-striped b-t b-light" style="table-layout:fixed">
+            <tbody>
+              <tr ng-repeat="equipment in equipments">
+                <td width='20px' ng-if="equipment.delStatus==1"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{equipment.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+                <td ng-if="equipment.delStatus==0"></td>
+                <td >{{equipment.equipmentCategory.eqCategoryName}}</td>
+                <td >{{equipment.equipmentPosition}}</td>
+                <td >{{equipment.equipmentRemarks}}</td>
+                <td >{{equipment.project.projectName}}</td>
+                <td >
+                  <button ng-click="edit({{equipment.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      
     </div>
     <footer class="panel-footer">
       <div class="row">

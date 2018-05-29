@@ -41,8 +41,8 @@
     <button type='button' class='btn btn-primary' ng-click='subSearch()'><i class='glyphicon glyphicon-search'></i></button>
   </form>
   <div class="myBox">
-    <div class="table-responsive" style='min-height:350px'>
-      <table id='myTable' class="table table-striped b-t b-b b-light" style="table-layout:fixed">
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-b b-light" style="table-layout:fixed">
         <thead>
           <tr>
           	<th width='150px'>设备分类</th>
@@ -53,19 +53,24 @@
             <th>最新数据</th>
           </tr>
         </thead>
-        <tbody id='myTableBody'>
-          <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
-           	<td>{{project.eqCategoryName}}</td>
-            <td>{{project.equipmentPosition}}</td>
-            <td>{{project.equipmentRemarks}}</td>
-            <td>{{project.projectName}}</td>
-            <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
-            <td>
-              <span class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      </table>  
+      <div id='myTableBody'>
+        <table class="table table-striped b-t b-b b-light" style="table-layout:fixed">
+          <tbody>
+            <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
+              <td width='150px'>{{project.eqCategoryName}}</td>
+              <td width='150px'>{{project.equipmentPosition}}</td>
+              <td width='150px'>{{project.equipmentRemarks}}</td>
+              <td width='100px'>{{project.projectName}}</td>
+              <td width='100px' class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
+              <td>
+                <span class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
     </div>
     <div class="row">
       <div class="col-sm-4">

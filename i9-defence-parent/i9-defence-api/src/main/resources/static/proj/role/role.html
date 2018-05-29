@@ -38,14 +38,19 @@
 	            <th>角色代码</th>
 	          </tr>
 	        </thead>
-	        <tbody>
-	          <tr ng-repeat="role in roles">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{role.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td ng-click="edit({{role.id}})">{{role.name}}</td>
-	            <td ng-click="edit({{role.id}})">{{role.code}}</td>
-	          </tr>
-	        </tbody>
 	      </table>
+	      <div id='myTableBody'>
+			<table class="table table-striped b-t b-light" style="table-layout:fixed">
+				<tbody>
+		          <tr ng-repeat="role in roles">
+		            <td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{role.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+		            <td ng-click="edit({{role.id}})">{{role.name}}</td>
+		            <td ng-click="edit({{role.id}})">{{role.code}}</td>
+		          </tr>
+		        </tbody>
+		      </table>		
+	      </div>  
+	        
 	    </div>
 	    <footer class="panel-footer">
 	      <div class="row">

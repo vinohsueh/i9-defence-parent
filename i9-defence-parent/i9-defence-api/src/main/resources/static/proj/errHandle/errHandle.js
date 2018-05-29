@@ -159,5 +159,14 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
     	$scope.idNum = idNum;
     	$scope.passagewayInit();    	 
     };  
-    
+    // 窗口适应
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var bodyHeight = domHeight-410;
+        $('#myTableBody').height(bodyHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })
 })

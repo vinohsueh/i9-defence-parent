@@ -203,4 +203,14 @@ var hiddenEditControl=hiddenEditModule.controller('hiddenEditControl',function($
         	}
         	
         }
+        // 窗口适应
+        function resizeWin() {
+            var domHeight = $(window).height();
+            var bodyHeight = domHeight-290;
+            $('#myTableBody').height(bodyHeight);
+        }
+        resizeWin()
+        $(window).resize(function () {
+            resizeWin();
+        })
 })

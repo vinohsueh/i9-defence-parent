@@ -36,7 +36,7 @@
       <button class="btn m-b-xs w-xs btn-danger btn-rounded del_proj" ng-click="del()">删除</button>
       <button class="btn m-b-xs w-xs btn-warning btn-rounded invite_code" ng-click="shareCode()">邀请码</button>
     </div>
-    <div class="table-responsive" style='min-height: 480px'>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
@@ -63,43 +63,48 @@
             <th>操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr ng-repeat="project in projects">
-            <td ng-if="project.delCount==0"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{project.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td ng-if="project.delCount!=0"></td>
-            <td>{{project.projectName}}</td>
-            <td>{{project.projectAddressStr}}</td>
-            <td>{{project.projectArea}}</td>
-            <td>{{project.clientListStr}}</td>
-            <td>{{project.distributor.username}}</td>
-            <td>{{project.safeListStr}}</td>
-            <!-- 
-            <td>{{project.projectLongitude}}</td>
-            <td>{{project.projectLatitude}}</td>
-             -->
-             <td>{{project.remarks}}</td>
-            <td>{{project.projectDateStr}}</td>
-            <td>{{project.projectStartDateStr}}</td>
-            <td>{{project.projectEndDateStr}}</td>
-            <td ng-if="project.projectState==0">
-            	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox"/>
-	              <i></i>
-            	</label>
-            </td>
-            <td ng-if="project.projectState==1">
-             	<label class="i-switch m-t-xs m-r">
-	              <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox" checked/>
-	              <i></i>
-            	</label>
-            </td> 
-            <td>
-              <button ng-click="edit({{project.id}}+','+{{project.distributorId}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
-              <!-- <i class=''></i> -->
-            </td>
-          </tr>
-        </tbody>
+        
       </table>
+      <div id='myTableBody'>
+        <table class="table table-striped b-t b-light" style="table-layout:fixed">
+          <tbody>
+            <tr ng-repeat="project in projects">
+              <td width='20px' ng-if="project.delCount==0"><label class="i-checks m-b-none"><input class="o-checks" data-id="{{project.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+              <td ng-if="project.delCount!=0"></td>
+              <td>{{project.projectName}}</td>
+              <td>{{project.projectAddressStr}}</td>
+              <td>{{project.projectArea}}</td>
+              <td>{{project.clientListStr}}</td>
+              <td>{{project.distributor.username}}</td>
+              <td>{{project.safeListStr}}</td>
+              <!-- 
+              <td>{{project.projectLongitude}}</td>
+              <td>{{project.projectLatitude}}</td>
+               -->
+               <td>{{project.remarks}}</td>
+              <td>{{project.projectDateStr}}</td>
+              <td>{{project.projectStartDateStr}}</td>
+              <td>{{project.projectEndDateStr}}</td>
+              <td ng-if="project.projectState==0">
+                <label class="i-switch m-t-xs m-r">
+                  <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox"/>
+                  <i></i>
+                </label>
+              </td>
+              <td ng-if="project.projectState==1">
+                <label class="i-switch m-t-xs m-r">
+                  <input ng-click="changeStatus({{project.id}},{{project.projectState}})" type="checkbox" checked/>
+                  <i></i>
+                </label>
+              </td> 
+              <td>
+                <button ng-click="edit({{project.id}}+','+{{project.distributorId}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
+                <!-- <i class=''></i> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <footer class="panel-footer">
       <div class="row">

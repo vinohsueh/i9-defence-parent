@@ -17,39 +17,36 @@
 	        	</select>
 	        </div>	
     </div>
-    <div class="table-responsive" style='min-height: 480px'>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
-            <!-- <th style="width:20px;">
-              <label class="i-checks m-b-none" id="checkLabel">
-                <input type="checkbox" id="totalCheck"><i></i>
-              </label>
-            </th> -->
             <th>项目名称</th>
             <th>设备分类</th>
-            <!-- <th>设备创建时间</th>  -->
             <th>设备地址</th>
             <th>设备位置</th>
-        <!--<th>系统编号</th>
-            <th>装置数量</th>-->  
             <th>登记状态</th> 
             <th>时间</th>
           </tr>
         </thead>
-        <tbody >
-          <tr ng-repeat="connectLog in connectLogs">
-            <td ng-if="connectLog.projectName == null" >未知设备</td>
-            <td ng-if="connectLog.projectName != null" >{{connectLog.projectName}}</td>
-            <td >{{connectLog.eqCategoryName}}</td>
-            <!-- <td >{{connectLog.connectLogDateStr}}</td> -->
-            <td >{{connectLog.equipmentPosition}}</td>
-            <td >{{connectLog.equipmentRemarks}}</td>
-            <td >{{connectLog.statusStr}}</td>
-            <td >{{connectLog.createTimeStr}}</td>
-          </tr>
-        </tbody>
       </table>
+      <div id='myTableBody'>
+        <table class="table table-striped b-t b-light" style="table-layout:fixed">
+            <tbody >
+              <tr ng-repeat="connectLog in connectLogs">
+                <td ng-if="connectLog.projectName == null" >未知设备</td>
+                <td ng-if="connectLog.projectName != null" >{{connectLog.projectName}}</td>
+                <td >{{connectLog.eqCategoryName}}</td>
+                <!-- <td >{{connectLog.connectLogDateStr}}</td> -->
+                <td >{{connectLog.equipmentPosition}}</td>
+                <td >{{connectLog.equipmentRemarks}}</td>
+                <td >{{connectLog.statusStr}}</td>
+                <td >{{connectLog.createTimeStr}}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>  
+        
     </div>
     <footer class="panel-footer">
       <div class="row">

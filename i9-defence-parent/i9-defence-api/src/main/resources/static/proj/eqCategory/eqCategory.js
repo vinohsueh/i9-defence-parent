@@ -190,4 +190,14 @@ var eqCategoryNgControl=eqCategoryNgModule.controller('eqCategoryNgControl',func
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
+    // 窗口适应
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var bodyHeight = domHeight-280;
+        $('#myTableBody').height(bodyHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })
 })

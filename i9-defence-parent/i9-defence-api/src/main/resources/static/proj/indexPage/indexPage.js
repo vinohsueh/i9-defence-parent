@@ -298,6 +298,14 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		})
 	};
 	$scope.chartInit();
+	var myInterval = setInterval(function () {
+	    $scope.pageInit();
+	    $scope.chartInit();
+	},30000);
+	$scope.$on("$destroy", function() {
+	    clearInterval(myInterval);
+	    myInterval = undefined;
+	});
 	// 设备数量检测
 	$scope.equipmentNum = function () {
 		var pageParam = {

@@ -81,5 +81,14 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 	$scope.search = function(){
 		$scope.initTable();
 	}
-
+	// 窗口适应
+	function resizeWin() {
+	    var domHeight = $(window).height();
+	    var bodyHeight = domHeight-230;
+	    $('#myTableBody').height(bodyHeight);
+	}
+	resizeWin()
+	$(window).resize(function () {
+	    resizeWin();
+	})
 })

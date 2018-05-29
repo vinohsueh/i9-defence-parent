@@ -172,20 +172,25 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		$scope.pages = data.data.data.loopPageNum;
     		$scope.currentPage = pageParam.currentPage;
 
-    		if($scope.projects.length>0){
-				$scope.idNum = $scope.projects[0].id;
-				$scope.passagewayInit();
-			}else{
-				// $scope.projectInfo = {};
-                $scope.equipment = {};
-				$scope.chartsStatus = false;
-			}
+            if($scope.idNum == 0){
+                if($scope.projects.length>0){
+                    $scope.idNum = $scope.projects[0].id;
+                    $scope.passagewayInit();
+                }else{
+                    // $scope.projectInfo = {};
+                    $scope.equipment = {};
+                    $scope.chartsStatus = false;
+                }
+            }else{
+                $scope.passagewayInit();
+            }
+    		
     	})
     };
     $scope.pageInit();
     var myInterval = setInterval(function () {
         $scope.pageInit();
-    },10000);
+    },30000);
     $scope.$on("$destroy", function() {
         clearInterval(myInterval);
         myInterval = undefined;

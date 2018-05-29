@@ -141,164 +141,77 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 			$scope.end = data.data.data.offset+$scope.hiddenEdits.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
-    		if($scope.hiddenEdits.length>0){
-				$scope.idNum = $scope.hiddenEdits[0].id;
-				$scope.passagewayInit();
+
+			if($scope.idNum == 0){
+	    		if($scope.hiddenEdits.length>0){
+					$scope.idNum = $scope.hiddenEdits[0].id;
+					$scope.passagewayInit();
+				}else{
+					$scope.projectInfo = {};
+					$scope.chartsStatus = false;
+				}
 			}else{
-				$scope.projectInfo = {};
-				$scope.chartsStatus = false;
+				$scope.passagewayInit();
 			}
+    		
 		})
 	};
-		$scope.dateToString = function(d){
-	    	var date = new Date(d);
-	    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-	    }
-		
+	$scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
 	
-	    $scope.passagewayInit = function (){
-	    	var pageParam = {
-	    			equipmentId:$scope.idNum,
-	    			startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
-	    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
-	    			/*projectName : text,
-	    			projectAddress : text,*/
-	    		};
-	    	
-	    	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-	    		$scope.equipmentInfo = data.data.data;
-	    		$scope.equipment = data.data.equip;
-	    		$scope.dataAndManager = data.data.dataAndManager;
-	    		$scope.equipmentCheckArr = [];
-	            $scope.equipmentItemArr = [];
-	            
-	            if($scope.equipmentInfo!= null){
-					$scope.chartsStatus = true;
-					for(i in $scope.equipmentInfo.channelData){
-						/*$scope.equipmentItemObj = {
-				            type:'line',
-				            stack:'10',
-				            symbol: 'emptyCircle',
-				            symbolSize: 10,
-				            itemStyle:{
-				                normal:{
-				                    color:'#ab56dc',
-				                }
-				            },
-				            lineStyle:{
-				                normal:{
-				                    color:'#ab56dc',
-				                }
-				            },
-				        };*/
-						if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
-	    					$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
-	    					// $scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
-	    				}else{
-	    					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
-	    					// $scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
-	    				}
-	    				/*$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
-	    				$scope.equipmentItemArr.push($scope.equipmentItemObj);*/
-					}
-					$scope.passageway='0';
-					$scope.chartData = $scope.equipmentInfo.channelData[0].value;
-					$scope.changeLine = function () {
-						var chengeIndex = parseInt($scope.passageway);
-						$scope.chartData = $scope.equipmentInfo.channelData[chengeIndex].value;
-						$scope.option={
-						    title:{
-						        show:false,
-						    },
-						    toolbox:{
-						        show:false,
-						    },
-						    grid:{
-						        top:10,
-						        left:60,
-						        right:60,
-						        bottom:30,
-						        borderColor:'#566c93',
-						    },
-						    tooltip:{
-						        trigger:'axis'
-						    },
-						    /*dataZoom:{
-					            type: 'inside',
-					            realtime: true,
-					            start: 90,
-					            end: 100,
-					            // xAxisIndex: [0, 1]
-						    },*/
-						    /*legend:{
-						    	type:'scroll',
-						        right:0,
-						        top:0,
-						        bottom:10,
-		                        width:30,
-		                        pageButtonItemGap:5,
-		                        pageButtonGap:5,
-		                        pageButtonPosition:'end',
-		                        pageFormatter:{
-		                        	current:1,
-		                        	total:5
-		                        },
-						        orient:'vertical',
-						        inactiveColor:'#666',
-						        selectedMode:'single',
-						        textStyle:{
-						            color:'#fff',
-						        },
-						        data:$scope.equipmentCheckArr,
-						        // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
-						    },*/
-						    xAxis:{
-						    	// type:'time',
-						        axisLabel: {        
-						            show: true,
-						            textStyle: {
-						                color: '#fff',
-						            }
-						        },
-						        data:$scope.equipmentInfo.date,
-						    },
-						    yAxis:{
-						        axisLabel: {        
-						            show: true,
-						            textStyle: {
-						                color: '#fff',
-						            }
-						        },
-						        splitLine:{
-						            show:true,
-						            lineStyle:{
-						                color:'#4960bf',
-						                type:'dashed'
-						            }
-						        },
-						    },
-						    // series:$scope.equipmentItemArr,
-						    series:[{
 
-						        type:'line',
-						        stack:'10',
-						        symbol: 'emptyCircle',
-						        symbolSize: 10,
-						        itemStyle:{
-						            normal:{
-						                color:'#ab56dc',
-						            }
-						        },
-						        lineStyle:{
-						            normal:{
-						                color:'#ab56dc',
-						            }
-						        },
-						        data:$scope.chartData,
-						    }]
-						}
-					}
-
+    $scope.passagewayInit = function (){
+    	var pageParam = {
+    			equipmentId:$scope.idNum,
+    			startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
+    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
+    			/*projectName : text,
+    			projectAddress : text,*/
+    		};
+    	
+    	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.equipmentInfo = data.data.data;
+    		$scope.equipment = data.data.equip;
+    		$scope.dataAndManager = data.data.dataAndManager;
+    		$scope.equipmentCheckArr = [];
+            $scope.equipmentItemArr = [];
+            
+            if($scope.equipmentInfo!= null){
+				$scope.chartsStatus = true;
+				for(i in $scope.equipmentInfo.channelData){
+					/*$scope.equipmentItemObj = {
+			            type:'line',
+			            stack:'10',
+			            symbol: 'emptyCircle',
+			            symbolSize: 10,
+			            itemStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			            lineStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			        };*/
+					if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
+    					$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
+    					// $scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
+    				}else{
+    					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
+    					// $scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+    				}
+    				/*$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
+    				$scope.equipmentItemArr.push($scope.equipmentItemObj);*/
+				}
+				$scope.passageway='0';
+				$scope.chartData = $scope.equipmentInfo.channelData[0].value;
+				$scope.changeLine = function () {
+					var chengeIndex = parseInt($scope.passageway);
+					$scope.chartData = $scope.equipmentInfo.channelData[chengeIndex].value;
 					$scope.option={
 					    title:{
 					        show:false,
@@ -390,35 +303,139 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 					        data:$scope.chartData,
 					    }]
 					}
-				}else{
-					$scope.chartsStatus = false;
 				}
-	    	})
-	    };
-	
-	    $scope.dealEq = function() { 
-	       	$scope.delArray = [];
-	    	angular.forEach(angular.element.find(".o-checks"), function(dom){
-	    		if(angular.element(dom).prop("checked") == true){
-	    			$scope.delArray.push(angular.element(dom).attr("data-id"))
-	    		}
-			});
-	    	var handleCon = $('#handleCon').val();
-	    	var pageParam = {
-	    			handleCon :handleCon,
-	    			eqIds  :  $scope.delArray,
-	    	}
-	    	httpService.post({url:'./errHandle/handlingErrors',data:pageParam,showSuccessMsg:true}).then(function(data) {
-	    		$('#handleCon').val("");
-	    		$scope.initTable();
-	    	})
-    	};  
+
+				$scope.option={
+				    title:{
+				        show:false,
+				    },
+				    toolbox:{
+				        show:false,
+				    },
+				    grid:{
+				        top:10,
+				        left:60,
+				        right:60,
+				        bottom:30,
+				        borderColor:'#566c93',
+				    },
+				    tooltip:{
+				        trigger:'axis'
+				    },
+				    /*dataZoom:{
+			            type: 'inside',
+			            realtime: true,
+			            start: 90,
+			            end: 100,
+			            // xAxisIndex: [0, 1]
+				    },*/
+				    /*legend:{
+				    	type:'scroll',
+				        right:0,
+				        top:0,
+				        bottom:10,
+                        width:30,
+                        pageButtonItemGap:5,
+                        pageButtonGap:5,
+                        pageButtonPosition:'end',
+                        pageFormatter:{
+                        	current:1,
+                        	total:5
+                        },
+				        orient:'vertical',
+				        inactiveColor:'#666',
+				        selectedMode:'single',
+				        textStyle:{
+				            color:'#fff',
+				        },
+				        data:$scope.equipmentCheckArr,
+				        // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
+				    },*/
+				    xAxis:{
+				    	// type:'time',
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        data:$scope.equipmentInfo.date,
+				    },
+				    yAxis:{
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        splitLine:{
+				            show:true,
+				            lineStyle:{
+				                color:'#4960bf',
+				                type:'dashed'
+				            }
+				        },
+				    },
+				    // series:$scope.equipmentItemArr,
+				    series:[{
+
+				        type:'line',
+				        stack:'10',
+				        symbol: 'emptyCircle',
+				        symbolSize: 10,
+				        itemStyle:{
+				            normal:{
+				                color:'#ab56dc',
+				            }
+				        },
+				        lineStyle:{
+				            normal:{
+				                color:'#ab56dc',
+				            }
+				        },
+				        data:$scope.chartData,
+				    }]
+				}
+			}else{
+				$scope.chartsStatus = false;
+			}
+    	})
+    };
+
+    $scope.dealEq = function() { 
+       	$scope.delArray = [];
+    	angular.forEach(angular.element.find(".o-checks"), function(dom){
+    		if(angular.element(dom).prop("checked") == true){
+    			$scope.delArray.push(angular.element(dom).attr("data-id"))
+    		}
+		});
+    	var handleCon = $('#handleCon').val();
+    	var pageParam = {
+    			handleCon :handleCon,
+    			eqIds  :  $scope.delArray,
+    	}
+    	httpService.post({url:'./errHandle/handlingErrors',data:pageParam,showSuccessMsg:true}).then(function(data) {
+    		$('#handleCon').val("");
+    		$scope.initTable();
+    	})
+	};  
 	
 	
 	$scope.initTable();
+	var checkNum = 0;
 	var myInterval = setInterval(function () {
-	    $scope.initTable();
-	},10000);
+
+		$('#myTableBody>tr').each(function () {
+			if($(this).find('input.o-checks').prop('checked') == true){
+				++checkNum
+			}
+		});
+		if(checkNum>0){
+			return
+		}else{
+			$scope.initTable();
+		}
+	},30000);
 	$scope.$on("$destroy", function() {
 	    clearInterval(myInterval);
 	    myInterval = undefined;
@@ -534,5 +551,14 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	    });
 	     
 	};
-    
+    // 窗口适应
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var bodyHeight = domHeight-485;
+        $('#myTableBody').height(bodyHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })
 })
