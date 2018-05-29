@@ -212,7 +212,6 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     			/*projectName : text,
     			projectAddress : text,*/
     		};
-    	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
     		$scope.equipment = data.data.equip;
