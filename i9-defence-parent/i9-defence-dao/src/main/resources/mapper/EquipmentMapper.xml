@@ -779,6 +779,7 @@
 				equipmentRemarks,
 				eqCategoryName,
 				projectName,
+				equipmentPosition,
 				datastatus as dataStatus,
 				status,
 				remainAlert,
