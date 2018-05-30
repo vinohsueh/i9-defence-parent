@@ -28,7 +28,7 @@
 		  </div>
 		</div>
 			
-	    <div class="table-responsive" style='min-height: 480px'>
+	    <div class="table-responsive">
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
@@ -46,19 +46,24 @@
 	            <th>Email</th>
 	          </tr>
 	        </thead>
-	        <tbody>
-	          <tr ng-repeat="client in clients">
-	            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{client.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	            <td>{{client.createTimeString}}</td>
-	            <td>{{client.name}}</td>
-	            <td>{{client.projectName}}</td>
-	            <td>{{client.territory}}</td>
-	            <td>{{client.phone}}</td>
-	            <td>{{client.address}}</td>
-	            <td>{{client.mail}}</td>
-	          </tr>
-	        </tbody>
 	      </table>
+	      <div id='myTableBody'>
+	      	<table>
+	      	  <table class="table table-striped b-t b-light" style="table-layout:fixed">
+	      	    <tr ng-repeat="client in clients">
+	      	      <td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{client.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+	      	      <td>{{client.createTimeString}}</td>
+	      	      <td>{{client.name}}</td>
+	      	      <td>{{client.projectName}}</td>
+	      	      <td>{{client.territory}}</td>
+	      	      <td>{{client.phone}}</td>
+	      	      <td>{{client.address}}</td>
+	      	      <td>{{client.mail}}</td>
+	      	    </tr>
+	      	  </tbody>
+	      	</table>	
+	      </div>  
+	        
 	    </div>
 	    <footer class="panel-footer">
 	      <div class="row">

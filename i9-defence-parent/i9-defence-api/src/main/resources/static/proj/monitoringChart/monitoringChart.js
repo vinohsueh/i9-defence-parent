@@ -71,6 +71,7 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     //分页条件
     $scope.pageSize = 10;
     $scope.currentPage = 1;
+    $scope.hour =0;
     //类型切换
     $scope.type = 0;
     //图表显示隐藏状态
@@ -172,34 +173,45 @@ var monitoringChartNgControl=monitoringChartNgModule.controller('monitoringChart
     		$scope.pages = data.data.data.loopPageNum;
     		$scope.currentPage = pageParam.currentPage;
 
-    		if($scope.projects.length>0){
-				$scope.idNum = $scope.projects[0].id;
-				$scope.passagewayInit();
-			}else{
-				// $scope.projectInfo = {};
-                $scope.equipment = {};
-				$scope.chartsStatus = false;
-			}
+            if($scope.idNum == 0){
+                if($scope.projects.length>0){
+                    $scope.idNum = $scope.projects[0].id;
+                    $scope.passagewayInit();
+                }else{
+                    // $scope.projectInfo = {};
+                    $scope.equipment = {};
+                    $scope.chartsStatus = false;
+                }
+            }else{
+                $scope.passagewayInit();
+            }
+    		
     	})
     };
     $scope.pageInit();
     var myInterval = setInterval(function () {
         $scope.pageInit();
-    },10000);
+    },30000);
     $scope.$on("$destroy", function() {
         clearInterval(myInterval);
         myInterval = undefined;
     });
     $scope.passagewayInit = function (){
+    	  if($("#hour").val()==24){
+    	    	$scope.startDateString=$scope.dateToString($("#startTime").val())+" "+$scope.hour;
+    			$scope.endDateString=$scope.dateToString($("#startTime").val())+" "+(parseInt($scope.hour)+24);
+    	    }else{
+    	    	$scope.startDateString=$scope.dateToString($("#startTime").val())+" "+$("#hour").val();
+    	    	$scope.endDateString=$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1);
+    	    }
     	var text = $scope.searchText;
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			startDateString:$scope.dateToString($("#startTime").val())+" "+$("#hour").val(),
-    			endDateString:$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1),
+    			startDateString:$scope.startDateString,
+    			endDateString:$scope.endDateString,
     			/*projectName : text,
     			projectAddress : text,*/
     		};
-    	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
     		$scope.equipment = data.data.equip;

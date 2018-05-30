@@ -156,4 +156,14 @@ var roleNgControl=roleNgModule.controller('roleNgControl',function($rootScope, $
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
+    // 窗口适应
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var bodyHeight = domHeight-290;
+        $('#myTableBody').height(bodyHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })
 })

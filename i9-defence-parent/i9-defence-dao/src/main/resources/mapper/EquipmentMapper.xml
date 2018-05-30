@@ -569,6 +569,13 @@
    			#{item}
    		</foreach>
    </update>
+   <update id="updateEquipRemainAlertByDeviceIds" parameterType="java.util.List">
+   		update  t_equipment set remainAlert = 0
+   		where deviceId in
+   		<foreach collection="items" item="item" separator="," open="(" close=")">
+   			#{item}
+   		</foreach>
+   </update>
    
    
    
@@ -779,6 +786,7 @@
 				equipmentRemarks,
 				eqCategoryName,
 				projectName,
+				equipmentPosition,
 				datastatus as dataStatus,
 				status,
 				remainAlert,
@@ -798,7 +806,7 @@
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 			</if>
-			order by field(remainAlert,1,2,0 ), status 
+			order by field(remainAlert,1,2,0 ), status desc
 			limit #{offset},#{limit}
 		</select>
 		<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto" parameterType="java.util.List">	
@@ -834,7 +842,7 @@
 		
 		<!-- 查询具体隐患报警    查看隐患-->
 		 <select id="selectHiddenDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-			  SELECT cd.*
+			  SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, cd.*,e.equipmentCategoryId
 			FROM `t_channel_data` `cd`
 				LEFT JOIN `t_passageway` `ps`
 				ON `cd`.`systemId` = `ps`.`systemId`
@@ -856,9 +864,9 @@
 		  </select>
 		<!-- 查询具体隐患报警    查看警告-->
 		  <select id="selectDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-		 	SELECT cd.*
+		 	SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, cd.*,e.equipmentCategoryId
 			FROM `t_channel_data` `cd`
-				LEFT JOIN `t_equipment_fault` `ef` ON `cd`.`value` = `ef`.`code`
+				LEFT JOIN `t_equipment_fault` `ef` ON `cd`.`value` = `ef`.`code` LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
 			WHERE `cd`.`deviceId` = #{deviceId}
 				AND `ef`.`type` = 0
 				AND `cd`.`dealStatus` = 0

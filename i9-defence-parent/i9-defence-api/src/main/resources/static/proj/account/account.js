@@ -131,4 +131,14 @@ var accountNgControl=accountNgModule.controller('accountNgControl',function($roo
     		$scope.initTable();
     	})
 	}
+	// 窗口适应
+	function resizeWin() {
+	    var domHeight = $(window).height();
+	    var bodyHeight = domHeight-350;
+	    $('#myTableBody').height(bodyHeight);
+	}
+	resizeWin()
+	$(window).resize(function () {
+	    resizeWin();
+	})
 })

@@ -26,7 +26,7 @@
         <button class="btn m-b-xs w-xs btn-danger btn-rounded net_manager_crud" ng-click="del()">删除</button>
       </div>
     </div>
-    <div class="table-responsive" style='min-height: 520px'>
+    <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
@@ -41,16 +41,21 @@
             <th>EMAIL</th>
           </tr>
         </thead>
-        <tbody>
-          <tr ng-repeat="manager in managers">
-            <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{manager.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-            <td ng-click="edit({{manager.id}})">{{manager.username}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.role.name}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.phone}}</td>
-            <td ng-click="edit({{manager.id}})">{{manager.email}}</td>
-          </tr>
-        </tbody>
       </table>
+      <div id='myTableBody'>
+        <table class="table table-striped b-t b-light" style="table-layout:fixed">
+          <tbody>
+            <tr ng-repeat="manager in managers">
+              <td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{manager.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+              <td ng-click="edit({{manager.id}})">{{manager.username}}</td>
+              <td ng-click="edit({{manager.id}})">{{manager.role.name}}</td>
+              <td ng-click="edit({{manager.id}})">{{manager.phone}}</td>
+              <td ng-click="edit({{manager.id}})">{{manager.email}}</td>
+            </tr>
+          </tbody>
+      </table>  
+      </div>  
+        
     </div>
     <footer class="panel-footer">
       <div class="row">

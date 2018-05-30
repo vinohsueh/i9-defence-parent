@@ -1,7 +1,9 @@
 package i9.defence.platform.model;
 
 import java.util.Date;
+import java.util.List;
 
+import i9.defence.platform.dao.vo.EqChannelDataDto;
 import i9.defence.platform.utils.StringUtil;
 
 public class ErrHandle {
@@ -28,6 +30,8 @@ public class ErrHandle {
     
     private Integer handleManagerId;
     
+    private String equipmentPosition;
+    
     //处理人  一对一
     private Manager handleManager;
     
@@ -42,7 +46,27 @@ public class ErrHandle {
      */
     private Integer equipmentId;
     
-    public Integer getEquipmentId() {
+    private List<EqChannelDataDto> eqChannelDataList;
+    
+    
+    
+    public String getEquipmentPosition() {
+		return equipmentPosition;
+	}
+
+	public void setEquipmentPosition(String equipmentPosition) {
+		this.equipmentPosition = equipmentPosition;
+	}
+
+	public List<EqChannelDataDto> getEqChannelDataList() {
+		return eqChannelDataList;
+	}
+
+	public void setEqChannelDataList(List<EqChannelDataDto> eqChannelDataList) {
+		this.eqChannelDataList = eqChannelDataList;
+	}
+
+	public Integer getEquipmentId() {
 		return equipmentId;
 	}
 

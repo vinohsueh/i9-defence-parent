@@ -23,7 +23,7 @@ var faultRecordInfoControl=faultRecordInfoModule.controller('faultRecordInfoCont
 			}else if($scope.typeId==2){
 				httpService.post({url:'./hiddenDangerEdit/selectDangerChannelDtoBySid',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 					$scope.warningList = data.data.data;
-					// console.log($scope.warningList)
+					 console.log($scope.warningList)
 				})
 			}else if($scope.typeId==3){
 				httpService.post({url:'./hiddenDangerEdit/selectHiddenDangerChannelDtoBySid',data:pageParam,showSuccessMsg:false}).then(function(data) {  

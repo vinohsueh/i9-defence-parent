@@ -37,7 +37,7 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 	public void handlingErrors(ErrHandleUnifiedDto errHandleUnifiedDto) throws BusinessException {
 		try {
 			//当前登录人
-			Manager manager = managerService.getLoginManager();
+			Manager manager = managerService .getLoginManager();
 			//封装所有的历史记录
 			List<ErrHandle> errHandles= new ArrayList<ErrHandle>();
 			//封装所有的报警deviceId
@@ -79,9 +79,11 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 			}
 			if(0!= deviceIdsWarning.size()) {
 				errHandleDao.updateHandleFault(deviceIdsWarning);
+				equipmentDao.updateEquipRemainAlertByDeviceIds(deviceIdsWarning);
 			}
 			if(0!= deviceIdsHidden.size()) {
 				errHandleDao.updateHandleHidden(deviceIdsHidden);
+				equipmentDao.updateEquipRemainAlertByDeviceIds(deviceIdsHidden);
 			}
 			/*//设备
 			Equipment equipment = equipmentDao.getEquipmentById(errHandleUnifiedDto.getEqId());
@@ -176,9 +178,12 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 					errHandle.setHandleState(1);
 					errHandle.setEqDeviceId(hiddenDangerDto.getDeviceId());
 					errHandle.setHandleCon(errHandleUnifiedDto.getHandleCon());
-					if(hiddenDangerDto.getWarningCount()>0) {
+					if(1==hiddenDangerDto.getRemainAlert()) {
+						errHandle.setType(2);
 						deviceIdsWarning.add(hiddenDangerDto.getDeviceId());
-					}else if(hiddenDangerDto.getHiddeCount()>0) {
+					//隐患
+					}else if(2==hiddenDangerDto.getRemainAlert()) {
+						errHandle.setType(3);
 						deviceIdsHidden.add(hiddenDangerDto.getDeviceId());
 					}
 					errHandles.add(errHandle);
@@ -186,9 +191,11 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 				errHandleDao.updateErrHandles(errHandles);
 				if(0!= deviceIdsWarning.size()) {
 					errHandleDao.updateHandleFault(deviceIdsWarning);
+					equipmentDao.updateEquipRemainAlertByDeviceIds(deviceIdsWarning);
 				}
 				if(0!= deviceIdsHidden.size()) {
 					errHandleDao.updateHandleHidden(deviceIdsHidden);
+					equipmentDao.updateEquipRemainAlertByDeviceIds(deviceIdsHidden);
 				}
 		} catch (Exception e) {
 			throw new BusinessException("处理失败", e.getMessage());
