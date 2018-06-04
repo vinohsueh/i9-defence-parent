@@ -30,7 +30,7 @@ public class HiddendangerChannelDataInFoComponents {
 		Map<Date,List<HiddenDangerChannelDto>> map = new HashMap<Date,List<HiddenDangerChannelDto>>();
 		for (HiddenDangerChannelDto hiddenDangerChannelDtoInFo : hiddenDangerChannelDto) {
 			if(map.containsKey(hiddenDangerChannelDtoInFo.getDateTime())) {
-				List<HiddenDangerChannelDto> list=map.get(hiddenDangerChannelDtoInFo.getChannel());
+				List<HiddenDangerChannelDto> list=map.get(hiddenDangerChannelDtoInFo.getDateTime());
 				list.add(hiddenDangerChannelDtoInFo);
 				map.put(hiddenDangerChannelDtoInFo.getDateTime(),list);
 			}else {
