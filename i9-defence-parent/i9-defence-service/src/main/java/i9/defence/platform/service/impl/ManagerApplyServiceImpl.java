@@ -75,7 +75,7 @@ public class ManagerApplyServiceImpl implements ManagerApplyService{
         }
         if (2 == managerApply.getType() && StringUtils.isBlank(managerApply.getShareCode())){
             throw new BusinessException("请输入邀请码");
-        }
+        } 
         try {
             Manager existManager = managerDao.getManagerByUsername(managerApply.getUsername());
             ManagerApply existManagerApply = managerApplyDao.getUnRefusedManagerApplyByUsername(managerApply.getUsername());

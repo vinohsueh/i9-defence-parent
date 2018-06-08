@@ -1,6 +1,7 @@
 package i9.defence.platform.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import i9.defence.platform.model.Manager;
 import i9.defence.platform.service.ErrHandleService;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
 @Service
@@ -133,12 +135,25 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 	public PageBounds<ErrHandle> selectByLimitPage(ErrHandleSearchDto errHandleSearchDto) throws BusinessException {
 		try {
 			//当前登录人
-			Manager manager = managerService.getLoginManager();
-			errHandleSearchDto.setManagerId(manager.getId());
-			return errHandleDao.selectByLimitPage(errHandleSearchDto);
+			Manager loginManager = managerService.getLoginManager();
+			errHandleSearchDto.setManagerId(loginManager.getId());
+			//如果为网站用户显示全部（type=0）
+			if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+				return errHandleDao.selectByLimitPage(errHandleSearchDto);
+			}
+			//如果为经销商和管理员(type=1)
+			else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+				errHandleSearchDto.setManagerId(loginManager.getId());
+				return errHandleDao.selectByLimitPage(errHandleSearchDto);
+			}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+				//如果是项目管理员(type=2)
+				errHandleSearchDto.setManagerId2(loginManager.getId());
+				return errHandleDao.selectByLimitPage(errHandleSearchDto);
+			}
 		} catch (Exception e) {
 			throw new BusinessException("分页查询设备错误处理记录失败", e.getMessage());
 		}
+		return null; 
 	}
 
 	@Override

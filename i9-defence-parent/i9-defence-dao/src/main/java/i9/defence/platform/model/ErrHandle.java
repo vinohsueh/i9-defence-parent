@@ -48,8 +48,6 @@ public class ErrHandle {
     
     private List<EqChannelDataDto> eqChannelDataList;
     
-    
-    
     public String getEquipmentPosition() {
 		return equipmentPosition;
 	}

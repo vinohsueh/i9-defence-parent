@@ -718,11 +718,11 @@
 				</if> -->
 				<!--项目负责人  -->	
 				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
-					and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
+					and projectId in (select projectId from t_project_safe where managerId = #{example.prijrctManagerId})
 				</if>
 				<!--经销商  -->	
 				<if test="example.distributorId != null and example.distributorId != ''">
-					and distributorId ='${example.distributorId}'
+					and distributorId = #{example.distributorId}
 				</if>
 				<if test="example.systemId != null">
 					and systemId = #{example.systemId}
@@ -734,10 +734,9 @@
 					and example.endDate &gt; equipmentDate
 				</if> -->
 				<!-- and (status=0) or (status=1 and warningCount+hiddeCount!=0) -->
-				and (status=0) or (status=1 and remainAlert!=0)
+				and ((status=0) or (status=1 and remainAlert!=0))
 			</trim>
 		</sql>
-		
 		
 		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment
