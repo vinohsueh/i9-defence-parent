@@ -46,7 +46,8 @@ public class EqChannelDataDto implements Serializable {
     }
     
     public String getChannelValue() {
-        if (type == 0) {
+		if (type == 0) {
+			//如果是多名称故障
         	if (ErrorTypeCache.getCacheJhType(channelValue+equipmentCategoryId) == 1) {
         		String faultNames = ErrorTypeCache.getCacheDict(channelValue+equipmentCategoryId);
         		String [] faultNameArray = faultNames.split("/");

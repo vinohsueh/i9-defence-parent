@@ -136,7 +136,7 @@ public class ErrorTypeCache {
                 return entry.getValue();
             }
         }
-        return null;
+        return -1;
     }
     
     
