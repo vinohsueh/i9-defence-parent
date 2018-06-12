@@ -16,8 +16,7 @@ public class RespMessageBuilder {
         byteBuffer.put((byte) 0x10);
         if (messageEncodeConvert.getType() == 0x00 || messageEncodeConvert.getType() == 0xff) {
             byteBuffer.put(messageEncodeConvert.getType());
-        }
-        else if (messageEncodeConvert.getType() == 0x03) {
+        } else {
             byteBuffer.put((byte) 0x04);
         }
         byteBuffer.putInt(index);
