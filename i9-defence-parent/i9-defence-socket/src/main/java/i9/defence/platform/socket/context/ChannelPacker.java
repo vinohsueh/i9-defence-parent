@@ -52,10 +52,6 @@ public class ChannelPacker {
         this.channel.writeAndFlush(buf);
     }
     
-    public void writeAndFlush0(MessageEncodeConvert messageEncodeConvert) {
-        this.channel.writeAndFlush(messageEncodeConvert);
-    }
-
     public void disConnection() {
         this.isLogin.set(false);
     }
