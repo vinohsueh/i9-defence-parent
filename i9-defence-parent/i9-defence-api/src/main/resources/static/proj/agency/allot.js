@@ -40,9 +40,10 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
 
 	// 确认添加
 	$scope.confirmAdd = function() {
-		httpService.post({url:'./agency/addAgency',data:$scope.agency,showSuccessMsg:true}).then(function(data) {
-			$modalInstance.dismiss('cancel');
-		})
+		$modalInstance.dismiss('cancel');
+		/*httpService.post({url:'./agency/addAgency',data:$scope.agency,showSuccessMsg:true}).then(function(data) {
+			
+		})*/
 	};
     //备选已选
     $(document).unbind( "click" ).on('click','.choice-list>li',function () {
@@ -65,17 +66,17 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
             'parentId' : param,
        };      
         httpService.post({url:'./agency/insertAgency',data:params,showSuccessMsg:true}).then(function(data) {
-        	$modalInstance.dismiss('cancel');
-            console.log(JSON.stringify(data.data.data));
+        	
         });
     });
 
     $(document).on('click','.ico-cancle-m',function () {
         $('.choice-list-y>li').each(function () {
             if($(this).hasClass('active')){
+            	var ele = $(this);
                 var managerId = $(this).find("span").attr('data-id');
                 //先判断 此操作对象 是否为三级  是的话  不走以下方法  /agency/deleteAgencyById',d
-                httpService.post({url:'./agency/selectByAgencyId',data:managerId,showSuccessMsg:true}).then(function(data) {
+                httpService.post({url:'./agency/selectByAgencyId',data:managerId,showSuccessMsg:false}).then(function(data) {
                 	var manager = data.data.data;
                 	var agencyList = manager.agencyList;
                 	if(agencyList.length > 0){
@@ -88,9 +89,8 @@ var agencyEditCtrl = agencyEditNgModule.controller('agencyEditCtrl', function($s
 	                        'parentId' : param,
 	                    };
                 		httpService.post({url:'./agency/deleteAgencyById',data:params,showSuccessMsg:true}).then(function(data) {
-                            console.log(JSON.stringify(data.data.data));
                         });
-	                    $(this).appendTo($('.choice-list-n')).removeClass('active');
+                		ele.appendTo($('.choice-list-n')).removeClass('active');
                 	}
                 });
             }

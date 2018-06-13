@@ -165,4 +165,21 @@ public class ManagerDaoImpl implements ManagerDao{
 		return managerMapper.selectCIdsByBid(bId);
 	}
 
+	@Override
+	public int selectAgencyGrade(Integer managerId) {
+		Integer fParentId = managerMapper.selectParentById(managerId);
+		//如果没有父级id  则是1级经销商
+		if (fParentId == null) {
+			return 1;
+		}
+		//如果有父级
+		Integer sParentId = managerMapper.selectParentById(fParentId);
+		//如果父级没有父级经销商 则是2级经销商
+		if (sParentId == null) {
+			return 2;
+		}
+		//否则则是3级经销商
+		return 3;
+	}
+
 }

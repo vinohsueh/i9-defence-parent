@@ -150,6 +150,14 @@ public interface ManagerService {
      */
     void addProjectManager(Manager manager) throws BusinessException;
     
-  //查询 此项目下不是安全责任人  safe = 0
+    //查询 此项目下不是安全责任人  safe = 0
   	List<Manager> selectSafeZeroByProjectId(Integer projectId) throws BusinessException;
+  	
+  	/**
+  	 * 查询经销商等级
+  	 * @param managerId
+  	 * @return
+  	 * @throws BusinessException
+  	 */
+	int selectAgencyGrade(Integer managerId) throws BusinessException;
 }

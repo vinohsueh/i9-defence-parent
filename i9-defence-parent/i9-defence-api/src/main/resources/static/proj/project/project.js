@@ -51,11 +51,8 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
 				projectCounty : $scope.selected3.value,
 				orderByClause : "projectDate desc"
 			};
-		//console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./project/pageProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
-			console.log(JSON.stringify($scope.projects));
-			// console.log(JSON.stringify($scope.projects));
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -141,7 +138,6 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
     		$scope.project = data.data.project;
     		$scope.clientList = data.data.clientList;
     		$scope.safeList = data.data.safeList;
-    		//console.log(JSON.stringify($scope.clientList));
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/project/add.html',  
 	            controller: 'projectEditCtrl', 
