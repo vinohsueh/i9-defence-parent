@@ -1,12 +1,6 @@
 package i9.defence.platform.api.controller;
 
 
-import i9.defence.platform.dao.vo.AgencyParamDto;
-import i9.defence.platform.model.Manager;
-import i9.defence.platform.model.Role;
-import i9.defence.platform.service.ManagerService;
-import i9.defence.platform.utils.Constants;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import i9.defence.platform.dao.vo.AgencyParamDto;
+import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.Role;
+import i9.defence.platform.service.ManagerService;
+import i9.defence.platform.utils.Constants;
 
 /**
  * Created by 姜哲 on 2018/1/16--11:24
@@ -38,28 +38,16 @@ public class AgencyController {
         Manager loginManager = managerService.getLoginManager();
         Role role = loginManager.getRole();
         Integer partentId = null;
+        
+        int grade = 0;
+        //查询当前的人员的等级(管理员可看3级  1级经销商可以看下面2级  2级经销商可以看到下面1级)
         if(Arrays.asList(Constants.S_AGENCY).contains(role.getName())){
             partentId = loginManager.getId();
+            grade = managerService.selectAgencyGrade(loginManager.getId());
         }
         List<Manager> agencys = managerService.selectAllAgency(partentId);
-        /*for(Manager manager:agencys){
-            System.out.println("1--"+manager.getUsername());
-            if(manager.getAgencyList()!=null){
-                for(Manager manager1:manager.getAgencyList()){
-                    System.out.println("2----"+manager1.getUsername());
-                    if(manager1.getAgencyList()!=null){
-                        for(Manager manager2:manager1.getAgencyList()){
-                            System.out.println("3------"+manager2.getUsername());
-                        }
-                    }else {
-                        System.out.println("无下属----3级");
-                    }
-                }
-            }else {
-                System.out.println("无下属----2级");
-            }
-        }*/
         result.put("data",agencys);
+        result.put("grade",grade);
         return result;
     }
 

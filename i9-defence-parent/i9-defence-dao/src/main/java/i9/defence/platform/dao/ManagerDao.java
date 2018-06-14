@@ -170,4 +170,11 @@ public interface ManagerDao {
 	
 	//查询 此项目下不是安全责任人  safe = 0
 	List<Manager> selectSafeZeroByProjectId(Integer projectId) throws Exception;
+	
+	/**
+	 * 查询经销商等级
+	 * @param managerId
+	 * @return
+	 */
+	int selectAgencyGrade(Integer managerId);
 }
