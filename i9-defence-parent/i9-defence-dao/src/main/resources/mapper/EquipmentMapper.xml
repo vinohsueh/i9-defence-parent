@@ -615,7 +615,7 @@
 	<!-- ———————————— 隐患与报警———————————— -->
 
 		<select id="countHiddenDangerByExample" resultType="java.lang.Integer">
-			select count(*) from v_equipment
+			select count(*) from v_equipment e left join t_manager_grade mg on e.distributorId = mg.managerId
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -650,35 +650,17 @@
 				<if test="example.projectCounty != null and example.projectCounty != ''">
 					and projectCounty ='${example.projectCounty}'
 				</if>
-				<!--隐患不为0  -->	
-				<!-- <if test="example.hidden != null and example.hidden != ''">
-					and hiddeCount != 0 and warningCount = 0 
-				</if> -->
-				<!--报警不为0  -->	
-				<!-- <if test="example.danger != null and example.danger != ''">
-					and warningCount != 0 
-				</if> -->
-				<!--隐患或报警大于0  -->	
-				<!-- <if test="example.hiddenCount1 != null">
-					and (hiddeCount > 0 or warningCount > 0 )
-				</if> -->
 				<!--项目负责人  -->	
 				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
 					and projectId in (select projectId from t_project_safe where managerId = '${example.prijrctManagerId}')
 				</if>
 				<!--经销商  -->	
 				<if test="example.distributorId != null and example.distributorId != ''">
-					and distributorId ='${example.distributorId}'
+					AND (e.distributorId = #{example.distributorId} or (mg.parentId = #{example.distributorId} or mg.parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId})))
 				</if>
 				<if test="example.systemId != null">
 					and systemId = #{example.systemId}
 				</if>
-				<!-- <if test="example.startDate != null and example.startDate != ''">
-					and example.startDate &lt; equipmentDate
-				</if>
-				<if test="example.endDate != null and example.endDate != ''">
-					and example.endDate &gt; equipmentDate
-				</if> -->
 			</trim>
 		</sql>
 		
@@ -704,18 +686,6 @@
 				<if test="example.projectCounty != null and example.projectCounty != ''">
 					and projectCounty ='${example.projectCounty}'
 				</if>
-				<!--隐患不为0  -->	
-				<!-- <if test="example.hidden != null and example.hidden != ''">
-					and hiddeCount != 0 and warningCount = 0 
-				</if> -->
-				<!--报警不为0  -->	
-				<!-- <if test="example.danger != null and example.danger != ''">
-					and warningCount != 0 
-				</if> -->
-				<!--隐患或报警大于0  -->	
-				<!-- <if test="example.hiddenCount1 != null">
-					and (hiddeCount > 0 or warningCount > 0 )
-				</if> -->
 				<!--项目负责人  -->	
 				<if test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
 					and projectId in (select projectId from t_project_safe where managerId = #{example.prijrctManagerId})
@@ -727,19 +697,12 @@
 				<if test="example.systemId != null">
 					and systemId = #{example.systemId}
 				</if>
-				<!-- <if test="example.startDate != null and example.startDate != ''">
-					and example.startDate &lt; equipmentDate
-				</if>
-				<if test="example.endDate != null and example.endDate != ''">
-					and example.endDate &gt; equipmentDate
-				</if> -->
-				<!-- and (status=0) or (status=1 and warningCount+hiddeCount!=0) -->
 				and ((status=0) or (status=1 and remainAlert!=0))
 			</trim>
 		</sql>
 		
 		<select id="selectAllHiddenDangerEdit" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-			select id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment
+			select e.id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment e left join t_manager_grade mg on e.distributorId = mg.managerId
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -748,7 +711,7 @@
 		</select>
 		<!-- 分页查询 -->
 		<select  id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto2">
-			select id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment
+			select e.id,deviceId,equipmentName,equipmentPosition,equipmentRemarks,eqCategoryName,projectName,personLiableMan,status,dataStatus,remainAlert from v_equipment e left join t_manager_grade mg on e.distributorId = mg.managerId
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
@@ -757,28 +720,6 @@
 		</select>
 		
 		<select id="selectHiddenDangerByLimitPage2" resultMap="BaseResultMapDto">
-			<!-- SELECT
-				id,
-				deviceId,
-				equipmentRemarks,
-				eqCategoryName,
-				projectName,
-				hiddeCount,
-				warningCount,
-				status,
-			CASE
-				WHEN warningCount > 0 
-				THEN
-				getNewestTime ( deviceId )	 
-				WHEN warningCount =0 and hiddeCount >0 
-				THEN
-				getNewestHiddenTime(deviceId,systemId)
-				WHEN warningCount =0 and hiddeCount =0
-				THEN
-				getLiXianTime( deviceId)
-				End as newestTime
-			FROM 
-			v_hiddendanger_edit he  -->
 			SELECT
 				id,
 				deviceId,
@@ -882,12 +823,12 @@
 			LIMIT #{count}
 		  </select>
 		<!-- 查询全部 -->
-		<select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
+		<!-- <select id="selectAllHiddenDanger" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select id,deviceId,equipmentPosition,eqCategoryName,projectName,hiddeCount,personLiableMan,warningCount from v_hiddenDanger_edit
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
-		</select>
+		</select> -->
 		<select id="selectHiddenDangerDtoByDeviceId" parameterType="string" resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
 			select * from v_hiddenDanger_edit where deviceId = #{deviceId}
 		</select>
@@ -1122,19 +1063,19 @@
 	    		AND ps.managerId = #{example.projectManagerId}
 	    	</if>
 	    	<if test="example.distributorId != null">
-	    		AND p.distributorId = #{example.distributorId}
+	    		 AND (p.distributorId = #{example.distributorId} or (mg.parentId = #{example.distributorId} or mg.parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId})))
 	    	</if>
 	    </trim>
     </sql>
 	<select id="selectTotalEquipmentDto" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="int">
-		select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
+		select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId  left join t_manager_grade mg on p.distributorId = mg.managerId
 		<if test="_parameter != null">
 	      <include refid="Query_By_Dto_Where_Clause4" />
 	    </if>
 	 </select>
 	 
 	 <select id="selectTotalAlertEquipmentDto" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="int">
-		select count(DISTINCT id) from  v_equipment 
+		select count(DISTINCT e.id) from  v_equipment e left join t_manager_grade mg on e.distributorId = mg.managerId
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
 			<if test="example.projectId != null">
 	    		AND projectId = #{example.projectId}
@@ -1151,14 +1092,14 @@
 	    		AND projectId in  (select projectId from t_project_safe where managerId = #{example.projectManagerId})
 	    	</if>
 	    	<if test="example.distributorId != null">
-	    		AND distributorId = #{example.distributorId}
+	    		AND (e.distributorId = #{example.distributorId} or (mg.parentId = #{example.distributorId} or mg.parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId})))
 	    	</if>
 	    	and dataStatus = 1 and status = 1
     	</trim>
 	 </select>
 	 
 	 <select id="selectOfflineEquipment" resultType="int">
-	 	select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId 
+	 	select count(DISTINCT e.id) from  t_equipment e left join t_project p on p.id = e.projectId left join t_project_safe ps on p.id = ps.projectId left join t_manager_grade mg on p.distributorId = mg.managerId
 		where e.status in (0,2)
 		<if test="example.projectId != null">
     		AND p.id = #{example.projectId}
@@ -1175,12 +1116,12 @@
     		AND ps.managerId = #{example.projectManagerId}
     	</if>
     	<if test="example.distributorId != null">
-    		AND p.distributorId = #{example.distributorId}
+    		AND (p.distributorId = #{example.distributorId} or (mg.parentId = #{example.distributorId} or mg.parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId})))
     	</if>
 	 </select>
 	 
 	 <select id="selectHiddenEquipment" resultType="int">
-	 	select count(DISTINCT id) from  v_equipment 
+	 	select count(DISTINCT e.id) from  v_equipment e   left join t_manager_grade mg on e.distributorId = mg.managerId
 		<trim prefix="WHERE"  prefixOverrides="AND|OR" >
 			<if test="example.projectId != null">
 	    		AND projectId = #{example.projectId}
@@ -1197,7 +1138,7 @@
 	    		AND projectId in  (select projectId from t_project_safe where managerId = #{example.projectManagerId})
 	    	</if>
 	    	<if test="example.distributorId != null">
-	    		AND distributorId = #{example.distributorId}
+	    		AND (e.distributorId = #{example.distributorId} or (mg.parentId = #{example.distributorId} or mg.parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId})))
 	    	</if>
 	    	and dataStatus = 2 and status = 1
     	</trim>

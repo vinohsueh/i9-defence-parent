@@ -70,7 +70,7 @@ public interface EquipmentMapper {
     //查询具体隐患报警--报警
     List<HiddenDangerChannelDto> selectDangerChannelDtoBySid(@Param("deviceId") String systemId,@Param("count") int count);
     //隐患报警 全部查询
-    List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);
+    /*List<HiddenDangerDto> selectAllHiddenDanger(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto);*/
     /**
      * 批量添加设备
      * @param records

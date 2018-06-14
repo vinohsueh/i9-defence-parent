@@ -141,11 +141,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		return equipmentMapper.selectHiddenDangerChannelDtoBySid(deviceId,count);
 	}
 	
-	@Override
+	/*@Override
 	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws Exception {
 		List<HiddenDangerDto> list =equipmentMapper.selectAllHiddenDanger(hiddenDangerSearchDto);
 		return list;
-	}
+	}*/
 
 	@Override
 	public void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate) throws Exception {

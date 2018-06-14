@@ -385,7 +385,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 		}
 	}
 
-	@Override
+	/*@Override
 	public List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto) throws BusinessException {
 		
 		try {
@@ -411,7 +411,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询全部失败",e.getMessage());
 		}
 		return null;
-	}
+	}*/
 
 	@Override
 	public void updateDealStatus(List<DealStatusDto> list,Integer managerId,Date nowDate) throws BusinessException {

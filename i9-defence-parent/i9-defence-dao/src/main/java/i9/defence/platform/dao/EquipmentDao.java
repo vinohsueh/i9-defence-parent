@@ -163,7 +163,7 @@ public interface EquipmentDao {
     /**
      * 查询全部隐患报警
      */
-    List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;
+    /*List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;*/
     /**
      * 查询具体隐患报警--报警
      * @param HiddenDangerChannelDto
