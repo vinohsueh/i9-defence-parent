@@ -706,8 +706,8 @@
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
-		    order by field(concat( `e`.`status`, `e`.`dataStatus` ),11,12,'20','00',21,22,20,11,12,10 )
-			<!-- order by equipmentDate desc -->
+		    <!-- order by field(concat( `e`.`status`, `e`.`dataStatus` ),11,12,'20','00','01',21,22,20,11,12,10 ) -->
+			order by equipmentDate desc
 		</select>
 		<!-- 分页查询 -->
 		<select  id="selectHiddenDangerByLimitPage" resultMap="BaseResultMapDto2">
@@ -715,7 +715,7 @@
 			<if test="_parameter != null">
 				<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
 			</if>
-			order by field(concat(status, dataStatus),11,12,'20','00',21,22,20,11,12,10 )
+			order by field(concat(status, dataStatus),11,12,'20','00','01',21,22,20,11,12,10 )
 			limit #{offset},#{limit}
 		</select>
 		
