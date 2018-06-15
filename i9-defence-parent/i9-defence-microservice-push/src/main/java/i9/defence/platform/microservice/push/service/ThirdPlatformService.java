@@ -45,5 +45,12 @@ public interface ThirdPlatformService {
 	 * @param id
 	 */
 	void updateDeviceStatus(int id,int num) throws BusinessException;
+	
+	/**
+	 * 查询该设备所需要的通道
+	 * @param deviceId
+	 * @return
+	 */
+	List<Integer> selectUsefulChannel(String deviceId) throws BusinessException;
   
 }
