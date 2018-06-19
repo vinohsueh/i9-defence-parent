@@ -88,7 +88,6 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     	//添加解析数据
         UpStreamDecode upStreamDecode = new UpStreamDecode();
         upStreamDecode.setHexStr(jsonStr);
-        upStreamDecode.setSubmitDate(new Date());
         
         //将数据添加到通道数据表中
         
@@ -136,7 +135,12 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 				}
 			}
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
+			Date createTime = simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " ")));
+			channelData.setDateTime(createTime);
+			if (upStreamDecode.getSubmitDate() != null){
+				upStreamDecode.setSubmitDate(createTime);
+			}
+			
 			channelData.setSystemType((String)jsonObject.get("systemType"));
 			channelData.setDeviceAddress(address);
 			
