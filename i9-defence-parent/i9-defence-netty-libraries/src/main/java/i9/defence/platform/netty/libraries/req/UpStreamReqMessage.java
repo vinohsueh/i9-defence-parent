@@ -1,7 +1,14 @@
 package i9.defence.platform.netty.libraries.req;
 
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import io.netty.buffer.ByteBuf;
+
 import java.nio.ByteBuffer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,10 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import i9.defence.platform.netty.libraries.EncryptUtils;
-import i9.defence.platform.netty.libraries.MessageDecodeConvert;
-import io.netty.buffer.ByteBuf;
 
 public class UpStreamReqMessage extends MessageDecodeConvert {
     
@@ -31,6 +34,9 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
             tmpList.add(dataMessage.toJSONObject());
         }
         jsonObject.put("dataList", tmpList);
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:ii:ss");
+        jsonObject.put("submitDate", dateFormat.format(new Date()));
         return jsonObject;
     }
 

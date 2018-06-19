@@ -11,6 +11,7 @@ import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.socket.util.StringUtil;
 
 @Service
 public class HeartbeatService implements ICoreService {
@@ -29,6 +30,7 @@ public class HeartbeatService implements ICoreService {
 	        jsonObject.put("loop", channelPacker.loop);
 	        jsonObject.put("deviceAddress", channelPacker.deviceAddress);
 	        jsonObject.put("status", 1);
+            jsonObject.put("submitDate", StringUtil.DateNowStr());
 	        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
         }
         channelPacker.isLogin.set(true);
