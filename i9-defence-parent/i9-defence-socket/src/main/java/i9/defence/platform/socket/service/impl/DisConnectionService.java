@@ -4,7 +4,7 @@ import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
-import i9.defence.platform.socket.util.StringUtil;
+import i9.defence.platform.utils.DateUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class DisConnectionService {
             jsonObject.put("loop", channelPacker.loop);
             jsonObject.put("deviceAddress", channelPacker.deviceAddress);
             jsonObject.put("status", 0);
-            jsonObject.put("submitDate", StringUtil.DateNowStr());
+            jsonObject.put("submitDate", DateUtils.DateNowStr());
             activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
         }
         else {

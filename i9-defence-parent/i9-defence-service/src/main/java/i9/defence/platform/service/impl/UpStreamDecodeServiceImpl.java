@@ -1,19 +1,5 @@
 package i9.defence.platform.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import i9.defence.platform.dao.ChannelDataDao;
 import i9.defence.platform.dao.ConnectLogDao;
 import i9.defence.platform.dao.EquipmentDao;
@@ -29,10 +15,25 @@ import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
+import i9.defence.platform.utils.DateUtils;
 import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.SqlUtil;
 import i9.defence.platform.utils.StringUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author user: jiace
@@ -137,15 +138,20 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date createTime = simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " ")));
 			channelData.setDateTime(createTime);
-			if (upStreamDecode.getSubmitDate() != null){
-				upStreamDecode.setSubmitDate(createTime);
-			}
 			
 			channelData.setSystemType((String)jsonObject.get("systemType"));
 			channelData.setDeviceAddress(address);
 			
 			channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
 			list.add(channelData);
+		}
+		String submitDate = jsonObject.getString("submitDate");
+		if (submitDate == null || submitDate.equals("")) {
+		    upStreamDecode.setSubmitDate(new Date());
+		}
+		else {
+            Date date = DateUtils.parseDate(submitDate);
+		    upStreamDecode.setSubmitDate(date);
 		}
 		try {
 			this.addUpStreamDecode(upStreamDecode);

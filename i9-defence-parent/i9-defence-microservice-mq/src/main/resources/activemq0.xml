@@ -29,30 +29,30 @@
     </bean>  
       
     <!--这个是队列目的地-->  
-    <bean id="deviceStateQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">  
-        <constructor-arg>  
-            <value>I9_DEVICE_STATE</value>  
-        </constructor-arg>  
+    <bean id="deviceStateQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg>
+            <value>I9_DEVICE_STATE</value>
+        </constructor-arg>
     </bean>  
     
-        <!--这个是队列目的地-->  
-    <bean id="businessQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">  
-        <constructor-arg>  
-            <value>I9_BUSINESS</value>  
-        </constructor-arg>  
-    </bean> 
+    <!--这个是队列目的地-->  
+    <bean id="businessQueueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg>
+            <value>I9_BUSINESS</value>
+        </constructor-arg>
+    </bean>
      
     <!-- 消息监听容器 -->  
-    <bean id="deviceStateJmsContainer"        class="org.springframework.jms.listener.DefaultMessageListenerContainer">  
-        <property name="connectionFactory" ref="connectionFactory" />  
-        <property name="destination" ref="deviceStateQueueDestination" />  
-        <property name="messageListener" ref="activeMQDeviceStateConsumerMessageListener" />  
+    <bean id="deviceStateJmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="destination" ref="deviceStateQueueDestination" />
+        <property name="messageListener" ref="activeMQDeviceStateConsumerMessageListener" />
     </bean>  
-    
-        <!-- 消息监听容器 -->  
-    <bean id="businessJmsContainer"        class="org.springframework.jms.listener.DefaultMessageListenerContainer">  
-        <property name="connectionFactory" ref="connectionFactory" />  
-        <property name="destination" ref="businessQueueDestination" />  
-        <property name="messageListener" ref="activeMQBusinessConsumerMessageListener" />  
-    </bean>  
+
+    <!-- 消息监听容器 -->
+    <bean id="businessJmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="destination" ref="businessQueueDestination" />
+        <property name="messageListener" ref="activeMQBusinessConsumerMessageListener" />
+    </bean>
 </beans>  

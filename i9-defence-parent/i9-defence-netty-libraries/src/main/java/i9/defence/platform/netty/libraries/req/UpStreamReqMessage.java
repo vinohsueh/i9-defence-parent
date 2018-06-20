@@ -2,13 +2,11 @@ package i9.defence.platform.netty.libraries.req;
 
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import i9.defence.platform.utils.DateUtils;
 import io.netty.buffer.ByteBuf;
 
 import java.nio.ByteBuffer;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,9 +32,7 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
             tmpList.add(dataMessage.toJSONObject());
         }
         jsonObject.put("dataList", tmpList);
-        
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:ii:ss");
-        jsonObject.put("submitDate", dateFormat.format(new Date()));
+        jsonObject.put("submitDate", DateUtils.DateNowStr());
         return jsonObject;
     }
 
