@@ -9,6 +9,7 @@ import i9.defence.platform.netty.libraries.req.LoginReqMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.util.SpringBeanService;
+import i9.defence.platform.utils.DateUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
@@ -18,6 +19,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSONObject;
 
 public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
 
@@ -73,8 +76,12 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         byteBuffer.put(start).put(version).put(type).putInt(index).put(dst).put(sumcheck).put(end);
         String decoderStr = EncryptUtils.bytesToHexString(byteBuffer.array());
         
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("channelId", ctx.channel().id().asLongText());
+        jsonObject.put("decoderStr", decoderStr);
+        jsonObject.put("submitDate", DateUtils.DateNowStr());
         ActiveMQProducerService activeMQProducerService = SpringBeanService.getBean(ActiveMQProducerService.class);
-        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_OBSERVER, decoderStr);
+        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_OBSERVER, jsonObject.toJSONString());
         
         Message message = new Message();
         message.setType(type);

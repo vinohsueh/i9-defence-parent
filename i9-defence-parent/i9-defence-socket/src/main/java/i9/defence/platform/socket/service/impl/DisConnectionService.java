@@ -27,6 +27,7 @@ public class DisConnectionService {
             jsonObject.put("deviceAddress", channelPacker.deviceAddress);
             jsonObject.put("status", 0);
             jsonObject.put("submitDate", DateUtils.DateNowStr());
+            jsonObject.put("channelId", channelPacker.getChannelId());
             activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
         }
         else {

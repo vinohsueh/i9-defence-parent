@@ -28,6 +28,7 @@ public class LoginService implements ICoreService {
         jsonObject.put("deviceAddress", channelPacker.deviceAddress);
         jsonObject.put("status", 1);
         jsonObject.put("submitDate", DateUtils.DateNowStr());
+        jsonObject.put("channelId", channelPacker.getChannelId());
         activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
     }
     

@@ -105,5 +105,10 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.44</version>
         </dependency>
+		<dependency>
+		    <groupId>org.zeroturnaround</groupId>
+		    <artifactId>zt-exec</artifactId>
+		    <version>1.10</version>
+		</dependency>
     </dependencies>
 </project>
