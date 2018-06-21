@@ -10,8 +10,18 @@ public class StreamOrigin {
     private String jsonstr;
 
     private Date submitDate;
+    
+    private String channelId;
+    
+    public String getChannelId() {
+		return channelId;
+	}
 
-    public Integer getId() {
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
+	public Integer getId() {
         return id;
     }
 
