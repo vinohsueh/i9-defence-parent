@@ -38,6 +38,7 @@
               </label>
             </th>
             <th style="width:85%">数据</th>
+            <th>通道号</th>
             <th>日期</th>
           </tr>
         </thead>
@@ -45,6 +46,7 @@
           <tr ng-repeat="upStreamDecode in upStreamDecodes">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{upStreamDecode.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td style="word-break: break-all;" ng-click="edit({{upStreamDecode.id}})">{{upStreamDecode.hexStr}}</td>
+            <td>{{upStreamDecode.channelId}}</td>
             <td ng-click="edit({{upStreamDecode.id}})">{{upStreamDecode.submitDateStr}}</td>
           </tr>
         </tbody>
