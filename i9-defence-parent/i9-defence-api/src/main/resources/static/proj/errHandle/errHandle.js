@@ -21,7 +21,7 @@ var warningInfoService = errHandleModule.factory('warningInfoService',
 	}]);
 var errHandleControl=errHandleModule.controller('errHandleControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,warningInfoService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 12;
 	$scope.currentPage = 1;
 	$scope.hour =0;
 //	初始化底部信息
