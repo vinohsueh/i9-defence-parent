@@ -57,7 +57,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
         try {
-            upStreamDecode.setSubmitDate(new Date());
+            //upStreamDecode.setSubmitDate(new Date());
             upStreamDecodeDao.addUpStreamDecode(upStreamDecode);
         } catch (Exception e) {
             throw new BusinessException("添加解密数据失败", e.getMessage());
@@ -86,13 +86,17 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 
     @Override
     public void saveUpStreamDecode(String jsonStr) throws Exception {
+    	JSONObject totalObject = JSONObject.parseObject(jsonStr);
+    	String decodeStr = totalObject.getString("decoderStr");
+    	
     	//添加解析数据
         UpStreamDecode upStreamDecode = new UpStreamDecode();
-        upStreamDecode.setHexStr(jsonStr);
+        upStreamDecode.setHexStr(decodeStr);
+        upStreamDecode.setChannelId(totalObject.getString("channelId"));
         
         //将数据添加到通道数据表中
         
-        JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+        JSONObject jsonObject = JSONObject.parseObject(decodeStr);
         String systemId = jsonObject.getString("systemId");
         int loop = (int)jsonObject.get("loop");
         String address = jsonObject.getString("deviceAddress");
@@ -145,7 +149,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
 			list.add(channelData);
 		}
-		String submitDate = jsonObject.getString("submitDate");
+		String submitDate = totalObject.getString("submitDate");
 		if (submitDate == null || submitDate.equals("")) {
 		    upStreamDecode.setSubmitDate(new Date());
 		}
