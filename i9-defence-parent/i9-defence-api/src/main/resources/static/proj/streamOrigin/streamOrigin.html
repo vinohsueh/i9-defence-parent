@@ -37,6 +37,7 @@
               </label>
             </th>
             <th style="width:85%">原始数据名称</th>
+            <th>通道号</th>
             <th>时间</th>
           </tr>
         </thead>
@@ -44,6 +45,7 @@
           <tr ng-repeat="streamOrigin in streamOrigins">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{streamOrigin.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td style="word-break: break-all;">{{streamOrigin.jsonstr}}</td>
+            <td >{{streamOrigin.channelId}}</td>
             <td >{{streamOrigin.submitDateStr}}</td>
           </tr>
         </tbody>
