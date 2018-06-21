@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
+
 import i9.defence.platform.dao.StreamOriginDao;
 import i9.defence.platform.dao.vo.StreamOriginSearchDto;
 import i9.defence.platform.model.StreamOrigin;
 import i9.defence.platform.service.UpStreamOriginService;
 import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.DateUtils;
 import i9.defence.platform.utils.PageBounds;
 
 @Service
@@ -43,8 +46,13 @@ public class UpStreamOriginServiceImpl implements UpStreamOriginService {
     @Override
     public void saveUpStreamOrigin(String str) {
         StreamOrigin streamOrigin = new StreamOrigin();
-        streamOrigin.setJsonstr(str);
-        streamOrigin.setSubmitDate(new Date());
+        JSONObject totalObject = JSONObject.parseObject(str);
+        String decodeStr = totalObject.getString("decoderStr");
+        String submitDate = totalObject.getString("submitDate");
+        Date date = DateUtils.parseDate(submitDate);
+        streamOrigin.setSubmitDate(date);
+        streamOrigin.setJsonstr(decodeStr);
+        streamOrigin.setChannelId(totalObject.getString("channelId"));
         this.addStreamOrigin(streamOrigin);
     }
 }
