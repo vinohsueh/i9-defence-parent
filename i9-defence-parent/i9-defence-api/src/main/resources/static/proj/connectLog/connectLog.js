@@ -21,7 +21,7 @@ var connectLogService = connectLogNgModule.factory('connectLogService',
 	}]);
 var connectLogNgControl=connectLogNgModule.controller('connectLogNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,connectLogService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 12;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){

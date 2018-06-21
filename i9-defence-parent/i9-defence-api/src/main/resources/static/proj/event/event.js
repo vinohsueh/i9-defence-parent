@@ -37,7 +37,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 	$("#hour").val(new Date().getHours());
 	
 	//分页条件
-	$scope.pageSize = 5;
+	$scope.pageSize = 7;
 	$scope.currentPage = 1;
 	$scope.hour =0;
 	//图表显示隐藏状态

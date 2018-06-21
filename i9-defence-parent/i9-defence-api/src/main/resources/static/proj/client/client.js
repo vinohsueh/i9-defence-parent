@@ -24,7 +24,7 @@ var clientService = clientModule.factory('clientService',
 	}]);
 var clientControl=clientModule.controller('clientControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,clientService,httpService){
 	//分页条件
-	$scope.pageSize = 9;
+	$scope.pageSize = 11;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
