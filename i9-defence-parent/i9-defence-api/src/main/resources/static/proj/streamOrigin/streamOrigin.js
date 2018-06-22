@@ -30,6 +30,8 @@ var  streamOriginNgControl= streamOriginNgModule.controller('streamOriginNgContr
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				streamOriginName : text,
+				jsonstr : text,
+				channelId : text,
 			};
 		
 		httpService.post({url:'./streamOrigin/pageStreamOrigin',data:pageParam,showSuccessMsg:false}).then(function(data) {  

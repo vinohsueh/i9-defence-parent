@@ -196,7 +196,10 @@
    <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
         <if test="example.jsonstr != null and example.jsonstr != ''">
-         OR jsonstr LIKE CONCAT('%',CONCAT('${example.jsonstr}','%'))
+         OR (jsonstr LIKE CONCAT('%',CONCAT('${example.jsonstr}','%'))
+        </if>
+        <if test="example.channelId != null and example.channelId != ''">
+         OR channelId LIKE CONCAT('%',CONCAT('${example.channelId}','%')))
         </if>
     </trim>
   </sql>

@@ -197,8 +197,14 @@
   
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+        <if test="example.hexStr != null and example.hexStr != ''">
+            OR (hexStr LIKE CONCAT(CONCAT('%','${example.hexStr}'),'%' )
+        </if>
         <if test="example.submitDate != null and example.submitDate != ''">
-            OR (submitDate LIKE CONCAT(CONCAT('%','${example.submitDate}'),'%' )
+            OR submitDate LIKE CONCAT(CONCAT('%','${example.submitDate}'),'%' )
+        </if>
+        <if test="example.channelId != null and example.channelId != ''">
+        	 OR channelId LIKE CONCAT('%',CONCAT('${example.channelId}','%')))
         </if>
     </trim>
   </sql>

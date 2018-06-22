@@ -30,7 +30,8 @@ var connectLogNgControl=connectLogNgModule.controller('connectLogNgControl',func
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
 				status : $scope.status,
-				orderByClause : "createTime desc"
+				orderByClause : "createTime desc",
+				equipmentPosition : text,
 			};
 		
 		httpService.post({url:'./connectLog/pageConnectLog',data:pageParam,showSuccessMsg:false}).then(function(data) {  

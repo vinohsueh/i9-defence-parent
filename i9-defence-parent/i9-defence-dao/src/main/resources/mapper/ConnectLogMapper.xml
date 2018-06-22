@@ -212,6 +212,9 @@
    </select>
    <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
+    	<if test="example.equipmentPosition != null and example.equipmentPosition != ''">
+         	OR (cl.deviceId in(select cl.deviceId from t_equipment e  where e.equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))))
+        </if>
         <if test="example.status != null ">
           and status =#{example.status}
         </if>
