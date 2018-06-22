@@ -261,6 +261,15 @@ public class EquipmentController {
 	@RequestMapping("/selectMonthData")
 	public HashMap<String, Object> selectMonthData(@RequestBody MonthDataDto monthDataDto){
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		//获取登录人
+		Manager loginManager = managerService.getLoginManager();
+		//如果为经销商和管理员
+		if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+			monthDataDto.setDistributorId(loginManager.getId());
+		}else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+			//如果是项目管理员
+			monthDataDto.setProjectManagerId(loginManager.getId());
+		}
 		//报警数据
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
 		//隐患数据

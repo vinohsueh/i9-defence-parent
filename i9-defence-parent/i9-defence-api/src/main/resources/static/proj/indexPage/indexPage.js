@@ -62,7 +62,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	
 	
 	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
+	$scope.endTime = $scope.getDate(1);
 	$scope.pageInit = function(){
 		$scope.markArr = [];
 		if($scope.selected == null || $scope.selected == ''){

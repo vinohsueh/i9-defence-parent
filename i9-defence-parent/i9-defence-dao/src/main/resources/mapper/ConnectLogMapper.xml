@@ -6,6 +6,7 @@
     <result column="deviceId" jdbcType="VARCHAR" property="deviceId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+  	<result column="channelId" jdbcType="VARCHAR" property="channelId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, deviceId, status, createTime
+    id, deviceId, status, createTime, channelId
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.ConnectLogExample" resultMap="BaseResultMap">
     select
@@ -102,10 +103,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_connect_log (deviceId, status, createTime
-      )
-    values (#{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+    insert into t_connect_log (deviceId, status, createTime, 
+      channelId)
+    values (#{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{channelId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.ConnectLog">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -122,6 +123,9 @@
       <if test="createTime != null">
         createTime,
       </if>
+      <if test="channelId != null">
+        channelId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deviceId != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,17 +163,21 @@
       <if test="record.createTime != null">
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
+       <if test="record.channelId != null">
+        channelId = #{record.channelId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_connect_log
+     update t_connect_log
     set id = #{record.id,jdbcType=INTEGER},
       deviceId = #{record.deviceId,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
-      createTime = #{record.createTime,jdbcType=TIMESTAMP}
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      channelId = #{record.channelId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,20 +194,25 @@
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="channelId != null">
+        channelId = #{channelId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.ConnectLog">
-    update t_connect_log
+     update t_connect_log
     set deviceId = #{deviceId,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
-      createTime = #{createTime,jdbcType=TIMESTAMP}
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      channelId = #{channelId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
    <select id="selectByLimitPage" resultType="i9.defence.platform.dao.vo.ConnectLogDto">
 	    SELECT
 			cl.createTime as createTime ,
 			cl.STATUS as status,
+			cl.channelId as channelId,
 			( SELECT e.equipmentPosition FROM t_equipment e WHERE e.deviceId = cl.deviceId ) AS equipmentPosition,
 			( SELECT e.equipmentRemarks FROM t_equipment e WHERE e.deviceId = cl.deviceId ) AS equipmentRemarks ,
 			( SELECT p.projectName FROM t_project p WHERE p.id IN ( SELECT e.projectId from t_equipment e where e.projectId = p.id and e.deviceId = cl.deviceId) ) as projectName ,
@@ -217,6 +233,9 @@
         </if>
         <if test="example.status != null ">
           and status =#{example.status}
+        </if>
+        <if test="example.channelId != null and example.channelId != ''">
+          and channelId like CONCAT('%',CONCAT('${example.channelId}','%'))
         </if>
          <if test="example.managerId != null and example.managerId != ''">
           and (select p.distributorId from t_project p where p.id in (select e.projectId from t_equipment e where e.deviceId=cl.deviceId))=#{example.managerId}

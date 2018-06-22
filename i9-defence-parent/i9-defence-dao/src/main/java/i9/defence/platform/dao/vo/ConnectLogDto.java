@@ -26,6 +26,16 @@ public class ConnectLogDto extends PageListDto{
 	
 	private Integer managerId2;
 
+	private String channelId;
+	
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
 	public String getOrderByClause() {
 		return orderByClause;
 	}
