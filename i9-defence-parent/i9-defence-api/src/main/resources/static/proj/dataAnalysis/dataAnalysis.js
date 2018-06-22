@@ -63,7 +63,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	    return time;
 	}
 	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
+	$scope.endTime = $scope.getDate(+1);
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
 			$scope.selected ={
@@ -299,5 +299,5 @@ var dateControl=dataAnalysisNgModule.controller('dateControl',function($rootScop
 	    return time;
 	}
 	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
+	$scope.endTime = $scope.getDate(1);
 })
