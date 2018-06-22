@@ -32,6 +32,7 @@ var connectLogNgControl=connectLogNgModule.controller('connectLogNgControl',func
 				status : $scope.status,
 				orderByClause : "createTime desc",
 				equipmentPosition : text,
+				channelId : text,
 			};
 		
 		httpService.post({url:'./connectLog/pageConnectLog',data:pageParam,showSuccessMsg:false}).then(function(data) {  

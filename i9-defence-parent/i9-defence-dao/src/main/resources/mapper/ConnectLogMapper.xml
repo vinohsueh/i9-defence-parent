@@ -229,13 +229,13 @@
    <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
     	<if test="example.equipmentPosition != null and example.equipmentPosition != ''">
-         	OR (cl.deviceId in(select cl.deviceId from t_equipment e  where e.equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%'))))
+         	OR (deviceId in (select deviceId from t_equipment e  where e.equipmentPosition LIKE CONCAT('%',CONCAT('${example.equipmentPosition}','%')))
+        </if>
+        <if test="example.channelId != null and example.channelId != ''">
+        	 OR channelId LIKE CONCAT('%',CONCAT('${example.channelId}','%')))
         </if>
         <if test="example.status != null ">
           and status =#{example.status}
-        </if>
-        <if test="example.channelId != null and example.channelId != ''">
-          and channelId like CONCAT('%',CONCAT('${example.channelId}','%'))
         </if>
          <if test="example.managerId != null and example.managerId != ''">
           and (select p.distributorId from t_project p where p.id in (select e.projectId from t_equipment e where e.deviceId=cl.deviceId))=#{example.managerId}
