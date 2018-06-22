@@ -40,7 +40,7 @@
             <property name="methodNameCalculator" value="extended" />
         </javaClientGenerator>
          
-        <table schema="defence" tableName="t_up_stream_origin" domainObjectName="StreamOrigin">
+        <table schema="defence" tableName="t_error_record" domainObjectName="ErrorRecord">
             <property name="useActualColumnNames" value="true" />
             <generatedKey column="id" sqlStatement="mysql" identity="true" />
         </table>

@@ -1,26 +1,5 @@
 package i9.defence.platform.service.impl;
 
-import i9.defence.platform.dao.ChannelDataDao;
-import i9.defence.platform.dao.ConnectLogDao;
-import i9.defence.platform.dao.EquipmentDao;
-import i9.defence.platform.dao.PassageWayDao;
-import i9.defence.platform.dao.UpStreamDecodeDao;
-import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
-import i9.defence.platform.model.ChannelData;
-import i9.defence.platform.model.ConnectLog;
-import i9.defence.platform.model.Equipment;
-import i9.defence.platform.model.HiddenDanger;
-import i9.defence.platform.model.Passageway;
-import i9.defence.platform.model.UpStreamDecode;
-import i9.defence.platform.service.UpStreamDecodeService;
-import i9.defence.platform.utils.BusinessException;
-import i9.defence.platform.utils.Constants;
-import i9.defence.platform.utils.DateUtils;
-import i9.defence.platform.utils.EncryptUtils;
-import i9.defence.platform.utils.PageBounds;
-import i9.defence.platform.utils.SqlUtil;
-import i9.defence.platform.utils.StringUtil;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +13,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.dao.ChannelDataDao;
+import i9.defence.platform.dao.ConnectLogDao;
+import i9.defence.platform.dao.EquipmentDao;
+import i9.defence.platform.dao.ErrorRecordDao;
+import i9.defence.platform.dao.PassageWayDao;
+import i9.defence.platform.dao.UpStreamDecodeDao;
+import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
+import i9.defence.platform.model.ChannelData;
+import i9.defence.platform.model.ConnectLog;
+import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.ErrorRecord;
+import i9.defence.platform.model.HiddenDanger;
+import i9.defence.platform.model.Passageway;
+import i9.defence.platform.model.UpStreamDecode;
+import i9.defence.platform.service.UpStreamDecodeService;
+import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.Constants;
+import i9.defence.platform.utils.DateUtils;
+import i9.defence.platform.utils.EncryptUtils;
+import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.SqlUtil;
+import i9.defence.platform.utils.StringUtil;
 
 /**
  * @author user: jiace
@@ -54,6 +56,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     private ConnectLogDao connectLogDao;
     @Autowired
     private PassageWayDao passageWayDao;
+    @Autowired
+    private ErrorRecordDao errorRecordDao;
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
         try {
@@ -189,6 +193,15 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 			}
 			//更新设备的数据状态
 			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus,alertStatus);
+			
+			//插入设备问题记录
+			if (0 != datastatus) {
+				ErrorRecord errorRecord = new ErrorRecord();
+				errorRecord.setCreateTime(new Date());
+				errorRecord.setDeviceId(deviceId);
+				errorRecord.setType(datastatus);
+				errorRecordDao.insertErrorRecord(errorRecord);
+			}
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
