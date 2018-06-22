@@ -41,6 +41,7 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
             int loop = jsonObject.getInteger("loop");
             String address = jsonObject.getString("deviceAddress");
             int status = jsonObject.getIntValue("status");
+            String channelId = jsonObject.getString("channelId");
             
             // 通过设备唯一标识更新状态
             String deviceId = StringUtil.getDeviceId(systemId, loop, address);
@@ -52,6 +53,7 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
             ConnectLog connectLog = new ConnectLog();
             connectLog.setDeviceId(deviceId);// 设备唯一标识
             connectLog.setStatus(status);
+            connectLog.setChannelId(channelId);
             
             String submitDate = jsonObject.getString("submitDate");
             if (submitDate == null || submitDate.equals("")) {

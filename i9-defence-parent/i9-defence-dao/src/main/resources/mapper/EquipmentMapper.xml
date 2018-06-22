@@ -912,7 +912,7 @@
 	</select> -->
 	
 	<select id="selectWarningMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto" resultType="i9.defence.platform.dao.vo.MonthData">
-		SELECT COUNT(*) AS count, tab.mon AS month
+		<!-- SELECT COUNT(*) AS count, tab.mon AS month
 		FROM (
 			SELECT cd.deviceId, COUNT(*)
 				, DATE_FORMAT(cd.dateTime, '%Y-%m') AS mon
@@ -943,7 +943,37 @@
 		        </if>
 			GROUP BY DATE_FORMAT(cd.dateTime, '%Y-%m'), cd.deviceId
 		) tab
-		GROUP BY tab.mon
+		GROUP BY tab.mon -->
+		SELECT
+			count( * ) as count,
+			a.mon as month
+		FROM
+			(SELECT
+				count( * ),
+				DATE_FORMAT( createTime, '%Y-%m' ) AS mon 
+				FROM
+					t_error_record er left join t_equipment e on er.deviceId = e.deviceId
+				WHERE
+					type = 1
+					<if test="projectId != null">
+				         and e.projectId = #{projectId}
+			        </if>
+			        <if test="projectId == null and projectProvince != null and projectProvince != ''">
+				         <if test="projectCity == null || projectCity == ''">
+				        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince})
+			        	 </if>
+				         <if test="projectCity != null and projectCity != ''">
+				        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
+			        	 </if>
+			        </if>
+			        <if test="endTime != null and endTime != ''">
+				        and er.createTime &lt; #{endTime}
+			        </if>
+			        <if test="startTime != null and startTime != ''">
+				        and er.createTime &gt; #{startTime} 
+			        </if> 
+				GROUP BY DATE_FORMAT( er.createTime, '%Y-%m' ),er.deviceId 
+			) a  GROUP BY a.mon
 	</select>
 	
 	
@@ -965,7 +995,7 @@
 		GROUP BY DATE_FORMAT(cd.dateTime,'%Y-%m') 
 	</select> -->
 	<select id="selectHiddenMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto"  resultType="i9.defence.platform.dao.vo.MonthData">
-		SELECT COUNT(*) AS count, tab.mon AS MONTH
+		<!-- SELECT COUNT(*) AS count, tab.mon AS MONTH
 		FROM (
 			SELECT cd.deviceId, COUNT(*)
 				, DATE_FORMAT(cd.dateTime, '%Y-%m') AS mon
@@ -1002,7 +1032,39 @@
 		        </if>
 			GROUP BY DATE_FORMAT(cd.dateTime, '%Y-%m'), cd.deviceId
 		) tab
-		GROUP BY tab.mon
+		GROUP BY tab.mon -->
+		SELECT
+			count( * ) as count,
+			a.mon as month
+		FROM
+			(SELECT
+				count( * ),
+				DATE_FORMAT( createTime, '%Y-%m' ) AS mon 
+				FROM
+					t_error_record er left join t_equipment e on er.deviceId = e.deviceId
+				WHERE
+					type = 2 
+					<if test="projectId != null">
+				         and e.projectId = #{projectId}
+			        </if>
+			        <if test="projectId == null and projectProvince != null and projectProvince != ''">
+				         <if test="projectCity == null || projectCity == ''">
+				        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince})
+			        	 </if>
+				         <if test="projectCity != null and projectCity != ''">
+				        	 and e.projectId in (select id from t_project where projectProvince = #{projectProvince} and projectCity = #{projectCity} )
+			        	 </if>
+			        </if>
+			        <if test="endTime != null and endTime != ''">
+				        and er.createTime &lt; #{endTime}
+			        </if>
+			        <if test="startTime != null and startTime != ''">
+				        and er.createTime &gt; #{startTime} 
+			        </if> 
+				GROUP BY
+					DATE_FORMAT( er.createTime, '%Y-%m' ),
+					er.deviceId 
+			) a  GROUP BY a.mon
 	</select>
 	<select id="selectEqChannelDataDto" parameterType="java.lang.Integer" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
 		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,e.equipmentCategoryId as equipmentCategoryId,cd.type as type
