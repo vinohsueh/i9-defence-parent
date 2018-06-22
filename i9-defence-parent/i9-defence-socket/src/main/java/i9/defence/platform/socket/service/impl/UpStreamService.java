@@ -4,9 +4,11 @@ import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.ErrorCode;
 import i9.defence.platform.netty.libraries.req.DataMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
+import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 
@@ -22,6 +24,10 @@ public class UpStreamService implements ICoreService {
 
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
+        // 设备要发送数据，必须先进行登录操作
+        if (!channelPacker.checkIsLogin()) {
+            throw new BusinessException(ErrorCode.UNAUTHORIZED);
+        }
         UpStreamReqMessage upStreamReqMessage = (UpStreamReqMessage) message.getMessageDecodeConvert();
         upStreamReqMessage.showInfo();
         for (DataMessage dataMessage : upStreamReqMessage.dataList) {
