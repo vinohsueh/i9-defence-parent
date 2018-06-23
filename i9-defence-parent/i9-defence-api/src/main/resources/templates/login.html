@@ -9,8 +9,8 @@
 </head>
 <body>
 	<div class='logo'><img src="images/logoBig.png" alt=""></div>
-	<h1 class="title">智慧消防电气安全监管云平台</h1>
-	<p class='smallTitle'>intellgent fire electric safety supervision cloud playform</p>
+	<h1 class="title">智慧用电安全隐患监管服务系统</h1>
+	<p class='smallTitle'>INTELLIGENT POWER SECURITY AND RISK MONITORING SERVICE SYSTEM</p>
 	<form th:action="@{/login}" method="post" th:object="${managerLoginDto}" id="loginData">
 		<input type="text" placeholder='请输入您的账号' th:field="*{username}">
 		<input type="password" placeholder='请输入您的密码' th:field="*{password}">
@@ -21,7 +21,7 @@
 	<!-- <p class='mb-10' id='forgetData'><span></span></p> -->
 	<p class="loginAlert mb-10" style="color: red" th:text="(${exception} == null)?'':${exception.errorMessage}"></p>
 	<!-- <p>还没有一个账户？</p> -->
-	
+	<p class='bottomFixed'><a target='target' href="https://www.idc9000.com/">由idc9000提供云计算支持</a></p>
 </body>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script>

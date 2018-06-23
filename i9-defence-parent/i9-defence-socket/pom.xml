@@ -96,9 +96,19 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
+             <groupId>i9.defence.platform</groupId>
+            <artifactId>i9-defence-utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.44</version>
         </dependency>
+		<dependency>
+		    <groupId>org.zeroturnaround</groupId>
+		    <artifactId>zt-exec</artifactId>
+		    <version>1.10</version>
+		</dependency>
     </dependencies>
 </project>

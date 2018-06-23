@@ -331,4 +331,9 @@ public class ManagerServiceImpl implements ManagerService{
         }
 	}
 
+	@Override
+	public int selectAgencyGrade(Integer managerId) throws BusinessException {
+		return managerDao.selectAgencyGrade(managerId);
+	}
+
 }

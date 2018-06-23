@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import i9.defence.platform.dao.vo.ErrHandleSearchDto;
 import i9.defence.platform.dao.vo.ErrHandleUnifiedDto;
 import i9.defence.platform.model.ErrHandle;
-import i9.defence.platform.model.Manager;
-import i9.defence.platform.model.Role;
 import i9.defence.platform.service.ErrHandleService;
-import i9.defence.platform.service.ManagerService;
-import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
 
 @RestController
@@ -24,9 +20,6 @@ public class ErrHandleController {
 
 	@Autowired
 	private ErrHandleService errHandleService;
-	
-	@Autowired
-	private ManagerService managerService;
 	
 	/**
      * 分页查询
@@ -37,11 +30,11 @@ public class ErrHandleController {
     public HashMap<String, Object> pageErrHandle(
             @RequestBody ErrHandleSearchDto errHandleSearchDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        Manager manager = managerService.getLoginManager();
+      /*  Manager manager = managerService.getLoginManager();
         Role role = manager.getRole();
         if(Arrays.asList(Constants.S_AGENCY).contains(role.getName())){
         	errHandleSearchDto.setManagerId(manager.getId());
-        }
+        }*/
         PageBounds<ErrHandle> pageBounds = errHandleService.selectByLimitPage(errHandleSearchDto);
         result.put("data", pageBounds);
         return result;

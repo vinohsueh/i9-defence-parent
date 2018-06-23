@@ -5381,4 +5381,6 @@ a.text-#000000:hover {
   display: inline-block;
   margin-top: 3px;
 }
-
+#agencyTable td{
+	vertical-align: middle !important;
+}

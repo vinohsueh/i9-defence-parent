@@ -12,6 +12,26 @@ public class UpStreamDecodeSearchDto extends PageListDto{
 	private String orderByClause;
 	
 	private Date submitDate;
+	
+    private String hexStr;
+    
+    private String channelId;
+    
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
+	public String getHexStr() {
+		return hexStr;
+	}
+
+	public void setHexStr(String hexStr) {
+		this.hexStr = hexStr;
+	}
 
 	public String getOrderByClause() {
 		return orderByClause;

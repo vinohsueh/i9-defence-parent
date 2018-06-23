@@ -50,6 +50,8 @@ public class ActiveMQConsumerRunnablePool {
                     Map<String, String> map = thirdPlatformService.selectDeviceErrors();
                     //查询设备信息
                     DeviceInfoDto deviceInfoDto = thirdPlatformService.selectEquipmentInfo(deviceId);
+                    //查询设备所需要的那几个通道   不在此这些通道的报警数据不要
+                    List<Integer> channels = thirdPlatformService.selectUsefulChannel(deviceId);
                     if (deviceInfoDto != null) {
                     	//获取通道数据
                 		List<ChannelData> list = new ArrayList<ChannelData>();
@@ -59,13 +61,14 @@ public class ActiveMQConsumerRunnablePool {
                 			//数据的类型
                 			int type = (int) jsonObject2.get("type");
                 			String code = String.valueOf(jsonObject2.get("value"));
+                			int channel = (int) jsonObject2.get("channel");
                 			//如果数据类型是0 且 错误代码不为00000000  时  记录记录
-                			if (0 == type && !SqlUtil.NORMAL_CODE.equals(code)) {
+                			if (channels.contains(channel) && 0 == type && !SqlUtil.NORMAL_CODE.equals(code)) {
                 				ChannelData channelData = new ChannelData();
                 				//回路号
                 				channelData.setLoop(loop);
                 				//通道号
-                				channelData.setChannel((int) jsonObject2.get("channel"));
+                				channelData.setChannel(channel);
                 				//错误代码
                 				//此处转为中文错误名称
                 				String codeName = map.get(code+deviceInfoDto.getEquipmentId());

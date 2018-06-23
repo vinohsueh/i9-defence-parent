@@ -1,5 +1,10 @@
 package i9.defence.platform.netty.libraries.req;
 
+import i9.defence.platform.netty.libraries.EncryptUtils;
+import i9.defence.platform.netty.libraries.MessageDecodeConvert;
+import i9.defence.platform.utils.DateUtils;
+import io.netty.buffer.ByteBuf;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import i9.defence.platform.netty.libraries.EncryptUtils;
-import i9.defence.platform.netty.libraries.MessageDecodeConvert;
-import io.netty.buffer.ByteBuf;
 
 public class UpStreamReqMessage extends MessageDecodeConvert {
     
@@ -31,6 +32,7 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
             tmpList.add(dataMessage.toJSONObject());
         }
         jsonObject.put("dataList", tmpList);
+        jsonObject.put("submitDate", DateUtils.DateNowStr());
         return jsonObject;
     }
 

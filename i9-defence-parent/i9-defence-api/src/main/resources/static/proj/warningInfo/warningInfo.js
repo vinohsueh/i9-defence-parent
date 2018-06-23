@@ -21,7 +21,7 @@ var warningInfoService = warningInfoModule.factory('warningInfoService',
 	}]);
 var warningInfoControl=warningInfoModule.controller('warningInfoControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,warningInfoService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 12;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
@@ -81,5 +81,14 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 	$scope.search = function(){
 		$scope.initTable();
 	}
-
+	// 窗口适应
+	function resizeWin() {
+	    var domHeight = $(window).height();
+	    var bodyHeight = domHeight-230;
+	    $('#myTableBody').height(bodyHeight);
+	}
+	resizeWin()
+	$(window).resize(function () {
+	    resizeWin();
+	})
 })

@@ -1,6 +1,7 @@
 package i9.defence.platform.dao.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import i9.defence.platform.cache.ErrorTypeCache;
 
@@ -43,10 +44,35 @@ public class EqChannelDataDto implements Serializable {
     public void setChannelNum(Integer channelNum) {
         this.channelNum = channelNum;
     }
-
+    
     public String getChannelValue() {
-        if (type == 0) {
-            return ErrorTypeCache.getCacheDict(channelValue+equipmentCategoryId);
+		if (type == 0) {
+			//如果是多名称故障
+        	if (ErrorTypeCache.getCacheJhType(channelValue+equipmentCategoryId) == 1) {
+        		String faultNames = ErrorTypeCache.getCacheDict(channelValue+equipmentCategoryId);
+        		String [] faultNameArray = faultNames.split("/");
+        		if (faultNameArray.length < 2 ){
+        			return "未知故障(格式定义错误)";
+        		}
+        		List<Integer> fault1Channels = ErrorTypeCache.getCacheFault1Channels(channelValue+equipmentCategoryId);
+        		if (fault1Channels != null && fault1Channels.size() != 0) {
+        			if (fault1Channels.contains(channelNum)){
+            			return faultNameArray[0];
+            		} 
+        		}
+        		
+        		List<Integer> fault2Channels = ErrorTypeCache.getCacheFault2Channels(channelValue+equipmentCategoryId);
+        		if (fault2Channels != null && fault2Channels.size() != 0) {
+        			if (fault2Channels.contains(channelNum)){
+            			return faultNameArray[1];
+            		} 
+        		}
+        		
+    			return "未定义该通道故障名称";
+        	
+        	}else{
+        		return ErrorTypeCache.getCacheDict(channelValue+equipmentCategoryId);
+        	}
         } else {
             return channelValue;
         }

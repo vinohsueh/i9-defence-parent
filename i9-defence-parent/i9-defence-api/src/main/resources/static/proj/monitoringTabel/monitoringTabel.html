@@ -41,31 +41,35 @@
     <button type='button' class='btn btn-primary' ng-click='subSearch()'><i class='glyphicon glyphicon-search'></i></button>
   </form>
   <div class="myBox">
-    <div class="table-responsive" style='min-height:350px'>
-      <table id='myTable' class="table table-striped b-t b-b b-light" style="table-layout:fixed">
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-b b-light" style="table-layout:fixed">
         <thead>
           <tr>
           	<th width='150px'>设备分类</th>
             <th width='150px'>设备地址</th>
-            <th width='150px'>设备备注</th>
+            <th width='150px'>设备位置</th>
             <th width='100px'>项目名称</th>
             <th width='100px'>状态</th>
             <th>最新数据</th>
           </tr>
         </thead>
-        <tbody id='myTableBody'>
-          <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
-           	<td>{{project.eqCategoryName}}</td>
-            <td>{{project.equipmentPosition}}</td>
-            <td>{{project.equipmentRemarks}}</td>
-            <td>{{project.projectName}}</td>
-            <td class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
-            <td>
-              <span class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      </table>  
+      <div id='myTableBody'>
+        <table class="table table-striped b-t b-b b-light" style="table-layout:fixed">
+          <tbody>
+            <tr ng-repeat="project in projects" ng-click='checkItem(project.id)'>
+              <td width='150px'>{{project.eqCategoryName}}</td>
+              <td width='150px'>{{project.equipmentPosition}}</td>
+              <td width='150px'>{{project.equipmentRemarks}}</td>
+              <td width='100px'>{{project.projectName}}</td>
+              <td width='100px' class='eventType'><span  class='{{project.status}}'>{{project.statusText}}</span></td>
+              <td>
+                <span class='passageway' ng-repeat="i in project.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="row">
       <div class="col-sm-4">
@@ -107,7 +111,7 @@
       <div class="body">
         <p>种类：{{equipment.equipmentCategoryName}}</p>
         <p>地址：{{equipment.equipmentPosition}}</p>
-        <p>备注：{{equipment.equipmentRemarks}}</p>
+        <p>设备位置：{{equipment.equipmentRemarks}}</p>
         <p>注册时间：{{equipment.dateString}}</p>
       </div>
     </div>
@@ -130,6 +134,7 @@
             </div>
             <label for="">-</label>
             <select name="" id="hour" class='form-control blue_bg'>
+           	  <option value="24">全部</option>		
            	  <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>

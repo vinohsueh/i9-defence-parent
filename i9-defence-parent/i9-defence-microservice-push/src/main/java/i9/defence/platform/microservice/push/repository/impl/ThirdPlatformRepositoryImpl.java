@@ -5,8 +5,10 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -108,6 +110,23 @@ public class ThirdPlatformRepositoryImpl implements ThirdPlatformRepository {
 			           ps.setInt(2,id);
 			       }
 			});
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Integer> selectUsefulChannel(String deviceId) {
+		try {
+			List<Integer> result = new ArrayList<>();
+			String sql = "select p.channel from t_passageway p where p.systemId = (select systemId from t_equipment where deviceId = '"+deviceId+"')";
+			List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+			if (list.size() > 0) {
+				for (Map<String, Object> map : list) {
+					result.add((int) map.get("channel"));
+				}
+			}
+			return result;
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}

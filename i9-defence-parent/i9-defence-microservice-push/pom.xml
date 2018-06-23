@@ -118,5 +118,10 @@
             <artifactId>junit</artifactId>
             <version> 4.12</version><!--$NO-MVN-MAN-VER$ -->
         </dependency>
+        <!-- Spring Boot log4j依赖 -->
+        <!-- <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
+        </dependency> -->
     </dependencies>
 </project>

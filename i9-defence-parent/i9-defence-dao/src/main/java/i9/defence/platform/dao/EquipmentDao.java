@@ -163,7 +163,7 @@ public interface EquipmentDao {
     /**
      * 查询全部隐患报警
      */
-    List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;
+    /*List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;*/
     /**
      * 查询具体隐患报警--报警
      * @param HiddenDangerChannelDto
@@ -261,5 +261,23 @@ public interface EquipmentDao {
 	 * @param deviceId
 	 * @param datastatus
 	 */
-	void updateEquipmentDataStatus(String deviceId, int datastatus);
+	void updateEquipmentDataStatus(String deviceId, int datastatus,int alertStatus);
+	
+	/**
+	 * 更改设备状态
+	* @Title: updateEquipStatusByIds 
+	* @Description: TODO
+	* @param ids
+	* @throws Exception
+	 */
+	void updateEquipStatusByIds(List<Integer> ids)throws Exception ;
+	
+	/**
+	 * 更改设备旧状态
+	* @Title: updateEquipRemainAlertByDeviceIds 
+	* @Description: TODO
+	* @param ids
+	* @throws Exception
+	 */
+	void updateEquipRemainAlertByDeviceIds(List<String> deviceIds)throws Exception ;
 }

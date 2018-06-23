@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="jsonstr" jdbcType="VARCHAR" property="jsonstr" />
     <result column="submitDate" jdbcType="TIMESTAMP" property="submitDate" />
+  	<result column="channelId" jdbcType="VARCHAR" property="channelId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, jsonstr, submitDate
+    id, jsonstr, submitDate, channelId
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.StreamOriginExample" resultMap="BaseResultMap">
     select
@@ -101,8 +102,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_up_stream_origin (jsonstr, submitDate)
-    values (#{jsonstr,jdbcType=VARCHAR}, #{submitDate,jdbcType=TIMESTAMP})
+    insert into t_up_stream_origin (jsonstr, submitDate, channelId
+      )
+    values (#{jsonstr,jdbcType=VARCHAR}, #{submitDate,jdbcType=TIMESTAMP}, #{channelId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.StreamOrigin">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -116,6 +119,9 @@
       <if test="submitDate != null">
         submitDate,
       </if>
+      <if test="channelId != null">
+        channelId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="jsonstr != null">
@@ -123,6 +129,9 @@
       </if>
       <if test="submitDate != null">
         #{submitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -144,16 +153,20 @@
       <if test="record.submitDate != null">
         submitDate = #{record.submitDate,jdbcType=TIMESTAMP},
       </if>
+       <if test="record.channelId != null">
+        channelId = #{record.channelId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_up_stream_origin
+     update t_up_stream_origin
     set id = #{record.id,jdbcType=INTEGER},
       jsonstr = #{record.jsonstr,jdbcType=VARCHAR},
-      submitDate = #{record.submitDate,jdbcType=TIMESTAMP}
+      submitDate = #{record.submitDate,jdbcType=TIMESTAMP},
+      channelId = #{record.channelId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -167,19 +180,26 @@
       <if test="submitDate != null">
         submitDate = #{submitDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="channelId != null">
+        channelId = #{channelId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.StreamOrigin">
-    update t_up_stream_origin
+     update t_up_stream_origin
     set jsonstr = #{jsonstr,jdbcType=VARCHAR},
-      submitDate = #{submitDate,jdbcType=TIMESTAMP}
+      submitDate = #{submitDate,jdbcType=TIMESTAMP},
+      channelId = #{channelId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
    <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE"  prefixOverrides="AND|OR" >
         <if test="example.jsonstr != null and example.jsonstr != ''">
-         OR jsonstr LIKE CONCAT('%',CONCAT('${example.jsonstr}','%'))
+         OR (jsonstr LIKE CONCAT('%',CONCAT('${example.jsonstr}','%'))
+        </if>
+        <if test="example.channelId != null and example.channelId != ''">
+         OR channelId LIKE CONCAT('%',CONCAT('${example.channelId}','%')))
         </if>
     </trim>
   </sql>

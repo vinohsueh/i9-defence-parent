@@ -95,4 +95,13 @@ public class ThirdPlatformServiceImpl implements ThirdPlatformService {
 			throw new BusinessException(e.getErrorMessage(),"更新设备状态失败");
 		}
 	}
+
+	@Override
+	public List<Integer> selectUsefulChannel(String deviceId) throws BusinessException {
+		try {
+			return thirdPlatformRepository.selectUsefulChannel(deviceId);
+		} catch (BusinessException e) {
+			throw new BusinessException(e.getErrorMessage(),"查询设备通道失败");
+		}
+	}
 }

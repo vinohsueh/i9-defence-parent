@@ -41,4 +41,11 @@ public interface ThirdPlatformRepository {
 	 * @param id
 	 */
 	void updateDeviceStatus(int id,String status);
+	
+	/**
+	 * 查询设备有用的通道
+	 * @param deviceId
+	 * @return
+	 */
+	List<Integer> selectUsefulChannel(String deviceId);
 }

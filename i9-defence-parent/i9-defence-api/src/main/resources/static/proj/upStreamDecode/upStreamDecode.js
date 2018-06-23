@@ -28,7 +28,8 @@ var upStreamDecodeNgControl=upStreamDecodeNgModule.controller('upStreamDecodeNgC
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				//username : $scope.searchText
+				channelId : $scope.searchText,
+				hexStr : $scope.searchText,
 			};
 		
 		httpService.post({url:'./upStreamDecode/pageUpStreamDecode',data:pageParam,showSuccessMsg:false}).then(function(data) {  

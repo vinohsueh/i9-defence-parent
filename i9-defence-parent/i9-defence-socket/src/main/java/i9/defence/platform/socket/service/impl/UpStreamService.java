@@ -37,6 +37,7 @@ public class UpStreamService implements ICoreService {
                     + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
         }
         JSONObject jsonObject = upStreamReqMessage.toJSONObject();
+        jsonObject.put("channelId", channelPacker.getChannelId());
         String jsonStr = jsonObject.toJSONString();
         try {
             activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_BUSINESS, jsonStr);

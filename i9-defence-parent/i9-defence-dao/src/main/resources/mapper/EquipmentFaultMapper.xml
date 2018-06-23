@@ -7,6 +7,9 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="equipmentId" jdbcType="INTEGER" property="equipmentId" />
     <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="jhType" jdbcType="INTEGER" property="jhType" />
+    <result column="activationOne" jdbcType="VARCHAR" property="activationOne" />
+    <result column="activationTwo" jdbcType="VARCHAR" property="activationTwo" />
     <association property="equipmentName" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEquipmentId"></association>
   	<!--查询设备型号编号  -->
   	<association property="eqCategoryId" column="equipmentId" jdbcType="VARCHAR" select="selectEquipmentByEqCategoryId"></association>
@@ -70,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-     id, name, code, equipmentId, type
+     id, name, code, equipmentId, type, jhType, activationOne, activationTwo
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentFaultExample" resultMap="BaseResultMap">
     select
@@ -107,10 +110,9 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-   insert into t_equipment_fault (name, code, equipmentId, 
-      type)
+   insert into t_equipment_fault (name, code, equipmentId, type, jhType, activationOne, activationTwo)
     values (#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{equipmentId,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER})
+      #{type,jdbcType=INTEGER}, #{jhType,jdbcType=INTEGER}, #{activationOne,jdbcType=VARCHAR}, #{activationTwo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.EquipmentFault">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -130,6 +132,15 @@
       <if test="type != null">
         type,
       </if>
+      <if test="jhType != null">
+        jhType,
+      </if>
+      <if test="activationOne != null">
+        activationOne,
+      </if>
+      <if test="activationTwo != null">
+        activationTwo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -143,6 +154,15 @@
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
+      </if>
+       <if test="jhType != null">
+        #{jhType,jdbcType=INTEGER},
+      </if>
+       <if test="activationOne != null">
+        #{activationOne,jdbcType=VARCHAR},
+      </if>
+       <if test="activationTwo != null">
+        #{activationTwo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -170,6 +190,15 @@
       <if test="record.type != null">
         type = #{record.type,jdbcType=INTEGER},
       </if>
+       <if test="record.jhType != null">
+        jhType = #{record.jhType,jdbcType=INTEGER},
+      </if>
+       <if test="record.activationOne != null">
+        activationOne = #{record.activationOne,jdbcType=VARCHAR},
+      </if>
+       <if test="record.activationTwo != null">
+        activationTwo = #{record.activationTwo,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -181,7 +210,10 @@
       name = #{record.name,jdbcType=VARCHAR},
       code = #{record.code,jdbcType=VARCHAR},
       equipmentId = #{record.equipmentId,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=INTEGER}
+      type = #{record.type,jdbcType=INTEGER},
+      jhType = #{record.jhType,jdbcType=INTEGER},
+      activationOne = #{record.activationOne,jdbcType=VARCHAR},
+      activationTwo = #{record.activationTwo,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -201,6 +233,15 @@
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="jhType != null">
+        jhType = #{jhType,jdbcType=INTEGER},
+      </if>
+      <if test="activationOne != null">
+        activationOne = #{activationOne,jdbcType=VARCHAR},
+      </if>
+       <if test="activationTwo != null">
+        activationTwo = #{activationTwo,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -209,7 +250,10 @@
     set name = #{name,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
       equipmentId = #{equipmentId,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER}
+      type = #{type,jdbcType=INTEGER},
+      jhType = #{jhType,jdbcType=INTEGER},
+      activationOne = #{activationOne,jdbcType=VARCHAR},
+      activationTwo = #{activationTwo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

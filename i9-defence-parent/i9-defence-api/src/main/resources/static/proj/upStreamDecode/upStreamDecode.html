@@ -13,6 +13,7 @@
           <option value="20">20</option>
           <option value="50">50</option>
           <option value="100">100</option>
+          <option value="500">500</option>
         </select>
         <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
       </div>
@@ -20,7 +21,7 @@
       </div>
       <div class="col-sm-3">
         <div class="input-group">
-         <!--  <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search"> -->
+          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search">
           <!-- <span class="input-group-btn">
             <button class="btn btn-sm btn-default" type="button">Go!</button>
           </span> -->
@@ -37,7 +38,8 @@
                 <input type="checkbox" id="totalCheck"><i></i>
               </label>
             </th>
-            <th style="width:85%">数据</th>
+            <th style="width:60%">数据</th>
+            <th>通道号</th>
             <th>日期</th>
           </tr>
         </thead>
@@ -45,6 +47,7 @@
           <tr ng-repeat="upStreamDecode in upStreamDecodes">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{upStreamDecode.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td style="word-break: break-all;" ng-click="edit({{upStreamDecode.id}})">{{upStreamDecode.hexStr}}</td>
+            <td>{{upStreamDecode.channelId}}</td>
             <td ng-click="edit({{upStreamDecode.id}})">{{upStreamDecode.submitDateStr}}</td>
           </tr>
         </tbody>

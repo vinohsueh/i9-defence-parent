@@ -521,9 +521,11 @@ td.eventType span.lineOut {
   margin: 2px;
 }
 /*实时监控表格*/
-#myTable td {
-  overflow: hidden;
-  height: 71px;
+#myTableBody {
+  overflow-y: auto;
+}
+#myTableBody table {
+  position: relative;
 }
 .clear {
   zoom: 1;
@@ -545,6 +547,9 @@ td.eventType span.lineOut {
 }
 .mr-10 {
   margin-right: 10px;
+}
+.pt-0 {
+  padding-top: 0;
 }
 .max-w50 {
   width: 30%;

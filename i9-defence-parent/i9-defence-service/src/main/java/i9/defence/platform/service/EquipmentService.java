@@ -119,7 +119,7 @@ public interface EquipmentService {
     /**
      * 查询全部隐患报警
      */
-    List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;
+    /*List<HiddenDangerDto> getAllHiddenDanger(HiddenDangerSearchDto hiddenDangerSearchDto)throws BusinessException;*/
     /**
      * 
      * 修改隐患报警

@@ -14,6 +14,16 @@ public class StreamOriginSearchDto extends PageListDto implements Serializable{
 	private String jsonstr;
 	
 	private Date submitDate;
+	
+    private String channelId;
+    
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
 
 	public String getOrderByClause() {
 		return orderByClause;

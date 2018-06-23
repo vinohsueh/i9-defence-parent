@@ -21,7 +21,7 @@ var equipmentService = equipmentNgModule.factory('equipmentService',
 	}]);
 var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,equipmentService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 11;
 	$scope.currentPage = 1;
 	//初始化
 	$scope.initTable = function (){
@@ -188,5 +188,15 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
 	        });
     	})
       });
-    };  
+    };
+    // 窗口适应
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var bodyHeight = domHeight-280;
+        $('#myTableBody').height(bodyHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })  
 })

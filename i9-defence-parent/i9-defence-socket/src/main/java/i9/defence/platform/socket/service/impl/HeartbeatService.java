@@ -1,16 +1,17 @@
 package i9.defence.platform.socket.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.alibaba.fastjson.JSONObject;
-
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.utils.DateUtils;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSONObject;
 
 @Service
 public class HeartbeatService implements ICoreService {
@@ -23,13 +24,15 @@ public class HeartbeatService implements ICoreService {
         channelPacker.deviceAddress = heartbeatReqMessage.deviceAddress;
         channelPacker.loop = heartbeatReqMessage.loop;
         if (channelPacker.isLogin.get() == false) {
-        	JSONObject jsonObject = new JSONObject();
+	    	JSONObject jsonObject = new JSONObject();
+	        jsonObject.put("channelId", channelPacker.getChannelId());
+	        jsonObject.put("systemId", channelPacker.systemId);
+	        jsonObject.put("loop", channelPacker.loop);
+	        jsonObject.put("deviceAddress", channelPacker.deviceAddress);
+	        jsonObject.put("status", 1);
+            jsonObject.put("submitDate", DateUtils.DateNowStr());
             jsonObject.put("channelId", channelPacker.getChannelId());
-            jsonObject.put("systemId", channelPacker.systemId);
-            jsonObject.put("loop", channelPacker.loop);
-            jsonObject.put("deviceAddress", channelPacker.deviceAddress);
-            jsonObject.put("status", 1);
-            activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
+	        activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
         }
         channelPacker.isLogin.set(true);
     }

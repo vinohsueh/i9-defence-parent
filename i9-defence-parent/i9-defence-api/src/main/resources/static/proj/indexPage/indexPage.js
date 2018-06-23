@@ -62,7 +62,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 	
 	
 	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(0);
+	$scope.endTime = $scope.getDate(1);
 	$scope.pageInit = function(){
 		$scope.markArr = [];
 		if($scope.selected == null || $scope.selected == ''){
@@ -83,6 +83,14 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		};
 		httpService.post({url:'./project/selectProject',data:pageParam,showSuccessMsg:false}).then(function(data) { 
 			$scope.projectList = data.data.data;
+			//音频播放判断
+			var myAudio = document.getElementById('myAudio');
+			if(data.data.warningIds.length>0){
+				myAudio.play();
+			}else{
+				myAudio.pause();
+			}
+
 			var markItem = {};
 			
 			for(i in $scope.projectList){
@@ -137,7 +145,7 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 				for(j in myData.mark[i].equipmentStatis){
 					equipmentStatis += "<tr><td>"+myData.mark[i].equipmentStatis[j].eqCategoryName+"</td><td>"+myData.mark[i].equipmentStatis[j].equipCount+"个</td></tr>"
 				}
-				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr>"+equipmentStatis+"<tr><td colspan='2' class='text-center'>所属客户："+myData.mark[i].distributorName+"</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
+				oHtml = "<div class='info'><div class='infoTitle'>"+myData.mark[i].projectName+"<span class='closeInfo' onclick='angular.element(this).scope().closeInfoWindow()'>x</span></div><table class='infoBody' cellspacing='0'><tr><td colspan='2' class='text-center'><i class='mIcon icon-address'></i>地址:"+myData.mark[i].address+"</td></tr><tr><td colspan='2' class='text-center'><i class='mIcon icon-floorArea'></i>建筑面积:"+myData.mark[i].area+"</td></tr>"+equipmentStatis+"<tr><td colspan='2' class='text-center'>项目负责人："+myData.mark[i].clientListStr+"</td></tr><tr><td colspan='2' class='text-right'><button class='btn btn-success btn-xs' onclick='angular.element(this).scope().goTo("+myData.mark[i].id+")'>项目详情</button></td></tr></table><div class='mIcon icon-arrowDown'></div></div>";
 				var a = {};
 				if(jQuery.inArray(myData.mark[i].id, data.data.warningIds) != -1){
 					a = {"lng":myData.mark[i].positionX,"lat":myData.mark[i].positionY,'projectName':myData.mark[i].projectName,content:oHtml,'warningBoolean':true};
@@ -298,6 +306,14 @@ var indexPageNgControl=indexPageNgModule.controller('indexPageNgControl',functio
 		})
 	};
 	$scope.chartInit();
+	var myInterval = setInterval(function () {
+	    $scope.pageInit();
+	    $scope.chartInit();
+	},30000);
+	$scope.$on("$destroy", function() {
+	    clearInterval(myInterval);
+	    myInterval = undefined;
+	});
 	// 设备数量检测
 	$scope.equipmentNum = function () {
 		var pageParam = {

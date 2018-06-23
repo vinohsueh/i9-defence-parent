@@ -10,8 +10,19 @@ public class ConnectLog {
     private Integer status;
 
     private Date createTime;
+    
+    private String channelId;
+    
+    
+    public String getChannelId() {
+		return channelId;
+	}
 
-    public Integer getId() {
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
+	public Integer getId() {
         return id;
     }
 

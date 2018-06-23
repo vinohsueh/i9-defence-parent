@@ -40,16 +40,13 @@
 	</table> -->
 	<div class="row">
 		<div class="col-sm-12 b-b mb-10" ng-repeat='i in warningList'>
-			<p ng-if="i.name != null">{{i.name}}</p>
-			<p ng-if="i.name == null">通道{{i.channelNumber}}</p>
+			<p>{{i.date}}</p>
 			<div class="error" ng-repeat = "x in i.data">
-				<div class="col-sm-1 mb-10 id" data-aa="{{x.id}}">{{$index+1}}、</div>
+				<!-- <div class="col-sm-1 mb-10 id" data-aa="{{x.id}}">{{$index+1}}、</div> -->
 				<div class="col-sm-3 mb-10" ng-if="typeId==1">故障类型:{{x.value}}</div>
-				<div class="col-sm-3 mb-10" ng-if="typeId==2">报警值:{{x.value}}</div>
+				<div class="col-sm-5 mb-10">通道名称:{{x.channelName}}</div>
+				<div class="col-sm-3 mb-10" ng-if="typeId==2">报警:{{x.channelValue}}</div>
 				<div class="col-sm-3 mb-10" ng-if="typeId==3">隐患值:{{x.value}}</div>
-				<div class="col-sm-5 mb-10" ng-if="typeId==1">故障时间:{{x.dateTimeStr}}</div>
-				<div class="col-sm-5 mb-10" ng-if="typeId==2">报警时间:{{x.dateTimeStr}}</div>
-				<div class="col-sm-5 mb-10" ng-if="typeId==3">隐患时间:{{x.dateTimeStr}}</div>
 				<div class="col-sm-3 mb-10 delType">
 						<span ng-if="x.dealStatus==0">未处理</span>
 						<span ng-if="x.dealStatus==2">待处理</span>

@@ -15,6 +15,8 @@
   	<association property="eqCategoryName" column="eqDeviceId" select="selectEqCategoryName"/>
   	<association property="projectName" column="eqDeviceId" select="selectProjectName"/>
   	<association property="equipmentRemarks" column="eqDeviceId" select="selectEquipmentRemarks"/>
+  	<association property="equipmentPosition" column="eqDeviceId" select="selectEquipmentPosition"></association>
+  	<collection column="eqDeviceId"  property="eqChannelDataList" select="selectEqChannelDataFaultDto"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -82,9 +84,12 @@
          <if test="example.handleState != null ">
           and handleState =#{example.handleState}
         </if>
-        <!--  <if test="example.managerId != null and example.managerId != ''">
-            AND handleManagerId in(select ps.managerId from t_project_safe ps left join t_project p on ps.projectId = p.id WHERE p.distributorId = #{example.managerId})
-        </if>  -->
+         <if test="example.managerId != null and example.managerId != ''">
+          and (select p.distributorId from t_project p where p.id in (select e.projectId from t_equipment e where e.deviceId=eqDeviceId))=#{example.managerId}
+        </if>
+        <if test="example.managerId2 != null and example.managerId2 != ''">
+          and (select e.projectId from t_equipment e where e.deviceId=eqDeviceId) in (select projectId from t_project_safe where managerId = #{example.managerId2})
+        </if>
     </trim>
   </sql>
   <sql id="Base_Column_List">
@@ -340,7 +345,9 @@
    <select id="selectEquipmentRemarks" resultType="string" parameterType="string">
    		select equipmentRemarks from t_equipment where deviceId = #{deviceId}
    </select>
-   
+   <select id="selectEquipmentPosition" resultType="string" parameterType="string">
+   		select equipmentPosition from t_equipment where deviceId = #{deviceId}
+   </select>
    <insert id="addErrHandles" parameterType="java.util.List">
    		insert into t_err_handle(handleCon,handleManagerId,handleDate,handleState,eqDeviceId,eqAddRess,type)
    		values 
@@ -378,4 +385,25 @@
             </foreach>
    		</where>
    </update>
+   <select id="selectEqChannelDataFaultDto" parameterType="java.lang.String" resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
+		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel and p.systemId = e.systemId) AS `channelName`, `cd`.`channel` AS `channelNum`,`cd`.`value` AS `channelValue`,e.equipmentCategoryId as equipmentCategoryId,cd.type as type
+		FROM `t_channel_data` `cd`
+			LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
+			
+		WHERE `e`.`deviceId` = #{deviceId} 
+			AND cd.channel IN ( SELECT channel FROM  t_passageway where systemId = (select systemId from t_equipment where deviceId = #{deviceId} )) 
+			and cd.type = 0
+			AND `cd`.`dateTime` = (
+				SELECT `t_channel_data`.`dateTime`
+				FROM `t_channel_data`
+				WHERE `t_channel_data`.`deviceId` = (
+					SELECT `t_equipment`.`deviceId`
+					FROM `t_equipment`
+					WHERE `t_equipment`.`deviceId` = #{deviceId}
+				)
+				ORDER BY `t_channel_data`.`id` DESC
+				LIMIT 1
+			)
+		ORDER BY `cd`.`channel`
+	</select>
 </mapper>

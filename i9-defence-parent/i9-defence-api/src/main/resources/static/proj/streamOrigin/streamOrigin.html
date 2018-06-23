@@ -16,16 +16,17 @@
           <option value="20">20</option>
           <option value="50">50</option>
           <option value="100">100</option>
+          <option value="500">500</option>
         </select>
         <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
       </div>
       <div class="col-sm-4">
       </div>
-     <!--   <div class="col-sm-3">
+       <div class="col-sm-3">
         <div class="input-group">
           <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="模糊查询">
         </div>
-      </div>-->
+      </div>
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
@@ -36,7 +37,8 @@
                 <input type="checkbox" id="totalCheck"><i></i>
               </label>
             </th>
-            <th style="width:85%">原始数据名称</th>
+            <th style="width:60%">原始数据名称</th>
+            <th>通道号</th>
             <th>时间</th>
           </tr>
         </thead>
@@ -44,6 +46,7 @@
           <tr ng-repeat="streamOrigin in streamOrigins">
             <td><label class="i-checks m-b-none"><input class="o-checks" data-id="{{streamOrigin.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
             <td style="word-break: break-all;">{{streamOrigin.jsonstr}}</td>
+            <td >{{streamOrigin.channelId}}</td>
             <td >{{streamOrigin.submitDateStr}}</td>
           </tr>
         </tbody>

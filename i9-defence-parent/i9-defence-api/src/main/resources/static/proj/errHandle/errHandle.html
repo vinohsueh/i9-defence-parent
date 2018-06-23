@@ -30,7 +30,7 @@
 	        <!-- <button class="btn m-b-xs w-xs btn-danger btn-rounded delNetApply" ng-click="del()">删除</button> -->
 	      </div>
 	    </div>
-	    <div class="table-responsive" style='min-height: 520px'>
+	    <div class="table-responsive">
 	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
 	        <thead>
 	          <tr>
@@ -43,21 +43,33 @@
 	          	<th>状态</th>
 	            <th>项目名称</th>
 	            <th>设备分类</th>
-	            <th>备注</th>
+	            <th>设备地址</th>
+	            <th>设备位置</th>
 	            <th>时间</th>
+	            <th width="90px">报警记录</th>
+	            <th width="30%">最新数据</th>
 	        </thead>
-	        <tbody>
-	          <tr ng-repeat="warning in warningLists" ng-click='choiceItem(warning.id)'>
-          		  <td><label class="i-checks m-b-none" ng-if="warning.typeStr!='离线'"><input class="o-checks" data-id="{{warning.equipmentId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
-	          	  <td ng-click="edit(warning.equipmentId)">{{warning.typeStr}}</td>
-	          	  <td ng-click="edit(warning.equipmentId)">{{warning.projectName}}</td>
-	          	  <td ng-click="edit(warning.equipmentId)">{{warning.eqCategoryName}}</td>
-		          <td ng-click="edit(warning.equipmentId)">{{warning.equipmentRemarks}}</td>
-		          <td ng-click="edit(warning.equipmentId)">{{warning.handleDateStr}}</td>
-	          </tr>
-	        </tbody>
 	      </table>
-	    </div>
+	      <div id='myTableBody'>
+			<table class="table table-striped b-t b-light" style="table-layout:fixed">
+				<tbody>
+		          <tr ng-repeat="warning in warningLists" ng-click='choiceItem(warning.id)'>
+	          		  <td width='20px'><label class="i-checks m-b-none" ><input class="o-checks" data-id="{{warning.equipmentId}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+		          	  <td ng-click="edit(warning.equipmentId)">{{warning.typeStr}}</td>
+		          	  <td ng-click="edit(warning.equipmentId)">{{warning.projectName}}</td>
+		          	  <td ng-click="edit(warning.equipmentId)">{{warning.eqCategoryName}}</td>
+		          	  <td ng-click="edit(warning.equipmentId)">{{warning.equipmentPosition}}</td>
+			          <td ng-click="edit(warning.equipmentId)">{{warning.equipmentRemarks}}</td>
+			          <td ng-click="edit(warning.equipmentId)">{{warning.handleDateStr}}</td>
+			          <td width='90px'><button type='button'  ng-if="warning.type!=1" class='btn btn-primary' ng-click="faultRecord(warning.eqDeviceId,warning.type)">查看</button></td>
+		              <td width='30%'>
+		             		 <span ng-if="warning.type!=1" class='passageway' ng-repeat="i in warning.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
+		              </td>
+		          </tr>
+		        </tbody>
+	      	</table>		
+	      </div>  
+	      </div>  
 	    <footer class="panel-footer">
 	      <div class="row">
 	        <!-- <div class="col-sm-4 hidden-xs">
@@ -79,36 +91,83 @@
 	          </ul>
 	        </div>
 	      </div>
-	      	      <div class='row'>
-    <div class="mPane hFull col-xs-6 col-sm-3">
-      <div class="title">项目信息</div>
-      <div class="body">
-        <p>负责人：{{equipment.clientName}}</p>
-        <p>负责人电话：{{equipment.clientPhone}}</p>
-        <p>安全负责人：{{equipment.safeName}}</p>
-        <p>安全负责人电话：{{equipment.safePhone}}</p>
-      </div>
-    </div>
-    <div class="mPane hFull col-xs-6 col-sm-3">
-      <div class="title">设备信息</div>
-      <div class="body">
-        <p>种类：{{equipment.equipmentCategoryName}}</p>
-        <p>地址：{{equipment.equipmentPosition}}</p>
-        <p>备注：{{equipment.equipmentRemarks}}</p>
-        <p>注册时间：{{equipment.dateString}}</p>
-      </div>
-    </div>
-   <div class="mPane hFull col-xs-6 col-sm-6">
-      <div class="title" >处理详情</div>
-      <div class="body"  ng-if="statusText !='离线'">
-        <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
-        <div class='text-right'>
-          <button type='' class='btn btn-success' ng-click="dealEq()" >确定</button>
-        </div>
-      </div>
-    </div>
-    </div>
+	      	      
 	    </footer>
+	    </div>
+	    
+	    <div class='row'>
+	        <div class="mPane hFull col-xs-6 col-sm-2">
+	          <div class="title">项目信息</div>
+	          <div class="body">
+	            <p>负责人：{{equipment.clientName}}</p>
+	            <p>负责人电话：{{equipment.clientPhone}}</p>
+	            <p>安全负责人：{{equipment.safeName}}</p>
+	            <p>安全负责人电话：{{equipment.safePhone}}</p>
+	          </div>
+	        </div>
+	          <div class="mPane col-xs-12 col-sm-8">
+	          <div class="title clearify">
+	            具体数据
+	            <div class='pull-right form-inline'>
+	              <div class="form-group">
+	                <label for="">通道选择:</label>
+	                <select name="" id="" class='form-control blue_bg' ng-change='changeLine()' ng-model="passageway" ng-options="x as y for (x, y) in equipmentCheckArr" style='max-width: 130px;'>
+	                  <!-- <option value="1">1</option>
+	                  <option value="2">2</option>
+	                  <option value="3">3</option>
+	                  <option value="4">4</option> -->
+	                </select>
+	                <label for="">登记时间:</label>
+	                <div class="input-group" ng-controller="DatepickerDemoCtrl">
+	                  <input type="text"  id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+	                  <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+	                </div>
+	                <label for="">-</label>
+	                <select name="" id="hour" class='form-control blue_bg'>
+	                  <option value="24">全部</option> 
+	               	  <option value="0">0</option>
+	                  <option value="1">1</option>
+	                  <option value="2">2</option>
+	                  <option value="3">3</option>
+	                  <option value="4">4</option>
+	                  <option value="5">5</option>
+	                  <option value="6">6</option>
+	                  <option value="7">7</option>
+	                  <option value="8">8</option>
+	                  <option value="9">9</option>
+	                  <option value="10">10</option>
+	                  <option value="11">11</option>
+	                  <option value="12">12</option>
+	                  <option value="13">13</option>
+	                  <option value="14">14</option>
+	                  <option value="15">15</option>
+	                  <option value="16">16</option>
+	                  <option value="17">17</option>
+	                  <option value="18">18</option>
+	                  <option value="19">19</option>
+	                  <option value="20">20</option>
+	                  <option value="21">21</option>
+	                  <option value="22">22</option>
+	                  <option value="23">23</option>
+	                </select>
+	              </div>
+	              <button type='button' class='btn btn-primary' ng-click='passagewayInit()'><i class='glyphicon glyphicon-search'></i></button>
+	            </div>
+	          </div>
+	          <div class="body" ng-show=chartsStatus>
+	            <div e-chart options="option"></div>
+	          </div>
+	        </div>
+	       <div class="mPane hFull col-xs-6 col-sm-2">
+	          <div class="title" >处理详情</div>
+	          <div class="body"  ng-if="statusText !='离线'">
+	            <textarea style="resize:none;" cols="30" rows="2" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
+	            <div class='text-right'>
+	              <button type='' class='btn btn-success' ng-click="dealEq()" >确定</button>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
 		</div>
    </div>
 </div>

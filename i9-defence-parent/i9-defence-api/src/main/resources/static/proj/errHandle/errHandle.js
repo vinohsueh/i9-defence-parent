@@ -21,8 +21,9 @@ var warningInfoService = errHandleModule.factory('warningInfoService',
 	}]);
 var errHandleControl=errHandleModule.controller('errHandleControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,warningInfoService,httpService){
 	//分页条件
-	$scope.pageSize = 10;
+	$scope.pageSize = 12;
 	$scope.currentPage = 1;
+	$scope.hour =0;
 //	初始化底部信息
 	$scope.ifshow = false;
 //	初始化id
@@ -61,14 +62,24 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
 		})
 	};
 	
+	$scope.dateToString = function(d){
+    	var date = new Date(d);
+    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    }
+	
     $scope.passagewayInit = function (){
+    	if($("#hour").val()==24){
+	    	$scope.startDateString=$scope.dateToString($("#startTime").val())+" "+$scope.hour;
+			$scope.endDateString=$scope.dateToString($("#startTime").val())+" "+(parseInt($scope.hour)+24);
+	    }else{
+	    	$scope.startDateString=$scope.dateToString($("#startTime").val())+" "+$("#hour").val();
+	    	$scope.endDateString=$scope.dateToString($("#startTime").val())+" "+(parseInt($("#hour").val())+1);
+	    }
     	var pageParam = {
     			equipmentId:$scope.idNum,
-    			/*startDateString:$scope.dateToString($("#startTime").val()),
-    			endDateString:$scope.dateToString($("#endTime").val()),*/
-    			/*projectName : text,
-    			projectAddress : text,*/
-    		};
+    			startDateString:$scope.startDateString,
+    			endDateString:$scope.endDateString,
+    	};
     	
     	httpService.post({url:'./equipment/selectEquipInfoAndData',data:pageParam,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipmentInfo = data.data.data;
@@ -76,6 +87,228 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
     		$scope.dataAndManager = data.data.dataAndManager;
     		$scope.equipmentCheckArr = [];
             $scope.equipmentItemArr = [];
+            
+            if($scope.equipmentInfo!= null){
+				$scope.chartsStatus = true;
+				for(i in $scope.equipmentInfo.channelData){
+					/*$scope.equipmentItemObj = {
+			            type:'line',
+			            stack:'10',
+			            symbol: 'emptyCircle',
+			            symbolSize: 10,
+			            itemStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			            lineStyle:{
+			                normal:{
+			                    color:'#ab56dc',
+			                }
+			            },
+			        };*/
+					if ($scope.equipmentInfo.channelData[i].name!=null && $scope.equipmentInfo.channelData[i].name != ""){
+    					$scope.equipmentCheckArr.push($scope.equipmentInfo.channelData[i].name);
+    					// $scope.equipmentItemObj.name=$scope.equipmentInfo.channelData[i].name;
+    				}else{
+    					$scope.equipmentCheckArr.push('通道'+$scope.equipmentInfo.channelData[i].channelNumber);
+    					// $scope.equipmentItemObj.name='通道'+$scope.equipmentInfo.channelData[i].channelNumber;
+    				}
+    				/*$scope.equipmentItemObj.data=$scope.equipmentInfo.channelData[i].value;
+    				$scope.equipmentItemArr.push($scope.equipmentItemObj);*/
+				}
+				$scope.passageway='0';
+				$scope.chartData = $scope.equipmentInfo.channelData[0].value;
+				$scope.changeLine = function () {
+					var chengeIndex = parseInt($scope.passageway);
+					$scope.chartData = $scope.equipmentInfo.channelData[chengeIndex].value;
+					$scope.option={
+					    title:{
+					        show:false,
+					    },
+					    toolbox:{
+					        show:false,
+					    },
+					    grid:{
+					        top:10,
+					        left:60,
+					        right:60,
+					        bottom:30,
+					        borderColor:'#566c93',
+					    },
+					    tooltip:{
+					        trigger:'axis'
+					    },
+					    /*dataZoom:{
+				            type: 'inside',
+				            realtime: true,
+				            start: 90,
+				            end: 100,
+				            // xAxisIndex: [0, 1]
+					    },*/
+					    /*legend:{
+					    	type:'scroll',
+					        right:0,
+					        top:0,
+					        bottom:10,
+	                        width:30,
+	                        pageButtonItemGap:5,
+	                        pageButtonGap:5,
+	                        pageButtonPosition:'end',
+	                        pageFormatter:{
+	                        	current:1,
+	                        	total:5
+	                        },
+					        orient:'vertical',
+					        inactiveColor:'#666',
+					        selectedMode:'single',
+					        textStyle:{
+					            color:'#fff',
+					        },
+					        data:$scope.equipmentCheckArr,
+					        // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
+					    },*/
+					    xAxis:{
+					    	// type:'time',
+					        axisLabel: {        
+					            show: true,
+					            textStyle: {
+					                color: '#fff',
+					            }
+					        },
+					        data:$scope.equipmentInfo.date,
+					    },
+					    yAxis:{
+					        axisLabel: {        
+					            show: true,
+					            textStyle: {
+					                color: '#fff',
+					            }
+					        },
+					        splitLine:{
+					            show:true,
+					            lineStyle:{
+					                color:'#4960bf',
+					                type:'dashed'
+					            }
+					        },
+					    },
+					    // series:$scope.equipmentItemArr,
+					    series:[{
+
+					        type:'line',
+					        stack:'10',
+					        symbol: 'emptyCircle',
+					        symbolSize: 10,
+					        itemStyle:{
+					            normal:{
+					                color:'#ab56dc',
+					            }
+					        },
+					        lineStyle:{
+					            normal:{
+					                color:'#ab56dc',
+					            }
+					        },
+					        data:$scope.chartData,
+					    }]
+					}
+				}
+
+				$scope.option={
+				    title:{
+				        show:false,
+				    },
+				    toolbox:{
+				        show:false,
+				    },
+				    grid:{
+				        top:10,
+				        left:60,
+				        right:60,
+				        bottom:30,
+				        borderColor:'#566c93',
+				    },
+				    tooltip:{
+				        trigger:'axis'
+				    },
+				    /*dataZoom:{
+			            type: 'inside',
+			            realtime: true,
+			            start: 90,
+			            end: 100,
+			            // xAxisIndex: [0, 1]
+				    },*/
+				    /*legend:{
+				    	type:'scroll',
+				        right:0,
+				        top:0,
+				        bottom:10,
+                        width:30,
+                        pageButtonItemGap:5,
+                        pageButtonGap:5,
+                        pageButtonPosition:'end',
+                        pageFormatter:{
+                        	current:1,
+                        	total:5
+                        },
+				        orient:'vertical',
+				        inactiveColor:'#666',
+				        selectedMode:'single',
+				        textStyle:{
+				            color:'#fff',
+				        },
+				        data:$scope.equipmentCheckArr,
+				        // data:['通道0','通道1','通道2','通道3','通道4','通道5','通道6','通道7'],
+				    },*/
+				    xAxis:{
+				    	// type:'time',
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        data:$scope.equipmentInfo.date,
+				    },
+				    yAxis:{
+				        axisLabel: {        
+				            show: true,
+				            textStyle: {
+				                color: '#fff',
+				            }
+				        },
+				        splitLine:{
+				            show:true,
+				            lineStyle:{
+				                color:'#4960bf',
+				                type:'dashed'
+				            }
+				        },
+				    },
+				    // series:$scope.equipmentItemArr,
+				    series:[{
+
+				        type:'line',
+				        stack:'10',
+				        symbol: 'emptyCircle',
+				        symbolSize: 10,
+				        itemStyle:{
+				            normal:{
+				                color:'#ab56dc',
+				            }
+				        },
+				        lineStyle:{
+				            normal:{
+				                color:'#ab56dc',
+				            }
+				        },
+				        data:$scope.chartData,
+				    }]
+				}
+			}else{
+				$scope.chartsStatus = false;
+			}
     	})
     };
     
@@ -130,7 +363,6 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
 	$scope.choiceItem = function(idNum){
 		$scope.ifshow = true;
 		$scope.id = idNum;
-		console.log(idNum);
 	}
 	
 	   //详情提交
@@ -141,7 +373,6 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
     		handleCon:handleCon,
     		handleState:1
     	}
-    	console.log(param);
     	if(handleCon.replace(/(^\s*)|(\s*$)/g,"").length!=0){
 	    	httpService.post({url:'./errHandle/errHandleEdit',data:param,showSuccessMsg:false}).then(function(data) {
 	    		$scope.ifshow = false;
@@ -159,5 +390,24 @@ var errHandleControl=errHandleModule.controller('errHandleControl',function($roo
     	$scope.idNum = idNum;
     	$scope.passagewayInit();    	 
     };  
+    // 窗口适应
+    function resizeWin() {
+        var domHeight = $(window).height();
+        var bodyHeight = domHeight-410;
+        $('#myTableBody').height(bodyHeight);
+    }
+    resizeWin()
+    $(window).resize(function () {
+        resizeWin();
+    })
+    
+    //查看记录
+    $scope.faultRecord = function (idNum2,status) {
+    	if(status==2){
+    		$state.go('app.faultRecordInfo',{id:idNum2,typeId:2});
+    	}else if(status==3){
+    		$state.go('app.faultRecordInfo',{id:idNum2,typeId:3});
+    	}
+    }
     
 })

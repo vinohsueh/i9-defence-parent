@@ -10,13 +10,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 
 public class SocketServerInitializer extends ChannelInitializer<SocketChannel> {
-    
+
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new IdleStateHandler(30, 30, 30));
-//        ByteBuf delimiter = Unpooled.copiedBuffer("#".getBytes());
-//        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
+        pipeline.addLast(new IdleStateHandler(8 * 60, 8 * 60, 8 * 60));
         // 字符串解码 和 编码
         pipeline.addLast("decoder", new MessageDecoder());
         pipeline.addLast("encoder", new MessageEncoder());

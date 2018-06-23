@@ -17,17 +17,21 @@ import com.alibaba.fastjson.JSONObject;
 import i9.defence.platform.dao.ChannelDataDao;
 import i9.defence.platform.dao.ConnectLogDao;
 import i9.defence.platform.dao.EquipmentDao;
+import i9.defence.platform.dao.ErrorRecordDao;
 import i9.defence.platform.dao.PassageWayDao;
 import i9.defence.platform.dao.UpStreamDecodeDao;
 import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
 import i9.defence.platform.model.ChannelData;
 import i9.defence.platform.model.ConnectLog;
+import i9.defence.platform.model.Equipment;
+import i9.defence.platform.model.ErrorRecord;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.UpStreamDecode;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
+import i9.defence.platform.utils.DateUtils;
 import i9.defence.platform.utils.EncryptUtils;
 import i9.defence.platform.utils.PageBounds;
 import i9.defence.platform.utils.SqlUtil;
@@ -52,6 +56,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     private ConnectLogDao connectLogDao;
     @Autowired
     private PassageWayDao passageWayDao;
+    @Autowired
+    private ErrorRecordDao errorRecordDao;
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
         try {
@@ -87,7 +93,6 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     	//添加解析数据
         UpStreamDecode upStreamDecode = new UpStreamDecode();
         upStreamDecode.setHexStr(jsonStr);
-        upStreamDecode.setSubmitDate(new Date());
         
         //将数据添加到通道数据表中
         
@@ -95,6 +100,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         String systemId = jsonObject.getString("systemId");
         int loop = (int)jsonObject.get("loop");
         String address = jsonObject.getString("deviceAddress");
+        upStreamDecode.setChannelId(jsonObject.getString("channelId"));
         //设备唯一编号
         String deviceId = StringUtil.getDeviceId(systemId, loop, address);
         //根据编号id查询设备关注的所有通道
@@ -135,25 +141,67 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 				}
 			}
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			channelData.setDateTime(simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " "))));
+			Date createTime = simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " ")));
+			channelData.setDateTime(createTime);
+			
 			channelData.setSystemType((String)jsonObject.get("systemType"));
 			channelData.setDeviceAddress(address);
 			
 			channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
 			list.add(channelData);
 		}
+		String submitDate = jsonObject.getString("submitDate");
+		if (submitDate == null || submitDate.equals("")) {
+		    upStreamDecode.setSubmitDate(new Date());
+		}
+		else {
+            Date date = DateUtils.parseDate(submitDate);
+		    upStreamDecode.setSubmitDate(date);
+		}
 		try {
 			this.addUpStreamDecode(upStreamDecode);
 			channelDataDao.insertBatch(list);
-			//设置 设备的 数据状态
+			Equipment equipment = equipmentDao.findEquipmentDeviceId(deviceId);
+			//设置 设备当前的 数据状态
 			int datastatus = 0;
 			if (alertNum > 0) {
 				datastatus = 1;
 			}else if (0 == alertNum && hiddenNum > 0) {
 				datastatus = 2;
 			}
+			//设置 设备未处理的状态   
+			int alertStatus = 0;
+			//设备的遗留状态
+			int equipmentRemainStatus = equipment.getRemainAlert();
+			//如果遗留状态为正常
+			if (0 == equipmentRemainStatus) {
+				if (alertNum > 0) {
+					alertStatus = 1;
+				}else if (0 == alertNum && hiddenNum > 0) {
+					alertStatus = 2;
+				}
+			}else if (1 == equipmentRemainStatus){
+				//如果遗留状态为报警
+				alertStatus = 1;
+			}else if (2 == equipmentRemainStatus){
+				//如果遗留状态为隐患
+				if (alertNum > 0) {
+					alertStatus = 1;
+				}else{
+					alertStatus = 2;
+				}
+			}
 			//更新设备的数据状态
-			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus);
+			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus,alertStatus);
+			
+			//插入设备问题记录
+			if (0 != datastatus) {
+				ErrorRecord errorRecord = new ErrorRecord();
+				errorRecord.setCreateTime(new Date());
+				errorRecord.setDeviceId(deviceId);
+				errorRecord.setType(datastatus);
+				errorRecordDao.insertErrorRecord(errorRecord);
+			}
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}

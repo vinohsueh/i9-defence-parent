@@ -119,3 +119,13 @@ button{
     cursor:pointer;
     width:auto!important;
 }
+.bottomFixed{
+	position: fixed;
+	bottom: 30px;
+	left:0;
+	text-align: center;
+	width:100%;
+}
+.bottomFixed a{
+	color: #fff;
+}

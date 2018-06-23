@@ -88,7 +88,7 @@
           OR p.projectAddress LIKE CONCAT('%',CONCAT('${example.projectAddress}','%')))
         </if>
         <if test="example.distributorId != null and example.distributorId != ''">
-          AND p.distributorId = #{example.distributorId}
+          AND (p.distributorId = #{example.distributorId} or (mg.parentId = #{example.distributorId} or mg.parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId})))
         </if>
         <if test="example.projectProvince != null and example.projectProvince != ''">
           AND p.projectProvince = #{example.projectProvince}
@@ -299,7 +299,7 @@
     </trim>
   </insert>
   <select id="countByExample" resultType="java.lang.Integer">
-    select count(DISTINCT p.id) from t_project p left join t_project_safe ps on p.id = ps.projectId
+    select count(DISTINCT p.id) from t_project p left join t_project_safe ps on p.id = ps.projectId left join t_manager_grade mg on p.distributorId = mg.managerId
     <if test="_parameter != null" >
       <include refid="Query_By_Dto2_Where_Clause" />
     </if>
@@ -447,7 +447,7 @@
   <select id="selectByLimitPage" resultMap="BaseResultMap">
         select DISTINCT <include refid="Base_Column_List" />,
         (select count(*)  from t_apply a where a.projectId=p.id) as delCount
-        from t_project p left join t_project_safe ps on p.id = ps.projectId
+        from t_project p left join t_project_safe ps on p.id = ps.projectId left join t_manager_grade mg on p.distributorId = mg.managerId
         <if test="_parameter != null" >
           <include refid="Query_By_Dto2_Where_Clause" />
         </if>
@@ -501,13 +501,13 @@
         </foreach>
    </update>
    <select id="selectProject" resultMap="DetailResultMap">
-   		select DISTINCT <include refid="Base_Column_List" /> from t_project p left join t_project_safe ps on p.id = ps.projectId
+   		select DISTINCT <include refid="Base_Column_List" /> from t_project p left join t_project_safe ps on p.id = ps.projectId left join t_manager_grade mg on p.distributorId = mg.managerId
         <if test="_parameter != null" >
           <include refid="Query_By_Dto2_Where_Clause" />
         </if>
    </select>
    <select id="selectWarningProjectIds" resultType="int">
-   	select projectId from v_hiddendanger_edit WHERE warningCount > 0 
+   	select p.id from t_project p where (select count(*) from t_equipment e where e.projectId = p.id and e.dataStatus = 1 and e.status = 1)
    </select>
    <select id="selectIdsByMonthDataDto" resultType="java.lang.Integer">
    		select id from t_project
