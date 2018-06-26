@@ -25,7 +25,7 @@ public class UpStreamService implements ICoreService {
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
         // 设备要发送数据，必须先进行登录操作
-        if (!channelPacker.checkIsLogin()) {
+        if (!channelPacker.checkLoginState()) {
             throw new BusinessException(ErrorCode.UNAUTHORIZED);
         }
         UpStreamReqMessage upStreamReqMessage = (UpStreamReqMessage) message.getMessageDecodeConvert();

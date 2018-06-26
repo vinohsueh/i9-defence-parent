@@ -10,23 +10,15 @@ public class ChannelPackerServerContext {
     private ConcurrentHashMap<String, ChannelPacker> context = new ConcurrentHashMap<String, ChannelPacker>();
     
     public void addChannelPacker(ChannelPacker channelPacker) {
-        this.context.putIfAbsent(channelPacker.getChannelId(), channelPacker);
+        this.context.putIfAbsent(channelPacker.getDeviceAddress(), channelPacker);
     }
     
-    public void removeChannelPacker(String channelId) {
-        this.context.remove(channelId);
+    public void removeChannelPacker(String deviceAddress) {
+        this.context.remove(deviceAddress);
     }
     
-    public ChannelPacker getChannelPacker(String channelId) {
-        ChannelPacker channelPacker = this.context.get(channelId);
+    public ChannelPacker getChannelPacker(String deviceAddress) {
+        ChannelPacker channelPacker = this.context.get(deviceAddress);
         return channelPacker;
     }
-    
-//    public void init() {
-//    	for (ChannelPacker channelPacker : this.context.values()) {
-//    		if (channelPacker.canTimeout()) {
-//    			channelPacker.channelClose();
-//    		}
-//    	}
-//    }
 }

@@ -4,6 +4,7 @@ import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
+import i9.defence.platform.socket.context.DeviceAttribute;
 import i9.defence.platform.utils.DateUtils;
 
 import org.slf4j.Logger;
@@ -17,25 +18,22 @@ import com.alibaba.fastjson.JSONObject;
 public class DisConnectionService {
 
     public void doPost(ChannelPacker channelPacker) {
-        String channelId = channelPacker.getChannelId();
-        channelPackerServerContext.removeChannelPacker(channelId);
-        if (channelPacker.checkIsLogin()) {
+        DeviceAttribute attribute = channelPacker.getAndRemoveAttribute();
+        if (attribute != null) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("channelId", channelPacker.getChannelId());
-            jsonObject.put("systemId", channelPacker.systemId);
-            jsonObject.put("loop", channelPacker.loop);
-            jsonObject.put("deviceAddress", channelPacker.deviceAddress);
+            jsonObject.put("systemId", attribute.getSystemId());
+            jsonObject.put("loop", attribute.getLoop());
+            jsonObject.put("deviceAddress", attribute.getAddress());
             jsonObject.put("status", 0);
             jsonObject.put("submitDate", DateUtils.DateNowStr());
             jsonObject.put("channelId", channelPacker.getChannelId());
             activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
         }
         else {
-            logger.info("设备通道号 : " + channelId + "未登录, systemId : {}, loop : {}, deviceAddress : {}", 
-            		channelPacker.systemId, channelPacker.loop, channelPacker.deviceAddress);
+            logger.info("设备通道号 : " + channelPacker.getChannelId() + "未登录");
         }
-        channelPacker.disConnection();
-        logger.info("netty 服务器，客户端断开连接 : " + channelId);
+        logger.info("netty 服务器，客户端断开连接 : " + channelPacker.getChannelId());
     }
     
     @Autowired

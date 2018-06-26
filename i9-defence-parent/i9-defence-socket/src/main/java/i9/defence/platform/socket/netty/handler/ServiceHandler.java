@@ -26,8 +26,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         String channelId = ctx.channel().id().asLongText();
         Message message = (Message) msg;
         logger.info("netty 服务器，客户端Id : " + channelId + "发送消息 [type : " + message.getType() + "]");
-        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
-        ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
+        ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
         try {
             ServiceMapping serviceMapping = SpringBeanService.getBean(ServiceMapping.class);
             ICoreService coreService = serviceMapping.getCoreService(message.getType());
@@ -56,12 +55,6 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
         }
     }
     
-//    @Autowired
-//    private ServiceMapping serviceMapping;
-//    
-//    @Autowired
-//    private ChannelPackerServerContext channelPackerServerContext;
-    
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
@@ -72,9 +65,6 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) {
         String channelId = ctx.channel().id().asLongText();
         logger.info("netty 服务器，客户端连接 : " + channelId);
-        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
-        ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
-        channelPackerServerContext.addChannelPacker(channelPacker);
     }
     
     // 客户端断开连接消息
