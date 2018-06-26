@@ -8,7 +8,7 @@ public class ClientRun {
         Client client = Client.getInstance();
         int index = 0;
         while (true) {
-            ByteBuffer byteBuffer2 = client.randomMessageByteBuffer(index++);
+            ByteBuffer byteBuffer2 = client.randomMessageByteBuffer(index);
             client.sendMessage(byteBuffer2.array());
             try {
                 Thread.sleep(10000);

@@ -16,6 +16,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringUtil {
     
+    public static final String EMPTY = "";
+
     public static String MD5(String str) {
         MessageDigest messageDigest = null;
         try {

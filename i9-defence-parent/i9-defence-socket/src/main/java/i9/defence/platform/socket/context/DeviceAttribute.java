@@ -9,7 +9,7 @@ public class DeviceAttribute implements java.io.Serializable {
 
     public byte loop;// 回路
 
-    public String deviceAddress;// 设备地址
+    public String address;// 设备地址
 
     public String getSystemId() {
         return systemId;
@@ -18,15 +18,15 @@ public class DeviceAttribute implements java.io.Serializable {
     public byte getLoop() {
         return loop;
     }
-
-    public String getDeviceAddress() {
-        return deviceAddress;
+    
+    public String getAddress() {
+        return address;
     }
 
-    public DeviceAttribute(String systemId, byte loop, String deviceAddress) {
+    public DeviceAttribute(String systemId, byte loop, String address) {
         this.systemId = systemId;
         this.loop = loop;
-        this.deviceAddress = deviceAddress;
+        this.address = address;
     }
 
     public DeviceAttribute() {
