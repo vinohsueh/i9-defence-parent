@@ -22,6 +22,7 @@
         <module>i9-defence-service</module>
         <module>i9-defence-utils</module>
         <module>i9-defence-socket</module>
+        <module>i9-defence-client</module>
     </modules>
     
     <properties>
