@@ -1,13 +1,10 @@
 package i9.defence.platform.socket.netty.handler;
 
-import org.apache.log4j.Logger;
-
 import i9.defence.platform.netty.libraries.ErrorCode;
 import i9.defence.platform.netty.libraries.MessageEncodeConvert;
 import i9.defence.platform.netty.libraries.resp.CompleteRespMessage;
 import i9.defence.platform.netty.libraries.resp.SimpleRespMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
-import i9.defence.platform.socket.context.ChannelPackerServerContext;
 import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
@@ -16,6 +13,8 @@ import i9.defence.platform.socket.util.ServiceMapping;
 import i9.defence.platform.socket.util.SpringBeanService;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+
+import org.apache.log4j.Logger;
 
 public class ServiceHandler extends ChannelInboundHandlerAdapter {
     
@@ -70,10 +69,8 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     // 客户端断开连接消息
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        String channelId = ctx.channel().id().asLongText();
-        ChannelPackerServerContext channelPackerServerContext = SpringBeanService.getBean(ChannelPackerServerContext.class);
-        ChannelPacker channelPacker = channelPackerServerContext.getChannelPacker(channelId);
         DisConnectionService service = SpringBeanService.getBean(DisConnectionService.class);
+        ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
         service.doPost(channelPacker);
     }
     

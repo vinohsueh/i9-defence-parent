@@ -6,6 +6,7 @@ import i9.defence.platform.socket.context.ChannelPacker;
 import i9.defence.platform.socket.context.ChannelPackerServerContext;
 import i9.defence.platform.socket.context.DeviceAttribute;
 import i9.defence.platform.utils.DateUtils;
+import i9.defence.platform.utils.StringUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,12 @@ public class DisConnectionService {
             jsonObject.put("submitDate", DateUtils.DateNowStr());
             jsonObject.put("channelId", channelPacker.getChannelId());
             activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_DEVICE_STATE, jsonObject.toJSONString());
+            
+            String deviceAddress = StringUtil.getDeviceId(attribute.getSystemId(), attribute.getLoop(), attribute.getAddress());
+            channelPackerServerContext.removeChannelPacker(deviceAddress);
         }
         else {
-            logger.info("设备通道号 : " + channelPacker.getChannelId() + "未登录");
+            logger.info("设备通道号 : " + channelPacker.getChannelId() + "未登录，有可能为多通道");
         }
         logger.info("netty 服务器，客户端断开连接 : " + channelPacker.getChannelId());
     }

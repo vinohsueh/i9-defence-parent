@@ -10,6 +10,10 @@ import java.nio.ByteBuffer;
 
 public class Client {
 
+    public static String SERVERIP = "127.0.0.1";
+
+    public static int SERVERPORT = 9000;
+
     public void connect(String ip, int port) {
         try {
             this.socket = new Socket(ip, port);
@@ -32,14 +36,21 @@ public class Client {
     }
 
     public Client() {
-        this.connect("103.248.102.21", 9000);
+        this.connect(SERVERIP, SERVERPORT);
     }
 
     public static Client getInstance() {
+        if (instance == null) {
+            instance = new Client();
+        }
         return instance;
     }
 
-    private static final Client instance = new Client();
+    public static Client newInstance() {
+        return new Client();
+    }
+
+    private static Client instance;
 
     private Socket socket;
 
@@ -63,8 +74,7 @@ public class Client {
             UpStreamReqMessage upStreamReqMessage = message.makeUpStreamReqMessage();
             data = upStreamReqMessage.getByteArray();
             m = 0x01;
-        }
-        else {
+        } else {
             LoginReqMessage loginReqMessage = message.makeLoginReqMessage();
             data = loginReqMessage.getByteArray();
             m = 0x00;

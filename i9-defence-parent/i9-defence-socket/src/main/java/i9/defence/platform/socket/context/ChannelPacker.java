@@ -61,11 +61,16 @@ public class ChannelPacker {
 
     public void disConnect() {
         try {
-            this.channel.close();
             ChannelPackerServerContext context = SpringBeanService.getBean(ChannelPackerServerContext.class);
             context.removeChannelPacker(getDeviceAddress());
+            removeAttribute();
+            this.channel.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public void removeAttribute() {
+        this.channel.attr(ServerConstant.D_ID_KEY).remove();
     }
 }
