@@ -22,7 +22,7 @@ public class HeartbeatServerHandler extends ChannelInboundHandlerAdapter {
                 type = "all idle";
             }
             ctx.close();
-            logger.info(ctx.channel().remoteAddress() + "超时类型：" + type);
+            logger.info("channelId : " + ctx.channel().id().asLongText() + ", 超时类型：" + type);
         } else {
             super.userEventTriggered(ctx, event);
         }
