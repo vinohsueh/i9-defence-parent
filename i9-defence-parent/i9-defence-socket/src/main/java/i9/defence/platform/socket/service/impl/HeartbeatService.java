@@ -2,6 +2,7 @@ package i9.defence.platform.socket.service.impl;
 
 import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
+import i9.defence.platform.socket.context.ChannelPackerServerContext;
 import i9.defence.platform.socket.context.DeviceAttribute;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
@@ -32,8 +33,20 @@ public class HeartbeatService implements ICoreService {
                     heartbeatReqMessage.deviceAddress);
             channelPacker.putAttribute(attribute);
             channelConnectedService.connected(channelPacker);
+            LOGGER.info("设备判断为DTU，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
+                    heartbeatReqMessage.loop, heartbeatReqMessage.deviceAddress);
+        } else if (context.getChannelPacker(channelPacker.getDeviceAddress()) == null) {
+            DeviceAttribute attribute = new DeviceAttribute(heartbeatReqMessage.systemId, heartbeatReqMessage.loop,
+                    heartbeatReqMessage.deviceAddress);
+            channelPacker.putAttribute(attribute);
+            channelConnectedService.connected(channelPacker);
+            LOGGER.info("设备判断为DTU，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
+                    heartbeatReqMessage.loop, heartbeatReqMessage.deviceAddress);
         }
     }
+
+    @Autowired
+    private ChannelPackerServerContext context;
 
     @Autowired
     private ChannelConnectedService channelConnectedService;
