@@ -33,14 +33,15 @@ public class HeartbeatService implements ICoreService {
                     heartbeatReqMessage.deviceAddress);
             channelPacker.putAttribute(attribute);
             channelConnectedService.connected(channelPacker);
-            LOGGER.info("设备判断为DTU，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
+            LOGGER.info("设备未登录，没有发现attribute，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
                     heartbeatReqMessage.loop, heartbeatReqMessage.deviceAddress);
-        } else if (context.getChannelPacker(channelPacker.getDeviceAddress()) == null) {
+        }
+        else if (context.getChannelPacker(channelPacker.getDeviceAddress()) == null) {
             DeviceAttribute attribute = new DeviceAttribute(heartbeatReqMessage.systemId, heartbeatReqMessage.loop,
                     heartbeatReqMessage.deviceAddress);
             channelPacker.putAttribute(attribute);
             channelConnectedService.connected(channelPacker);
-            LOGGER.info("设备判断为DTU，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
+            LOGGER.info("设备未登录，没有发现context，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
                     heartbeatReqMessage.loop, heartbeatReqMessage.deviceAddress);
         }
     }
