@@ -33,9 +33,6 @@ public class HeartbeatService implements ICoreService {
             channelPacker.putAttribute(attribute);
             channelConnectedService.connected(channelPacker);
         }
-        DeviceAttribute attribute = channelPacker.getAttribute();
-        LOGGER.info("caonima，systemId : {}, loop : {}, address : {}", attribute.systemId, attribute.loop,
-                attribute.address);
     }
 
     @Autowired
