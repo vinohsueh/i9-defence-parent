@@ -27,23 +27,15 @@ public class HeartbeatService implements ICoreService {
                     heartbeatReqMessage.loop, heartbeatReqMessage.deviceAddress);
             return;
         }
-
         if (!channelPacker.checkLoginState()) {
             DeviceAttribute attribute = new DeviceAttribute(heartbeatReqMessage.systemId, heartbeatReqMessage.loop,
                     heartbeatReqMessage.deviceAddress);
             channelPacker.putAttribute(attribute);
             channelConnectedService.connected(channelPacker);
-            LOGGER.info("设备未登录，没有发现attribute，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
-                    heartbeatReqMessage.loop, heartbeatReqMessage.deviceAddress);
         }
-        else if (context.getChannelPacker(channelPacker.getDeviceAddress()) == null) {
-            DeviceAttribute attribute = new DeviceAttribute(heartbeatReqMessage.systemId, heartbeatReqMessage.loop,
-                    heartbeatReqMessage.deviceAddress);
-            channelPacker.putAttribute(attribute);
-            channelConnectedService.connected(channelPacker);
-            LOGGER.info("设备未登录，没有发现context，systemId : {}, loop : {}, address : {}", heartbeatReqMessage.systemId,
-                    heartbeatReqMessage.loop, heartbeatReqMessage.deviceAddress);
-        }
+        DeviceAttribute attribute = channelPacker.getAttribute();
+        LOGGER.info("caonima，systemId : {}, loop : {}, address : {}", attribute.systemId, attribute.loop,
+                attribute.address);
     }
 
     @Autowired

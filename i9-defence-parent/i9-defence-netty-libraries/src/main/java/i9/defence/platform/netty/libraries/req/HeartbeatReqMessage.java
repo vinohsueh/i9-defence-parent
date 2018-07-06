@@ -65,11 +65,11 @@ public class HeartbeatReqMessage extends MessageDecodeConvert {
         return null;
     }
 
-    private static final String DTU_HEARTBEAT_SYSTEMID;
+    public static final String DTU_HEARTBEAT_SYSTEMID;
 
-    private static final byte DTU_HEARTBEAT_LOOP = 0;
+    public static final byte DTU_HEARTBEAT_LOOP = 0;
 
-    private static final String DTU_HEARTBEAT_ADDRESS;
+    public static final String DTU_HEARTBEAT_ADDRESS;
 
     static {
         DTU_HEARTBEAT_SYSTEMID = EncryptUtils.bytesToHexString(new byte[] { 0, 0, 0, 0, 0, 0 });

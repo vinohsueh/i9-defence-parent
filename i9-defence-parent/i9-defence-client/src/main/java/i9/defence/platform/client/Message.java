@@ -1,13 +1,14 @@
 package i9.defence.platform.client;
 
-import java.util.Random;
-
 import i9.defence.platform.netty.libraries.DataEnum;
 import i9.defence.platform.netty.libraries.DataParseUtil;
 import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.req.DataMessage;
+import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
 import i9.defence.platform.netty.libraries.req.LoginReqMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
+
+import java.util.Random;
 
 public class Message {
     
@@ -18,10 +19,19 @@ public class Message {
     public LoginReqMessage makeLoginReqMessage() {
         LoginReqMessage loginReqMessage = new LoginReqMessage();
         loginReqMessage.dataLen = 11;
-        loginReqMessage.deviceAddress = "1000FFD7";
+        loginReqMessage.deviceAddress = "1000FFD5";
         loginReqMessage.loop = (byte) 0;
         loginReqMessage.systemId = "000000000001";
         return loginReqMessage;
+    }
+    
+    public HeartbeatReqMessage makeHeartbeatMessage() {
+        HeartbeatReqMessage heartbeatReqMessage = new HeartbeatReqMessage();
+        heartbeatReqMessage.dataLen = 11;
+        heartbeatReqMessage.deviceAddress = HeartbeatReqMessage.DTU_HEARTBEAT_ADDRESS;
+        heartbeatReqMessage.loop = (byte) 0;
+        heartbeatReqMessage.systemId = HeartbeatReqMessage.DTU_HEARTBEAT_SYSTEMID;
+        return heartbeatReqMessage;
     }
 
     public UpStreamReqMessage makeUpStreamReqMessage() {

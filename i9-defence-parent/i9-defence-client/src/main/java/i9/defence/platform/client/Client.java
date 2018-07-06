@@ -1,5 +1,6 @@
 package i9.defence.platform.client;
 
+import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
 import i9.defence.platform.netty.libraries.req.LoginReqMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
 
@@ -70,14 +71,19 @@ public class Client {
         Message message = new Message();
         byte[] data;
         byte m;
-        if (index != 0) {
+        if (index == 1) {
             UpStreamReqMessage upStreamReqMessage = message.makeUpStreamReqMessage();
             data = upStreamReqMessage.getByteArray();
             m = 0x01;
-        } else {
+        } else if (index == 0) {
             LoginReqMessage loginReqMessage = message.makeLoginReqMessage();
             data = loginReqMessage.getByteArray();
             m = 0x00;
+        }
+        else {
+            HeartbeatReqMessage heartbeatReqMessage = message.makeHeartbeatMessage();
+            data = heartbeatReqMessage.getByteArray();
+            m = (byte) 0xff;
         }
         int len = data.length + 1 + 1 + 1 + 4 + 1 + 1;
         ByteBuffer byteBuffer2 = ByteBuffer.allocate(len);

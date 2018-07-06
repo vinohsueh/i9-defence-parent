@@ -1,3 +1,4 @@
+<%@page import="java.lang.reflect.Field"%>
 <%@page import="i9.defence.platform.socket.context.ChannelPacker"%>
 <%@page import="i9.defence.platform.socket.context.ChannelPackerServerContext"%>
 <%@page import="i9.defence.platform.socket.util.ChannelConnectedService"%>
@@ -9,6 +10,8 @@
 ApplicationContext applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
 ChannelPackerServerContext context = applicationContext.getBean(ChannelPackerServerContext.class);
                                                       //000000000001001000FFD5
-ChannelPacker channelPacker = context.getChannelPacker("000000000001001000FFD5");
-out.print(channelPacker != null);
+// ChannelPacker channelPacker = context.getChannelPacker("000000000001000FFD5");
+Field field = context.getClass().getDeclaredField("context");
+field.setAccessible(true);
+out.print(field.get(context));
 %>
