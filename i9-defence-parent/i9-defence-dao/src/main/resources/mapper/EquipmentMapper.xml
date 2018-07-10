@@ -692,7 +692,7 @@
 				</if>
 				<!--经销商  -->	
 				<if test="example.distributorId != null and example.distributorId != ''">
-					and distributorId = #{example.distributorId}
+					and distributorId = #{example.distributorId} or distributorId in (select managerId from t_manager_grade where parentId =#{example.distributorId}) or distributorId in (select managerId from t_manager_grade where parentId in (select managerId from t_manager_grade where parentId =#{example.distributorId}))
 				</if>
 				<if test="example.systemId != null">
 					and systemId = #{example.systemId}
