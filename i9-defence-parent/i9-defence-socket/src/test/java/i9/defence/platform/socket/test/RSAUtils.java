@@ -1,6 +1,7 @@
 package i9.defence.platform.socket.test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -17,7 +18,6 @@ import java.util.Map;
 import javax.crypto.Cipher;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 public class RSAUtils {
@@ -205,7 +205,11 @@ public class RSAUtils {
             throw new RuntimeException("加解密阀值为[" + maxBlock + "]的数据时发生异常", e);
         }
         byte[] resultDatas = out.toByteArray();
-        IOUtils.closeQuietly(out);
+        try {
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return resultDatas;
     }
 }
