@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.api.components.ClientSearchComponent;
 import i9.defence.platform.dao.vo.ClientSearchDto;
 import i9.defence.platform.model.Client;
 import i9.defence.platform.model.Manager;
@@ -91,5 +95,22 @@ public class ClientController {
          List<Project> list = projectService.findAllProject();
          result.put("data",list);
          return result;
+     }
+     /**
+      * id查询所有客户（不分页查询)
+      */
+     @RequiresPermissions("client_list")
+     @RequestMapping("/getAllClientById")
+     public HashMap<String, Object> getAllClientById(){
+     	HashMap<String, Object> result = new HashMap<String, Object>();
+     	Manager manager = managerService.getLoginManager();
+     	List<Client> list = clientService.selectByCreateId(manager.getId()); 
+     	JSONArray jsonArray = new JSONArray();
+     	for(Client Client:list) {
+     		JSONObject jsonObject = new ClientSearchComponent().setClient(Client).build();
+     		jsonArray.add(jsonObject);
+     	}
+     	result.put("allManger",jsonArray);
+ 		return result; 
      }
 }
