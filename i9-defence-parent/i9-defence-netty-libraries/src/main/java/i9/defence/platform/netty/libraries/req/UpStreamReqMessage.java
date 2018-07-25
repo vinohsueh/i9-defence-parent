@@ -1,8 +1,8 @@
 package i9.defence.platform.netty.libraries.req;
 
-import i9.defence.platform.netty.libraries.EncryptUtils;
 import i9.defence.platform.netty.libraries.MessageDecodeConvert;
 import i9.defence.platform.utils.DateUtils;
+import i9.defence.platform.utils.EncryptUtils;
 import io.netty.buffer.ByteBuf;
 
 import java.nio.ByteBuffer;
@@ -34,6 +34,24 @@ public class UpStreamReqMessage extends MessageDecodeConvert {
         jsonObject.put("dataList", tmpList);
         jsonObject.put("submitDate", DateUtils.DateNowStr());
         return jsonObject;
+    }
+    
+    public boolean isLoginDataMessage() {
+        for (DataMessage dataMessage : this.dataList) {
+            if (EncryptUtils.byteToPositive(dataMessage.channelId) == 255) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean isHeartbeatDataMessage() {
+        for (DataMessage dataMessage : this.dataList) {
+            if (EncryptUtils.byteToPositive(dataMessage.channelId) == 254) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String systemType;// 系统类型(十六进制)

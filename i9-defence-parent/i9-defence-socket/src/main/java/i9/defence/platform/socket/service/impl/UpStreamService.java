@@ -8,9 +8,11 @@ import i9.defence.platform.netty.libraries.ErrorCode;
 import i9.defence.platform.netty.libraries.req.DataMessage;
 import i9.defence.platform.netty.libraries.req.UpStreamReqMessage;
 import i9.defence.platform.socket.context.ChannelPacker;
+import i9.defence.platform.socket.context.DeviceAttribute;
 import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.socket.util.ChannelConnectedService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,34 +24,54 @@ import com.alibaba.fastjson.JSONObject;
 @Service
 public class UpStreamService implements ICoreService {
 
+    @Autowired
+    private ChannelConnectedService channelConnectedService;
+
     @Override
     public void doPost(Message message, ChannelPacker channelPacker) {
+        UpStreamReqMessage reqMessage = (UpStreamReqMessage) message.getMessageDecodeConvert();
+        
+        // 判断当前应用数据包中是否包含登录信息
+        if (reqMessage.isLoginDataMessage()) {
+            DeviceAttribute attribute = new DeviceAttribute(reqMessage.systemId, reqMessage.loop,
+                    reqMessage.deviceAddress);
+            channelPacker.putAttribute(attribute);
+            channelConnectedService.connected(channelPacker);
+            return;
+        }
+
+        // 判断当前应用数据包中是否包含心跳信息
+        if (reqMessage.isHeartbeatDataMessage() && !channelPacker.checkLoginState()) {
+            DeviceAttribute attribute = new DeviceAttribute(reqMessage.systemId, reqMessage.loop,
+                    reqMessage.deviceAddress);
+            channelPacker.putAttribute(attribute);
+            channelConnectedService.connected(channelPacker);
+            return;
+        }
+
         // 设备要发送数据，必须先进行登录操作
         if (!channelPacker.checkLoginState()) {
             throw new BusinessException(ErrorCode.UNAUTHORIZED);
         }
-        UpStreamReqMessage upStreamReqMessage = (UpStreamReqMessage) message.getMessageDecodeConvert();
-        upStreamReqMessage.showInfo();
-        for (DataMessage dataMessage : upStreamReqMessage.dataList) {
+        reqMessage.showInfo();
+        for (DataMessage dataMessage : reqMessage.dataList) {
             dataMessage.showInfo();
-            logger.info("解析数据包体, 数据类型 : " + dataMessage.type 
-                    + ", hex : " + EncryptUtils.bytesToHexString(dataMessage.data) 
-                    + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
+            logger.info(
+                    "解析数据包体, 数据类型 : " + dataMessage.type + ", hex : " + EncryptUtils.bytesToHexString(dataMessage.data) + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
         }
-        JSONObject jsonObject = upStreamReqMessage.toJSONObject();
+        JSONObject jsonObject = reqMessage.toJSONObject();
         jsonObject.put("channelId", channelPacker.getChannelId());
         String jsonStr = jsonObject.toJSONString();
         try {
             activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_BUSINESS, jsonStr);
             logger.info("发送到MQ服务器消息成功, jsonStr : " + jsonStr);
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             logger.error("发送到MQ服务器消息失败, jsonStr : " + jsonStr, exception);
         }
     }
-    
+
     private final static Logger logger = LoggerFactory.getLogger(UpStreamService.class);
-    
+
     @Autowired
     private ActiveMQProducerService activeMQProducerService;
 }
