@@ -13,7 +13,20 @@ import javax.crypto.spec.DESKeySpec;
 public class EncryptUtils {
 
     /**
+     * 转换byte无符号数
+     * 
+     * @param b
+     * @return
+     */
+    public static int byteToPositive(byte b) {
+        int i = b;
+        i = b & 0xff;
+        return i;
+    }
+
+    /**
      * XOR 异或算法
+     * 
      * @param buf
      * @param length
      * @return
@@ -25,39 +38,35 @@ public class EncryptUtils {
         }
         return value;
     }
-    
-    public static void main(String[] args) {
-		System.out.println(bytesToHexString(intToBytes(1)));
-	}
-    
+
+
     /**
      * 字节数组转INT
+     * 
      * @param buffer
      * @return
      */
     public static int bytesToInt(byte[] buffer) {
-        return  buffer[3] & 0xFF |
-                (buffer[2] & 0xFF) << 8 |
-                (buffer[1] & 0xFF) << 16 |
-                (buffer[0] & 0xFF) << 24;
+        return buffer[3] & 0xFF | (buffer[2] & 0xFF) << 8 | (buffer[1] & 0xFF) << 16 | (buffer[0] & 0xFF) << 24;
     }
-    
+
     /**
      * INT转字节数组
+     * 
      * @param value
      * @return
      */
     public static byte[] intToBytes(int value) {
-        return new byte[] {
-            (byte) ((value >> 24) & 0xFF),
-            (byte) ((value >> 16) & 0xFF),
-            (byte) ((value >> 8) & 0xFF),
-            (byte) (value & 0xFF)
-        };
+        return new byte[] { 
+                (byte) ((value >> 24) & 0xFF), 
+                (byte) ((value >> 16) & 0xFF), 
+                (byte) ((value >> 8) & 0xFF),
+                (byte) (value & 0xFF) };
     }
-    
+
     /**
      * LONG转字节数组
+     * 
      * @param values
      * @return
      */
@@ -72,6 +81,7 @@ public class EncryptUtils {
 
     /**
      * 字节数组转LONG
+     * 
      * @param buffer
      * @return
      */
@@ -83,27 +93,31 @@ public class EncryptUtils {
         }
         return values;
     }
-    
+
     /**
      * 日期转字节数组(7个字节)
+     * 
      * @param calendar
      * @return
      */
     public static byte[] calendarToBytes7(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);
         String yearString = String.valueOf(year);
-        int yearFir = Integer.parseInt(yearString.substring(0,2));
+        int yearFir = Integer.parseInt(yearString.substring(0, 2));
         int yearLast = Integer.parseInt(yearString.substring(2));
-        int month = calendar.get(Calendar.MONTH)+1;
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         ByteBuffer byteBuffer = ByteBuffer.allocate(7);
-        byteBuffer.put(new byte[] {(byte) yearFir,(byte) yearLast,(byte) month,(byte) day,(byte) hour, (byte) minute,0x00});
+        byteBuffer.put(new byte[] { (byte) yearFir, (byte) yearLast, (byte) month, (byte) day, (byte) hour,
+                (byte) minute, 0x00 });
         return byteBuffer.array();
     }
+
     /**
      * 字节数组转日期(7个字节)
+     * 
      * @param bytes
      * @return
      */
@@ -115,36 +129,37 @@ public class EncryptUtils {
         int day = byteBuffer.get();
         int hour = byteBuffer.get();
         int minute = byteBuffer.get();
-        int year = Integer.valueOf(String.valueOf(yearFir)+String.valueOf(yearLast));
+        int year = Integer.valueOf(String.valueOf(yearFir) + String.valueOf(yearLast));
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month-1);
+        calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         return calendar;
     }
-    
+
     /**
      * 日期转字节数组(4位)
+     * 
      * @param calendar
      * @return
      */
     public static byte[] calendarToBytes4(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);
         String yearString = String.valueOf(year);
-        int yearFir = Integer.parseInt(yearString.substring(0,2));
+        int yearFir = Integer.parseInt(yearString.substring(0, 2));
         int yearLast = Integer.parseInt(yearString.substring(2));
-        int month = calendar.get(Calendar.MONTH)+1;
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        ByteBuffer byteBuffer = ByteBuffer.allocate(4   );
-        byteBuffer.put(new byte[] {(byte) yearFir,(byte) yearLast,(byte) month,(byte) day});
+        ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+        byteBuffer.put(new byte[] { (byte) yearFir, (byte) yearLast, (byte) month, (byte) day });
         return byteBuffer.array();
     }
-    
-    
+
     /**
      * 字节数组转日期(4位)
+     * 
      * @param bytes
      * @return
      */
@@ -154,16 +169,17 @@ public class EncryptUtils {
         int yearLast = byteBuffer.get();
         int month = byteBuffer.get();
         int day = byteBuffer.get();
-        int year = Integer.valueOf(String.valueOf(yearFir)+String.valueOf(yearLast));
+        int year = Integer.valueOf(String.valueOf(yearFir) + String.valueOf(yearLast));
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month-1);
+        calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         return calendar;
     }
-    
+
     /**
      * 日期转字节数组(4位)
+     * 
      * @param calendar
      * @return
      */
@@ -171,17 +187,18 @@ public class EncryptUtils {
         int year = calendar.get(Calendar.YEAR);
         String yearString = String.valueOf(year);
         int yearLast = Integer.parseInt(yearString.substring(2));
-        int month = calendar.get(Calendar.MONTH)+1;
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         ByteBuffer byteBuffer = ByteBuffer.allocate(6);
-        byteBuffer.put(new byte[] {(byte) yearLast,(byte) month,(byte) day,(byte) hour, (byte) minute,0x00});
+        byteBuffer.put(new byte[] { (byte) yearLast, (byte) month, (byte) day, (byte) hour, (byte) minute, 0x00 });
         return byteBuffer.array();
     }
-    
+
     /**
      * 字节数组转日期(4位)
+     * 
      * @param bytes
      * @return
      */
@@ -192,24 +209,26 @@ public class EncryptUtils {
         int day = byteBuffer.get();
         int hour = byteBuffer.get();
         int minute = byteBuffer.get();
-        int year = Integer.valueOf("20"+String.valueOf(yearLast));
+        int year = Integer.valueOf("20" + String.valueOf(yearLast));
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month-1);
+        calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         return calendar;
     }
+
     /**
      * DES加密算法
+     * 
      * @param dataBytes
      * @param keyBytes
      * @return
      */
     public static byte[] encrypt(byte[] dataBytes, byte[] keyBytes) {
         try {
-         // DES算法要求有一个可信任的随机数源
+            // DES算法要求有一个可信任的随机数源
             SecureRandom random = new SecureRandom();
             // 创建一个DESKeySpec对象
             DESKeySpec desKey = new DESKeySpec(keyBytes);
@@ -232,6 +251,7 @@ public class EncryptUtils {
 
     /**
      * DES解密算法
+     * 
      * @param dataBytes
      * @param keyBytes
      * @return
@@ -256,6 +276,7 @@ public class EncryptUtils {
 
     /**
      * 字节数组转十六进制字符串
+     * 
      * @param buf
      * @return
      */
@@ -277,6 +298,7 @@ public class EncryptUtils {
 
     /**
      * 十六进制字符串转字节数组
+     * 
      * @param hexString
      * @return
      */
@@ -298,28 +320,30 @@ public class EncryptUtils {
     private static byte charToByte(char c) {
         return (byte) "0123456789ABCDEF".indexOf(c);
     }
-    
+
     /**
      * 数字字符串转字节数组
+     * 
      * @param number
      * @return
      */
     public static byte[] numberStringToByte(String number) {
-        byte[] bytes=number.getBytes();
-        for(int i=bytes.length-1;i>=0;i--){
-            bytes[i]-=(byte)'0';
+        byte[] bytes = number.getBytes();
+        for (int i = bytes.length - 1; i >= 0; i--) {
+            bytes[i] -= (byte) '0';
         }
         return bytes;
     }
-    
+
     /**
      * 字节数组转数字字符串
+     * 
      * @param number
      * @return
      */
     public static String byteToNumberString(byte[] bytes) {
-        for(int i=bytes.length-1;i>=0;i--){
-            bytes[i]+=(byte)'0';
+        for (int i = bytes.length - 1; i >= 0; i--) {
+            bytes[i] += (byte) '0';
         }
         return bytes.toString();
     }

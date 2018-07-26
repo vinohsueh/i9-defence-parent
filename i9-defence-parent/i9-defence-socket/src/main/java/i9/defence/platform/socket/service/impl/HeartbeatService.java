@@ -1,17 +1,16 @@
 package i9.defence.platform.socket.service.impl;
 
-import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
-import i9.defence.platform.socket.context.ChannelPacker;
-import i9.defence.platform.socket.context.ChannelPackerServerContext;
-import i9.defence.platform.socket.context.DeviceAttribute;
-import i9.defence.platform.socket.netty.Message;
-import i9.defence.platform.socket.service.ICoreService;
-import i9.defence.platform.socket.util.ChannelConnectedService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import i9.defence.platform.netty.libraries.req.HeartbeatReqMessage;
+import i9.defence.platform.socket.context.ChannelPacker;
+import i9.defence.platform.socket.context.DeviceAttribute;
+import i9.defence.platform.socket.netty.Message;
+import i9.defence.platform.socket.service.ICoreService;
+import i9.defence.platform.socket.util.ChannelConnectedService;
 
 @Service
 public class HeartbeatService implements ICoreService {
@@ -34,9 +33,6 @@ public class HeartbeatService implements ICoreService {
             channelConnectedService.connected(channelPacker);
         }
     }
-
-    @Autowired
-    private ChannelPackerServerContext context;
 
     @Autowired
     private ChannelConnectedService channelConnectedService;
