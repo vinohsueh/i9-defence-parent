@@ -39,8 +39,7 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 			};
 		
 		httpService.post({url:'./client/pageClient',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.clients = data.data.data.pageList;
-			console.log($scope.clients);
+			$scope.clients = data.data.data.pageList
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
@@ -79,7 +78,41 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 	$scope.search = function(){
 		$scope.initTable();
 	}
+	//发送短信
+	$scope.sendSms = function () {
+		httpService.post({url:'./client/getAllClientById',showSuccessMsg:false}).then(function(data) {  
+			$scope.dataList = data.data.allManger;
+			var modalInstance = $modal.open({  
+	            templateUrl: 'proj/client/sendSms.html',  
+	            controller: 'clientSendCtrl', 
+	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
+	            resolve: {  
+	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
+	        			return $ocLazyLoad.load({
+	        				name : 'clientSendNgModule',
+	        				insertBefore : '#ng_load_plugins_before',
+	        				files : [
+	        				         'proj/client/sendSms.js',
+	        				]
+	        			});
+	        		}],
+	        		client: function () { 
+	        			return $scope.dataList
+	                },
+	            }  
+	        }); 
+	        modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数
+	            $scope.selected = data;
+	        },function(){//$modalInstance.dismiss('cancel')后执行的函数，取消或退出执行的函数
+	        	$scope.initTable();
+	        });
+		})
+        
+         
+    };
 	
+	
+	//新增
 	$scope.add = function () {  
         var modalInstance = $modal.open({  
             templateUrl: 'proj/client/add.html',  
