@@ -1,5 +1,6 @@
 package i9.defence.platform.microservice.sms.service;
 
+import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
@@ -17,5 +18,10 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
 
     @Override
     public void run() {
+        try {
+            logger.info("textMessage : " + textMessage.getText());
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
     }
 }
