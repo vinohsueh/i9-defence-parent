@@ -25,6 +25,9 @@ public class Test {
         a = (byte) 254;
         System.out.println(EncryptUtils.byteToPositive(a));
         
+        a = 0;
+        System.out.println("0 > " + EncryptUtils.byteToPositive(a));
+        
         DataMessage dataMessage = new DataMessage();
         dataMessage.channelId = (byte) 0xfe;
         
