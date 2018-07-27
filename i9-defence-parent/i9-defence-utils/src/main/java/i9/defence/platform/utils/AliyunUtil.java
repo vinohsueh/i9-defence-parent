@@ -23,7 +23,7 @@ public class AliyunUtil {
      
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
     static final String accessKeyId = "LTAIrDGZQ3reCq1T";
-    static final String accessKeySecret = "8KTTqK44k95TrZskdbo2hF5gYOPlvm";
+    static final String accessKeySecret = "11111";
     
     /**
      * 群发通知
