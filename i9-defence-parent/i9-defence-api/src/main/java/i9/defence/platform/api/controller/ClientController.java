@@ -1,5 +1,6 @@
 package i9.defence.platform.api.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,12 +18,14 @@ import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.api.components.ClientSearchComponent;
 import i9.defence.platform.dao.vo.ClientSearchDto;
+import i9.defence.platform.dao.vo.SendMessageDto;
 import i9.defence.platform.model.Client;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ClientService;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.utils.AliyunUtil;
 import i9.defence.platform.utils.PageBounds;
 
 /**
@@ -112,5 +115,27 @@ public class ClientController {
      	}
      	result.put("allManger",jsonArray);
  		return result; 
+     }
+     
+     @RequestMapping("/sendMessage")
+     public HashMap<String, Object> sendMessage(@RequestBody SendMessageDto sendMessageDto){
+    	 HashMap<String, Object> result = new HashMap<String, Object>();
+    	 StringBuffer clientNamesBuffer = new StringBuffer("[");
+    	 StringBuffer clientPhonesBuffer = new StringBuffer("[\"");
+    	 StringBuffer clientSignNamesBuffer = new StringBuffer("[\"");
+    	 List<Client> clientsByIds = clientService.selectClientsByIds(Arrays.asList(sendMessageDto.getClientIdList()));
+    	 for(int i=0;i<clientsByIds.size();i++) {
+    		 if(i==clientsByIds.size()-1) {
+    			 clientNamesBuffer.append("{\"name\":\"").append(clientsByIds.get(i).getName()).append("\"}]");
+    			 clientPhonesBuffer.append(clientsByIds.get(i).getPhone()).append("\"]");
+    			 clientSignNamesBuffer.append("合极电器").append("\"]");
+    		 }else {
+    			 clientNamesBuffer.append("{\"name\":\"").append(clientsByIds.get(i).getName()).append("\"},");
+    			 clientPhonesBuffer.append(clientsByIds.get(i).getPhone()).append("\",\"");
+    			 clientSignNamesBuffer.append("合极电器").append("\",\"");
+    		 }
+    	 }
+		 AliyunUtil.sendInfo(sendMessageDto.getTemplateNum(),clientPhonesBuffer.toString(),clientNamesBuffer.toString(),clientSignNamesBuffer.toString());
+		 return result; 
      }
 }

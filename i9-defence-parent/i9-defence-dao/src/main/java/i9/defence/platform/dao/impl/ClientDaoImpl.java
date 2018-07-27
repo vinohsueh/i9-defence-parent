@@ -74,4 +74,12 @@ public class ClientDaoImpl implements ClientDao{
 		return clientMapper.selectByExample(example);
 	}
 
+	@Override
+	public List<Client> selectClientsByIds(List<Integer> ids) throws Exception {
+		ClientExample example = new ClientExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdIn(ids);
+		return clientMapper.selectByExample(example); 
+	}
+
 }
