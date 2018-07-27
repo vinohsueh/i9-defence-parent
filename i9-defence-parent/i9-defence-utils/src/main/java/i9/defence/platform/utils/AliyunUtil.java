@@ -14,7 +14,6 @@ import com.aliyuncs.profile.IClientProfile;
 
 /**
  * @ClassName: AliyunUtil
- * @Description: TODO
  * @author: luobo
  * @date: 2018年7月26日 上午10:27:57
  */
@@ -51,7 +50,6 @@ public class AliyunUtil {
      * 
      * @param <T>
      * @Title: sendInfo
-     * @Description: TODO
      * @param templateNum
      * @param ClientList
      * @return

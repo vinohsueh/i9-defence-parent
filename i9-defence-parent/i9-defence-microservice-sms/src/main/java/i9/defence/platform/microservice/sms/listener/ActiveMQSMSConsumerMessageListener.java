@@ -16,17 +16,17 @@ import i9.defence.platform.microservice.sms.service.ActiveMQAlarmSMSConsumerTask
 public class ActiveMQSMSConsumerMessageListener implements MessageListener {
 
     @Override
-    public void onMessage(Message message) {  
+    public void onMessage(Message message) {
         try {
-        	TextMessage textMessage = (TextMessage) message; 
+            TextMessage textMessage = (TextMessage) message;
             // 处理消息
-        	pool.execute(new ActiveMQAlarmSMSConsumerTask(textMessage));
+            pool.execute(new ActiveMQAlarmSMSConsumerTask(textMessage));
             logger.info("I9_SMS {}, SUCCESS", textMessage.getText());
         } catch (Exception e) {
             logger.info("I9_SMS RECEIVE, ERROR", e);
         }
     }
-    
+
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQSMSConsumerMessageListener.class);
 
     @Autowired
