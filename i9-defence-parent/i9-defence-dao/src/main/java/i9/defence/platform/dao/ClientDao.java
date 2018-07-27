@@ -45,4 +45,14 @@ public interface ClientDao {
     
     //根据项目ID 查询全部的责任人  生成下拉选框 进行多选
     List<Client> selectAllClientByProjectId(Integer projectId)throws Exception;
+    
+    /**
+     * 根据ids查询所有客户
+    * @Title: selectClientsByIds 
+    * @Description: TODO
+    * @param ids
+    * @return
+    * @throws Exception
+     */
+    List<Client> selectClientsByIds(List<Integer> ids) throws Exception;
 }

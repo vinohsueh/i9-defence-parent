@@ -26,5 +26,15 @@ public class ErrorCode {
      * 用户未登录
      */
     public static final int USER_LOGIN_ERROR = 9999;
+
+	/**
+     *阿里云短信验证错误代码
+     */
+    public static final int ALIYUN_NOT_ENOUGH_ERROR = 10017;
+    
+    /**
+     * 阿里云短信手机号错误
+     */
+    public static final int ALIYUN_ERROR_PHONE = 10019;
     
 }
