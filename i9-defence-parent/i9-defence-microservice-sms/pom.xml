@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>i9-defence-microservice-sms</artifactId>
     <packaging>war</packaging>
-    <name>i9-defence-microservice-push</name>
+    <name>i9-defence-microservice-sms</name>
     
     <parent>
         <groupId>i9.defence.platform</groupId>
@@ -39,7 +39,7 @@
         
         <resources>
               <resource>
-                <directory>src/main/resources/${profiles.activation}</directory>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
         
