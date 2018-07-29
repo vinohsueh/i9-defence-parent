@@ -35,5 +35,6 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
         } catch (JMSException e) {
             logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 失败", e);
         }
+        // TODO 增加数据记录，记录当前短信记录发送情况（编号，消息内容，发送人，状态【成功，失败】，发送时间）
     }
 }
