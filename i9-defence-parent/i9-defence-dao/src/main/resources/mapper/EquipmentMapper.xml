@@ -19,6 +19,9 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="dataStatus" jdbcType="INTEGER" property="dataStatus" />
     <result column="remainAlert" jdbcType="INTEGER" property="remainAlert" />
+    <result column="sendStatus" jdbcType="INTEGER" property="sendStatus"/>
+    <result column="sendType" jdbcType="VARCHAR" property="sendType"/>
+    <result column="recipients" jdbcType="VARCHAR" property="recipients"/>
     <association property="equipmentSystemtype" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
     <association property="equipmentCategory" column="systemId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
     <association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
@@ -131,7 +134,7 @@
   <sql id="Base_Column_List">
      id, systemId, equipmentName, equipmentNum, equipmentIdentifier, equipmentPosition, 
     equipmentDate, equipmentRemarks, equipmentCategoryId, projectId, unit, loopl, delStatus, 
-    deviceId, status, dataStatus, remainAlert
+    deviceId, status, dataStatus, remainAlert,sendStatus,sendType,recipients
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample" resultMap="BaseResultMap">
     select
@@ -173,13 +176,15 @@
       equipmentDate, equipmentRemarks, equipmentCategoryId, 
       projectId, unit, loopl, 
       delStatus, deviceId, status, 
-      dataStatus, remainAlert)
+      dataStatus, remainAlert,
+      sendStatus,sendType,recipients)
     values (#{systemId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR}, #{equipmentNum,jdbcType=INTEGER}, 
       #{equipmentIdentifier,jdbcType=VARCHAR}, #{equipmentPosition,jdbcType=VARCHAR}, 
       #{equipmentDate,jdbcType=TIMESTAMP}, #{equipmentRemarks,jdbcType=VARCHAR}, #{equipmentCategoryId,jdbcType=INTEGER}, 
       #{projectId,jdbcType=INTEGER}, #{unit,jdbcType=INTEGER}, #{loopl,jdbcType=INTEGER}, 
       #{delStatus,jdbcType=INTEGER}, #{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{dataStatus,jdbcType=INTEGER}, #{remainAlert,jdbcType=INTEGER})
+      #{dataStatus,jdbcType=INTEGER}, #{remainAlert,jdbcType=INTEGER},
+      #{sendStatus,jdbcType=INTEGER},#{sendType,jdbcType=VARCHAR},#{recipients,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -235,6 +240,15 @@
       <if test="remainAlert != null">
         remainAlert,
       </if>
+      <if test="sendStatus != null">
+        sendStatus,
+      </if>
+      <if test="sendType != null">
+        sendType,
+      </if>
+      <if test="recipients != null">
+        recipients,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="equipmentName != null">
@@ -284,6 +298,15 @@
       </if>
       <if test="remainAlert != null">
         #{remainAlert,jdbcType=INTEGER},
+      </if>
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sendType != null">
+        #{sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="recipients != null">
+        #{recipients,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -350,6 +373,15 @@
       <if test="record.remainAlert != null">
         remainAlert = #{record.remainAlert,jdbcType=INTEGER},
       </if>
+      <if test="record.sendStatus != null">
+        sendStatus = #{record.sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendType != null">
+        sendType = #{record.sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipients != null">
+        recipients = #{record.recipients,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -373,7 +405,10 @@
       deviceId = #{record.deviceId,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       dataStatus = #{record.dataStatus,jdbcType=INTEGER},
-      remainAlert = #{record.remainAlert,jdbcType=INTEGER}
+      remainAlert = #{record.remainAlert,jdbcType=INTEGER},
+      sendStatus = #{sendStatus,jdbcType=INTEGER},
+      sendType = #{sendType,jdbcType=VARCHAR},
+      recipients = #{recipients,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -429,6 +464,16 @@
       <if test="remainAlert != null">
         remainAlert = #{remainAlert,jdbcType=INTEGER},
       </if>
+      
+      <if test="sendStatus != null">
+		sendStatus = #{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sendType != null">
+        sendType = #{sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="recipients != null">
+        recipients = #{recipients,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -449,7 +494,10 @@
       deviceId = #{deviceId,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       dataStatus = #{dataStatus,jdbcType=INTEGER},
-      remainAlert = #{remainAlert,jdbcType=INTEGER}
+      remainAlert = #{remainAlert,jdbcType=INTEGER},
+      sendStatus = #{sendStatus,jdbcType=INTEGER},
+      sendType = #{sendType,jdbcType=VARCHAR},
+      recipients = #{recipients,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">

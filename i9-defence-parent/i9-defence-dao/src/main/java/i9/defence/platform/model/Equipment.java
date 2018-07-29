@@ -104,7 +104,46 @@ public class Equipment {
     
     private Integer remainAlert;
     
-    public Integer getRemainAlert() {
+    /**
+     * 发送状态 0:不发送 1：发送
+     */
+    private Integer sendStatus;
+     
+    /**
+     * 发送类型  0:报警 1:离线 2:隐患
+     */
+    private String sendType;
+    
+    /**
+     * 收件人
+     */
+    private String recipients;
+    
+    public Integer getSendStatus() {
+		return sendStatus;
+	}
+
+	public void setSendStatus(Integer sendStatus) {
+		this.sendStatus = sendStatus;
+	}
+
+	public String getSendType() {
+		return sendType;
+	}
+
+	public void setSendType(String sendType) {
+		this.sendType = sendType;
+	}
+
+	public String getRecipients() {
+		return recipients;
+	}
+
+	public void setRecipients(String recipients) {
+		this.recipients = recipients;
+	}
+
+	public Integer getRemainAlert() {
 		return remainAlert;
 	}
 
