@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling
 @ServletComponentScan // 扫描使用注解方式的servlet
 @ImportResource("classpath:activemq.xml")
-public class Application extends SpringBootServletInitializer{
+public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
