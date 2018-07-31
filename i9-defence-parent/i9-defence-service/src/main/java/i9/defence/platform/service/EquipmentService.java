@@ -210,6 +210,6 @@ public interface EquipmentService {
 	 * 修改发送状态
 	 * @param 
 	 */
-	void updateSendStatus(Integer id, Integer equipmentState)throws BusinessException ;
+	void updateSendStatus(Equipment equipment)throws BusinessException ;
 	
 }

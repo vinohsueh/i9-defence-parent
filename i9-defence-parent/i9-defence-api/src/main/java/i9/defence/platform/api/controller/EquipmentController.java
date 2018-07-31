@@ -306,9 +306,9 @@ public class EquipmentController {
 	 * @param 
 	 */
 	@RequestMapping("/updateSendStatus")
-	public HashMap<String, Object> updateSendStatus(Integer id,Integer equipmentState) {
+	public HashMap<String, Object> updateSendStatus(@RequestBody Equipment equipment) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		equipmentService.updateSendStatus(id,equipmentState);
+		equipmentService.updateSendStatus(equipment);
 		return result;
 	}
 }

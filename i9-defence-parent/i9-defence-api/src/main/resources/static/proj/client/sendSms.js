@@ -18,14 +18,14 @@ var clientSendCtrl = clientSendNgModule.controller('clientSendCtrl', function($s
 	})*/
 	// 确认添加
 	$scope.confirmSend = function() {
-		$scope.permissionArray = [];
+		$scope.permissionArray=[];
     	angular.forEach(angular.element.find(".clientList .clientItem"), function(dom){
     		if(angular.element(dom).find(".o-checks").prop("checked") == true){
     			$scope.permissionArray.push(angular.element(dom).find(".o-checks").attr("data-id"))
     		}
 		});
     	var param={
-    			clientIdList:$scope.permissionArray,
+    			clientIdList:angular.fromJson($scope.permissionArray),
     			templateNum:$scope.templateNumber
     	}
     	console.log(param)
@@ -44,10 +44,9 @@ var clientSendCtrl = clientSendNgModule.controller('clientSendCtrl', function($s
 			});
 			return false;
 		}else{
-			/*httpService.post({url:'./client/updateAndAdd',data:param,showSuccessMsg:true}).then(function(data) {  
+			httpService.post({url:'./client/sendMessage',data:param,showSuccessMsg:true}).then(function(data) {  
 				$modalInstance.dismiss('cancel')
-			})*/
-			alert('success');
+			})
 		}
 		
 	};
