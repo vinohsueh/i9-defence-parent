@@ -6,6 +6,10 @@ import javax.jms.TextMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+
+import i9.defence.platform.utils.AliyunUtil;
+
 public class ActiveMQAlarmSMSConsumerTask implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQAlarmSMSConsumerTask.class);
@@ -18,10 +22,19 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
 
     @Override
     public void run() {
+        String jsonStr = "";
         try {
-            logger.info("textMessage : " + textMessage.getText());
+            jsonStr = textMessage.getText();
+            JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+            String templateNum = jsonObject.getString("templateNum");
+            String phones = jsonObject.getString("phones");
+            String clientNames = jsonObject.getString("clientNames");
+            String signNames = jsonObject.getString("signNames");
+            AliyunUtil.sendInfo(templateNum, phones, clientNames, signNames);
+            logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 成功");
         } catch (JMSException e) {
-            e.printStackTrace();
+            logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 失败", e);
         }
+        // TODO 增加数据记录，记录当前短信记录发送情况（编号，消息内容，发送人，状态【成功，失败】，发送时间）
     }
 }

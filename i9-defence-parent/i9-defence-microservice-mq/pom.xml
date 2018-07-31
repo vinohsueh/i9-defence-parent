@@ -112,10 +112,10 @@
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
-		<!-- Spring Boot log4j依赖 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j</artifactId>
-		</dependency>
+        <!-- Spring Boot log4j依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
+        </dependency>
     </dependencies>
 </project>
