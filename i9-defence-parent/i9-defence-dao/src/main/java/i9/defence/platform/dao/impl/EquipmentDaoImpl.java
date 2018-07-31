@@ -272,4 +272,12 @@ public class EquipmentDaoImpl implements EquipmentDao{
 	public void updateEquipRemainAlertByDeviceIds(List<String> deviceIds) throws Exception {
 		equipmentMapper.updateEquipRemainAlertByDeviceIds(deviceIds); 
 	}
+
+	@Override
+	public void updateSendStatus(Integer id, Integer equipmentState) throws Exception {
+		Equipment equipment = new Equipment(); 
+		equipment.setId(id);
+		equipment.setSendStatus(equipmentState);
+		equipmentMapper.updateByPrimaryKeySelective(equipment);		
+	}
 }
