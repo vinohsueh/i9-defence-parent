@@ -13,7 +13,7 @@ import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 
 @Configuration
 public class ActiveMQBeanConfig {
-    
+
     @Autowired
     private SingleConnectionFactory connectionFactory;
 
@@ -25,7 +25,7 @@ public class ActiveMQBeanConfig {
 
     @Autowired
     private ActiveMQSMSConsumerMessageListener activeMQSMSConsumerMessageListener;
-    
+
     @Bean(name = "sms_activemq_container")
     public DefaultMessageListenerContainer getJmsContainer() {
         DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
