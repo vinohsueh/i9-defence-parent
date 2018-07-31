@@ -541,6 +541,12 @@ public class EquipmentServiceImpl implements EquipmentService {
 	@Override
 	public void updateSendStatus(Equipment equipment) throws BusinessException {
 		try {
+			Integer sendStatus = equipment.getSendStatus();
+			if (sendStatus == 0) {
+				equipment.setSendStatus(1);
+			} else{
+				equipment.setSendStatus(0);
+			}
 			equipmentDao.updateEquipment(equipment);
 		} catch (Exception e) {
 			throw new BusinessException("修改失败",e.getMessage());
