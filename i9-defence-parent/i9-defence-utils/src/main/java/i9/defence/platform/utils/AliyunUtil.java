@@ -54,7 +54,7 @@ public class AliyunUtil {
      * @param ClientList
      * @return
      */
-    public static void sendInfo(String templateNum, String phones, String clientNames, String SignNames) {
+    public static String sendInfo(String templateNum, String phones, String clientNames, String SignNames) {
         // 设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -89,7 +89,7 @@ public class AliyunUtil {
         // hint 此处可能会抛出异常，注意catch
         try {
             SendBatchSmsResponse response = acsClient.getAcsResponse(request);
-            response.getCode();
+            return response.getCode();
         } catch (ClientException e) {
             throw new BusinessException(ErrorCode.ALIYUN_NOT_ENOUGH_ERROR, "客户端错误", e.getMessage());
         }
