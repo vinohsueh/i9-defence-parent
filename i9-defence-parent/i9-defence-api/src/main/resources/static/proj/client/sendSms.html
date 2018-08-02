@@ -1,0 +1,42 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">发送短信</h4>
+</div>
+<div class="modal-body">
+	<ul class='clientList border-b mb-10' style='max-height:400px;overflow-y:auto'>
+		<li class='mb-10'>
+			<label class="i-checks m-b-none" id='checkAll'><input class="o-checks" type="checkbox" ng-disabled><i></i></label>
+			<span>全选</span>
+		</li>
+		<li class='clientItem mb-10' ng-repeat='val in client'>
+			<label class="i-checks m-b-none"><input class="o-checks" data-id="{{val.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label>
+			<span>{{val.name}}</span>
+		</li>
+	</ul>
+	<div class='row'>
+		<label class="col-md-3 mt-10"><span class="required">*</span>发送模板</label>
+		<div class="col-md-8">
+			<!-- <select class="form-control " ng-model="templateNumber" ng-options="x.value for x in selected2.child">
+       			<option value=''>请选择</option>
+     		</select> -->
+     		<input type='text' ng-model="templateNumber" class='form-control'>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()"
+		data-dismiss="modal">取消</button>
+	<button type="button" class="btn btn-primary" ng-click="confirmSend()">确认</button>
+</div>
+<script>
+$("#checkAll i").click(function(){
+    if($(this).prev().prop("checked") == true){
+        $(".clientList .clientItem .o-checks").prop("checked",false);
+    }else{
+    	$(".clientList .clientItem .o-checks").prop("checked",true);
+    }
+    
+})
+</script>
+

@@ -280,4 +280,5 @@ public interface EquipmentDao {
 	* @throws Exception
 	 */
 	void updateEquipRemainAlertByDeviceIds(List<String> deviceIds)throws Exception ;
+	
 }

@@ -131,7 +131,6 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
             if (isConfirm) {
             	httpService.post({url:'./equipment/applyDelEquipment',data:$scope.delArray,showSuccessMsg:false,msg:true}).then(function(data) {  
             	$scope.msg=data.data.msg;
-//            	console.log($scope.msg);
             	$.toaster({
 					title : "Success",
 					priority : "success",
@@ -143,13 +142,22 @@ var equipmentNgControl=equipmentNgModule.controller('equipmentNgControl',functio
             }
         }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
     }
+    //状态切换    
+    $scope.changeStatus = function(id,status) {
+    	var pageParam = {
+    		 id : id,
+    		 sendStatus : status,
+    	};
+    	console.log(pageParam);
+    	httpService.post({url:'./equipment/updateSendStatus',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.initTable();
+    	})
+	};
     //编辑
     $scope.edit = function (id) { 
     	httpService.post({url:'./equipment/getEquipment',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.equipment = data.data.data;
     		$scope.equCategorys = data.data.equCategory;
-//    		console.log(JSON.stringify($scope.equCategorys));
-//    		console.log(JSON.stringify(data.data.data));
     		httpService.post({url:'./equipment/findEquipmentSystemCategory',showSuccessMsg:false}).then(function(data) {  
     			$scope.eqSystemCategorys = data.data.eqSystemCategory;
     			$scope.projects = data.data.projects;

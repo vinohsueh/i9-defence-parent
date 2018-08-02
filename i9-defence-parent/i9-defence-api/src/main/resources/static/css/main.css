@@ -18,6 +18,9 @@ select.blue_bg {
 select.blue_bg option {
   color: #333;
 }
+td {
+  word-break: break-all;
+}
 td.eventType span {
   display: inline-block;
   padding: 5px 10px;
@@ -539,6 +542,9 @@ td.eventType span.lineOut {
   content: ".";
   font-size: 0;
 }
+.mt-10 {
+  margin-top: 10px;
+}
 .mb-10 {
   margin-bottom: 10px;
 }
@@ -562,4 +568,7 @@ td.eventType span.lineOut {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   white-space: nowrap;
+}
+.border-b {
+  border-bottom: 1px solid #e5e5e5;
 }

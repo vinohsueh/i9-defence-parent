@@ -15,7 +15,6 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 	if($scope.equipment.id != null){
 		$scope.equipmentNumStatu = true;
 	}
-//	console.log($scope.equipment);
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
 	}
@@ -29,7 +28,6 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 		if($scope.equipment.equipmentCategoryId != null && $scope.equipment.equipmentCategoryId != ''){
 			$scope.choiceFirst = true;
 			httpService.post({url:'./equipment/findEquipmentSystemCategory2',data:$scope.equipment.equipmentCategoryId,showSuccessMsg:false}).then(function(data) {  
-//				console.log(JSON.stringify(data))
 				$scope.secondData = data.data.equipmentCategory;
 				
 			})
@@ -49,6 +47,24 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
   
     }); */ 
 //	$scope.aa = 1;
+//	发信类型
+	$scope.dangerType=0;
+	$scope.warningType=0;
+	$scope.outLineType=0;
+	if($scope.equipment.sendType.indexOf(0) != -1){
+		$scope.dangerType=1;
+	}else if($scope.equipment.sendType.indexOf(1) != -1){
+		$scope.warningType=1;
+	}else if($scope.equipment.sendType.indexOf(2) != -1){
+		$scope.outLineType=1;
+	}
+//	发信人
+	$scope.phoneArr = $scope.equipment.recipients.split(',');
+
+	
+	
+	
+	
 	// 确认添加
 	$scope.confirmAdd = function() {
 //		if ($scope.equipment.systemId ==null ||$scope.equipment.systemId.length ==0) {
@@ -99,6 +115,23 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
+		var sendTypeArr = [];
+		$('#sendType>div>label').each(function(){
+			var thisType = $(this).attr('data-type');
+			if($(this).find('input').prop('checked') == true){
+				sendTypeArr.push(thisType);
+			}
+		});
+		var phoneArr = [];
+		$('#sendNum input').each(function(){
+			if($(this).val()){
+				phoneArr.push($(this).val());
+			}
+		})
+		$scope.equipment.sendType = sendTypeArr;
+		$scope.equipment.recipients = phoneArr;
+		
+		
 		$scope.equipment.systemId  = $scope.equipment.equipmentCategory.eqCategoryId;
 		httpService.post({url:'./equipment/addEquipment',data:$scope.equipment,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')

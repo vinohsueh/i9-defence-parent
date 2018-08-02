@@ -300,4 +300,15 @@ public class EquipmentController {
 		result.put("data", totalEquipmentDto);
 		return result;
 	}
+	
+	/**
+	 * 修改发送状态
+	 * @param 
+	 */
+	@RequestMapping("/updateSendStatus")
+	public HashMap<String, Object> updateSendStatus(@RequestBody Equipment equipment) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		equipmentService.updateSendStatus(equipment);
+		return result;
+	}
 }
