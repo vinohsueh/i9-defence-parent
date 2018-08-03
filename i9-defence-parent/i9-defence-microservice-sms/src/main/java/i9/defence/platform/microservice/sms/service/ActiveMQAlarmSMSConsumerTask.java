@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.dao.MessageLogDao;
+import i9.defence.platform.enums.AliyunCodeTypeEnum;
 import i9.defence.platform.model.MessageLog;
 import i9.defence.platform.utils.AliyunUtil;
 import i9.defence.platform.utils.BusinessException;
@@ -49,7 +50,7 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
             messageLog.setPhones(phones);
             messageLog.setClientNames(clientNames);
             messageLog.setSignName(signNames);
-            messageLog.setSendResult(sendResult);
+            messageLog.setSendResult(null !=AliyunCodeTypeEnum.getValueByKey(sendResult)?AliyunCodeTypeEnum.getValueByKey(sendResult):sendResult); 
         	messageLog.setSendStatus(("ok".equals(sendResult))?0:1);
         	messageLog.setSendTime(StringUtil.dateToString(new Date()));
         	messageLogDao.insert(messageLog); 
