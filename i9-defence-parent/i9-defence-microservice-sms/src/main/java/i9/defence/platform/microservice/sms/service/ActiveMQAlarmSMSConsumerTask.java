@@ -7,20 +7,17 @@ import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.dao.MessageLogDao;
 import i9.defence.platform.enums.AliyunCodeTypeEnum;
+import i9.defence.platform.microservice.sms.util.SpringBeanService;
 import i9.defence.platform.model.MessageLog;
 import i9.defence.platform.utils.AliyunUtil;
 import i9.defence.platform.utils.StringUtil;
 
 public class ActiveMQAlarmSMSConsumerTask implements Runnable {
-
-    @Autowired
-    private MessageLogDao messageLogDao;
 
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQAlarmSMSConsumerTask.class);
 
@@ -63,6 +60,7 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
             logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 业务异常, 失败", e);
         }
         try {
+            MessageLogDao messageLogDao = SpringBeanService.getBean(MessageLogDao.class);
             messageLogDao.insert(messageLog);
         } catch (Exception e) {
             e.printStackTrace();
