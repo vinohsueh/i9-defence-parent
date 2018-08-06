@@ -25,6 +25,7 @@ import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ClientService;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.utils.AliyunSMSEnum;
 import i9.defence.platform.utils.AliyunUtil;
 import i9.defence.platform.utils.PageBounds;
 
@@ -140,7 +141,7 @@ public class ClientController {
                 clientSignNamesBuffer.append("合极电气").append("\",\"");
             }
         }
-        AliyunUtil.sendInfo(sendMessageDto.getTemplateNum(), clientPhonesBuffer.toString(),
+        AliyunUtil.sendInfo(AliyunSMSEnum.templateA, clientPhonesBuffer.toString(),
                 clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
         return result;
     }

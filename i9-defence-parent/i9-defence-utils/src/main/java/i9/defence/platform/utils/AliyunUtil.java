@@ -41,8 +41,8 @@ public class AliyunUtil {
         }
     }
     
-    public static void main(String[] args) {
-        System.out.println(AliyunUtil.accessKeyId);
+    public static String sendInfo(AliyunSMSEnum aliyunSMSEnum, String phones, String clientNames, String SignNames) {
+    	return sendInfo(aliyunSMSEnum.getTemplateNum(), phones, clientNames, SignNames);
     }
 
     /**
