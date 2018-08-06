@@ -2,7 +2,6 @@ package i9.defence.platform.microservice.sms.service;
 
 import java.util.Date;
 
-import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
@@ -50,13 +49,9 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
                     null != AliyunCodeTypeEnum.getValueByKey(sendResult) ? AliyunCodeTypeEnum.getValueByKey(sendResult)
                             : sendResult);
             messageLog.setSendStatus(("ok".equals(sendResult)) ? 0 : 1);
-        } catch (JMSException e) {
-            messageLog.setSendStatus(1);
-            messageLog.setSendResult(e.getMessage());
-            logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 业务异常, 失败", e);
         } catch (Exception e) {
             messageLog.setSendStatus(1);
-            messageLog.setSendResult(e.getMessage());
+            messageLog.setSendResult(StringUtil.getStackTrace(e));
             logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 业务异常, 失败", e);
         }
         try {

@@ -1,5 +1,7 @@
 package i9.defence.platform.utils;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,8 +17,19 @@ import org.apache.commons.lang.StringUtils;
  * 
  */
 public class StringUtil {
-    
+
     public static final String EMPTY = "";
+
+    public static String getStackTrace(Throwable throwable) {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        try {
+            throwable.printStackTrace(printWriter);
+            return stringWriter.toString();
+        } finally {
+            printWriter.close();
+        }
+    }
 
     public static String MD5(String str) {
         MessageDigest messageDigest = null;
@@ -61,7 +74,8 @@ public class StringUtil {
      * @return
      */
     public static String dateToStringWithoutTime(Date date) {
-        if (date == null) return "";
+        if (date == null)
+            return "";
         SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
         return sdm.format(date);
     }
@@ -88,9 +102,12 @@ public class StringUtil {
     /**
      * 获取设备唯一id
      * 
-     * @param systemId 设备编号
-     * @param loop 回路号
-     * @param address 设备地址
+     * @param systemId
+     *            设备编号
+     * @param loop
+     *            回路号
+     * @param address
+     *            设备地址
      * @return
      */
     public static String getDeviceId(String systemId, int loop, String address) {
