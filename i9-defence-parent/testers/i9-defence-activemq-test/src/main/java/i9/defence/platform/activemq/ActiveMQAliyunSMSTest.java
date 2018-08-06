@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
+import i9.defence.platform.utils.AliyunSMSEnum;
 
 public class ActiveMQAliyunSMSTest {
     
@@ -29,8 +30,8 @@ public class ActiveMQAliyunSMSTest {
                 while(true) {
                     JSONObject jsonObject = new JSONObject();
                     // 发送短信模版
-                    jsonObject.put("templateNum", "");
-                    jsonObject.put("phones", "");
+                    jsonObject.put("templateNum", AliyunSMSEnum.backA.getTemplateNum());
+                    jsonObject.put("phones", "[15822613880]");
                     jsonObject.put("clientNames", "");
                     jsonObject.put("signNames", "");
                     ActiveMQProducerService activeMQProducerService = context.getBean(ActiveMQProducerService.class);
