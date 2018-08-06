@@ -133,11 +133,11 @@ public class ClientController {
             if (i == clientsByIds.size() - 1) {
                 clientNamesBuffer.append("{\"name\":\"").append(clientsByIds.get(i).getName()).append("\"}]");
                 clientPhonesBuffer.append(clientsByIds.get(i).getPhone()).append("\"]");
-                clientSignNamesBuffer.append("合极电器").append("\"]");
+                clientSignNamesBuffer.append("合极电气").append("\"]");
             } else {
                 clientNamesBuffer.append("{\"name\":\"").append(clientsByIds.get(i).getName()).append("\"},");
                 clientPhonesBuffer.append(clientsByIds.get(i).getPhone()).append("\",\"");
-                clientSignNamesBuffer.append("合极电器").append("\",\"");
+                clientSignNamesBuffer.append("合极电气").append("\",\"");
             }
         }
         AliyunUtil.sendInfo(sendMessageDto.getTemplateNum(), clientPhonesBuffer.toString(),

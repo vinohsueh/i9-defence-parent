@@ -51,17 +51,22 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 	$scope.dangerType=0;
 	$scope.warningType=0;
 	$scope.outLineType=0;
-	if($scope.equipment.sendType.indexOf(0) != -1){
-		$scope.dangerType=1;
-	}else if($scope.equipment.sendType.indexOf(1) != -1){
-		$scope.warningType=1;
-	}else if($scope.equipment.sendType.indexOf(2) != -1){
-		$scope.outLineType=1;
+	if($scope.equipment.sendType!=null && $scope.equipment.sendType !=''){
+		if($scope.equipment.sendType.indexOf(0) != -1){
+			$scope.dangerType=1;
+		}else if($scope.equipment.sendType.indexOf(1) != -1){
+			$scope.warningType=1;
+		}else if($scope.equipment.sendType.indexOf(2) != -1){
+			$scope.outLineType=1;
+		}
 	}
-//	发信人
-	$scope.phoneArr = $scope.equipment.recipients.split(',');
-
 	
+//	发信人
+	if($scope.equipment.recipients !=null && $scope.equipment.recipients !=''){
+		$scope.phoneArr = $scope.equipment.recipients.split(',');
+	}
+	
+
 	
 	
 	

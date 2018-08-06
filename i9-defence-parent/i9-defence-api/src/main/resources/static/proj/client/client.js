@@ -39,7 +39,7 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 			};
 		
 		httpService.post({url:'./client/pageClient',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.clients = data.data.data.pageList
+			$scope.clients = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
