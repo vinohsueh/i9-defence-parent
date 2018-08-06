@@ -57,7 +57,7 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
         } catch (JMSException e) {
             logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 失败", e);
         } catch (Exception e) {
-			throw new BusinessException("新增短信日志失败", e.getMessage());
+        	logger.info("发送短信mq, 接收数据 : " + jsonStr + ", 失败", e);
 		}
     }
 }
