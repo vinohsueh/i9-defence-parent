@@ -1,5 +1,7 @@
 package i9.defence.platform.dao.vo;
 
+import i9.defence.platform.utils.AliyunSMSEnum;
+
 /**
  * 短信群发dto
  * @ClassName: SendInfoDto 
@@ -19,6 +21,16 @@ public class SendMessageDto {
 	 */
 	private  String templateNum;
 	
+	private AliyunSMSEnum aliyunSMSEnum;
+	
+	public AliyunSMSEnum getAliyunSMSEnum() {
+		return aliyunSMSEnum;
+	}
+
+	public void setAliyunSMSEnum(AliyunSMSEnum aliyunSMSEnum) {
+		this.aliyunSMSEnum = aliyunSMSEnum;
+	}
+
 	public Integer[] getClientIdList() {
 		return ClientIdList;
 	}

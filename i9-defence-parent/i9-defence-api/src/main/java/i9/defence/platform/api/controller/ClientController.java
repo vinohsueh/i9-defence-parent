@@ -91,6 +91,7 @@ public class ClientController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Client client = clientService.getById(id);
         result.put("data", client);
+        result.put("AliyunSMSEnum", AliyunSMSEnum.getShowMenuList());
         return result;
     }
 
@@ -122,9 +123,12 @@ public class ClientController {
         result.put("allManger", jsonArray);
         return result;
     }
-
+    
+    @RequiresPermissions("send_message")
     @RequestMapping("/sendMessage")
     public HashMap<String, Object> sendMessage(@RequestBody SendMessageDto sendMessageDto) {
+    	AliyunSMSEnum aliyunSMSEnumByTemplateNum = AliyunSMSEnum.getAliyunSMSEnumByTemplateNum(sendMessageDto.getTemplateNum());
+    	sendMessageDto.setAliyunSMSEnum(aliyunSMSEnumByTemplateNum);
         HashMap<String, Object> result = new HashMap<String, Object>();
         StringBuffer clientNamesBuffer = new StringBuffer("[");
         StringBuffer clientPhonesBuffer = new StringBuffer("[\"");
@@ -141,7 +145,7 @@ public class ClientController {
                 clientSignNamesBuffer.append("合极电气").append("\",\"");
             }
         }
-        AliyunUtil.sendInfo(AliyunSMSEnum.templateA, clientPhonesBuffer.toString(),
+        AliyunUtil.sendInfo(sendMessageDto.getAliyunSMSEnum(), clientPhonesBuffer.toString(),
                 clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
         return result;
     }
