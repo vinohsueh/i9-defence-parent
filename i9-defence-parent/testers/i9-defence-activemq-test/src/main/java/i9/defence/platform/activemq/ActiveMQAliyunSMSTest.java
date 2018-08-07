@@ -30,7 +30,7 @@ public class ActiveMQAliyunSMSTest {
                 while(true) {
                     JSONObject jsonObject = new JSONObject();
                     // 发送短信模版
-                    jsonObject.put("templateNum", AliyunSMSEnum.backA.getTemplateNum());
+                    jsonObject.put("templateNum", AliyunSMSEnum.WANING.getTemplateNum());
                     jsonObject.put("phones", "[15822613880]");
                     jsonObject.put("clientNames", "");
                     jsonObject.put("signNames", "");

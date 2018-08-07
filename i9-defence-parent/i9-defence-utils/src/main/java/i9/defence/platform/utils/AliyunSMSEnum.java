@@ -18,22 +18,22 @@ public enum AliyunSMSEnum {
 	WANING("设备报警模板","SMS_141200479",true);
 	
 	private final String name;
-
-	private final String templateNum;
-
-	private final boolean show;
-
-	public String getTemplateNum() {
-		return templateNum;
-	}
-
-	public boolean isShow() {
-		return show;
-	}
 	
-	public String getName() {
-		return name;
-	}
+    private final String templateNum;
+
+    private final boolean show;
+
+    public String getTemplateNum() {
+        return templateNum;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public String getName() {
+        return name;
+    }
 
 	public static List<AliyunSMSEnum> getShowMenuList() {
 		List<AliyunSMSEnum> list = new ArrayList<AliyunSMSEnum>();
@@ -54,9 +54,9 @@ public enum AliyunSMSEnum {
 		return null; 
 	}
 
-	AliyunSMSEnum(String name, String templateNum, boolean show) {
-		this.templateNum = templateNum;
-		this.show = show;
-		this.name = name;
-	}
+    AliyunSMSEnum(String name, String templateNum, boolean show) {
+        this.templateNum = templateNum;
+        this.show = show;
+        this.name = name;
+    }
 }

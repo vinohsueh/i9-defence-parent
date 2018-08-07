@@ -42,7 +42,7 @@ public class AliyunUtil {
     }
     
     public static String sendInfo(AliyunSMSEnum aliyunSMSEnum, String phones, String clientNames, String SignNames) {
-    	return sendInfo(aliyunSMSEnum.getTemplateNum(), phones, clientNames, SignNames);
+        return sendInfo(aliyunSMSEnum.getTemplateNum(), phones, clientNames, SignNames);
     }
 
     /**
