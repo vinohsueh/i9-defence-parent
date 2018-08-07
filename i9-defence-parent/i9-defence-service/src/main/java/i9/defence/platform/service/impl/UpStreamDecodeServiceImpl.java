@@ -202,6 +202,13 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 				errorRecord.setType(datastatus);
 				errorRecordDao.insertErrorRecord(errorRecord);
 			}
+			//发送短信
+			if (1 == alertStatus){
+				//发送报警短信
+			}else if (2 == alertStatus){
+				//发送隐患短信
+			}
+			
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}

@@ -66,6 +66,11 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
             }
             
             upStreamDecodeService.insertConnectRecord(connectLog);
+            
+            //发送离线短信
+            if (0 == status){
+            	
+            }
             logger.info("save connect log success, deviceId : {}, status : {}", deviceId, status);
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);
