@@ -82,6 +82,7 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 	$scope.sendSms = function () {
 		httpService.post({url:'./client/getAllClientById',showSuccessMsg:false}).then(function(data) {  
 			$scope.dataList = data.data.allManger;
+			$scope.AliyunSMSEnums = data.data.AliyunSMSEnums;
 			var modalInstance = $modal.open({  
 	            templateUrl: 'proj/client/sendSms.html',  
 	            controller: 'clientSendCtrl', 
@@ -97,7 +98,10 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 	        			});
 	        		}],
 	        		client: function () { 
-	        			return $scope.dataList
+	        			return $scope.dataList;
+	                },
+	                AliyunSMSEnums : function (){
+	                	return $scope.AliyunSMSEnums;
 	                },
 	            }  
 	        }); 
@@ -161,6 +165,7 @@ var clientControl=clientModule.controller('clientControl',function($rootScope, $
 	        		client: function () {  
 	                    return $scope.client;  
 	                },
+	                
 	            }  
 	        });
 			modalInstance.result.then(function(data){//$modalInstance.close()正常关闭后执行的函数

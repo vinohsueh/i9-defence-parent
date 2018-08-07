@@ -45,15 +45,26 @@ public enum AliyunSMSEnum {
 		return list;
 	}
 	
-	public static AliyunSMSEnum getAliyunSMSEnumByTemplateNum(String TemplateNum ) {
+	public static List<String> getShowMenuListName(){
+		List<String> list = new ArrayList<String>();
+		for (AliyunSMSEnum aliyunSMSEnum : values()) {
+			if (aliyunSMSEnum.isShow()) {
+				list.add(aliyunSMSEnum.getName());
+			}
+		}
+		return list;
+	}
+	
+	public static AliyunSMSEnum getAliyunSMSEnumByName(String name ) {
 		for(AliyunSMSEnum aliyunSMSEnum : values()) {
-			if(aliyunSMSEnum.getTemplateNum().equals(TemplateNum)&& aliyunSMSEnum.isShow()) {
+			if(aliyunSMSEnum.getName().equals(name)&& aliyunSMSEnum.isShow()) {
 				return aliyunSMSEnum;
 			}
 		}
 		return null; 
 	}
-
+	
+	
     AliyunSMSEnum(String name, String templateNum, boolean show) {
         this.templateNum = templateNum;
         this.show = show;

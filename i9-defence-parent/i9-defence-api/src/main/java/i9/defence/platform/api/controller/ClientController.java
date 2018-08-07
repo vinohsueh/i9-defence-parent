@@ -121,13 +121,14 @@ public class ClientController {
             jsonArray.add(jsonObject);
         }
         result.put("allManger", jsonArray);
+        result.put("AliyunSMSEnums", AliyunSMSEnum.getShowMenuListName());
         return result;
     }
     
     @RequiresPermissions("send_message")
     @RequestMapping("/sendMessage")
     public HashMap<String, Object> sendMessage(@RequestBody SendMessageDto sendMessageDto) {
-    	AliyunSMSEnum aliyunSMSEnumByTemplateNum = AliyunSMSEnum.getAliyunSMSEnumByTemplateNum(sendMessageDto.getTemplateNum());
+    	AliyunSMSEnum aliyunSMSEnumByTemplateNum = AliyunSMSEnum.getAliyunSMSEnumByName(sendMessageDto.getTemplateNum());
     	sendMessageDto.setAliyunSMSEnum(aliyunSMSEnumByTemplateNum);
         HashMap<String, Object> result = new HashMap<String, Object>();
         StringBuffer clientNamesBuffer = new StringBuffer("[");

@@ -17,10 +17,10 @@
 	<div class='row'>
 		<label class="col-md-3 mt-10"><span class="required">*</span>发送模板</label>
 		<div class="col-md-8">
-			<!-- <select class="form-control " ng-model="templateNumber" ng-options="x.value for x in selected2.child">
-       			<option value=''>请选择</option>
-     		</select> -->
-     		<input type='text' ng-model="templateNumber" class='form-control'>
+			<select class="form-control" ng-model="templateNumber" ng-options="x for x in AliyunSMSEnums">
+       			<option value="">请选择</option>
+     		</select>
+     		<!-- <input type='text' ng-model="templateNumber" class='form-control'> -->
 		</div>
 	</div>
 </div>

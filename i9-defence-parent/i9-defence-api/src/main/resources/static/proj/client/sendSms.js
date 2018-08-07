@@ -6,8 +6,10 @@ var clientSendNgModule = angular.module('clientSendNgModule', [ 'ngResource',
 
 var clientSendCtrl = clientSendNgModule.controller('clientSendCtrl', function($scope,
 		$rootScope, $modalInstance, $cookieStore, $http, $window, toaster,
-		client,httpService) {
+		client,AliyunSMSEnums,httpService) {
 	$scope.client = client;
+	$scope.AliyunSMSEnums = AliyunSMSEnums;
+	console.log($scope.AliyunSMSEnums);
 	$scope.templateNumber = '';
 	$scope.closeBtn = function() {
 		$modalInstance.dismiss('cancel');
