@@ -147,8 +147,6 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 		$scope.project.projectCity = $scope.selected2.name;
 		$scope.project.projectCounty = $scope.selected3.value;
 		
-		$scope.equipment.sendType = sendTypeArr;
-		$scope.equipment.recipients = phoneArr;
 		
 		
 		$scope.project.projectStartDate=$("#projectStartDate").val();
@@ -162,7 +160,7 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 				sendTypeArr.push(thisType);
 			}
 		});
-		$scope.equipment.sendType = sendTypeArr.join(',');
+		$scope.project.sendType = sendTypeArr.join(',');
 		var nameArr = [];
 		var phoneArr = [];
 		$('#sendNum .sendItem').each(function(){
@@ -171,7 +169,8 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 				if(thisItem.find('.sendPhone input').val()){
 					nameArr.push(thisItem.find('.sendName input').val());
 					phoneArr.push(thisItem.find('.sendPhone input').val());
-					$scope.equipment.recipients = nameArr.join(',');
+					
+					$scope.project.recipients = nameArr.join(',');
 					$scope.project.recipientphones = phoneArr.join(',');
 					
 					
