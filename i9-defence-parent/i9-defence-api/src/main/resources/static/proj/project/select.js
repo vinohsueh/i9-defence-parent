@@ -162,7 +162,7 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 				sendTypeArr.push(thisType);
 			}
 		});
-		$scope.equipment.sendType = sendTypeArr;
+		$scope.equipment.sendType = sendTypeArr.join(',');
 		var nameArr = [];
 		var phoneArr = [];
 		$('#sendNum .sendItem').each(function(){
@@ -171,8 +171,8 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 				if(thisItem.find('.sendPhone input').val()){
 					nameArr.push(thisItem.find('.sendName input').val());
 					phoneArr.push(thisItem.find('.sendPhone input').val());
-					$scope.equipment.recipients = nameArr;
-					$scope.project.recipientphones = phoneArr;
+					$scope.equipment.recipients = nameArr.join(',');
+					$scope.project.recipientphones = phoneArr.join(',');
 					
 					
 					httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
