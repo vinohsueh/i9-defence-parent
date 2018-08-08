@@ -73,6 +73,34 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
     $scope.closeBtn = function() {
         $modalInstance.dismiss('cancel');
     }
+    
+  //发信类型
+	$scope.dangerType=0;
+	$scope.warningType=0;
+	$scope.outLineType=0;
+	if($scope.project.sendType!=null && $scope.project.sendType !=''){
+		if($scope.project.sendType.indexOf(0) != -1){
+			$scope.dangerType=1;
+		}
+		if($scope.project.sendType.indexOf(1) != -1){
+			$scope.warningType=1;
+		}
+		if($scope.project.sendType.indexOf(2) != -1){
+			$scope.outLineType=1;
+		}
+	}
+	//发信人
+	$scope.nameArr=[];
+	if($scope.project.recipients !=null && $scope.project.recipients !=''){
+		$scope.nameArr = $scope.project.recipients.split(',');
+	}
+	console.log($scope.project.recipients)
+	$scope.phoneArr=[];
+	if($scope.project.recipientphones !=null && $scope.project.recipientphones !=''){
+		$scope.phoneArr = $scope.project.recipientphones.split(',');
+	}
+    
+    
     // 确认添加
     $scope.confirmAdd = function() {
         if ($scope.project.projectName ==null ||$scope.project.projectName ==0) {
@@ -119,12 +147,54 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 		$scope.project.projectCity = $scope.selected2.name;
 		$scope.project.projectCounty = $scope.selected3.value;
 		
+		
+		
 		$scope.project.projectStartDate=$("#projectStartDate").val();
 		$scope.project.projectEndDate=$("#projectEndDate").val();
 		console.log(JSON.stringify($scope.project))
-        httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
-            $modalInstance.dismiss('cancel')
-        })
+		//短信
+		var sendTypeArr = [];
+		$('#sendType>div>label').each(function(){
+			var thisType = $(this).attr('data-type');
+			if($(this).find('input').prop('checked') == true){
+				sendTypeArr.push(thisType);
+			}
+		});
+		$scope.project.sendType = sendTypeArr.join(',');
+		var nameArr = [];
+		var phoneArr = [];
+		$('#sendNum .sendItem').each(function(){
+			var thisItem = $(this);
+			if(thisItem.find('.sendName input').val()){
+				if(thisItem.find('.sendPhone input').val()){
+					nameArr.push(thisItem.find('.sendName input').val());
+					phoneArr.push(thisItem.find('.sendPhone input').val());
+					
+					$scope.project.recipients = nameArr.join(',');
+					$scope.project.recipientphones = phoneArr.join(',');
+					
+					
+					httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
+			            $modalInstance.dismiss('cancel')
+			        })
+				}else{
+					$.toaster({
+		                title : "Error",
+		                priority : "danger",
+		                message : "姓名和号码需要匹配!"
+		            });
+		            return false;
+				}
+			}else{
+				$.toaster({
+	                title : "Error",
+	                priority : "danger",
+	                message : "姓名和号码不能为空"
+	            });
+	            return false;
+			}
+		})
+        
     };
 
     

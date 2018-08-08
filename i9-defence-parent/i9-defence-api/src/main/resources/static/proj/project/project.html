@@ -60,7 +60,7 @@
             <th>起始日期</th>
             <th>终止日期</th>
             <th>开关</th>
-            <!-- <th>短信</th> -->
+            <th>短信</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -98,6 +98,18 @@
                   <i></i>
                 </label>
               </td> 
+              <td ng-if="project.sendStatus==0">
+			     <label class="i-switch m-t-xs m-r">
+			       <input ng-click="changeSMS({{project.id}},{{project.sendStatus}})" type="checkbox"/>
+			       <i></i>
+			     </label>
+			 </td>
+			 <td ng-if="project.sendStatus==1">
+			     <label class="i-switch m-t-xs m-r">
+			       <input ng-click="changeSMS({{project.id}},{{project.sendStatus}})" type="checkbox" checked/>
+			       <i></i>
+			     </label>
+			 </td>
               <td>
                 <button ng-click="edit({{project.id}}+','+{{project.distributorId}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
                 <!-- <i class=''></i> -->

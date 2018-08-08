@@ -43,7 +43,7 @@
             <th>设备地址</th>
             <th>设备位置</th>
             <th>所属项目</th>
-            <th>发信开关</th>
+            <!-- <th>发信开关</th> -->
             <th>操作</th>
           </tr>
         </thead>
@@ -58,7 +58,7 @@
                 <td >{{equipment.equipmentPosition}}</td>
                 <td >{{equipment.equipmentRemarks}}</td>
                 <td >{{equipment.project.projectName}}</td>
-                <td ng-if="equipment.sendStatus==0">
+                <!-- <td ng-if="equipment.sendStatus==0">
 	                <label class="i-switch m-t-xs m-r">
 	                  <input ng-click="changeStatus({{equipment.id}},{{equipment.sendStatus}})" type="checkbox"/>
 	                  <i></i>
@@ -69,7 +69,7 @@
 	                  <input ng-click="changeStatus({{equipment.id}},{{equipment.sendStatus}})" type="checkbox" checked/>
 	                  <i></i>
 	                </label>
-	            </td> 
+	            </td> --> 
                 <td >
                   <button ng-click="edit({{equipment.id}})" class='btn btn-primary'><i class='glyphicon glyphicon-edit'></i></button>
                 </td>

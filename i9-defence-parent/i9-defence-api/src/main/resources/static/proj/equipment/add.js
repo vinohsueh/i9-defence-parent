@@ -48,23 +48,24 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
     }); */ 
 //	$scope.aa = 1;
 //	发信类型
-	$scope.dangerType=0;
+	/*$scope.dangerType=0;
 	$scope.warningType=0;
 	$scope.outLineType=0;
 	if($scope.equipment.sendType!=null && $scope.equipment.sendType !=''){
 		if($scope.equipment.sendType.indexOf(0) != -1){
 			$scope.dangerType=1;
-		}else if($scope.equipment.sendType.indexOf(1) != -1){
+		}
+		if($scope.equipment.sendType.indexOf(1) != -1){
 			$scope.warningType=1;
-		}else if($scope.equipment.sendType.indexOf(2) != -1){
+		}
+		if($scope.equipment.sendType.indexOf(2) != -1){
 			$scope.outLineType=1;
 		}
 	}
-	
 //	发信人
 	if($scope.equipment.recipients !=null && $scope.equipment.recipients !=''){
 		$scope.phoneArr = $scope.equipment.recipients.split(',');
-	}
+	}*/
 	
 
 	
@@ -120,7 +121,9 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			});
 			return false;
 		}
-		var sendTypeArr = [];
+		
+//		短信
+		/*var sendTypeArr = [];
 		$('#sendType>div>label').each(function(){
 			var thisType = $(this).attr('data-type');
 			if($(this).find('input').prop('checked') == true){
@@ -134,7 +137,7 @@ var equipmentEditCtrl = equipmentEditNgModule.controller('equipmentEditCtrl', fu
 			}
 		})
 		$scope.equipment.sendType = sendTypeArr;
-		$scope.equipment.recipients = phoneArr;
+		$scope.equipment.recipients = phoneArr;*/
 		
 		
 		$scope.equipment.systemId  = $scope.equipment.equipmentCategory.eqCategoryId;
