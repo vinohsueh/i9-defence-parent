@@ -165,7 +165,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, projectName, projectProvince, projectCity, projectCounty,projectAddress, projectLongitude, projectLatitude, projectDate, 
-    projectArea, distributorId, remarks, projectState,projectStartDate,projectEndDate
+    projectArea, distributorId, remarks, projectState,projectStartDate,projectEndDate,sendStatus,sendType,recipientphones,recipients
   </sql>
   <select id="selectByExample" parameterType="i9.defence.platform.model.ProjectExample" resultMap="BaseResultMap">
     select
