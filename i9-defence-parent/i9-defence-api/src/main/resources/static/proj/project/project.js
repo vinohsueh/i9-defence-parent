@@ -243,6 +243,15 @@ var projectNgControl=projectNgModule.controller('projectNgControl',function($roo
     		$scope.initTable();
     	})
 	};
+	$scope.changeSMS = function(id,status) {
+    	var pageParam = {
+    		 id : id,
+    		 sendStatus : status,
+    	};
+    	httpService.post({url:'./project/updateProject',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+    		$scope.initTable();
+    	})
+	};
     
   //地域
 	$scope.error = {};
