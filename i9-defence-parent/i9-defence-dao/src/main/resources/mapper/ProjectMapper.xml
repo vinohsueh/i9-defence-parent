@@ -19,6 +19,10 @@
  	<result column="warningCount" jdbcType="INTEGER" property="warningCount"/>
  	<result column="projectStartDate" jdbcType="TIMESTAMP" property="projectStartDate"/>
   	<result column="projectEndDate" jdbcType="TIMESTAMP" property="projectEndDate"/>
+  	<result column="sendStatus" jdbcType="INTEGER" property="sendStatus"/>
+  	<result column="sendType" jdbcType="VARCHAR" property="sendType"/>
+  	<result column="recipients" jdbcType="VARCHAR" property="recipients"/>
+  	<result column="recipientphones" jdbcType="VARCHAR" property="recipientphones"/> 
   	<association property="distributor" column="distributorId" select="i9.defence.platform.dao.mapper.ManagerMapper.selectByPrimaryKey"/>
   	<!-- <association property="warningCount" column="id" select="selectEquipTypeCount"></association> -->
   	<collection property="clientList" column="id" select="i9.defence.platform.dao.mapper.ClientMapper.selectClientByProjectId"/>
@@ -202,7 +206,8 @@
       projectLatitude, projectDate, projectArea, distributorId, remarks, projectState,projectStartDate,projectEndDate)
     values (#{projectName,jdbcType=VARCHAR}, #{projectProvince,jdbcType=VARCHAR}, #{projectCity,jdbcType=VARCHAR}, #{projectCounty,jdbcType=VARCHAR},#{projectAddress,jdbcType=VARCHAR}, #{projectLongitude,jdbcType=DOUBLE}, 
       #{projectLatitude,jdbcType=DOUBLE}, #{projectDate,jdbcType=TIMESTAMP}, #{projectArea,jdbcType=DOUBLE}, 
-      #{distributorId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER},#{projectStartDate,jdbcType=TIMESTAMP},#{projectEndDate,jdbcType=TIMESTAMP})
+      #{distributorId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{projectState,jdbcType=INTEGER},#{projectStartDate,jdbcType=TIMESTAMP},#{projectEndDate,jdbcType=TIMESTAMP},
+      #{sendStatus,jdbcType=INTEGER},#{sendType,jdbcType=VARCHAR},#{recipients,jdbcType=VARCHAR},#{recipientphones,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="i9.defence.platform.model.Project">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -252,6 +257,18 @@
       <if test="projectEndDate != null">
       projectEndDate,
       </if>
+      <if test="sendStatus != null">
+      sendStatus,
+      </if>
+      <if test="sendType != null">
+      sendType,
+      </if>
+      <if test="recipients != null">
+      recipients,
+      </if>
+      <if test="recipientphones != null">
+      recipientphones,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectName != null">
@@ -295,6 +312,18 @@
       </if>
       <if test="projectEndDate != null">
       	#{projectEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendStatus != null">
+      	#{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sendType != null">
+      	#{sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="recipients != null">
+      	#{recipients,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientphones != null">
+      	#{recipientphones,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -346,11 +375,23 @@
       <if test="record.projectState != null">
         projectState = #{record.projectState,jdbcType=INTEGER},
       </if>
-      <if test="projectStartDate != null">
-     	projectStartDate = #{projectStartDate,jdbcType=TIMESTAMP},
+      <if test="record.projectStartDate != null">
+     	projectStartDate = #{record.projectStartDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="projectEndDate != null">
-      	projectEndDate = #{projectEndDate,jdbcType=TIMESTAMP}
+      <if test="record.projectEndDate != null">
+      	projectEndDate = #{record.projectEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendStatus != null">
+      	#{record.sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendType != null">
+      	#{record.sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipients != null">
+      	#{record.recipients,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipientphones != null">
+      	#{record.recipientphones,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -372,8 +413,12 @@
       distributorId = #{record.distributorId,jdbcType=INTEGER},
       remarks = #{record.remarks,jdbcType=VARCHAR},
       projectState = #{record.projectState,jdbcType=INTEGER},
-      projectStartDate = #{projectStartDate,jdbcType=TIMESTAMP},
-      projectEndDate  = #{projectEndDate,jdbcType=TIMESTAMP},
+      projectStartDate = #{record.projectStartDate,jdbcType=TIMESTAMP},
+      projectEndDate  = #{record.projectEndDate,jdbcType=TIMESTAMP},
+      sendStatus = #{record.sendStatus,jdbcType=INTEGER},
+      sendType = #{record.sendType,jdbcType=VARCHAR},
+      recipients = #{record.recipients,jdbcType=VARCHAR},
+      recipientphones = #{record.recipientphones,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -423,6 +468,18 @@
       <if test="projectEndDate != null">
       	projectEndDate = #{projectEndDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="sendStatus != null">
+      	#{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sendType != null">
+      	#{sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="recipients != null">
+      	#{recipients,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientphones != null">
+      	#{recipientphones,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -441,7 +498,11 @@
       remarks = #{remarks,jdbcType=VARCHAR},
       projectState = #{projectState,jdbcType=INTEGER},
       projectStartDate = #{projectStartDate,jdbcType=TIMESTAMP},
-      projectEndDate  = #{projectEndDate,jdbcType=TIMESTAMP}
+      projectEndDate  = #{projectEndDate,jdbcType=TIMESTAMP},
+      sendStatus = #{sendStatus,jdbcType=INTEGER},
+      sendType = #{sendType,jdbcType=VARCHAR},
+      recipients = #{recipients,jdbcType=VARCHAR},
+      recipientphones = #{recipientphones,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">

@@ -85,7 +85,57 @@ public class Project {
      */
     private Date projectEndDate;
     
+    /**
+     * 短信发送状态：0：不发送 1：发送
+     */
+    private Integer sendStatus;
     
+    /**
+     * 短信发送类型：0:报警  1:离线 2:隐患
+     */
+    private String sendType;
+    
+    /**
+     * 收件人姓名
+     */
+    private String recipients;
+    
+    /**
+     * 收件人手机号
+     */
+    private String recipientphones;
+    
+	public Integer getSendStatus() {
+		return sendStatus;
+	}
+
+	public void setSendStatus(Integer sendStatus) {
+		this.sendStatus = sendStatus;
+	}
+
+	public String getSendType() {
+		return sendType;
+	}
+
+	public void setSendType(String sendType) {
+		this.sendType = sendType;
+	}
+
+	public String getRecipients() {
+		return recipients;
+	}
+
+	public void setRecipients(String recipients) {
+		this.recipients = recipients;
+	}
+
+	public String getRecipientphones() {
+		return recipientphones;
+	}
+
+	public void setRecipientphones(String recipientphones) {
+		this.recipientphones = recipientphones;
+	}
 
 	public String getProjectStartDateStr() {
 		if(null !=projectStartDate) {
