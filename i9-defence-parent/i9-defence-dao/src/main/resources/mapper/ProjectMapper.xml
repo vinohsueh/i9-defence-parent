@@ -382,16 +382,16 @@
       	projectEndDate = #{record.projectEndDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.sendStatus != null">
-      	#{record.sendStatus,jdbcType=INTEGER},
+      	sendStatus = #{record.sendStatus,jdbcType=INTEGER},
       </if>
       <if test="record.sendType != null">
-      	#{record.sendType,jdbcType=VARCHAR},
+      	sendType = #{record.sendType,jdbcType=VARCHAR},
       </if>
       <if test="record.recipients != null">
-      	#{record.recipients,jdbcType=VARCHAR},
+      	recipients = #{record.recipients,jdbcType=VARCHAR},
       </if>
       <if test="record.recipientphones != null">
-      	#{record.recipientphones,jdbcType=VARCHAR},
+      	recipientphones = #{record.recipientphones,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -469,16 +469,16 @@
       	projectEndDate = #{projectEndDate,jdbcType=TIMESTAMP},
       </if>
       <if test="sendStatus != null">
-      	#{sendStatus,jdbcType=INTEGER},
+      	sendStatus = #{sendStatus,jdbcType=INTEGER},
       </if>
       <if test="sendType != null">
-      	#{sendType,jdbcType=VARCHAR},
+      	sendType = #{sendType,jdbcType=VARCHAR},
       </if>
       <if test="recipients != null">
-      	#{recipients,jdbcType=VARCHAR},
+      	recipients = #{recipients,jdbcType=VARCHAR},
       </if>
       <if test="recipientphones != null">
-      	#{recipientphones,jdbcType=VARCHAR},
+      	recipientphones = #{recipientphones,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

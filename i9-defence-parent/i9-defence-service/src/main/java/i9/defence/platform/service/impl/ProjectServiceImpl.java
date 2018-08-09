@@ -87,11 +87,21 @@ public class ProjectServiceImpl implements ProjectService {
 	public void updateProject(Project project) throws BusinessException {
 		try {
 			Integer status = project.getProjectState();
+			Integer sendStatus = project.getSendStatus();
+			if(null !=status) {
 				if (status == 0) {
 					project.setProjectState(1);
 				} else{
 					project.setProjectState(0);
 				}
+			}
+			if(null !=sendStatus) {
+				if(sendStatus ==0) {
+					project.setSendStatus(1);
+				}else {
+					project.setSendStatus(0); 
+				}
+			}
 			projectDao.updateProject(project);
 		} catch (Exception e) {
 			throw new BusinessException("更新项目失败开关状态", e.getMessage());
