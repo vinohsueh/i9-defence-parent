@@ -15,7 +15,7 @@ public enum AliyunSMSEnum {
 	CUSTOMER("客户问候模板", "SMS_141200477", true), 
 	HIDDENDANGER("设备隐患模板", "SMS_141195516", true),
 	OUTOFLINE("设备离线模板","SMS_141195515",true),
-	WANING("设备报警模板","SMS_141597372",true);
+	WANING("设备报警模板","SMS_142025154",true);
 	
 	private final String name;
 	
