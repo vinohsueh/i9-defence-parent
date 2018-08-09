@@ -19,7 +19,6 @@ import i9.defence.platform.dao.ConnectLogDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ErrorRecordDao;
 import i9.defence.platform.dao.PassageWayDao;
-import i9.defence.platform.dao.ProjectDao;
 import i9.defence.platform.dao.UpStreamDecodeDao;
 import i9.defence.platform.dao.vo.UpStreamDecodeSearchDto;
 import i9.defence.platform.model.ChannelData;
@@ -28,11 +27,9 @@ import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.ErrorRecord;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
-import i9.defence.platform.model.Project;
 import i9.defence.platform.model.UpStreamDecode;
+import i9.defence.platform.service.AutomaticSendMessageService;
 import i9.defence.platform.service.UpStreamDecodeService;
-import i9.defence.platform.utils.AliyunSMSEnum;
-import i9.defence.platform.utils.AliyunUtil;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.DateUtils;
@@ -63,7 +60,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     @Autowired
     private ErrorRecordDao errorRecordDao;
     @Autowired
-    private ProjectDao projectDao;
+    private AutomaticSendMessageService automaticSendMessageService;
+    
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
         try {
@@ -209,73 +207,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 				errorRecordDao.insertErrorRecord(errorRecord);
 			}
 			//发送短信
-			//1若为绑定设备
-			//1.1若设备为1，则为发送状态
-			/*if(1==equipment.getSendStatus()) {
-				//1.2获取设备发送类型(0:报警，1:离线，2：隐患)
-				String[] splitType = equipment.getSendType().split(","); 
-				//1.3将String数组转换成int数组
-				int[] arr =new int[splitType.length];
-				for(int i=0;i<splitType.length;i++) {
-					arr[i] =Integer.parseInt(splitType[i]);
-				}
-				//1.4遍历int数组
-				for(int h=0;h<arr.length;h++) {
-					//1.5若SendType=0并且alertStatus=1则发送报警短信
-					if(0==arr[h] && 1 == alertStatus) {
-						AliyunUtil.sendInfo(AliyunSMSEnum.WANING, phones, clientNames, SignNames)
-					//1.6若SendType=2并且alertStatus=2则发送报警短信
-					}else if(2==arr[h] && 2 == alertStatus) {
-						
-					}
-				}
-				if (1 == alertStatus){
-					
-					//发送报警短信
-				}else if (2 == alertStatus){
-					//发送隐患短信
-				}
-			}*/
-			
-			//2若为绑定项目
-			Project project = projectDao.getProjectById(equipment.getProjectId());
-			//2.1判断发送状态 0：不发送 1：发送
-			if(1==project.getSendStatus()) {
-				StringBuffer clientNamesBuffer = new StringBuffer("[");
-		        StringBuffer clientPhonesBuffer = new StringBuffer("[\"");
-		        StringBuffer clientSignNamesBuffer = new StringBuffer("[\"");
-		        String[] recipients = project.getRecipients().split(",");
-		        String[] recipientphones = project.getRecipientphones().split(",");
-		        for(int i=0;i<recipients.length;i++) {
-		        	if(i==recipients.length-1) {
-		        		clientNamesBuffer.append("{\"name\":\"").append(recipients[i]).append("\","+"\"project\":\""+project.getProjectName()+"\","+"\"postion\":\""+equipment.getEquipmentRemarks()+"\","+"\"equipmentType\":\""+equipment.getEquipmentCategory().getEqCategoryName()+"\"").append("}]");
-		        		clientPhonesBuffer.append(recipientphones[i]).append("\"]");
-		        		clientSignNamesBuffer.append("合极电气").append("\"]");
-		        	}else {
-		        		clientNamesBuffer.append("{\"name\":\"").append(recipients[i]).append("\","+"\"project\":\""+project.getProjectName()+"\","+"\"postion\":\""+equipment.getEquipmentRemarks()+"\","+"\"equipmentType\":\""+equipment.getEquipmentCategory().getEqCategoryName()+"\"},");
-		        		clientPhonesBuffer.append(recipientphones[i]).append("\",\"");
-		        		clientSignNamesBuffer.append("合极电气").append("\",\"");
-		        	}
-				}
-				//2.2获取设备发送类型(0:报警，1:离线，2：隐患)
-				String[] splitType = project.getSendType().split(",");
-				//2.3将String数组转换成int数组
-				int[] arr =new int[splitType.length];
-				for(int i=0;i<splitType.length;i++) {
-					arr[i] =Integer.parseInt(splitType[i]);
-				}
-				//2.4遍历int数组
-				for(int h=0;h<arr.length;h++) {
-					//2.5若SendType=0并且alertStatus=1则发送报警短信
-					if(0==arr[h] && 1 == alertStatus) {
-						AliyunUtil.sendInfo(AliyunSMSEnum.WANING, clientPhonesBuffer.toString(), clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
-					//2.6若SendType=2并且alertStatus=2则发送隐患短信
-					}else if(2==arr[h] && 2 == alertStatus) {
-						AliyunUtil.sendInfo(AliyunSMSEnum.HIDDENDANGER, clientPhonesBuffer.toString(), clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
-					}
-				}
-			}
-			
+			//若为绑定项目
+			automaticSendMessageService.AutomaticSendMessage(deviceId, alertStatus); 
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
