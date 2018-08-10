@@ -94,7 +94,6 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 	if($scope.project.recipients !=null && $scope.project.recipients !=''){
 		$scope.nameArr = $scope.project.recipients.split(',');
 	}
-	console.log($scope.project.recipients)
 	$scope.phoneArr=[];
 	if($scope.project.recipientphones !=null && $scope.project.recipientphones !=''){
 		$scope.phoneArr = $scope.project.recipientphones.split(',');
@@ -151,7 +150,6 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 		
 		$scope.project.projectStartDate=$("#projectStartDate").val();
 		$scope.project.projectEndDate=$("#projectEndDate").val();
-		console.log(JSON.stringify($scope.project))
 		//短信
 		var sendTypeArr = [];
 		$('#sendType>div>label').each(function(){
@@ -163,21 +161,15 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 		$scope.project.sendType = sendTypeArr.join(',');
 		var nameArr = [];
 		var phoneArr = [];
+		var configStatu = 0;
 		$('#sendNum .sendItem').each(function(){
 			var thisItem = $(this);
 			if(thisItem.find('.sendName input').val()){
 				if(thisItem.find('.sendPhone input').val()){
 					nameArr.push(thisItem.find('.sendName input').val());
 					phoneArr.push(thisItem.find('.sendPhone input').val());
-					
-					$scope.project.recipients = nameArr.join(',');
-					$scope.project.recipientphones = phoneArr.join(',');
-					
-					
-					httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
-			            $modalInstance.dismiss('cancel')
-			        })
 				}else{
+					configStatu = 1;
 					$.toaster({
 		                title : "Error",
 		                priority : "danger",
@@ -186,6 +178,7 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 		            return false;
 				}
 			}else{
+				configStatu = 1;
 				$.toaster({
 	                title : "Error",
 	                priority : "danger",
@@ -193,7 +186,16 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 	            });
 	            return false;
 			}
-		})
+		});
+		
+		$scope.project.recipients = nameArr.join(',');
+		$scope.project.recipientphones = phoneArr.join(',');
+		if(configStatu != 1){
+			httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
+	            $modalInstance.dismiss('cancel')
+	        });
+		}
+		
         
     };
 
