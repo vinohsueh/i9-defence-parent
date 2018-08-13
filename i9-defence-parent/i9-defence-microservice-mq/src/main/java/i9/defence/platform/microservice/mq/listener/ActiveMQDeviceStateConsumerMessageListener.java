@@ -15,23 +15,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ActiveMQDeviceStateConsumerMessageListener implements MessageListener {  
+public class ActiveMQDeviceStateConsumerMessageListener implements MessageListener {
 
     @Override
-    public void onMessage(Message message) {  
+    public void onMessage(Message message) {
         try {
-        	TextMessage textMessage = (TextMessage) message; 
+            TextMessage textMessage = (TextMessage) message;
             // 处理消息
-        	pool.execute(new ActiveMQDeviceStatusConsumerTask(textMessage));
+            pool.execute(new ActiveMQDeviceStatusConsumerTask(textMessage));
             logger.info("I9_DEVICE_STATE {}, SUCCESS", textMessage.getText());
         } catch (Exception e) {
             logger.info("I9_DEVICE_STATE RECEIVE, ERROR", e);
         }
     }
-    
+
     @Autowired
     private BusinessPool pool;
-    
+
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQDeviceStateConsumerMessageListener.class);
 
     @Resource

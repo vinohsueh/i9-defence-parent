@@ -13,17 +13,15 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
-import i9.defence.platform.microservice.mq.util.SpringBeanService;
-import i9.defence.platform.microservice.push.service.ThirdPlatformService;
-import i9.defence.platform.microservice.push.vo.ChannelData;
-import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.service.ThirdPlatformService;
+import i9.defence.platform.service.dto.ChannelData;
+import i9.defence.platform.service.dto.DeviceInfoDto;
 import i9.defence.platform.utils.AliyunSMSEnum;
 import i9.defence.platform.utils.DateUtils;
 import i9.defence.platform.utils.SqlUtil;
@@ -31,7 +29,6 @@ import i9.defence.platform.utils.SqlUtil;
 /**
  * 自动发送短信Impl
  * 
- * @ClassName: automaticSendMessageServiceImpl
  * @Description: TODO
  * @author: luobo
  * @date: 2018年8月9日 上午11:14:13
@@ -149,7 +146,6 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
     }
 
     private void sendSMS(SMSPushBean b) {
-        ActiveMQProducerService activeMQProducerService = SpringBeanService.getBean(ActiveMQProducerService.class);
         JSONObject jsonObject = new JSONObject();
         // 发送短信模版
         jsonObject.put("templateNum", b.aliyunSMSEnum.getTemplateNum());
@@ -158,6 +154,9 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         jsonObject.put("signNames", b.signNames);
         activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
     }
+    
+    @Autowired
+    private ActiveMQProducerService activeMQProducerService;
 
     /**
      * 发送设备离线短信

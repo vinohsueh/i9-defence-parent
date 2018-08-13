@@ -28,7 +28,6 @@ import i9.defence.platform.model.ErrorRecord;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.UpStreamDecode;
-import i9.defence.platform.service.AutomaticSendMessageService;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
@@ -59,9 +58,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     private PassageWayDao passageWayDao;
     @Autowired
     private ErrorRecordDao errorRecordDao;
-    @Autowired
-    private AutomaticSendMessageService automaticSendMessageService;
-    
+
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
         try {
@@ -118,12 +115,12 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         JSONArray dataList = jsonObject.getJSONArray("dataList");
         String systemType = jsonObject.getString("systemType");
         for (int index = 0; index < dataList.size(); index++) {
-            JSONObject tmpJsonObject = dataList.getJSONObject(index);
-            int type = tmpJsonObject.getIntValue("type");
-            int channel = tmpJsonObject.getIntValue("channel");
-            String value = String.valueOf(tmpJsonObject.get("value"));
+            JSONObject dataItem = dataList.getJSONObject(index);
+            int type = dataItem.getIntValue("type");
+            int channel = dataItem.getIntValue("channel");
+            String value = String.valueOf(dataItem.getString("value"));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date createTime = simpleDateFormat.parse((String)(tmpJsonObject.get("datetime").toString().replace("#", " ")));
+            Date createTime = simpleDateFormat.parse((String)(dataItem.get("datetime").toString().replace("#", " ")));
             // 创建一个ChannelData对象
             ChannelData channelData = buildChannelData(systemId, systemType, address, loop, type, channel, value, createTime);
             

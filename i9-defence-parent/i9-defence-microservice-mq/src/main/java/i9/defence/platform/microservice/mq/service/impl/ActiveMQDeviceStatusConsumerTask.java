@@ -6,15 +6,12 @@ import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
-import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.model.ConnectLog;
-import i9.defence.platform.service.AutomaticSendMessageService;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.DateUtils;
 import i9.defence.platform.utils.StringUtil;

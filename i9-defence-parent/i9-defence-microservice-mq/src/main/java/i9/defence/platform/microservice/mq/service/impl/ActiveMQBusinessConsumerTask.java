@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
-import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
@@ -37,7 +36,7 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
 
                 EquipmentCheckSendMessageService equipmentCheckSendMessageService = SpringBeanService
                         .getBean(EquipmentCheckSendMessageService.class);
-                equipmentCheckSendMessageService.checkEquipmentAndSendMessageAlarm(deviceId, alertStatus);
+                equipmentCheckSendMessageService.checkEquipmentAndSendMessageAlarm(deviceId, alertStatus, textMessage.getText());
             }
             logger.info("save up stream decode success, data : " + textMessage.getText());
             // 处理推送到第三方平台数据接口

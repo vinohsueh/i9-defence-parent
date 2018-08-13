@@ -18,17 +18,17 @@ import org.springframework.stereotype.Component;
 public class ActiveMQBusinessConsumerMessageListener implements MessageListener {
 
     @Override
-    public void onMessage(Message message) {  
+    public void onMessage(Message message) {
         try {
-        	TextMessage textMessage = (TextMessage) message; 
+            TextMessage textMessage = (TextMessage) message;
             // 处理消息
-        	pool.execute(new ActiveMQBusinessConsumerTask(textMessage));
+            pool.execute(new ActiveMQBusinessConsumerTask(textMessage));
             logger.info("I9_BUSINESS {}, SUCCESS", textMessage.getText());
         } catch (Exception e) {
             logger.info("I9_BUSINESS RECEIVE, ERROR", e);
         }
     }
-    
+
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQBusinessConsumerMessageListener.class);
 
     @Resource
