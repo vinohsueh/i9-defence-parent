@@ -27,7 +27,7 @@ public class AutomaticSendMessageServiceImpl implements AutomaticSendMessageServ
 	private ProjectService projectService;
 	
 	@Override
-	public  void AutomaticSendMessage(String deviceId, Integer EquipmentType) {
+	public  void AutomaticSendMessage(String deviceId, Integer equipmentType) {
 		//发送离线短信
         //1根据deviceId查找设备
         Equipment equipment = equipmentService.getEquipmentByIdentifier(deviceId);
@@ -61,14 +61,14 @@ public class AutomaticSendMessageServiceImpl implements AutomaticSendMessageServ
 			//2.4遍历int数组
 			for(int h=0;h<arr.length;h++) {
 				//2.5若SendType=0并且alertStatus=1则发送报警短信
-				if(0==arr[h] && 1 == EquipmentType) {
+				if(0==arr[h] && 1 == equipmentType) {
 					AliyunUtil.sendInfo(AliyunSMSEnum.WANING, clientPhonesBuffer.toString(), clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
 				//2.6若SendType=2并且alertStatus=2则发送隐患短信
-				}else if(2==arr[h] && 2 == EquipmentType) {
+				}else if(2==arr[h] && 2 == equipmentType) {
 					AliyunUtil.sendInfo(AliyunSMSEnum.HIDDENDANGER, clientPhonesBuffer.toString(), clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
 				//2.7若SendType=0并且status=1则发送离线短信
 				}
-				if(1==arr[h] && 0 == EquipmentType) {
+				if(1==arr[h] && 0 == equipmentType) {
 					AliyunUtil.sendInfo(AliyunSMSEnum.OUTOFLINE, clientPhonesBuffer.toString(), clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
 				}
 				

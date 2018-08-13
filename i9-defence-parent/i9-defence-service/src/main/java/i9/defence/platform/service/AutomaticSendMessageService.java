@@ -16,5 +16,5 @@ public interface AutomaticSendMessageService {
 	* @param deviceId
 	* @param EquipmentType
 	 */
-	void AutomaticSendMessage(String deviceId,Integer EquipmentType);
+	void AutomaticSendMessage(String deviceId,Integer equipmentType);
 }

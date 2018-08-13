@@ -19,6 +19,7 @@ public class DeviceRowMapper implements RowMapper<DeviceInfoDto>{
         device.setId(resultSet.getInt("id"));
         device.setRemarks(resultSet.getString("equipmentRemarks"));
         device.setEquipmentId(resultSet.getInt("equipmentCategoryId"));
+        device.setProjectId(resultSet.getInt("projectId"));
         return device;
     }
 

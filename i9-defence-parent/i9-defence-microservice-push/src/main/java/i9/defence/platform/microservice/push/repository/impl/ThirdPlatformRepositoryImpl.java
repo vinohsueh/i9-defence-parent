@@ -23,6 +23,8 @@ import i9.defence.platform.microservice.push.vo.DeviceError;
 import i9.defence.platform.microservice.push.vo.DeviceErrorRowMapper;
 import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
 import i9.defence.platform.microservice.push.vo.DeviceRowMapper;
+import i9.defence.platform.microservice.push.vo.ProjectInfoDto;
+import i9.defence.platform.microservice.push.vo.ProjectRowMapper;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.SqlUtil;
 
@@ -57,6 +59,19 @@ public class ThirdPlatformRepositoryImpl implements ThirdPlatformRepository {
 		try {
 			List<DeviceInfoDto> list = jdbcTemplate.query(SqlUtil.EQUIPMENT_INFO_SQL, new DeviceRowMapper(), deviceId);
 			if (list.size()>0) {
+				return list.get(0);
+			}
+			return null;
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+	
+	@Override
+	public ProjectInfoDto selectProjectInfo(int id) {
+		try {
+			List<ProjectInfoDto> list = jdbcTemplate.query(SqlUtil.PROJECT_INFO_SQL, new ProjectRowMapper(),id);
+			if(list.size()>0) {
 				return list.get(0);
 			}
 			return null;
