@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
+import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
+import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.model.ConnectLog;
 import i9.defence.platform.service.AutomaticSendMessageService;
 import i9.defence.platform.service.UpStreamDecodeService;
@@ -24,10 +26,7 @@ import i9.defence.platform.utils.StringUtil;
  * 
  */
 public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
-	
-	@Autowired
-	private AutomaticSendMessageService automaticSendMessageService;
-	
+
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQDeviceStatusConsumerTask.class);
 
     private final TextMessage textMessage;
@@ -47,10 +46,10 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
             String address = jsonObject.getString("deviceAddress");
             int status = jsonObject.getIntValue("status");
             String channelId = jsonObject.getString("channelId");
-            
+
             // 通过设备唯一标识更新状态
             String deviceId = StringUtil.getDeviceId(systemId, loop, address);
-//            int status = 1;
+            // int status = 1;
             upStreamDecodeService.updateEquipmentStatus(deviceId, status);
             logger.info("update device status success, deviceId : {}, status : {}", deviceId, status);
 
@@ -59,22 +58,24 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
             connectLog.setDeviceId(deviceId);// 设备唯一标识
             connectLog.setStatus(status);
             connectLog.setChannelId(channelId);
-            
+
             String submitDate = jsonObject.getString("submitDate");
             if (submitDate == null || submitDate.equals("")) {
                 // 兼容之前MQ消息
                 connectLog.setCreateTime(new Date());// 时间
-            }
-            else {
+            } else {
                 Date date = DateUtils.parseDate(submitDate);
                 connectLog.setCreateTime(date);
             }
-            
+
             upStreamDecodeService.insertConnectRecord(connectLog);
-            
-            //发送离线短信
-            automaticSendMessageService.AutomaticSendMessage(deviceId, status); 
-            
+
+            // 发送离线短信
+            if (status == 0) {
+                EquipmentCheckSendMessageService equipmentCheckSendMessageService = SpringBeanService
+                        .getBean(EquipmentCheckSendMessageService.class);
+                equipmentCheckSendMessageService.checkEquipmentAndSendMessageOffline(deviceId);
+            }
             logger.info("save connect log success, deviceId : {}, status : {}", deviceId, status);
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);

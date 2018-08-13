@@ -93,7 +93,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     }
 
     @Override
-    public void saveUpStreamDecode(String jsonStr) throws Exception {
+    public int saveUpStreamDecode(String jsonStr) throws Exception {
         // 添加解析数据
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
         saveToDbStoreUpStreamDecode(jsonStr, jsonObject);
@@ -161,9 +161,6 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         }
         try {
             Equipment equipment = equipmentDao.findEquipmentDeviceId(deviceId);
-            if (equipment == null) {
-                return;
-            }
             // 设置 设备当前的数据状态
             int dataStatus = 0;
             if (alertNum > 0) {
@@ -205,11 +202,9 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 errorRecord.setType(dataStatus);
                 errorRecordDao.insertErrorRecord(errorRecord);
             }
-            // 发送短信
-            // 若为绑定项目
-            automaticSendMessageService.AutomaticSendMessage(deviceId, alertStatus);
+            return alertStatus;
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            return -1;
         }
     }
 
