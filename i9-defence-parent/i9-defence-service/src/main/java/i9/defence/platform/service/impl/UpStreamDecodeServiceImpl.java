@@ -94,133 +94,184 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
 
     @Override
     public void saveUpStreamDecode(String jsonStr) throws Exception {
-    	//添加解析数据
-        UpStreamDecode upStreamDecode = new UpStreamDecode();
-        upStreamDecode.setHexStr(jsonStr);
-        
-        //将数据添加到通道数据表中
-        
+        // 添加解析数据
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+        saveToDbStoreUpStreamDecode(jsonStr, jsonObject);
+        
+        //设备唯一编号
         String systemId = jsonObject.getString("systemId");
         int loop = (int)jsonObject.get("loop");
         String address = jsonObject.getString("deviceAddress");
-        upStreamDecode.setChannelId(jsonObject.getString("channelId"));
-        //设备唯一编号
         String deviceId = StringUtil.getDeviceId(systemId, loop, address);
+        
         //根据编号id查询设备关注的所有通道
-        List<Passageway> passageways = passageWayDao.selectPassagewaysBySystemId(systemId);
         List<Integer> channels = new ArrayList<>();
         HashMap<Integer, HiddenDanger> map = new HashMap<Integer, HiddenDanger>();
-        for (Passageway passageway : passageways) {
-        	map.put(passageway.getChannel(), passageway.getHiddenDanger());
-        	channels.add(passageway.getChannel());
-		}
+        for (Passageway passageway 
+                : passageWayDao.selectPassagewaysBySystemId(systemId)) {
+            map.put(passageway.getChannel(), passageway.getHiddenDanger());
+            channels.add(passageway.getChannel());
+        }
         
-        //定义报警的通道数量
+        // 获取通道数据
+        List<ChannelData> channelDatas = new ArrayList<ChannelData>();
+        JSONArray dataList = jsonObject.getJSONArray("dataList");
+        String systemType = jsonObject.getString("systemType");
+        for (int index = 0; index < dataList.size(); index++) {
+            JSONObject tmpJsonObject = dataList.getJSONObject(index);
+            int type = tmpJsonObject.getIntValue("type");
+            int channel = tmpJsonObject.getIntValue("channel");
+            String value = String.valueOf(tmpJsonObject.get("value"));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date createTime = simpleDateFormat.parse((String)(tmpJsonObject.get("datetime").toString().replace("#", " ")));
+            // 创建一个ChannelData对象
+            ChannelData channelData = buildChannelData(systemId, systemType, address, loop, type, channel, value, createTime);
+            
+            // 将ChannelData数据保存到数据库
+            channelDatas.add(channelData);
+        }
+        try {
+            if (!channelDatas.isEmpty()) {
+                channelDataDao.insertBatch(channelDatas);
+            }
+        } catch (Exception e) {
+        }
+
+        // 定义报警的通道数量
         int alertNum = 0;
-        //定义隐患的通道数量 
+        // 定义隐患的通道数量
         int hiddenNum = 0;
-		//获取通道数据
-		List<ChannelData> list = new ArrayList<ChannelData>();
-		JSONArray object = (JSONArray) jsonObject.get("dataList");
-		for (Object object2 : object) {
-			ChannelData channelData = new ChannelData();
-			channelData.setSystemId(systemId);
-			JSONObject jsonObject2 = (JSONObject)object2;
-			int type = (int)jsonObject2.get("type");
-			channelData.setType(type);
-			int channel = (int)jsonObject2.get("channel");
-			channelData.setChannel(channel);
-			String value = String.valueOf(jsonObject2.get("value"));
-			channelData.setValue(value);
-			//如果数据类型是0 且 错误代码不为00000000  时  记录记录
-			if (0 == type && !SqlUtil.NORMAL_CODE.equals(value) && channels.contains(channel)) {
-				alertNum++;
-			}
-			//查询是否是隐患数据
-			if (Arrays.asList(Constants.DATATYPE).contains(type)) {
-				HiddenDanger hiddenDanger = map.get(channel);
-				if (Double.valueOf(value)>hiddenDanger.getHiddenMax() || Double.valueOf(value)<hiddenDanger.getHiddenMin()){
-					hiddenNum++;
-				}
-			}
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date createTime = simpleDateFormat.parse((String)(jsonObject2.get("datetime").toString().replace("#", " ")));
-			channelData.setDateTime(createTime);
-			
-			channelData.setSystemType((String)jsonObject.get("systemType"));
-			channelData.setDeviceAddress(address);
-			
-			channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
-			list.add(channelData);
-		}
-		String submitDate = jsonObject.getString("submitDate");
-		if (submitDate == null || submitDate.equals("")) {
-		    upStreamDecode.setSubmitDate(new Date());
-		}
-		else {
-            Date date = DateUtils.parseDate(submitDate);
-		    upStreamDecode.setSubmitDate(date);
-		}
-		try {
-			this.addUpStreamDecode(upStreamDecode);
-			channelDataDao.insertBatch(list);
-			Equipment equipment = equipmentDao.findEquipmentDeviceId(deviceId);
-			//设置 设备当前的 数据状态
-			int datastatus = 0;
-			if (alertNum > 0) {
-				datastatus = 1;
-			}else if (0 == alertNum && hiddenNum > 0) {
-				datastatus = 2;
-			}
-			//设置 设备未处理的状态   
-			int alertStatus = 0;
-			//设备的遗留状态
-			int equipmentRemainStatus = equipment.getRemainAlert();
-			//如果遗留状态为正常
-			if (0 == equipmentRemainStatus) {
-				if (alertNum > 0) {
-					alertStatus = 1;
-				}else if (0 == alertNum && hiddenNum > 0) {
-					alertStatus = 2;
-				}
-			}else if (1 == equipmentRemainStatus){
-				//如果遗留状态为报警
-				alertStatus = 1;
-			}else if (2 == equipmentRemainStatus){
-				//如果遗留状态为隐患
-				if (alertNum > 0) {
-					alertStatus = 1;
-				}else{
-					alertStatus = 2;
-				}
-			}
-			//更新设备的数据状态
-			equipmentDao.updateEquipmentDataStatus(deviceId,datastatus,alertStatus);
-			
-			//插入设备问题记录
-			if (0 != datastatus) {
-				ErrorRecord errorRecord = new ErrorRecord();
-				errorRecord.setCreateTime(new Date());
-				errorRecord.setDeviceId(deviceId);
-				errorRecord.setType(datastatus);
-				errorRecordDao.insertErrorRecord(errorRecord);
-			}
-			//发送短信
-			//若为绑定项目
-			automaticSendMessageService.AutomaticSendMessage(deviceId, alertStatus); 
-		} catch (Exception e) {
-			throw new BusinessException(e.getMessage());
-		}
+
+        for (ChannelData channelData : channelDatas) {
+            int type = channelData.getType();
+            String value = channelData.getValue();
+            int channel = channelData.getChannel();
+            // 如果数据类型是0 且 错误代码不为00000000 时 记录记录
+            if (0 == type && !SqlUtil.NORMAL_CODE.equals(value) && channels.contains(channel)) {
+                alertNum++;
+            }
+            // 查询是否是隐患数据
+            if (Arrays.asList(Constants.DATATYPE).contains(type)) {
+                HiddenDanger hiddenDanger = map.get(channel);
+                if (Double.valueOf(value) > hiddenDanger.getHiddenMax()
+                        || Double.valueOf(value) < hiddenDanger.getHiddenMin()) {
+                    hiddenNum++;
+                }
+            }
+        }
+        try {
+            Equipment equipment = equipmentDao.findEquipmentDeviceId(deviceId);
+            if (equipment == null) {
+                return;
+            }
+            // 设置 设备当前的数据状态
+            int dataStatus = 0;
+            if (alertNum > 0) {
+                dataStatus = 1;
+            } else if (0 == alertNum && hiddenNum > 0) {
+                dataStatus = 2;
+            }
+            // 设置设备未处理的状态
+            int alertStatus = 0;
+            // 设备的遗留状态
+            int equipmentRemainStatus = equipment.getRemainAlert();
+            
+            // 如果遗留状态为正常
+            if (0 == equipmentRemainStatus) {
+                if (alertNum > 0) {
+                    alertStatus = 1;
+                } else if (0 == alertNum && hiddenNum > 0) {
+                    alertStatus = 2;
+                }
+            } else if (1 == equipmentRemainStatus) {
+                // 如果遗留状态为报警
+                alertStatus = 1;
+            } else if (2 == equipmentRemainStatus) {
+                // 如果遗留状态为隐患
+                if (alertNum > 0) {
+                    alertStatus = 1;
+                } else {
+                    alertStatus = 2;
+                }
+            }
+            // 更新设备的数据状态
+            equipmentDao.updateEquipmentDataStatus(deviceId, dataStatus, alertStatus);
+
+            // 插入设备问题记录
+            if (0 != dataStatus) {
+                ErrorRecord errorRecord = new ErrorRecord();
+                errorRecord.setCreateTime(new Date());
+                errorRecord.setDeviceId(deviceId);
+                errorRecord.setType(dataStatus);
+                errorRecordDao.insertErrorRecord(errorRecord);
+            }
+            // 发送短信
+            // 若为绑定项目
+            automaticSendMessageService.AutomaticSendMessage(deviceId, alertStatus);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
     }
 
-	@Override
-	public void updateEquipmentStatus(String deviceId, int status) {
-		equipmentDao.updateEquipmentStatusByDeviceId(deviceId,status);
-	}
+    /**
+     * 构建一个ChannelData对象
+     * 
+     * @param systemId
+     * @param systemType
+     * @param address
+     * @param loop
+     * @param type
+     * @param channel
+     * @param value
+     * @param createTime
+     * @return
+     */
+    public ChannelData buildChannelData(String systemId, String systemType, String address, int loop, int type, int channel,
+            String value, Date createTime) {
+        ChannelData channelData = new ChannelData();
+        channelData.setSystemId(systemId);
+        channelData.setSystemType(systemType);
+        channelData.setDeviceAddress(address);
 
-	@Override
-	public void insertConnectRecord(ConnectLog connectLog) {
-		connectLogDao.add(connectLog);
-	}
+        channelData.setType(type);
+        channelData.setChannel(channel);
+        channelData.setValue(value);
+        channelData.setDateTime(createTime);
+
+        channelData.calDeviceId(EncryptUtils.bytesToHexString(EncryptUtils.intToBytes(loop)));
+        return channelData;
+    }
+
+    /**
+     * 解析数据包存入数据库中
+     * @param jsonStr
+     * @param jsonObject
+     */
+    public void saveToDbStoreUpStreamDecode(String jsonStr, JSONObject jsonObject) {
+        try {
+            UpStreamDecode upStreamDecode = new UpStreamDecode();
+            upStreamDecode.setChannelId(jsonObject.getString("channelId"));
+            String submitDate = jsonObject.getString("submitDate");
+            if (submitDate == null || submitDate.equals("")) {
+                upStreamDecode.setSubmitDate(new Date());
+            } else {
+                Date date = DateUtils.parseDate(submitDate);
+                upStreamDecode.setSubmitDate(date);
+            }
+            upStreamDecode.setHexStr(jsonStr);
+            // 将数据添加到通道数据表中
+            this.addUpStreamDecode(upStreamDecode);
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void updateEquipmentStatus(String deviceId, int status) {
+        equipmentDao.updateEquipmentStatusByDeviceId(deviceId, status);
+    }
+
+    @Override
+    public void insertConnectRecord(ConnectLog connectLog) {
+        connectLogDao.add(connectLog);
+    }
 }
