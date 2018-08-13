@@ -52,5 +52,14 @@ public interface ThirdPlatformService {
 	 * @return
 	 */
 	List<Integer> selectUsefulChannel(String deviceId) throws BusinessException;
+	
+	/**
+	 * 自动发送短信
+	* @Title: automaticSendMessage 
+	* @Description: TODO
+	* @param deviceId
+	* @param EquipmentType
+	 */
+	void AutomaticSendMessage(String deviceId,Integer equipmentType);
   
 }
