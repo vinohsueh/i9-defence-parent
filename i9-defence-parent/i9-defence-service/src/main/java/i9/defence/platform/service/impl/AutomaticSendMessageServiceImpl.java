@@ -73,35 +73,25 @@ public class AutomaticSendMessageServiceImpl implements AutomaticSendMessageServ
 			for(int i=0;i<splitType.length;i++) {
 				arr[i] =Integer.parseInt(splitType[i]);
 			}
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("phones",phonesMap.get("phones").toString() );
+            jsonObject.put("clientNames",clientNamesjsonArray.toJSONString());
+            jsonObject.put("signNames", signNamesMap.get("signNames").toString());
+            // 发送短信模版
 			//2.4遍历int数组
 			for(int h=0;h<arr.length;h++) {
 				//2.5若SendType=0并且alertStatus=1则发送报警短信
 				if(0==arr[h] && 1 == equipmentType) {
-					JSONObject jsonObject = new JSONObject();
-                    // 发送短信模版
                     jsonObject.put("templateNum",AliyunSMSEnum.WANING.getTemplateNum()); 
-                    jsonObject.put("phones",phonesMap.get("phones").toString() );
-                    jsonObject.put("clientNames",clientNamesjsonArray.toJSONString());
-                    jsonObject.put("signNames", signNamesMap.get("signNames").toString());
                     activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
 				//2.6若SendType=2并且alertStatus=2则发送隐患短信
 				}else if(2==arr[h] && 2 == equipmentType) {
-					JSONObject jsonObject = new JSONObject();
-                    // 发送短信模版
                     jsonObject.put("templateNum",AliyunSMSEnum.HIDDENDANGER.getTemplateNum()); 
-                    jsonObject.put("phones",phonesMap.get("phones").toString() );
-                    jsonObject.put("clientNames",clientNamesjsonArray.toJSONString());
-                    jsonObject.put("signNames", signNamesMap.get("signNames").toString());
                     activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
 				//2.7若SendType=0并且status=1则发送离线短信
 				}
 				if(1==arr[h] && 0 == equipmentType) {
-					JSONObject jsonObject = new JSONObject();
-                    // 发送短信模版
                     jsonObject.put("templateNum",AliyunSMSEnum.OUTOFLINE.getTemplateNum()); 
-                    jsonObject.put("phones",phonesMap.get("phones").toString() );
-                    jsonObject.put("clientNames",clientNamesjsonArray.toJSONString());
-                    jsonObject.put("signNames", signNamesMap.get("signNames").toString());
                     activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
 				}
 				
