@@ -12,11 +12,12 @@ import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Project;
+import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
+import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.service.AutomaticSendMessageService;
 import i9.defence.platform.service.EquipmentService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.AliyunSMSEnum;
-import i9.defence.platform.utils.AliyunUtil;
 
 /**
  * 自动发送短信Impl
@@ -32,6 +33,8 @@ public class AutomaticSendMessageServiceImpl implements AutomaticSendMessageServ
 	private EquipmentService equipmentService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private ActiveMQProducerService activeMQProducerService;
 	
 	@Override
 	public  void AutomaticSendMessage(String deviceId, Integer equipmentType) {
@@ -74,14 +77,32 @@ public class AutomaticSendMessageServiceImpl implements AutomaticSendMessageServ
 			for(int h=0;h<arr.length;h++) {
 				//2.5若SendType=0并且alertStatus=1则发送报警短信
 				if(0==arr[h] && 1 == equipmentType) {
-					AliyunUtil.sendInfo(AliyunSMSEnum.WANING,phonesMap.get("phones").toString(), clientNamesjsonArray.toJSONString(),signNamesMap.get("signNames").toString() );
+					JSONObject jsonObject = new JSONObject();
+                    // 发送短信模版
+                    jsonObject.put("templateNum",AliyunSMSEnum.WANING.getTemplateNum()); 
+                    jsonObject.put("phones",phonesMap.get("phones").toString() );
+                    jsonObject.put("clientNames",clientNamesjsonArray.toJSONString());
+                    jsonObject.put("signNames", signNamesMap.get("signNames").toString());
+                    activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
 				//2.6若SendType=2并且alertStatus=2则发送隐患短信
 				}else if(2==arr[h] && 2 == equipmentType) {
-					AliyunUtil.sendInfo(AliyunSMSEnum.HIDDENDANGER,phonesMap.get("phones").toString(), clientNamesjsonArray.toJSONString(),signNamesMap.get("signNames").toString() );
+					JSONObject jsonObject = new JSONObject();
+                    // 发送短信模版
+                    jsonObject.put("templateNum",AliyunSMSEnum.HIDDENDANGER.getTemplateNum()); 
+                    jsonObject.put("phones",phonesMap.get("phones").toString() );
+                    jsonObject.put("clientNames",clientNamesjsonArray.toJSONString());
+                    jsonObject.put("signNames", signNamesMap.get("signNames").toString());
+                    activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
 				//2.7若SendType=0并且status=1则发送离线短信
 				}
 				if(1==arr[h] && 0 == equipmentType) {
-					AliyunUtil.sendInfo(AliyunSMSEnum.OUTOFLINE,phonesMap.get("phones").toString(), clientNamesjsonArray.toJSONString(),signNamesMap.get("signNames").toString() );
+					JSONObject jsonObject = new JSONObject();
+                    // 发送短信模版
+                    jsonObject.put("templateNum",AliyunSMSEnum.OUTOFLINE.getTemplateNum()); 
+                    jsonObject.put("phones",phonesMap.get("phones").toString() );
+                    jsonObject.put("clientNames",clientNamesjsonArray.toJSONString());
+                    jsonObject.put("signNames", signNamesMap.get("signNames").toString());
+                    activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
 				}
 				
 			}
