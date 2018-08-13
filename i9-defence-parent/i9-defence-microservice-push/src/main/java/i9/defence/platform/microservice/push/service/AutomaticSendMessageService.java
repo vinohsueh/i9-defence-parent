@@ -1,4 +1,4 @@
-package i9.defence.platform.service;
+package i9.defence.platform.microservice.push.service;
 
 /**
  * 检测设备，自动发送短信

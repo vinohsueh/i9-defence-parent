@@ -26,11 +26,13 @@ public class SqlUtil {
 	
 	public static final String NORMAL_CODE = "00000000";
 	
-	public static final String EQUIPMENT_INFO_SQL  = "select id,equipmentRemarks,equipmentCategoryId from t_equipment where deviceId = ?";
+	public static final String EQUIPMENT_INFO_SQL  = "select id,equipmentRemarks,equipmentCategoryId,projectId from t_equipment where deviceId = ?";
 	
 	public static final String EQUIPMENT_ERROR_SQL =  "select name,code,equipmentId from t_equipment_fault";
 	
 	public static final String UPDATE_EQUIPMENT_SQL = "update device_list set status = ? where device_code = ?";
+	
+	public static final String PROJECT_INFO_SQL = "select id,projectName,sendStatus,sendType,recipientphones,recipients from t_project where id = ?";
 	
 	static{
 		StringBuffer tablesql = new StringBuffer("");  

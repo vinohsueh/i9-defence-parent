@@ -1,13 +1,12 @@
-package i9.defence.platform.service.impl;
+package i9.defence.platform.microservice.push.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import i9.defence.platform.model.Equipment;
-import i9.defence.platform.model.Project;
-import i9.defence.platform.service.AutomaticSendMessageService;
-import i9.defence.platform.service.EquipmentService;
-import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.microservice.push.repository.ThirdPlatformRepository;
+import i9.defence.platform.microservice.push.service.AutomaticSendMessageService;
+import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
+import i9.defence.platform.microservice.push.vo.ProjectInfoDto;
 import i9.defence.platform.utils.AliyunSMSEnum;
 import i9.defence.platform.utils.AliyunUtil;
 
@@ -22,17 +21,15 @@ import i9.defence.platform.utils.AliyunUtil;
 public class AutomaticSendMessageServiceImpl implements AutomaticSendMessageService {
 
 	@Autowired
-	private EquipmentService equipmentService;
-	@Autowired
-	private ProjectService projectService;
+	private ThirdPlatformRepository thirdPlatformRepository;
 	
 	@Override
 	public  void AutomaticSendMessage(String deviceId, Integer equipmentType) {
 		//发送离线短信
         //1根据deviceId查找设备
-        Equipment equipment = equipmentService.getEquipmentByIdentifier(deviceId);
+        DeviceInfoDto equipment = thirdPlatformRepository.selectEquipmentInfo(deviceId); 
         //2根据ProjectId查找Project
-        Project project = projectService.getProjectById(equipment.getProjectId());
+        ProjectInfoDto project = thirdPlatformRepository.selectProjectInfo(equipment.getProjectId());
         //2.1判断发送状态 0：不发送 1：发送
 		if(1==project.getSendStatus()) {
 			StringBuffer clientNamesBuffer = new StringBuffer("[");
@@ -42,11 +39,11 @@ public class AutomaticSendMessageServiceImpl implements AutomaticSendMessageServ
 	        String[] recipientphones = project.getRecipientphones().split(",");
 	        for(int i=0;i<recipients.length;i++) {
 	        	if(i==recipients.length-1) {
-	        		clientNamesBuffer.append("{\"name\":\"").append(recipients[i]).append("\","+"\"project\":\""+project.getProjectName()+"\","+"\"postion\":\""+equipment.getEquipmentRemarks()+"\","+"\"equipmentType\":\""+equipment.getEquipmentCategory().getEqCategoryName()+"\"").append("}]");
+	        		clientNamesBuffer.append("{\"name\":\"").append(recipients[i]).append("\","+"\"project\":\""+project.getProjectName()+"\","+"\"postion\":\""+equipment.getRemarks()+"\"").append("}]");
 	        		clientPhonesBuffer.append(recipientphones[i]).append("\"]");
 	        		clientSignNamesBuffer.append("合极电气").append("\"]");
 	        	}else {
-	        		clientNamesBuffer.append("{\"name\":\"").append(recipients[i]).append("\","+"\"project\":\""+project.getProjectName()+"\","+"\"postion\":\""+equipment.getEquipmentRemarks()+"\","+"\"equipmentType\":\""+equipment.getEquipmentCategory().getEqCategoryName()+"\"},");
+	        		clientNamesBuffer.append("{\"name\":\"").append(recipients[i]).append("\","+"\"project\":\""+project.getProjectName()+"\","+"\"postion\":\""+equipment.getRemarks()+"\"},");
 	        		clientPhonesBuffer.append(recipientphones[i]).append("\",\"");
 	        		clientSignNamesBuffer.append("合极电气").append("\",\"");
 	        	}
