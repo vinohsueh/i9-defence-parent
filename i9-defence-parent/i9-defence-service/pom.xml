@@ -15,6 +15,11 @@
             <artifactId>i9-defence-dao</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+        	<groupId>i9.defence.platform</groupId>
+            <artifactId>i9-defence-microservice-push</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     
     <build>
