@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;

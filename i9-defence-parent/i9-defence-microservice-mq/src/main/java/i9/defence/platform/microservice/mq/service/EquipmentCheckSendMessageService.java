@@ -1,4 +1,4 @@
-package i9.defence.platform.microservice.mq.service.impl;
+package i9.defence.platform.microservice.mq.service;
 
 public interface EquipmentCheckSendMessageService {
 

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
+import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.model.ConnectLog;
 import i9.defence.platform.service.UpStreamDecodeService;
