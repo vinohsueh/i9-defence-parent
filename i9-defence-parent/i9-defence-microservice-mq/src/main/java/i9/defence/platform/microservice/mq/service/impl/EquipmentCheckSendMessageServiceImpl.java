@@ -85,14 +85,13 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
             phonsList.add(recipientphones[i]);
             signNameList.add("合极电气");
         }
-
         final String phones = JSONObject.toJSONString(phonsList);
         final String signNames = JSONObject.toJSONString(signNameList);
 
         SMSPushBean b = new SMSPushBean();
         b.phones = phones;
         b.signNames = signNames;
-        b.clientNames = clientNames.toJSONString();
+        //b.clientNames = clientNames.toJSONString();
 
         // 查询设备所需要的那几个通道 不在此这些通道的报警数据不要
         List<Integer> channels = thirdPlatformService.selectUsefulChannel(deviceId);
@@ -122,7 +121,19 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
             }
         }
         // TODO 中文错误已经放入channelDatas
-
+        String warnType="";
+        for(int j=0;j<channelDatas.size();j++) {
+        	if(j!=channelDatas.size()-1) {
+        		warnType=warnType+channelDatas.get(j)+",";
+        	}else {
+        		warnType=warnType+channelDatas.get(j);
+			}
+        }
+        for(int i=0;i<clientNames.size();i++) {
+        	clientNames.getJSONObject(i).put("warnType", warnType);
+        }
+        b.clientNames =clientNames.toJSONString();
+        
         // 2.2获取设备发送类型(0:报警，1:离线，2：隐患)
         HashSet<Integer> ss = this.stringSplit(project.getSendType());
         // 2.4遍历int数组
