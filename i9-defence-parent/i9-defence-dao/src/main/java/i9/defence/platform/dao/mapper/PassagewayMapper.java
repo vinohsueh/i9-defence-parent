@@ -27,4 +27,6 @@ public interface PassagewayMapper {
 	 * @return
 	 */
 	List<Integer> selectChannelsBySystemId(String systemId);
+	
+	List<Integer> selectChannelByDeviceId(String deviceId);
 }

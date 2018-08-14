@@ -50,4 +50,14 @@ public interface PassagewayService {
 	 * @param passageway
 	 */
 	void delPassageway(Passageway passageway) throws BusinessException;
+	
+	/**
+	 * 根据deviceId查询Channel
+	* @Title: selectChannelByDeviceId 
+	* @Description: TODO
+	* @param deviceId
+	* @return
+	* @throws BusinessException
+	 */
+	List<Integer> selectChannelByDeviceId(String deviceId) throws BusinessException;
 }

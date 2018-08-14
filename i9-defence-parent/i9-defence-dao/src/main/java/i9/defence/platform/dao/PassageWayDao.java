@@ -3,6 +3,7 @@ package i9.defence.platform.dao;
 import java.util.List;
 
 import i9.defence.platform.model.Passageway;
+import i9.defence.platform.utils.BusinessException;
 
 /**
  * 通道dao
@@ -60,4 +61,14 @@ public interface PassageWayDao {
 	 * @return
 	 */
 	List<Integer> selectChannelsBySystemId(String systemId);
+	
+	/**
+	 * 根据deviceId查询Channel
+	* @Title: selectChannelByDeviceId 
+	* @Description: TODO
+	* @param deviceId
+	* @return
+	* @throws BusinessException
+	 */
+	List<Integer> selectChannelByDeviceId(String deviceId) throws Exception;
 }

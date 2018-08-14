@@ -44,4 +44,9 @@ public class PassageWayDaoImpl implements PassageWayDao {
 		return passagewayMapper.selectChannelsBySystemId(systemId);
 	}
 
+	@Override
+	public List<Integer> selectChannelByDeviceId(String deviceId) throws Exception {
+		return passagewayMapper.selectChannelByDeviceId(deviceId);
+	}
+
 }

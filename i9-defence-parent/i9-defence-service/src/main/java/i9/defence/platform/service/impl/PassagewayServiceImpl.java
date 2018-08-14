@@ -58,6 +58,15 @@ public class PassagewayServiceImpl implements PassagewayService {
 		}
 	}
 
+	@Override
+	public List<Integer> selectChannelByDeviceId(String deviceId) throws BusinessException {
+		try {
+			return passageWayDao.selectChannelByDeviceId(deviceId);
+		} catch (Exception e) {
+			throw new BusinessException("根据设备deviceId查询Channel失败", e.getMessage());
+		}
+	}
+
 	/*
 	 * @Override public void addPassageway(PassagewayDto passagewayDto) throws
 	 * BusinessException { try { Equipment equipment =
