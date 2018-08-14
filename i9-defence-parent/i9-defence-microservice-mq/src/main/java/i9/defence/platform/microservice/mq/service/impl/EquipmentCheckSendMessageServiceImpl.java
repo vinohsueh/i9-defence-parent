@@ -194,16 +194,13 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
 
         // 2.2获取设备发送类型(0:报警，1:离线，2：隐患)
         HashSet<Integer> ss = this.stringSplit(project.getSendType());
-        for (int h : ss) {
-            if (h == 1) {
-                SMSPushBean b = new SMSPushBean();
-                b.phones = phones;
-                b.signNames = signNames;
-                b.clientNames = clientNames.toJSONString();
-                b.aliyunSMSEnum = AliyunSMSEnum.OUTOFLINE;
-                this.sendSMS(b);
-            }
+        if (ss.contains(1)) {
+            SMSPushBean b = new SMSPushBean();
+            b.phones = phones;
+            b.signNames = signNames;
+            b.clientNames = clientNames.toJSONString();
+            b.aliyunSMSEnum = AliyunSMSEnum.OUTOFLINE;
+            this.sendSMS(b);
         }
     }
-
 }
