@@ -1,5 +1,6 @@
 package i9.defence.platform.api.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ClientController {
     private ProjectService projectService;
     @Autowired
     private ManagerService managerService;
-
+    
     /*
      * 分页查询
      */
@@ -128,26 +129,20 @@ public class ClientController {
     @RequiresPermissions("send_message")
     @RequestMapping("/sendMessage")
     public HashMap<String, Object> sendMessage(@RequestBody SendMessageDto sendMessageDto) {
+    	HashMap<String, Object> result = new HashMap<String, Object>();
     	AliyunSMSEnum aliyunSMSEnumByTemplateNum = AliyunSMSEnum.getAliyunSMSEnumByName(sendMessageDto.getTemplateNum());
     	sendMessageDto.setAliyunSMSEnum(aliyunSMSEnumByTemplateNum);
-        HashMap<String, Object> result = new HashMap<String, Object>();
-        StringBuffer clientNamesBuffer = new StringBuffer("[");
-        StringBuffer clientPhonesBuffer = new StringBuffer("[\"");
-        StringBuffer clientSignNamesBuffer = new StringBuffer("[\"");
+        List<String> phonsList = new ArrayList<String>();
+        List<String> signNameList = new ArrayList<String>();
+        List<String> namesList = new ArrayList<String>();
         List<Client> clientsByIds = clientService.selectClientsByIds(Arrays.asList(sendMessageDto.getClientIdList()));
         for (int i = 0; i < clientsByIds.size(); i++) {
-            if (i == clientsByIds.size() - 1) {
-                clientNamesBuffer.append("{\"name\":\"").append(clientsByIds.get(i).getName()).append("\"}]");
-                clientPhonesBuffer.append(clientsByIds.get(i).getPhone()).append("\"]");
-                clientSignNamesBuffer.append("合极电气").append("\"]");
-            } else {
-                clientNamesBuffer.append("{\"name\":\"").append(clientsByIds.get(i).getName()).append("\"},");
-                clientPhonesBuffer.append(clientsByIds.get(i).getPhone()).append("\",\"");
-                clientSignNamesBuffer.append("合极电气").append("\",\"");
-            }
+        	phonsList.add(clientsByIds.get(i).getPhone());
+        	signNameList.add("合极电气");
+        	namesList.add("{}");
         }
-        AliyunUtil.sendInfo(sendMessageDto.getAliyunSMSEnum(), clientPhonesBuffer.toString(),
-                clientNamesBuffer.toString(), clientSignNamesBuffer.toString());
+        AliyunUtil.sendInfo(sendMessageDto.getAliyunSMSEnum(), JSONObject.toJSONString(phonsList),
+                JSONObject.toJSONString(namesList), JSONObject.toJSONString(signNameList)); 
         return result;
     }
 }
