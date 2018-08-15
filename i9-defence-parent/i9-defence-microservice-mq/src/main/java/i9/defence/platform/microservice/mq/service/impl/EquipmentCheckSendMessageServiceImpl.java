@@ -91,7 +91,7 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         SMSPushBean b = new SMSPushBean();
         b.phones = phones;
         b.signNames = signNames;
-        //b.clientNames = clientNames.toJSONString();
+        // b.clientNames = clientNames.toJSONString();
 
         // 查询设备所需要的那几个通道 不在此这些通道的报警数据不要
         List<Integer> channels = thirdPlatformService.selectUsefulChannel(deviceId);
@@ -120,20 +120,20 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
                 channelDatas.add(channelData);
             }
         }
-        // TODO 中文错误已经放入channelDatas
-        String warnType="";
-        for(int j=0;j<channelDatas.size();j++) {
-        	if(j!=channelDatas.size()-1) {
-        		warnType=warnType+channelDatas.get(j)+",";
-        	}else {
-        		warnType=warnType+channelDatas.get(j);
-			}
+        // 中文错误已经放入channelDatas
+        String warnType = "";
+        StringBuffer stringBuffer = new StringBuffer();
+        for (ChannelData channelData : channelDatas) {
+            stringBuffer.append(",").append(channelData.getCode());
         }
-        for(int i=0;i<clientNames.size();i++) {
-        	clientNames.getJSONObject(i).put("warnType", warnType);
+        if (!channelDatas.isEmpty()) {
+            warnType = stringBuffer.substring(1);
         }
-        b.clientNames =clientNames.toJSONString();
-        
+        for (int i = 0; i < clientNames.size(); i++) {
+            clientNames.getJSONObject(i).put("warnType", warnType);
+        }
+        b.clientNames = clientNames.toJSONString();
+
         // 2.2获取设备发送类型(0:报警，1:离线，2：隐患)
         HashSet<Integer> ss = this.stringSplit(project.getSendType());
         // 2.4遍历int数组
@@ -166,7 +166,7 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         jsonObject.put("signNames", b.signNames);
         activeMQProducerService.sendMessage(ActiveMQQueueEnum.I9_SMS, jsonObject.toJSONString());
     }
-    
+
     @Autowired
     private ActiveMQProducerService activeMQProducerService;
 
