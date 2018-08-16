@@ -13,8 +13,10 @@ import java.util.List;
  */
 public enum AliyunSMSEnum {
 
-    CUSTOMER("客户问候模板", "SMS_142050264", true), HIDDENDANGER("设备隐患模板", "SMS_141195516", true), OUTOFLINE("设备离线模板",
-            "SMS_141195515", true), WANING("设备报警模板", "SMS_142025154", true);
+    CUSTOMER("客户问候模板", "SMS_142050264", true), 
+    HIDDENDANGER("设备隐患模板", "SMS_142148925", true), 
+    OUTOFLINE("设备离线模板","SMS_142153971", true), 
+    WANING("设备报警模板", "SMS_142148948", true);
 
     private final String name;
 

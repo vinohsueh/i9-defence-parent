@@ -41,7 +41,7 @@ public interface ThirdPlatformRepository {
 	 * 更新设备状态
 	 * @param id
 	 */
-	void updateDeviceStatus(int id,String status);
+	void updateDeviceStatus(int id,String status,String alarm);
 	
 	/**
 	 * 查询设备有用的通道

@@ -89,11 +89,14 @@ public class ThirdPlatformServiceImpl implements ThirdPlatformService {
     @Override
     public void updateDeviceStatus(int id, int num) throws BusinessException {
         try {
-            String status = "01";
-            if (num > 0) {
-                status = "03";
-            }
-            thirdPlatformRepository.updateDeviceStatus(id, status);
+        	String status = "01";
+			String alarm = "0";
+			if (num > 0) {
+				status = "03";
+				alarm = "1";
+			}
+			thirdPlatformRepository.updateDeviceStatus(id,status,alarm);
+
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorMessage(), "更新设备状态失败");
         }

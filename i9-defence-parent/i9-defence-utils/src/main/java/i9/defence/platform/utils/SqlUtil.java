@@ -30,7 +30,7 @@ public class SqlUtil {
 	
 	public static final String EQUIPMENT_ERROR_SQL =  "select name,code,equipmentId from t_equipment_fault";
 	
-	public static final String UPDATE_EQUIPMENT_SQL = "update device_list set status = ? where device_code = ?";
+	public static final String UPDATE_EQUIPMENT_SQL = "update device_list set status = ? ,app_alarm_status = ? where device_code = ?";
 	
 	public static final String PROJECT_INFO_SQL = "select id,projectName,sendStatus,sendType,recipientphones,recipients from t_project where id = ?";
 	
