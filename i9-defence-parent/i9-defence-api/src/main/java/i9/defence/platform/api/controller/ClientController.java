@@ -2,6 +2,7 @@ package i9.defence.platform.api.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,15 +21,19 @@ import com.alibaba.fastjson.JSONObject;
 import i9.defence.platform.api.components.ClientSearchComponent;
 import i9.defence.platform.dao.vo.ClientSearchDto;
 import i9.defence.platform.dao.vo.SendMessageDto;
+import i9.defence.platform.enums.AliyunCodeTypeEnum;
 import i9.defence.platform.model.Client;
 import i9.defence.platform.model.Manager;
+import i9.defence.platform.model.MessageLog;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.service.ClientService;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.service.ProjectService;
+import i9.defence.platform.service.impl.MessageLogService;
 import i9.defence.platform.utils.AliyunSMSEnum;
 import i9.defence.platform.utils.AliyunUtil;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.StringUtil;
 
 /**
  * @author : JiaCe
@@ -44,6 +49,8 @@ public class ClientController {
     private ProjectService projectService;
     @Autowired
     private ManagerService managerService;
+    @Autowired
+    private MessageLogService messageLogService;
     
     /*
      * 分页查询
@@ -141,8 +148,21 @@ public class ClientController {
         	signNameList.add("合极电气");
         	namesList.add("{}");
         }
-        AliyunUtil.sendInfo(sendMessageDto.getAliyunSMSEnum(), JSONObject.toJSONString(phonsList),
-                JSONObject.toJSONString(namesList), JSONObject.toJSONString(signNameList)); 
+        MessageLog messageLog = new MessageLog();
+        try {
+        	String ResultInfo = AliyunUtil.sendInfo(sendMessageDto.getAliyunSMSEnum(), JSONObject.toJSONString(phonsList),
+                    JSONObject.toJSONString(namesList), JSONObject.toJSONString(signNameList));
+        	messageLog.setPhones(JSONObject.toJSONString(phonsList));
+            messageLog.setSendResult(null != AliyunCodeTypeEnum.getValueByKey(ResultInfo) ? AliyunCodeTypeEnum.getValueByKey(ResultInfo): ResultInfo);
+            messageLog.setSendTime(StringUtil.dateToString(new Date()));
+            messageLog.setTemplateNum(sendMessageDto.getAliyunSMSEnum().getTemplateNum()); 
+            messageLog.setSendStatus(("OK".equals(ResultInfo)) ? 0 : 1);
+            messageLog.setSignName(JSONObject.toJSONString(signNameList));
+		} catch (Exception e) {
+			messageLog.setSendStatus(1);
+            messageLog.setSendResult(StringUtil.getStackTrace(e));
+		}
+        messageLogService.insert(messageLog);
         return result;
     }
 }

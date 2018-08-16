@@ -48,7 +48,7 @@ public class ActiveMQAlarmSMSConsumerTask implements Runnable {
             messageLog.setSendResult(
                     null != AliyunCodeTypeEnum.getValueByKey(sendResult) ? AliyunCodeTypeEnum.getValueByKey(sendResult)
                             : sendResult);
-            messageLog.setSendStatus(("ok".equals(sendResult)) ? 0 : 1);
+            messageLog.setSendStatus(("OK".equals(sendResult)) ? 0 : 1);
         } catch (Exception e) {
             messageLog.setSendStatus(1);
             messageLog.setSendResult(StringUtil.getStackTrace(e));
