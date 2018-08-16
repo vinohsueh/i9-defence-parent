@@ -49,7 +49,7 @@ public enum AliyunSMSEnum {
     public static List<String> getShowMenuListName() {
         List<String> list = new ArrayList<String>();
         for (AliyunSMSEnum aliyunSMSEnum : values()) {
-            if (aliyunSMSEnum.isShow()) {
+            if (aliyunSMSEnum.isShow() && aliyunSMSEnum.name.equals("客户问候模板")) {
                 list.add(aliyunSMSEnum.getName());
             }
         }
