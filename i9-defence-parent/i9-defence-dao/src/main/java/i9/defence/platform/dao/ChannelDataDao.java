@@ -49,5 +49,11 @@ public interface ChannelDataDao {
      */
     PageBounds<ChannelDataLimitPageDto> selectByLimitPage( ChannelDataSearchDto channelDataSearchDto,  int currectPage,  int pageSize)throws Exception;
     
-    
+    /**
+	 * 批量新增/更新近期数据表
+	* @Title: insertEquipmentRecents 
+	* @Description: TODO
+	* @param equipmentRecents
+	 */
+	void insertEquipmentRecents(List<ChannelData> channelDatas) throws Exception;
 }

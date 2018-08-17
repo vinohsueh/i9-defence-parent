@@ -51,6 +51,11 @@ public class ChannelDataDaoImpl implements ChannelDataDao{
 		pageBounds.setPageList(list);
 		return pageBounds;
 	}
+
+	@Override
+	public void insertEquipmentRecents(List<ChannelData> channelDatas) throws Exception {
+		channelDataMapper.insertEquipmentRecents(channelDatas);
+	}
 	
 	
 	

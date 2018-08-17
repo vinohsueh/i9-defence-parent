@@ -54,4 +54,12 @@ public interface ChannelDataMapper {
 	 * 批量修改标识
 	 */
 	void updateDealStatusByIds(@Param("list") List<DealStatusDto> list,@Param("managerId") Integer managerId,@Param("nowDate") Date nowDate);
+
+	/**
+	 * 批量新增/更新近期数据表
+	* @Title: insertEquipmentRecents 
+	* @Description: TODO
+	* @param equipmentRecents
+	 */
+	void insertEquipmentRecents(@Param("channelDatas") List<ChannelData> channelDatas); 
 }

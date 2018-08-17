@@ -437,5 +437,21 @@
         limit #{offset},#{limit}
 	</select>
 	
+	<insert id="insertEquipmentRecents" parameterType="java.util.List">
+  	insert into t_equipment_recent (systemId, systemType, deviceAddress,
+  		type, channel, value,dateTime, deviceId)
+    values
+    	<foreach collection="channelDatas" item="item" index="index" separator=",">
+    		(#{item.systemId},#{item.systemType},#{item.deviceAddress},#{item.type},#{item.channel},#{item.value},
+    		#{item.dateTime},#{item.deviceId})
+    	</foreach>
+    ON DUPLICATE KEY UPDATE
+    systemId =VALUES(systemId),
+    systemType =VALUES(systemType),
+    deviceAddress =VALUES(deviceAddress),
+    type =VALUES(type),
+    value =VALUES(value),
+    dateTime =VALUES(dateTime)
+  </insert>
 	
 </mapper>

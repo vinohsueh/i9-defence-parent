@@ -130,6 +130,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         try {
             if (!channelDatas.isEmpty()) {
                 channelDataDao.insertBatch(channelDatas);
+                channelDataDao.insertEquipmentRecents(channelDatas);
             }
         } catch (Exception e) {
         }
