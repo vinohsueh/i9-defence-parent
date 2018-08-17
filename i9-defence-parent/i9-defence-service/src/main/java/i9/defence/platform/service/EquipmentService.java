@@ -204,12 +204,5 @@ public interface EquipmentService {
 	* @param ids
 	* @return
 	 */
-	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids)throws BusinessException;
-
-	/**
-	 * 修改发送状态
-	 * @param 
-	 */
-	void updateSendStatus(Equipment equipment)throws BusinessException ;
-	
+	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids)throws BusinessException;	
 }
