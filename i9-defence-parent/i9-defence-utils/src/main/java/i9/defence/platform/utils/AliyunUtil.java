@@ -2,7 +2,6 @@ package i9.defence.platform.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.Properties;
 
 import com.aliyuncs.DefaultAcsClient;
