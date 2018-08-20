@@ -2,6 +2,7 @@ package i9.defence.platform.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Properties;
 
 import com.aliyuncs.DefaultAcsClient;
@@ -91,7 +92,7 @@ public class AliyunUtil {
             SendBatchSmsResponse response = acsClient.getAcsResponse(request);
             return response.getCode();
         } catch (ClientException e) {
-            e.printStackTrace();
+            System.out.println("发送短信错误 : " + StringUtil.getStackTrace(e));
             throw new BusinessException(ErrorCode.ALIYUN_NOT_ENOUGH_ERROR, "客户端错误", e.getMessage());
         }
     }
