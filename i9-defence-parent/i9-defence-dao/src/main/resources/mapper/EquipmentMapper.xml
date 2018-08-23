@@ -901,7 +901,7 @@
 		WHEN
 		remainAlert =2 and status = 1
 		THEN
-		getNewestHiddenTime(deviceId,systemId)
+		getNewestTime ( deviceId )
 		WHEN status = 0
 		THEN
 		getLiXianTime( deviceId)
