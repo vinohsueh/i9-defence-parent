@@ -171,6 +171,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
             // 设备的遗留状态
             int equipmentRemainStatus = equipment.getRemainAlert();
             
+            
             // 如果遗留状态为正常
             if (0 == equipmentRemainStatus) {
                 if (alertNum > 0) {
@@ -189,8 +190,12 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                     alertStatus = 2;
                 }
             }
+            String newsEventTime =null; 
+            if(0 !=alertStatus) {
+            	newsEventTime = StringUtil.dateToString(new Date());
+            }
             // 更新设备的数据状态
-            equipmentDao.updateEquipmentDataStatus(deviceId, dataStatus, alertStatus);
+            equipmentDao.updateEquipmentDataStatus(deviceId, dataStatus, alertStatus,newsEventTime);
 
             // 插入设备问题记录
             if (0 != dataStatus) {

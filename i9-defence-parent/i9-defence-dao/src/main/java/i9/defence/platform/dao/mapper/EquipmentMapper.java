@@ -183,7 +183,7 @@ public interface EquipmentMapper {
 	 * @param deviceId
 	 * @param datastatus
 	 */
-	void updateEquipmentDataStatus(@Param("deviceId") String deviceId,@Param("datastatus") int datastatus,@Param("alertStatus") int alertStatus);
+	void updateEquipmentDataStatus(@Param("deviceId") String deviceId,@Param("datastatus") int datastatus,@Param("alertStatus") int alertStatus,@Param("newsEventTime") String newsEventTime);
 
 	/**
 	 * 更改设备旧状态

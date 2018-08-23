@@ -5,13 +5,11 @@
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="equipmentName" jdbcType="VARCHAR" property="equipmentName" />
 		<result column="equipmentNum" jdbcType="INTEGER" property="equipmentNum" />
-		<result column="equipmentIdentifier" jdbcType="VARCHAR"
-			property="equipmentIdentifier" />
+		<result column="equipmentIdentifier" jdbcType="VARCHAR" property="equipmentIdentifier" />
 		<result column="equipmentPosition" jdbcType="VARCHAR" property="equipmentPosition" />
 		<result column="equipmentDate" jdbcType="TIMESTAMP" property="equipmentDate" />
 		<result column="equipmentRemarks" jdbcType="VARCHAR" property="equipmentRemarks" />
-		<result column="equipmentCategoryId" jdbcType="INTEGER"
-			property="equipmentCategoryId" />
+		<result column="equipmentCategoryId" jdbcType="INTEGER" property="equipmentCategoryId" />
 		<result column="projectId" jdbcType="INTEGER" property="projectId" />
 		<result column="systemId" jdbcType="VARCHAR" property="systemId" />
 		<result column="deviceId" jdbcType="VARCHAR" property="deviceId" />
@@ -21,12 +19,10 @@
 		<result column="status" jdbcType="INTEGER" property="status" />
 		<result column="dataStatus" jdbcType="INTEGER" property="dataStatus" />
 		<result column="remainAlert" jdbcType="INTEGER" property="remainAlert" />
-		<association property="equipmentSystemtype" column="equipmentCategoryId"
-			select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
-		<association property="equipmentCategory" column="systemId"
-			select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
-		<association property="project" column="projectId"
-			select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
+		<result column="newEventTime" jdbcType="TIMESTAMP" property="newEventTime" />
+		<association property="equipmentSystemtype" column="equipmentCategoryId" select="i9.defence.platform.dao.mapper.EquipmentSystemtypeMapper.selectByPrimaryKey"></association>
+		<association property="equipmentCategory" column="systemId" select="i9.defence.platform.dao.mapper.EquipmentCategoryMapper.selectByeqEqCategoryId"></association>
+		<association property="project" column="projectId" select="i9.defence.platform.dao.mapper.ProjectMapper.selectByPrimaryKey"></association>
 		<!-- <collection column="systemId" ofType="i9.defence.platform.model.Passageway" 
 			property="passageways" select="i9.defence.platform.dao.mapper.PassagewayMapper.selectPassagewaysBySystemId"></collection> -->
 		<!-- <collection column="id" property="eqChannelDataList" select="selectEqChannelDataDto"></collection> -->
@@ -77,7 +73,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -127,7 +124,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -145,11 +143,14 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		id, systemId, equipmentName, equipmentNum, equipmentIdentifier,
+		id, systemId, equipmentName, equipmentNum,
+		equipmentIdentifier,
 		equipmentPosition,
-		equipmentDate, equipmentRemarks, equipmentCategoryId, projectId, unit, loopl,
+		equipmentDate, equipmentRemarks,
+		equipmentCategoryId, projectId, unit, loopl,
 		delStatus,
-		deviceId, status, dataStatus, remainAlert
+		deviceId,
+		status, dataStatus, remainAlert,newEventTime
 	</sql>
 	<select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample"
 		resultMap="BaseResultMap">
@@ -187,29 +188,35 @@
 	</delete>
 	<insert id="insert" parameterType="i9.defence.platform.model.Equipment">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-			SELECT LAST_INSERT_ID()
+			SELECT
+			LAST_INSERT_ID()
 		</selectKey>
 		insert into t_equipment (systemId, equipmentName, equipmentNum,
 		equipmentIdentifier, equipmentPosition,
-		equipmentDate, equipmentRemarks, equipmentCategoryId,
+		equipmentDate,newEventTime,
+		equipmentRemarks, equipmentCategoryId,
 		projectId, unit, loopl,
 		delStatus, deviceId, status,
 		dataStatus, remainAlert)
-		values (#{systemId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR},
+		values
+		(#{systemId,jdbcType=VARCHAR}, #{equipmentName,jdbcType=VARCHAR},
 		#{equipmentNum,jdbcType=INTEGER},
 		#{equipmentIdentifier,jdbcType=VARCHAR},
 		#{equipmentPosition,jdbcType=VARCHAR},
 		#{equipmentDate,jdbcType=TIMESTAMP},
+		#{newEventTime,jdbcType=TIMESTAMP},
 		#{equipmentRemarks,jdbcType=VARCHAR},
 		#{equipmentCategoryId,jdbcType=INTEGER},
 		#{projectId,jdbcType=INTEGER}, #{unit,jdbcType=INTEGER},
 		#{loopl,jdbcType=INTEGER},
-		#{delStatus,jdbcType=INTEGER}, #{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+		#{delStatus,jdbcType=INTEGER},
+		#{deviceId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
 		#{dataStatus,jdbcType=INTEGER}, #{remainAlert,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective" parameterType="i9.defence.platform.model.Equipment">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-			SELECT LAST_INSERT_ID()
+			SELECT
+			LAST_INSERT_ID()
 		</selectKey>
 		insert into t_equipment
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -227,6 +234,9 @@
 			</if>
 			<if test="equipmentDate != null">
 				equipmentDate,
+			</if>
+			<if test="newEventTime != null">
+				newEventTime,
 			</if>
 			<if test="equipmentRemarks != null">
 				equipmentRemarks,
@@ -277,6 +287,9 @@
 			</if>
 			<if test="equipmentDate != null">
 				#{equipmentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="newEventTime != null">
+				#{newEventTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="equipmentRemarks != null">
 				#{equipmentRemarks,jdbcType=VARCHAR},
@@ -335,22 +348,32 @@
 				equipmentNum = #{record.equipmentNum,jdbcType=INTEGER},
 			</if>
 			<if test="record.equipmentIdentifier != null">
-				equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=VARCHAR},
+				equipmentIdentifier =
+				#{record.equipmentIdentifier,jdbcType=VARCHAR},
 			</if>
 			<if test="record.equipmentPosition != null">
-				equipmentPosition = #{record.equipmentPosition,jdbcType=VARCHAR},
+				equipmentPosition =
+				#{record.equipmentPosition,jdbcType=VARCHAR},
 			</if>
 			<if test="record.equipmentDate != null">
-				equipmentDate = #{record.equipmentDate,jdbcType=TIMESTAMP},
+				equipmentDate =
+				#{record.equipmentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.newEventTime != null">
+				newEventTime = 
+				#{record.newEventTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="record.equipmentRemarks != null">
-				equipmentRemarks = #{record.equipmentRemarks,jdbcType=VARCHAR},
+				equipmentRemarks =
+				#{record.equipmentRemarks,jdbcType=VARCHAR},
 			</if>
 			<if test="record.equipmentCategoryId != null">
-				equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER},
+				equipmentCategoryId =
+				#{record.equipmentCategoryId,jdbcType=INTEGER},
 			</if>
 			<if test="record.equipmentCategoryId != null">
-				equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER},
+				equipmentCategoryId =
+				#{record.equipmentCategoryId,jdbcType=INTEGER},
 			</if>
 			<if test="record.projectId != null">
 				projectId = #{record.projectId,jdbcType=INTEGER},
@@ -384,22 +407,40 @@
 	<update id="updateByExample" parameterType="map">
 		update t_equipment
 		set id = #{record.id,jdbcType=INTEGER},
-		systemId = #{record.systemId,jdbcType=VARCHAR},
-		equipmentName = #{record.equipmentName,jdbcType=VARCHAR},
-		equipmentNum = #{record.equipmentNum,jdbcType=INTEGER},
-		equipmentIdentifier = #{record.equipmentIdentifier,jdbcType=VARCHAR},
-		equipmentPosition = #{record.equipmentPosition,jdbcType=VARCHAR},
-		equipmentDate = #{record.equipmentDate,jdbcType=TIMESTAMP},
-		equipmentRemarks = #{record.equipmentRemarks,jdbcType=VARCHAR},
-		equipmentCategoryId = #{record.equipmentCategoryId,jdbcType=INTEGER},
-		projectId = #{record.projectId,jdbcType=INTEGER},
-		unit = #{record.unit,jdbcType=INTEGER},
-		loopl = #{record.loopl,jdbcType=INTEGER},
-		delStatus = #{record.delStatus,jdbcType=INTEGER},
-		deviceId = #{record.deviceId,jdbcType=VARCHAR},
-		status = #{record.status,jdbcType=INTEGER},
-		dataStatus = #{record.dataStatus,jdbcType=INTEGER},
-		remainAlert = #{record.remainAlert,jdbcType=INTEGER}
+		systemId =
+		#{record.systemId,jdbcType=VARCHAR},
+		equipmentName =
+		#{record.equipmentName,jdbcType=VARCHAR},
+		equipmentNum =
+		#{record.equipmentNum,jdbcType=INTEGER},
+		equipmentIdentifier =
+		#{record.equipmentIdentifier,jdbcType=VARCHAR},
+		equipmentPosition =
+		#{record.equipmentPosition,jdbcType=VARCHAR},
+		equipmentDate =
+		#{record.equipmentDate,jdbcType=TIMESTAMP},
+		newEventTime = 
+		#{record.newEventTime,jdbcType=TIMESTAMP},
+		equipmentRemarks =
+		#{record.equipmentRemarks,jdbcType=VARCHAR},
+		equipmentCategoryId =
+		#{record.equipmentCategoryId,jdbcType=INTEGER},
+		projectId =
+		#{record.projectId,jdbcType=INTEGER},
+		unit =
+		#{record.unit,jdbcType=INTEGER},
+		loopl =
+		#{record.loopl,jdbcType=INTEGER},
+		delStatus =
+		#{record.delStatus,jdbcType=INTEGER},
+		deviceId =
+		#{record.deviceId,jdbcType=VARCHAR},
+		status =
+		#{record.status,jdbcType=INTEGER},
+		dataStatus =
+		#{record.dataStatus,jdbcType=INTEGER},
+		remainAlert =
+		#{record.remainAlert,jdbcType=INTEGER}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -414,19 +455,26 @@
 				equipmentNum = #{equipmentNum,jdbcType=INTEGER},
 			</if>
 			<if test="equipmentIdentifier != null">
-				equipmentIdentifier = #{equipmentIdentifier,jdbcType=VARCHAR},
+				equipmentIdentifier =
+				#{equipmentIdentifier,jdbcType=VARCHAR},
 			</if>
 			<if test="equipmentPosition != null">
-				equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
+				equipmentPosition =
+				#{equipmentPosition,jdbcType=VARCHAR},
 			</if>
 			<if test="equipmentDate != null">
 				equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="newEventTime != null">
+				newEventTime = 
+				#{newEventTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="equipmentRemarks != null">
 				equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
 			</if>
 			<if test="equipmentCategoryId != null">
-				equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
+				equipmentCategoryId =
+				#{equipmentCategoryId,jdbcType=INTEGER},
 			</if>
 			<if test="projectId != null">
 				projectId = #{projectId,jdbcType=INTEGER},
@@ -461,21 +509,35 @@
 	<update id="updateByPrimaryKey" parameterType="i9.defence.platform.model.Equipment">
 		update t_equipment
 		set systemId = #{systemId,jdbcType=VARCHAR},
-		equipmentName = #{equipmentName,jdbcType=VARCHAR},
-		equipmentNum = #{equipmentNum,jdbcType=INTEGER},
-		equipmentIdentifier = #{equipmentIdentifier,jdbcType=VARCHAR},
-		equipmentPosition = #{equipmentPosition,jdbcType=VARCHAR},
-		equipmentDate = #{equipmentDate,jdbcType=TIMESTAMP},
-		equipmentRemarks = #{equipmentRemarks,jdbcType=VARCHAR},
-		equipmentCategoryId = #{equipmentCategoryId,jdbcType=INTEGER},
-		projectId = #{projectId,jdbcType=INTEGER},
+		equipmentName =
+		#{equipmentName,jdbcType=VARCHAR},
+		equipmentNum =
+		#{equipmentNum,jdbcType=INTEGER},
+		equipmentIdentifier =
+		#{equipmentIdentifier,jdbcType=VARCHAR},
+		equipmentPosition =
+		#{equipmentPosition,jdbcType=VARCHAR},
+		equipmentDate =
+		#{equipmentDate,jdbcType=TIMESTAMP},
+		newEventTime = 
+		#{newEventTime,jdbcType=TIMESTAMP},
+		equipmentRemarks =
+		#{equipmentRemarks,jdbcType=VARCHAR},
+		equipmentCategoryId =
+		#{equipmentCategoryId,jdbcType=INTEGER},
+		projectId =
+		#{projectId,jdbcType=INTEGER},
 		unit = #{unit,jdbcType=INTEGER},
-		loopl = #{loopl,jdbcType=INTEGER},
+		loopl =
+		#{loopl,jdbcType=INTEGER},
 		delStatus = #{delStatus,jdbcType=INTEGER},
 		deviceId = #{deviceId,jdbcType=VARCHAR},
-		status = #{status,jdbcType=INTEGER},
-		dataStatus = #{dataStatus,jdbcType=INTEGER},
-		remainAlert = #{remainAlert,jdbcType=INTEGER}
+		status =
+		#{status,jdbcType=INTEGER},
+		dataStatus =
+		#{dataStatus,jdbcType=INTEGER},
+		remainAlert =
+		#{remainAlert,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectByLimitPage" resultMap="BaseResultMap">
@@ -560,10 +622,13 @@
 			</if>
 			<if test="example.distributorId != null and example.distributorId != ''">
 				AND p.distributorId = #{example.distributorId} or
-				p.distributorId in (select managerId from t_manager_grade where parentId =
+				p.distributorId in (select managerId from t_manager_grade where
+				parentId =
 				#{example.distributorId}) or
-				p.distributorId in (select managerId from t_manager_grade where parentId in (select
-				managerId from t_manager_grade where parentId =
+				p.distributorId in (select
+				managerId from t_manager_grade where parentId in (select
+				managerId
+				from t_manager_grade where parentId =
 				#{example.distributorId}))
 			</if>
 			<!-- and p.distributorId = #{distributorId,jdbcType=INTEGER} -->
@@ -588,18 +653,22 @@
 			</if>
 			<if
 				test="example.projectManagerId != null and example.projectManagerId != ''">
-				AND ps.managerId = #{example.projectManagerId} and p.projectState = 1
+				AND ps.managerId = #{example.projectManagerId} and
+				p.projectState = 1
 			</if>
 		</trim>
 	</sql>
 	<select id="selectPassagewayByEid" resultType="i9.defence.platform.model.Passageway">
-		select channel,name,deviceId,hiddenDangerId
+		select
+		channel,name,deviceId,hiddenDangerId
 		from t_passageway
-		where deviceId=#{deviceId}
+		where
+		deviceId=#{deviceId}
 	</select>
 
 	<insert id="insertPassageWay" parameterType="i9.defence.platform.model.Passageway">
-		insert into t_passageway(channel,name,deviceId,hiddenDangerId)
+		insert into
+		t_passageway(channel,name,deviceId,hiddenDangerId)
 		values(#{channel},#{name},#{deviceId},#{hiddenDangerId})
 	</insert>
 
@@ -608,7 +677,8 @@
 		<trim prefix="set" suffixOverrides=",">
 			<trim prefix="delStatus =case" suffix="end,">
 				<foreach collection="applies" item="item">
-					when id=#{item.id} then #{item.delStatus}
+					when id=#{item.id} then
+					#{item.delStatus}
 				</foreach>
 			</trim>
 		</trim>
@@ -718,14 +788,18 @@
 			<!--项目负责人 -->
 			<if
 				test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
-				and projectId in (select projectId from t_project_safe where managerId
+				and projectId in (select projectId from t_project_safe where
+				managerId
 				= '${example.prijrctManagerId}')
 			</if>
 			<!--经销商 -->
 			<if test="example.distributorId != null and example.distributorId != ''">
-				AND (e.distributorId = #{example.distributorId} or (mg.parentId =
-				#{example.distributorId} or mg.parentId in (select managerId from
-				t_manager_grade where parentId = #{example.distributorId})))
+				AND (e.distributorId = #{example.distributorId} or
+				(mg.parentId =
+				#{example.distributorId} or mg.parentId in (select
+				managerId from
+				t_manager_grade where parentId =
+				#{example.distributorId})))
 			</if>
 			<if test="example.systemId != null">
 				and systemId = #{example.systemId}
@@ -759,15 +833,20 @@
 			<!--项目负责人 -->
 			<if
 				test="example.prijrctManagerId != null and example.prijrctManagerId != ''">
-				and projectId in (select projectId from t_project_safe where managerId
+				and projectId in (select projectId from t_project_safe where
+				managerId
 				= #{example.prijrctManagerId})
 			</if>
 			<!--经销商 -->
 			<if test="example.distributorId != null and example.distributorId != ''">
-				and distributorId = #{example.distributorId} or distributorId in
-				(select managerId from t_manager_grade where parentId
-				=#{example.distributorId}) or distributorId in (select managerId
-				from t_manager_grade where parentId in (select managerId from
+				and distributorId = #{example.distributorId} or
+				distributorId in
+				(select managerId from t_manager_grade where
+				parentId
+				=#{example.distributorId}) or distributorId in (select
+				managerId
+				from t_manager_grade where parentId in (select managerId
+				from
 				t_manager_grade where parentId =#{example.distributorId}))
 			</if>
 			<if test="example.systemId != null">
@@ -800,7 +879,8 @@
 		</if>
 		order by field(concat(status,
 		dataStatus),11,12,'20','00','01',21,22,20,11,12,10 )
-		limit #{offset},#{limit}
+		limit
+		#{offset},#{limit}
 	</select>
 
 	<select id="selectHiddenDangerByLimitPage2" resultMap="BaseResultMapDto">
@@ -818,10 +898,14 @@
 		WHEN remainAlert =1 and status = 1
 		THEN
 		getNewestTime ( deviceId )
-		WHEN remainAlert =2 and status = 1
+		WHEN
+		remainAlert =2 and status = 1
 		THEN
 		getNewestHiddenTime(deviceId,systemId)
 		WHEN status = 0
+		THEN
+		getLiXianTime( deviceId)
+		WHEN status = 2
 		THEN
 		getLiXianTime( deviceId)
 		End as newestTime
@@ -831,7 +915,8 @@
 			<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 		</if>
 		order by field(remainAlert,1,2,0 ), status desc
-		limit #{offset},#{limit}
+		limit
+		#{offset},#{limit}
 	</select>
 	<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto"
 		parameterType="java.util.List">
@@ -840,7 +925,8 @@
 		deviceId,
 		equipmentPosition,
 		datastatus as dataStatus,
-		status as status,
+		status as
+		status,
 		remainAlert
 		FROM
 		v_equipment
@@ -874,45 +960,59 @@
 		cd.channel and p.systemId = e.systemId) AS `channelName`,
 		cd.*,e.equipmentCategoryId
 		FROM `t_channel_data` `cd`
-		LEFT JOIN `t_passageway` `ps`
+		LEFT JOIN
+		`t_passageway` `ps`
 		ON `cd`.`systemId` = `ps`.`systemId`
-		AND `cd`.`channel` = `ps`.`channel`
-		LEFT JOIN `t_hidden_danger` `hd` ON `ps`.`hiddenDangerId` = `hd`.`id`
-		LEFT JOIN t_equipment e ON e.deviceId = cd.deviceId
+		AND
+		`cd`.`channel` = `ps`.`channel`
+		LEFT JOIN `t_hidden_danger` `hd` ON
+		`ps`.`hiddenDangerId` = `hd`.`id`
+		LEFT JOIN t_equipment e ON e.deviceId
+		= cd.deviceId
 		WHERE `cd`.`channel` IN (
 		SELECT `ps`.`channel`
-		FROM `t_passageway` `ps`
+		FROM
+		`t_passageway` `ps`
 		WHERE `ps`.`systemId` = `e`.`systemId`
 		)
-		AND `cd`.`deviceId` = e.deviceId
+		AND
+		`cd`.`deviceId` = e.deviceId
 		AND cd.dealStatus = 0
-		AND (`cd`.`value` &gt; `hd`.`HiddenMax`
+		AND (`cd`.`value`
+		&gt; `hd`.`HiddenMax`
 		OR `cd`.`value` &lt; `hd`.`HiddenMin`)
-		AND e.deviceId = #{deviceId}
+		AND
+		e.deviceId = #{deviceId}
 		ORDER BY cd.dateTime DESC
 		LIMIT #{count}
 	</select>
 	<!-- 查询具体隐患报警 查看警告 -->
 	<select id="selectDangerChannelDtoBySid" resultType="i9.defence.platform.dao.vo.HiddenDangerChannelDto">
-		SELECT (select p.`name` from `t_passageway` `p` where p.channel = cd.channel
+		SELECT
+		(select p.`name` from `t_passageway` `p` where p.channel = cd.channel
 		and p.systemId = e.systemId) AS `channelName`,
 		cd.*,e.equipmentCategoryId
 		FROM `t_channel_data` `cd`
-		LEFT JOIN `t_equipment_fault` `ef` ON `cd`.`value` = `ef`.`code` LEFT JOIN
+		LEFT JOIN
+		`t_equipment_fault` `ef` ON `cd`.`value` = `ef`.`code` LEFT JOIN
 		`t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
-		WHERE `cd`.`deviceId` = #{deviceId}
+		WHERE
+		`cd`.`deviceId` = #{deviceId}
 		AND `ef`.`type` = 0
-		AND `cd`.`dealStatus` = 0
+		AND `cd`.`dealStatus`
+		= 0
 		AND cd.channel IN (
 		SELECT channel
 		FROM t_passageway
-		WHERE systemId = (
+		WHERE systemId =
+		(
 		SELECT systemId
 		FROM t_equipment
 		WHERE `deviceId` = #{deviceId}
 		)
 		)
-		ORDER BY cd.dateTime DESC
+		ORDER
+		BY cd.dateTime DESC
 		LIMIT #{count}
 	</select>
 	<!-- 查询全部 -->
@@ -922,7 +1022,8 @@
 		/> </if> </select> -->
 	<select id="selectHiddenDangerDtoByDeviceId" parameterType="string"
 		resultType="i9.defence.platform.dao.vo.HiddenDangerDto">
-		select * from v_hiddenDanger_edit where deviceId = #{deviceId}
+		select * from v_hiddenDanger_edit where deviceId =
+		#{deviceId}
 	</select>
 	<select id="selectDataAndManager" parameterType="int"
 		resultType="i9.defence.platform.dao.vo.EquipmentProjectDto">
@@ -934,7 +1035,8 @@
 		FROM
 		t_client c
 		WHERE
-		c.id IN ( SELECT clientId FROM t_project_client ps WHERE ps.projectId =
+		c.id IN ( SELECT clientId FROM t_project_client ps
+		WHERE ps.projectId =
 		e.projectId ) limit 1
 		) as clientPhone ,
 
@@ -944,17 +1046,21 @@
 		FROM
 		t_client c
 		WHERE
-		c.id IN ( SELECT clientId FROM t_project_client ps WHERE ps.projectId =
+		c.id IN ( SELECT clientId FROM
+		t_project_client ps WHERE ps.projectId =
 		e.projectId) limit 1
-		)as clientName,
+		)as
+		clientName,
 		(
 		SELECT
 		m.phone
 		FROM
 		t_manager m
 		WHERE
-		m.id IN ( SELECT managerId FROM t_project_safe ps WHERE ps.projectId =
-		e.projectId and ps.safe =1) limit 1
+		m.id IN ( SELECT
+		managerId FROM t_project_safe ps WHERE ps.projectId =
+		e.projectId and
+		ps.safe =1) limit 1
 		)as safePhone ,
 		(
 		SELECT
@@ -970,8 +1076,10 @@
 		projectName,CONCAT(p.projectProvince,p.projectCity,p.projectCounty,p.projectAddress)
 		as projectLocation
 		FROM
-		t_equipment e left join t_equipment_category ec on e.systemId = ec.eqCategoryId
-		left join t_project p on e.projectId = p.id
+		t_equipment e left join t_equipment_category ec
+		on e.systemId = ec.eqCategoryId
+		left join t_project p on e.projectId =
+		p.id
 		WHERE
 		e.id = #{id}
 	</select>
@@ -1022,9 +1130,12 @@
 		count( * ),
 		DATE_FORMAT( createTime, '%Y-%m' ) AS mon
 		FROM
-		t_error_record er left join t_equipment e on er.deviceId = e.deviceId left join
-		t_project p on e.projectId = p.id left join t_manager_grade mg on
-		p.distributorId = mg.managerId
+		t_error_record er left
+		join t_equipment e on er.deviceId = e.deviceId left join
+		t_project p on
+		e.projectId = p.id left join t_manager_grade mg on
+		p.distributorId =
+		mg.managerId
 		WHERE
 		type = 1
 		<if test="projectId != null">
@@ -1033,12 +1144,15 @@
 		<if
 			test="projectId == null and projectProvince != null and projectProvince != ''">
 			<if test="projectCity == null || projectCity == ''">
-				and e.projectId in (select id from t_project where projectProvince =
+				and e.projectId in (select id from t_project where
+				projectProvince =
 				#{projectProvince})
 			</if>
 			<if test="projectCity != null and projectCity != ''">
-				and e.projectId in (select id from t_project where projectProvince =
-				#{projectProvince} and projectCity = #{projectCity} )
+				and e.projectId in (select id from t_project where
+				projectProvince =
+				#{projectProvince} and projectCity = #{projectCity}
+				)
 			</if>
 		</if>
 		<if test="endTime != null and endTime != ''">
@@ -1054,11 +1168,13 @@
 			t_manager_grade where parentId = #{distributorId})))
 		</if>
 		<if test="projectManagerId != null">
-			AND p.id in (select projectId from t_project_safe where managerId =
+			AND p.id in (select projectId from t_project_safe where
+			managerId =
 			#{projectManagerId})
 		</if>
 		GROUP BY DATE_FORMAT( er.createTime, '%Y-%m' ),er.deviceId
-		) a GROUP BY a.mon
+		) a GROUP BY
+		a.mon
 	</select>
 
 	<select id="selectHiddenMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto"
@@ -1071,9 +1187,12 @@
 		count( * ),
 		DATE_FORMAT( createTime, '%Y-%m' ) AS mon
 		FROM
-		t_error_record er left join t_equipment e on er.deviceId = e.deviceId left join
-		t_project p on e.projectId = p.id left join t_manager_grade mg on
-		p.distributorId = mg.managerId
+		t_error_record er left
+		join t_equipment e on er.deviceId = e.deviceId left join
+		t_project p on
+		e.projectId = p.id left join t_manager_grade mg on
+		p.distributorId =
+		mg.managerId
 		WHERE
 		type = 2
 		<if test="projectId != null">
@@ -1082,12 +1201,15 @@
 		<if
 			test="projectId == null and projectProvince != null and projectProvince != ''">
 			<if test="projectCity == null || projectCity == ''">
-				and e.projectId in (select id from t_project where projectProvince =
+				and e.projectId in (select id from t_project where
+				projectProvince =
 				#{projectProvince})
 			</if>
 			<if test="projectCity != null and projectCity != ''">
-				and e.projectId in (select id from t_project where projectProvince =
-				#{projectProvince} and projectCity = #{projectCity} )
+				and e.projectId in (select id from t_project where
+				projectProvince =
+				#{projectProvince} and projectCity = #{projectCity}
+				)
 			</if>
 		</if>
 		<if test="endTime != null and endTime != ''">
@@ -1103,13 +1225,15 @@
 			t_manager_grade where parentId = #{distributorId})))
 		</if>
 		<if test="projectManagerId != null">
-			AND p.id in (select projectId from t_project_safe where managerId =
+			AND p.id in (select projectId from t_project_safe where
+			managerId =
 			#{projectManagerId})
 		</if>
 		GROUP BY
 		DATE_FORMAT( er.createTime, '%Y-%m' ),
 		er.deviceId
-		) a GROUP BY a.mon
+		) a GROUP BY
+		a.mon
 	</select>
 	<select id="selectEqChannelDataDto" parameterType="java.lang.Integer"
 		resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
@@ -1119,29 +1243,38 @@
 		`channelValue`,e.equipmentCategoryId as equipmentCategoryId,cd.type as
 		type
 		FROM `t_channel_data` `cd`
-		LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `cd`.`deviceId`
+		LEFT JOIN `t_equipment` `e` ON
+		`e`.`deviceId` = `cd`.`deviceId`
 
 		WHERE `e`.`id` = #{id}
-		AND cd.channel IN ( SELECT channel FROM t_passageway where systemId =
-		(select systemId from t_equipment where id = #{id} ))
+		AND cd.channel
+		IN ( SELECT channel FROM t_passageway where systemId =
+		(select systemId
+		from t_equipment where id = #{id} ))
 		and cd.type in (2,5)
-		AND `cd`.`dateTime` = (
+		AND
+		`cd`.`dateTime` = (
 		SELECT `t_channel_data`.`dateTime`
-		FROM `t_channel_data`
+		FROM
+		`t_channel_data`
 		WHERE `t_channel_data`.`deviceId` = (
-		SELECT `t_equipment`.`deviceId`
+		SELECT
+		`t_equipment`.`deviceId`
 		FROM `t_equipment`
-		WHERE `t_equipment`.`id` = #{id}
+		WHERE `t_equipment`.`id` =
+		#{id}
 		)
 		ORDER BY `t_channel_data`.`id` DESC
 		LIMIT 1
 		)
-		ORDER BY `cd`.`channel`
+		ORDER BY
+		`cd`.`channel`
 	</select>
 	<select id="selectEqChannelDataFaultDto" parameterType="java.lang.Integer"
 		resultType="i9.defence.platform.dao.vo.EqChannelDataDto">
 		SELECT
-		( SELECT p.`name` FROM `t_passageway` `p` WHERE p.channel = er.channel
+		( SELECT p.`name` FROM `t_passageway` `p` WHERE
+		p.channel = er.channel
 		AND p.systemId = e.systemId ) AS `channelName`,
 		`er`.`channel` AS `channelNum`,
 		`er`.`value` AS `channelValue`,
@@ -1149,7 +1282,8 @@
 		er.type AS type
 		FROM
 		`t_equipment_recent` `er`
-		LEFT JOIN `t_equipment` `e` ON `e`.`deviceId` = `er`.`deviceId`
+		LEFT JOIN `t_equipment` `e` ON `e`.`deviceId`
+		= `er`.`deviceId`
 		WHERE
 		`e`.`id` = #{id}
 
@@ -1202,9 +1336,12 @@
 				AND ps.managerId = #{example.projectManagerId}
 			</if>
 			<if test="example.distributorId != null">
-				AND (p.distributorId = #{example.distributorId} or (mg.parentId =
-				#{example.distributorId} or mg.parentId in (select managerId from
-				t_manager_grade where parentId = #{example.distributorId})))
+				AND (p.distributorId = #{example.distributorId} or
+				(mg.parentId =
+				#{example.distributorId} or mg.parentId in (select
+				managerId from
+				t_manager_grade where parentId =
+				#{example.distributorId})))
 			</if>
 		</trim>
 	</sql>
@@ -1237,13 +1374,17 @@
 				</if>
 			</if>
 			<if test="example.projectManagerId != null">
-				AND projectId in (select projectId from t_project_safe where managerId
+				AND projectId in (select projectId from t_project_safe
+				where managerId
 				= #{example.projectManagerId})
 			</if>
 			<if test="example.distributorId != null">
-				AND (e.distributorId = #{example.distributorId} or (mg.parentId =
-				#{example.distributorId} or mg.parentId in (select managerId from
-				t_manager_grade where parentId = #{example.distributorId})))
+				AND (e.distributorId = #{example.distributorId} or
+				(mg.parentId =
+				#{example.distributorId} or mg.parentId in (select
+				managerId from
+				t_manager_grade where parentId =
+				#{example.distributorId})))
 			</if>
 			and dataStatus = 1 and status = 1
 		</trim>
@@ -1271,9 +1412,12 @@
 			AND ps.managerId = #{example.projectManagerId}
 		</if>
 		<if test="example.distributorId != null">
-			AND (p.distributorId = #{example.distributorId} or (mg.parentId =
-			#{example.distributorId} or mg.parentId in (select managerId from
-			t_manager_grade where parentId = #{example.distributorId})))
+			AND (p.distributorId = #{example.distributorId} or
+			(mg.parentId =
+			#{example.distributorId} or mg.parentId in (select
+			managerId from
+			t_manager_grade where parentId =
+			#{example.distributorId})))
 		</if>
 	</select>
 
@@ -1294,28 +1438,38 @@
 				</if>
 			</if>
 			<if test="example.projectManagerId != null">
-				AND projectId in (select projectId from t_project_safe where managerId
+				AND projectId in (select projectId from t_project_safe
+				where managerId
 				= #{example.projectManagerId})
 			</if>
 			<if test="example.distributorId != null">
-				AND (e.distributorId = #{example.distributorId} or (mg.parentId =
-				#{example.distributorId} or mg.parentId in (select managerId from
-				t_manager_grade where parentId = #{example.distributorId})))
+				AND (e.distributorId = #{example.distributorId} or
+				(mg.parentId =
+				#{example.distributorId} or mg.parentId in (select
+				managerId from
+				t_manager_grade where parentId =
+				#{example.distributorId})))
 			</if>
 			and dataStatus = 2 and status = 1
 		</trim>
 	</select>
 
 	<update id="updateEquipmentStatusByDeviceId">
-		update t_equipment set status = #{status} where deviceId = #{deviceId}
+		update t_equipment set status = #{status} where
+		deviceId = #{deviceId}
 	</update>
 	<select id="findEquipmentDeviceId" parameterType="string"
 		resultType="i9.defence.platform.model.Equipment">
-		select * from t_equipment where deviceId = #{deviceId,jdbcType=VARCHAR}
+		select * from t_equipment where deviceId =
+		#{deviceId,jdbcType=VARCHAR}
 	</select>
 	<update id="updateEquipmentDataStatus">
-		update t_equipment set dataStatus = #{datastatus},remainAlert =
-		#{alertStatus} where deviceId = #{deviceId}
+	update t_equipment 
+	  set 
+		newEventTime = #{newsEventTime},
+		dataStatus = #{datastatus},
+		remainAlert = #{alertStatus}
+	 where deviceId = #{deviceId}
 	</update>
 
 </mapper>

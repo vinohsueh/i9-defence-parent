@@ -261,7 +261,7 @@ public interface EquipmentDao {
 	 * @param deviceId
 	 * @param datastatus
 	 */
-	void updateEquipmentDataStatus(String deviceId, int datastatus,int alertStatus);
+	void updateEquipmentDataStatus(String deviceId, int datastatus,int alertStatus,String newsEventTime);
 	
 	/**
 	 * 更改设备状态
@@ -280,5 +280,4 @@ public interface EquipmentDao {
 	* @throws Exception
 	 */
 	void updateEquipRemainAlertByDeviceIds(List<String> deviceIds)throws Exception ;
-	
 }
