@@ -77,7 +77,9 @@ public class ActiveMQConsumerRunnablePool {
                         }
                     }
                     thirdPlatformService.saveAlertOrigin(deviceInfoDto, channelDatas);
-                    thirdPlatformService.updateDeviceStatus(deviceInfoDto.getId(), channelDatas.size());
+                    if(channelDatas.size() > 0){
+                    	thirdPlatformService.updateDeviceStatus(deviceInfoDto.getId(), channelDatas.size());
+                    }
                     logger.info("push message : " + textMessage.toString());
                 } catch (Exception e) {
                     logger.error("save up stream decode error, ex : ", e);
