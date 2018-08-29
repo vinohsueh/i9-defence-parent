@@ -1,5 +1,12 @@
 package i9.defence.platform.microservice.push.pool;
 
+import i9.defence.platform.microservice.push.service.ThirdPlatformService;
+import i9.defence.platform.microservice.push.vo.ChannelData;
+import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
+import i9.defence.platform.utils.DateUtils;
+import i9.defence.platform.utils.SqlUtil;
+import i9.defence.platform.utils.StringUtil;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,19 +26,12 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import i9.defence.platform.microservice.push.service.ThirdPlatformService;
-import i9.defence.platform.microservice.push.vo.ChannelData;
-import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
-import i9.defence.platform.utils.DateUtils;
-import i9.defence.platform.utils.SqlUtil;
-import i9.defence.platform.utils.StringUtil;
-
 @Component
 public class ActiveMQConsumerRunnablePool {
 
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerRunnablePool.class);
 
-    private final ExecutorService pool = Executors.newCachedThreadPool();
+    private final ExecutorService pool = Executors.newFixedThreadPool(50);
 
     @Autowired
     private ThirdPlatformService thirdPlatformService;
@@ -77,9 +77,7 @@ public class ActiveMQConsumerRunnablePool {
                         }
                     }
                     thirdPlatformService.saveAlertOrigin(deviceInfoDto, channelDatas);
-                    if(channelDatas.size() > 0){
-                    	thirdPlatformService.updateDeviceStatus(deviceInfoDto.getId(), channelDatas.size());
-                    }
+                    thirdPlatformService.updateDeviceStatus(deviceInfoDto.getId(), channelDatas.size());
                     logger.info("push message : " + textMessage.toString());
                 } catch (Exception e) {
                     logger.error("save up stream decode error, ex : ", e);
