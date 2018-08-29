@@ -161,39 +161,67 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 		$scope.project.sendType = sendTypeArr.join(',');
 		var nameArr = [];
 		var phoneArr = [];
-		var configStatu = 0;
+		var configStatu = [];		//1为空 2正确 3不匹配 4正则不匹配
+		var phoneTest =/^1[3|4|5|7|8]\d{9}$/;
 		$('#sendNum .sendItem').each(function(){
 			var thisItem = $(this);
+			
 			if(thisItem.find('.sendName input').val()){
 				if(thisItem.find('.sendPhone input').val()){
-					nameArr.push(thisItem.find('.sendName input').val());
-					phoneArr.push(thisItem.find('.sendPhone input').val());
+					if(!phoneTest.test(thisItem.find('.sendPhone input').val())){
+						configStatu.push(4);
+						return false;
+			        }else{
+			        	nameArr.push(thisItem.find('.sendName input').val());
+						phoneArr.push(thisItem.find('.sendPhone input').val());
+						configStatu.push(2);
+			        }
+					
 				}else{
-					configStatu = 1;
-					$.toaster({
-		                title : "Error",
-		                priority : "danger",
-		                message : "姓名和号码需要匹配!"
-		            });
-		            return false;
+					configStatu.push(3);
+					return false;
 				}
+			}else if(thisItem.find('.sendPhone input').val()){
+				if(!phoneTest.test(thisItem.find('.sendPhone input').val())){
+					configStatu.push(4);
+					return false;
+		        }else{
+		        	configStatu.push(3);
+		        }
+				
 			}else{
-				configStatu = 1;
-				$.toaster({
-	                title : "Error",
-	                priority : "danger",
-	                message : "姓名和号码不能为空"
-	            });
-	            return false;
+				configStatu.push(1);
 			}
 		});
 		
 		$scope.project.recipients = nameArr.join(',');
 		$scope.project.recipientphones = phoneArr.join(',');
-		if(configStatu != 1){
+		console.log(configStatu)
+		if(configStatu.indexOf(4)!= -1){
+			$.toaster({
+                title : "Error",
+                priority : "danger",
+                message : "请输入正确的手机号码！"
+            });
+            return false;
+		}else if(configStatu.indexOf(3)!= -1){
+			$.toaster({
+                title : "Error",
+                priority : "danger",
+                message : "发信人和号码需对应！"
+            });
+            return false;
+		}else if(configStatu.indexOf(2)!= -1){
 			httpService.post({url:'./project/addProject',data:$scope.project,showSuccessMsg:true}).then(function(data) {  
 	            $modalInstance.dismiss('cancel')
 	        });
+		}else if(configStatu.indexOf(1)!= -1){
+			$.toaster({
+                title : "Error",
+                priority : "danger",
+                message : "发信人不能为空!"
+            });
+            return false;
 		}
 		
         
