@@ -30,7 +30,7 @@ public class ActiveMQConsumerRunnable implements Runnable {
         }
     }
     
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final ExecutorService executorService = Executors.newFixedThreadPool(50);
     
     @Autowired
     private ActiveMQConsumerService activeMQConsumerService;

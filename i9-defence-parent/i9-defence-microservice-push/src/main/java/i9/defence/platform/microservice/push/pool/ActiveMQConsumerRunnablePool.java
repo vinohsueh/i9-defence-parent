@@ -1,6 +1,12 @@
 package i9.defence.platform.microservice.push.pool;
 
-import java.text.SimpleDateFormat;
+import i9.defence.platform.microservice.push.service.ThirdPlatformService;
+import i9.defence.platform.microservice.push.vo.ChannelData;
+import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
+import i9.defence.platform.utils.DateUtils;
+import i9.defence.platform.utils.SqlUtil;
+import i9.defence.platform.utils.StringUtil;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,25 +26,18 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import i9.defence.platform.microservice.push.service.ThirdPlatformService;
-import i9.defence.platform.microservice.push.vo.ChannelData;
-import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
-import i9.defence.platform.utils.DateUtils;
-import i9.defence.platform.utils.SqlUtil;
-import i9.defence.platform.utils.StringUtil;
-
 @Component
 public class ActiveMQConsumerRunnablePool {
 
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerRunnablePool.class);
 
-    private final ExecutorService pool = Executors.newCachedThreadPool();
+    private final ExecutorService executorService = Executors.newFixedThreadPool(50);
 
     @Autowired
     private ThirdPlatformService thirdPlatformService;
 
     public void executePool(final TextMessage textMessage) {
-        pool.execute(new TimerTask() {
+        executorService.execute(new TimerTask() {
 
             @Override
             public void run() {
