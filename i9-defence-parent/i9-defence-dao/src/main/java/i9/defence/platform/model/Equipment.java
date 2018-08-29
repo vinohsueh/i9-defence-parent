@@ -103,6 +103,19 @@ public class Equipment {
     private String equipmentCategoryName;
     
     private Integer remainAlert;
+    
+    /**
+     * 最新事件时间
+     */
+    private String newEventTime;
+    
+	public String getNewEventTime() { 
+		return newEventTime;
+	}
+
+	public void setNewEventTime(String newEventTime) {
+		this.newEventTime = newEventTime;
+	}
 
 	public Integer getRemainAlert() {
 		return remainAlert;

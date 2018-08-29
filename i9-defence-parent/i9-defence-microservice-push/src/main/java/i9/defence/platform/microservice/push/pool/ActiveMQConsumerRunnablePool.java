@@ -31,13 +31,13 @@ public class ActiveMQConsumerRunnablePool {
 
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerRunnablePool.class);
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(50);
+    private final ExecutorService pool = Executors.newFixedThreadPool(50);
 
     @Autowired
     private ThirdPlatformService thirdPlatformService;
 
     public void executePool(final TextMessage textMessage) {
-        executorService.execute(new TimerTask() {
+        pool.execute(new TimerTask() {
 
             @Override
             public void run() {
