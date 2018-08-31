@@ -73,14 +73,13 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         JSONArray clientNames = new JSONArray();
         List<String> phonsList = new ArrayList<String>();
         List<String> signNameList = new ArrayList<String>();
-        String[] recipients = project.getRecipients().split(",");
         String[] recipientphones = project.getRecipientphones().split(",");
-        for (int i = 0; i < recipients.length; i++) {
+        for (int i = 0; i < recipientphones.length; i++) {
             JSONObject clientNamesJson = new JSONObject();
-            clientNamesJson.put("name", recipients[i]);
+            clientNamesJson.put("time", equipment.getEquipmentNewEventTimeStr());
             clientNamesJson.put("project", project.getProjectName());
             clientNamesJson.put("postion", equipment.getEquipmentRemarks());
-            clientNamesJson.put("equipmentType", equipment.getEquipmentCategory().getEqCategoryName());
+//          clientNamesJson.put("equipmentType", equipment.getEquipmentCategory().getEqCategoryName());
             clientNames.add(clientNamesJson);
             phonsList.add(recipientphones[i]);
             signNameList.add("合极电气");
@@ -187,14 +186,13 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         JSONArray clientNames = new JSONArray();
         List<String> phonsList = new ArrayList<String>();
         List<String> signNameList = new ArrayList<String>();
-        String[] recipients = project.getRecipients().split(",");
         String[] recipientphones = project.getRecipientphones().split(",");
-        for (int i = 0; i < recipients.length; i++) {
+        for (int i = 0; i < recipientphones.length; i++) {
             JSONObject clientNamesJson = new JSONObject();
-            clientNamesJson.put("name", recipients[i]);
+            clientNamesJson.put("time", equipment.getEquipmentNewEventTimeStr());
             clientNamesJson.put("project", project.getProjectName());
             clientNamesJson.put("postion", equipment.getEquipmentRemarks());
-            clientNamesJson.put("equipmentType", equipment.getEquipmentCategory().getEqCategoryName());
+//            clientNamesJson.put("equipmentType", equipment.getEquipmentCategory().getEqCategoryName());
             clientNames.add(clientNamesJson);
             phonsList.add(recipientphones[i]);
             signNameList.add("合极电气");
