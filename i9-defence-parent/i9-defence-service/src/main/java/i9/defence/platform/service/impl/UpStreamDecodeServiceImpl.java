@@ -205,7 +205,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 errorRecord.setType(dataStatus);
                 errorRecordDao.insertErrorRecord(errorRecord);
             }
-            return alertStatus;
+            return dataStatus;
         } catch (Exception e) {
             return -1;
         }

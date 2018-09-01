@@ -27,8 +27,8 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
     public void run() {
         UpStreamDecodeService upStreamDecodeService = getUpStreamDecodeService();
         try {
-            int alertStatus = upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
-            if (alertStatus > 0) {
+            int dataStatus = upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
+            if (dataStatus > 0) {
                 JSONObject jsonObject = JSONObject.parseObject(textMessage.getText());
                 String systemId = jsonObject.getString("systemId");
                 int loop = jsonObject.getIntValue("loop");
@@ -37,7 +37,7 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
 
                 EquipmentCheckSendMessageService equipmentCheckSendMessageService = SpringBeanService
                         .getBean(EquipmentCheckSendMessageService.class);
-                equipmentCheckSendMessageService.checkEquipmentAndSendMessageAlarm(deviceId, alertStatus, textMessage.getText());
+                equipmentCheckSendMessageService.checkEquipmentAndSendMessageAlarm(deviceId, dataStatus, textMessage.getText());
             }
             logger.info("save up stream decode success, data : " + textMessage.getText());
             // 处理推送到第三方平台数据接口
