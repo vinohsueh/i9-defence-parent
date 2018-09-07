@@ -48,7 +48,7 @@ public class DataParseUtil {
             return DataParseUtil.parseUnsignedInt(b);
 
         case T_SIGNED_LONG:
-            return DataParseUtil.parseSignedLong(b);
+            return DataParseUtil.parseSignedInt0(b);
 
         case T_FLOAT:
             int s = (int) parseUnsignedInt(b);
