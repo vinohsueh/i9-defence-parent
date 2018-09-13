@@ -134,12 +134,12 @@ public class ThirdPlatformRepositoryImpl implements ThirdPlatformRepository {
 	@Override
 	public List<Integer> selectUsefulChannel(String deviceId) {
 		try {
-			List<Integer> result = new ArrayList<>();
+			List<Integer> result = new ArrayList<Integer>();
 			String sql = "select p.channel from t_passageway p where p.systemId = (select systemId from t_equipment where deviceId = '"+deviceId+"')";
 			List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
 			if (list.size() > 0) {
 				for (Map<String, Object> map : list) {
-					result.add((int) map.get("channel"));
+					result.add((Integer) map.get("channel"));
 				}
 			}
 			return result;

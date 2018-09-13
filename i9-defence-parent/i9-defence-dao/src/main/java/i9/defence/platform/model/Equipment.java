@@ -1,5 +1,6 @@
 package i9.defence.platform.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import i9.defence.platform.dao.vo.EqChannelDataDto;
@@ -107,13 +108,13 @@ public class Equipment {
     /**
      * 最新事件时间
      */
-    private String newEventTime;
-    
-	public String getNewEventTime() { 
+    private Date newEventTime;
+
+	public Date getNewEventTime() {
 		return newEventTime;
 	}
 
-	public void setNewEventTime(String newEventTime) {
+	public void setNewEventTime(Date newEventTime) {
 		this.newEventTime = newEventTime;
 	}
 
@@ -318,6 +319,15 @@ public class Equipment {
     	}
         return "";
     }
+    
+    public String getEquipmentNewEventTimeStr() {
+    	if(null !=newEventTime) {
+    		SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		return sdm.format(newEventTime);
+    	}
+		return ""; 
+    }
+    
 
     public String getEquipmentPositionStr() {
     	if(id !=null ) {

@@ -1,0 +1,29 @@
+合极mq和sms项目打包过程
+-----------------------------
+1､进入目录/usr/local/environment/i9-defence-parent/i9-defence-parent；
+2､运行repackage.sh，打完的所有包会放在/tmp/目录下；
+3､进入/tmp/目录；
+4､运行scp -P10000 -r i9-defence-microservice-mq.war 103.248.102.3:/tmp/命令将i9-defence-microservice-mq.war传到103.248.102.3_10000这台服务器中；
+5､运行scp -P10001 -r i9-defence-microservice-mq.war 103.248.102.3:/tmp/命令将i9-defence-microservice-mq.war传到103.248.102.3_10001这台服务器中；
+6､ssh登录这台服务器103.248.102.3_10000
+# ssh -p 10000 root@103.248.102.3
+7､查看服务进程号并进行关闭操作
+# ps aux | grep tomcat 
+# kill -9 pid
+8､将tomcat war文件进行备份
+9､将war文件复制到指定的tomcat webapps目录下 
+# cp /tmp/i9-defence-microservice-mq.war /usr/local/environment/microservice-mq-tomcat/webapps/
+10､启动服务/usr/local/environment/microservice-mq-tomcat/startup.sh
+11､查看服务器日志tail -f /usr/local/environment/microservice-mq-tomcat/logs/catalina.out 
+
+注：两台服务器部署都一样6～11步
+
+问题分析
+--------------------------------
+如果查询某一天的日志可以在/usr/local/environment/microservice-mq-tomcat/logs/有具体的应用名称+日期，可以下载下来或者用线上工具直接分析日志
+
+集群说明
+-------------------------------
+103.248.102.3_10000
+103.248.102.3_10001
+这两台服务器中部署着i9-defence-microservice-mq, i9-defence-microservice-push,i9-defence-microservice-observer,i9-defence-microservice-sms，这几个应用在两台服务器上面部署，是分布式的一个集群关系，通过activemq消息队列进行数据接入和输出，如果要部署服务，两台都要进行部署工作，不可以分开部署，否则后出现业务逻辑处理不一致的情况；
