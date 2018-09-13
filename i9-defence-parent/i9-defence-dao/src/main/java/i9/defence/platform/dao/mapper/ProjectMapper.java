@@ -64,4 +64,8 @@ public interface ProjectMapper {
 	List<Project> findProjectName();
 
 	List<Integer> selectWarningProjectIds(@Param("example") ProjectSearchDto projectSearchDto);
+
+    List<Project> findProjectName2(Integer id);
+
+    List<Project> findProjectName3(Integer id);
 }
