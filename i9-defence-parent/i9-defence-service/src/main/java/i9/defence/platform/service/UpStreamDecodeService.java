@@ -58,4 +58,6 @@ public interface UpStreamDecodeService {
      * @param connectLog
      */
     void insertConnectRecord(ConnectLog connectLog);
+    
+    void updateEquipmentNewestTime(String deviceId ,String dateTime);
 }

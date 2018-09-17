@@ -273,4 +273,14 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		equipmentMapper.updateEquipRemainAlertByDeviceIds(deviceIds); 
 	}
 
+    @Override
+    public void updateAllEquipmentStatus() throws Exception {
+        equipmentMapper.updateAllEquipmentStatus();
+    }
+
+    @Override
+    public void updateEquipmentNewestTime(String eqDeviceId, String dateTime) throws Exception {
+        equipmentMapper.updateEquipmentNewestTime(eqDeviceId, dateTime);
+    }
+
 }

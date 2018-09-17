@@ -300,4 +300,17 @@ public class EquipmentController {
 		result.put("data", totalEquipmentDto);
 		return result;
 	}
+	
+	/**
+	 * 更新所有设备的status
+	* @Title: updateAllEquipmentStatus 
+	* @Description: TODO
+	* @return
+	 */
+	@RequestMapping("/updateAllEquipmentStatus")
+	public HashMap<String, Object> updateAllEquipmentStatus(){
+	    HashMap<String, Object> result = new HashMap<String, Object>();
+	    equipmentService.updateAllEquipmentStatus();
+	    return result;
+	}
 }

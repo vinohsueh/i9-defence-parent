@@ -280,4 +280,20 @@ public interface EquipmentDao {
 	* @throws Exception
 	 */
 	void updateEquipRemainAlertByDeviceIds(List<String> deviceIds)throws Exception ;
+	
+	/**
+	 * 更改设备状态
+	* @Title: updateAllEquipmentStatus 
+	* @Description: TODO
+	* @throws Exception
+	 */
+    void updateAllEquipmentStatus()throws Exception;
+    /**
+     * 更新设备最新事件时间
+    * @Title: updateEquipmentNewestTime 
+    * @Description: TODO
+    * @param eqDeviceId
+    * @param dateTime
+     */
+    void updateEquipmentNewestTime(String eqDeviceId, String dateTime)throws Exception; 
 }

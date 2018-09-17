@@ -537,5 +537,23 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询失败",e.getMessage());
 		}
 	}
+
+    @Override
+    public void updateAllEquipmentStatus() throws BusinessException {
+        try {
+            equipmentDao.updateAllEquipmentStatus();
+        } catch (Exception e) {
+            throw new BusinessException("更新所有设备状态失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateEquipmentNewestTime(String eqDeviceId, String dateTime) {
+        try {
+            equipmentDao.updateEquipmentNewestTime(eqDeviceId,dateTime);
+        } catch (Exception e) {
+            throw new BusinessException("更新设备最新事件事件失败",e.getMessage());
+        }
+    }
 }
 

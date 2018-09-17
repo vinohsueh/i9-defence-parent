@@ -56,7 +56,11 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
             connectLog.setDeviceId(deviceId);// 设备唯一标识
             connectLog.setStatus(status);
             connectLog.setChannelId(channelId);
-
+            
+            //加入设备最新事件时间
+            String dateToString = StringUtil.dateToString(new Date());
+            upStreamDecodeService.updateEquipmentNewestTime(deviceId, dateToString);
+            
             String submitDate = jsonObject.getString("submitDate");
             if (submitDate == null || submitDate.equals("")) {
                 // 兼容之前MQ消息
