@@ -593,4 +593,19 @@
     <select id="findProjectName" resultType="i9.defence.platform.model.Project">
    	select id , projectName from t_project
    </select>
+   
+    <select id="findProjectName2" parameterType="java.lang.Integer" resultType="i9.defence.platform.model.Project">
+   		select p.* from t_project p where p.distributorId = #{id} or
+				p.distributorId in (select managerId from t_manager_grade where
+				parentId = #{id}) or
+				p.distributorId in (select
+				managerId from t_manager_grade where parentId in (select
+				managerId
+				from t_manager_grade where parentId = #{id}))
+   </select>
+   
+    <select id="findProjectName3" parameterType="java.lang.Integer" resultType="i9.defence.platform.model.Project">
+   		select p.* from t_project p  left join t_project_safe ps on p.id = ps.projectId where ps.managerId = #{id} and
+				p.projectState = 1
+   </select>
 </mapper>

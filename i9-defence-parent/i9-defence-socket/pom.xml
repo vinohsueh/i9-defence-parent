@@ -1,17 +1,17 @@
 ﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>i9.defence.platform</groupId>
     <artifactId>i9-defence-socket</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.4.RELEASE</spring.version>
     </properties>
-    
+
     <build>
         <finalName>i9-defence-socket</finalName>
         <plugins>
@@ -86,17 +86,17 @@
             <version>1.7.2</version>
         </dependency>
         <dependency>
-             <groupId>i9.defence.platform</groupId>
+            <groupId>i9.defence.platform</groupId>
             <artifactId>i9-defence-mq-libraries</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-             <groupId>i9.defence.platform</groupId>
+            <groupId>i9.defence.platform</groupId>
             <artifactId>i9-defence-netty-libraries</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-             <groupId>i9.defence.platform</groupId>
+            <groupId>i9.defence.platform</groupId>
             <artifactId>i9-defence-utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -105,21 +105,18 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.44</version>
         </dependency>
-        <!-- <dependency>
-            <groupId>org.zeroturnaround</groupId>
-            <artifactId>zt-exec</artifactId>
-            <version>1.10</version>
-        </dependency> -->
+        <!-- <dependency> <groupId>org.zeroturnaround</groupId> <artifactId>zt-exec</artifactId> 
+            <version>1.10</version> </dependency> -->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
         </dependency>
-		<dependency>
-			<groupId>com.google.code.scriptengines</groupId>
-			<artifactId>scriptengines-javascript</artifactId>
-			<version>1.1.1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.google.code.scriptengines</groupId>
+            <artifactId>scriptengines-javascript</artifactId>
+            <version>1.1.1</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -134,6 +131,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.4</version>
         </dependency>
     </dependencies>
 </project>
