@@ -1,19 +1,18 @@
 package i9.defence.platform.microservice.mq.service.impl;
 
-import javax.jms.TextMessage;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.alibaba.fastjson.JSONObject;
-
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
+import i9.defence.platform.microservice.mq.service.DeviceRecordService;
 import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.jms.TextMessage;
 
 /**
  * 处理ActiveMQ业务消息处理任务
@@ -39,6 +38,16 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
                         .getBean(EquipmentCheckSendMessageService.class);
                 equipmentCheckSendMessageService.checkEquipmentAndSendMessageAlarm(deviceId, dataStatus, textMessage.getText());
             }
+
+            JSONObject jsonObject = JSONObject.parseObject(textMessage.getText());
+            String systemId = jsonObject.getString("systemId");
+            int loop = jsonObject.getIntValue("loop");
+            String address = jsonObject.getString("deviceAddress");
+            String deviceId = StringUtil.getDeviceId(systemId, loop, address);
+
+            DeviceRecordService deviceRecordService = SpringBeanService.getBean(DeviceRecordService.class);
+            deviceRecordService.recordDeviceLastSubmitDate(deviceId);
+
             logger.info("save up stream decode success, data : " + textMessage.getText());
             // 处理推送到第三方平台数据接口
             ActiveMQProducerService activeMQProducerService = SpringBeanService.getBean(ActiveMQProducerService.class);
