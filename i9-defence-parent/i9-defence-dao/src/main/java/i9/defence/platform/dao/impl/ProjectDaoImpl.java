@@ -129,4 +129,14 @@ public class ProjectDaoImpl implements ProjectDao{
 	public List<Integer> selectWarningProjectIds(ProjectSearchDto projectSearchDto) {
 		return projectMapper.selectWarningProjectIds(projectSearchDto);
 	}
+
+    @Override
+    public List<Project> findProjectName2(Integer id) {
+        return projectMapper.findProjectName2(id);
+    }
+
+    @Override
+    public List<Project> findProjectName3(Integer id) {
+        return projectMapper.findProjectName3(id);
+    }
 }

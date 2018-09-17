@@ -20,7 +20,6 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     
     private static final Logger logger = Logger.getLogger(ServiceHandler.class);
 
-    // 客户端每次发送消息接收
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String channelId = ctx.channel().id().asLongText();
         Message message = (Message) msg;
@@ -40,11 +39,12 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
                 channelPacker.writeAndFlush(messageEncodeConvert, message.getIndex());
             }
         }
-        catch (BusinessException businessException) {
-            int errorCode = businessException.getErrorCode();
+        catch (BusinessException exception) {
+            int errorCode = exception.getErrorCode();
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
             channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
-            logger.info("netty 服务器，客户端 : " + channelId + ", exception : ", businessException);
+            logger.info("netty 服务器，客户端 : " + channelId + ", errorcode : " + exception.getErrorCode() + ", exception : ", 
+                    exception);
         }
         catch (Exception exception) {
             int errorCode = ErrorCode.UNKOWN;

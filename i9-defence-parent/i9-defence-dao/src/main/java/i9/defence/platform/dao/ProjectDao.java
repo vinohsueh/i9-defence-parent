@@ -120,4 +120,8 @@ public interface ProjectDao {
 	 * @return
 	 */
 	List<Integer> selectWarningProjectIds(ProjectSearchDto projectSearchDto);
+
+    List<Project> findProjectName2(Integer id);
+    
+    List<Project> findProjectName3(Integer id);
 }

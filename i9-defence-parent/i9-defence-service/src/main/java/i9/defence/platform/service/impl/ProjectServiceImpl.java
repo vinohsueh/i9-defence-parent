@@ -300,10 +300,23 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<Project> findProjectName()throws BusinessException{
 		try {
-			return projectDao.findProjectName();
+		  //获取登录人
+            Manager loginManager = managerService.getLoginManager();
+          //如果为网站用户显示全部（type=0）
+            if(Arrays.asList(Constants.S_NET_MANAGER).contains(loginManager.getType())) {
+                return projectDao.findProjectName();
+            }
+            //如果为经销商和管理员
+            else if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+                return projectDao.findProjectName2(loginManager.getId());
+            }else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+                //如果是项目管理员
+                return projectDao.findProjectName3(loginManager.getId());
+            }
 		} catch (Exception e) {
 			throw new BusinessException("查询失败", e.getMessage());
 		}
+		return null;
 	}
 
 	@Override
