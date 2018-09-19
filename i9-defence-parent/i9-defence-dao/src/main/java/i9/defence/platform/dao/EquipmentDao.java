@@ -1,9 +1,11 @@
 package i9.defence.platform.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentNewestDto;
 import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
@@ -295,5 +297,9 @@ public interface EquipmentDao {
     * @param eqDeviceId
     * @param dateTime
      */
-    void updateEquipmentNewestTime(String eqDeviceId, String dateTime)throws Exception; 
+    void updateEquipmentNewestTime(String eqDeviceId, String dateTime)throws Exception;
+    
+    List<EquipmentNewestDto> selectAllEquipmentNewest()throws Exception;
+    
+    void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList); 
 }
