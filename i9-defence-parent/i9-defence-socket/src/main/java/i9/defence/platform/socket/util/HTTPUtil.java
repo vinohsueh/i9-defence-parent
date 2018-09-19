@@ -34,8 +34,10 @@ public class HTTPUtil {
             for (Entry<String, String> entry : params.entrySet()) {
                 stringBuffer.append("&").append(entry.getKey()).append("=").append(entry.getValue());
             }
-
-            String param = stringBuffer.substring(1);
+            String param = "";
+            if (!param.isEmpty()) {
+                param = stringBuffer.substring(1);
+            }
             PrintWriter writer = new PrintWriter(httpUrlConn.getOutputStream());
             writer.write(param);
             writer.flush();
