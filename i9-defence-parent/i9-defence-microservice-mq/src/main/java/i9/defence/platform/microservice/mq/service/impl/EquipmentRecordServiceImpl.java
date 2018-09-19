@@ -1,8 +1,14 @@
 package i9.defence.platform.microservice.mq.service.impl;
 
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import i9.defence.platform.microservice.mq.service.EquipmentRecordService;
+import i9.defence.platform.service.EquipmentService;
+import i9.defence.platform.utils.BusinessException;
+import i9.defence.platform.utils.StringUtil;
 
 /**
  * 设备记录服务类
@@ -14,6 +20,8 @@ import i9.defence.platform.microservice.mq.service.EquipmentRecordService;
 @Service
 public class EquipmentRecordServiceImpl implements EquipmentRecordService {
 
+    @Autowired
+    private EquipmentService equipmentService;
     /**
      * 记录设备最后一次上行数据时间
      * 
@@ -21,5 +29,10 @@ public class EquipmentRecordServiceImpl implements EquipmentRecordService {
      */
     @Override
     public void recordLastDate(String deviceId) {
+        try {
+            equipmentService.updateEquipmentNewestTime(deviceId, StringUtil.dateToString(new Date()));
+        } catch (Exception e) {
+            throw new BusinessException("更新设备最新事件时间失败",e.getMessage());
+        }
     }
 }

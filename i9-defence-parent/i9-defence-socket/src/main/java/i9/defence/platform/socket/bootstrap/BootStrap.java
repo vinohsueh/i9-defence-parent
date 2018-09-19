@@ -48,7 +48,7 @@ public class BootStrap extends HttpServlet {
 
     public void batchSetDeviceStatusToOffline() {
         // TODO 在这里增加访问URL
-        String requestUrl = "";
+        String requestUrl = "http://103.248.102.21:8080/equipment/updateAllEquipmentStatus";
         boolean can = false;
         do {
             try {

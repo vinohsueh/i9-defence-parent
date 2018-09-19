@@ -75,6 +75,8 @@ public class ShiroConfiguration {
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/regist.html", "anon");
         filterChainDefinitionMap.put("/login.html", "anon");
+        //filterChainDefinitionMap.put("/equipment.html", "anon");
+        filterChainDefinitionMap.put("/equipment/updateAllEquipmentStatus", "anon");
         filterChainDefinitionMap.put("/code/**", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/regist", "anon");

@@ -205,7 +205,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 errorRecord.setDeviceId(deviceId);
                 errorRecord.setType(dataStatus);
                 errorRecordDao.insertErrorRecord(errorRecord);
-                equipmentDao.updateEquipmentNewestTime(deviceId,StringUtil.dateToString(new Date()));
+//                equipmentDao.updateEquipmentNewestTime(deviceId,StringUtil.dateToString(new Date()));
             }
             return dataStatus;
         } catch (Exception e) {

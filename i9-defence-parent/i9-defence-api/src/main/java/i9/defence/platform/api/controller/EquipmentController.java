@@ -1,7 +1,9 @@
  package i9.defence.platform.api.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import i9.defence.platform.api.components.ChannelDataComponent;
 import i9.defence.platform.api.components.MonthDataInfoComponent;
 import i9.defence.platform.dao.vo.ChannelDataSearchDto;
+import i9.defence.platform.dao.vo.EquipmentNewestDto;
 import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.MonthData;
@@ -38,6 +41,7 @@ import i9.defence.platform.service.PassagewayService;
 import i9.defence.platform.service.ProjectService;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.PageBounds;
+import i9.defence.platform.utils.StringUtil;
 
 /**
  * 创建时间：2018年1月9日
@@ -149,6 +153,7 @@ public class EquipmentController {
 	 * @Title findEquipmentSystemCategory
 	 * @return
 	 */
+	
 	@RequestMapping("/findEquipmentSystemCategory")
 	public HashMap<String, Object> findEquipmentSystemCategory() {
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -311,6 +316,29 @@ public class EquipmentController {
 	public HashMap<String, Object> updateAllEquipmentStatus(){
 	    HashMap<String, Object> result = new HashMap<String, Object>();
 	    equipmentService.updateAllEquipmentStatus();
+	    result.put("code",0);
 	    return result;
 	}
+	
+	@RequestMapping("/selectAllEquipmentNewest")
+	public HashMap<String, Object> selectAllEquipmentNewest() throws ParseException{
+	    HashMap<String, Object> result = new HashMap<String, Object>();
+	  //查询所有设备最新事件时间
+        List<EquipmentNewestDto> list = equipmentService.selectAllEquipmentNewest();
+        //新建异常设备id
+        ArrayList<String> eqDeviceIdList = new  ArrayList<String>(); 
+        //获取当前时间
+        Date nowDate = new Date();
+        for(EquipmentNewestDto equipment :list) {  
+            Date equipEventTime = StringUtil.StringToDateS(equipment.getNewEventTime());
+            //获取相差分钟数
+            long min =(nowDate.getTime()-equipEventTime.getTime())/(1000*60);
+            if(min>=8) {
+                eqDeviceIdList.add(equipment.getEqDeviceId());
+            }
+        }
+        equipmentService.updateSomeStatusByDevicedIds(eqDeviceIdList);
+        return result;
+    }
+	
 }
