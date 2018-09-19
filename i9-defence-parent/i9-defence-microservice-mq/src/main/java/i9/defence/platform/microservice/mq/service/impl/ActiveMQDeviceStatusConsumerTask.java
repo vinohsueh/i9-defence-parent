@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
 import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
+import i9.defence.platform.microservice.mq.service.EquipmentRecordService;
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.model.ConnectLog;
 import i9.defence.platform.service.UpStreamDecodeService;
@@ -74,6 +75,9 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
                         .getBean(EquipmentCheckSendMessageService.class);
                 equipmentCheckSendMessageService.checkEquipmentAndSendMessageOffline(deviceId);
             }
+            
+            EquipmentRecordService equipmentRecordService = SpringBeanService.getBean(EquipmentRecordService.class);
+            equipmentRecordService.recordLastDate(deviceId);
             logger.info("save connect log success, deviceId : {}, status : {}", deviceId, status);
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);

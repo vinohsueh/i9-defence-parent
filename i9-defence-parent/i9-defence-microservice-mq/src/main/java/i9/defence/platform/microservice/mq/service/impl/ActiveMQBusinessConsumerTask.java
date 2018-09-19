@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
 import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
+import i9.defence.platform.microservice.mq.service.EquipmentRecordService;
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
@@ -39,6 +40,14 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
                         .getBean(EquipmentCheckSendMessageService.class);
                 equipmentCheckSendMessageService.checkEquipmentAndSendMessageAlarm(deviceId, dataStatus, textMessage.getText());
             }
+            
+            JSONObject jsonObject = JSONObject.parseObject(textMessage.getText());
+            String systemId = jsonObject.getString("systemId");
+            int loop = (Integer) jsonObject.get("loop");
+            String address = jsonObject.getString("deviceAddress");
+            String deviceId = StringUtil.getDeviceId(systemId, loop, address);
+            EquipmentRecordService equipmentRecordService = SpringBeanService.getBean(EquipmentRecordService.class);
+            equipmentRecordService.recordLastDate(deviceId);
             logger.info("save up stream decode success, data : " + textMessage.getText());
             // 处理推送到第三方平台数据接口
             ActiveMQProducerService activeMQProducerService = SpringBeanService.getBean(ActiveMQProducerService.class);
