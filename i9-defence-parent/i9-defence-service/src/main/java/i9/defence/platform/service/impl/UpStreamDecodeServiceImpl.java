@@ -58,6 +58,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     private PassageWayDao passageWayDao;
     @Autowired
     private ErrorRecordDao errorRecordDao;
+    
 
     @Override
     public void addUpStreamDecode(UpStreamDecode upStreamDecode) throws BusinessException {
@@ -204,6 +205,7 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 errorRecord.setDeviceId(deviceId);
                 errorRecord.setType(dataStatus);
                 errorRecordDao.insertErrorRecord(errorRecord);
+                equipmentDao.updateEquipmentNewestTime(deviceId,StringUtil.dateToString(new Date()));
             }
             return dataStatus;
         } catch (Exception e) {
@@ -271,5 +273,13 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     @Override
     public void insertConnectRecord(ConnectLog connectLog) {
         connectLogDao.add(connectLog);
+    }
+
+    @Override
+    public void updateEquipmentNewestTime(String deviceId, String dateTime) {
+        try {
+            equipmentDao.updateEquipmentNewestTime(deviceId,dateTime);
+        } catch (Exception e) {
+        }
     }
 }

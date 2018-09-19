@@ -1,9 +1,11 @@
 package i9.defence.platform.dao.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import i9.defence.platform.dao.vo.EquipmentNewestDto;
 import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
@@ -192,5 +194,18 @@ public interface EquipmentMapper {
 	* @param ids
 	 */
 	void updateEquipRemainAlertByDeviceIds(@Param("items") List<String> deviceIds);
+	
+	/**
+	 * 更改设备状态
+	* @Title: updateAllEquipmentStatus 
+	* @Description: TODO
+	 */
+    void updateAllEquipmentStatus(); 
+    
+    void updateEquipmentNewestTime(@Param("eqDeviceId") String eqDeviceId,@Param("newEventTime") String NewEventTime);
+
+    List<EquipmentNewestDto> selectAllEquipmentNewest();
+
+    void updateSomeStatusByDevicedIds(@Param("Items") ArrayList<String> eqDeviceIdList);  
 
 }

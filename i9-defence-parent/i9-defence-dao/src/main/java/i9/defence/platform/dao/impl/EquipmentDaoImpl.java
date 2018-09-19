@@ -1,5 +1,6 @@
 package i9.defence.platform.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.mapper.ChannelDataMapper;
 import i9.defence.platform.dao.mapper.EquipmentMapper;
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentNewestDto;
 import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
@@ -273,4 +275,25 @@ public class EquipmentDaoImpl implements EquipmentDao{
 		equipmentMapper.updateEquipRemainAlertByDeviceIds(deviceIds); 
 	}
 
+    @Override
+    public void updateAllEquipmentStatus() throws Exception {
+        equipmentMapper.updateAllEquipmentStatus();
+    }
+
+    @Override
+    public void updateEquipmentNewestTime(String eqDeviceId, String dateTime) throws Exception {
+        equipmentMapper.updateEquipmentNewestTime(eqDeviceId, dateTime);
+    }
+
+    @Override
+    public List<EquipmentNewestDto> selectAllEquipmentNewest()throws Exception {
+        return equipmentMapper.selectAllEquipmentNewest();
+    }
+
+    @Override
+    public void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList) {
+        equipmentMapper.updateSomeStatusByDevicedIds(eqDeviceIdList);
+    }
+    
+    
 }

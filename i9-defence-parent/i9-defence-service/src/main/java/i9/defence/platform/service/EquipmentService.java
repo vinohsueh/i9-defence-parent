@@ -1,9 +1,11 @@
 package i9.defence.platform.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentNewestDto;
 import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
@@ -204,5 +206,39 @@ public interface EquipmentService {
 	* @param ids
 	* @return
 	 */
-	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids)throws BusinessException;	
+	List<HiddenDangerDto> selectHiddenDangerByIds(List<Integer> ids)throws BusinessException;
+	
+	/**
+	 * 更新所有设备的status
+	* @Title: updateAllEquipmentStatus 
+	* @Description: TODO
+	* @throws BusinessException
+	 */
+    void updateAllEquipmentStatus()throws BusinessException;
+    
+    /**
+     * 更新设备最新事件事件
+    * @Title: updateEquipmentNewestTime 
+    * @Description: TODO
+    * @param eqDeviceId
+    * @param dateTime
+     */
+    void updateEquipmentNewestTime(String eqDeviceId, String dateTime);
+    
+    /**
+     * 查询所有的最新事件时间
+    * @Title: selectAllEquipmentNewest 
+    * @Description: TODO
+    * @return
+     */
+    List<EquipmentNewestDto> selectAllEquipmentNewest();
+    
+    /**
+     * 更新设备状态
+    * @Title: updateSomeStatusByDevicedIds 
+    * @Description: TODO
+    * @param eqDeviceIdList
+    * @throws BusinessException
+     */
+    void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList) throws BusinessException;; 	  
 }

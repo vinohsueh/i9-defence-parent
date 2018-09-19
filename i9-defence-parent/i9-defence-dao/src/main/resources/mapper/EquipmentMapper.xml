@@ -152,6 +152,9 @@
 		deviceId,
 		status, dataStatus, remainAlert,newEventTime
 	</sql>
+	<sql id="Base_Column_List2">
+	eqDeviceId,newEventTime
+	</sql>
 	<select id="selectByExample" parameterType="i9.defence.platform.model.EquipmentExample"
 		resultMap="BaseResultMap">
 		select
@@ -1471,5 +1474,32 @@
 		remainAlert = #{alertStatus}
 	 where deviceId = #{deviceId}
 	</update>
-
+	<update id="updateAllEquipmentStatus">
+		update t_equipment
+		set  
+		status = 0
+	</update>
+	<insert id="updateEquipmentNewestTime">
+	INSERT INTO t_equipment_newest (eqDeviceId, newEventTime)
+	VALUES
+		(#{eqDeviceId},#{newEventTime}) 
+	ON DUPLICATE KEY UPDATE
+	newEventTime =VALUES(newEventTime)
+	</insert>
+	<select id="selectAllEquipmentNewest" resultType="i9.defence.platform.dao.vo.EquipmentNewestDto">
+	 SELECT  
+	 <include refid="Base_Column_List2" /> 
+	 FROM
+	 t_equipment_newest
+	</select>
+	<update id="updateSomeStatusByDevicedIds" parameterType="java.util.List">
+	  update t_equipment 
+	  set 
+	  status = 0
+	  where deviceId in
+	  <foreach collection="Items" item="item" separator="," open="("
+			close=")">
+	  	#{item}
+	  </foreach>
+	</update>
 </mapper>
