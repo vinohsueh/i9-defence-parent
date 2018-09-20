@@ -26,7 +26,7 @@ public class BootStrap extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         // 服务器启动之前调用服务重置所有设置离线状态
-        batchSetDeviceStatusToOffline();
+//        batchSetDeviceStatusToOffline();
 
         ServerBootstrap bootstrap = new ServerBootstrap();
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
