@@ -22,6 +22,7 @@ public class EquipmentRecordServiceImpl implements EquipmentRecordService {
 
     @Autowired
     private EquipmentService equipmentService;
+
     /**
      * 记录设备最后一次上行数据时间
      * 
@@ -32,7 +33,7 @@ public class EquipmentRecordServiceImpl implements EquipmentRecordService {
         try {
             equipmentService.updateEquipmentNewestTime(deviceId, StringUtil.dateToString(new Date()));
         } catch (Exception e) {
-            throw new BusinessException("更新设备最新事件时间失败",e.getMessage());
+            throw new BusinessException("更新设备最新事件时间失败", e.getMessage());
         }
     }
 }

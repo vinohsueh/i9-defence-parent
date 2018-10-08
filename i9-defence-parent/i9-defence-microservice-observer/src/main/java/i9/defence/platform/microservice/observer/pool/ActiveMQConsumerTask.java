@@ -21,7 +21,6 @@ public class ActiveMQConsumerTask extends TimerTask {
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);
         }
-        // TODO 在这里处理设备编号
     }
 
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerTask.class);

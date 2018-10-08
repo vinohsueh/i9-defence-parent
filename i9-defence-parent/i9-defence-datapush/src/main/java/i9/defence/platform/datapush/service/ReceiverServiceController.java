@@ -42,7 +42,7 @@ public class ReceiverServiceController {
         Util.BodyObj obj = Util.resolveBody(body, false);
         logger.info("data receive:  body Object --- " +obj);
         if (obj != null){
-            boolean dataRight = Util.checkSignature(obj, ServerConfig.token);
+            boolean dataRight = Util.checkSignature(obj, ServerConfig.TOKEN);
             if (dataRight){
                 logger.info("data receive: content" + obj.toString());
             }else {
@@ -58,7 +58,7 @@ public class ReceiverServiceController {
         /********************************************************
          *  解析数据推送请求，加密模式
          *
-         *  如果是加密模式使用以下代码
+         *  如果  是加密模式使用以下代码
          ********************************************************/
         /*************加密模式  start****************/
 //        Util.BodyObj obj1 = Util.resolveBody(body, true);
@@ -93,7 +93,7 @@ public class ReceiverServiceController {
                         @RequestParam(value = "signature") String signature) throws UnsupportedEncodingException {
 
         logger.info("url&token check: msg:{} nonce{} signature:{}",msg,nonce,signature);
-        if (Util.checkToken(msg,nonce,signature,ServerConfig.token)){
+        if (Util.checkToken(msg,nonce,signature,ServerConfig.TOKEN)){
             return msg;
         }else {
             return "error";

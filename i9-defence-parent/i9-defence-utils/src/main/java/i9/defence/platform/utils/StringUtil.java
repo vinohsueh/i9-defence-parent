@@ -98,6 +98,25 @@ public class StringUtil {
             return null;
         }
     }
+    /**
+     * 日期转换
+     * 
+     * @param date
+     * @return
+     * @throws ParseException 
+     */
+    public static Date StringToDateS(String date) throws ParseException {
+        if (org.apache.commons.lang.StringUtils.isNotBlank(date)) {
+            SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return sdm.parse(date);
+        } else {
+            return null;
+        }
+    }
+    
+    
+    
+    
 
     /**
      * 获取设备唯一id

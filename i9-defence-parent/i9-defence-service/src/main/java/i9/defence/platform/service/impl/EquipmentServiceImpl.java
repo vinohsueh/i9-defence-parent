@@ -19,6 +19,7 @@ import i9.defence.platform.dao.ApplyDao;
 import i9.defence.platform.dao.EquipmentDao;
 import i9.defence.platform.dao.ManagerDao;
 import i9.defence.platform.dao.vo.DealStatusDto;
+import i9.defence.platform.dao.vo.EquipmentNewestDto;
 import i9.defence.platform.dao.vo.EquipmentProjectDto;
 import i9.defence.platform.dao.vo.EquipmentSearchDto;
 import i9.defence.platform.dao.vo.HiddenDangerChannelDto;
@@ -537,5 +538,42 @@ public class EquipmentServiceImpl implements EquipmentService {
 			throw new BusinessException("查询失败",e.getMessage());
 		}
 	}
+
+    @Override
+    public void updateAllEquipmentStatus() throws BusinessException {
+        try {
+            equipmentDao.updateAllEquipmentStatus();
+        } catch (Exception e) {
+            throw new BusinessException("更新所有设备状态失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateEquipmentNewestTime(String eqDeviceId, String dateTime) {
+        try {
+            equipmentDao.updateEquipmentNewestTime(eqDeviceId,dateTime);
+        } catch (Exception e) {
+            throw new BusinessException("更新设备最新事件事件失败",e.getMessage());
+        }
+    }
+
+    @Override 
+    public List<EquipmentNewestDto> selectAllEquipmentNewest() {
+        try {
+            return equipmentDao.selectAllEquipmentNewest();
+        } catch (Exception e) {
+            throw new BusinessException("更新设备最新事件事件失败",e.getMessage());
+        }
+       
+    }
+
+    @Override
+    public void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList) throws BusinessException {
+        try {
+            equipmentDao.updateSomeStatusByDevicedIds(eqDeviceIdList);
+        } catch (Exception e) {
+            throw new BusinessException("更新设备状态失败",e.getMessage());
+        }
+    }
 }
 

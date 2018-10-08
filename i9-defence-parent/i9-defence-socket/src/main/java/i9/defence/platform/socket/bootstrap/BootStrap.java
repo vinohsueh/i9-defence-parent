@@ -25,20 +25,39 @@ public class BootStrap extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+        // 服务器启动之前调用服务重置所有设置离线状态
+//        batchSetDeviceStatusToOffline();
 
         ServerBootstrap bootstrap = new ServerBootstrap();
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup =  new NioEventLoopGroup();
-        
-        bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.TCP_NODELAY, true).handler(new LoggingHandler(LogLevel.INFO))
-            .childHandler(new SocketServerInitializer());
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
+
+        bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+                .option(ChannelOption.TCP_NODELAY, true).handler(new LoggingHandler(LogLevel.INFO))
+                .childHandler(new SocketServerInitializer());
         InetSocketAddress address = new InetSocketAddress("0.0.0.0", 9000);
         try {
             bootstrap.bind(address).sync();
             logger.info("tcpserver started, ip address : 0.0.0.0 port : 9000");
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void batchSetDeviceStatusToOffline() {
+        // TODO 在这里增加访问URL
+//        String requestUrl = "http://103.248.102.21:8080/equipment/updateAllEquipmentStatus";
+//        boolean can = false;
+//        do {
+//            try {
+//                HashMap<String, Object> result = HTTPUtil.sendPost(", new HashMap<String, String>());
+//                Integer code = (Integer) result.get("code");
+//                if (code != null && code == 0) {
+//                    can = true;
+//                }
+//            } catch (Exception e) {
+//                can = false;
+//            }
+//        } while (!can);
     }
 }

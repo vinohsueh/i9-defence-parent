@@ -1,19 +1,22 @@
 package i9.defence.platform.microservice.mq.service.impl;
 
+import java.util.Date;
+
+import javax.jms.TextMessage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSONObject;
+
 import i9.defence.platform.microservice.mq.service.ActiveMQConsumerTask;
-import i9.defence.platform.microservice.mq.service.DeviceRecordService;
 import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
+import i9.defence.platform.microservice.mq.service.EquipmentRecordService;
 import i9.defence.platform.microservice.mq.util.SpringBeanService;
 import i9.defence.platform.model.ConnectLog;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.DateUtils;
 import i9.defence.platform.utils.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.jms.TextMessage;
-import java.util.Date;
 
 /**
  * 处理ActiveMQ设备连接消息通知任务
@@ -73,8 +76,8 @@ public class ActiveMQDeviceStatusConsumerTask extends ActiveMQConsumerTask {
                 equipmentCheckSendMessageService.checkEquipmentAndSendMessageOffline(deviceId);
             }
 
-            DeviceRecordService deviceRecordService = SpringBeanService.getBean(DeviceRecordService.class);
-            deviceRecordService.recordDeviceLastSubmitDate(deviceId);
+            EquipmentRecordService equipmentRecordService = SpringBeanService.getBean(EquipmentRecordService.class);
+            equipmentRecordService.recordLastDate(deviceId);
             logger.info("save connect log success, deviceId : {}, status : {}", deviceId, status);
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);
