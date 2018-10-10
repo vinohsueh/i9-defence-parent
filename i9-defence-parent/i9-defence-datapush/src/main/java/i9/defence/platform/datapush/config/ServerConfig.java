@@ -11,7 +11,7 @@ public class ServerConfig {
     /**
      * 用户自定义token和OneNet第三方平台配置里的token一致
      */
-    public static String TOKEN = "abcdefghijkmlnopqrstuvwxyz";
+    public static String TOKEN = "Wi5Ky1g85vk1jwZpTeqC";
 
     /**
      * aeskey和OneNet第三方平台配置里的token一致

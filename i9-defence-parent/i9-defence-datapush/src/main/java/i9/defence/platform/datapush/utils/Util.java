@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import i9.defence.platform.datapush.dto.ReceiveMessageDto;
+
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -63,21 +65,21 @@ public class Util {
      * @param token OneNet平台配置页面token的值
      * @return
      */
-    public static boolean checkSignature(BodyObj obj, String token)  {
+    public static boolean checkSignature(ReceiveMessageDto receiveMessageDto, String token)  {
         //计算接受到的消息的摘要
         //token长度 + 8B随机字符串长度 + 消息长度
-        byte[] signature = new byte[token.length() + 8 + obj.getMsg().toString().length()];
+        byte[] signature = new byte[token.length() + 8 + receiveMessageDto.getMsg().toString().length()];
         System.arraycopy(token.getBytes(), 0, signature, 0, token.length());
-        System.arraycopy(obj.getNonce().getBytes(), 0, signature, token.length(), 8);
-        System.arraycopy(obj.getMsg().toString().getBytes(), 0, signature, token.length() + 8, obj.getMsg().toString().length());
+        System.arraycopy(receiveMessageDto.getNonce().getBytes(), 0, signature, token.length(), 8);
+        System.arraycopy(receiveMessageDto.getMsg().toString().getBytes(), 0, signature, token.length() + 8, receiveMessageDto.getMsg().toString().length());
         String calSig = Base64.encodeBase64String(mdInst.digest(signature));
-        logger.info("check signature: result:{}  receive sig:{},calculate sig: {}",calSig.equals(obj.getMsgSignature()),obj.getMsgSignature(),calSig);
-        return calSig.equals(obj.getMsgSignature());
+        logger.info("check signature: result:{}  receive sig:{},calculate sig: {}",calSig.equals(receiveMessageDto.getMsgSignature()),receiveMessageDto.getMsgSignature(),calSig);
+        return calSig.equals(receiveMessageDto.getMsgSignature());
     }
 
     /**
      *  功能描述 解密消息
-     * @param obj 消息体对象
+     * @param receiveMessageDto 消息体对象
      * @param encodeKey OneNet平台第三方平台配置页面为用户生成的AES的BASE64编码格式秘钥
      * @return
      * @throws NoSuchPaddingException
@@ -87,8 +89,8 @@ public class Util {
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
      */
-    public static String decryptMsg(BodyObj obj, String encodeKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        byte[] encMsg = Base64.decodeBase64(obj.getMsg().toString());
+    public static String decryptMsg(ReceiveMessageDto receiveMessageDto, String encodeKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        byte[] encMsg = Base64.decodeBase64(receiveMessageDto.getMsg().toString());
         byte[] aeskey = Base64.decodeBase64(encodeKey + "=");
         SecretKey secretKey = new SecretKeySpec(aeskey, 0, 32, "AES");
         Cipher cipher = null;
@@ -109,23 +111,23 @@ public class Util {
      * @param encrypted 表征是否为加密消息
      * @return  生成的<code>BodyObj</code>消息对象
      */
-    public static BodyObj resolveBody(String body, boolean encrypted) {
+    public static ReceiveMessageDto resolveBody(String body, boolean encrypted) {
         JSONObject jsonMsg = new JSONObject(body);
-        BodyObj obj = new BodyObj();
-        obj.setNonce(jsonMsg.getString("nonce"));
-        obj.setMsgSignature(jsonMsg.getString("msg_signature"));
+        ReceiveMessageDto receiveMessageDto = new ReceiveMessageDto();
+        receiveMessageDto.setNonce(jsonMsg.getString("nonce"));
+        receiveMessageDto.setMsgSignature(jsonMsg.getString("msg_signature"));
         if (encrypted) {
             if (!jsonMsg.has("enc_msg")) {
                 return null;
             }
-            obj.setMsg(jsonMsg.getString("enc_msg"));
+            receiveMessageDto.setMsg(jsonMsg.getString("enc_msg"));
         } else {
             if (!jsonMsg.has("msg")) {
                 return null;
             }
-            obj.setMsg(jsonMsg.get("msg"));
+            receiveMessageDto.setMsg(jsonMsg.get("msg"));
         }
-        return obj;
+        return receiveMessageDto;
     }
 
     private static int getMsgLen(byte[] arrays) {
@@ -135,41 +137,5 @@ public class Util {
         len += (arrays[2] & 0xFF) << 8;
         len += (arrays[3] & 0xFF);
         return len;
-    }
-
-
-    public static class BodyObj {
-        private Object msg;
-        private String nonce;
-        private String msgSignature;
-
-        public Object getMsg() {
-            return msg;
-        }
-
-        public void setMsg(Object msg) {
-            this.msg = msg;
-        }
-
-        public String getNonce() {
-            return nonce;
-        }
-
-        public void setNonce(String nonce) {
-            this.nonce = nonce;
-        }
-
-        public String getMsgSignature() {
-            return msgSignature;
-        }
-
-        public void setMsgSignature(String msgSignature) {
-            this.msgSignature = msgSignature;
-        }
-
-        public String toString(){
-            return "{ \"msg\":"+this.msg+"，\"nonce\":"+this.nonce+"，\"signature\":"+this.msgSignature+"}";
-        }
-
     }
 }
