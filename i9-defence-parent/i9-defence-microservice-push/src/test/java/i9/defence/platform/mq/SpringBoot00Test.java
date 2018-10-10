@@ -1,29 +1,14 @@
 package i9.defence.platform.mq;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import i9.defence.platform.microservice.push.Application;
+import i9.defence.platform.microservice.push.service.ThirdPlatformService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
-import i9.defence.platform.microservice.push.Application;
-import i9.defence.platform.microservice.push.service.ThirdPlatformService;
-import i9.defence.platform.microservice.push.vo.ChannelData;
-import i9.defence.platform.microservice.push.vo.DeviceInfoDto;
-import i9.defence.platform.utils.BusinessException;
-import i9.defence.platform.utils.SqlUtil;
-import i9.defence.platform.utils.StringUtil;
 
 /** 
 * 创建时间：2018年3月26日 上午9:14:18
@@ -36,7 +21,7 @@ import i9.defence.platform.utils.StringUtil;
 @WebAppConfiguration
 public class SpringBoot00Test {
 	
-	private static final Logger logger = LoggerFactory.getLogger(SpringBoot00Test.class);
+	//private static final Logger logger = LoggerFactory.getLogger(SpringBoot00Test.class);
 	
 	@Test
 	public void test() {
