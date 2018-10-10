@@ -4,8 +4,6 @@ import i9.defence.platform.datapush.config.ServerConfig;
 import i9.defence.platform.datapush.dto.ReceiveMessageDto;
 import i9.defence.platform.datapush.utils.Util;
 
-import java.io.UnsupportedEncodingException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReceiverServiceController {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(ReceiverServiceController.class);
+	private static Logger logger = LoggerFactory.getLogger(ReceiverServiceController.class);
 
 	/**
 	 * 功能描述：第三方平台数据接收。
@@ -31,8 +28,7 @@ public class ReceiverServiceController {
 	 * 接收程序接收到数据时，尽量先缓存起来，再做业务逻辑处理。</li>
 	 * </ul>
 	 * 
-	 * @param body
-	 *            数据消息
+	 * @param body 数据消息
 	 * @return 任意字符串。OneNet平台接收到http 200的响应，才会认为数据推送成功，否则会重发。
 	 */
 	@RequestMapping(value = "/receive", method = RequestMethod.POST)
@@ -56,21 +52,17 @@ public class ReceiverServiceController {
 	/**
 	 * 功能说明： URL&Token验证接口。如果验证成功返回msg的值，否则返回其他值。
 	 * 
-	 * @param msg
-	 *            验证消息
-	 * @param nonce
-	 *            随机串
-	 * @param signature
-	 *            签名
+	 * @param msg 验证消息
+	 * @param nonce 随机串
+	 * @param signature 签名
 	 * @return msg值
 	 */
-
 	@RequestMapping(value = "/receive", method = RequestMethod.GET)
 	@ResponseBody
 	public String check(@RequestParam(value = "msg") String msg,
 			@RequestParam(value = "nonce") String nonce,
 			@RequestParam(value = "signature") String signature)
-			throws UnsupportedEncodingException {
+			throws Exception {
 
 		logger.info("url&token check: msg:{} nonce{} signature:{}", msg, nonce,
 				signature);
@@ -79,7 +71,5 @@ public class ReceiverServiceController {
 		} else {
 			return "error";
 		}
-
 	}
-
 }
