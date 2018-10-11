@@ -18,9 +18,9 @@ import java.security.*;
 
 /**
  * 功能描述: OneNet数据推送接收程序工具类。
- *
- * Created by Roy on 2017/5/17.
- *
+ * 
+ * @author R12
+ * @date 2018年10月11日 12:56:57
  */
 public class Util {
 

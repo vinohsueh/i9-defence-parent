@@ -1,39 +1,38 @@
 package i9.defence.platform.datapush.dto;
 
 public class ReceiveMessageDto {
-	
-	private Object msg;
-	
-	private String nonce;
-	
-	private String msgSignature;
 
-	public Object getMsg() {
-		return msg;
-	}
+    private Object msg;
 
-	public void setMsg(Object msg) {
-		this.msg = msg;
-	}
+    private String nonce;
 
-	public String getNonce() {
-		return nonce;
-	}
+    private String msgSignature;
 
-	public void setNonce(String nonce) {
-		this.nonce = nonce;
-	}
+    public Object getMsg() {
+        return msg;
+    }
 
-	public String getMsgSignature() {
-		return msgSignature;
-	}
+    public void setMsg(Object msg) {
+        this.msg = msg;
+    }
 
-	public void setMsgSignature(String msgSignature) {
-		this.msgSignature = msgSignature;
-	}
+    public String getNonce() {
+        return nonce;
+    }
 
-	public String toString() {
-		return "{ \"msg\":" + this.msg + "，\"nonce\":" + this.nonce
-				+ "，\"signature\":" + this.msgSignature + "}";
-	}
+    public void setNonce(String nonce) {
+        this.nonce = nonce;
+    }
+
+    public String getMsgSignature() {
+        return msgSignature;
+    }
+
+    public void setMsgSignature(String msgSignature) {
+        this.msgSignature = msgSignature;
+    }
+
+    public String toString() {
+        return "{ \"msg\":" + this.msg + "，\"nonce\":" + this.nonce + "，\"signature\":" + this.msgSignature + "}";
+    }
 }
