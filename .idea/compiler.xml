@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="i9-defence-activemq-test" />
-        <module name="i9-defence-api" />
-        <module name="i9-defence-client" />
-        <module name="i9-defence-dao" />
-        <module name="i9-defence-datapush" />
-        <module name="i9-defence-microservice-config" />
-        <module name="i9-defence-microservice-mq" />
-        <module name="i9-defence-microservice-observer" />
-        <module name="i9-defence-microservice-push" />
-        <module name="i9-defence-microservice-sms" />
-        <module name="i9-defence-mq-libraries" />
-        <module name="i9-defence-netty-libraries" />
-        <module name="i9-defence-service" />
-        <module name="i9-defence-socket" />
-        <module name="i9-defence-utils" />
-      </profile>
-    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8" />
   </component>
 </project>

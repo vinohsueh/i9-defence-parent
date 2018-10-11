@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/i9-defence-parent" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-api" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-client" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-dao" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-datapush" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-config" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-mq" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-observer" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-push" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-sms" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-mq-libraries" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-netty-libraries" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-service" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-socket" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-utils" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/i9-defence-parent/testers/i9-defence-activemq-test" charset="UTF-8" />
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
