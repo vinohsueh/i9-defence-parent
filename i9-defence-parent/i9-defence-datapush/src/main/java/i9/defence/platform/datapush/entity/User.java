@@ -1,8 +1,33 @@
 package i9.defence.platform.datapush.entity;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.util.Date;
+
 @Entity
 @Component
-public class User {
+public class User implements java.io.Serializable {
+
+    /**
+     * ID
+     */
+    private Long id;
+    /**
+     * 姓名
+     */
+    private String name;
+    /**
+     * 工号
+     */
+    private String jobNumber;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
     public User() {
     }
@@ -41,22 +66,5 @@ public class User {
         this.createTime = createTime;
     }
 
-    /**
-     * ID
-     */
-    private Long id;
-    /**
-     * 姓名
-     */
-    private String name;
-    /**
-     * 工号
-     */
-    private String jobNumber;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
 
 }
