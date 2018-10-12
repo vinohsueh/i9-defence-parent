@@ -1,11 +1,17 @@
 package i9.defence.platform.datapush.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import i9.defence.platform.datapush.config.ServerConfig;
 import i9.defence.platform.datapush.dto.ReceiveMessageDto;
+import i9.defence.platform.datapush.service.OriginalRecordService;
+import i9.defence.platform.datapush.service.ReceiveMessageDomainService;
 import i9.defence.platform.datapush.utils.Util;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +30,12 @@ public class ReceiverServiceController {
 
     private static Logger logger = LoggerFactory.getLogger(ReceiverServiceController.class);
 
+    @Autowired
+    private OriginalRecordService originalRecordService;
+    
+    @Autowired
+    private ReceiveMessageDomainService receiveMessageDomainService;
+
     /**
      * 功能描述：第三方平台数据接收。
      * <p>
@@ -39,20 +51,25 @@ public class ReceiverServiceController {
      */
     @RequestMapping(value = "/receive", method = RequestMethod.POST)
     @ResponseBody
-    public String receive(@RequestBody String body) throws Exception {
-        logger.info("data receive : body String --- " + body);
+    public String receive(@RequestBody String body, HttpServletResponse httpServletResponse) throws Exception {
         ReceiveMessageDto receiveMessageDto = Util.resolveBody(body, false);
-        logger.info("data receive : body Object --- " + receiveMessageDto);
         if (receiveMessageDto == null) {
-            logger.info("data receive: body empty error");
+            logger.error("数据接收, 内容: {}, 转换失败", body);
+            httpServletResponse.setStatus(500);
+            return "ERROR";
         }
         boolean dataRight = Util.checkSignature(receiveMessageDto, ServerConfig.TOKEN);
-        if (dataRight) {
-            logger.info("data receive: content" + receiveMessageDto.toString());
-        } else {
-            logger.info("data receive: signature error");
+        if (!dataRight) {
+            logger.error("数据接收: 内容: {}, 签名失败", receiveMessageDto.toString());
+            httpServletResponse.setStatus(500);
+            return "ERROR";
         }
-        return "ok";
+        logger.info("数据接收, 内容: {}", receiveMessageDto.toString());
+        originalRecordService.saveOriginalRecordMessage(receiveMessageDto.toString());
+        
+        JSONObject msg = new JSONObject(receiveMessageDto.getMsg());
+        receiveMessageDomainService.dealWithReceiveMessage(msg);
+        return "SUCCESS";
     }
 
     /**
@@ -67,7 +84,6 @@ public class ReceiverServiceController {
     @ResponseBody
     public String check(@RequestParam(value = "msg") String msg, @RequestParam(value = "nonce") String nonce,
             @RequestParam(value = "signature") String signature) throws Exception {
-
         logger.info("url&token check: msg:{} nonce{} signature:{}", msg, nonce, signature);
         if (Util.checkToken(msg, nonce, signature, ServerConfig.TOKEN)) {
             return msg;

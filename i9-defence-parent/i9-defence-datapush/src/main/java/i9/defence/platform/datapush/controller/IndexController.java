@@ -1,4 +1,4 @@
-package com.shyroke.controller;
+package i9.defence.platform.datapush.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,5 +23,4 @@ public class IndexController {
         modelAndView.addObject("userList", userList);
         return modelAndView;
     }
-    
 }
