@@ -17,6 +17,6 @@ public interface DeviceAttributeRepository extends JpaRepository<DeviceAttribute
 
     @Modifying
     @Query("UPDATE DeviceAttribute deviceAttribute SET deviceAttribute.value = :value, deviceAttribute.updateDate = :updateDate WHERE deviceAttribute.id = :id")
-    void updateDeviceAttributeLastValue(@Param("value") int value, @Param("updateDate") Date updateDate,
+    void updateDeviceAttributeLastValue(@Param("value") String value, @Param("updateDate") Date updateDate,
             @Param("id") String id);
 }

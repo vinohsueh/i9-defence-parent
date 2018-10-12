@@ -18,21 +18,21 @@ public class ReceiveMessageDataPointServiceImpl implements ReceiveMessageDataPoi
 
     @Override
     public void dealWithUplinkData(JSONObject data) {
-        String deviceId = data.getString("dev_id");
+        int deviceId = data.getInt("dev_id");
         String datastream = data.getString("ds_id");
         long at = data.getLong("at");
-        int value = data.getInt("value");
+        String value = String.valueOf(data.get("value"));
 
         DeviceDataHis deviceDataHis = new DeviceDataHis();
         deviceDataHis.setId(StringHelper.randomUUIDStr());
-        deviceDataHis.setDeviceId(deviceId);
+        deviceDataHis.setDeviceId(String.valueOf(deviceId));
         deviceDataHis.setDatastream(datastream);
-        deviceDataHis.setValue(String.valueOf(value));
+        deviceDataHis.setValue(value);
         deviceDataHis.setCreateDate(new Date(at));
         deviceDataHisRepository.save(deviceDataHis);
 
         DeviceAttribute deviceAttribute = this.deviceAttributeRepository.selectDeviceAttributeByDeviceIdAndDatastream(
-                deviceId, datastream);
+        		String.valueOf(deviceId), datastream);
         if (deviceAttribute == null) {
             return;
         }

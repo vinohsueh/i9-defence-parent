@@ -67,8 +67,15 @@ public class ReceiverServiceController {
         logger.info("数据接收, 内容: {}", receiveMessageDto.toString());
         originalRecordService.saveOriginalRecordMessage(receiveMessageDto.toString());
         
-        JSONObject msg = new JSONObject(receiveMessageDto.getMsg());
-        receiveMessageDomainService.dealWithReceiveMessage(msg);
+        JSONObject msg = new JSONObject(receiveMessageDto.getMsg().toString());
+        try {
+            receiveMessageDomainService.dealWithReceiveMessage(msg);
+        }
+        catch (Exception e) {
+            logger.error("数据接收: 内容: {}, ", msg.toString());
+            httpServletResponse.setStatus(500);
+            return "ERROR";
+        }
         return "SUCCESS";
     }
 

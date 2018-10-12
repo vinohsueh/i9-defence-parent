@@ -13,10 +13,9 @@ public class ReceiveMessagePowerStateServiceImpl implements ReceiveMessagePowerS
 
     @Override
     public void dealWithUplinkData(JSONObject data) {
-        String deviceId = data.getString("dev_id");
-        // long at = data.getLong("at");
+        int deviceId = data.getInt("dev_id");
         int status = data.getInt("status");
-        DeviceInfo deviceInfo = this.deviceInfoRepository.selectDeviceInfoByDeviceId(deviceId);
+        DeviceInfo deviceInfo = this.deviceInfoRepository.selectDeviceInfoByDeviceId(String.valueOf(deviceId));
         if (deviceInfo == null) {
             return;
         }
