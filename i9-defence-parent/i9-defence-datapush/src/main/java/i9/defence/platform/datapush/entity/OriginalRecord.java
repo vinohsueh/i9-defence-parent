@@ -10,9 +10,9 @@ import java.util.Date;
 @Table(name = "tb_original_record")
 public class OriginalRecord implements java.io.Serializable {
 
-	private static final long serialVersionUID = 6156013847848658011L;
+    private static final long serialVersionUID = 6156013847848658011L;
 
-	public OriginalRecord() {
+    public OriginalRecord() {
     }
 
     private String id;
