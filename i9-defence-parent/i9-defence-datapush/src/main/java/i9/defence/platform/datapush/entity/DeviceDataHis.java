@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "tb_device_data_his")
 public class DeviceDataHis implements java.io.Serializable {
@@ -27,7 +29,8 @@ public class DeviceDataHis implements java.io.Serializable {
     private Date createDate;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     public String getId() {
         return id;
     }

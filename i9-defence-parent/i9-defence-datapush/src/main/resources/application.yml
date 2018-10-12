@@ -5,10 +5,10 @@ spring:
   profiles:
     active: product
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/saascrm?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/onelink?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     username: root
-    password: snail123
+    password: zctmwj3NjgexpLR2
   jpa:
     hibernate:
       ddl-auto: update
