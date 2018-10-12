@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="i9-defence-datapush" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="i9-defence-api" target="1.7" />
+      <module name="i9-defence-client" target="1.7" />
+      <module name="i9-defence-dao" target="1.7" />
+      <module name="i9-defence-datapush" target="1.8" />
+      <module name="i9-defence-microservice-config" target="1.7" />
+      <module name="i9-defence-microservice-mq" target="1.6" />
+      <module name="i9-defence-microservice-observer" target="1.6" />
+      <module name="i9-defence-microservice-push" target="1.7" />
+      <module name="i9-defence-microservice-sms" target="1.6" />
+      <module name="i9-defence-mq-libraries" target="1.7" />
+      <module name="i9-defence-netty-libraries" target="1.7" />
+      <module name="i9-defence-parent" target="1.7" />
+      <module name="i9-defence-service" target="1.7" />
+      <module name="i9-defence-socket" target="1.6" />
+      <module name="i9-defence-utils" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

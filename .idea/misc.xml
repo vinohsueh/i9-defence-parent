@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-api" />
+    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-config" />
+    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-mq" />
+    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-observer" />
+    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-push" />
+    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-sms" />
+    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-socket" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/i9-defence-parent/i9-defence-datapush/pom.xml" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
