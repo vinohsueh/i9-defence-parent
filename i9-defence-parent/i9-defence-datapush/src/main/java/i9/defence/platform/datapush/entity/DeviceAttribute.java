@@ -1,5 +1,7 @@
 package i9.defence.platform.datapush.entity;
 
+import i9.defence.platform.datapush.utils.StringHelper;
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -14,22 +16,27 @@ import org.hibernate.annotations.GenericGenerator;
 public class DeviceAttribute implements java.io.Serializable {
 
     private static final long serialVersionUID = -6544439968995923403L;
-    
+
     public DeviceAttribute() {
     }
 
+    public DeviceAttribute(String deviceId, String datastream) {
+        this.id = StringHelper.randomUUIDStr();
+        this.deviceId = deviceId;
+        this.datastream = datastream;
+        this.createDate = new Date();
+    }
+
     private String id;
-    
+
     private String deviceId;
-    
+
     private String datastream;
-    
-    private String attribute;
-    
+
     private String value;
-    
+
     private Date createDate;
-    
+
     private Date updateDate;
 
     @Id
@@ -57,14 +64,6 @@ public class DeviceAttribute implements java.io.Serializable {
 
     public void setDatastream(String datastream) {
         this.datastream = datastream;
-    }
-
-    public String getAttribute() {
-        return attribute;
-    }
-
-    public void setAttribute(String attribute) {
-        this.attribute = attribute;
     }
 
     public String getValue() {

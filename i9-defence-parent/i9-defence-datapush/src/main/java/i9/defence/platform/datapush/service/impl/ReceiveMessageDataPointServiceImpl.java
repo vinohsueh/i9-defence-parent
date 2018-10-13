@@ -14,7 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReceiveMessageDataPointServiceImpl implements ReceiveMessageDataPointService {
+public class ReceiveMessageDataPointServiceImpl implements
+        ReceiveMessageDataPointService {
 
     @Override
     public void dealWithUplinkData(JSONObject data) {
@@ -31,12 +32,23 @@ public class ReceiveMessageDataPointServiceImpl implements ReceiveMessageDataPoi
         deviceDataHis.setCreateDate(new Date(at));
         deviceDataHisRepository.save(deviceDataHis);
 
-        DeviceAttribute deviceAttribute = this.deviceAttributeRepository.selectDeviceAttributeByDeviceIdAndDatastream(
-        		String.valueOf(deviceId), datastream);
+        DeviceAttribute deviceAttribute = this.findAndCreateDeviceAttribute(
+                String.valueOf(deviceId), datastream);
+
+        this.deviceAttributeRepository.updateDeviceAttributeLastValue(value,
+                new Date(at), deviceAttribute.getId());
+    }
+
+    public DeviceAttribute findAndCreateDeviceAttribute(String deviceId,
+            String datastream) {
+        DeviceAttribute deviceAttribute = this.deviceAttributeRepository
+                .selectDeviceAttributeByDeviceIdAndDatastream(deviceId, datastream);
         if (deviceAttribute == null) {
-            return;
+            deviceAttribute = new DeviceAttribute(deviceId, datastream);
+            this.deviceAttributeRepository.save(deviceAttribute);
         }
-        this.deviceAttributeRepository.updateDeviceAttributeLastValue(value, new Date(at), deviceAttribute.getId());
+
+        return deviceAttribute;
     }
 
     @Autowired
