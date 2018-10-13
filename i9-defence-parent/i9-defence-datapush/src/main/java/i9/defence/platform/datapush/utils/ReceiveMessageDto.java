@@ -1,4 +1,4 @@
-package i9.defence.platform.datapush.dto;
+package i9.defence.platform.datapush.utils;
 
 public class ReceiveMessageDto {
 

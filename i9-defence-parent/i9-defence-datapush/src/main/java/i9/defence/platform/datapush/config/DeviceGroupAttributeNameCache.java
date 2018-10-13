@@ -1,4 +1,4 @@
-package i9.defence.platform.datapush.data;
+package i9.defence.platform.datapush.config;
 
 import i9.defence.platform.datapush.entity.DeviceGroupAttribute;
 import i9.defence.platform.datapush.respository.DeviceGroupAttributeRepository;

@@ -3,9 +3,9 @@ package i9.defence.platform.datapush.controller;
 import javax.servlet.http.HttpServletResponse;
 
 import i9.defence.platform.datapush.config.ServerConfig;
-import i9.defence.platform.datapush.dto.ReceiveMessageDto;
 import i9.defence.platform.datapush.service.OriginalRecordService;
 import i9.defence.platform.datapush.service.ReceiveMessageDomainService;
+import i9.defence.platform.datapush.utils.ReceiveMessageDto;
 import i9.defence.platform.datapush.utils.Util;
 
 import org.json.JSONObject;

@@ -1,7 +1,5 @@
 package i9.defence.platform.datapush.config;
 
-import i9.defence.platform.datapush.data.DeviceGroupAttributeNameCache;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
