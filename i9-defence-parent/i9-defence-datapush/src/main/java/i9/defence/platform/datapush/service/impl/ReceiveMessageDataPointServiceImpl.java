@@ -9,6 +9,8 @@ import i9.defence.platform.datapush.utils.StringHelper;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class ReceiveMessageDataPointServiceImpl implements
         ReceiveMessageDataPointService {
 
+    @Transactional
     @Override
     public void dealWithUplinkData(JSONObject data) {
         int deviceId = data.getInt("dev_id");

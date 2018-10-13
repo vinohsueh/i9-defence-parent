@@ -8,6 +8,8 @@ import i9.defence.platform.datapush.utils.StringHelper;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class OriginalRecordServiceImpl implements OriginalRecordService {
     @Autowired
     private OriginalRecordRepository originalRecordRepository;
 
+    @Transactional
     @Override
     public void saveOriginalRecordMessage(String message) {
         try {
