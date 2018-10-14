@@ -19,9 +19,9 @@ public class SimpleSchedule {
     public void loadDeviceGroupAttribute() {
         try {
             deviceGroupAttributeNameCache.reInit();
-            LOGGER.info("load success");
+            LOGGER.info("加载设备组属性成功");
         } catch (Exception exception) {
-            LOGGER.info("load error", exception);
+            LOGGER.info("加载设备组属性失败", exception);
         }
     }
 }
