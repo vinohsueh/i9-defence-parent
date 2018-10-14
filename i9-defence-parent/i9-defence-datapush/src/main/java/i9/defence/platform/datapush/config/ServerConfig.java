@@ -8,6 +8,8 @@ package i9.defence.platform.datapush.config;
  */
 public class ServerConfig {
 
+    public static final String API_KEY = "";
+
     /**
      * 用户自定义token和OneNet第三方平台配置里的token一致
      */

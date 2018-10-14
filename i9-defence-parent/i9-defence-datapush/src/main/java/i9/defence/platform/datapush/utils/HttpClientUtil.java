@@ -13,6 +13,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import i9.defence.platform.datapush.config.ServerConfig;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -22,10 +24,8 @@ import java.util.Map;
 public class HttpClientUtil {
 
     public static String doGet(String url, Map<String, String> param) {
-
         // 创建Httpclient对象
         CloseableHttpClient httpclient = HttpClients.createDefault();
-
         String resultString = "";
         CloseableHttpResponse response = null;
         try {
@@ -37,15 +37,15 @@ public class HttpClientUtil {
                 }
             }
             URI uri = builder.build();
-
             // 创建http GET请求
             HttpGet httpGet = new HttpGet(uri);
-
+            httpGet.setHeader("api-key", ServerConfig.API_KEY);
             // 执行请求
             response = httpclient.execute(httpGet);
             // 判断返回状态是否为200
             if (response.getStatusLine().getStatusCode() == 200) {
-                resultString = EntityUtils.toString(response.getEntity(), "UTF-8");
+                resultString = EntityUtils.toString(response.getEntity(),
+                        "UTF-8");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,7 +81,8 @@ public class HttpClientUtil {
                     paramList.add(new BasicNameValuePair(key, param.get(key)));
                 }
                 // 模拟表单
-                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, "utf-8");
+                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(
+                        paramList, "utf-8");
                 httpPost.setEntity(entity);
             }
             // 执行http请求
@@ -97,7 +98,6 @@ public class HttpClientUtil {
                 e.printStackTrace();
             }
         }
-
         return resultString;
     }
 
@@ -114,7 +114,8 @@ public class HttpClientUtil {
             // 创建Http Post请求
             HttpPost httpPost = new HttpPost(url);
             // 创建请求内容
-            StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
+            StringEntity entity = new StringEntity(json,
+                    ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
             // 执行http请求
             response = httpClient.execute(httpPost);
@@ -129,7 +130,6 @@ public class HttpClientUtil {
                 e.printStackTrace();
             }
         }
-
         return resultString;
     }
 }

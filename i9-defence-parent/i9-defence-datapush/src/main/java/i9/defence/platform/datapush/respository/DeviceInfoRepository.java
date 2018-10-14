@@ -15,4 +15,8 @@ public interface DeviceInfoRepository extends JpaRepository<DeviceInfo, String> 
     @Modifying
     @Query("UPDATE DeviceInfo deviceInfo SET deviceInfo.powerState = :powerState WHERE deviceInfo.id = :id")
     void updateDeviceInfoPowerState(@Param("powerState") int powerState, @Param("id") String id);
+
+    @Modifying
+    @Query("DELETE FROM DeviceInfo deviceInfo WHERE deviceInfo.deviceId = :deviceId")
+    void deleteDeviceInfoById(@Param("deviceId") String deviceId);
 }

@@ -9,4 +9,6 @@ public interface DeviceService {
     List<DeviceInfo> getDeviceInfoList();
 
     DeviceInfo getDeviceInfoById(String id);
+
+    void deleteDevice(String deviceId);
 }
