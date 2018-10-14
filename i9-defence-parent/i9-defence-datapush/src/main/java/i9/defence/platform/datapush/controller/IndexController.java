@@ -9,9 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
     @RequestMapping(value = "/index")
-    public ModelAndView index(ModelAndView modelAndView) {
-        modelAndView.setViewName("index");
-        modelAndView.addObject("hello", "this is test");
-        return modelAndView;
+    public String index() {
+        return "index";
     }
 }
