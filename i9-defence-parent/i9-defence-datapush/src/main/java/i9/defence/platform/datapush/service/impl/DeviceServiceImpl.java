@@ -1,16 +1,14 @@
 package i9.defence.platform.datapush.service.impl;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import i9.defence.platform.datapush.entity.DeviceInfo;
+import i9.defence.platform.datapush.respository.DeviceInfoRepository;
+import i9.defence.platform.datapush.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import i9.defence.platform.datapush.entity.DeviceInfo;
-import i9.defence.platform.datapush.respository.DeviceInfoRepository;
-import i9.defence.platform.datapush.service.DeviceService;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -35,5 +33,10 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public void deleteDevice(String id) {
         this.deviceInfoRepository.delete(id);
+    }
+
+    @Override
+    public void saveDeviceInfo(DeviceInfo deviceInfo) {
+        this.deviceInfoRepository.save(deviceInfo);
     }
 }

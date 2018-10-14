@@ -139,7 +139,6 @@ body {
 	line-height: 70px;
 	*line-height: 60px;
 	background-color: #fff;
-	padding-left: 30px;
 	min-width: 824px !important;
 	box-sizing: border-box;
 }
@@ -180,8 +179,8 @@ body {
 .tablebody .row {
 	margin-top: 10px;
 	background-color: #fff;
-	height: 70px;
-	line-height: 70px;
+	height: 50px;
+	line-height: 50px;
 }
 .footer {
 	float: right;

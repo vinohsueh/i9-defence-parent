@@ -1,5 +1,6 @@
 package i9.defence.platform.datapush.utils;
 
+import i9.defence.platform.datapush.config.ServerConfig;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,8 +13,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-
-import i9.defence.platform.datapush.config.ServerConfig;
 
 import java.io.IOException;
 import java.net.URI;
@@ -44,11 +43,12 @@ public class HttpClientUtil {
             response = httpclient.execute(httpGet);
             // 判断返回状态是否为200
             if (response.getStatusLine().getStatusCode() == 200) {
-                resultString = EntityUtils.toString(response.getEntity(),
-                        "UTF-8");
+                resultString = EntityUtils.toString(response.getEntity(), "UTF-8");
+            } else {
+                throw new RuntimeException("调用远程服务失败");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("调用远程服务失败");
         } finally {
             try {
                 if (response != null) {

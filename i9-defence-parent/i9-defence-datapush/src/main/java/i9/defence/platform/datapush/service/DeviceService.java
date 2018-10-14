@@ -11,4 +11,6 @@ public interface DeviceService {
     DeviceInfo getDeviceInfoById(String id);
 
     void deleteDevice(String deviceId);
+
+    void saveDeviceInfo(DeviceInfo deviceInfo);
 }

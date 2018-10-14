@@ -1,20 +1,27 @@
 package i9.defence.platform.datapush.entity;
 
-import java.util.Date;
+import i9.defence.platform.datapush.utils.PowerStateEnum;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Transient;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_device_info")
 public class DeviceInfo implements java.io.Serializable {
 
+    @Transient
+    public String getPowerStateDesc() {
+        PowerStateEnum powerStateEnum = PowerStateEnum.valueOf(this.powerState);
+        return powerStateEnum.getName();
+    }
+
     private static final long serialVersionUID = -9079076068871929718L;
-    
+
     public DeviceInfo() {
     }
 
@@ -26,7 +33,7 @@ public class DeviceInfo implements java.io.Serializable {
 
     private String imei;
 
-    private String powerState;
+    private Integer powerState;
 
     private Date createDate;
 
@@ -65,11 +72,11 @@ public class DeviceInfo implements java.io.Serializable {
         this.imei = imei;
     }
 
-    public String getPowerState() {
+    public Integer getPowerState() {
         return powerState;
     }
 
-    public void setPowerState(String powerState) {
+    public void setPowerState(Integer powerState) {
         this.powerState = powerState;
     }
 
