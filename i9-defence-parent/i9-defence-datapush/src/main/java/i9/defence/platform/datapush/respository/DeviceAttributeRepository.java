@@ -1,6 +1,7 @@
 package i9.defence.platform.datapush.respository;
 
 import java.util.Date;
+import java.util.List;
 
 import i9.defence.platform.datapush.entity.DeviceAttribute;
 
@@ -19,4 +20,7 @@ public interface DeviceAttributeRepository extends JpaRepository<DeviceAttribute
     @Query("UPDATE DeviceAttribute deviceAttribute SET deviceAttribute.value = :value, deviceAttribute.updateDate = :updateDate WHERE deviceAttribute.id = :id")
     void updateDeviceAttributeLastValue(@Param("value") String value, @Param("updateDate") Date updateDate,
             @Param("id") String id);
+
+    @Query("SELECT deviceAttribute FROM DeviceAttribute deviceAttribute WHERE deviceAttribute.deviceId = :deviceId")
+    List<DeviceAttribute> selectDeviceAttributeListByDeviceId(@Param("deviceId") String deviceId);
 }
