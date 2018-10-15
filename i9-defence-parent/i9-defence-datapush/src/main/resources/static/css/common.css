@@ -117,11 +117,9 @@ body {
 }
 .meun-item a {
 	color: #aab1b7;
-	display: block;
 }
 .meun-item-active a {
 	color: #c4c7cc;
-	display: block;
 }
 .meun-item img {
 	padding-right: 8px;
