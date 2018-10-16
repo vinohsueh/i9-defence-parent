@@ -95,7 +95,7 @@ public class DeviceServiceImpl implements DeviceService {
                 String value = String.valueOf(jsonObject.get("value"));
                 DeviceAttribute deviceAttribute = deviceAttributes.get(datastream);
                 if (deviceAttribute == null) {
-                    deviceAttribute = new DeviceAttribute(deviceInfo.getId(), datastream);
+                    deviceAttribute = new DeviceAttribute(deviceInfo.getDeviceId(), datastream);
                     saveDeviceAttributes.add(deviceAttribute);
                 }
                 deviceAttribute.setDatastream(datastream);
