@@ -1,13 +1,10 @@
 package i9.defence.platform.datapush.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
 import i9.defence.platform.datapush.config.ServerConfig;
 import i9.defence.platform.datapush.service.OriginalRecordService;
 import i9.defence.platform.datapush.service.ReceiveMessageDomainService;
 import i9.defence.platform.datapush.utils.ReceiveMessageDto;
 import i9.defence.platform.datapush.utils.Util;
-
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 接收平台数据控制器
@@ -32,7 +31,7 @@ public class ReceiverServiceController {
 
     @Autowired
     private OriginalRecordService originalRecordService;
-    
+
     @Autowired
     private ReceiveMessageDomainService receiveMessageDomainService;
 
@@ -66,7 +65,7 @@ public class ReceiverServiceController {
         }
         logger.info("数据接收, 内容: {}", receiveMessageDto.toString());
         originalRecordService.saveOriginalRecordMessage(receiveMessageDto.toString());
-        
+
         JSONObject msg = new JSONObject(receiveMessageDto.getMsg().toString());
         try {
             receiveMessageDomainService.dealWithReceiveMessage(msg);

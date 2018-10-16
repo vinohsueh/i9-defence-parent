@@ -1,14 +1,13 @@
 package i9.defence.platform.datapush.respository;
 
-import java.util.Date;
-import java.util.List;
-
 import i9.defence.platform.datapush.entity.DeviceAttribute;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.Date;
+import java.util.List;
 
 public interface DeviceAttributeRepository extends JpaRepository<DeviceAttribute, String> {
 

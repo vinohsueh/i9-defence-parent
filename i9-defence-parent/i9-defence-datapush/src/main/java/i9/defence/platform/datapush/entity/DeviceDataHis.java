@@ -1,13 +1,12 @@
 package i9.defence.platform.datapush.entity;
 
-import java.util.Date;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_device_data_his")

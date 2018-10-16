@@ -17,4 +17,12 @@ public interface DeviceService {
     void saveDeviceInfo(DeviceInfo deviceInfo);
 
     HashMap<String, DeviceAttribute> getDeviceAttributeValueResult(String deviceId);
+
+    void saveDeviceAttribute(DeviceAttribute deviceAttribute);
+
+    void updateDeviceAttribute(DeviceAttribute deviceAttribute);
+
+    void refreshDevice(String deviceId) throws Exception;
+
+    void addDevice(String deviceId) throws Exception;
 }

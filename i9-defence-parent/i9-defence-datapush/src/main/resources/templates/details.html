@@ -1,4 +1,5 @@
 <#include "header.html">
+<input type="hidden" name="id" id="id" value="${deviceInfo.id}"/>
 <div id="rightContent">
     <a class="toggle-btn" id="nimei">
         <i class="glyphicon glyphicon-align-justify"></i>
@@ -8,6 +9,7 @@
             <div class="check-div form-inline">
                 <div class="col-xs-4 col-lg-4  col-md-5">
                     <span style="font-weight: bold; font-size: 15px">${deviceInfo.deviceName}（${deviceInfo.deviceId}）</span>
+                    <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#syncDevice">同步数据</button>
                 </div>
             </div>
             <div class="data-div">
@@ -59,6 +61,28 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="syncDevice" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <input type="hidden" class="deviceId" value=""/>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            确认要同步设备数据吗？
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                        <button type="button" class="btn btn-xs btn-danger" id="sync-btn">保 存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<script src="${basePath}/static/js/details.js"></script>
 <#include "footer.html">

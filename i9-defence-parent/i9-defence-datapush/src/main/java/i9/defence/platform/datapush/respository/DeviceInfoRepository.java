@@ -1,7 +1,6 @@
 package i9.defence.platform.datapush.respository;
 
 import i9.defence.platform.datapush.entity.DeviceInfo;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -2,13 +2,12 @@ package i9.defence.platform.datapush.config;
 
 import i9.defence.platform.datapush.entity.DeviceGroupAttribute;
 import i9.defence.platform.datapush.respository.DeviceGroupAttributeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class DeviceGroupAttributeNameCache {

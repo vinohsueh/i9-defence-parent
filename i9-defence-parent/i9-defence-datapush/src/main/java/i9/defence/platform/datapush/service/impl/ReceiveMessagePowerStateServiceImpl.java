@@ -1,14 +1,13 @@
 package i9.defence.platform.datapush.service.impl;
 
-import javax.transaction.Transactional;
-
 import i9.defence.platform.datapush.entity.DeviceInfo;
 import i9.defence.platform.datapush.respository.DeviceInfoRepository;
 import i9.defence.platform.datapush.service.ReceiveMessagePowerStateService;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class ReceiveMessagePowerStateServiceImpl implements ReceiveMessagePowerStateService {

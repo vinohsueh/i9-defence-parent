@@ -4,7 +4,6 @@ import i9.defence.platform.datapush.config.DeviceGroupAttributeNameCache;
 import i9.defence.platform.datapush.entity.DeviceAttribute;
 import i9.defence.platform.datapush.entity.DeviceInfo;
 import i9.defence.platform.datapush.service.DeviceService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,9 +36,9 @@ public class IndexController {
     public String details(@PathVariable("deviceId") String deviceId, Model model) {
         DeviceInfo deviceInfo = this.deviceService.getDeviceInfoById(deviceId);
         model.addAttribute("deviceInfo", deviceInfo);
-        
+
         HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService.getDeviceAttributeValueResult(deviceInfo.getDeviceId());
-        
+
         LinkedHashMap<String, DeviceAttribute> values = new LinkedHashMap<String, DeviceAttribute>();
         LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache.getDeviceGroupAttributeResult("1");
         for (Entry<String, String> entry : attributeNames.entrySet()) {
