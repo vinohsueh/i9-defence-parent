@@ -134,6 +134,14 @@
         </if>
     </trim>
   </sql>
+  <sql id="Query_By_Dto5_Where_Clause">
+        <if test="example.distributorId != null and example.distributorId != ''">
+          AND (p.distributorId = #{example.distributorId} or (mg.parentId = #{example.distributorId} or mg.parentId in (select managerId from t_manager_grade where parentId = #{example.distributorId})))
+        </if>
+        <if test="example.projectManagerId != null and example.projectManagerId != ''">
+          AND ps.managerId = #{example.projectManagerId} and p.projectState = 1
+        </if>
+  </sql>
   <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -568,7 +576,26 @@
         </if>
    </select>
    <select id="selectWarningProjectIds" resultType="int">
-   	select p.id from t_project p where (select count(*) from t_equipment e where e.projectId = p.id and e.dataStatus = 1 and e.status = 1)
+   SELECT
+		p.id 
+	FROM
+		t_project p
+		LEFT JOIN t_project_safe ps ON p.id = ps.projectId
+		LEFT JOIN t_manager_grade mg ON p.distributorId = mg.managerId 
+	WHERE
+		(
+	SELECT
+		count( * ) 
+	FROM
+		t_equipment e 
+	WHERE
+		e.projectId = p.id 
+		AND e.dataStatus = 1 
+		AND e.STATUS = 1 
+		) 
+   	<if test="_parameter != null" >
+          <include refid="Query_By_Dto5_Where_Clause" />
+        </if>
    </select>
    <select id="selectIdsByMonthDataDto" resultType="java.lang.Integer">
    		select id from t_project
