@@ -58,6 +58,20 @@ public class DeviceController {
             return HttpResponseUtil.error("删除设备失败");
         }
     }
+    
+    public HttpResult<?> refreshDevice(String deviceId) {
+        try {
+            DeviceInfo deviceInfo = this.deviceService.getDeviceInfoById(deviceId);
+            String resp = HttpClientUtil.doGet("http://api.heclouds.com/devices/datapoints?devIds=" + deviceInfo.getDeviceId());
+            JSONObject result = new JSONObject(resp);
+            if (result.getInt("errno") != 0) {
+                return HttpResponseUtil.error(result.getString("error"));
+            }
+            return HttpResponseUtil.ok();
+        } catch (Exception e) {
+            return HttpResponseUtil.error("同步设备失败");
+        }
+    }
 
     @RequestMapping(value = "/deviceDetails.sapi")
     @ResponseBody
