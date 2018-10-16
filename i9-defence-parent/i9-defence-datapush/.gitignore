@@ -4,5 +4,9 @@
 /mysql-connector-java-5.1.1.jar
 
 /.settings/
+
 /.classpath
+
 /.project
+
+/bin/
