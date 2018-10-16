@@ -6,22 +6,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="i9-defence-activemq-test" />
-        <module name="i9-defence-api" />
-        <module name="i9-defence-client" />
-        <module name="i9-defence-dao" />
         <module name="i9-defence-datapush" />
-        <module name="i9-defence-microservice-config" />
-        <module name="i9-defence-microservice-mq" />
-        <module name="i9-defence-microservice-observer" />
-        <module name="i9-defence-microservice-push" />
-        <module name="i9-defence-microservice-sms" />
-        <module name="i9-defence-mq-libraries" />
-        <module name="i9-defence-netty-libraries" />
-        <module name="i9-defence-service" />
-        <module name="i9-defence-socket" />
-        <module name="i9-defence-utils" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="i9-defence-api" target="1.7" />
+      <module name="i9-defence-client" target="1.7" />
+      <module name="i9-defence-dao" target="1.7" />
+      <module name="i9-defence-datapush" target="1.8" />
+      <module name="i9-defence-microservice-config" target="1.7" />
+      <module name="i9-defence-microservice-mq" target="1.6" />
+      <module name="i9-defence-microservice-observer" target="1.6" />
+      <module name="i9-defence-microservice-push" target="1.7" />
+      <module name="i9-defence-microservice-sms" target="1.6" />
+      <module name="i9-defence-mq-libraries" target="1.7" />
+      <module name="i9-defence-netty-libraries" target="1.7" />
+      <module name="i9-defence-parent" target="1.7" />
+      <module name="i9-defence-service" target="1.7" />
+      <module name="i9-defence-socket" target="1.6" />
+      <module name="i9-defence-utils" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,0 +1,8 @@
+/target/
+/mbg_configuration.xml
+/i9-defence-dao.iml
+/mysql-connector-java-5.1.1.jar
+
+/.settings/
+/.classpath
+/.project

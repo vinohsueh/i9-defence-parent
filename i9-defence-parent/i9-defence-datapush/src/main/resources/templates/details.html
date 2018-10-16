@@ -1,0 +1,64 @@
+<#include "header.html">
+<div id="rightContent">
+    <a class="toggle-btn" id="nimei">
+        <i class="glyphicon glyphicon-align-justify"></i>
+    </a>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="stud">
+            <div class="check-div form-inline">
+                <div class="col-xs-4 col-lg-4  col-md-5">
+                    <span style="font-weight: bold; font-size: 15px">${deviceInfo.deviceName}（${deviceInfo.deviceId}）</span>
+                </div>
+            </div>
+            <div class="data-div">
+                <div class="row tableHeader">
+                    <div class="col-xs-4">属性名</div>
+                    <div class="col-xs-3">值</div>
+                    <div class="col-xs-3">上传时间</div>
+                    <div class="col-xs-1">操作</div>
+                </div>
+                <div class="tablebody">
+                    <div class="row">
+                        <div class="col-xs-4">设备编号</div>
+                        <div class="col-xs-3">${deviceInfo.deviceId}</div>
+                        <div class="col-xs-3">-</div>
+                        <div class="col-xs-1">-</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">设备名称</div>
+                        <div class="col-xs-3">${deviceInfo.deviceName}</div>
+                        <div class="col-xs-3">-</div>
+                        <div class="col-xs-1">-</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">设备状态</div>
+                        <div class="col-xs-3">${deviceInfo.powerStateDesc}</div>
+                        <div class="col-xs-3">-</div>
+                        <div class="col-xs-1">-</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">IMEI</div>
+                        <div class="col-xs-3">${deviceInfo.imei}</div>
+                        <div class="col-xs-3">-</div>
+                        <div class="col-xs-1">-</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">创建时间</div>
+                        <div class="col-xs-3">${deviceInfo.createDate}</div>
+                        <div class="col-xs-3">-</div>
+                        <div class="col-xs-1">-</div>
+                    </div>
+                    <#list values?keys as key>
+                    <div class="row">
+                        <div class="col-xs-4">${key}</div>
+                        <div class="col-xs-3"><#if (values[key].value)??>${values[key].value}<#else>-</#if></div>
+                        <div class="col-xs-3"><#if (values[key].updateDate)??>${values[key].updateDate}<#else>-</#if></div>
+                        <div class="col-xs-1">-</div>
+                    </div>
+                    </#list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<#include "footer.html">

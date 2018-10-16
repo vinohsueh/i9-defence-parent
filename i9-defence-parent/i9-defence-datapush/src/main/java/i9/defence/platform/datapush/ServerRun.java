@@ -2,6 +2,8 @@ package i9.defence.platform.datapush;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 服务启动类
@@ -9,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author R12
  * @date 2018年10月8日 08:52:54
  */
+@EnableTransactionManagement
+@EnableScheduling
 @SpringBootApplication
 public class ServerRun {
 

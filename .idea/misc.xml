@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-api" />
     <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-config" />
@@ -9,13 +8,10 @@
     <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-push" />
     <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-microservice-sms" />
     <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-socket" />
-    <file type="web" url="file://$PROJECT_DIR$/i9-defence-parent/testers/i9-defence-activemq-test" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/i9-defence-parent/pom.xml" />
-        <option value="$PROJECT_DIR$/i9-defence-parent/testers/i9-defence-activemq-test/pom.xml" />
         <option value="$PROJECT_DIR$/i9-defence-parent/i9-defence-datapush/pom.xml" />
       </list>
     </option>
