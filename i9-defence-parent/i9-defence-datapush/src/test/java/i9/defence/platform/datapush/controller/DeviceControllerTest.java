@@ -1,6 +1,7 @@
 package i9.defence.platform.datapush.controller;
 
 import i9.defence.platform.datapush.ServerRun;
+import i9.defence.platform.datapush.entity.DeviceInfo;
 import i9.defence.platform.datapush.utils.HttpResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServerRun.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,7 +38,35 @@ public class DeviceControllerTest {
 
     @Test
     public void testDeleteDevice() {
-        HttpResult<?> httpResult = this.restTemplate.postForObject(baseURL + "baseAPI/deleteDevice.sapi", "aaa",  HttpResult.class);
+        final String deviceId = "aa";
+        HttpResult<?> httpResult = this.restTemplate.postForObject(baseURL + "baseAPI/deleteDevice.sapi", deviceId, HttpResult.class);
+        System.out.println(httpResult.getMessage());
+    }
+
+    @Test
+    public void testAddDevice() {
+        final String deviceId = "aa";
+        HttpResult<?> httpResult = this.restTemplate.postForObject(baseURL + "baseAPI/addDevice.sapi", deviceId, HttpResult.class);
+        System.out.println(httpResult.getMessage());
+    }
+
+    @Test
+    public void testRefreshDevice() {
+        final String deviceId = "aa";
+        HttpResult<?> httpResult = this.restTemplate.postForObject(baseURL + "baseAPI/refreshDevice.sapi", deviceId, HttpResult.class);
+        System.out.println(httpResult.getMessage());
+    }
+
+    @Test
+    public void testDeviceDetails() {
+        final String deviceId = "aa";
+        HttpResult<DeviceInfo> httpResult = this.restTemplate.postForObject(baseURL + "baseAPI/deviceDetails.sapi", deviceId, HttpResult.class);
+        System.out.println(httpResult.getMessage());
+    }
+
+    @Test
+    public void testDeviceList() {
+        HttpResult<List<DeviceInfo>> httpResult = this.restTemplate.postForObject(baseURL + "baseAPI/deviceList.sapi", null, HttpResult.class);
         System.out.println(httpResult.getMessage());
     }
 

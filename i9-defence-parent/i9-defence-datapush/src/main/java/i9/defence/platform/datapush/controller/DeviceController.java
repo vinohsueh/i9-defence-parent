@@ -32,9 +32,9 @@ public class DeviceController {
 
     @RequestMapping(value = "/deleteDevice.sapi")
     @ResponseBody
-    public HttpResult<?> deleteDevice(@RequestBody String deviceId) {
+    public HttpResult<?> deleteDevice(@RequestBody String id) {
         try {
-            this.deviceService.deleteDevice(deviceId);
+            this.deviceService.deleteDevice(id);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
             return HttpResponseUtil.error("删除设备失败");
@@ -43,9 +43,9 @@ public class DeviceController {
 
     @RequestMapping(value = "/refreshDevice.sapi")
     @ResponseBody
-    public HttpResult<?> refreshDevice(String deviceId) {
+    public HttpResult<?> refreshDevice(String id) {
         try {
-            this.deviceService.refreshDevice(deviceId);
+            this.deviceService.refreshDevice(id);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
             return HttpResponseUtil.error("同步设备失败");
@@ -54,9 +54,9 @@ public class DeviceController {
 
     @RequestMapping(value = "/deviceDetails.sapi")
     @ResponseBody
-    public HttpResult<?> deviceDetails(String deviceId) {
+    public HttpResult<?> deviceDetails(String id) {
         try {
-            DeviceInfo deviceInfo = this.deviceService.getDeviceInfoById(deviceId);
+            DeviceInfo deviceInfo = this.deviceService.getDeviceInfoById(id);
             if (deviceInfo == null) {
                 return HttpResponseUtil.error("设备不存在");
             }
