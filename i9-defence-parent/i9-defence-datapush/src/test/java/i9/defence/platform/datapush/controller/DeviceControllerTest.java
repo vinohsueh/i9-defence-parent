@@ -152,15 +152,15 @@ public class DeviceControllerTest {
         };
         
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("deviceId", "0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
+        params.put("id", "0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
         params.put("datastream", "datastream");
         params.put("startDate", "2018-10-01 00:00:00");
-        params.put("startDate", "2018-10-20 00:00:00");
+        params.put("endDate", "2018-10-20 00:00:00");
         
         JSONObject jsonObject = new JSONObject(params);
         HttpEntity<String> requestEntity = new HttpEntity<String>(jsonObject.toString());
         ResponseEntity<HttpResult<List<DeviceDataHisDto>>> responseEntity = this.restTemplate
-                .exchange(baseURL + "baseAPI/searchDeviceList.sapi", HttpMethod.POST, requestEntity, typeRef);
+                .exchange(baseURL + "baseAPI/deviceDatapoint.sapi", HttpMethod.POST, requestEntity, typeRef);
 
         HttpResult<List<DeviceDataHisDto>> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());

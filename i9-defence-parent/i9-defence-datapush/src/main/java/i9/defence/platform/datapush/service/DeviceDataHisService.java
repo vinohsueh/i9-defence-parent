@@ -6,5 +6,6 @@ import i9.defence.platform.datapush.entity.DeviceDataHis;
 
 public interface DeviceDataHisService {
 
-    List<DeviceDataHis> queryDeviceDataHisDto(String deviceId, String datastream, String startDate, String endDate);
+    List<DeviceDataHis> queryDeviceDataHisDto(String deviceId, String datastream, String startDate, String endDate)
+            throws Exception;
 }

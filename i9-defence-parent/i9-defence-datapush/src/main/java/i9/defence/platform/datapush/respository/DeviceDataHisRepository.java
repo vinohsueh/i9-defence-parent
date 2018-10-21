@@ -2,6 +2,7 @@ package i9.defence.platform.datapush.respository;
 
 import i9.defence.platform.datapush.entity.DeviceDataHis;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,6 @@ public interface DeviceDataHisRepository extends JpaRepository<DeviceDataHis, St
             + " AND deviceDataHis.createDate BETWEEN :startDate AND :endDate "
             + " ORDER BY deviceDataHis.createDate ASC")
     List<DeviceDataHis> queryDeviceDataHisDto(@Param("deviceId") String deviceId,
-            @Param("datastream") String datastream, @Param("startDate") String startDate,
-            @Param("endDate") String endDate);
+            @Param("datastream") String datastream, @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate);
 }

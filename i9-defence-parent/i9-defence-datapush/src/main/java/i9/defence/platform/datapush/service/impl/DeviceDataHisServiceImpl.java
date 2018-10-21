@@ -1,5 +1,8 @@
 package i9.defence.platform.datapush.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +20,12 @@ public class DeviceDataHisServiceImpl implements DeviceDataHisService {
 
     @Override
     public List<DeviceDataHis> queryDeviceDataHisDto(String deviceId, String datastream, String startDate,
-            String endDate) {
+            String endDate) throws Exception {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date sDate = dateFormat.parse(startDate);
+        Date eDate = dateFormat.parse(endDate);
         List<DeviceDataHis> deviceDataHis = this.deviceDataHisRepository.queryDeviceDataHisDto(deviceId, datastream,
-                startDate, endDate);
+                sDate, eDate);
         return deviceDataHis;
     }
 }
