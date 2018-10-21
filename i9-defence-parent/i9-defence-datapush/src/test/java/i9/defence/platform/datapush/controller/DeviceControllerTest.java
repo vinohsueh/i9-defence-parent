@@ -46,6 +46,9 @@ public class DeviceControllerTest {
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     * 测试删除设备
+     */
     @Test
     public void testDeleteDevice() {
         final String deviceId = "aa";
@@ -54,6 +57,9 @@ public class DeviceControllerTest {
         System.out.println(httpResult.getMessage());
     }
 
+    /**
+     * 测试添加设备
+     */
     @Test
     public void testAddDevice() {
         final String deviceId = "aa";
@@ -62,6 +68,9 @@ public class DeviceControllerTest {
         System.out.println(httpResult.getMessage());
     }
 
+    /**
+     * 测试设备同步数据
+     */
     @Test
     public void testRefreshDevice() {
         final String deviceId = "aa";
@@ -70,6 +79,9 @@ public class DeviceControllerTest {
         System.out.println(httpResult.getMessage());
     }
 
+    /**
+     * 测试查询设备详情
+     */
     @Test
     public void testDeviceDetails() {
         ParameterizedTypeReference<HttpResult<DeviceInfoDto>> typeRef = new ParameterizedTypeReference<HttpResult<DeviceInfoDto>>() {
@@ -88,6 +100,9 @@ public class DeviceControllerTest {
         System.out.println("re : " + jsonObject.toString());
     }
 
+    /**
+     * 测试查询设备列表
+     */
     @Test
     public void testDeviceList() {
         ParameterizedTypeReference<HttpResult<List<DeviceInfoDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<DeviceInfoDto>>>() {
@@ -106,6 +121,9 @@ public class DeviceControllerTest {
         }
     }
 
+    /**
+     * 测试查询设备属性
+     */
     @Test
     public void testDeviceAttribute() {
         ParameterizedTypeReference<HttpResult<List<DeviceAttributeDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<DeviceAttributeDto>>>() {
@@ -125,6 +143,9 @@ public class DeviceControllerTest {
         }
     }
 
+    /**
+     * 测试通过设备id列表查询设备列表
+     */
     @Test
     public void testSearchDeviceList() {
         ParameterizedTypeReference<HttpResult<List<DeviceInfoDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<DeviceInfoDto>>>() {
@@ -146,17 +167,24 @@ public class DeviceControllerTest {
         }
     }
 
+    /**
+     * 测试设备数据点历史记录
+     */
     @Test
     public void testDeviceDatapoint() {
         ParameterizedTypeReference<HttpResult<List<DeviceDataHisDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<DeviceDataHisDto>>>() {
         };
-        
+
         HashMap<String, Object> params = new HashMap<String, Object>();
+        // 设备编号
         params.put("id", "0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
+        // 数据点
         params.put("datastream", "3_0_21");
+        // 开始时间
         params.put("startDate", "2018-10-01 00:00:00");
+        // 结束时间
         params.put("endDate", "2018-10-20 00:00:00");
-        
+
         JSONObject jsonObject = new JSONObject(params);
         HttpEntity<String> requestEntity = new HttpEntity<String>(jsonObject.toString());
         ResponseEntity<HttpResult<List<DeviceDataHisDto>>> responseEntity = this.restTemplate
@@ -164,7 +192,7 @@ public class DeviceControllerTest {
 
         HttpResult<List<DeviceDataHisDto>> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
-        
+
         for (DeviceDataHisDto deviceDataHisDto : httpResult.getRe()) {
             jsonObject = new JSONObject(deviceDataHisDto);
             System.out.println("re : " + jsonObject.toString());
