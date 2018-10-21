@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>i9.defence.platform.datapush</groupId>
+    <groupId>i9.defence.platform</groupId>
     <artifactId>i9-defence-datapush</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -60,13 +60,17 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
+        <dependency>
+            <groupId>i9.defence.platform</groupId>
+            <artifactId>i9-defence-pushdata-dto</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- 测试类 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-            <version>4.12</version>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

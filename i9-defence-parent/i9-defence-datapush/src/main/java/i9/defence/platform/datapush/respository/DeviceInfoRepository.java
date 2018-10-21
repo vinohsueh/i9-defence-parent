@@ -1,6 +1,9 @@
 package i9.defence.platform.datapush.respository;
 
 import i9.defence.platform.datapush.entity.DeviceInfo;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +21,7 @@ public interface DeviceInfoRepository extends JpaRepository<DeviceInfo, String> 
     @Modifying
     @Query("DELETE FROM DeviceInfo deviceInfo WHERE deviceInfo.deviceId = :deviceId")
     void deleteDeviceInfoById(@Param("deviceId") String deviceId);
+
+    @Query("SELECT deviceInfo FROM DeviceInfo deviceInfo WHERE deviceInfo.id IN (?1)")
+    List<DeviceInfo> queryDeviceInfoListByIds(List<String> ids);
 }

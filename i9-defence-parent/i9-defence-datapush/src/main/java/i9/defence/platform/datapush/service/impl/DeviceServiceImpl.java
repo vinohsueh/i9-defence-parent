@@ -129,4 +129,10 @@ public class DeviceServiceImpl implements DeviceService {
         deviceInfo.setPowerState(data.getBoolean("online") ? 1 : 0);
         this.saveDeviceInfo(deviceInfo);
     }
+
+    @Override
+    public List<DeviceInfo> getDeviceInfoListByIds(List<String> ids) {
+        List<DeviceInfo> deviceInfos = this.deviceInfoRepository.queryDeviceInfoListByIds(ids);
+        return deviceInfos;
+    }
 }

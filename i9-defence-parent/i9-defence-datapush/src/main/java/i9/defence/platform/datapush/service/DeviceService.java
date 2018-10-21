@@ -25,4 +25,6 @@ public interface DeviceService {
     void refreshDevice(String deviceId) throws Exception;
 
     void addDevice(String deviceId) throws Exception;
+
+    List<DeviceInfo> getDeviceInfoListByIds(List<String> ids);
 }
