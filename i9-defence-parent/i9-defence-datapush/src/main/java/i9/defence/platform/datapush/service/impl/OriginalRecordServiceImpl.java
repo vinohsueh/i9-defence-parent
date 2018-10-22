@@ -5,16 +5,20 @@ import i9.defence.platform.datapush.entity.OriginalRecord;
 import i9.defence.platform.datapush.respository.OriginalRecordRepository;
 import i9.defence.platform.datapush.service.OriginalRecordService;
 import i9.defence.platform.datapush.utils.StringHelper;
-
-import java.util.Date;
-
-import javax.transaction.Transactional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Date;
+
+/**
+ * 原始消息服务类
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:51:12
+ */
 @Service
 public class OriginalRecordServiceImpl implements OriginalRecordService {
 
@@ -23,6 +27,11 @@ public class OriginalRecordServiceImpl implements OriginalRecordService {
     @Autowired
     private OriginalRecordRepository originalRecordRepository;
 
+    /**
+     * 记录原始消息
+     * 
+     * @param message
+     */
     @Transactional
     @Override
     public void saveOriginalRecordMessage(String message) {

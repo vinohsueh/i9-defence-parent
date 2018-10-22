@@ -1,5 +1,11 @@
 package i9.defence.platform.datapush.service;
 
+/**
+ * 原始消息服务类
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:51:12
+ */
 public interface OriginalRecordService {
 
     /**

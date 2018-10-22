@@ -1,14 +1,19 @@
 package i9.defence.platform.datapush.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import java.util.Date;
 
+/**
+ * 数据原始记录
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:19:06
+ */
 @Entity
 @Table(name = "tb_original_record")
 public class OriginalRecord implements java.io.Serializable {

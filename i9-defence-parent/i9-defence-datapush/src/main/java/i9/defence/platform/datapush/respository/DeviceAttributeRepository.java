@@ -1,15 +1,20 @@
 package i9.defence.platform.datapush.respository;
 
-import java.util.Date;
-import java.util.List;
-
 import i9.defence.platform.datapush.entity.DeviceAttribute;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
+import java.util.List;
+
+/**
+ * 设备属性DAO
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:19:38
+ */
 public interface DeviceAttributeRepository extends JpaRepository<DeviceAttribute, String> {
 
     @Query("SELECT deviceAttribute FROM DeviceAttribute deviceAttribute WHERE deviceAttribute.deviceId = :deviceId AND deviceAttribute.datastream = :datastream")

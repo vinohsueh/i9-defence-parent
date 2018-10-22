@@ -25,6 +25,7 @@
         <module>i9-defence-microservice-sms</module>
         <module>i9-defence-microservice-config</module>
         <module>i9-defence-datapush</module>
+        <module>i9-defence-datapush-dto</module>
     </modules>
     
     <properties>

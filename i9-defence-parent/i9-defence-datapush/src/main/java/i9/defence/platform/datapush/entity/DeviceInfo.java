@@ -10,6 +10,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Date;
 
+/**
+ * 设备信息
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:17:51
+ */
 @Entity
 @Table(name = "tb_device_info")
 public class DeviceInfo implements java.io.Serializable {
@@ -25,16 +31,34 @@ public class DeviceInfo implements java.io.Serializable {
     public DeviceInfo() {
     }
 
+    /**
+     * ID
+     */
     private String id;
 
+    /**
+     * 设备编号
+     */
     private String deviceId;
 
+    /**
+     * 设备名称
+     */
     private String deviceName;
 
+    /**
+     * imei码
+     */
     private String imei;
 
+    /**
+     * 设备状态
+     */
     private Integer powerState;
 
+    /**
+     * 创建日期
+     */
     private Date createDate;
 
     @Id

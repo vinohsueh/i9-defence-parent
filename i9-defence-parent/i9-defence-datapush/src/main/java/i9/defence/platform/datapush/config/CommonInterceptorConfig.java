@@ -5,6 +5,12 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * spring boot 资源配置类
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:06:14
+ */
 @Configuration
 public class CommonInterceptorConfig extends WebMvcConfigurerAdapter {
 
