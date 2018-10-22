@@ -18,11 +18,14 @@ import i9.defence.platform.datapush.dto.DeviceAttributeDto;
 import i9.defence.platform.datapush.dto.DeviceDataHisDto;
 import i9.defence.platform.datapush.dto.DeviceDetailsDto;
 import i9.defence.platform.datapush.dto.DeviceInfoDto;
+import i9.defence.platform.datapush.dto.OriginalRecordDto;
 import i9.defence.platform.datapush.entity.DeviceAttribute;
 import i9.defence.platform.datapush.entity.DeviceDataHis;
 import i9.defence.platform.datapush.entity.DeviceInfo;
+import i9.defence.platform.datapush.entity.OriginalRecord;
 import i9.defence.platform.datapush.service.DeviceDataHisService;
 import i9.defence.platform.datapush.service.DeviceService;
+import i9.defence.platform.datapush.service.OriginalRecordService;
 import i9.defence.platform.datapush.utils.HttpResponseUtil;
 import i9.defence.platform.datapush.utils.HttpResult;
 
@@ -44,6 +47,9 @@ public class DeviceController {
 
     @Autowired
     private DeviceDataHisService deviceDataHisService;
+
+    @Autowired
+    private OriginalRecordService originalRecordService;
 
     /**
      * 获取设备详情和属性信息
@@ -279,6 +285,33 @@ public class DeviceController {
             return HttpResponseUtil.ok(deviceDataHisDtos);
         } catch (Exception e) {
             return HttpResponseUtil.error("获取设备数据点失败");
+        }
+    }
+
+    /**
+     * 获取原始数据记录
+     * 
+     * @param jsonStr
+     * @return
+     */
+    @RequestMapping(value = "/originalRecordList.sapi")
+    @ResponseBody
+    public HttpResult<?> originalRecordList(@RequestBody String jsonStr) {
+        JSONObject param = new JSONObject(jsonStr);
+        String startDate = param.getString("startDate");
+        String endDate = param.getString("endDate");
+        try {
+            List<OriginalRecordDto> originalRecordDtos = new ArrayList<OriginalRecordDto>();
+            for (OriginalRecord originalRecord : this.originalRecordService.getOriginalRecordList(startDate, endDate)) {
+                OriginalRecordDto originalRecordDto = new OriginalRecordDto();
+                originalRecordDto.setMessage(originalRecord.getMessage());
+                originalRecordDto.setSubmitDate(originalRecord.getSubmitDate());
+                originalRecordDtos.add(originalRecordDto);
+            }
+            return HttpResponseUtil.ok(originalRecordDtos);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return HttpResponseUtil.error("获取原始数据记录失败");
         }
     }
 }

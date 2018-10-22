@@ -4,14 +4,18 @@ import i9.defence.platform.datapush.controller.ReceiverServiceController;
 import i9.defence.platform.datapush.entity.OriginalRecord;
 import i9.defence.platform.datapush.respository.OriginalRecordRepository;
 import i9.defence.platform.datapush.service.OriginalRecordService;
+import i9.defence.platform.datapush.utils.DateUtil;
 import i9.defence.platform.datapush.utils.StringHelper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * 原始消息服务类
@@ -45,5 +49,12 @@ public class OriginalRecordServiceImpl implements OriginalRecordService {
         } catch (Exception e) {
             logger.error("保存原始数据失败, {}", message, e);
         }
+    }
+
+    @Override
+    public List<OriginalRecord> getOriginalRecordList(String startDate, String endDate) throws Exception {
+        Date sDate = DateUtil.parse(startDate);
+        Date eDate = DateUtil.parse(endDate);
+        return this.originalRecordRepository.queryOriginalRecordList(sDate, eDate);
     }
 }
