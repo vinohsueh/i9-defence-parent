@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import i9.defence.platform.datapush.config.DeviceGroupAttributeNameCache;
 import i9.defence.platform.datapush.dto.DeviceAttributeDto;
 import i9.defence.platform.datapush.dto.DeviceDataHisDto;
+import i9.defence.platform.datapush.dto.DeviceDetailsDto;
 import i9.defence.platform.datapush.dto.DeviceInfoDto;
 import i9.defence.platform.datapush.entity.DeviceAttribute;
 import i9.defence.platform.datapush.entity.DeviceDataHis;
@@ -37,6 +38,49 @@ public class DeviceController {
 
     @Autowired
     private DeviceDataHisService deviceDataHisService;
+
+    /**
+     * 获取设备详情和属性信息
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/deviceDetailsAndAttribute.sapi")
+    @ResponseBody
+    public HttpResult<?> deviceDetailsAndAttribute(@RequestBody String id) {
+        try {
+            DeviceInfo deviceInfo = this.deviceService.getDeviceInfoById(id);
+            if (deviceInfo == null) {
+                return HttpResponseUtil.error("设备不存在");
+            }
+            DeviceInfoDto deviceInfoDto = DeviceInfoDto.build(deviceInfo.getId(), deviceInfo.getDeviceId(),
+                    deviceInfo.getDeviceName(), deviceInfo.getImei(), deviceInfo.getPowerState(),
+                    deviceInfo.getCreateDate());
+
+            DeviceDetailsDto deviceDetailsDto = new DeviceDetailsDto();
+            deviceDetailsDto.setDeviceInfoDto(deviceInfoDto);
+
+            HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
+                    .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
+            LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
+                    .getDeviceGroupAttributeResult("1");
+
+            List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
+            for (Entry<String, String> entry : attributeNames.entrySet()) {
+                DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
+                DeviceAttributeDto deviceAttributeDto = new DeviceAttributeDto();
+                deviceAttributeDto.setAttributeName(entry.getValue());
+                deviceAttributeDto.setDatastream(deviceAttribute.getDatastream());
+                deviceAttributeDto.setValue(deviceAttribute.getValue());
+                deviceAttributeDtos.add(deviceAttributeDto);
+            }
+            deviceDetailsDto.setDeviceAttributeDtos(deviceAttributeDtos);
+
+            return HttpResponseUtil.ok(deviceDetailsDto);
+        } catch (Exception e) {
+            return HttpResponseUtil.error("获取设备详情失败");
+        }
+    }
 
     /**
      * 添加设备

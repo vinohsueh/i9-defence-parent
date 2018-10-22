@@ -25,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import i9.defence.platform.datapush.ServerRun;
 import i9.defence.platform.datapush.dto.DeviceAttributeDto;
 import i9.defence.platform.datapush.dto.DeviceDataHisDto;
+import i9.defence.platform.datapush.dto.DeviceDetailsDto;
 import i9.defence.platform.datapush.dto.DeviceInfoDto;
 import i9.defence.platform.datapush.utils.HttpResult;
 
@@ -195,6 +196,29 @@ public class DeviceControllerTest {
 
         for (DeviceDataHisDto deviceDataHisDto : httpResult.getRe()) {
             jsonObject = new JSONObject(deviceDataHisDto);
+            System.out.println("re : " + jsonObject.toString());
+        }
+    }
+    
+
+    @Test
+    public void testDeviceDetailsAndAttribute() {
+        ParameterizedTypeReference<HttpResult<DeviceDetailsDto>> typeRef = new ParameterizedTypeReference<HttpResult<DeviceDetailsDto>>() {
+        };
+        HttpEntity<String> requestEntity = new HttpEntity<String>("0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
+        ResponseEntity<HttpResult<DeviceDetailsDto>> responseEntity = this.restTemplate
+                .exchange(baseURL + "baseAPI/deviceDetailsAndAttribute.sapi", HttpMethod.POST, requestEntity, typeRef);
+        
+        HttpResult<DeviceDetailsDto> httpResult = responseEntity.getBody();
+        System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
+        
+        DeviceDetailsDto deviceDetailsDto = httpResult.getRe();
+        
+        JSONObject jsonObject = new JSONObject(deviceDetailsDto.getDeviceInfoDto());
+        System.out.println("re : " + jsonObject.toString());
+        
+        for (DeviceAttributeDto deviceAttributeDto : deviceDetailsDto.getDeviceAttributeDtos()) {
+            jsonObject = new JSONObject(deviceAttributeDto);
             System.out.println("re : " + jsonObject.toString());
         }
     }
