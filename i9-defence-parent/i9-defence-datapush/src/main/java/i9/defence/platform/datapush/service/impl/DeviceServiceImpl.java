@@ -8,6 +8,7 @@ import i9.defence.platform.datapush.service.DeviceService;
 import i9.defence.platform.datapush.utils.DateUtil;
 import i9.defence.platform.datapush.utils.HttpClientUtil;
 import i9.defence.platform.datapush.utils.StringHelper;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private DeviceAttributeRepository deviceAttributeRepository;
 
+    /**
+     * 获取设备列表
+     * 
+     * @return
+     */
     @Override
     public List<DeviceInfo> getDeviceInfoList() {
         Sort sort = new Sort(Sort.Direction.DESC, "createDate");
@@ -35,26 +41,49 @@ public class DeviceServiceImpl implements DeviceService {
         return List;
     }
 
+    /**
+     * 通过ID获取设备详情
+     * 
+     * @param id
+     * @return
+     */
     @Override
     public DeviceInfo getDeviceInfoById(String id) {
         DeviceInfo deviceInfo = this.deviceInfoRepository.findOne(id);
         return deviceInfo;
     }
 
+    /**
+     * 删除设备
+     * 
+     * @param id
+     */
     @Transactional(rollbackFor = Throwable.class)
     @Override
     public void deleteDevice(String id) {
         this.deviceInfoRepository.delete(id);
     }
 
+    /**
+     * 保存设备信息
+     * 
+     * @param deviceInfo
+     */
     @Override
     public void saveDeviceInfo(DeviceInfo deviceInfo) {
         this.deviceInfoRepository.save(deviceInfo);
     }
 
+    /**
+     * 获取设备属性
+     * 
+     * @param deviceId
+     * @return
+     */
     @Override
     public HashMap<String, DeviceAttribute> getDeviceAttributeValueResult(String deviceId) {
-        List<DeviceAttribute> deviceAttributes = this.deviceAttributeRepository.selectDeviceAttributeListByDeviceId(deviceId);
+        List<DeviceAttribute> deviceAttributes = this.deviceAttributeRepository
+                .selectDeviceAttributeListByDeviceId(deviceId);
         HashMap<String, DeviceAttribute> dataMap = new HashMap<String, DeviceAttribute>();
         for (DeviceAttribute deviceAttribute : deviceAttributes) {
             dataMap.put(deviceAttribute.getDatastream(), deviceAttribute);
@@ -62,26 +91,45 @@ public class DeviceServiceImpl implements DeviceService {
         return dataMap;
     }
 
+    /**
+     * 保存设备属性
+     * 
+     * @param deviceAttribute
+     */
     @Override
     public void saveDeviceAttribute(DeviceAttribute deviceAttribute) {
         this.deviceAttributeRepository.save(deviceAttribute);
     }
 
+    /**
+     * 更新设备属性
+     * 
+     * @param deviceAttribute
+     */
     @Override
     public void updateDeviceAttribute(DeviceAttribute deviceAttribute) {
-        this.deviceAttributeRepository.updateDeviceAttributeLastValue(deviceAttribute.getValue(), deviceAttribute.getUpdateDate(), deviceAttribute.getId());
+        this.deviceAttributeRepository.updateDeviceAttributeLastValue(deviceAttribute.getValue(),
+                deviceAttribute.getUpdateDate(), deviceAttribute.getId());
     }
 
+    /**
+     * 同步设备
+     * 
+     * @param deviceId
+     * @throws Exception
+     */
     @Transactional(rollbackFor = Throwable.class)
     @Override
     public void refreshDevice(String deviceId) throws Exception {
         DeviceInfo deviceInfo = this.getDeviceInfoById(deviceId);
-        String resp = HttpClientUtil.doGet("http://api.heclouds.com/devices/datapoints?devIds=" + deviceInfo.getDeviceId());
+        String resp = HttpClientUtil.doGet("http://api.heclouds.com/devices/datapoints?devIds="
+                + deviceInfo.getDeviceId());
         JSONObject result = new JSONObject(resp);
         if (result.getInt("errno") != 0) {
             throw new RuntimeException(result.getString("error"));
         }
-        HashMap<String, DeviceAttribute> deviceAttributes = this.getDeviceAttributeValueResult(deviceInfo.getDeviceId());
+        HashMap<String, DeviceAttribute> deviceAttributes = this
+                .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
         JSONObject data = result.getJSONObject("data");
         JSONArray devices = data.getJSONArray("devices");
 
@@ -111,6 +159,12 @@ public class DeviceServiceImpl implements DeviceService {
         }
     }
 
+    /**
+     * 添加设备
+     * 
+     * @param deviceId
+     * @throws Exception
+     */
     @Transactional(rollbackFor = Throwable.class)
     @Override
     public void addDevice(String deviceId) throws Exception {
@@ -130,6 +184,12 @@ public class DeviceServiceImpl implements DeviceService {
         this.saveDeviceInfo(deviceInfo);
     }
 
+    /**
+     * 通过设备编号列表查询设备
+     * 
+     * @param ids
+     * @return
+     */
     @Override
     public List<DeviceInfo> getDeviceInfoListByIds(List<String> ids) {
         List<DeviceInfo> deviceInfos = this.deviceInfoRepository.queryDeviceInfoListByIds(ids);

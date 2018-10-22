@@ -9,9 +9,20 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+/**
+ * 设备状态消息处理服务类
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:52:38
+ */
 @Service
 public class ReceiveMessagePowerStateServiceImpl implements ReceiveMessagePowerStateService {
 
+    /**
+     * 处理上行数据消息
+     * 
+     * @param data
+     */
     @Transactional
     @Override
     public void dealWithUplinkData(JSONObject data) {
