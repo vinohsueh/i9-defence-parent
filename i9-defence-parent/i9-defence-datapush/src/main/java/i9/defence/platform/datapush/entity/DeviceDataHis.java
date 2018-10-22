@@ -8,6 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
+/**
+ * 设备数据历史
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:15:13
+ */
 @Entity
 @Table(name = "tb_device_data_his")
 public class DeviceDataHis implements java.io.Serializable {
@@ -17,14 +23,29 @@ public class DeviceDataHis implements java.io.Serializable {
     public DeviceDataHis() {
     }
 
+    /**
+     * ID
+     */
     private String id;
 
+    /**
+     * 设备编号
+     */
     private String deviceId;
 
+    /**
+     * 数据流
+     */
     private String datastream;
 
+    /**
+     * 值
+     */
     private String value;
 
+    /**
+     * 提交日期
+     */
     private Date createDate;
 
     @Id

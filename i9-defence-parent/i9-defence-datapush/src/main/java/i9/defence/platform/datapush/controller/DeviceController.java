@@ -26,6 +26,12 @@ import i9.defence.platform.datapush.service.DeviceService;
 import i9.defence.platform.datapush.utils.HttpResponseUtil;
 import i9.defence.platform.datapush.utils.HttpResult;
 
+/**
+ * 对外提供api接口服务
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:10:29
+ */
 @RestController
 @RequestMapping(value = "/baseAPI/")
 public class DeviceController {
@@ -191,6 +197,12 @@ public class DeviceController {
         }
     }
 
+    /**
+     * 通过设备编号列表查询设备信息
+     * 
+     * @param ids
+     * @return
+     */
     @RequestMapping(value = "/searchDeviceList.sapi")
     @ResponseBody
     public HttpResult<?> searchDeviceList(@RequestBody List<String> ids) {
@@ -235,6 +247,12 @@ public class DeviceController {
         }
     }
 
+    /**
+     * 查询设备数据点信息
+     * 
+     * @param jsonStr
+     * @return
+     */
     @RequestMapping(value = "/deviceDatapoint.sapi")
     @ResponseBody
     public HttpResult<?> deviceDatapoint(@RequestBody String jsonStr) {

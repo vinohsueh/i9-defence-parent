@@ -15,6 +15,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+/**
+ * 数据显示view控制器
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:11:51
+ */
 @Controller
 @RequestMapping(value = "/")
 public class IndexController {
@@ -25,6 +31,12 @@ public class IndexController {
     @Autowired
     private DeviceGroupAttributeNameCache deviceGroupAttributeNameCache;
 
+    /**
+     * 显示设备列表
+     * 
+     * @param model
+     * @return
+     */
     @RequestMapping(value = { "/index.shtml", "/" })
     public String index(Model model) {
         List<DeviceInfo> deviceInfos = this.deviceService.getDeviceInfoList();
@@ -32,12 +44,20 @@ public class IndexController {
         return "index";
     }
 
+    /**
+     * 显示设备详情
+     * 
+     * @param deviceId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = { "/details-{deviceId}.shtml" })
     public String details(@PathVariable("deviceId") String deviceId, Model model) {
         DeviceInfo deviceInfo = this.deviceService.getDeviceInfoById(deviceId);
         model.addAttribute("deviceInfo", deviceInfo);
 
-        HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService.getDeviceAttributeValueResult(deviceInfo.getDeviceId());
+        HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
+                .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
 
         LinkedHashMap<String, DeviceAttribute> values = new LinkedHashMap<String, DeviceAttribute>();
         LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache.getDeviceGroupAttributeResult("1");

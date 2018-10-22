@@ -9,6 +9,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * 设备信息DAO
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:29:30
+ */
 public interface DeviceInfoRepository extends JpaRepository<DeviceInfo, String> {
 
     @Query("SELECT deviceInfo FROM DeviceInfo deviceInfo WHERE deviceInfo.deviceId = :deviceId")

@@ -9,6 +9,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * 设备组属性名映射缓存
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:06:38
+ */
 @Service
 public class DeviceGroupAttributeNameCache {
 
@@ -17,25 +23,31 @@ public class DeviceGroupAttributeNameCache {
     @Autowired
     private DeviceGroupAttributeRepository deviceGroupAttributeRepository;
 
+    /**
+     * 初始化dataMap
+     */
     public void reInit() {
-        List<DeviceGroupAttribute> list = this.deviceGroupAttributeRepository
-                .findAll();
+        List<DeviceGroupAttribute> list = this.deviceGroupAttributeRepository.findAll();
         HashMap<String, LinkedHashMap<String, String>> dataMap = new HashMap<String, LinkedHashMap<String, String>>();
         for (DeviceGroupAttribute deviceGroupAttribute : list) {
-            LinkedHashMap<String, String> tmpData = dataMap
-                    .get(deviceGroupAttribute.getDeviceGroupId());
+            LinkedHashMap<String, String> tmpData = dataMap.get(deviceGroupAttribute.getDeviceGroupId());
             if (tmpData == null) {
                 tmpData = new LinkedHashMap<String, String>();
                 dataMap.put(deviceGroupAttribute.getDeviceGroupId(), tmpData);
             }
-            tmpData.put(deviceGroupAttribute.getDatastream(),
-                    deviceGroupAttribute.getAttribute());
+            tmpData.put(deviceGroupAttribute.getDatastream(), deviceGroupAttribute.getAttribute());
         }
         this.dataMap = dataMap;
     }
 
-    public String getDeviceGroupAttributeName(String deviceGroupId,
-            String datastream) {
+    /**
+     * 获取设备组数据流属性名称
+     * 
+     * @param deviceGroupId
+     * @param datastream
+     * @return
+     */
+    public String getDeviceGroupAttributeName(String deviceGroupId, String datastream) {
         LinkedHashMap<String, String> tmpData = this.dataMap.get(deviceGroupId);
         if (tmpData == null) {
             return "";
@@ -43,8 +55,13 @@ public class DeviceGroupAttributeNameCache {
         return tmpData.get(datastream);
     }
 
-    public LinkedHashMap<String, String> getDeviceGroupAttributeResult(
-            String deviceGroupId) {
+    /**
+     * 获取设备组属性映射
+     * 
+     * @param deviceGroupId
+     * @return
+     */
+    public LinkedHashMap<String, String> getDeviceGroupAttributeResult(String deviceGroupId) {
         LinkedHashMap<String, String> tmpData = this.dataMap.get(deviceGroupId);
         return tmpData;
     }

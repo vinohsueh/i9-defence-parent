@@ -8,6 +8,9 @@ package i9.defence.platform.datapush.config;
  */
 public class ServerConfig {
 
+    /**
+     * onenet访问安全api-key
+     */
     public static final String API_KEY = "8VZLUlIcHHxI8=AYWZsxG2nPCv0=";
 
     /**

@@ -2,6 +2,12 @@ package i9.defence.platform.datapush.dto;
 
 import java.util.Date;
 
+/**
+ * 设备信息DTO
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:03:42
+ */
 public class DeviceInfoDto implements java.io.Serializable {
 
     private static final long serialVersionUID = -2634267931495344908L;
@@ -9,8 +15,8 @@ public class DeviceInfoDto implements java.io.Serializable {
     public DeviceInfoDto() {
     }
 
-    public static DeviceInfoDto build(String id, String deviceId, String deviceName, 
-            String imei, Integer powerState, Date createDate) {
+    public static DeviceInfoDto build(String id, String deviceId, String deviceName, String imei, Integer powerState,
+            Date createDate) {
         DeviceInfoDto deviceInfoDto = new DeviceInfoDto();
         deviceInfoDto.setId(id);
         deviceInfoDto.setDeviceId(deviceId);
@@ -21,16 +27,34 @@ public class DeviceInfoDto implements java.io.Serializable {
         return deviceInfoDto;
     }
 
+    /**
+     * 设备编号
+     */
     private String id;
 
+    /**
+     * onenet设备编号
+     */
     private String deviceId;
 
+    /**
+     * 设备名称
+     */
     private String deviceName;
 
+    /**
+     * imei值
+     */
     private String imei;
 
+    /**
+     * 设备状态
+     */
     private Integer powerState;
 
+    /**
+     * 创建日期
+     */
     private Date createDate;
 
     public String getId() {

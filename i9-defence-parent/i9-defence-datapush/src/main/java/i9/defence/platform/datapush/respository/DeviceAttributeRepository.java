@@ -9,6 +9,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 设备属性DAO
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:19:38
+ */
 public interface DeviceAttributeRepository extends JpaRepository<DeviceAttribute, String> {
 
     @Query("SELECT deviceAttribute FROM DeviceAttribute deviceAttribute WHERE deviceAttribute.deviceId = :deviceId AND deviceAttribute.datastream = :datastream")
