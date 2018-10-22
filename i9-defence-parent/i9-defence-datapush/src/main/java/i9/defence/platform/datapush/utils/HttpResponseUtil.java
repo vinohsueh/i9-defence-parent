@@ -1,5 +1,11 @@
 package i9.defence.platform.datapush.utils;
 
+/**
+ * httpResult响应封装类
+ * 
+ * @author jiangtao
+ *
+ */
 public class HttpResponseUtil {
 
     public static <T> HttpResult<T> ok() {

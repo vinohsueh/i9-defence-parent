@@ -2,6 +2,12 @@ package i9.defence.platform.datapush.utils;
 
 import java.util.HashMap;
 
+/**
+ * 消息类型
+ * 
+ * @author jiangtao
+ * @date 2018-10-
+ */
 public enum TypeEnum {
 
     UPLOAD_DATA_POINT(1, "设备上传数据点消息"), UPLOAD_POWER_STATE(2, "设备上下线消息");
