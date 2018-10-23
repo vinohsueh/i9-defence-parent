@@ -4,8 +4,14 @@ public class HttpResult<T> implements java.io.Serializable {
 
     private static final long serialVersionUID = 7609149241975229223L;
 
+    /**
+     * 返回消息
+     */
     private String message;
 
+    /**
+     * 返回code
+     */
     private int code;
 
     public int getCode() {
@@ -16,6 +22,9 @@ public class HttpResult<T> implements java.io.Serializable {
         this.code = code;
     }
 
+    /**
+     * 返回对象
+     */
     private T re;
 
     public String getMessage() {

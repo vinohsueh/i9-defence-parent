@@ -2,8 +2,13 @@ package i9.defence.platform.datapush.utils;
 
 import java.util.HashMap;
 
+/**
+ * 设备状态枚举类
+ * 
+ * @author jiangtao
+ */
 public enum PowerStateEnum {
-    
+
     DEVICE_ONLINE(0, "设备下线"), DEVICE_OFFLINE(1, "设备上线");
 
     private final int value;
