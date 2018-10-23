@@ -229,6 +229,9 @@ public class DeviceControllerTest {
         }
     }
 
+    /**
+     * 测试查询设备详情及属性信息
+     */
     @Test
     public void testDeviceDetailsAndAttribute() {
         ParameterizedTypeReference<HttpResult<DeviceDetailsDto>> typeRef = new ParameterizedTypeReference<HttpResult<DeviceDetailsDto>>() {
