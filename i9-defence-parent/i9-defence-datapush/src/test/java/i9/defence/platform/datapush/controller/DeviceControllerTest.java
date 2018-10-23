@@ -1,5 +1,13 @@
 package i9.defence.platform.datapush.controller;
 
+import i9.defence.platform.datapush.ServerRun;
+import i9.defence.platform.datapush.dto.DeviceAttributeDto;
+import i9.defence.platform.datapush.dto.DeviceDataHisDto;
+import i9.defence.platform.datapush.dto.DeviceDetailsDto;
+import i9.defence.platform.datapush.dto.DeviceInfoDto;
+import i9.defence.platform.datapush.dto.OriginalRecordDto;
+import i9.defence.platform.datapush.utils.HttpResult;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,23 +20,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
-
-import i9.defence.platform.datapush.ServerRun;
-import i9.defence.platform.datapush.dto.DeviceAttributeDto;
-import i9.defence.platform.datapush.dto.DeviceDataHisDto;
-import i9.defence.platform.datapush.dto.DeviceDetailsDto;
-import i9.defence.platform.datapush.dto.DeviceInfoDto;
-import i9.defence.platform.datapush.dto.OriginalRecordDto;
-import i9.defence.platform.datapush.utils.HttpResult;
 
 /**
  * 设备对外测试接口调试类
@@ -258,18 +255,5 @@ public class DeviceControllerTest {
             jsonObject = new JSONObject(deviceAttributeDto);
             System.out.println("re : " + jsonObject.toString());
         }
-    }
-
-    @Bean
-    public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
-        return new RestTemplate(factory);
-    }
-
-    @Bean
-    public ClientHttpRequestFactory simpleClientHttpRequestFactory() {
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setReadTimeout(5000);
-        factory.setConnectTimeout(15000);
-        return factory;
     }
 }

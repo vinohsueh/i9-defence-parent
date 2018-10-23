@@ -1,6 +1,13 @@
 server:
   port: 9999
 
+security:
+  basic:
+    enabled: true
+  user:
+    name: w0QOhTdMmzkyvi5m
+    password: ZRU1ZjiIwIHo6sfK
+
 spring:
   profiles:
     active: product
