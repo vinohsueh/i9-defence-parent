@@ -7,15 +7,15 @@ import i9.defence.platform.datapush.service.OriginalRecordService;
 import i9.defence.platform.datapush.utils.DateUtil;
 import i9.defence.platform.datapush.utils.StringHelper;
 
+import java.util.Date;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-
-import java.util.Date;
-import java.util.List;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 原始消息服务类
@@ -36,7 +36,7 @@ public class OriginalRecordServiceImpl implements OriginalRecordService {
      * 
      * @param message
      */
-    @Transactional
+    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
     @Override
     public void saveOriginalRecordMessage(String message) {
         try {

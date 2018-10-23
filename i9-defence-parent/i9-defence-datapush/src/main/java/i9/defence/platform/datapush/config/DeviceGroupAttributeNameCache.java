@@ -28,7 +28,7 @@ public class DeviceGroupAttributeNameCache {
      */
     public void reInit() {
         List<DeviceGroupAttribute> list = this.deviceGroupAttributeRepository.findAll();
-        HashMap<String, LinkedHashMap<String, String>> dataMap = new HashMap<String, LinkedHashMap<String, String>>();
+        HashMap<String, LinkedHashMap<String, String>> dataMap = new HashMap<String, LinkedHashMap<String, String>>(list.size());
         for (DeviceGroupAttribute deviceGroupAttribute : list) {
             LinkedHashMap<String, String> tmpData = dataMap.get(deviceGroupAttribute.getDeviceGroupId());
             if (tmpData == null) {

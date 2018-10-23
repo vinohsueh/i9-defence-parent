@@ -6,12 +6,14 @@ import i9.defence.platform.datapush.respository.DeviceAttributeRepository;
 import i9.defence.platform.datapush.respository.DeviceDataHisRepository;
 import i9.defence.platform.datapush.service.ReceiveMessageDataPointService;
 import i9.defence.platform.datapush.utils.StringHelper;
+
+import java.util.Date;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.Date;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 数据点消息处理服务类
@@ -27,7 +29,7 @@ public class ReceiveMessageDataPointServiceImpl implements ReceiveMessageDataPoi
      * 
      * @param data
      */
-    @Transactional
+    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
     @Override
     public void dealWithUplinkData(JSONObject data) {
         int deviceId = data.getInt("dev_id");

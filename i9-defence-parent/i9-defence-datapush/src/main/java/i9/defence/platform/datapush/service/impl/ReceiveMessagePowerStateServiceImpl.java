@@ -3,11 +3,12 @@ package i9.defence.platform.datapush.service.impl;
 import i9.defence.platform.datapush.entity.DeviceInfo;
 import i9.defence.platform.datapush.respository.DeviceInfoRepository;
 import i9.defence.platform.datapush.service.ReceiveMessagePowerStateService;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 设备状态消息处理服务类
@@ -23,7 +24,7 @@ public class ReceiveMessagePowerStateServiceImpl implements ReceiveMessagePowerS
      * 
      * @param data
      */
-    @Transactional
+    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
     @Override
     public void dealWithUplinkData(JSONObject data) {
         int deviceId = data.getInt("dev_id");

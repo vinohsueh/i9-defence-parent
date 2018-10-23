@@ -10,7 +10,15 @@ import java.util.HashMap;
  */
 public enum TypeEnum {
 
-    UPLOAD_DATA_POINT(1, "设备上传数据点消息"), UPLOAD_POWER_STATE(2, "设备上下线消息");
+    /**
+     * 设备上传数据点消息
+     */
+    UPLOAD_DATA_POINT(1, "设备上传数据点消息"),
+
+    /**
+     * 设备上下线消息
+     */
+    UPLOAD_POWER_STATE(2, "设备上下线消息");
 
     private final int value;
 
@@ -29,15 +37,15 @@ public enum TypeEnum {
         return name;
     }
 
-    private static final HashMap<Integer, TypeEnum> types = new HashMap<Integer, TypeEnum>();
+    private static final HashMap<Integer, TypeEnum> ENUM_TYPE = new HashMap<Integer, TypeEnum>();
 
     static {
         for (TypeEnum typeEnum : values()) {
-            types.put(typeEnum.getValue(), typeEnum);
+            ENUM_TYPE.put(typeEnum.getValue(), typeEnum);
         }
     }
 
     public static TypeEnum valueOf(int i) {
-        return types.get(i);
+        return ENUM_TYPE.get(i);
     }
 }

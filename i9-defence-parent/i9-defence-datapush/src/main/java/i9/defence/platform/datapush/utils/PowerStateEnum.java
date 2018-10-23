@@ -9,7 +9,15 @@ import java.util.HashMap;
  */
 public enum PowerStateEnum {
 
-    DEVICE_ONLINE(0, "设备下线"), DEVICE_OFFLINE(1, "设备上线");
+    /**
+     * 设备下线
+     */
+    DEVICE_ONLINE(0, "设备下线"),
+
+    /**
+     * 设备上线
+     */
+    DEVICE_OFFLINE(1, "设备上线");
 
     private final int value;
 
@@ -28,15 +36,15 @@ public enum PowerStateEnum {
         return name;
     }
 
-    private static final HashMap<Integer, PowerStateEnum> types = new HashMap<Integer, PowerStateEnum>();
+    private static final HashMap<Integer, PowerStateEnum> ENUM_TYPE = new HashMap<Integer, PowerStateEnum>();
 
     static {
         for (PowerStateEnum powerStateEnum : values()) {
-            types.put(powerStateEnum.getValue(), powerStateEnum);
+            ENUM_TYPE.put(powerStateEnum.getValue(), powerStateEnum);
         }
     }
 
     public static PowerStateEnum valueOf(int i) {
-        return types.get(i);
+        return ENUM_TYPE.get(i);
     }
 }

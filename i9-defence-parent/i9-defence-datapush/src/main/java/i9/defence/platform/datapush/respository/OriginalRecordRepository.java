@@ -17,6 +17,13 @@ import org.springframework.data.repository.query.Param;
  */
 public interface OriginalRecordRepository extends JpaRepository<OriginalRecord, String> {
 
+    /**
+     * 查询日期区间内的原始数据列表
+     * 
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     @Query("SELECT originalRecord FROM OriginalRecord originalRecord WHERE originalRecord.submitDate BETWEEN :startDate AND :endDate ORDER BY originalRecord.submitDate ASC")
     List<OriginalRecord> queryOriginalRecordList(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

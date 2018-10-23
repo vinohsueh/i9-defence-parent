@@ -30,6 +30,12 @@ import i9.defence.platform.datapush.dto.DeviceInfoDto;
 import i9.defence.platform.datapush.dto.OriginalRecordDto;
 import i9.defence.platform.datapush.utils.HttpResult;
 
+/**
+ * 设备对外测试接口调试类
+ * 
+ * @author R12
+ * @date 2018年10月23日 09:44:20
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServerRun.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeviceControllerTest {
@@ -177,7 +183,7 @@ public class DeviceControllerTest {
         ParameterizedTypeReference<HttpResult<List<DeviceDataHisDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<DeviceDataHisDto>>>() {
         };
 
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap<String, Object> params = new HashMap<String, Object>(4);
         // 设备编号
         params.put("id", "0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
         // 数据点
@@ -209,7 +215,7 @@ public class DeviceControllerTest {
         ParameterizedTypeReference<HttpResult<List<OriginalRecordDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<OriginalRecordDto>>>() {
         };
 
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap<String, Object> params = new HashMap<String, Object>(2);
         // 开始时间
         params.put("startDate", "2018-10-01 00:00:00");
         // 结束时间

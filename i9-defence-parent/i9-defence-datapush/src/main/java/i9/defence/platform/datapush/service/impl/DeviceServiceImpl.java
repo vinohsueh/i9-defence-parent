@@ -43,8 +43,8 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public List<DeviceInfo> getDeviceInfoList() {
         Sort sort = new Sort(Sort.Direction.DESC, "createDate");
-        List<DeviceInfo> List = this.deviceInfoRepository.findAll(sort);
-        return List;
+        List<DeviceInfo> list = this.deviceInfoRepository.findAll(sort);
+        return list;
     }
 
     /**
@@ -90,7 +90,7 @@ public class DeviceServiceImpl implements DeviceService {
     public HashMap<String, DeviceAttribute> getDeviceAttributeValueResult(String deviceId) {
         List<DeviceAttribute> deviceAttributes = this.deviceAttributeRepository
                 .selectDeviceAttributeListByDeviceId(deviceId);
-        HashMap<String, DeviceAttribute> dataMap = new HashMap<String, DeviceAttribute>();
+        HashMap<String, DeviceAttribute> dataMap = new HashMap<String, DeviceAttribute>(deviceAttributes.size());
         for (DeviceAttribute deviceAttribute : deviceAttributes) {
             dataMap.put(deviceAttribute.getDatastream(), deviceAttribute);
         }

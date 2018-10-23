@@ -17,15 +17,35 @@ import java.util.List;
  */
 public interface DeviceAttributeRepository extends JpaRepository<DeviceAttribute, String> {
 
+    /**
+     * 通过deviceId和数据流查询设备属性信息
+     * 
+     * @param deviceId
+     * @param datastream
+     * @return
+     */
     @Query("SELECT deviceAttribute FROM DeviceAttribute deviceAttribute WHERE deviceAttribute.deviceId = :deviceId AND deviceAttribute.datastream = :datastream")
     DeviceAttribute selectDeviceAttributeByDeviceIdAndDatastream(@Param("deviceId") String deviceId,
             @Param("datastream") String datastream);
 
+    /**
+     * 更新设备属性信息
+     * 
+     * @param value
+     * @param updateDate
+     * @param id
+     */
     @Modifying
     @Query("UPDATE DeviceAttribute deviceAttribute SET deviceAttribute.value = :value, deviceAttribute.updateDate = :updateDate WHERE deviceAttribute.id = :id")
     void updateDeviceAttributeLastValue(@Param("value") String value, @Param("updateDate") Date updateDate,
             @Param("id") String id);
 
+    /**
+     * 查询设备属性信息列表
+     * 
+     * @param deviceId
+     * @return
+     */
     @Query("SELECT deviceAttribute FROM DeviceAttribute deviceAttribute WHERE deviceAttribute.deviceId = :deviceId")
     List<DeviceAttribute> selectDeviceAttributeListByDeviceId(@Param("deviceId") String deviceId);
 }
