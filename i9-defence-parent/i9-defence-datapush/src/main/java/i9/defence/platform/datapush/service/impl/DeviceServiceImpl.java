@@ -20,6 +20,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 设备信息服务类
+ * 
+ * @author R12
+ * @date 2018年10月22日 14:42:15
+ */
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
