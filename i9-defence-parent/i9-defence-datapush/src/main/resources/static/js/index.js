@@ -2,29 +2,41 @@ function init() {
 
 }
 
-$("#save-btn").click(function () {
+$("#save-btn").click(function() {
     var basePath = $("#basePath").val();
-    var deviceId = $("#deviceId").val();
-    $.post(basePath + "/baseAPI/addDevice.sapi", {"deviceId": deviceId}, function (data) {
-        alert(data.message);
-        if (data.code == 0) {
-            window.location.reload()
+    var data = $("#deviceId").val();
+    $.ajax({
+        url : basePath + "/baseAPI/addDevice.sapi",
+        type : "post",
+        data : data,
+        contentType : "application/json;charset=utf-8",
+        success : function(data) {
+            alert(data.message);
+            if (data.code == 0) {
+                window.location.reload()
+            }
         }
     });
 });
 
-$(".delete-btn").click(function () {
+$(".delete-btn").click(function() {
     $("#deleteObey .deviceId").val($(this).attr("data-set"));
     $("#deleteObey").modal("show");
 });
 
-$("#delete-btn").click(function () {
+$("#delete-btn").click(function() {
     var basePath = $("#basePath").val();
-    var deviceId = $("#deleteObey .deviceId").val();
-    $.post(basePath + "/baseAPI/deleteDevice.sapi", {"deviceId": deviceId}, function (data) {
-        alert(data.message);
-        if (data.code == 0) {
-            window.location.reload()
+    var data = $("#deleteObey .deviceId").val();
+    $.ajax({
+        url : basePath + "/baseAPI/deleteDevice.sapi",
+        type : "post",
+        data : data,
+        contentType : "application/json;charset=utf-8",
+        success : function(data) {
+            alert(data.message);
+            if (data.code == 0) {
+                window.location.reload()
+            }
         }
     });
 });

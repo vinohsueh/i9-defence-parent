@@ -126,8 +126,8 @@ public class DeviceServiceImpl implements DeviceService {
      */
     @Transactional(rollbackFor = Throwable.class)
     @Override
-    public void refreshDevice(String deviceId) throws Exception {
-        DeviceInfo deviceInfo = this.getDeviceInfoById(deviceId);
+    public void refreshDevice(String id) throws Exception {
+        DeviceInfo deviceInfo = this.getDeviceInfoById(id);
         String resp = HttpClientUtil.doGet("http://api.heclouds.com/devices/datapoints?devIds="
                 + deviceInfo.getDeviceId());
         JSONObject result = new JSONObject(resp);
