@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class ReceiverServiceController {
 
-    private static Logger logger = LoggerFactory.getLogger(ReceiverServiceController.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ReceiverServiceController.class);
 
     @Autowired
     private OriginalRecordService originalRecordService;
@@ -53,17 +53,17 @@ public class ReceiverServiceController {
     public String receive(@RequestBody String body, HttpServletResponse httpServletResponse) throws Exception {
         ReceiveMessageDto receiveMessageDto = Util.resolveBody(body, false);
         if (receiveMessageDto == null) {
-            logger.error("数据接收, 内容: {}, 转换失败", body);
+            LOGGER.error("数据接收, 内容: {}, 转换失败", body);
             httpServletResponse.setStatus(500);
             return "ERROR";
         }
         boolean dataRight = Util.checkSignature(receiveMessageDto, ServerConfig.TOKEN);
         if (!dataRight) {
-            logger.error("数据接收: 内容: {}, 签名失败", receiveMessageDto.toString());
+            LOGGER.error("数据接收: 内容: {}, 签名失败", receiveMessageDto.toString());
             httpServletResponse.setStatus(500);
             return "ERROR";
         }
-        logger.info("数据接收, 内容: {}", receiveMessageDto.toString());
+        LOGGER.info("数据接收, 内容: {}", receiveMessageDto.toString());
         originalRecordService.saveOriginalRecordMessage(receiveMessageDto.toString());
 
         JSONObject msg = new JSONObject(receiveMessageDto.getMsg().toString());
@@ -71,7 +71,7 @@ public class ReceiverServiceController {
             receiveMessageDomainService.dealWithReceiveMessage(msg);
         }
         catch (Exception e) {
-            logger.error("数据接收: 内容: {}, ", msg.toString());
+            LOGGER.error("数据接收: 内容: {}, ", msg.toString());
             httpServletResponse.setStatus(500);
             return "ERROR";
         }
@@ -90,7 +90,7 @@ public class ReceiverServiceController {
     @ResponseBody
     public String check(@RequestParam(value = "msg") String msg, @RequestParam(value = "nonce") String nonce,
             @RequestParam(value = "signature") String signature) throws Exception {
-        logger.info("url&token check: msg:{} nonce{} signature:{}", msg, nonce, signature);
+        LOGGER.info("url&token check: msg:{} nonce{} signature:{}", msg, nonce, signature);
         if (Util.checkToken(msg, nonce, signature, ServerConfig.TOKEN)) {
             return msg;
         } else {

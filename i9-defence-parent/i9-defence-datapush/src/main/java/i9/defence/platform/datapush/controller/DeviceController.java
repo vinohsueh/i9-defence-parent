@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +40,8 @@ import i9.defence.platform.datapush.utils.HttpResult;
 @RestController
 @RequestMapping(value = "/baseAPI/")
 public class DeviceController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(DeviceController.class);
 
     @Autowired
     private DeviceService deviceService;
@@ -90,6 +94,7 @@ public class DeviceController {
 
             return HttpResponseUtil.ok(deviceDetailsDto);
         } catch (Exception e) {
+            LOGGER.error("获取设备详情失败异常, ", e);
             return HttpResponseUtil.error("获取设备详情失败");
         }
     }
@@ -107,6 +112,7 @@ public class DeviceController {
             this.deviceService.addDevice(deviceId);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
+            LOGGER.error("设备添加异常, ", e);
             return HttpResponseUtil.error("设备添加失败");
         }
     }
@@ -124,6 +130,7 @@ public class DeviceController {
             this.deviceService.deleteDevice(id);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
+            LOGGER.error("删除设备异常, ", e);
             return HttpResponseUtil.error("删除设备失败");
         }
     }
@@ -141,6 +148,7 @@ public class DeviceController {
             this.deviceService.refreshDevice(id);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
+            LOGGER.error("同步设备异常, ", e);
             return HttpResponseUtil.error("同步设备失败");
         }
     }
@@ -164,6 +172,7 @@ public class DeviceController {
                     deviceInfo.getCreateDate());
             return HttpResponseUtil.ok(deviceInfoDto);
         } catch (Exception e) {
+            LOGGER.error("获取设备详情异常, ", e);
             return HttpResponseUtil.error("获取设备详情失败");
         }
     }
@@ -199,6 +208,7 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(deviceAttributeDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备信息及属性异常, ", e);
             return HttpResponseUtil.error("获取设备信息及属性失败");
         }
     }
@@ -226,6 +236,7 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(deviceInfoDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备列表异常, ", e);
             return HttpResponseUtil.error("获取设备列表失败");
         }
     }
@@ -249,6 +260,7 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(deviceInfoDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备列表异常, ", e);
             return HttpResponseUtil.error("获取设备列表失败");
         }
     }
@@ -284,6 +296,7 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(deviceDataHisDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备数据点异常, ", e);
             return HttpResponseUtil.error("获取设备数据点失败");
         }
     }
@@ -310,7 +323,7 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(originalRecordDtos);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("获取原始数据记录异常, ", e);
             return HttpResponseUtil.error("获取原始数据记录失败");
         }
     }
