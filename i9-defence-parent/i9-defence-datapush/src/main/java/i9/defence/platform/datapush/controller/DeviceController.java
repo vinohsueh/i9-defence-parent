@@ -77,10 +77,8 @@ public class DeviceController {
 
             HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
                     .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
-            LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
-                    .getDeviceGroupAttributeResult("1");
 
-            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult, attributeNames);
+            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult);
             deviceDetailsDto.setDeviceAttributeDtos(deviceAttributeDtos);
 
             return HttpResponseUtil.ok(deviceDetailsDto);
@@ -185,10 +183,8 @@ public class DeviceController {
 
             HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
                     .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
-            LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
-                    .getDeviceGroupAttributeResult("1");
 
-            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult, attributeNames);
+            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult);
             return HttpResponseUtil.ok(deviceAttributeDtos);
         } catch (Exception e) {
             LOGGER.error("获取设备信息及属性异常, ", e);
@@ -196,7 +192,9 @@ public class DeviceController {
         }
     }
 
-    private List<DeviceAttributeDto> convertDeviceAttributeDtoList(HashMap<String, DeviceAttribute> deviceAttributeValueResult, LinkedHashMap<String, String> attributeNames) {
+    private List<DeviceAttributeDto> convertDeviceAttributeDtoList(HashMap<String, DeviceAttribute> deviceAttributeValueResult) {
+        LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
+                .getDeviceGroupAttributeResult("1");
         List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
         for (Entry<String, String> entry : attributeNames.entrySet()) {
             DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
