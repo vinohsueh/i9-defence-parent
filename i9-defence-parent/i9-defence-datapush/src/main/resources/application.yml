@@ -5,8 +5,8 @@ security:
   basic:
     enabled: true
   user:
-    name: w0QOhTdMmzkyvi5m
-    password: ZRU1ZjiIwIHo6sfK
+    name: admin
+    password: admin
 
 spring:
   profiles:
