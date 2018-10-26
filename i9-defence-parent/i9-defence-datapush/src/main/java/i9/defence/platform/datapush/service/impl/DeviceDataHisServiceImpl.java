@@ -42,4 +42,9 @@ public class DeviceDataHisServiceImpl implements DeviceDataHisService {
                 sDate, eDate);
         return deviceDataHis;
     }
+
+    @Override
+    public void saveDeviceDataHis(DeviceDataHis deviceDataHis) {
+        this.deviceDataHisRepository.save(deviceDataHis);
+    }
 }

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -221,5 +222,22 @@ public class DeviceServiceImpl implements DeviceService {
             return;
         }
         this.updateDeviceInfoPowerState(powerStateEnum, deviceInfo.getId());
+    }
+    
+    @Override
+    public DeviceAttribute getAndCreateDeviceAttribute(String deviceId, String datastream) {
+        DeviceAttribute deviceAttribute = this.deviceAttributeRepository
+                .selectDeviceAttributeByDeviceIdAndDatastream(deviceId, datastream);
+        if (deviceAttribute == null) {
+            deviceAttribute = new DeviceAttribute(deviceId, datastream);
+            this.deviceAttributeRepository.save(deviceAttribute);
+        }
+
+        return deviceAttribute;
+    }
+
+    @Override
+    public void updateDeviceAttributeLastValue(String value, Date date, String id) {
+        this.deviceAttributeRepository.updateDeviceAttributeLastValue(value, date, id);
     }
 }
