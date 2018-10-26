@@ -4,6 +4,8 @@ import i9.defence.platform.datapush.config.DeviceGroupAttributeNameCache;
 import i9.defence.platform.datapush.entity.DeviceAttribute;
 import i9.defence.platform.datapush.entity.DeviceInfo;
 import i9.defence.platform.datapush.service.DeviceService;
+import i9.defence.platform.datapush.utils.PowerStateEnum;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +42,7 @@ public class IndexController {
     @RequestMapping(value = { "/index.shtml", "/" })
     public String index(Model model) {
         List<DeviceInfo> deviceInfos = this.deviceService.getDeviceInfoList();
+        model.addAttribute("powerStates", PowerStateEnum.values());
         model.addAttribute("deviceInfos", deviceInfos);
         return "index";
     }

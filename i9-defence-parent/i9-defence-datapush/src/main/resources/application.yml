@@ -25,7 +25,7 @@ spring:
     time-zone: UTC
 
   freemarker:
-    suffix: .html  #后缀名
+    suffix: .ftl  #后缀名
     content-type: text/html
     enabled: true
     cache: false #缓存配置
