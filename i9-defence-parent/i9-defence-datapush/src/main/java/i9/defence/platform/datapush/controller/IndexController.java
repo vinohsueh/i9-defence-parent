@@ -44,6 +44,13 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = { "/deviceList.shtml" })
+    public String deviceList(Model model) {
+        List<DeviceInfo> deviceInfos = this.deviceService.getDeviceInfoList();
+        model.addAttribute("deviceInfos", deviceInfos);
+        return "deviceList";
+    }
+
     /**
      * 显示设备详情
      * 
