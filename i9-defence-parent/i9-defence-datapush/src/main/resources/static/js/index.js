@@ -1,7 +1,3 @@
-function init() {
-
-}
-
 $("#save-btn").click(function() {
     var basePath = $("#basePath").val();
     var data = $("#deviceId").val();

@@ -44,11 +44,11 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(value = { "/deviceList.shtml" })
+    @RequestMapping(value = { "/device-list.shtml" })
     public String deviceList(Model model) {
         List<DeviceInfo> deviceInfos = this.deviceService.getDeviceInfoList();
         model.addAttribute("deviceInfos", deviceInfos);
-        return "deviceList";
+        return "device-list";
     }
 
     /**
@@ -58,7 +58,7 @@ public class IndexController {
      * @param model
      * @return
      */
-    @RequestMapping(value = { "/details-{deviceId}.shtml" })
+    @RequestMapping(value = { "/device-details-{deviceId}.shtml" })
     public String details(@PathVariable("deviceId") String deviceId, Model model) {
         DeviceInfo deviceInfo = this.deviceService.getDeviceInfoById(deviceId);
         model.addAttribute("deviceInfo", deviceInfo);
@@ -73,6 +73,6 @@ public class IndexController {
             values.put(entry.getValue(), deviceAttribute);
         }
         model.addAttribute("values", values);
-        return "details";
+        return "device-details";
     }
 }
