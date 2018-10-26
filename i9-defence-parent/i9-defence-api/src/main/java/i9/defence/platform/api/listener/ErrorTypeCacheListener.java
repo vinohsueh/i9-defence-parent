@@ -16,12 +16,13 @@ import i9.defence.platform.cache.ErrorTypeCache;
  */
 @Component
 public class ErrorTypeCacheListener {
-	@EventListener
-	public void handleContextRefresh(ContextRefreshedEvent event) {
-		System.out.println("++++++++++++++++++　　故障类型字典已缓存　　+++++++++++++++++++++");
-		ApplicationContext context = event.getApplicationContext();
-		ErrorTypeCache errorTypeCache = (ErrorTypeCache) context.getBean("errorTypeCache");
-		errorTypeCache.init(); // 调用数据字典的一个方法来缓存
-	}
+
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        System.out.println("++++++++++++++++++　　故障类型字典已缓存　　+++++++++++++++++++++");
+        ApplicationContext context = event.getApplicationContext();
+        ErrorTypeCache errorTypeCache = (ErrorTypeCache) context.getBean("errorTypeCache");
+        errorTypeCache.init(); // 调用数据字典的一个方法来缓存
+    }
 
 }
