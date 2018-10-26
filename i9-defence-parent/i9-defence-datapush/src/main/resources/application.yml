@@ -1,12 +1,12 @@
 server:
   port: 9999
 
-security:
-  basic:
-    enabled: true
-  user:
-    name: admin
-    password: admin
+#security:
+#  basic:
+#    enabled: true
+#  user:
+#    name: admin
+#    password: admin
 
 spring:
   profiles:
@@ -19,7 +19,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+#    show-sql: true
   jackson:
     #date-format: yyyy-MM-dd HH:mm:ss
     time-zone: UTC
