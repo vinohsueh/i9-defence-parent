@@ -14,8 +14,9 @@
             <div class="data-div">
                 <div class="row tableHeader">
                     <div class="col-xs-2">设备编号</div>
-                    <div class="col-xs-3">设备名称</div>
-                    <div class="col-xs-2">设备状态</div>
+                    <div class="col-xs-2">设备名称</div>
+                    <div class="col-xs-2">设备名称</div>
+                    <div class="col-xs-1">设备状态</div>
                     <div class="col-xs-2">IMEI</div>
                     <div class="col-xs-2">创建时间</div>
                     <div class="col-xs-1">操作</div>
@@ -25,8 +26,9 @@
                         <div class="row">
                             <div class="col-xs-2"><a href="${basePath}/device-details-${deviceInfo.id}.shtml">${deviceInfo.deviceId}</a>
                             </div>
-                            <div class="col-xs-3">${deviceInfo.deviceName}</div>
-                            <div class="col-xs-2">${deviceInfo.powerStateDesc}</div>
+                            <div class="col-xs-2">${deviceInfo.deviceName}</div>
+                            <div class="col-xs-2">${deviceGroupResult[deviceInfo.deviceGroupId].groupName}</div>
+                            <div class="col-xs-1">${deviceInfo.powerStateDesc}</div>
                             <div class="col-xs-2">${deviceInfo.imei}</div>
                             <div class="col-xs-2">${deviceInfo.createDate}</div>
                             <div class="col-xs-1">

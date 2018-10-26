@@ -130,8 +130,8 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public void refreshDevice(String id) throws Exception {
         DeviceInfo deviceInfo = this.getDeviceInfoById(id);
-        String resp = HttpClientUtil.doGet("http://api.heclouds.com/devices/datapoints?devIds="
-                + deviceInfo.getDeviceId());
+        String resp = HttpClientUtil
+                .doGet("http://api.heclouds.com/devices/datapoints?devIds=" + deviceInfo.getDeviceId());
         JSONObject result = new JSONObject(resp);
         if (result.getInt("errno") != 0) {
             throw new RuntimeException(result.getString("error"));
@@ -189,6 +189,7 @@ public class DeviceServiceImpl implements DeviceService {
         deviceInfo.setImei(data.getString("imsi"));
         deviceInfo.setId(StringHelper.randomUUIDStr());
         deviceInfo.setPowerState(data.getBoolean("online") ? 1 : 0);
+        deviceInfo.setDeviceGroupId("1");
         this.saveDeviceInfo(deviceInfo);
     }
 
@@ -204,17 +205,35 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceInfos;
     }
 
+    /**
+     * 更新设备状态信息
+     * 
+     * @param powerStateEnum
+     * @param id
+     */
     @Override
     public void updateDeviceInfoPowerState(PowerStateEnum powerStateEnum, String id) {
         this.deviceInfoRepository.updateDeviceInfoPowerState(powerStateEnum.getValue(), id);
     }
 
+    /**
+     * 获取设备信息
+     * 
+     * @param deviceId
+     * @return
+     */
     @Override
     public DeviceInfo selectDeviceInfoByDeviceId(String deviceId) {
         DeviceInfo deviceInfo = this.deviceInfoRepository.selectDeviceInfoByDeviceId(deviceId);
         return deviceInfo;
     }
 
+    /**
+     * 刷新设备状态
+     * 
+     * @param deviceId
+     * @param powerStateEnum
+     */
     @Override
     public void refreshDeviceInfoPowerState(String deviceId, PowerStateEnum powerStateEnum) {
         DeviceInfo deviceInfo = this.selectDeviceInfoByDeviceId(deviceId);
@@ -223,7 +242,14 @@ public class DeviceServiceImpl implements DeviceService {
         }
         this.updateDeviceInfoPowerState(powerStateEnum, deviceInfo.getId());
     }
-    
+
+    /**
+     * 获取或者创建一个设备属性
+     * 
+     * @param deviceId
+     * @param datastream
+     * @return
+     */
     @Override
     public DeviceAttribute getAndCreateDeviceAttribute(String deviceId, String datastream) {
         DeviceAttribute deviceAttribute = this.deviceAttributeRepository
@@ -236,6 +262,13 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceAttribute;
     }
 
+    /**
+     * 更新设备属性值
+     * 
+     * @param value
+     * @param date
+     * @param id
+     */
     @Override
     public void updateDeviceAttributeLastValue(String value, Date date, String id) {
         this.deviceAttributeRepository.updateDeviceAttributeLastValue(value, date, id);

@@ -67,6 +67,16 @@ public class DeviceInfo implements java.io.Serializable {
      */
     private Date createDate;
 
+    private String deviceGroupId;
+
+    public String getDeviceGroupId() {
+        return deviceGroupId;
+    }
+
+    public void setDeviceGroupId(String deviceGroupId) {
+        this.deviceGroupId = deviceGroupId;
+    }
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

@@ -2,7 +2,9 @@ package i9.defence.platform.datapush.controller;
 
 import i9.defence.platform.datapush.config.DeviceGroupAttributeNameCache;
 import i9.defence.platform.datapush.entity.DeviceAttribute;
+import i9.defence.platform.datapush.entity.DeviceGroupInfo;
 import i9.defence.platform.datapush.entity.DeviceInfo;
+import i9.defence.platform.datapush.service.DeviceGroupService;
 import i9.defence.platform.datapush.service.DeviceService;
 import i9.defence.platform.datapush.utils.PowerStateEnum;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -32,6 +35,9 @@ public class IndexController {
 
     @Autowired
     private DeviceGroupAttributeNameCache deviceGroupAttributeNameCache;
+
+    @Autowired
+    private DeviceGroupService deviceGroupService;
 
     /**
      * 显示设备列表
@@ -70,6 +76,18 @@ public class IndexController {
     public String deviceList(Model model) {
         List<DeviceInfo> deviceInfos = this.deviceService.getDeviceInfoList();
         model.addAttribute("deviceInfos", deviceInfos);
+
+        HashSet<String> idList = new HashSet<>();
+        for (DeviceInfo deviceInfo : deviceInfos) {
+            idList.add(deviceInfo.getDeviceGroupId());
+        }
+
+        HashMap<String, DeviceGroupInfo> deviceGroupResult = new HashMap<String, DeviceGroupInfo>();
+        model.addAttribute("deviceGroupResult", deviceGroupResult);
+
+        for (DeviceGroupInfo deviceGroupInfo : this.deviceGroupService.getDeviceGroupInfoByIdList(idList)) {
+            deviceGroupResult.put(deviceGroupInfo.getId(), deviceGroupInfo);
+        }
         return "device-list";
     }
 
