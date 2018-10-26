@@ -12,12 +12,12 @@ public enum PowerStateEnum {
     /**
      * 设备上线
      */
-    DEVICE_OFFLINE(1, "在线", "正常", "#00B050"),
+    DEVICE_ONLINE(1, "在线", "正常", "#00B050"),
 
     /**
      * 设备下线
      */
-    DEVICE_ONLINE(2, "下线", "离线", "#808080"),
+    DEVICE_OFFLINE(2, "下线", "离线", "#808080"),
 
     /**
      * 设备上线

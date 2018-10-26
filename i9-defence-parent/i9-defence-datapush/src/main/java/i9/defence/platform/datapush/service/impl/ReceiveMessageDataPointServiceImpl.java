@@ -1,12 +1,5 @@
 package i9.defence.platform.datapush.service.impl;
 
-import i9.defence.platform.datapush.entity.DeviceAttribute;
-import i9.defence.platform.datapush.entity.DeviceDataHis;
-import i9.defence.platform.datapush.respository.DeviceAttributeRepository;
-import i9.defence.platform.datapush.respository.DeviceDataHisRepository;
-import i9.defence.platform.datapush.service.ReceiveMessageDataPointService;
-import i9.defence.platform.datapush.utils.StringHelper;
-
 import java.util.Date;
 
 import org.json.JSONObject;
@@ -14,6 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import i9.defence.platform.datapush.entity.DeviceAttribute;
+import i9.defence.platform.datapush.entity.DeviceDataHis;
+import i9.defence.platform.datapush.respository.DeviceAttributeRepository;
+import i9.defence.platform.datapush.respository.DeviceDataHisRepository;
+import i9.defence.platform.datapush.service.DeviceService;
+import i9.defence.platform.datapush.service.ReceiveMessageDataPointService;
+import i9.defence.platform.datapush.utils.PowerStateEnum;
+import i9.defence.platform.datapush.utils.StringHelper;
 
 /**
  * 数据点消息处理服务类
@@ -23,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ReceiveMessageDataPointServiceImpl implements ReceiveMessageDataPointService {
+
+    @Autowired
+    private DeviceService deviceService;
 
     /**
      * 处理上行数据消息
@@ -48,11 +53,22 @@ public class ReceiveMessageDataPointServiceImpl implements ReceiveMessageDataPoi
         DeviceAttribute deviceAttribute = this.findAndCreateDeviceAttribute(String.valueOf(deviceId), datastream);
 
         this.deviceAttributeRepository.updateDeviceAttributeLastValue(value, new Date(at), deviceAttribute.getId());
+
+        if (datastream.equals("3_0_21")) {
+            if (value.equals("1")) {
+                PowerStateEnum powerStateEnum = PowerStateEnum.ERROR;
+                this.deviceService.refreshDeviceInfoPowerState(String.valueOf(deviceId), powerStateEnum);
+            }
+            if (value.equals("4")) {
+                PowerStateEnum powerStateEnum = PowerStateEnum.BATTERY_LOW;
+                this.deviceService.refreshDeviceInfoPowerState(String.valueOf(deviceId), powerStateEnum);
+            }
+        }
     }
 
     public DeviceAttribute findAndCreateDeviceAttribute(String deviceId, String datastream) {
-        DeviceAttribute deviceAttribute = this.deviceAttributeRepository.selectDeviceAttributeByDeviceIdAndDatastream(
-                deviceId, datastream);
+        DeviceAttribute deviceAttribute = this.deviceAttributeRepository
+                .selectDeviceAttributeByDeviceIdAndDatastream(deviceId, datastream);
         if (deviceAttribute == null) {
             deviceAttribute = new DeviceAttribute(deviceId, datastream);
             this.deviceAttributeRepository.save(deviceAttribute);

@@ -44,9 +44,28 @@ public class IndexController {
         List<DeviceInfo> deviceInfos = this.deviceService.getDeviceInfoList();
         model.addAttribute("powerStates", PowerStateEnum.values());
         model.addAttribute("deviceInfos", deviceInfos);
+
+        LinkedHashMap<String, Integer> powerStateResult = new LinkedHashMap<String, Integer>();
+        model.addAttribute("powerStateResult", powerStateResult);
+
+        for (PowerStateEnum powerStateEnum : PowerStateEnum.values()) {
+            powerStateResult.put(powerStateEnum.getDesc(), 0);
+        }
+
+        for (DeviceInfo deviceInfo : deviceInfos) {
+            int number = powerStateResult.get(deviceInfo.getPowerState0().getDesc());
+            powerStateResult.put(deviceInfo.getPowerState0().getDesc(), number + 1);
+        }
+
         return "index";
     }
 
+    /**
+     * 获取设备列表
+     * 
+     * @param model
+     * @return
+     */
     @RequestMapping(value = { "/device-list.shtml" })
     public String deviceList(Model model) {
         List<DeviceInfo> deviceInfos = this.deviceService.getDeviceInfoList();

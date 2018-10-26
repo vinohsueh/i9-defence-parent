@@ -7,6 +7,7 @@ import i9.defence.platform.datapush.respository.DeviceInfoRepository;
 import i9.defence.platform.datapush.service.DeviceService;
 import i9.defence.platform.datapush.utils.DateUtil;
 import i9.defence.platform.datapush.utils.HttpClientUtil;
+import i9.defence.platform.datapush.utils.PowerStateEnum;
 import i9.defence.platform.datapush.utils.StringHelper;
 
 import org.json.JSONArray;
@@ -200,5 +201,25 @@ public class DeviceServiceImpl implements DeviceService {
     public List<DeviceInfo> getDeviceInfoListByIds(List<String> ids) {
         List<DeviceInfo> deviceInfos = this.deviceInfoRepository.queryDeviceInfoListByIds(ids);
         return deviceInfos;
+    }
+
+    @Override
+    public void updateDeviceInfoPowerState(PowerStateEnum powerStateEnum, String id) {
+        this.deviceInfoRepository.updateDeviceInfoPowerState(powerStateEnum.getValue(), id);
+    }
+
+    @Override
+    public DeviceInfo selectDeviceInfoByDeviceId(String deviceId) {
+        DeviceInfo deviceInfo = this.deviceInfoRepository.selectDeviceInfoByDeviceId(deviceId);
+        return deviceInfo;
+    }
+
+    @Override
+    public void refreshDeviceInfoPowerState(String deviceId, PowerStateEnum powerStateEnum) {
+        DeviceInfo deviceInfo = this.selectDeviceInfoByDeviceId(deviceId);
+        if (deviceInfo == null) {
+            return;
+        }
+        this.updateDeviceInfoPowerState(powerStateEnum, deviceInfo.getId());
     }
 }

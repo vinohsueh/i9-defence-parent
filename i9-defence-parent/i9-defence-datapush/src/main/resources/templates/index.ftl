@@ -26,7 +26,7 @@
     border: 1px solid #808080;
     border-radius: 5px;
     font-size: 10px;
-    width: 50px;
+    width: 75px;
     height: 30px;
     line-height: 30px;
     margin-left:5px;
@@ -58,6 +58,16 @@
                         </li>
                     </#list>
                 </ul>
+            </div>
+            <div style="clear: both"></div>
+            <div class="form-inline" style="margin-top: 10px;">
+                <div class="col-xs-4 col-lg-12 col-md-5">
+                    <ul class="data-item-ul" style="float:right">
+                    <#list powerStateResult?keys as itemKey>
+                        <li class="data-item-li0">${itemKey}（${powerStateResult[itemKey]}）</li>
+                    </#list>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
