@@ -55,7 +55,7 @@
                         <div class="col-xs-4">${key}</div>
                         <div class="col-xs-3"><#if (values[key].value)??>${values[key].value}<#else>-</#if></div>
                         <div class="col-xs-3"><#if (values[key].updateDate)??>${values[key].updateDate}<#else>-</#if></div>
-                        <div class="col-xs-1">-</div>
+                        <div class="col-xs-1"><a href="${basePath}/device-datahis-${deviceInfo.id}.shtml?datastream=${values[key].datastream}">历史记录</a></div>
                     </div>
                     </#list>
                 </div>
