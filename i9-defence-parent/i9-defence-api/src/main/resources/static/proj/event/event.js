@@ -98,20 +98,18 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 			// console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit2',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
+			console.log($scope.hiddenEdits);
 			$scope.equipmentCategorys = data.data.equipmentCategory;
 			$scope.projects = data.data.project;
 			for(i in $scope.hiddenEdits){
 				if($scope.hiddenEdits[i].status == 0 || $scope.hiddenEdits[i].status == 2){
 					$scope.hiddenEdits[i].status = 'lineOut'
 					$scope.hiddenEdits[i].statusText = '离线';
-    			}else if($scope.hiddenEdits[i].status == 2){
-    				$scope.hiddenEdits[i].status = 'lineOut'
-					$scope.hiddenEdits[i].statusText = '离线';
     			}else{
-    				if($scope.hiddenEdits[i].remainAlert==0){
+    				if($scope.hiddenEdits[i].dataStatus==0){
     					$scope.hiddenEdits[i].status = ''
-						$scope.hiddenEdits[i].statusText = '正常';
-        			}else if ($scope.hiddenEdits[i].remainAlert == 1){
+    						$scope.hiddenEdits[i].statusText = '正常';
+        			}else if ($scope.hiddenEdits[i].dataStatus == 1){
         				$scope.hiddenEdits[i].status = 'danger';
     					$scope.hiddenEdits[i].statusText = '报警';
         			}else{

@@ -933,7 +933,8 @@
 		<if test="_parameter != null">
 			<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 		</if>
-		order by field(remainAlert,1,2,0 ), status desc
+		order by field(concat(status,
+		dataStatus),11,12,'20','00','01',21,22,20,11,12,10 )
 		limit
 		#{offset},#{limit}
 	</select>

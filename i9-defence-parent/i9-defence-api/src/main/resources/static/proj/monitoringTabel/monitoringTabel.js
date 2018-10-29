@@ -113,6 +113,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			// console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
+			console.log($scope.projects);
 			for(i in $scope.projects){
 				if($scope.projects[i].status == 0 || $scope.projects[i].status == 2){
 					$scope.projects[i].status = 'lineOut'
