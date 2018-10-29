@@ -206,6 +206,8 @@ public interface EquipmentMapper {
 
     List<EquipmentNewestDto> selectAllEquipmentNewest();
 
-    void updateSomeStatusByDevicedIds(@Param("Items") ArrayList<String> eqDeviceIdList);  
+    void updateSomeStatusByDevicedIds(@Param("Items") ArrayList<String> eqDeviceIdList);
+
+    List<HiddenDangerDto> selectAllHiddenDangerEdit2(@Param("example")HiddenDangerSearchDto hiddenDangerSearchDto);  
 
 }

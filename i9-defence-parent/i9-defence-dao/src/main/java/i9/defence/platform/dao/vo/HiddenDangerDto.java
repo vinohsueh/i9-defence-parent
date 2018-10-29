@@ -167,5 +167,34 @@ public class HiddenDangerDto {
 		this.eqChannelDataList = eqChannelDataList;
 	}
 	
+	private String channelName;
+
+    private String channelValue;
+    
+    
+    private String datastatustr;
+    public String getChannelName() {
+        return channelName;
+    }
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+    public String getChannelValue() {
+        return channelValue;
+    }
+    public void setChannelValue(String channelValue) {
+        this.channelValue = channelValue;
+    }
+    public String getDatastatustr() {
+        return datastatustr;
+    }
+    public void setDatastatustr(String datastatustr) {
+        this.datastatustr = datastatustr;
+    }
+    
+    
+   
+    
+    
 }
  

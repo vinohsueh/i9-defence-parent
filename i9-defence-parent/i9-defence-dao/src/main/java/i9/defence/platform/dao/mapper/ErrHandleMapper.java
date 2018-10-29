@@ -1,6 +1,7 @@
 package i9.defence.platform.dao.mapper;
 
 import i9.defence.platform.dao.vo.ErrHandleSearchDto;
+import i9.defence.platform.dao.vo.ErrHandleToExcel;
 import i9.defence.platform.model.ErrHandle;
 import i9.defence.platform.model.ErrHandleExample;
 
@@ -69,4 +70,9 @@ public interface ErrHandleMapper {
 	* @param errHandles
 	 */
 	void updateErrHandles(@Param("errHandles") List<ErrHandle> errHandles);
+	/**
+	 * 查询Excel需要导出的内容
+	 * @return
+	 */
+    List<ErrHandleToExcel> selectErrHandleToExcel();
 }

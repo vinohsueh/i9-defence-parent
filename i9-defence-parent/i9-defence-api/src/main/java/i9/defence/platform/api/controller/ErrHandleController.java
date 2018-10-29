@@ -1,23 +1,39 @@
 package i9.defence.platform.api.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.ErrHandleSearchDto;
 import i9.defence.platform.dao.vo.ErrHandleUnifiedDto;
 import i9.defence.platform.model.ErrHandle;
 import i9.defence.platform.service.ErrHandleService;
+import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
 
 @RestController
 @RequestMapping("errHandle")
 public class ErrHandleController {
 
+    private final static Logger S_LOGER = LoggerFactory.getLogger(ErrHandleController.class);
+    
 	@Autowired
 	private ErrHandleService errHandleService;
 	
@@ -79,5 +95,40 @@ public class ErrHandleController {
         ErrHandle errHandle = errHandleService.getErrHandleById(id);
         result.put("data", errHandle);
         return result;
+    }
+    
+    
+    /**
+     * excel导出
+     * @param response
+     */
+    @RequestMapping(value = "/excelTo", method = RequestMethod.GET)
+    @ResponseBody
+    public void downSaleLoadExportToExcel(HttpServletRequest request,HttpServletResponse response){  
+        response.reset();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssms");
+        String dateStr = sdf.format(new Date());
+        // 指定下载的文件名
+        response.setHeader("Content-Disposition", "attachment;filename=" + dateStr + ".xlsx");
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+        XSSFWorkbook workbook = null;
+        // 导出Excel对象
+        try {
+            workbook = errHandleService.downLoadExportToExcel();
+        } catch (BusinessException exception) {
+            S_LOGER.error(exception.getErrorMessage());
+        }
+        try {
+            OutputStream output = response.getOutputStream();
+            BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
+            bufferedOutPut.flush();
+            workbook.write(bufferedOutPut);
+            bufferedOutPut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

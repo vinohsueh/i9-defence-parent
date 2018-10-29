@@ -408,4 +408,59 @@
 			)
 		ORDER BY `cd`.`channel`
 	</select>
+	
+	<select id="selectErrHandleToExcel" resultType="i9.defence.platform.dao.vo.ErrHandleToExcel">
+	SELECT DISTINCT
+		eh.id,
+		eh.handleDate,
+	CASE
+		WHEN type = '1' THEN
+		'离线' 
+		WHEN type = '2' THEN
+		'报警' 
+		WHEN type = '3' THEN
+		'隐患' ELSE '其他' 
+		END AS typeStr,
+		( SELECT projectName FROM t_project WHERE id = ( SELECT projectId FROM t_equipment e WHERE e.deviceId = eh.eqDeviceId ) ) AS projectName,
+		( SELECT eqCategoryName FROM t_equipment_category WHERE eqCategoryId = ( SELECT systemId FROM t_equipment e WHERE e.deviceId = eh.eqDeviceId ) ) AS eqCategoryName,
+		( SELECT equipmentRemarks FROM t_equipment e WHERE e.deviceId = eh.eqDeviceId ) AS equipmentRemarks,
+	CASE
+		WHEN handleState = '0' THEN
+		'待处理' 
+		WHEN handleState = '1' THEN
+		'已处理' 
+		 ELSE '其他' 
+		END AS handleStateStr,
+		( SELECT m.username FROM t_manager m WHERE m.id = eh.handleManagerId ) AS managerName 
+	FROM
+		t_err_handle eh 
+	WHERE
+		handleState = 1 
+		AND (
+		SELECT
+			p.distributorId 
+		FROM
+			t_project p 
+		WHERE
+			p.id IN ( SELECT e.projectId FROM t_equipment e WHERE e.deviceId = eqDeviceId ) 
+		) = 1 
+		OR (
+		SELECT
+			p.distributorId 
+		FROM
+			t_project p 
+		WHERE
+			p.id IN ( SELECT e.projectId FROM t_equipment e WHERE e.deviceId = eqDeviceId ) 
+		) IN ( SELECT managerId FROM t_manager_grade WHERE parentId = 1 ) 
+		OR (
+		SELECT
+			p.distributorId 
+		FROM
+			t_project p 
+		WHERE
+		p.id IN ( SELECT e.projectId FROM t_equipment e WHERE e.deviceId = eqDeviceId ) 
+	) IN ( SELECT managerId FROM t_manager_grade WHERE parentId IN ( SELECT managerId FROM t_manager_grade WHERE parentId = 1 ) ) 
+		ORDER BY
+		handleDate ASC
+	</select>
 </mapper>

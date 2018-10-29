@@ -3,6 +3,7 @@ package i9.defence.platform.dao;
 import java.util.List;
 
 import i9.defence.platform.dao.vo.ErrHandleSearchDto;
+import i9.defence.platform.dao.vo.ErrHandleToExcel;
 import i9.defence.platform.model.ErrHandle;
 import i9.defence.platform.utils.PageBounds;
 
@@ -78,4 +79,6 @@ public interface ErrHandleDao {
 	* @throws Exception
 	 */
 	void updateErrHandles(List<ErrHandle> errHandles) throws Exception;
+
+    List<ErrHandleToExcel> selectErrHandleToExcel()throws Exception;
 }
