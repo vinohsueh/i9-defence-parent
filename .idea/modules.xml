@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-datapush/i9-defence-datapush.iml" filepath="$PROJECT_DIR$/i9-defence-parent/i9-defence-datapush/i9-defence-datapush.iml" />
+      <module fileurl="file://$PROJECT_DIR$/i9-defence-parent/i9-defence-datapush-dto/i9-defence-pushdata-dto.iml" filepath="$PROJECT_DIR$/i9-defence-parent/i9-defence-datapush-dto/i9-defence-pushdata-dto.iml" />
     </modules>
   </component>
 </project>

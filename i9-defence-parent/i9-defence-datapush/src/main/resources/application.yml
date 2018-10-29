@@ -1,12 +1,12 @@
 server:
   port: 9999
 
-security:
-  basic:
-    enabled: true
-  user:
-    name: w0QOhTdMmzkyvi5m
-    password: ZRU1ZjiIwIHo6sfK
+#security:
+#  basic:
+#    enabled: true
+#  user:
+#    name: admin
+#    password: admin
 
 spring:
   profiles:
@@ -19,13 +19,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+#    show-sql: true
   jackson:
     #date-format: yyyy-MM-dd HH:mm:ss
     time-zone: UTC
 
   freemarker:
-    suffix: .html  #后缀名
+    suffix: .ftl  #后缀名
     content-type: text/html
     enabled: true
     cache: false #缓存配置

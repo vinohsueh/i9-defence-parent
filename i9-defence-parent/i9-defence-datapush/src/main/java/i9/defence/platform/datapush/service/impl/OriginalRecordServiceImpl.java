@@ -51,6 +51,14 @@ public class OriginalRecordServiceImpl implements OriginalRecordService {
         }
     }
 
+    /**
+     * 查询原始消息列表
+     * 
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception 
+     */
     @Override
     public List<OriginalRecord> getOriginalRecordList(String startDate, String endDate) throws Exception {
         Date sDate = DateUtil.parse(startDate);

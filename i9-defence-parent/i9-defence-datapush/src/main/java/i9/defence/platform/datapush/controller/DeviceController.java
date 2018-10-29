@@ -1,20 +1,5 @@
 package i9.defence.platform.datapush.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import i9.defence.platform.datapush.config.DeviceGroupAttributeNameCache;
 import i9.defence.platform.datapush.dto.DeviceAttributeDto;
 import i9.defence.platform.datapush.dto.DeviceDataHisDto;
@@ -30,10 +15,24 @@ import i9.defence.platform.datapush.service.DeviceService;
 import i9.defence.platform.datapush.service.OriginalRecordService;
 import i9.defence.platform.datapush.utils.HttpResponseUtil;
 import i9.defence.platform.datapush.utils.HttpResult;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * 对外提供api接口服务
- * 
+ *
  * @author R12
  * @date 2018年10月22日 14:10:29
  */
@@ -57,7 +56,7 @@ public class DeviceController {
 
     /**
      * 获取设备详情和属性信息
-     * 
+     *
      * @param id
      * @return
      */
@@ -78,18 +77,8 @@ public class DeviceController {
 
             HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
                     .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
-            LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
-                    .getDeviceGroupAttributeResult("1");
 
-            List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
-            for (Entry<String, String> entry : attributeNames.entrySet()) {
-                DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
-                DeviceAttributeDto deviceAttributeDto = new DeviceAttributeDto();
-                deviceAttributeDto.setAttributeName(entry.getValue());
-                deviceAttributeDto.setDatastream(deviceAttribute.getDatastream());
-                deviceAttributeDto.setValue(deviceAttribute.getValue());
-                deviceAttributeDtos.add(deviceAttributeDto);
-            }
+            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult);
             deviceDetailsDto.setDeviceAttributeDtos(deviceAttributeDtos);
 
             return HttpResponseUtil.ok(deviceDetailsDto);
@@ -101,7 +90,7 @@ public class DeviceController {
 
     /**
      * 添加设备
-     * 
+     *
      * @param deviceId
      * @return
      */
@@ -119,7 +108,7 @@ public class DeviceController {
 
     /**
      * 删除设备
-     * 
+     *
      * @param id
      * @return
      */
@@ -137,7 +126,7 @@ public class DeviceController {
 
     /**
      * 同步更新设备
-     * 
+     *
      * @param id
      * @return
      */
@@ -155,7 +144,7 @@ public class DeviceController {
 
     /**
      * 查看设备详情
-     * 
+     *
      * @param id
      * @return
      */
@@ -179,7 +168,7 @@ public class DeviceController {
 
     /**
      * 获取设备信息及属性
-     * 
+     *
      * @param id
      * @return
      */
@@ -194,18 +183,8 @@ public class DeviceController {
 
             HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
                     .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
-            LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
-                    .getDeviceGroupAttributeResult("1");
 
-            List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
-            for (Entry<String, String> entry : attributeNames.entrySet()) {
-                DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
-                DeviceAttributeDto deviceAttributeDto = new DeviceAttributeDto();
-                deviceAttributeDto.setAttributeName(entry.getValue());
-                deviceAttributeDto.setDatastream(deviceAttribute.getDatastream());
-                deviceAttributeDto.setValue(deviceAttribute.getValue());
-                deviceAttributeDtos.add(deviceAttributeDto);
-            }
+            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult);
             return HttpResponseUtil.ok(deviceAttributeDtos);
         } catch (Exception e) {
             LOGGER.error("获取设备信息及属性异常, ", e);
@@ -213,9 +192,24 @@ public class DeviceController {
         }
     }
 
+    private List<DeviceAttributeDto> convertDeviceAttributeDtoList(HashMap<String, DeviceAttribute> deviceAttributeValueResult) {
+        LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
+                .getDeviceGroupAttributeResult("1");
+        List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
+        for (Entry<String, String> entry : attributeNames.entrySet()) {
+            DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
+            DeviceAttributeDto deviceAttributeDto = new DeviceAttributeDto();
+            deviceAttributeDto.setAttributeName(entry.getValue());
+            deviceAttributeDto.setDatastream(deviceAttribute.getDatastream());
+            deviceAttributeDto.setValue(deviceAttribute.getValue());
+            deviceAttributeDtos.add(deviceAttributeDto);
+        }
+        return deviceAttributeDtos;
+    }
+
     /**
      * 通过设备编号列表查询设备信息
-     * 
+     *
      * @param ids
      * @return
      */
@@ -243,7 +237,7 @@ public class DeviceController {
 
     /**
      * 查看设备列表
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/deviceList.sapi")
@@ -267,7 +261,7 @@ public class DeviceController {
 
     /**
      * 查询设备数据点信息
-     * 
+     *
      * @param jsonStr
      * @return
      */
@@ -303,7 +297,7 @@ public class DeviceController {
 
     /**
      * 获取原始数据记录
-     * 
+     *
      * @param jsonStr
      * @return
      */

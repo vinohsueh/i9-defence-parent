@@ -26,6 +26,12 @@ public class DeviceInfo implements java.io.Serializable {
         return powerStateEnum.getName();
     }
 
+    @Transient
+    public PowerStateEnum getPowerState0() {
+        PowerStateEnum powerStateEnum = PowerStateEnum.valueOf(this.powerState);
+        return powerStateEnum;
+    }
+
     private static final long serialVersionUID = -9079076068871929718L;
 
     public DeviceInfo() {
@@ -60,6 +66,16 @@ public class DeviceInfo implements java.io.Serializable {
      * 创建日期
      */
     private Date createDate;
+
+    private String deviceGroupId;
+
+    public String getDeviceGroupId() {
+        return deviceGroupId;
+    }
+
+    public void setDeviceGroupId(String deviceGroupId) {
+        this.deviceGroupId = deviceGroupId;
+    }
 
     @Id
     @GeneratedValue(generator = "uuid")

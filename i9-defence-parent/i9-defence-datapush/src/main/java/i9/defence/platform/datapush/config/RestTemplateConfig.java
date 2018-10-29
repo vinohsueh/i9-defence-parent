@@ -19,7 +19,7 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
         RestTemplate restTemplate = new RestTemplate(factory);
-        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("w0QOhTdMmzkyvi5m", "ZRU1ZjiIwIHo6sfK"));
+        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor("admin", "admin"));
         return restTemplate;
     }
 

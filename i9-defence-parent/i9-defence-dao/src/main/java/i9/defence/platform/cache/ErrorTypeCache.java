@@ -19,12 +19,12 @@ import i9.defence.platform.model.EquipmentFault;
 */
 @Component
 public class ErrorTypeCache {
-	@Autowired
-	private EquipmentFaultDao equipmentFaultDao;
-	
-	/**
-     *  code和name
-     *  
+    @Autowired
+    private EquipmentFaultDao equipmentFaultDao;
+
+    /**
+     * code和name
+     * 
      */
     public static Map<String, String> dictMap = new HashMap<String, String>();
     
