@@ -151,9 +151,6 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
             }
             // 查询是否是隐患数据
             boolean contains = Arrays.asList(Constants.DATATYPE).contains(type);
-            List<Integer> asList = Arrays.asList(Constants.DATATYPE);
-            System.out.println(asList);
-            System.out.println(contains);
             if (contains) {
                 HiddenDanger hiddenDanger = map.get(channel);
                 if (hiddenDanger != null) {
