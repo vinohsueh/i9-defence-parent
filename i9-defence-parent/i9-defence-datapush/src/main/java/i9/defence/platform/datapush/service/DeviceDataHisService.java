@@ -24,4 +24,11 @@ public interface DeviceDataHisService {
      */
     List<DeviceDataHis> queryDeviceDataHisDto(String deviceId, String datastream, String startDate, String endDate)
             throws Exception;
+
+    /**
+     * 保存设备数据历史记录
+     * 
+     * @param deviceDataHis
+     */
+    void saveDeviceDataHis(DeviceDataHis deviceDataHis);
 }

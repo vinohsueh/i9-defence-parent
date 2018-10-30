@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import i9.defence.platform.dao.ErrHandleDao;
 import i9.defence.platform.dao.mapper.ErrHandleMapper;
 import i9.defence.platform.dao.vo.ErrHandleSearchDto;
+import i9.defence.platform.dao.vo.ErrHandleToExcel;
 import i9.defence.platform.model.ErrHandle;
 import i9.defence.platform.model.ErrHandleExample;
 import i9.defence.platform.model.ErrHandleExample.Criteria;
@@ -90,7 +91,12 @@ public class ErrHandleDaoImpl implements ErrHandleDao{
 	@Override
 	public void updateErrHandles(List<ErrHandle> errHandles) throws Exception {
 		errHandleMapper.updateErrHandles(errHandles);
-	} 
+	}
+
+    @Override
+    public List<ErrHandleToExcel> selectErrHandleToExcel() throws Exception {
+        return errHandleMapper.selectErrHandleToExcel();
+    } 
 	
 
 }

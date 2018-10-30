@@ -1,5 +1,13 @@
 package i9.defence.platform.datapush.controller;
 
+import i9.defence.platform.datapush.ServerRun;
+import i9.defence.platform.datapush.dto.DeviceAttributeDto;
+import i9.defence.platform.datapush.dto.DeviceDataHisDto;
+import i9.defence.platform.datapush.dto.DeviceDetailsDto;
+import i9.defence.platform.datapush.dto.DeviceInfoDto;
+import i9.defence.platform.datapush.dto.OriginalRecordDto;
+import i9.defence.platform.datapush.utils.HttpResult;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,23 +20,19 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import i9.defence.platform.datapush.ServerRun;
-import i9.defence.platform.datapush.dto.DeviceAttributeDto;
-import i9.defence.platform.datapush.dto.DeviceDataHisDto;
-import i9.defence.platform.datapush.dto.DeviceDetailsDto;
-import i9.defence.platform.datapush.dto.DeviceInfoDto;
-import i9.defence.platform.datapush.utils.HttpResult;
-
+/**
+ * 设备对外测试接口调试类
+ * 
+ * @author R12
+ * @date 2018年10月23日 09:44:20
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServerRun.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeviceControllerTest {
@@ -90,8 +94,8 @@ public class DeviceControllerTest {
 
         final String jsonPost = "0c909a2c-5ac7-48df-92ef-b1c2a9516a83";
         HttpEntity<String> requestEntity = new HttpEntity<>(jsonPost);
-        ResponseEntity<HttpResult<DeviceInfoDto>> responseEntity = this.restTemplate
-                .exchange(baseURL + "baseAPI/deviceDetails.sapi", HttpMethod.POST, requestEntity, typeRef);
+        ResponseEntity<HttpResult<DeviceInfoDto>> responseEntity = this.restTemplate.exchange(baseURL
+                + "baseAPI/deviceDetails.sapi", HttpMethod.POST, requestEntity, typeRef);
 
         HttpResult<DeviceInfoDto> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
@@ -110,8 +114,8 @@ public class DeviceControllerTest {
         };
 
         HttpEntity<String> requestEntity = new HttpEntity<String>("");
-        ResponseEntity<HttpResult<List<DeviceInfoDto>>> responseEntity = this.restTemplate
-                .exchange(baseURL + "baseAPI/deviceList.sapi", HttpMethod.POST, requestEntity, typeRef);
+        ResponseEntity<HttpResult<List<DeviceInfoDto>>> responseEntity = this.restTemplate.exchange(baseURL
+                + "baseAPI/deviceList.sapi", HttpMethod.POST, requestEntity, typeRef);
 
         HttpResult<List<DeviceInfoDto>> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
@@ -132,8 +136,8 @@ public class DeviceControllerTest {
 
         final String jsonPost = "0c909a2c-5ac7-48df-92ef-b1c2a9516a83";
         HttpEntity<String> requestEntity = new HttpEntity<String>(jsonPost);
-        ResponseEntity<HttpResult<List<DeviceAttributeDto>>> responseEntity = this.restTemplate
-                .exchange(baseURL + "baseAPI/deviceAttribute.sapi", HttpMethod.POST, requestEntity, typeRef);
+        ResponseEntity<HttpResult<List<DeviceAttributeDto>>> responseEntity = this.restTemplate.exchange(baseURL
+                + "baseAPI/deviceAttribute.sapi", HttpMethod.POST, requestEntity, typeRef);
 
         HttpResult<List<DeviceAttributeDto>> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
@@ -156,8 +160,8 @@ public class DeviceControllerTest {
         ids.add("0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
 
         HttpEntity<List<String>> requestEntity = new HttpEntity<List<String>>(ids);
-        ResponseEntity<HttpResult<List<DeviceInfoDto>>> responseEntity = this.restTemplate
-                .exchange(baseURL + "baseAPI/searchDeviceList.sapi", HttpMethod.POST, requestEntity, typeRef);
+        ResponseEntity<HttpResult<List<DeviceInfoDto>>> responseEntity = this.restTemplate.exchange(baseURL
+                + "baseAPI/searchDeviceList.sapi", HttpMethod.POST, requestEntity, typeRef);
 
         HttpResult<List<DeviceInfoDto>> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
@@ -176,20 +180,20 @@ public class DeviceControllerTest {
         ParameterizedTypeReference<HttpResult<List<DeviceDataHisDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<DeviceDataHisDto>>>() {
         };
 
-        HashMap<String, Object> params = new HashMap<String, Object>();
+        HashMap<String, Object> params = new HashMap<String, Object>(4);
         // 设备编号
         params.put("id", "0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
         // 数据点
         params.put("datastream", "3_0_21");
         // 开始时间
-        params.put("startDate", "2018-10-01 00:00:00");
+        params.put("startDate", "2018-01-01 00:00:00");
         // 结束时间
-        params.put("endDate", "2018-10-20 00:00:00");
+        params.put("endDate", "2018-12-20 00:00:00");
 
         JSONObject jsonObject = new JSONObject(params);
         HttpEntity<String> requestEntity = new HttpEntity<String>(jsonObject.toString());
-        ResponseEntity<HttpResult<List<DeviceDataHisDto>>> responseEntity = this.restTemplate
-                .exchange(baseURL + "baseAPI/deviceDatapoint.sapi", HttpMethod.POST, requestEntity, typeRef);
+        ResponseEntity<HttpResult<List<DeviceDataHisDto>>> responseEntity = this.restTemplate.exchange(baseURL
+                + "baseAPI/deviceDatapoint.sapi", HttpMethod.POST, requestEntity, typeRef);
 
         HttpResult<List<DeviceDataHisDto>> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
@@ -199,40 +203,57 @@ public class DeviceControllerTest {
             System.out.println("re : " + jsonObject.toString());
         }
     }
-    
 
+    /**
+     * 测试获取原始数据记录
+     */
+    @Test
+    public void testOriginalRecordList() {
+        ParameterizedTypeReference<HttpResult<List<OriginalRecordDto>>> typeRef = new ParameterizedTypeReference<HttpResult<List<OriginalRecordDto>>>() {
+        };
+
+        HashMap<String, Object> params = new HashMap<String, Object>(2);
+        // 开始时间
+        params.put("startDate", "2018-10-01 00:00:00");
+        // 结束时间
+        params.put("endDate", "2018-12-20 00:00:00");
+
+        JSONObject jsonObject = new JSONObject(params);
+        HttpEntity<String> requestEntity = new HttpEntity<String>(jsonObject.toString());
+        ResponseEntity<HttpResult<List<OriginalRecordDto>>> responseEntity = this.restTemplate.exchange(baseURL
+                + "baseAPI/originalRecordList.sapi", HttpMethod.POST, requestEntity, typeRef);
+
+        HttpResult<List<OriginalRecordDto>> httpResult = responseEntity.getBody();
+        System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
+
+        for (OriginalRecordDto originalRecordDto : httpResult.getRe()) {
+            jsonObject = new JSONObject(originalRecordDto);
+            System.out.println("re : " + jsonObject.toString());
+        }
+    }
+
+    /**
+     * 测试查询设备详情及属性信息
+     */
     @Test
     public void testDeviceDetailsAndAttribute() {
         ParameterizedTypeReference<HttpResult<DeviceDetailsDto>> typeRef = new ParameterizedTypeReference<HttpResult<DeviceDetailsDto>>() {
         };
         HttpEntity<String> requestEntity = new HttpEntity<String>("0c909a2c-5ac7-48df-92ef-b1c2a9516a83");
-        ResponseEntity<HttpResult<DeviceDetailsDto>> responseEntity = this.restTemplate
-                .exchange(baseURL + "baseAPI/deviceDetailsAndAttribute.sapi", HttpMethod.POST, requestEntity, typeRef);
-        
+        ResponseEntity<HttpResult<DeviceDetailsDto>> responseEntity = this.restTemplate.exchange(baseURL
+                + "baseAPI/deviceDetailsAndAttribute.sapi", HttpMethod.POST, requestEntity, typeRef);
+
         HttpResult<DeviceDetailsDto> httpResult = responseEntity.getBody();
         System.out.println("code : " + httpResult.getCode() + ", message :" + httpResult.getMessage());
-        
+
         DeviceDetailsDto deviceDetailsDto = httpResult.getRe();
-        
+
         JSONObject jsonObject = new JSONObject(deviceDetailsDto.getDeviceInfoDto());
         System.out.println("re : " + jsonObject.toString());
-        
+
         for (DeviceAttributeDto deviceAttributeDto : deviceDetailsDto.getDeviceAttributeDtos()) {
             jsonObject = new JSONObject(deviceAttributeDto);
             System.out.println("re : " + jsonObject.toString());
         }
-    }
-
-    @Bean
-    public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
-        return new RestTemplate(factory);
-    }
-
-    @Bean
-    public ClientHttpRequestFactory simpleClientHttpRequestFactory() {
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setReadTimeout(5000);
-        factory.setConnectTimeout(15000);
-        return factory;
     }
 }

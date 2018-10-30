@@ -17,6 +17,15 @@ import org.springframework.data.repository.query.Param;
  */
 public interface DeviceDataHisRepository extends JpaRepository<DeviceDataHis, String> {
 
+    /**
+     * 查询设备数据历史
+     * 
+     * @param deviceId
+     * @param datastream
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     @Query("SELECT deviceDataHis FROM DeviceDataHis deviceDataHis WHERE deviceDataHis.deviceId = :deviceId "
             + " AND deviceDataHis.datastream = :datastream "
             + " AND deviceDataHis.createDate BETWEEN :startDate AND :endDate "

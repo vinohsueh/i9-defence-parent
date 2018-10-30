@@ -1,13 +1,14 @@
 package i9.defence.platform.datapush.service.impl;
 
-import i9.defence.platform.datapush.entity.DeviceInfo;
-import i9.defence.platform.datapush.respository.DeviceInfoRepository;
-import i9.defence.platform.datapush.service.ReceiveMessagePowerStateService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import i9.defence.platform.datapush.service.DeviceService;
+import i9.defence.platform.datapush.service.ReceiveMessagePowerStateService;
+import i9.defence.platform.datapush.utils.PowerStateEnum;
 
 /**
  * 设备状态消息处理服务类
@@ -18,23 +19,25 @@ import javax.transaction.Transactional;
 @Service
 public class ReceiveMessagePowerStateServiceImpl implements ReceiveMessagePowerStateService {
 
+    @Autowired
+    private DeviceService deviceService;
+
     /**
      * 处理上行数据消息
      * 
      * @param data
      */
-    @Transactional
+    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
     @Override
     public void dealWithUplinkData(JSONObject data) {
         int deviceId = data.getInt("dev_id");
         int status = data.getInt("status");
-        DeviceInfo deviceInfo = this.deviceInfoRepository.selectDeviceInfoByDeviceId(String.valueOf(deviceId));
-        if (deviceInfo == null) {
-            return;
+        PowerStateEnum powerStateEnum;
+        if (status == 0) {
+            powerStateEnum = PowerStateEnum.DEVICE_OFFLINE;
+        } else {
+            powerStateEnum = PowerStateEnum.DEVICE_ONLINE;
         }
-        this.deviceInfoRepository.updateDeviceInfoPowerState(status, deviceInfo.getId());
+        this.deviceService.refreshDeviceInfoPowerState(String.valueOf(deviceId), powerStateEnum);
     }
-
-    @Autowired
-    private DeviceInfoRepository deviceInfoRepository;
 }

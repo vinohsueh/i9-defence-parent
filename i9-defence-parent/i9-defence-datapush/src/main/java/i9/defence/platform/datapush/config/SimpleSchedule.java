@@ -27,7 +27,6 @@ public class SimpleSchedule {
     public void loadDeviceGroupAttribute() {
         try {
             deviceGroupAttributeNameCache.reInit();
-            LOGGER.info("加载设备组属性成功");
         } catch (Exception exception) {
             LOGGER.info("加载设备组属性失败", exception);
         }

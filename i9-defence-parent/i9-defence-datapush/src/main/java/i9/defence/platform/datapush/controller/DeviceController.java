@@ -1,40 +1,46 @@
 package i9.defence.platform.datapush.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
+import i9.defence.platform.datapush.config.DeviceGroupAttributeNameCache;
+import i9.defence.platform.datapush.dto.DeviceAttributeDto;
+import i9.defence.platform.datapush.dto.DeviceDataHisDto;
+import i9.defence.platform.datapush.dto.DeviceDetailsDto;
+import i9.defence.platform.datapush.dto.DeviceInfoDto;
+import i9.defence.platform.datapush.dto.OriginalRecordDto;
+import i9.defence.platform.datapush.entity.DeviceAttribute;
+import i9.defence.platform.datapush.entity.DeviceDataHis;
+import i9.defence.platform.datapush.entity.DeviceInfo;
+import i9.defence.platform.datapush.entity.OriginalRecord;
+import i9.defence.platform.datapush.service.DeviceDataHisService;
+import i9.defence.platform.datapush.service.DeviceService;
+import i9.defence.platform.datapush.service.OriginalRecordService;
+import i9.defence.platform.datapush.utils.HttpResponseUtil;
+import i9.defence.platform.datapush.utils.HttpResult;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import i9.defence.platform.datapush.config.DeviceGroupAttributeNameCache;
-import i9.defence.platform.datapush.dto.DeviceAttributeDto;
-import i9.defence.platform.datapush.dto.DeviceDataHisDto;
-import i9.defence.platform.datapush.dto.DeviceDetailsDto;
-import i9.defence.platform.datapush.dto.DeviceInfoDto;
-import i9.defence.platform.datapush.entity.DeviceAttribute;
-import i9.defence.platform.datapush.entity.DeviceDataHis;
-import i9.defence.platform.datapush.entity.DeviceInfo;
-import i9.defence.platform.datapush.service.DeviceDataHisService;
-import i9.defence.platform.datapush.service.DeviceService;
-import i9.defence.platform.datapush.utils.HttpResponseUtil;
-import i9.defence.platform.datapush.utils.HttpResult;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * 对外提供api接口服务
- * 
+ *
  * @author R12
  * @date 2018年10月22日 14:10:29
  */
 @RestController
 @RequestMapping(value = "/baseAPI/")
 public class DeviceController {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(DeviceController.class);
 
     @Autowired
     private DeviceService deviceService;
@@ -45,9 +51,12 @@ public class DeviceController {
     @Autowired
     private DeviceDataHisService deviceDataHisService;
 
+    @Autowired
+    private OriginalRecordService originalRecordService;
+
     /**
      * 获取设备详情和属性信息
-     * 
+     *
      * @param id
      * @return
      */
@@ -68,29 +77,20 @@ public class DeviceController {
 
             HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
                     .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
-            LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
-                    .getDeviceGroupAttributeResult("1");
 
-            List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
-            for (Entry<String, String> entry : attributeNames.entrySet()) {
-                DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
-                DeviceAttributeDto deviceAttributeDto = new DeviceAttributeDto();
-                deviceAttributeDto.setAttributeName(entry.getValue());
-                deviceAttributeDto.setDatastream(deviceAttribute.getDatastream());
-                deviceAttributeDto.setValue(deviceAttribute.getValue());
-                deviceAttributeDtos.add(deviceAttributeDto);
-            }
+            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult);
             deviceDetailsDto.setDeviceAttributeDtos(deviceAttributeDtos);
 
             return HttpResponseUtil.ok(deviceDetailsDto);
         } catch (Exception e) {
+            LOGGER.error("获取设备详情失败异常, ", e);
             return HttpResponseUtil.error("获取设备详情失败");
         }
     }
 
     /**
      * 添加设备
-     * 
+     *
      * @param deviceId
      * @return
      */
@@ -101,13 +101,14 @@ public class DeviceController {
             this.deviceService.addDevice(deviceId);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
+            LOGGER.error("设备添加异常, ", e);
             return HttpResponseUtil.error("设备添加失败");
         }
     }
 
     /**
      * 删除设备
-     * 
+     *
      * @param id
      * @return
      */
@@ -118,13 +119,14 @@ public class DeviceController {
             this.deviceService.deleteDevice(id);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
+            LOGGER.error("删除设备异常, ", e);
             return HttpResponseUtil.error("删除设备失败");
         }
     }
 
     /**
      * 同步更新设备
-     * 
+     *
      * @param id
      * @return
      */
@@ -135,13 +137,14 @@ public class DeviceController {
             this.deviceService.refreshDevice(id);
             return HttpResponseUtil.ok();
         } catch (Exception e) {
+            LOGGER.error("同步设备异常, ", e);
             return HttpResponseUtil.error("同步设备失败");
         }
     }
 
     /**
      * 查看设备详情
-     * 
+     *
      * @param id
      * @return
      */
@@ -158,13 +161,14 @@ public class DeviceController {
                     deviceInfo.getCreateDate());
             return HttpResponseUtil.ok(deviceInfoDto);
         } catch (Exception e) {
+            LOGGER.error("获取设备详情异常, ", e);
             return HttpResponseUtil.error("获取设备详情失败");
         }
     }
 
     /**
      * 获取设备信息及属性
-     * 
+     *
      * @param id
      * @return
      */
@@ -179,27 +183,33 @@ public class DeviceController {
 
             HashMap<String, DeviceAttribute> deviceAttributeValueResult = this.deviceService
                     .getDeviceAttributeValueResult(deviceInfo.getDeviceId());
-            LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
-                    .getDeviceGroupAttributeResult("1");
 
-            List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
-            for (Entry<String, String> entry : attributeNames.entrySet()) {
-                DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
-                DeviceAttributeDto deviceAttributeDto = new DeviceAttributeDto();
-                deviceAttributeDto.setAttributeName(entry.getValue());
-                deviceAttributeDto.setDatastream(deviceAttribute.getDatastream());
-                deviceAttributeDto.setValue(deviceAttribute.getValue());
-                deviceAttributeDtos.add(deviceAttributeDto);
-            }
+            List<DeviceAttributeDto> deviceAttributeDtos = convertDeviceAttributeDtoList(deviceAttributeValueResult);
             return HttpResponseUtil.ok(deviceAttributeDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备信息及属性异常, ", e);
             return HttpResponseUtil.error("获取设备信息及属性失败");
         }
     }
 
+    private List<DeviceAttributeDto> convertDeviceAttributeDtoList(HashMap<String, DeviceAttribute> deviceAttributeValueResult) {
+        LinkedHashMap<String, String> attributeNames = deviceGroupAttributeNameCache
+                .getDeviceGroupAttributeResult("1");
+        List<DeviceAttributeDto> deviceAttributeDtos = new ArrayList<DeviceAttributeDto>();
+        for (Entry<String, String> entry : attributeNames.entrySet()) {
+            DeviceAttribute deviceAttribute = deviceAttributeValueResult.get(entry.getKey());
+            DeviceAttributeDto deviceAttributeDto = new DeviceAttributeDto();
+            deviceAttributeDto.setAttributeName(entry.getValue());
+            deviceAttributeDto.setDatastream(deviceAttribute.getDatastream());
+            deviceAttributeDto.setValue(deviceAttribute.getValue());
+            deviceAttributeDtos.add(deviceAttributeDto);
+        }
+        return deviceAttributeDtos;
+    }
+
     /**
      * 通过设备编号列表查询设备信息
-     * 
+     *
      * @param ids
      * @return
      */
@@ -220,13 +230,14 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(deviceInfoDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备列表异常, ", e);
             return HttpResponseUtil.error("获取设备列表失败");
         }
     }
 
     /**
      * 查看设备列表
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/deviceList.sapi")
@@ -243,13 +254,14 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(deviceInfoDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备列表异常, ", e);
             return HttpResponseUtil.error("获取设备列表失败");
         }
     }
 
     /**
      * 查询设备数据点信息
-     * 
+     *
      * @param jsonStr
      * @return
      */
@@ -278,7 +290,35 @@ public class DeviceController {
             }
             return HttpResponseUtil.ok(deviceDataHisDtos);
         } catch (Exception e) {
+            LOGGER.error("获取设备数据点异常, ", e);
             return HttpResponseUtil.error("获取设备数据点失败");
+        }
+    }
+
+    /**
+     * 获取原始数据记录
+     *
+     * @param jsonStr
+     * @return
+     */
+    @RequestMapping(value = "/originalRecordList.sapi")
+    @ResponseBody
+    public HttpResult<?> originalRecordList(@RequestBody String jsonStr) {
+        JSONObject param = new JSONObject(jsonStr);
+        String startDate = param.getString("startDate");
+        String endDate = param.getString("endDate");
+        try {
+            List<OriginalRecordDto> originalRecordDtos = new ArrayList<OriginalRecordDto>();
+            for (OriginalRecord originalRecord : this.originalRecordService.getOriginalRecordList(startDate, endDate)) {
+                OriginalRecordDto originalRecordDto = new OriginalRecordDto();
+                originalRecordDto.setMessage(originalRecord.getMessage());
+                originalRecordDto.setSubmitDate(originalRecord.getSubmitDate());
+                originalRecordDtos.add(originalRecordDto);
+            }
+            return HttpResponseUtil.ok(originalRecordDtos);
+        } catch (Exception e) {
+            LOGGER.error("获取原始数据记录异常, ", e);
+            return HttpResponseUtil.error("获取原始数据记录失败");
         }
     }
 }

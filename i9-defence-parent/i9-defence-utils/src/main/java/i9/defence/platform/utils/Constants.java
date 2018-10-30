@@ -69,5 +69,5 @@ public class Constants {
 	/**
 	 * 判断隐患的数据类型
 	 */
-	public static final int [] DATATYPE = {2,5};
+	public static final Integer [] DATATYPE = {2,5};
 }

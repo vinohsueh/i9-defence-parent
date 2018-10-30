@@ -1,4 +1,4 @@
-<#include "header.html">
+<#include "header.ftl">
 <input type="hidden" name="id" id="id" value="${deviceInfo.id}"/>
 <div id="rightContent">
     <a class="toggle-btn" id="nimei">
@@ -7,8 +7,8 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="stud">
             <div class="check-div form-inline">
-                <div class="col-xs-4 col-lg-4  col-md-5">
-                    <span style="font-weight: bold; font-size: 15px">${deviceInfo.deviceName}（${deviceInfo.deviceId}）</span>
+                <div class="col-xs-4 col-lg-12 col-md-5">
+                    <span style="font-weight: bold; font-size: 15px; margin-left: 10px; margin-right: 10px">${deviceInfo.deviceName}（${deviceInfo.deviceId}）</span>
                     <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#syncDevice">同步数据</button>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         <div class="col-xs-4">${key}</div>
                         <div class="col-xs-3"><#if (values[key].value)??>${values[key].value}<#else>-</#if></div>
                         <div class="col-xs-3"><#if (values[key].updateDate)??>${values[key].updateDate}<#else>-</#if></div>
-                        <div class="col-xs-1">-</div>
+                        <div class="col-xs-1"><a href="${basePath}/device-datahis-${deviceInfo.id}.shtml?datastream=${values[key].datastream}">历史记录</a></div>
                     </div>
                     </#list>
                 </div>
@@ -85,4 +85,4 @@
     </div>
 </div>
 <script src="${basePath}/static/js/details.js"></script>
-<#include "footer.html">
+<#include "footer.ftl">

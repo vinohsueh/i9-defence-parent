@@ -150,15 +150,18 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 alertNum++;
             }
             // 查询是否是隐患数据
-            if (Arrays.asList(Constants.DATATYPE).contains(type)) {
+            boolean contains = Arrays.asList(Constants.DATATYPE).contains(type);
+            if (contains) {
                 HiddenDanger hiddenDanger = map.get(channel);
-                if (Double.valueOf(value) > hiddenDanger.getHiddenMax()
-                        || Double.valueOf(value) < hiddenDanger.getHiddenMin()) {
-                    hiddenNum++;
+                if (hiddenDanger != null) {
+                    if (Double.valueOf(value) > hiddenDanger.getHiddenMax()
+                            || Double.valueOf(value) < hiddenDanger.getHiddenMin()) {
+                        hiddenNum++;
+                    }
                 }
             }
         }
-        try {
+        try { 
             Equipment equipment = equipmentDao.findEquipmentDeviceId(deviceId);
             // 设置 设备当前的数据状态
             int dataStatus = 0;

@@ -1,11 +1,25 @@
 package i9.defence.platform.datapush.utils;
 
+/**
+ * 接收消息数据传输对象
+ * 
+ * @author jiangtao
+ */
 public class ReceiveMessageDto {
 
+    /**
+     * 消息
+     */
     private Object msg;
 
+    /**
+     * 随机数
+     */
     private String nonce;
 
+    /**
+     * 消息签名
+     */
     private String msgSignature;
 
     public Object getMsg() {

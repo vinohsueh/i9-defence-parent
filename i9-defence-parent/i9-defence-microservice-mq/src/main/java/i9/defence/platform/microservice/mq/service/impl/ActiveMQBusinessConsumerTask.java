@@ -29,7 +29,7 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
         UpStreamDecodeService upStreamDecodeService = getUpStreamDecodeService();
         try {
             int dataStatus = upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
-            if (dataStatus > 0) {
+            if (dataStatus != 0) {
                 JSONObject jsonObject = JSONObject.parseObject(textMessage.getText());
                 String systemId = jsonObject.getString("systemId");
                 int loop = jsonObject.getIntValue("loop");

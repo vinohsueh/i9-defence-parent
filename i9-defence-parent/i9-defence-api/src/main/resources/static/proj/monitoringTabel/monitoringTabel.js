@@ -113,6 +113,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			// console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
+			console.log($scope.projects);
 			for(i in $scope.projects){
 				if($scope.projects[i].status == 0 || $scope.projects[i].status == 2){
 					$scope.projects[i].status = 'lineOut'
@@ -467,6 +468,38 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
         	  }, 100);
     	}
 	}
+	//Excel导出
+	$scope.ExcelSearch = function () {
+		if($scope.selected == null || $scope.selected == ''){
+			$scope.selected ={
+				name:null
+			}
+		}
+		if($scope.selected2 == null || $scope.selected2 == ''){
+			$scope.selected2 ={
+				name:''
+			}
+		}
+		if($scope.selected3 == null || $scope.selected3 == ''){
+			$scope.selected3 ={
+				value:''
+			}
+		}
+		
+		var pageParam = {
+			projectProvince:$scope.selected.name,
+			projectCity:$scope.selected2.name,
+			projectCounty:$scope.selected3.value,
+			projectId:$scope.projectId,
+		};
+		console.log(pageParam);
+		window.location = "./hiddenDangerEdit/excelTo?projectProvince="+"&projectId="+$scope.projectId;
+		/*httpService.post({url:'./hiddenDangerEdit/excelTo',data:pageParam,showSuccessMsg:false}).then(function(data) { 	
+			window.localtion.href=''
+		})*/
+	}
+
+	
 	function resizeWin() {
 	    var domHeight = $(window).height();
 	    var rightHeight = domHeight-465;

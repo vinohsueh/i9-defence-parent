@@ -2,7 +2,9 @@ package i9.defence.platform.datapush.service;
 
 import i9.defence.platform.datapush.entity.DeviceAttribute;
 import i9.defence.platform.datapush.entity.DeviceInfo;
+import i9.defence.platform.datapush.utils.PowerStateEnum;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -88,4 +90,46 @@ public interface DeviceService {
      * @return
      */
     List<DeviceInfo> getDeviceInfoListByIds(List<String> ids);
+
+    /**
+     * 更新设备状态信息
+     * 
+     * @param powerStateEnum
+     * @param id
+     */
+    void updateDeviceInfoPowerState(PowerStateEnum powerStateEnum, String id);
+
+    /**
+     * 获取设备信息
+     * 
+     * @param deviceId
+     * @return
+     */
+    DeviceInfo selectDeviceInfoByDeviceId(String deviceId);
+
+    /**
+     * 刷新设备状态
+     * 
+     * @param deviceId
+     * @param powerStateEnum
+     */
+    void refreshDeviceInfoPowerState(String deviceId, PowerStateEnum powerStateEnum);
+
+    /**
+     * 更新设备属性值
+     * 
+     * @param value
+     * @param date
+     * @param id
+     */
+    void updateDeviceAttributeLastValue(String value, Date date, String id);
+
+    /**
+     * 获取或者创建一个设备属性
+     * 
+     * @param deviceId
+     * @param datastream
+     * @return
+     */
+    DeviceAttribute getAndCreateDeviceAttribute(String deviceId, String datastream);
 }

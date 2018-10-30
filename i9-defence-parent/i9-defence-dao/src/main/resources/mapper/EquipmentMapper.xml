@@ -885,6 +885,22 @@
 		limit
 		#{offset},#{limit}
 	</select>
+	
+	<select id="selectAllHiddenDangerEdit2" resultMap="BaseResultMapDto2">
+		select
+		e.id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,
+		CASE WHEN datastatus = '0' THEN '离线' 
+		WHEN datastatus = '1' THEN '报警' 
+		ELSE '其他' END   as datastatustr ,
+		remainAlert
+		from v_equipment e left join t_manager_grade mg on e.distributorId =
+		mg.managerId
+		<if test="_parameter != null">
+			<include refid="Query_HiddenDanger_By_Dto_Where_Clause" />
+		</if>
+		order by field(concat( `e`.`status`, `e`.`dataStatus` ),11,12,'20','00','01',21,22,20,11,12,10 
+			)
+	</select>
 
 	<select id="selectHiddenDangerByLimitPage2" resultMap="BaseResultMapDto">
 		SELECT
@@ -917,7 +933,8 @@
 		<if test="_parameter != null">
 			<include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
 		</if>
-		order by field(remainAlert,1,2,0 ), status desc
+		order by field(concat(status,
+		dataStatus),11,12,'20','00','01',21,22,20,11,12,10 )
 		limit
 		#{offset},#{limit}
 	</select>

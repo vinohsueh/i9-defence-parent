@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import i9.defence.platform.dao.vo.DealStatusDto;
 import i9.defence.platform.dao.vo.EquipmentNewestDto;
 import i9.defence.platform.dao.vo.EquipmentProjectDto;
@@ -240,5 +242,10 @@ public interface EquipmentService {
     * @param eqDeviceIdList
     * @throws BusinessException
      */
-    void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList) throws BusinessException;; 	  
+    void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList) throws BusinessException;
+    /**
+     * Excel导出
+     * @return
+     */
+    XSSFWorkbook downLoadExportToExcel(HiddenDangerSearchDto hiddenDangerSearchDto);; 	  
 }

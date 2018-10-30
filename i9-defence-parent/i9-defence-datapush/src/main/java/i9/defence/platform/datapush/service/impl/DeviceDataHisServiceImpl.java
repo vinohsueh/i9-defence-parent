@@ -42,4 +42,14 @@ public class DeviceDataHisServiceImpl implements DeviceDataHisService {
                 sDate, eDate);
         return deviceDataHis;
     }
+
+    /**
+     * 保存设备数据历史记录
+     * 
+     * @param deviceDataHis
+     */
+    @Override
+    public void saveDeviceDataHis(DeviceDataHis deviceDataHis) {
+        this.deviceDataHisRepository.save(deviceDataHis);
+    }
 }
