@@ -66,6 +66,7 @@ public class ActiveMQConsumerRunnablePool {
                         String code = dataItem.getString("value");
                         int channel = dataItem.getIntValue("channel");
                         // 如果数据类型是0 且 错误代码不为00000000 时 记录记录
+                        logger.info("设备通道 : {}, 类型 : {}, 值 : {}", channel, type, code);
                         if (channels.contains(channel) && 0 == type && !SqlUtil.NORMAL_CODE.equals(code)) {
                             String codeName = map.get(code + deviceInfoDto.getEquipmentId());
                             if (StringUtils.isBlank(codeName)) {
