@@ -303,5 +303,9 @@ public interface EquipmentDao {
     
     void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList);
     
-    List<HiddenDangerDto> selectAllHiddenDangerEdit2(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception; 
+    List<HiddenDangerDto> selectAllHiddenDangerEdit2(HiddenDangerSearchDto hiddenDangerSearchDto)throws Exception;
+    
+    List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto)throws Exception;
+
+    List<String> selectCodename()throws Exception;
 }

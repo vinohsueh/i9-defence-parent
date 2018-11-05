@@ -300,6 +300,16 @@ public class EquipmentDaoImpl implements EquipmentDao{
             throws Exception {
         return equipmentMapper.selectAllHiddenDangerEdit2(hiddenDangerSearchDto);
     }
+
+    @Override
+    public List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto) throws Exception {
+        return equipmentMapper.selectCodeMonthData(monthDataDto);
+    }
+
+    @Override
+    public List<String> selectCodename() throws Exception {
+        return equipmentMapper.selectCodename();
+    }
     
     
 }

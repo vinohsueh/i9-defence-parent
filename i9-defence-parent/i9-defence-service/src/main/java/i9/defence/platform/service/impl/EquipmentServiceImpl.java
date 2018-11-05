@@ -766,5 +766,24 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new BusinessException("Excel导出失败",e.getMessage());
         }
     }
+
+    @Override
+    public List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto) {
+        try {
+            return equipmentDao.selectCodeMonthData(monthDataDto);
+        } catch (Exception e) {
+            throw new BusinessException("查询故障数量失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<String> selectCodename() {
+        try {
+            return equipmentDao.selectCodename();
+        } catch (Exception e) {
+            throw new BusinessException("查询故障名称失败",e.getMessage());
+        }
+    }
+
 }
 

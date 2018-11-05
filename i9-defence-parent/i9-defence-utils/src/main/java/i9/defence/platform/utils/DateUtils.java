@@ -21,6 +21,15 @@ public class DateUtils {
         return null;
     }
     
+    public static Date parseDate(String pStr, String dateStr) {
+        DateFormat dateFormat = new SimpleDateFormat(pStr);
+        try {
+            return dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+        }
+        return null;
+    }
+    
     public static String DateNowStr() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(new Date());

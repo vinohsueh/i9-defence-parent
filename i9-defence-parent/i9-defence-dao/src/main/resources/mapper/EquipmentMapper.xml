@@ -1519,4 +1519,54 @@
 	  	#{item}
 	  </foreach>
 	</update>
+	
+	<select id="selectCodeMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto" 
+	resultType="i9.defence.platform.dao.vo.MonthData">
+	select 	er.codeName ,
+			count(er.codeName) as count,
+			DATE_FORMAT( er.createTime, '%Y-%m' ) AS month 
+	 from t_error_record_item er
+	 LEFT JOIN t_equipment e ON er.deviceId = e.deviceId
+	 LEFT JOIN t_project p ON e.projectId = p.id
+	 LEFT JOIN t_manager_grade mg ON p.distributorId = mg.managerId
+	 <if test="projectId != null">
+			and e.projectId = #{projectId}
+		</if>
+		<if
+			test="projectId == null and projectProvince != null and projectProvince != ''">
+			<if test="projectCity == null || projectCity == ''">
+				and e.projectId in (select id from t_project where
+				projectProvince =
+				#{projectProvince})
+			</if>
+			<if test="projectCity != null and projectCity != ''">
+				and e.projectId in (select id from t_project where
+				projectProvince =
+				#{projectProvince} and projectCity = #{projectCity}
+				)
+			</if>
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and er.createTime &lt; #{endTime}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and er.createTime &gt; #{startTime}
+		</if>
+		<!--经销商 -->
+		<if test="distributorId != null and distributorId != ''">
+			AND (p.distributorId = #{distributorId} or (mg.parentId =
+			#{distributorId} or mg.parentId in (select managerId from
+			t_manager_grade where parentId = #{distributorId})))
+		</if>
+		<if test="projectManagerId != null">
+			AND p.id in (select projectId from t_project_safe where
+			managerId =
+			#{projectManagerId})
+		</if>
+		GROUP BY er.codeName ,DATE_FORMAT( er.createTime, '%Y-%m' ) 
+	</select>
+	
+	<select id="selectCodename" resultType="string">
+	 select er.codeName from t_error_record_item er
+	</select>
 </mapper>

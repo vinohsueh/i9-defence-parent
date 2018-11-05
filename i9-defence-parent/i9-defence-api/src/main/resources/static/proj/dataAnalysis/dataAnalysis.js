@@ -51,7 +51,21 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	
     $scope.dateToString = function(d){
     	var date = new Date(d);
-    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    	var mYear = date.getFullYear();
+	    var mMonth = '';
+	    if(date.getMonth()+1<=9){
+	    	mMonth = '0'+(date.getMonth()+1);
+	    }else{
+	    	mMonth = (date.getMonth()+1);
+	    }
+	    var mDay = '';
+	    if(date.getDate()<=9){
+	    	mDay = '0'+date.getDate();
+	    }else{
+	    	mDay = date.getDate();
+	    }
+	    return mYear +'/'+mMonth+'/'+mDay;
+//    	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     }
 
 	$scope.chartsStatus = false;
@@ -59,10 +73,27 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 	    var date = new Date(); //当前日期
 	    var newDate = new Date();
 	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
-	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
+	    
+	    var mYear = newDate.getFullYear();
+	    var mMonth = '';
+	    if(newDate.getMonth()+1<=9){
+	    	mMonth = '0'+(newDate.getMonth()+1);
+	    }else{
+	    	mMonth = (newDate.getMonth()+1);
+	    }
+	    var mDay = '';
+	    if(newDate.getDate()<=9){
+	    	mDay = '0'+newDate.getDate();
+	    }else{
+	    	mDay = newDate.getDate();
+	    }
+	    var time = mYear +'/'+mMonth+'/'+mDay;
+//	    var time = newDate.getFullYear()+"/"+()+"/"+newDate.getDate();
 	    return time;
+	    
 	}
 	$scope.startTime = $scope.getDate(-180);
+	console.log($scope.startTime);
 	$scope.endTime = $scope.getDate(+1);
     $scope.queryProjects = function(){
 		if($scope.selected == null || $scope.selected == ''){
@@ -155,7 +186,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				        textStyle:{
 				            color:'#fff',
 				        },
-				        data:['报警','故障',]
+				        data:['报警','隐患',]
 				    },
 				    xAxis:{
 				        axisLabel: {        
@@ -204,7 +235,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				        
 				        {
 				            type:'bar',
-				            name:'故障',
+				            name:'隐患',
 				            showAllSymbol: true,
 				            symbol: 'emptyCircle',
 				            symbolSize: 10,
@@ -225,6 +256,33 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 			}else{
 				$scope.chartsStatus = false;
 			}
+			
+			
+			//Excel导出
+			$scope.ExcelTo = function () {
+				window.location = "./equipment/excelTo?";
+			}
+			
+			
+			
+//			故障表格
+			console.log(JSON.stringify(data));
+			var mapList = data.data.rows;
+//			var tableTitle = "";
+			var tableTitle = "<th>日期</th>";
+			var tableBody = '';
+			for(i in mapList){
+				tableBody += "<tr>"
+				for(var j=0;j<mapList[i].length;j++){
+					tableBody += "<td>"+mapList[i][j]+"</td>"
+				}
+				tableBody += "</tr>"
+			}
+			for (i in data.data.titles) {
+				tableTitle += "<th>"+data.data.titles[i]+"</th>";
+			}
+			$('#myTableTitle').html(tableTitle);
+			$('#myTableBody').html(tableBody);	
 			
 		})
 	};
@@ -256,6 +314,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 		$scope.pageInit();
 	}
 })
+
 var dateControl=dataAnalysisNgModule.controller('dateControl',function($rootScope, $scope){
 	//时间插件
     // Disable weekend selection
@@ -286,18 +345,8 @@ var dateControl=dataAnalysisNgModule.controller('dateControl',function($rootScop
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[1];
 	
-    $scope.dateToString = function(d){
+    /*$scope.dateToString = function(d){
     	var date = new Date(d);
     	return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
-    }
-
-    $scope.getDate = function (index){
-	    var date = new Date(); //当前日期
-	    var newDate = new Date();
-	    newDate.setDate(date.getDate() + index);//官方文档上虽然说setDate参数是1-31,其实是可以设置负数的
-	    var time = newDate.getFullYear()+"/"+(newDate.getMonth()+1)+"/"+newDate.getDate();
-	    return time;
-	}
-	$scope.startTime = $scope.getDate(-180);
-	$scope.endTime = $scope.getDate(1);
+    }*/
 })

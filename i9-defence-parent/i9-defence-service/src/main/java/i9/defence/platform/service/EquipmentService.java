@@ -247,5 +247,13 @@ public interface EquipmentService {
      * Excel导出
      * @return
      */
-    XSSFWorkbook downLoadExportToExcel(HiddenDangerSearchDto hiddenDangerSearchDto);; 	  
+    XSSFWorkbook downLoadExportToExcel(HiddenDangerSearchDto hiddenDangerSearchDto);
+    /**
+     * 故障数据
+     * @param monthDataDto
+     * @return
+     */
+    List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto);
+
+    List<String> selectCodename();
 }
