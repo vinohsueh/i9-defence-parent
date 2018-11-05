@@ -785,5 +785,14 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
     }
 
+    @Override
+    public List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto) throws BusinessException {
+        try {
+            return equipmentDao.selectConnectLogMonthData(monthDataDto);
+        } catch (Exception e) {
+            throw new BusinessException("查询故障名称失败",e.getMessage());
+        }
+    }
+
 }
 

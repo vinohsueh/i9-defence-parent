@@ -310,6 +310,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
     public List<String> selectCodename() throws Exception {
         return equipmentMapper.selectCodename();
     }
+
+    @Override
+    public List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto) throws Exception {
+        return equipmentMapper.selectConnectLogMonthData(monthDataDto);
+    }
     
     
 }

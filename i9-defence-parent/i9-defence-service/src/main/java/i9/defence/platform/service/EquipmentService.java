@@ -256,4 +256,6 @@ public interface EquipmentService {
     List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto);
 
     List<String> selectCodename();
+
+    List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto)throws BusinessException;
 }

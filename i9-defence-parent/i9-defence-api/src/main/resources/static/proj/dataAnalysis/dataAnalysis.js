@@ -150,6 +150,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 			$scope.projectTime = [];
 			$scope.projectWarning = [];
 			$scope.projectHidden = [];
+			$scope.projectLineOut = [];
 			if($scope.projectInfo!= null){
 				$scope.chartsStatus = true;
 				for(i in $scope.projectInfo.months){
@@ -160,6 +161,9 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				}
 				for(i in $scope.projectInfo.warningData){
 					$scope.projectWarning.push($scope.projectInfo.warningData[i]);
+				}
+				for(i in $scope.projectInfo.connectLogCount){
+					$scope.projectLineOut.push($scope.projectInfo.connectLogCount[i]);
 				}
 				$scope.option={
 				    title:{
@@ -186,7 +190,7 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				        textStyle:{
 				            color:'#fff',
 				        },
-				        data:['报警','隐患',]
+				        data:['报警','隐患','离线']
 				    },
 				    xAxis:{
 				        axisLabel: {        
@@ -251,7 +255,26 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				            },
 				            data:$scope.projectHidden
 				        },
+				        {
+				            type:'bar',
+				            name:'离线',
+				            showAllSymbol: true,
+				            symbol: 'emptyCircle',
+				            symbolSize: 10,
+				            itemStyle:{
+				                normal:{
+				                    color:'#6f799d',
+				                }
+				            },
+				            lineStyle:{
+				                normal:{
+				                    color:'#909cc8',
+				                }
+				            },
+				            data:$scope.projectLineOut
+				        },
 				    ],
+				    
 				}
 			}else{
 				$scope.chartsStatus = false;

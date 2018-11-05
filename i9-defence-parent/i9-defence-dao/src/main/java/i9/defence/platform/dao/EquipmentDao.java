@@ -308,4 +308,6 @@ public interface EquipmentDao {
     List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto)throws Exception;
 
     List<String> selectCodename()throws Exception;
+    
+    List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto)throws Exception;
 }

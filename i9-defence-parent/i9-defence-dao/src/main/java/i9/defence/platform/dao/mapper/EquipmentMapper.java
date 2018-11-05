@@ -219,6 +219,8 @@ public interface EquipmentMapper {
      */
     List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto);
 
-    List<String> selectCodename();  
+    List<String> selectCodename();
+
+    List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto);  
 
 }

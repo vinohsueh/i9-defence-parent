@@ -293,6 +293,11 @@ public class EquipmentController {
 		List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
 		//隐患数据
 		List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
+		//离线数据
+		List<MonthData> connectLog = equipmentService.selectConnectLogMonthData(monthDataDto);
+		
+		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).setConnectLogData(connectLog).build();
+        result.put("data", jsonObject);
 		
 		//获取现在已有的故障名称
 		List<String> list = equipmentService.selectCodename();
@@ -312,14 +317,9 @@ public class EquipmentController {
 		if (monthDataDto.getEndTime() != null && monthDataDto.getStartTime() != null ) {
 		    Date sDate = DateUtils.parseDate("yyyy/MM", monthDataDto.getStartTime());
 		    Date eDate = DateUtils.parseDate("yyyy/MM", monthDataDto.getEndTime());
-        
-		
-    		
     		Calendar calendar = Calendar.getInstance();
     		calendar.setTime(sDate);
-    		
     		List<List<String>> rows = new ArrayList<List<String>>();
-    		
     		while (calendar.getTime().before(eDate) || calendar.getTime().equals(eDate)) {
     		    String monthStr = null;
     		    Integer integer = (calendar.get(Calendar.MONTH)+ 1);
@@ -340,6 +340,7 @@ public class EquipmentController {
                 calendar.add(Calendar.MONTH, 1);
     		}
 		
+    	codename.add("故障总数");
 		for (List<String> values : rows) {
 		    Integer count = 0;
 		    for (Integer i=1;i <=values.size()-1;i++ ) {
@@ -349,11 +350,68 @@ public class EquipmentController {
 		    }
 		    values.add(count.toString());
 		}
-		codename.add("总数");
+        codename.add("报警总数");
+        codename.add("隐患总数");
+        codename.add("离线总数");
+        
+		for (List<String> values : rows) {
+		    String s = values.get(0);
+		    MonthData monthDatas = new MonthData();
+		    for(MonthData taData : warningData){
+                if(!taData.getMonth().equals(s) || taData.getMonth() == null){
+                    monthDatas.setMonth(s);
+                }
+            }
+		    warningData.add(monthDatas);
+		    for(MonthData taData : hiddenData){
+		        if(!taData.getMonth().equals(s) || taData.getMonth() == null){
+		            monthDatas.setMonth(s);
+		        }
+		    }
+		    hiddenData.add(monthDatas);
+		    for(MonthData taData : connectLog){
+                if(!taData.getMonth().equals(s) || taData.getMonth() == null){
+                    monthDatas.setMonth(s);
+                }
+            }
+		    connectLog.add(monthDatas);
+		}
+		  for (List<String> values : rows) {    
+		    String s = values.get(0);
+            for(Integer i=0;i < warningData.size();i++){
+                MonthData monthData = warningData.get(i);
+                if(monthData.getMonth() != null){
+                    if(s.equals(monthData.getMonth())){
+                        Integer count = monthData.getCount();
+                        values.add(count == null ? "0" :String.valueOf(count));
+                        break;   
+                    }
+                }
+            }
+            for(Integer i=0;i < hiddenData.size();i++){
+                MonthData monthData1 = hiddenData.get(i);
+                if(monthData1.getMonth() != null){
+                    if(s.equals(monthData1.getMonth())){
+                        Integer count = monthData1.getCount();
+                        values.add(count == null ? "0" :String.valueOf(count));
+                        break;
+                    }
+                } 
+            }
+    		for(Integer i=0;i < connectLog.size();i++){
+     		    MonthData monthData2 = connectLog.get(i);
+     		    if(monthData2.getMonth() != null){
+             		if(s.equals(monthData2.getMonth())){
+             		    Integer count = monthData2.getCount();
+             		   values.add(count == null ? "0" :String.valueOf(count));
+             		    break;
+            		}
+     		    }
+     		}
+		}
 		result.put("titles", codename);
 		result.put("rows", rows);
-		JSONObject jsonObject = new MonthDataInfoComponent().setWarningData(warningData).setHiddenData(hiddenData).build();
-		result.put("data", jsonObject);
+		
 		}
 		return result;
 	}
@@ -424,6 +482,24 @@ public class EquipmentController {
     @ResponseBody
     public void downSaleLoadExportToExcel(MonthDataDto monthDataDto,HttpServletRequest request,HttpServletResponse response){  
         response.reset();
+        
+      //获取登录人
+        Manager loginManager = managerService.getLoginManager();
+        //如果为经销商和管理员
+        if (Arrays.asList(Constants.S_AGENCY_TYPE).contains(loginManager.getType())) {
+            monthDataDto.setDistributorId(loginManager.getId());
+        }else if (Arrays.asList(Constants.S__Project_Type).contains(loginManager.getType())){
+            //如果是项目管理员
+            monthDataDto.setProjectManagerId(loginManager.getId());
+        }
+        
+        //报警数据
+        List<MonthData> warningData = equipmentService.selectMonthWarningData(monthDataDto);
+        //隐患数据
+        List<MonthData> hiddenData = equipmentService.selectHiddenMonthData(monthDataDto);
+        //离线数据
+        List<MonthData> connectLog = equipmentService.selectConnectLogMonthData(monthDataDto);
+        
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssms");
         String dateStr = sdf.format(new Date());
         // 指定下载的文件名
@@ -437,6 +513,7 @@ public class EquipmentController {
         int rowNum = 1;
         List<String> codename1 = new ArrayList<>();
         List<String> codename = new ArrayList<>();
+        
         codename1.add("日期");
         List<String> selectCodename = equipmentService.selectCodename();
         for (String str:selectCodename) {
@@ -449,7 +526,10 @@ public class EquipmentController {
                 codename.add(str);
             }
         }
-        codename1.add("总数");
+        codename1.add("故障总数");
+        codename1.add("报警总数");
+        codename1.add("隐患总数");
+        codename1.add("离线总数");
         String[] headers = new String[codename1.size()];
         for(Integer i=0 ; i <= codename1.size()-1;i++){
              headers[i] = codename1.get(i);
@@ -474,14 +554,9 @@ public class EquipmentController {
         if (monthDataDto.getEndTime() != null && monthDataDto.getStartTime() != null ) {
             Date sDate = DateUtils.parseDate("yyyy/MM", monthDataDto.getStartTime());
             Date eDate = DateUtils.parseDate("yyyy/MM", monthDataDto.getEndTime());
-        
-        
-            
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(sDate);
-            
             List<List<String>> rows = new ArrayList<List<String>>();
-            
             while (calendar.getTime().before(eDate) || calendar.getTime().equals(eDate)) {
                 String monthStr = null;
                 Integer integer = (calendar.get(Calendar.MONTH)+ 1);
@@ -509,6 +584,62 @@ public class EquipmentController {
                     count = count + intValue;
                 }
                 values.add(count.toString());
+            }
+            
+            for (List<String> values : rows) {
+                String s = values.get(0);
+                MonthData monthDatas = new MonthData();
+                for(MonthData taData : warningData){
+                    if(!taData.getMonth().equals(s) || taData.getMonth() == null){
+                        monthDatas.setMonth(s);
+                    }
+                }
+                warningData.add(monthDatas);
+                for(MonthData taData : hiddenData){
+                    if(!taData.getMonth().equals(s) || taData.getMonth() == null){
+                        monthDatas.setMonth(s);
+                    }
+                }
+                hiddenData.add(monthDatas);
+                for(MonthData taData : connectLog){
+                    if(!taData.getMonth().equals(s) || taData.getMonth() == null){
+                        monthDatas.setMonth(s);
+                    }
+                }
+                connectLog.add(monthDatas);
+            }
+              for (List<String> values : rows) {    
+                String s = values.get(0);
+                for(Integer i=0;i < warningData.size();i++){
+                    MonthData monthData = warningData.get(i);
+                    if(monthData.getMonth() != null){
+                        if(s.equals(monthData.getMonth())){
+                            Integer count = monthData.getCount();
+                            values.add(count == null ? "0" :String.valueOf(count));
+                            break;   
+                        }
+                    }
+                }
+                for(Integer i=0;i < hiddenData.size();i++){
+                    MonthData monthData1 = hiddenData.get(i);
+                    if(monthData1.getMonth() != null){
+                        if(s.equals(monthData1.getMonth())){
+                            Integer count = monthData1.getCount();
+                            values.add(count == null ? "0" :String.valueOf(count));
+                            break;
+                        }
+                    } 
+                }
+                for(Integer i=0;i < connectLog.size();i++){
+                    MonthData monthData2 = connectLog.get(i);
+                    if(monthData2.getMonth() != null){
+                        if(s.equals(monthData2.getMonth())){
+                            Integer count = monthData2.getCount();
+                            values.add(count == null ? "0" :String.valueOf(count));
+                            break;
+                        }
+                    }
+                }
             }
             //在表中存放查询到的数据放入对应的列
             for (List<String> values : rows) {

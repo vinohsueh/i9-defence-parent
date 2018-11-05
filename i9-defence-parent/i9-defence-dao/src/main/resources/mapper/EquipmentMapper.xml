@@ -1569,4 +1569,64 @@
 	<select id="selectCodename" resultType="string">
 	 select er.codeName from t_error_record_item er
 	</select>
+	
+	
+	<select id="selectConnectLogMonthData" parameterType="i9.defence.platform.dao.vo.MonthDataDto"
+		resultType="i9.defence.platform.dao.vo.MonthData">
+		SELECT
+		count( * ) as count,
+		a.mon as month
+		FROM
+		(SELECT
+		count( * ),
+		DATE_FORMAT( createTime, '%Y-%m' ) AS mon
+		FROM
+		t_connect_log er left
+		join t_equipment e on er.deviceId = e.deviceId left join
+		t_project p on
+		e.projectId = p.id left join t_manager_grade mg on
+		p.distributorId =
+		mg.managerId
+		WHERE
+		er.status = 0
+		<if test="projectId != null">
+			and e.projectId = #{projectId}
+		</if>
+		<if
+			test="projectId == null and projectProvince != null and projectProvince != ''">
+			<if test="projectCity == null || projectCity == ''">
+				and e.projectId in (select id from t_project where
+				projectProvince =
+				#{projectProvince})
+			</if>
+			<if test="projectCity != null and projectCity != ''">
+				and e.projectId in (select id from t_project where
+				projectProvince =
+				#{projectProvince} and projectCity = #{projectCity}
+				)
+			</if>
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and er.createTime &lt; #{endTime}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and er.createTime &gt; #{startTime}
+		</if>
+		<!--经销商 -->
+		<if test="distributorId != null and distributorId != ''">
+			AND (p.distributorId = #{distributorId} or (mg.parentId =
+			#{distributorId} or mg.parentId in (select managerId from
+			t_manager_grade where parentId = #{distributorId})))
+		</if>
+		<if test="projectManagerId != null">
+			AND p.id in (select projectId from t_project_safe where
+			managerId =
+			#{projectManagerId})
+		</if>
+		GROUP BY
+		DATE_FORMAT( er.createTime, '%Y-%m' ),
+		er.deviceId
+		) a GROUP BY
+		a.mon
+	</select>
 </mapper>
