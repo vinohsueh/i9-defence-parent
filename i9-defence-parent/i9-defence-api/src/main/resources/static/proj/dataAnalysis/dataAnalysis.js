@@ -283,7 +283,16 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 			
 			//Excel导出
 			$scope.ExcelTo = function () {
-				window.location = "./equipment/excelTo?";
+				var startTime = $scope.dateToString($("#startTime").val());
+				var endTime = $scope.dateToString($("#endTime").val());
+				var projectId = '';
+				if ($scope.projectName != null) {
+					projectId =$scope.projectName.id;
+				}else{
+					projectId = null;
+				}
+//				console.log("./equipment/excelTo?projectId="+projectId+'&startTime='+startTime+'&endTime='+endTime);
+				window.location = "./equipment/excelTo?projectId="+projectId+'&startTime='+startTime+'&endTime='+endTime;
 			}
 			
 			
