@@ -549,8 +549,6 @@ public class EquipmentController {
         for (MonthData monthData : codeData) {
             res.put(monthData.getMonth() + "-" + monthData.getCodeName(), monthData);
         }
-        monthDataDto.setStartTime("2018/05/06");
-        monthDataDto.setEndTime("2018/11/03");
         if (monthDataDto.getEndTime() != null && monthDataDto.getStartTime() != null ) {
             Date sDate = DateUtils.parseDate("yyyy/MM", monthDataDto.getStartTime());
             Date eDate = DateUtils.parseDate("yyyy/MM", monthDataDto.getEndTime());

@@ -1529,6 +1529,9 @@
 	 LEFT JOIN t_equipment e ON er.deviceId = e.deviceId
 	 LEFT JOIN t_project p ON e.projectId = p.id
 	 LEFT JOIN t_manager_grade mg ON p.distributorId = mg.managerId
+	 WHERE
+	 er.createTime &lt; #{endTime}
+	 and er.createTime &gt; #{startTime}
 	 <if test="projectId != null">
 			and e.projectId = #{projectId}
 		</if>
@@ -1546,12 +1549,7 @@
 				)
 			</if>
 		</if>
-		<if test="endTime != null and endTime != ''">
-			and er.createTime &lt; #{endTime}
-		</if>
-		<if test="startTime != null and startTime != ''">
-			and er.createTime &gt; #{startTime}
-		</if>
+		   
 		<!--经销商 -->
 		<if test="distributorId != null and distributorId != ''">
 			AND (p.distributorId = #{distributorId} or (mg.parentId =

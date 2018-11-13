@@ -289,10 +289,11 @@ var dataAnalysisNgControl=dataAnalysisNgModule.controller('dataAnalysisNgControl
 				if ($scope.projectName != null) {
 					projectId =$scope.projectName.id;
 				}else{
-					projectId = null;
+					projectId = '';
 				}
 //				console.log("./equipment/excelTo?projectId="+projectId+'&startTime='+startTime+'&endTime='+endTime);
 				window.location = "./equipment/excelTo?projectId="+projectId+'&startTime='+startTime+'&endTime='+endTime;
+//				window.location = "./equipment/excelTo?";
 			}
 			
 			
