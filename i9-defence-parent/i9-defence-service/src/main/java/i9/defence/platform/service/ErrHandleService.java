@@ -2,6 +2,8 @@ package i9.defence.platform.service;
 
 import java.util.List;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import i9.defence.platform.dao.vo.ErrHandleSearchDto;
 import i9.defence.platform.dao.vo.ErrHandleUnifiedDto;
 import i9.defence.platform.model.ErrHandle;
@@ -44,4 +46,6 @@ public interface ErrHandleService {
 	
 	//批量更新  超过6天的  未处理的type = 2 报警  或者 设备隐患 type = 3 隐患
 	void errHandleEdit(ErrHandleUnifiedDto errHandleUnifiedDto)throws BusinessException;
+
+    XSSFWorkbook downLoadExportToExcel()throws BusinessException;
 }

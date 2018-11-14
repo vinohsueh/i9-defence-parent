@@ -2,6 +2,8 @@ package i9.defence.platform.dao.mapper;
 
 import i9.defence.platform.model.ErrorRecord;
 import i9.defence.platform.model.ErrorRecordExample;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,6 @@ public interface ErrorRecordMapper {
     int updateByPrimaryKeySelective(ErrorRecord record);
 
     int updateByPrimaryKey(ErrorRecord record);
+
+    void insertErrorRecordCodeName(@Param("codeName")String codeName, @Param("deviceId")String deviceId ,@Param("createTime")Date date );
 }

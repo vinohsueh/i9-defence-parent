@@ -54,6 +54,12 @@ var warningInfoControl=warningInfoModule.controller('warningInfoControl',functio
 	};
 	$scope.initTable();
 	
+	
+	//Excel导出
+	$scope.ExcelTo = function () {
+		window.location = "./errHandle/excelTo?";
+	}
+	
 	//修改分页大小
 	$scope.changePageSize = function(){
 		$scope.currentPage = 1;

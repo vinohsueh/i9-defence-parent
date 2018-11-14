@@ -206,6 +206,21 @@ public interface EquipmentMapper {
 
     List<EquipmentNewestDto> selectAllEquipmentNewest();
 
-    void updateSomeStatusByDevicedIds(@Param("Items") ArrayList<String> eqDeviceIdList);  
+    void updateSomeStatusByDevicedIds(@Param("Items") ArrayList<String> eqDeviceIdList);
+
+    List<HiddenDangerDto> selectAllHiddenDangerEdit2(@Param("example")HiddenDangerSearchDto hiddenDangerSearchDto);
+    
+    /**
+     * 查询月故障
+     * @param projectId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto);
+
+    List<String> selectCodename();
+
+    List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto);  
 
 }

@@ -114,6 +114,11 @@
             <artifactId>junit</artifactId>
             <version> 4.12</version><!--$NO-MVN-MAN-VER$ -->
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Spring Boot log4j依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

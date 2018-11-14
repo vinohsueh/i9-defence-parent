@@ -294,6 +294,27 @@ public class EquipmentDaoImpl implements EquipmentDao{
     public void updateSomeStatusByDevicedIds(ArrayList<String> eqDeviceIdList) {
         equipmentMapper.updateSomeStatusByDevicedIds(eqDeviceIdList);
     }
+
+    @Override
+    public List<HiddenDangerDto> selectAllHiddenDangerEdit2(HiddenDangerSearchDto hiddenDangerSearchDto)
+            throws Exception {
+        return equipmentMapper.selectAllHiddenDangerEdit2(hiddenDangerSearchDto);
+    }
+
+    @Override
+    public List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto) throws Exception {
+        return equipmentMapper.selectCodeMonthData(monthDataDto);
+    }
+
+    @Override
+    public List<String> selectCodename() throws Exception {
+        return equipmentMapper.selectCodename();
+    }
+
+    @Override
+    public List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto) throws Exception {
+        return equipmentMapper.selectConnectLogMonthData(monthDataDto);
+    }
     
     
 }

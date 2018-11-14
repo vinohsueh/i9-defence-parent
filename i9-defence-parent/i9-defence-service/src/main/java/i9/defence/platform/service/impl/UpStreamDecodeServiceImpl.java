@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,9 @@ import i9.defence.platform.model.ErrorRecord;
 import i9.defence.platform.model.HiddenDanger;
 import i9.defence.platform.model.Passageway;
 import i9.defence.platform.model.UpStreamDecode;
+import i9.defence.platform.service.ThirdPlatformService;
 import i9.defence.platform.service.UpStreamDecodeService;
+import i9.defence.platform.service.dto.DeviceInfoDto;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.Constants;
 import i9.defence.platform.utils.DateUtils;
@@ -58,6 +62,8 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
     private PassageWayDao passageWayDao;
     @Autowired
     private ErrorRecordDao errorRecordDao;
+    @Autowired
+    private ThirdPlatformService thirdPlatformService;
     
 
     @Override
@@ -113,12 +119,14 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
         
         // 获取通道数据
         List<ChannelData> channelDatas = new ArrayList<ChannelData>();
+        
         JSONArray dataList = jsonObject.getJSONArray("dataList");
         String systemType = jsonObject.getString("systemType");
         for (int index = 0; index < dataList.size(); index++) {
             JSONObject dataItem = dataList.getJSONObject(index);
             int type = dataItem.getIntValue("type");
             int channel = dataItem.getIntValue("channel");
+            //获取value,从而获取故障名称
             String value = String.valueOf(dataItem.getString("value"));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date createTime = simpleDateFormat.parse((String)(dataItem.get("datetime").toString().replace("#", " ")));
@@ -150,15 +158,18 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 alertNum++;
             }
             // 查询是否是隐患数据
-            if (Arrays.asList(Constants.DATATYPE).contains(type)) {
+            boolean contains = Arrays.asList(Constants.DATATYPE).contains(type);
+            if (contains) {
                 HiddenDanger hiddenDanger = map.get(channel);
-                if (Double.valueOf(value) > hiddenDanger.getHiddenMax()
-                        || Double.valueOf(value) < hiddenDanger.getHiddenMin()) {
-                    hiddenNum++;
+                if (hiddenDanger != null) {
+                    if (Double.valueOf(value) > hiddenDanger.getHiddenMax()
+                            || Double.valueOf(value) < hiddenDanger.getHiddenMin()) {
+                        hiddenNum++;
+                    }
                 }
             }
         }
-        try {
+        try { 
             Equipment equipment = equipmentDao.findEquipmentDeviceId(deviceId);
             // 设置 设备当前的数据状态
             int dataStatus = 0;
@@ -207,6 +218,25 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 errorRecordDao.insertErrorRecord(errorRecord);
 //                equipmentDao.updateEquipmentNewestTime(deviceId,StringUtil.dateToString(new Date()));
             }
+         // 查询故障代码对应的中文名称
+            Map<String, String> maps = thirdPlatformService.selectDeviceErrors();
+            // 查询设备信息
+            DeviceInfoDto deviceInfoDto = thirdPlatformService.selectEquipmentInfo(deviceId);
+            for (int index = 0; index < dataList.size(); index++) {
+                JSONObject dataItem = dataList.getJSONObject(index);
+                Integer type = (int) dataItem.getIntValue("type");
+                String code = dataItem.getString("value");
+                Integer channel = dataItem.getIntValue("channel"); 
+                // 如果数据类型是0 且 错误代码不为00000000 时 记录记录
+                if (channels.contains(channel) && 0 == type && !SqlUtil.NORMAL_CODE.equals(code)) {
+                    String codeName = maps.get(code + deviceInfoDto.getEquipmentId());// 错误代码转为中文错误名称
+                    if (StringUtils.isBlank(codeName)) {
+                        codeName = "未知错误";
+                    }
+                    errorRecordDao.insertErrorRecordCodeName(codeName,deviceId,new Date());
+                }
+            }
+            
             return dataStatus;
         } catch (Exception e) {
             return -1;

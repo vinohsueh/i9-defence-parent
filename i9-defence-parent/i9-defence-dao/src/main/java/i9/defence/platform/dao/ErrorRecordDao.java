@@ -1,5 +1,7 @@
 package i9.defence.platform.dao;
 
+import java.util.Date;
+
 import i9.defence.platform.model.ErrorRecord;
 
 /** 
@@ -15,4 +17,10 @@ public interface ErrorRecordDao {
 	 * @param errorRecord
 	 */
 	void insertErrorRecord(ErrorRecord errorRecord);
+	/**
+	 * 新增错误记录的故障名称
+	 * @param codeName
+	 * @param deviceId
+	 */
+    void insertErrorRecordCodeName(String codeName, String deviceId ,Date data);
 }

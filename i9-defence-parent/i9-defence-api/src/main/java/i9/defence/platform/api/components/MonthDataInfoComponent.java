@@ -25,6 +25,8 @@ public class MonthDataInfoComponent {
     private List<MonthData> warningData;
 
     private List<MonthData> hiddenData;
+    
+    private List<MonthData> connectLog;
 
     public MonthDataInfoComponent setWarningData(List<MonthData> warningData) {
         this.warningData = warningData;
@@ -33,6 +35,11 @@ public class MonthDataInfoComponent {
 
     public MonthDataInfoComponent setHiddenData(List<MonthData> hiddenData) {
         this.hiddenData = hiddenData;
+        return this;
+    }
+    
+    public MonthDataInfoComponent setConnectLogData(List<MonthData> connectLog) {
+        this.connectLog = connectLog;
         return this;
     }
 
@@ -45,6 +52,9 @@ public class MonthDataInfoComponent {
         // 隐患map
         Map<String, Integer> hiddenDataMap = new HashMap<String, Integer>();
         List<Integer> hiddenCount = new ArrayList<>();
+        // 离线map
+        Map<String, Integer> connectLogMap = new HashMap<String, Integer>();
+        List<Integer> connectLogCount = new ArrayList<>();
         // 将所有的月份加在一起
         Set<String> set = new HashSet<>();
         for (MonthData monthData : warningData) {
@@ -54,6 +64,10 @@ public class MonthDataInfoComponent {
         for (MonthData monthData : hiddenData) {
             set.add(monthData.getMonth());
             hiddenDataMap.put(monthData.getMonth(), monthData.getCount());
+        }
+        for (MonthData monthData : connectLog) {
+            set.add(monthData.getMonth());
+            connectLogMap.put(monthData.getMonth(), monthData.getCount());
         }
 
         List<String> months = new ArrayList<String>(set);
@@ -73,9 +87,16 @@ public class MonthDataInfoComponent {
             } else {
                 hiddenCount.add(0);
             }
+            // 添加隐患柱状图数据
+            if (connectLogMap.containsKey(string)) {
+                connectLogCount.add(connectLogMap.get(string));
+            } else {
+                connectLogCount.add(0);
+            }
         }
         jsonObject.put("warningData", warningCount);
         jsonObject.put("hiddenData", hiddenCount);
+        jsonObject.put("connectLogCount", connectLogCount);
         return jsonObject;
     }
 }
