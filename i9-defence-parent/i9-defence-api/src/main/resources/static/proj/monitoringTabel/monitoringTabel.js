@@ -113,7 +113,7 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			// console.log(JSON.stringify(pageParam));
 		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.projects = data.data.data.pageList;
-			console.log($scope.projects);
+			console.log(JSON.stringify($scope.projects));
 			for(i in $scope.projects){
 				if($scope.projects[i].status == 0 || $scope.projects[i].status == 2){
 					$scope.projects[i].status = 'lineOut'
@@ -492,8 +492,13 @@ var monitoringTabelNgControl=monitoringTabelNgModule.controller('monitoringTabel
 			projectCounty:$scope.selected3.value,
 			projectId:$scope.projectId,
 		};
-		console.log(pageParam);
-		window.location = "./hiddenDangerEdit/excelTo?projectProvince="+"&projectId="+$scope.projectId;
+		//console.log(pageParam);
+		if ($scope.projectId != null) {
+			projectId =$scope.projectId;
+		}else{
+			projectId = '';
+		}
+		window.location = "./hiddenDangerEdit/excelTo?projectProvince="+"&projectId="+projectId;
 		/*httpService.post({url:'./hiddenDangerEdit/excelTo',data:pageParam,showSuccessMsg:false}).then(function(data) { 	
 			window.localtion.href=''
 		})*/
