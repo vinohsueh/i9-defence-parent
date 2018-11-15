@@ -64,6 +64,10 @@ public class ReceiveMessageDataPointServiceImpl implements ReceiveMessageDataPoi
                 PowerStateEnum powerStateEnum = PowerStateEnum.BATTERY_LOW;
                 this.deviceService.refreshDeviceInfoPowerState(String.valueOf(deviceId), powerStateEnum);
             }
+            if ("7".equals(value)) {
+                PowerStateEnum powerStateEnum = PowerStateEnum.DEVICE_ONLINE;
+                this.deviceService.refreshDeviceInfoPowerState(String.valueOf(deviceId), powerStateEnum);
+            }
         }
     }
 }
