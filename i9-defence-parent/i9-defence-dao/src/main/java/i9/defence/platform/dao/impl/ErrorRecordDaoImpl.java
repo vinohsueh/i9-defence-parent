@@ -1,5 +1,7 @@
 package i9.defence.platform.dao.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +25,10 @@ public class ErrorRecordDaoImpl implements ErrorRecordDao{
 	public void insertErrorRecord(ErrorRecord errorRecord) {
 		errorRecordMapper.insertSelective(errorRecord);
 	}
+
+    @Override
+    public void insertErrorRecordCodeName(String codeName, String deviceId ,Date date) {
+        errorRecordMapper.insertErrorRecordCodeName(codeName,deviceId,date);
+    }
 
 }

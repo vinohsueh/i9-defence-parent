@@ -51,80 +51,25 @@
   <div class="myBox" style='height: 300px;' ng-show='chartsStatus'>
     <div e-chart options="option"></div>
   </div>
-  <!-- <div class="myBox"> 
+  <div class="myBox"> 
+  	<div class='row'>
+  		<div class='col-xs-6'><h3 style='margin-top:5px;'>故障列表</h3></div>
+  		<div class='col-xs-6'>
+  			<div class='text-right mb-10'><button type='button' ng-click="ExcelTo()" class='btn btn-info'>导出excel</button></div>
+  		</div>
+  	</div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light" >
         <thead>
-          <tr>
-            <th>时间</th>
-            <th>故障电弧</th>
-            <th>漏电</th>
-            <th>过温</th>
-            <th>缺相</th>
-            <th>过压</th>
-            <th>欠压</th>
-            <th>过载</th>
-            <th>报警总数</th>
-            <th>故障总数</th>
-            <th>隐患总数</th>
+          <tr id='myTableTitle'>
+            
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>2017/1</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>91</td>
-            <td>2</td>
-            <td>15</td>
-          </tr>
-          <tr>
-            <td>2017/1</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>91</td>
-            <td>2</td>
-            <td>15</td>
-          </tr>
-          <tr>
-            <td>2017/1</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>91</td>
-            <td>2</td>
-            <td>15</td>
-          </tr>
-          <tr>
-            <td>2017/1</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>91</td>
-            <td>2</td>
-            <td>15</td>
-          </tr>
+        <tbody id='myTableBody'>
+          
         </tbody>
       </table>
     </div>
-  </div>-->
+  </div>
 </div>
 </div>

@@ -600,12 +600,14 @@ public class EquipmentServiceImpl implements EquipmentService {
            List<HiddenDangerDto> list = equipmentDao.selectAllHiddenDangerEdit2(hiddenDangerSearchDto);
            for(HiddenDangerDto hiddenDangerDto : list){
                List<EqChannelDataDto> eqChannelDataList1 = hiddenDangerDto.getEqChannelDataList();
+               String s = "";
                for(int i =0 ; i < eqChannelDataList1.size(); i++){
-                   String  str1 = eqChannelDataList1.get(0).getChannelName()+":"+eqChannelDataList1.get(0).getChannelValue();
-                   hiddenDangerDto.setChannelName(str1);
-                   String  str2 = eqChannelDataList1.get(1).getChannelName()+":"+eqChannelDataList1.get(1).getChannelValue();
-                   hiddenDangerDto.setChannelValue(str2);
+                   String  str1 = eqChannelDataList1.get(i).getChannelName()+":"+eqChannelDataList1.get(i).getChannelValue();
+                   s = s + str1;
+                  /* String  str2 = eqChannelDataList1.get(1).getChannelName()+":"+eqChannelDataList1.get(i).getChannelValue();
+                   hiddenDangerDto.setChannelValue(str2);*/
                }
+               hiddenDangerDto.setChannelName(s);
            }
            List<ExcelBean> ems = new ArrayList<>();
            Map<Integer, List<ExcelBean>> map = new LinkedHashMap<>();
@@ -615,7 +617,6 @@ public class EquipmentServiceImpl implements EquipmentService {
            ems.add(new ExcelBean("项目名称", "projectName", 0));
            ems.add(new ExcelBean("状态", "datastatustr", 0));
            ems.add(new ExcelBean("最新数据", "channelName",0));
-           ems.add(new ExcelBean("最新数据", "channelValue",0));
            map.put(0, ems);
            List<HashMap<String, Object>> array = new ArrayList<HashMap<String, Object>>();
            for (HiddenDangerDto dto : list) {
@@ -634,9 +635,9 @@ public class EquipmentServiceImpl implements EquipmentService {
            //第一行表头字段，合并单元格时字段跨几列就将该字段重复几次
            String [] excelHeader0 = {"设备名称","设备地址",
                    "设备位置","项目名称",
-                   "状态","最新数据","最新数据"};
+                   "状态","最新数据"};
            //  “0,2,0,0”  ===>  “起始行，截止行，起始列，截止列”
-           String[] headnum0 = {"0,0,0,0","0,0,1,1","0,0,2,2","0,0,3,3","0,0,4,4","0,0,5,6"};
+           String[] headnum0 = {"0,0,0,0","0,0,1,1","0,0,2,2","0,0,3,3","0,0,4,4"};
         // 声明一个工作簿
            XSSFWorkbook workbook = new XSSFWorkbook();
            // 生成一个表格
@@ -766,5 +767,33 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new BusinessException("Excel导出失败",e.getMessage());
         }
     }
+
+    @Override
+    public List<MonthData> selectCodeMonthData(MonthDataDto monthDataDto) {
+        try {
+            return equipmentDao.selectCodeMonthData(monthDataDto);
+        } catch (Exception e) {
+            throw new BusinessException("查询故障数量失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<String> selectCodename() {
+        try {
+            return equipmentDao.selectCodename();
+        } catch (Exception e) {
+            throw new BusinessException("查询故障名称失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto) throws BusinessException {
+        try {
+            return equipmentDao.selectConnectLogMonthData(monthDataDto);
+        } catch (Exception e) {
+            throw new BusinessException("查询故障名称失败",e.getMessage());
+        }
+    }
+
 }
 

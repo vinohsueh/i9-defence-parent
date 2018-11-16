@@ -132,6 +132,10 @@ public class HiddenDangerEditController {
 	public HashMap<String, Object> selectDangerChannelDtoBySid(@RequestBody ChannelDataQuery channelDataQuery) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<HiddenDangerChannelDto> list = equipmentService.selectDangerChannelDtoBySid(channelDataQuery.getDeviceId(),channelDataQuery.getCount());
+		for(HiddenDangerChannelDto dto : list){
+		    String channelValue = dto.getChannelValue();
+		    System.out.println(channelValue);
+		}
 		JSONArray data = new HiddendangerChannelDataInFoComponents().setHiddenDangerChannelDto(list).build();
 		result.put("data", data);
 		return result;
