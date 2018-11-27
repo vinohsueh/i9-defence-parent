@@ -231,9 +231,11 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                 if (channels.contains(channel) && 0 == type && !SqlUtil.NORMAL_CODE.equals(code)) {
                     String codeName = maps.get(code + deviceInfoDto.getEquipmentId());// 错误代码转为中文错误名称
                     if (StringUtils.isBlank(codeName)) {
-                        codeName = "未知错误";
+                        codeName = null;
                     }
-                    errorRecordDao.insertErrorRecordCodeName(codeName,deviceId,new Date());
+                    if (codeName != null) {
+                        errorRecordDao.insertErrorRecordCodeName(codeName,deviceId,new Date());
+                    }
                 }
             }
             

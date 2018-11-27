@@ -340,7 +340,7 @@ public class EquipmentController {
                 calendar.add(Calendar.MONTH, 1);
     		}
 		
-    	codename.add("故障总数");
+    	codename.add("通道报警总数");
 		for (List<String> values : rows) {
 		    Integer count = 0;
 		    for (Integer i=1;i <=values.size()-1;i++ ) {
