@@ -891,6 +891,7 @@
 		e.id,deviceId,equipmentName,equipmentPosition,eqCategoryName,equipmentRemarks,projectName,personLiableMan,status,
 		CASE WHEN datastatus = '0' THEN '离线' 
 		WHEN datastatus = '1' THEN '报警' 
+		WHEN datastatus = '2' THEN '隐患' 
 		ELSE '其他' END   as datastatustr ,
 		remainAlert
 		from v_equipment e left join t_manager_grade mg on e.distributorId =
