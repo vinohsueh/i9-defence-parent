@@ -83,10 +83,10 @@ app.controller('projectEditCtrl', function($scope, $http, $timeout,project,clien
 			$scope.dangerType=1;
 		}
 		if($scope.project.sendType.indexOf(1) != -1){
-			$scope.warningType=1;
+			$scope.outLineType=1;
 		}
 		if($scope.project.sendType.indexOf(2) != -1){
-			$scope.outLineType=1;
+			$scope.warningType=1;
 		}
 	}
 	//发信人
