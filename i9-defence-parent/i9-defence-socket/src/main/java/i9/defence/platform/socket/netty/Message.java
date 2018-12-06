@@ -6,6 +6,16 @@ import i9.defence.platform.netty.libraries.MessageEncodeConvert;
 public class Message implements java.io.Serializable {
 
     private static final long serialVersionUID = -7654462121885214207L;
+    
+    private byte version;
+
+    public byte getVersion() {
+        return version;
+    }
+
+    public void setVersion(byte version) {
+        this.version = version;
+    }
 
     private byte type;
     

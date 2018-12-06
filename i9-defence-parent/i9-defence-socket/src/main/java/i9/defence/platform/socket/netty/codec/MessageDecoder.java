@@ -86,6 +86,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         Message message = new Message();
         message.setType(type);
         message.setIndex(index);
+        message.setVersion(version);
         message.setMessageDecodeConvert(messageDecodeConvert);
         list.add(message);
     }

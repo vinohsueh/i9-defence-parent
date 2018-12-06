@@ -7,13 +7,14 @@ import io.netty.buffer.Unpooled;
 
 public class RespMessageBuilder {
 
-    public static ByteBuf wrapper(MessageEncodeConvert messageEncodeConvert, int index) {
+    public static ByteBuf wrapper(MessageEncodeConvert messageEncodeConvert, int index, byte version) {
         byte[] data = messageEncodeConvert.encode().array();
         ByteBuf buf = Unpooled.buffer(7 + data.length + 2);
         buf.writeByte(0x40);
         
         ByteBuffer byteBuffer = ByteBuffer.allocate(6 + data.length);
-        byteBuffer.put((byte) 0x10);
+//        byteBuffer.put((byte) 0x10);
+        byteBuffer.put(version);
         if (messageEncodeConvert.getType() == 0x00 || messageEncodeConvert.getType() == 0xff
                 || messageEncodeConvert.getType() == -1) {
             byteBuffer.put(messageEncodeConvert.getType());

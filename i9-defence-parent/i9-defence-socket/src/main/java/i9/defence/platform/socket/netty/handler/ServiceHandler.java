@@ -23,6 +23,7 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         String channelId = ctx.channel().id().asLongText();
         Message message = (Message) msg;
+        byte version = message.getVersion();
         logger.info("netty 服务器，客户端Id : " + channelId + "发送消息 [type : " + message.getType() + "]");
         ChannelPacker channelPacker = new ChannelPacker(ctx.channel());
         try {
@@ -32,24 +33,24 @@ public class ServiceHandler extends ChannelInboundHandlerAdapter {
             MessageEncodeConvert messageEncodeConvert = message.getMessageEncodeConvert();
             if (messageEncodeConvert == null) {
                 CompleteRespMessage completeRespMessage = new CompleteRespMessage(message.getType());
-                channelPacker.writeAndFlush(completeRespMessage, message.getIndex());
+                channelPacker.writeAndFlush(completeRespMessage, message.getIndex(), version);
             }
             else {
                 messageEncodeConvert.setType(message.getType());
-                channelPacker.writeAndFlush(messageEncodeConvert, message.getIndex());
+                channelPacker.writeAndFlush(messageEncodeConvert, message.getIndex(), version);
             }
         }
         catch (BusinessException exception) {
             int errorCode = exception.getErrorCode();
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
+            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex(), version);
             logger.info("netty 服务器，客户端 : " + channelId + ", errorcode : " + exception.getErrorCode() + ", exception : ", 
                     exception);
         }
         catch (Exception exception) {
             int errorCode = ErrorCode.UNKOWN;
             SimpleRespMessage simpleRespMessage = new SimpleRespMessage(message.getType(), errorCode);
-            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex());
+            channelPacker.writeAndFlush(simpleRespMessage, message.getIndex(), version);
             logger.info("netty 服务器，客户端 : " + channelId + ", exception : ", exception);
         }
     }

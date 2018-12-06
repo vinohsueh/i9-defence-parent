@@ -30,8 +30,8 @@ public class ChannelPacker {
         return this.channel.id().asLongText();
     }
 
-    public void writeAndFlush(MessageEncodeConvert messageEncodeConvert, int index) {
-        ByteBuf buf = RespMessageBuilder.wrapper(messageEncodeConvert, index);
+    public void writeAndFlush(MessageEncodeConvert messageEncodeConvert, int index, byte version) {
+        ByteBuf buf = RespMessageBuilder.wrapper(messageEncodeConvert, index, version);
         this.channel.writeAndFlush(buf);
     }
 
