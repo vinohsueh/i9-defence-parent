@@ -57,6 +57,8 @@ public class LoginReqMessage extends MessageDecodeConvert {
 
     @Override
     public byte[] getByteArray() {
+        logger.info("login, dataLen : {}, systemId : {}, loop : {}, deviceAddress : {}", this.dataLen,
+                this.systemId, this.loop, this.deviceAddress);
         ByteBuffer buffer = ByteBuffer.allocate(dataLen + 1);
         buffer.put(this.dataLen);
         buffer.put(EncryptUtils.hexStringToBytes(this.systemId));
