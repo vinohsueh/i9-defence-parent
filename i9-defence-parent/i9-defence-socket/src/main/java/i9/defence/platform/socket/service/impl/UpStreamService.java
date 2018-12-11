@@ -84,6 +84,7 @@ public class UpStreamService implements ICoreService {
         if (!systemId.equals("000000000007")) {
             return;
         }
+        logger.info("power, old : " + jsonObject.toJSONString());
         for (int index = 0; index < jsonObject.getJSONArray("dataList").size(); index++) {
             JSONObject item = jsonObject.getJSONArray("dataList").getJSONObject(index);
             byte channel = item.getByte("channel");
@@ -96,7 +97,7 @@ public class UpStreamService implements ICoreService {
                 item.put("value", (value * 0.1f));
             }
         }
-        logger.info("power : " + jsonObject.toJSONString());
+        logger.info("power, new : " + jsonObject.toJSONString());
     }
 
     private final static Logger logger = LoggerFactory.getLogger(UpStreamService.class);
