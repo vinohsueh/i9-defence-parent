@@ -14,7 +14,7 @@ public class EncryptUtils {
         return (short) (value * i);
     }
     
-    public static String toBinaryString(String hex, int len) {
+    private static String toBinaryString(String hex, int len) {
         String s = Integer.toBinaryString(Integer.valueOf(hex,16));
         if (s.length() < len) {
             for (int i = s.length(); i < len; i ++) {
@@ -24,7 +24,7 @@ public class EncryptUtils {
         return s;
     }
     
-    public static String toHexString(String hex, int len) {
+    private static String toHexString(String hex, int len) {
         int t = Integer.parseInt(hex, 2);
         String s = Integer.toHexString(t).toUpperCase();
         if (s.length() < len) {
