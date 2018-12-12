@@ -110,6 +110,10 @@ public class UpStreamService implements ICoreService {
                 Integer value = item.getInteger("value");
                 item.put("value", this.setScaleFormat(value * 0.001f));
             }
+            if (channel == 32 || channel == 33 || channel == 34) {
+                Short value = EncryptUtils.parseUnsignedShort(item.getString("data"));
+                item.put("value", value);
+            }
         }
         logger.info("power, new : " + jsonObject.toJSONString());
     }

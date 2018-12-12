@@ -2,6 +2,39 @@ package i9.defence.platform.netty.libraries;
 
 public class EncryptUtils {
     
+    public static Short parseUnsignedShort(String hex) {
+        String bStr = EncryptUtils.toBinaryString(hex, 16);
+        int i = 1;
+        if (bStr.startsWith("1")) {
+            bStr = "0" + bStr.substring(1);
+            i = -1;
+        }
+        byte[] b = EncryptUtils.hexStringToBytes(EncryptUtils.toHexString(bStr, 4));
+        Short value = DataParseUtil.parseUnsignedShort(DataParseUtil.reverse(b));
+        return (short) (value * i);
+    }
+    
+    public static String toBinaryString(String hex, int len) {
+        String s = Integer.toBinaryString(Integer.valueOf(hex,16));
+        if (s.length() < len) {
+            for (int i = s.length(); i < len; i ++) {
+                s = "0" + s;
+            }
+        }
+        return s;
+    }
+    
+    public static String toHexString(String hex, int len) {
+        int t = Integer.parseInt(hex, 2);
+        String s = Integer.toHexString(t).toUpperCase();
+        if (s.length() < len) {
+            for (int i = s.length(); i < len; i++) {
+                s = "0" + s;
+            }
+        }
+        return s;
+    }
+    
     public static byte[] shortToByte(short number) {
         int temp = number;
         byte[] b = new byte[2];
