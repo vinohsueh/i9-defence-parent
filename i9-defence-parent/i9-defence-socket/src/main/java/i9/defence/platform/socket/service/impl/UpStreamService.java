@@ -116,7 +116,7 @@ public class UpStreamService implements ICoreService {
 
     private double setScaleFormat(double f) {
         BigDecimal bigDecimal = new BigDecimal(f);
-        double r = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double r = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_DOWN).doubleValue();
         return r;
     }
 
