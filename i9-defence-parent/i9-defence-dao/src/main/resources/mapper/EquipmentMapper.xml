@@ -1272,7 +1272,7 @@
 		IN ( SELECT channel FROM t_passageway where systemId =
 		(select systemId
 		from t_equipment where id = #{id} ))
-		and cd.type in (2,5)
+		and cd.type in (2,3,4,5)
 		AND
 		`cd`.`dateTime` = (
 		SELECT `t_channel_data`.`dateTime`
