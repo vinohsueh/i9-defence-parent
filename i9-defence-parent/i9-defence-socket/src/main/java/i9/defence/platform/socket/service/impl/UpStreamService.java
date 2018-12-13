@@ -58,9 +58,9 @@ public class UpStreamService implements ICoreService {
         reqMessage.showInfo();
         for (DataMessage dataMessage : reqMessage.dataList) {
             dataMessage.showInfo();
-            logger.info("解析数据包体, 数据类型 : " + dataMessage.type + ", hex : "
-                    + EncryptUtils.bytesToHexString(dataMessage.data) + ", 值 : "
-                    + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
+            logger.info(
+                    "解析数据包体, 数据类型 : " + dataMessage.type + ", hex : " + EncryptUtils.bytesToHexString(dataMessage.data)
+                            + ", 值 : " + DataParseUtil.parseDataValue(dataMessage.type, dataMessage.data));
         }
         // 清理上行数据
         JSONObject jsonObject = reqMessage.toJSONObject();
@@ -93,24 +93,20 @@ public class UpStreamService implements ICoreService {
             if (channel == 19 || channel == 20 || channel == 21 || channel == 22) {
                 Short value = item.getShort("value");
                 item.put("value", this.setScaleFormat(value * 0.1f - 50));
-            }
-            if (channel == 23 || channel == 24 || channel == 25 || channel == 26 || channel == 27 || channel == 28) {
+            } else if (channel == 23 || channel == 24 || channel == 25 || channel == 26 || channel == 27
+                    || channel == 28) {
                 Short value = item.getShort("value");
                 item.put("value", this.setScaleFormat(value * 0.1f));
-            }
-            if (channel == 29 || channel == 30 || channel == 31) {
+            } else if (channel == 29 || channel == 30 || channel == 31) {
                 Integer value = item.getInteger("value");
                 item.put("value", this.setScaleFormat(value * 0.001f));
-            }
-            if (channel == 35 || channel == 36 || channel == 37) {
+            } else if (channel == 35 || channel == 36 || channel == 37) {
                 Short value = item.getShort("value");
                 item.put("value", this.setScaleFormat(value * 0.1f));
-            }
-            if (channel == 38 || channel == 39 || channel == 40) {
+            } else if (channel == 38 || channel == 39 || channel == 40) {
                 Integer value = item.getInteger("value");
                 item.put("value", this.setScaleFormat(value * 0.001f));
-            }
-            if (channel == 32 || channel == 33 || channel == 34) {
+            } else if (channel == 32 || channel == 33 || channel == 34) {
                 Short value = EncryptUtils.parseUnsignedShort(item.getString("data"));
                 item.put("value", value);
             }
