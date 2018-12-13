@@ -225,6 +225,7 @@ public class EquipmentController {
 		//只查询电流和温度的显示值
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());
+		typeList.add(DataTypeEnum.INT.getId());
 		typeList.add(DataTypeEnum.SHORT.getId());
 		typeList.add(DataTypeEnum.LONG.getId());
 		channelDataSearchDto.setTypes(typeList);
