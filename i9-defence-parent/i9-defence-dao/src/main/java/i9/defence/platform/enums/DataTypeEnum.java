@@ -11,7 +11,7 @@ import java.util.List;
 * 
 */
 public enum DataTypeEnum {
-	ERROR(0,"故障报警类数据"),SHORT(2,"short类型数据"), LONG(4,"long类型数据"),FLOAT(5,"float类型数据");
+	ERROR(0,"故障报警类数据"),SHORT(2,"short类型数据"),INT(3,"int类型数据"), LONG(4,"long类型数据"),FLOAT(5,"float类型数据");
     
     private static final List<DataTypeEnum> DATATYPES = new ArrayList<DataTypeEnum>();
     
