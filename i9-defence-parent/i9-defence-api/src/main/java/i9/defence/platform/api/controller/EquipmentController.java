@@ -226,6 +226,7 @@ public class EquipmentController {
 		List<Integer> typeList = new ArrayList<Integer>();
 		typeList.add(DataTypeEnum.FLOAT.getId());
 		typeList.add(DataTypeEnum.SHORT.getId());
+		typeList.add(DataTypeEnum.LONG.getId());
 		channelDataSearchDto.setTypes(typeList);
 		//通道数据
 		List<ChannelData> list = channelDataServicel.selectChannelData(channelDataSearchDto);
