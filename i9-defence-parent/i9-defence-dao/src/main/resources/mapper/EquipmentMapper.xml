@@ -1321,8 +1321,7 @@
 		t_equipment
 		WHERE
 		id = #{id} ))
-
-		AND er.type IN ( 2, 5 )
+		AND er.type IN ( 2,3,4,5 )
 		AND `er`.`dateTime` = (
 		SELECT
 		`t_equipment_recent`.`dateTime`
