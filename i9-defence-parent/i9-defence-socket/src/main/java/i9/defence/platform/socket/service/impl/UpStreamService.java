@@ -90,7 +90,10 @@ public class UpStreamService implements ICoreService {
         for (int index = 0; index < jsonObject.getJSONArray("dataList").size(); index++) {
             JSONObject item = jsonObject.getJSONArray("dataList").getJSONObject(index);
             byte channel = item.getByte("channel");
-            if (channel == 19 || channel == 20 || channel == 21 || channel == 22) {
+            if (channel == 15 || channel == 16 || channel == 17 || channel == 18) {
+                Short value = item.getShort("value");
+                item.put("value", this.setScaleFormat(value * 0.1f));
+            } else if (channel == 19 || channel == 20 || channel == 21 || channel == 22) {
                 Short value = item.getShort("value");
                 item.put("value", this.setScaleFormat(value * 0.1f - 50));
             }
