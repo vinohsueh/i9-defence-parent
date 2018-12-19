@@ -1,4 +1,4 @@
-package i9.defence.platform.aliyun;
+package i9.defence.platform.aliyun.demo.utils;
 
 import com.aliyun.iot.as.bridge.core.config.DeviceConfigManager;
 import com.aliyun.iot.as.bridge.core.model.DeviceIdentity;

@@ -1,4 +1,4 @@
-package i9.defence.platform.aliyun;
+package i9.defence.platform.aliyun.demo.utils;
 
 import java.nio.ByteBuffer;
 import java.security.SecureRandom;

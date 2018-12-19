@@ -1,4 +1,4 @@
-package i9.defence.platform.aliyun;
+package i9.defence.platform.aliyun.demo;
 
 import java.util.Random;
 
@@ -9,7 +9,9 @@ import com.aliyun.iot.as.bridge.core.handler.UplinkChannelHandler;
 import com.aliyun.iot.as.bridge.core.model.Session;
 import com.aliyun.iot.as.bridge.server.config.impl.BridgeConfigManagerImpl;
 
-public class Application {
+import i9.defence.platform.aliyun.demo.utils.SimeleDeviceConfigManager;
+
+public class AliyunInboundDemo {
 
     public static void main(String[] args) {
 
@@ -74,7 +76,7 @@ public class Application {
             success = uplinkHandler.doPublish(DeviceName, topic, payload, 0, payload.length);
             if (success) {
                 // 上报数据到阿里云物联网平台成功
-                System.err.println("上报数据到阿里云物联网平台成功");
+                System.err.println("上报数据到阿里云物联网平台成功" + jsonObject.toJSONString());
             } else {
                 // 上报数据到阿里云物联网平台失败
             }
