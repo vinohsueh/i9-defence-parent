@@ -1,15 +1,14 @@
 package i9.defence.platform.aliyun.demo;
 
-import java.util.Random;
-
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.iot.as.bridge.core.BridgeBootstrap;
 import com.aliyun.iot.as.bridge.core.config.ConfigFactory;
 import com.aliyun.iot.as.bridge.core.handler.UplinkChannelHandler;
 import com.aliyun.iot.as.bridge.core.model.Session;
 import com.aliyun.iot.as.bridge.server.config.impl.BridgeConfigManagerImpl;
-
 import i9.defence.platform.aliyun.demo.utils.SimeleDeviceConfigManager;
+
+import java.util.Random;
 
 public class AliyunInboundDemo {
 
