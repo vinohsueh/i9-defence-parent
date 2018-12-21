@@ -2,12 +2,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <groupId>i9.defence.platform</groupId>
-    <version>0.0.1-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
+    <groupId>i9.defence.platform</groupId>
     <artifactId>i9-defence-aliyun-docker</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -28,6 +27,31 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- 核心SDK -->
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>iot-as-bridge-sdk-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- Server SDK -->
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>iot-as-bridge-sdk-server</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.19</version>
         </dependency>
     </dependencies>
     <build>
