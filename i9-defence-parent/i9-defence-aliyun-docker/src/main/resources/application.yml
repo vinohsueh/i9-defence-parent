@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+aliyun:
+  accessKey: LTAIHdtHM8kCVlbO
+  accessSecret: gOLAJr55Zet82zVDP22ff46Q6Jc3Iu
+  regionId: cn-shanghai
+  userId: 1405029890082385
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOSTNAME:}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:d}?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+    schema: classpath:schema.sql
+    initialize: true
+    continueOnError: true
+    initialization-mode: always
+    
+maven:
+  path: ${M2_HOME}

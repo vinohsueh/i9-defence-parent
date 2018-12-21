@@ -1,34 +1,31 @@
 package i9.defence.platform.aliyun.demo;
 
+import java.util.Random;
+
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.iot.as.bridge.core.BridgeBootstrap;
 import com.aliyun.iot.as.bridge.core.config.ConfigFactory;
 import com.aliyun.iot.as.bridge.core.handler.UplinkChannelHandler;
 import com.aliyun.iot.as.bridge.core.model.Session;
 import com.aliyun.iot.as.bridge.server.config.impl.BridgeConfigManagerImpl;
+
 import i9.defence.platform.aliyun.demo.utils.SimeleDeviceConfigManager;
 
-import java.util.Random;
-
-public class AliyunInboundDemo {
+public class Application {
 
     public static void main(String[] args) {
-
         BridgeBootstrap bootstrap = new BridgeBootstrap();
         ConfigFactory.init(new BridgeConfigManagerImpl(), new SimeleDeviceConfigManager());
         // 不实现下行通讯
         bootstrap.bootstrap();
 
         String DeviceName = "Iyub03hvXHIaBqDSaJz4";
-
         UplinkChannelHandler uplinkHandler = new UplinkChannelHandler();
         Session session = Session.newInstance(DeviceName, new Object());
         boolean success = uplinkHandler.doOnline(session, DeviceName);
         if (success) {
-            // 上线成功，接受后续通信请求
             System.out.println("上线成功，接受后续通信请求");
         } else {
-            // 上线失败，拒绝后续通信请求，断开连接（如有）
             System.out.println("上线失败，拒绝后续通信请求，断开连接");
         }
 
