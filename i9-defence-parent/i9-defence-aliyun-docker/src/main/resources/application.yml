@@ -2,10 +2,9 @@ server:
   port: 8080
 
 aliyun:
-  accessKey: LTAIHdtHM8kCVlbO
-  accessSecret: gOLAJr55Zet82zVDP22ff46Q6Jc3Iu
-  regionId: cn-shanghai
-  userId: 1405029890082385
+  appKey: 25418637
+  appSecret: e4d0262babdb78eb892d5fc100fbd32c
+  productKey: a16IzBxrD85
 
 spring:
   datasource:
@@ -17,6 +16,3 @@ spring:
     initialize: true
     continueOnError: true
     initialization-mode: always
-    
-maven:
-  path: ${M2_HOME}

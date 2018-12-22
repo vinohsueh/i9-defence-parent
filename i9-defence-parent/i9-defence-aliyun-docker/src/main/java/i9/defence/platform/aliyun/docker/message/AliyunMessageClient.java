@@ -12,33 +12,24 @@ import com.aliyun.openservices.iot.api.message.api.MessageClient;
 
 @Component
 public class AliyunMessageClient {
-    /**
-     * 阿里云accessKey
-     */
-    @Value("${aliyun.accessKey}")
-    private String accessKey;
-    /**
-     * 阿里云accessSecret
-     */
-    @Value("${aliyun.accessSecret}")
-    private String accessSecret;
 
-    @Value("${aliyun.regionId}")
-    private String regionId;
-    /**
-     * 阿里云uid
-     */
-    @Value("${aliyun.userId}")
-    private String userId;
-    
+    @Value("${aliyun.appKey}")
+    private String appKey;
+
+    @Value("${aliyun.appSecret}")
+    private String appSecret;
+
+    @Value("${aliyun.productKey}")
+    private String productKey;
+
     @Autowired
     private AliyunMessageCallback aliyunMessageCallback;
 
     @PostConstruct
     public void init() {
-        String endPoint = "https://" + this.userId + ".iot-as-http2." + this.regionId + ".aliyuncs.com";
+        String endPoint = "https://" + productKey + ".iot-as-http2.cn-shanghai.aliyuncs.com";
         // 连接配置
-        Profile profile = Profile.getAccessKeyProfile(endPoint, regionId, accessKey, accessSecret);
+        Profile profile = Profile.getAppKeyProfile(endPoint, appKey, appSecret);
         // 构造客户端
         MessageClient client = MessageClientFactory.messageClient(profile);
         // 数据接收
