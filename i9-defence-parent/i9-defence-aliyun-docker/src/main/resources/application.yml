@@ -2,8 +2,10 @@ server:
   port: 8080
 
 aliyun:
-  appKey: 25418637
-  appSecret: e4d0262babdb78eb892d5fc100fbd32c
+  appKey: ${iot.hosting.appKey}
+  appSecret: ${iot.hosting.appSecret}
+  accessKey: ${iot.hosting.accessKey}
+  accessSecret: ${iot.hosting.accessSecret}
   productKey: a16IzBxrD85
 
 spring:
