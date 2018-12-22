@@ -3,6 +3,7 @@ package i9.defence.platform.aliyun.docker.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UpStreamService {
 
     public List<UpStream> queryUpStreamList() {
         String sql = "SELECT messageId, topic, payload, submitDate FROM upstream ORDER BY submitDate DESC";
-        List<UpStream> list = this.jdbcTemplate.queryForList(sql, new Object[] {}, UpStream.class);
+        List<UpStream> list = this.jdbcTemplate.query(sql, new Object[] {}, new BeanPropertyRowMapper<UpStream>(UpStream.class));
         return list;
     }
 

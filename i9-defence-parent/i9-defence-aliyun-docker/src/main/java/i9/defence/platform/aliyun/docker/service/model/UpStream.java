@@ -4,13 +4,23 @@ public class UpStream implements java.io.Serializable {
 
     private static final long serialVersionUID = 3238875353486564286L;
 
+    private Integer id;
+
     private String messageId;
-    
+
     private String topic;
-    
+
     private String payload;
-    
+
     private String submitDate;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getMessageId() {
         return messageId;

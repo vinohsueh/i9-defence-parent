@@ -22,11 +22,13 @@ public class IndexController {
         return "Hello Docker!";
     }
 
+    @RequestMapping("/clear")
     public String clear() {
         this.upStreamService.deleteUpStream();
         return "success";
     }
 
+    @RequestMapping("/upstream")
     public String upstream() {
         List<UpStream> list = this.upStreamService.queryUpStreamList();
         String jsonStr = JSONObject.toJSONString(list);
