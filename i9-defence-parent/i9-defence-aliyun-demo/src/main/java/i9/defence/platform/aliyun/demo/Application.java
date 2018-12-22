@@ -1,86 +1,67 @@
 package i9.defence.platform.aliyun.demo;
 
+import java.net.InetAddress;
 import java.util.Random;
 
 import com.alibaba.fastjson.JSONObject;
-import com.aliyun.iot.as.bridge.core.BridgeBootstrap;
-import com.aliyun.iot.as.bridge.core.config.ConfigFactory;
-import com.aliyun.iot.as.bridge.core.handler.UplinkChannelHandler;
-import com.aliyun.iot.as.bridge.core.model.Session;
-
-import i9.defence.platform.aliyun.demo.core.SimpleBridgeConfigManager;
-import i9.defence.platform.aliyun.demo.core.SimpleDeviceConfigManager;
+import com.aliyun.openservices.iot.api.Profile;
+import com.aliyun.openservices.iot.api.message.MessageClientFactory;
+import com.aliyun.openservices.iot.api.message.api.MessageClient;
+import com.aliyun.openservices.iot.api.message.callback.MessageCallback;
+import com.aliyun.openservices.iot.api.message.entity.Message;
+import com.aliyun.openservices.iot.api.message.entity.MessageToken;
 
 public class Application {
 
-    public static void main(String[] args) {
-        BridgeBootstrap bootstrap = new BridgeBootstrap();
-        ConfigFactory.init(new SimpleBridgeConfigManager(), new SimpleDeviceConfigManager());
-        // 不实现下行通讯
-        bootstrap.bootstrap();
+    public static void main(String[] args) throws Exception {
+        String productKey = "a16IzBxrD85";
+        String deviceName = "xvJwUD4MAKp7GmiF7OfJ";
+        String deviceSecret = "yzCK9qXMdIW8LJnnev6L6vFSN19wJ8zN";
+        String region = "cn-shanghai";
 
-        String DeviceName = "Iyub03hvXHIaBqDSaJz4";
-        UplinkChannelHandler uplinkHandler = new UplinkChannelHandler();
-        Session session = Session.newInstance(DeviceName, new Object());
-        boolean success = uplinkHandler.doOnline(session, DeviceName);
-        if (success) {
-            System.out.println("上线成功，接受后续通信请求");
-        } else {
-            System.out.println("上线失败，拒绝后续通信请求，断开连接");
-        }
+        // 用于测试的topic
+        //String subTopic = "/" + productKey + "/" + deviceName + "/get";
+        String pubTopic = "/sys/" + productKey + "/" + deviceName + "/thing/event/property/post";
 
-//        DeviceIdentity identity = ConfigFactory.getDeviceConfigManager().getDeviviceIdentity(device); 
-//        
-//        Session session = SessionManagerFactory.getInstance().getSession(device); 
+        // endPoint: https://${uid}.iot-as-http2.${region}.aliyuncs.com
+        String endPoint = "https://" + productKey + ".iot-as-http2." + region + ".aliyuncs.com";
 
-//        DeviceIdentity identity = ConfigFactory.getDeviceConfigManager().getDeviviceIdentity(device); 
-//        if (identity == null) { 
-//            // 设备未映射到阿里云物联网平台上的设备，丢弃消息 
-//            return; 
-//        } 
-//        Session session = SessionManagerFactory.getInstance().getSession(device); 
-//        if (session == null) { 
-//            // 设备尚未上线，上报数据到阿里云物联网平台前请务必确保设备已上线，请上线设备或者丢弃消息 
-//        } 
-        String topic = "/sys/a16IzBxrD85/Iyub03hvXHIaBqDSaJz4/thing/event/property/post";
+        // 客户端设备唯一标记
+        String clientId = InetAddress.getLocalHost().getHostAddress();
 
-//        {
-//            "method": "thing.service.property.set", 
-//            "id": "12345", 
-//            "version": "1.0", 
-//            "params": {
-//                "prop_float": 123.452, 
-//                "prop_int16": 333, 
-//                "prop_bool": 1
-//            }
-//        }
+        // 连接配置
+        Profile profile = Profile.getDeviceProfile(endPoint, productKey, deviceName, deviceSecret, clientId);
 
-        while (true) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("method", "thing.event.property.post");
-            jsonObject.put("id", DeviceName);
-            jsonObject.put("version", "1.0");
+        // 如果是true 那么清理所有离线消息，即qos1 或者 2的所有未接收内容
+        profile.setCleanSession(false);
 
-            JSONObject params = new JSONObject();
-            params.put("cpu_usage", new Random().nextInt(100));
-            jsonObject.put("params", params);
+        // 构造客户端
+        MessageClient client = MessageClientFactory.messageClient(profile);
 
-            byte[] payload = jsonObject.toJSONString().getBytes();
+        // 数据接收
+        client.connect(messageToken -> {
+            Message m = messageToken.getMessage();
+            System.out.println("receive message from " + m);
+            return MessageCallback.Action.CommitSuccess;
+        });
 
-            success = uplinkHandler.doPublish(DeviceName, topic, payload, 0, payload.length);
-            if (success) {
-                // 上报数据到阿里云物联网平台成功
-                System.err.println("上报数据到阿里云物联网平台成功" + jsonObject.toJSONString());
-            } else {
-                // 上报数据到阿里云物联网平台失败
-            }
-            try {
-                Thread.sleep(1200);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+        // topic订阅
+//        CompletableFuture subFuture = client.subscribe(subTopic);
+//        System.out.println("sub result : " + subFuture.get());
 
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("method", "thing.event.property.post");
+        jsonObject.put("id", deviceName);
+        jsonObject.put("version", "1.0");
+
+        JSONObject params = new JSONObject();
+        params.put("cpu_usage", new Random().nextInt(100));
+        jsonObject.put("params", params);
+
+        byte[] payload = jsonObject.toJSONString().getBytes();
+
+        // 发布消息
+        MessageToken messageToken = client.publish(pubTopic, new Message(payload, 0));
+        System.out.println("publish success, messageId: " + messageToken.getPublishFuture().get().getMessageId());
     }
 }
