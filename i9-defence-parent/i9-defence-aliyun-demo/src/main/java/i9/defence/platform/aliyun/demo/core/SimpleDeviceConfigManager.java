@@ -1,9 +1,9 @@
-package i9.defence.platform.aliyun.demo.utils;
+package i9.defence.platform.aliyun.demo.core;
 
 import com.aliyun.iot.as.bridge.core.config.DeviceConfigManager;
 import com.aliyun.iot.as.bridge.core.model.DeviceIdentity;
 
-public class SimeleDeviceConfigManager implements DeviceConfigManager {
+public class SimpleDeviceConfigManager implements DeviceConfigManager {
 
     @Override
     public DeviceIdentity getDeviviceIdentity(String originalIdentity) {

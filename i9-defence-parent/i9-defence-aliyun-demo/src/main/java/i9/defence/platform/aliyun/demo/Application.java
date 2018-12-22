@@ -7,15 +7,15 @@ import com.aliyun.iot.as.bridge.core.BridgeBootstrap;
 import com.aliyun.iot.as.bridge.core.config.ConfigFactory;
 import com.aliyun.iot.as.bridge.core.handler.UplinkChannelHandler;
 import com.aliyun.iot.as.bridge.core.model.Session;
-import com.aliyun.iot.as.bridge.server.config.impl.BridgeConfigManagerImpl;
 
-import i9.defence.platform.aliyun.demo.utils.SimeleDeviceConfigManager;
+import i9.defence.platform.aliyun.demo.core.SimpleBridgeConfigManager;
+import i9.defence.platform.aliyun.demo.core.SimpleDeviceConfigManager;
 
 public class Application {
 
     public static void main(String[] args) {
         BridgeBootstrap bootstrap = new BridgeBootstrap();
-        ConfigFactory.init(new BridgeConfigManagerImpl(), new SimeleDeviceConfigManager());
+        ConfigFactory.init(new SimpleBridgeConfigManager(), new SimpleDeviceConfigManager());
         // 不实现下行通讯
         bootstrap.bootstrap();
 
@@ -43,9 +43,7 @@ public class Application {
 //            // 设备尚未上线，上报数据到阿里云物联网平台前请务必确保设备已上线，请上线设备或者丢弃消息 
 //        } 
         String topic = "/sys/a16IzBxrD85/Iyub03hvXHIaBqDSaJz4/thing/event/property/post";
-        
-        
-//        
+
 //        {
 //            "method": "thing.service.property.set", 
 //            "id": "12345", 
@@ -56,19 +54,19 @@ public class Application {
 //                "prop_bool": 1
 //            }
 //        }
-        
+
         while (true) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("method", "thing.event.property.post");
             jsonObject.put("id", DeviceName);
             jsonObject.put("version", "1.0");
-            
+
             JSONObject params = new JSONObject();
             params.put("cpu_usage", new Random().nextInt(100));
             jsonObject.put("params", params);
 
             byte[] payload = jsonObject.toJSONString().getBytes();
-            
+
             success = uplinkHandler.doPublish(DeviceName, topic, payload, 0, payload.length);
             if (success) {
                 // 上报数据到阿里云物联网平台成功
@@ -83,6 +81,6 @@ public class Application {
                 e.printStackTrace();
             }
         }
-        
+
     }
 }
