@@ -10,9 +10,9 @@ aliyun:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOSTNAME:}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:d}?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://${iot.hosting.rds.datasource.mysqlUrl:}:3306/upstream?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: ${iot.hosting.rds.datasource.mysqlUser}
+    password: ${iot.hosting.rds.datasource.mysqlPassword}
     schema: classpath:schema.sql
     initialize: true
     continueOnError: true
