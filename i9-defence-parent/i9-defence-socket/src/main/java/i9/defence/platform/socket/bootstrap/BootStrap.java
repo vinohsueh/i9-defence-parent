@@ -1,7 +1,6 @@
 package i9.defence.platform.socket.bootstrap;
 
 import java.net.InetSocketAddress;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import i9.defence.platform.socket.netty.SocketServerInitializer;
-import i9.defence.platform.socket.util.HTTPUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -27,9 +25,6 @@ public class BootStrap extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        // 服务器启动之前调用服务重置所有设置离线状态
-//        batchSetDeviceStatusToOffline();
-
         ServerBootstrap bootstrap = new ServerBootstrap();
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -43,22 +38,7 @@ public class BootStrap extends HttpServlet {
             logger.info("tcpserver started, ip address : 0.0.0.0 port : 9000");
         } catch (InterruptedException e) {
             e.printStackTrace();
+            logger.info("tcpserver start error", e);
         }
-    }
-
-    public void batchSetDeviceStatusToOffline() {
-        String requestUrl = "http://103.248.102.21:8080/equipment/updateAllEquipmentStatus";
-        boolean can = false;
-        do {
-            try {
-                HashMap<String, Object> result = HTTPUtil.sendPost(requestUrl, new HashMap<String, String>());
-                Integer code = (Integer) result.get("code");
-                if (code != null && code == 0) {
-                    can = true;
-                }
-            } catch (Exception e) {
-                can = false;
-            }
-        } while (!can);
     }
 }

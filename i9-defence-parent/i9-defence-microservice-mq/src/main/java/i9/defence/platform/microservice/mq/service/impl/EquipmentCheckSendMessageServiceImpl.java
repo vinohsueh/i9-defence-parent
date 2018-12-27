@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
+import i9.defence.platform.microservice.mq.util.DeviceAlarmSpecialEnum;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
@@ -87,9 +88,9 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         final String phones = JSONObject.toJSONString(phonsList);
         final String signNames = JSONObject.toJSONString(signNameList);
 
-        SMSPushBean b = new SMSPushBean();
-        b.phones = phones;
-        b.signNames = signNames;
+        SMSPushBean smsPush = new SMSPushBean();
+        smsPush.phones = phones;
+        smsPush.signNames = signNames;
         // b.clientNames = clientNames.toJSONString();
 
         // 查询设备所需要的那几个通道 不在此这些通道的报警数据不要
@@ -101,6 +102,7 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
 
         JSONObject jsonObject = JSONObject.parseObject(jsonStr);
         int loop = jsonObject.getInteger("loop");
+        String systemType = jsonObject.getString("systemType");
         List<ChannelData> channelDatas = new ArrayList<ChannelData>();
         JSONArray dataList = jsonObject.getJSONArray("dataList");
         for (int index = 0; index < dataList.size(); index++) {
@@ -118,6 +120,18 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
                 ChannelData channelData = new ChannelData(loop, channel, codeName, createTime);
                 channelDatas.add(channelData);
             }
+            // 如果当前设备为智慧用电设备，则进行特殊处理
+            if (systemType.equalsIgnoreCase("0BBC") && channel == 0) {
+                for (int i = 1; i <= 3; i++) {
+                    char c = code.charAt(code.length() - 1);
+                    if (c == '1') {
+                        DeviceAlarmSpecialEnum deviceAlarmSpecialEnum = DeviceAlarmSpecialEnum.valueOf(i);
+                        String message = deviceAlarmSpecialEnum == null ? "" : deviceAlarmSpecialEnum.getName();
+                        System.out.println("设备地址 : " + deviceId + ", 通道 : 0, 信息 : " + message);
+                        break;
+                    }
+                }
+            }
         }
         // 中文错误已经放入channelDatas
         String warnType = "";
@@ -131,7 +145,7 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         for (int i = 0; i < clientNames.size(); i++) {
             clientNames.getJSONObject(i).put("warnType", warnType);
         }
-        b.clientNames = clientNames.toJSONString();
+        smsPush.clientNames = clientNames.toJSONString();
 
         // 2.2获取设备发送类型(0:报警，1:离线，2：隐患)
         HashSet<Integer> ss = this.stringSplit(project.getSendType());
@@ -139,12 +153,12 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         for (int h : ss) {
             if (0 == h && 1 == alertStatus) {
                 // 2.5若SendType=0并且alertStatus=1则发送报警短信
-                b.aliyunSMSEnum = AliyunSMSEnum.WANING;
-                this.sendSMS(b);
+                smsPush.aliyunSMSEnum = AliyunSMSEnum.WANING;
+                this.sendSMS(smsPush);
             } else if (2 == h && 2 == alertStatus) {
                 // 2.6若SendType=2并且alertStatus=2则发送隐患短信
-                b.aliyunSMSEnum = AliyunSMSEnum.HIDDENDANGER;
-                this.sendSMS(b);
+                smsPush.aliyunSMSEnum = AliyunSMSEnum.HIDDENDANGER;
+                this.sendSMS(smsPush);
             }
         }
     }
