@@ -1,7 +1,7 @@
 package i9.defence.platform.netty.libraries;
 
 public class EncryptUtils {
-    
+
     public static Short parseUnsignedShort(String hex) {
         String bStr = EncryptUtils.toBinaryString(hex, 16);
         int i = 1;
@@ -13,17 +13,17 @@ public class EncryptUtils {
         Short value = DataParseUtil.parseUnsignedShort(DataParseUtil.reverse(b));
         return (short) (value * i);
     }
-    
+
     private static String toBinaryString(String hex, int len) {
-        String s = Integer.toBinaryString(Integer.valueOf(hex,16));
+        String s = Integer.toBinaryString(Integer.valueOf(hex, 16));
         if (s.length() < len) {
-            for (int i = s.length(); i < len; i ++) {
+            for (int i = s.length(); i < len; i++) {
                 s = "0" + s;
             }
         }
         return s;
     }
-    
+
     private static String toHexString(String hex, int len) {
         int t = Integer.parseInt(hex, 2);
         String s = Integer.toHexString(t).toUpperCase();
@@ -34,7 +34,7 @@ public class EncryptUtils {
         }
         return s;
     }
-    
+
     public static byte[] shortToByte(short number) {
         int temp = number;
         byte[] b = new byte[2];
@@ -46,13 +46,10 @@ public class EncryptUtils {
     }
 
     public static byte[] intToByte(int a) {
-        return new byte[] {
-                (byte) ((a >> 24) & 0xFF),
-                (byte) ((a >> 16) & 0xFF),
-                (byte) ((a >> 8) & 0xFF),
-                (byte) (a & 0xFF)};
+        return new byte[] { (byte) ((a >> 24) & 0xFF), (byte) ((a >> 16) & 0xFF), (byte) ((a >> 8) & 0xFF),
+                (byte) (a & 0xFF) };
     }
-    
+
     public static byte[] floatToByte(float f) {
         // 把float转换为byte[]
         int fbit = Float.floatToIntBits(f);
@@ -75,7 +72,7 @@ public class EncryptUtils {
         }
         return dest;
     }
-    
+
     public static byte[] SumCheck(byte[] buf) {
         int length = 8;
         long sum = 0;

@@ -101,7 +101,8 @@ public class DataParseUtil {
 
     public static int parseSignedInt0(byte[] bytes) {
         int i;
-        i = (int) ((bytes[0] & 0xff) | ((bytes[1] & 0xff) << 8) | ((bytes[2] & 0xff) << 16) | ((bytes[3] & 0xff) << 24));
+        i = (int) ((bytes[0] & 0xff) | ((bytes[1] & 0xff) << 8) | ((bytes[2] & 0xff) << 16)
+                | ((bytes[3] & 0xff) << 24));
         return i;
     }
 
@@ -178,10 +179,8 @@ public class DataParseUtil {
     /**
      * 字节转换为浮点
      * 
-     * @param b
-     *            字节（至少4个字节）
-     * @param index
-     *            开始位置
+     * @param b     字节（至少4个字节）
+     * @param index 开始位置
      * @return
      */
     public static float byte2float(byte[] b, int index) {

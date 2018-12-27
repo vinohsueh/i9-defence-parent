@@ -11,7 +11,7 @@ public class RespMessageBuilder {
         byte[] data = messageEncodeConvert.encode().array();
         ByteBuf buf = Unpooled.buffer(7 + data.length + 2);
         buf.writeByte(0x40);
-        
+
         ByteBuffer byteBuffer = ByteBuffer.allocate(6 + data.length);
 //        byteBuffer.put((byte) 0x10);
         byteBuffer.put(version);
@@ -24,10 +24,10 @@ public class RespMessageBuilder {
         byteBuffer.putInt(index);
 //        byteBuffer.put((byte) data.length);
         byteBuffer.put(data);
-        
+
         byte[] mByte = byteBuffer.array();
         buf.writeBytes(mByte);
-        
+
         buf.writeByte(EncryptUtils.SumCheck(mByte)[7]);
         buf.writeByte(0x23);
         return buf;
