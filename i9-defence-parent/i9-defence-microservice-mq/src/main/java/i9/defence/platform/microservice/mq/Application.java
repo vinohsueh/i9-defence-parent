@@ -12,7 +12,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * 为了打包war包执行，需要继承SpringBootServletInitializer 
+ * 为了打包war包执行，需要继承SpringBootServletInitializer
+ * 
  * @author lby
  * @create 2017年12月18日
  */
@@ -25,7 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling
 @ServletComponentScan // 扫描使用注解方式的servlet
 @ImportResource("classpath:activemq.xml")
-public class Application extends SpringBootServletInitializer{
+public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

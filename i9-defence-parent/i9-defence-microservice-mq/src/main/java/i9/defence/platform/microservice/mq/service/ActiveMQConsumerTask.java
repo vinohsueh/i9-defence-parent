@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 /**
  * 处理消息队列消费者通用父类
+ * 
  * @author R12
  *
  */

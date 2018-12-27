@@ -18,5 +18,5 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent event) {
         logger.info("消息队列服务器已启动");
     }
-    
+
 }

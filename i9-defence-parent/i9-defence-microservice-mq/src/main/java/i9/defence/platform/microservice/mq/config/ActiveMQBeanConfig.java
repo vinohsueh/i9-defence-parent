@@ -14,7 +14,7 @@ import org.springframework.jms.listener.DefaultMessageListenerContainer;
 
 @Configuration
 public class ActiveMQBeanConfig {
-    
+
     @Autowired
     private SingleConnectionFactory connectionFactory;
 
@@ -23,7 +23,7 @@ public class ActiveMQBeanConfig {
         ActiveMQDestination destination = new ActiveMQDestination(ActiveMQQueueEnum.I9_BUSINESS);
         return destination;
     }
-    
+
     @Bean(name = "devicestatus_activemq_destination")
     public ActiveMQQueue getDeviceStatusActiveMQDestination() {
         ActiveMQDestination destination = new ActiveMQDestination(ActiveMQQueueEnum.I9_DEVICE_STATE);
@@ -32,7 +32,7 @@ public class ActiveMQBeanConfig {
 
     @Autowired
     private ActiveMQBusinessConsumerMessageListener activeMQBusinessConsumerMessageListener;
-    
+
     @Bean(name = "business_activemq_container")
     public DefaultMessageListenerContainer getBusinessJmsContainer() {
         DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
@@ -41,10 +41,10 @@ public class ActiveMQBeanConfig {
         container.setDestination(getBusinessActiveMQDestination());
         return container;
     }
-    
+
     @Autowired
     private ActiveMQDeviceStateConsumerMessageListener activeMQDeviceStateConsumerMessageListener;
-    
+
     @Bean(name = "devicestatus_activemq_container")
     public DefaultMessageListenerContainer getDeviceStatusJmsContainer() {
         DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
