@@ -23,7 +23,7 @@ public class AliyunUtil {
     private static String product;
     // 产品域名,开发者无需替换
     private static String domain;
-    
+
     private static String accessKeyId;
     private static String accessKeySecret;
 
@@ -40,7 +40,7 @@ public class AliyunUtil {
             e.printStackTrace();
         }
     }
-    
+
     public static String sendInfo(AliyunSMSEnum aliyunSMSEnum, String phones, String clientNames, String SignNames) {
         return sendInfo(aliyunSMSEnum.getTemplateNum(), phones, clientNames, SignNames);
     }

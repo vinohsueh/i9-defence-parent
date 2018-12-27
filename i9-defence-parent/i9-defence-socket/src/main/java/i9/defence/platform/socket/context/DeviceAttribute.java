@@ -1,6 +1,5 @@
 package i9.defence.platform.socket.context;
 
-
 public class DeviceAttribute implements java.io.Serializable {
 
     private static final long serialVersionUID = -7424171401590678894L;
@@ -18,7 +17,7 @@ public class DeviceAttribute implements java.io.Serializable {
     public byte getLoop() {
         return loop;
     }
-    
+
     public String getAddress() {
         return address;
     }

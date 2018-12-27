@@ -8,6 +8,7 @@ public class SpringBeanService {
 
     /**
      * 取得所有的spring-bean
+     * 
      * @param requiredType
      * @return
      * @throws BeansException
@@ -15,13 +16,15 @@ public class SpringBeanService {
     public static <T> T getBean(Class<T> requiredType) throws BeansException {
         return (T) ContextLoader.getCurrentWebApplicationContext().getBean(requiredType);
     }
-    
+
     /**
      * 取得环境变量信息
+     * 
      * @return
      */
     public static Environment getEnvironment() {
-        Environment environment = (Environment) ContextLoader.getCurrentWebApplicationContext().getBean(Environment.class);
+        Environment environment = (Environment) ContextLoader.getCurrentWebApplicationContext()
+                .getBean(Environment.class);
         return environment;
     }
 

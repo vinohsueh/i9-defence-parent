@@ -32,6 +32,7 @@ public class BootStrap extends HttpServlet {
         bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                 .option(ChannelOption.TCP_NODELAY, true).handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new SocketServerInitializer());
+
         InetSocketAddress address = new InetSocketAddress("0.0.0.0", 9000);
         try {
             bootstrap.bind(address).sync();

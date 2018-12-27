@@ -69,7 +69,7 @@ public class ChannelPacker {
             e.printStackTrace();
         }
     }
-    
+
     public void removeAttribute() {
         this.channel.attr(ServerConstant.D_ID_KEY).remove();
     }

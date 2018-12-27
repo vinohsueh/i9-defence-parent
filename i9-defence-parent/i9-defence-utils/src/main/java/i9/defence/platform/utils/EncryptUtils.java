@@ -39,7 +39,6 @@ public class EncryptUtils {
         return value;
     }
 
-
     /**
      * 字节数组转INT
      * 
@@ -57,10 +56,7 @@ public class EncryptUtils {
      * @return
      */
     public static byte[] intToBytes(int value) {
-        return new byte[] { 
-                (byte) ((value >> 24) & 0xFF), 
-                (byte) ((value >> 16) & 0xFF), 
-                (byte) ((value >> 8) & 0xFF),
+        return new byte[] { (byte) ((value >> 24) & 0xFF), (byte) ((value >> 16) & 0xFF), (byte) ((value >> 8) & 0xFF),
                 (byte) (value & 0xFF) };
     }
 

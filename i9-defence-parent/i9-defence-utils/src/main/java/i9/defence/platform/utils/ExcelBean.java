@@ -4,24 +4,25 @@ import java.io.Serializable;
 
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
-/** 
+/**
  * 创建时间：2017年9月4日 上午8:59:29
- * @author  lby
- * @version  
+ * 
+ * @author lby
+ * @version
  * 
  */
 public class ExcelBean implements Serializable {
 
     private static final long serialVersionUID = 6159102668674557657L;
-    
+
     private String headTextName;// 列头（标题）名
-    
+
     private String propertyName;// 对应字段名
-    
+
     private Integer cols;// 合并单元格数
-    
+
     private XSSFCellStyle cellStyle;
-      
+
     public ExcelBean() {
     }
 

@@ -25,7 +25,8 @@ public class ChannelConnectedService {
         if (channelPacker000 != null) {
             // 如果两条channelPacker channelid 相同，则代表已完成登录操作
             if (channelPacker.getChannelId().equals(channelPacker000.getChannelId())) {
-                LOGGER.info("设备连接重复登录, channelId : {}, 设备地址 : {}, 不做处理", channelPacker000.getChannelId(), deviceAddress);
+                LOGGER.info("设备连接重复登录, channelId : {}, 设备地址 : {}, 不做处理", channelPacker000.getChannelId(),
+                        deviceAddress);
                 return;
             } else {
                 LOGGER.info("设备连接登录多通道, channelId : {}, 设备地址 : {}, 关闭多余通道", channelPacker000.getChannelId(),

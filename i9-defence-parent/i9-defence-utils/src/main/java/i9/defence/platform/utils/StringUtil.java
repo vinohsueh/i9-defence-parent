@@ -98,12 +98,13 @@ public class StringUtil {
             return null;
         }
     }
+
     /**
      * 日期转换
      * 
      * @param date
      * @return
-     * @throws ParseException 
+     * @throws ParseException
      */
     public static Date StringToDateS(String date) throws ParseException {
         if (org.apache.commons.lang.StringUtils.isNotBlank(date)) {
@@ -113,20 +114,13 @@ public class StringUtil {
             return null;
         }
     }
-    
-    
-    
-    
 
     /**
      * 获取设备唯一id
      * 
-     * @param systemId
-     *            设备编号
-     * @param loop
-     *            回路号
-     * @param address
-     *            设备地址
+     * @param systemId 设备编号
+     * @param loop     回路号
+     * @param address  设备地址
      * @return
      */
     public static String getDeviceId(String systemId, int loop, String address) {

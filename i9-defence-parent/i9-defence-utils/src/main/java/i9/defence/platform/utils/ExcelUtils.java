@@ -24,20 +24,21 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/** 
+/**
  * 创建时间：2017年9月4日 上午9:14:44
- * @author  lby
- * @version  
+ * 
+ * @author lby
+ * @version
  * 
  */
 public class ExcelUtils {
-    
+
     private final static String excel2003L = ".xls"; // 2003- 版本的excel
-    
+
     private final static String excel2007U = ".xlsx"; // 2007+ 版本的excel
-    
+
     private static XSSFCellStyle fontStyle;
-    
+
     private static XSSFCellStyle fontStyle2;
 
     public static List<List<Object>> getBankListByExcel(InputStream in, String fileName) throws Exception {
@@ -48,7 +49,7 @@ public class ExcelUtils {
         }
         List<List<Object>> list = new ArrayList<List<Object>>();
         // 遍历Excel中所有的sheet
-        for (int i = 0; i < work.getNumberOfSheets(); i++) {    
+        for (int i = 0; i < work.getNumberOfSheets(); i++) {
             Sheet sheet = work.getSheetAt(i);
             if (sheet == null) {
                 continue;
@@ -84,12 +85,13 @@ public class ExcelUtils {
         }
         return wb;
     }
-    
-    /**  
-     * 描述：对表格中数值进行格式化  
-     * @param cell  
-     * @return  
-     */    
+
+    /**
+     * 描述：对表格中数值进行格式化
+     * 
+     * @param cell
+     * @return
+     */
     public static Object getCellValue(Cell cell) {
         Object value = null;
         DecimalFormat df = new DecimalFormat("0"); // 格式化number String字符
@@ -197,8 +199,8 @@ public class ExcelUtils {
         }
     }
 
-    public static void createTableRows(XSSFSheet sheet,
-            Map<Integer, List<ExcelBean>> map, List<HashMap<String, Object>> objs, Class<?> clazz) throws Exception {
+    public static void createTableRows(XSSFSheet sheet, Map<Integer, List<ExcelBean>> map,
+            List<HashMap<String, Object>> objs, Class<?> clazz) throws Exception {
         int rowindex = map.size();
         int maxKey = 0;
         for (Map.Entry<Integer, List<ExcelBean>> entry : map.entrySet()) {
@@ -252,5 +254,5 @@ public class ExcelUtils {
             width = width > 10000 ? 10000 + 300 : width + 300;
             sheet.setColumnWidth(index, width);
         }
-    }  
+    }
 }
