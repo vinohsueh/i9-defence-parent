@@ -3,6 +3,7 @@ package i9.defence.platform.service;
 import i9.defence.platform.dao.vo.ManagerLoginDto;
 import i9.defence.platform.dao.vo.ManagerSearchDto;
 import i9.defence.platform.dao.vo.ManagerSelectDto;
+import i9.defence.platform.dao.vo.ManagerUpdatePwdDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.utils.BusinessException;
 import i9.defence.platform.utils.PageBounds;
@@ -160,4 +161,12 @@ public interface ManagerService {
   	 * @throws BusinessException
   	 */
 	int selectAgencyGrade(Integer managerId) throws BusinessException;
+	
+	/**
+	 * 更改密码
+	* @Title: updateManagerPwd
+	* @param @param managerUpdatePwdDto
+	* @param @throws BusinessException
+	 */
+    void updateManagerPwd(ManagerUpdatePwdDto managerUpdatePwdDto)throws BusinessException;
 }

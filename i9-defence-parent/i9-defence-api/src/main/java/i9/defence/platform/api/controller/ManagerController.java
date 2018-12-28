@@ -1,6 +1,7 @@
 package i9.defence.platform.api.controller;
 
 import i9.defence.platform.dao.vo.ManagerSearchDto;
+import i9.defence.platform.dao.vo.ManagerUpdatePwdDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.service.ManagerService;
 import i9.defence.platform.utils.PageBounds;
@@ -86,6 +87,19 @@ public class ManagerController {
     public HashMap<String, Object> delManager(@Valid @NotEmpty(message = "请至少选择一个") @RequestBody List<Integer> ids) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         managerService.deleteManager(ids);
+        return result;
+    }
+    
+    /**
+     * 修改密码
+    * @Title: updateManagerPwd
+    * @param @param ids
+    * @param @return
+     */
+    @RequestMapping("/updateManagerPwd")
+    public HashMap<String, Object> updateManagerPwd(@Valid ManagerUpdatePwdDto managerUpdatePwdDto,BindingResult bindingResult) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        managerService.updateManagerPwd(managerUpdatePwdDto);
         return result;
     }
 }
