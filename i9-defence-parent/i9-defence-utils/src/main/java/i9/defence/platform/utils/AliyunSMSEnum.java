@@ -13,8 +13,9 @@ import java.util.List;
  */
 public enum AliyunSMSEnum {
 
-    CUSTOMER("客户问候模板", "SMS_142050264", true), HIDDENDANGER("设备隐患模板", "SMS_143716483", true),
-    OUTOFLINE("设备离线模板", "SMS_143716484", true), WANING("设备报警模板", "SMS_143716480", true);
+    CUSTOMER("客户问候模板", "SMS_142050264", true),PUSHINFO("智慧用电设备模板","SMS_153990969",true),
+    HIDDENDANGER("设备隐患模板", "SMS_143716483", true),OUTOFLINE("设备离线模板", "SMS_143716484", true),
+    WANING("设备报警模板", "SMS_143716480", true);
 
     private final String name;
 

@@ -127,7 +127,14 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
                     if (c == '1') {
                         DeviceAlarmSpecialEnum deviceAlarmSpecialEnum = DeviceAlarmSpecialEnum.valueOf(i);
                         String message = deviceAlarmSpecialEnum == null ? "" : deviceAlarmSpecialEnum.getName();
-                        System.out.println("设备地址 : " + deviceId + ", 通道 : 0, 信息 : " + message);
+                        System.out.println(clientNames.size());
+                        for (int j = 0; j <clientNames.size(); j++) {
+                            clientNames.getJSONObject(j).put("deviceId",equipment.getEquipmentPosition());
+                            clientNames.getJSONObject(j).put("warnType",message);
+                        }
+                        smsPush.clientNames = clientNames.toJSONString();
+                        smsPush.aliyunSMSEnum = AliyunSMSEnum.PUSHINFO;
+                        this.sendSMS(smsPush);
                         break;
                     }
                 }
