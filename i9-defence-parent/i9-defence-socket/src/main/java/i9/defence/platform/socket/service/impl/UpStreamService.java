@@ -120,6 +120,7 @@ public class UpStreamService implements ICoreService {
             byte channel = item.getByte("channel");
             if (channel == 0) {
                 String code = item.getString("value");
+                boolean find = false;
                 for (int i = 1; i <= 3; i++) {
                     char c = code.charAt(code.length() - 1);
                     if (c == '1') {
@@ -127,8 +128,13 @@ public class UpStreamService implements ICoreService {
                         String message = deviceAlarmSpecialEnum == null ? "" : deviceAlarmSpecialEnum.getName();
                         item.put("value", message);
                         item.put("type", -99);
+                        find = true;
                         break;
                     }
+                }
+                if (!find) {
+                    item.put("value", "设备正常");
+                    item.put("type", -99);
                 }
             }
         }
