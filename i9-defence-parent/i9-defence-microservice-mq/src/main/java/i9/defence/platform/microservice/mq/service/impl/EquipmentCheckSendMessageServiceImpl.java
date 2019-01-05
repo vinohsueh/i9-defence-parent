@@ -14,7 +14,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import i9.defence.platform.microservice.mq.service.EquipmentCheckSendMessageService;
-import i9.defence.platform.microservice.mq.util.DeviceAlarmSpecialEnum;
 import i9.defence.platform.model.Equipment;
 import i9.defence.platform.model.Project;
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
@@ -108,9 +107,9 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         for (int index = 0; index < dataList.size(); index++) {
             JSONObject dataItem = dataList.getJSONObject(index);
             int type = (int) dataItem.getIntValue("type");
-            String code = dataItem.getString("value");
             int channel = dataItem.getIntValue("channel");
             // 如果数据类型是0 且 错误代码不为00000000 时 记录记录
+            String code = dataItem.getString("value");
             if (channels.contains(channel) && 0 == type && !SqlUtil.NORMAL_CODE.equals(code)) {
                 String codeName = map.get(code + deviceInfoDto.getEquipmentId());// 错误代码转为中文错误名称
                 if (StringUtils.isBlank(codeName)) {
@@ -120,23 +119,15 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
                 ChannelData channelData = new ChannelData(loop, channel, codeName, createTime);
                 channelDatas.add(channelData);
             }
-            // 如果当前设备为智慧用电设备，则进行特殊处理
-            if (systemType.equalsIgnoreCase("0BBC") && channel == 0) {
-                for (int i = 1; i <= 3; i++) {
-                    char c = code.charAt(code.length() - 1);
-                    if (c == '1') {
-                        DeviceAlarmSpecialEnum deviceAlarmSpecialEnum = DeviceAlarmSpecialEnum.valueOf(i);
-                        String message = deviceAlarmSpecialEnum == null ? "" : deviceAlarmSpecialEnum.getName();
-                        System.out.println(clientNames.size());
-                        for (int j = 0; j <clientNames.size(); j++) {
-                            clientNames.getJSONObject(j).put("deviceId",equipment.getEquipmentPosition());
-                            clientNames.getJSONObject(j).put("warnType",message);
-                        }
-                        smsPush.clientNames = clientNames.toJSONString();
-                        smsPush.aliyunSMSEnum = AliyunSMSEnum.PUSHINFO;
-                        this.sendSMS(smsPush);
-                        break;
-                    }
+        }
+        // 如果当前设备为智慧用电设备，则进行特殊处理
+        if (systemType.equalsIgnoreCase("0BBC")) {
+            for (int index = 0; index < dataList.size(); index++) {
+                JSONObject dataItem = dataList.getJSONObject(index);
+                int channel = dataItem.getIntValue("channel");
+                if (channel == 0) {
+                    String code = dataItem.getString("value");
+                    System.out.println(code);
                 }
             }
         }
