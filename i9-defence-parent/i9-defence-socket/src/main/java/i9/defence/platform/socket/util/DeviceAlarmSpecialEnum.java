@@ -1,10 +1,10 @@
-package i9.defence.platform.microservice.mq.util;
+package i9.defence.platform.socket.util;
 
 import java.util.HashMap;
 
 public enum DeviceAlarmSpecialEnum {
 
-    ALARM(1, "报警"), FAULT(2, "故障"), ABNORMAL(3, "异常");
+    ALARM(1, "设备报警"), FAULT(2, "设备故障"), ABNORMAL(3, "设备异常");
 
     DeviceAlarmSpecialEnum(int index, String name) {
         this.index = index;

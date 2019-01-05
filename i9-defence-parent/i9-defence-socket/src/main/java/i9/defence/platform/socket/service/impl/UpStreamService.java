@@ -1,5 +1,14 @@
 package i9.defence.platform.socket.service.impl;
 
+import java.math.BigDecimal;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSONObject;
+
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.netty.libraries.DataParseUtil;
@@ -13,15 +22,7 @@ import i9.defence.platform.socket.exception.BusinessException;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 import i9.defence.platform.socket.util.ChannelConnectedService;
-
-import java.math.BigDecimal;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.alibaba.fastjson.JSONObject;
+import i9.defence.platform.socket.util.DeviceAlarmSpecialEnum;
 
 @Service
 public class UpStreamService implements ICoreService {
@@ -112,6 +113,29 @@ public class UpStreamService implements ICoreService {
             } else if (channel == 32 || channel == 33 || channel == 34) {
                 Short value = EncryptUtils.parseUnsignedShort(item.getString("data"));
                 item.put("value", value);
+            }
+        }
+        for (int index = 0; index < jsonObject.getJSONArray("dataList").size(); index++) {
+            JSONObject item = jsonObject.getJSONArray("dataList").getJSONObject(index);
+            byte channel = item.getByte("channel");
+            if (channel == 0) {
+                String code = item.getString("value");
+                boolean find = false;
+                for (int i = 1; i <= 3; i++) {
+                    char c = code.charAt(code.length() - 1);
+                    if (c == '1') {
+                        DeviceAlarmSpecialEnum deviceAlarmSpecialEnum = DeviceAlarmSpecialEnum.valueOf(i);
+                        String message = deviceAlarmSpecialEnum == null ? "" : deviceAlarmSpecialEnum.getName();
+                        item.put("value", message);
+                        item.put("type", -99);
+                        find = true;
+                        break;
+                    }
+                }
+                if (!find) {
+                    item.put("value", "设备正常");
+                    item.put("type", -99);
+                }
             }
         }
         logger.info("power, new : " + jsonObject.toJSONString());
