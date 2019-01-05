@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import i9.defence.platform.dao.vo.EquipmentStatisticDto;
@@ -20,6 +21,7 @@ public class Project {
     private Integer id;
     //项目名称
     @NotBlank(message="项目名称不能为空")
+    @Length(max=20,message="项目名称不能超过20字符")
     private String projectName;
     //项目所在省
     private String projectProvince;
