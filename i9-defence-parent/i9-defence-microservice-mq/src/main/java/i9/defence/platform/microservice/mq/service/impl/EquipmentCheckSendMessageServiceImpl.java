@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,8 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
     private ProjectService projectService;
     @Autowired
     private ThirdPlatformService thirdPlatformService;
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(EquipmentCheckSendMessageServiceImpl.class);
 
     public HashSet<Integer> stringSplit(String str) {
         if (StringUtils.isBlank(str)) {
@@ -63,10 +67,15 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
     public void checkEquipmentAndSendMessageAlarm(String deviceId, int alertStatus, String jsonStr) {
         // 1根据deviceId查找设备
         Equipment equipment = equipmentService.getEquipmentByIdentifier(deviceId);
+        if (equipment == null) {
+            LOGGER.error("查询设备不存在, deviceId : " + deviceId);
+            return;
+        }
         // 2根据ProjectId查找Project
         Project project = projectService.getProjectById(equipment.getProjectId());
         // 2.1判断发送状态 0：不发送 1：发送
         if (project == null || project.getSendStatus() != 1) {
+            LOGGER.error("查询项目不存在或不可以发送, projectId : " + equipment.getProjectId());
             return;
         }
 
@@ -114,6 +123,8 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
                     Date createTime = DateUtils.parseDate(dataItem.getString("datetime").replace("#", " "));
                     ChannelData channelData = new ChannelData(loop, channel, code, createTime);
                     channelDatas.add(channelData);
+                    LOGGER.info("找到智慧用电设备通道0解析数据, code : " + code);
+                    break;
                 }
             }
         }
