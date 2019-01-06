@@ -132,7 +132,9 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
             Date createTime = simpleDateFormat.parse((String)(dataItem.get("datetime").toString().replace("#", " ")));
             // 创建一个ChannelData对象
             ChannelData channelData = buildChannelData(systemId, systemType, address, loop, type, channel, value, createTime);
-            
+            if (systemType.equalsIgnoreCase("0BBC") && channel == 0) {
+                continue;
+            }
             // 将ChannelData数据保存到数据库
             channelDatas.add(channelData);
         }
