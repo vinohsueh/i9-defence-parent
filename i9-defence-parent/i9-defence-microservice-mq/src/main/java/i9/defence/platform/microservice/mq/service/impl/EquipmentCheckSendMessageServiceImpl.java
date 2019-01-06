@@ -66,7 +66,7 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         // 2根据ProjectId查找Project
         Project project = projectService.getProjectById(equipment.getProjectId());
         // 2.1判断发送状态 0：不发送 1：发送
-        if (project.getSendStatus() != 1) {
+        if (project == null || project.getSendStatus() != 1) {
             return;
         }
 
@@ -104,6 +104,19 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         String systemType = jsonObject.getString("systemType");
         List<ChannelData> channelDatas = new ArrayList<ChannelData>();
         JSONArray dataList = jsonObject.getJSONArray("dataList");
+        // 如果当前设备为智慧用电设备，则进行特殊处理
+        if (systemType.equalsIgnoreCase("0BBC")) {
+            for (int index = 0; index < dataList.size(); index++) {
+                JSONObject dataItem = dataList.getJSONObject(index);
+                int channel = dataItem.getIntValue("channel");
+                if (channel == 0) {
+                    String code = dataItem.getString("value");
+                    Date createTime = DateUtils.parseDate(dataItem.getString("datetime").replace("#", " "));
+                    ChannelData channelData = new ChannelData(loop, channel, code, createTime);
+                    channelDatas.add(channelData);
+                }
+            }
+        }
         for (int index = 0; index < dataList.size(); index++) {
             JSONObject dataItem = dataList.getJSONObject(index);
             int type = (int) dataItem.getIntValue("type");
@@ -118,17 +131,6 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
                 Date createTime = DateUtils.parseDate(dataItem.getString("datetime").replace("#", " "));
                 ChannelData channelData = new ChannelData(loop, channel, codeName, createTime);
                 channelDatas.add(channelData);
-            }
-        }
-        // 如果当前设备为智慧用电设备，则进行特殊处理
-        if (systemType.equalsIgnoreCase("0BBC")) {
-            for (int index = 0; index < dataList.size(); index++) {
-                JSONObject dataItem = dataList.getJSONObject(index);
-                int channel = dataItem.getIntValue("channel");
-                if (channel == 0) {
-                    String code = dataItem.getString("value");
-                    System.out.println(code);
-                }
             }
         }
         // 中文错误已经放入channelDatas
