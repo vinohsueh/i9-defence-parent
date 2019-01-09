@@ -24,6 +24,23 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html'
               })
+              	.state('app.changePassword', {
+                  url: '/changePassword',
+                  templateUrl: 'proj/changePassword/changePassword.html',
+              	  controller : "changePasswordNgControl",
+              	  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'changePasswordNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/changePassword/changePassword.js',
+            				    ]
+            			})
+                    }]
+                  }
+              })
                 .state('app.index', {
                     url: '/indexPage',
                     templateUrl: 'proj/indexPage/indexPage.html',

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import i9.defence.platform.dao.vo.ApplyRefuseDto;
 import i9.defence.platform.dao.vo.ManagerApplyDto;
+import i9.defence.platform.dao.vo.ManagerUpdatePwdDto;
 import i9.defence.platform.model.Manager;
 import i9.defence.platform.model.ManagerApply;
 import i9.defence.platform.service.ManagerApplyService;
@@ -133,4 +134,17 @@ public class ManagerApplyController {
         return result;
     }
 
+    /**
+     * 修改密码
+    * @Title: updateManagerPwd
+    * @param @param ids
+    * @param @return
+     */
+    @RequiresPermissions("net_manager_update")
+    @RequestMapping("/updateManagerPwd")
+    public HashMap<String, Object> updateManagerPwd(@Valid @RequestBody ManagerUpdatePwdDto managerUpdatePwdDto,BindingResult bindingResult) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        managerService.updateManagerPwd(managerUpdatePwdDto);
+        return result;
+    }
 }
