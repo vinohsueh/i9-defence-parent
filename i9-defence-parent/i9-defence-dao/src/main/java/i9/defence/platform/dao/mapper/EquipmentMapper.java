@@ -67,6 +67,8 @@ public interface EquipmentMapper {
 
     List<HiddenDangerDto> selectHiddenDangerByLimitPage2(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
     
+    List<HiddenDangerDto> selectHiddenDangerByLimitPage3(@Param("example") HiddenDangerSearchDto hiddenDangerSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+
     //查询具体隐患报警--隐患
     List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(@Param("deviceId")String deviceId,@Param("count") int count);
     //查询具体隐患报警--报警
@@ -221,6 +223,8 @@ public interface EquipmentMapper {
 
     List<String> selectCodename();
 
-    List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto);  
+    List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto);
+
+    void updateEquipmentAlertAndDataStatus(@Param("deviceId") String deviceId,@Param("alertTime") String firstEventTime);  
 
 }

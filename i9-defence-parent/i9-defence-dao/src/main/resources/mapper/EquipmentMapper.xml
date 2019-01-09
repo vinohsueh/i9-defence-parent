@@ -915,11 +915,11 @@
 		status,
 		remainAlert,
 		CASE
-		WHEN remainAlert =1 and status = 1
+		WHEN datastatus =1 and status = 1
 		THEN
 		getNewestTime ( deviceId )
 		WHEN
-		remainAlert =2 and status = 1
+		datastatus =2 and status = 1
 		THEN
 		getNewestTime ( deviceId )
 		WHEN status = 0
@@ -939,6 +939,44 @@
 		limit
 		#{offset},#{limit}
 	</select>
+	
+	<select id="selectHiddenDangerByLimitPage3" resultMap="BaseResultMapDto">
+        SELECT
+        id,
+        deviceId,
+        equipmentRemarks,
+        eqCategoryName,
+        projectName,
+        equipmentPosition,
+        datastatus as dataStatus,
+        status,
+        remainAlert,
+        CASE
+        WHEN remainAlert =1 and status = 1
+        THEN
+        getFirstTime ( deviceId )
+        WHEN
+        remainAlert =2 and status = 1
+        THEN
+        getFirstTime ( deviceId )
+        WHEN status = 0
+        THEN
+        getLiXianTime( deviceId)
+        WHEN status = 2
+        THEN
+        getLiXianTime( deviceId)
+        End as newestTime
+        FROM
+        v_equipment he
+        <if test="_parameter != null">
+            <include refid="Query_HiddenDanger_By_Dto_Where_Clause2" />
+        </if>
+        order by field(concat(status,
+        dataStatus),11,12,'20','00','01',21,22,20,11,12,10 )
+        limit
+        #{offset},#{limit}
+    </select>
+	
 	<select id="selectHiddenDangerByIds" resultMap="BaseResultMapDto"
 		parameterType="java.util.List">
 		SELECT
@@ -1490,6 +1528,12 @@
 		dataStatus = #{datastatus},
 		remainAlert = #{alertStatus}
 	 where deviceId = #{deviceId}
+	</update>
+	<update id="updateEquipmentAlertAndDataStatus">
+	   update t_equipment_newest 
+        set 
+        remainAlertTime = #{alertTime}
+     where deviceId = #{deviceId}
 	</update>
 	<update id="updateAllEquipmentStatus">
 		update t_equipment

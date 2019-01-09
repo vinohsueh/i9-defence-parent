@@ -1,0 +1,225 @@
+<div controlled-rescode>
+	<!-- <div class="bg-light lter b-b wrapper-md">
+	  <h1 class="m-n font-thin h3">报警操作列表</h1>
+	</div> -->
+	<div class="wrapper-md">
+
+		<form action="" class='form-inline myBox'>
+			<div class="form-group">
+				<label for="">设备类型：</label> <select class="form-control blue_bg" ng-model="eqCategoryName"
+					ng-options="item.eqCategoryName as item.eqCategoryName for item in equipmentCategorys">
+					<option value="">全部</option>
+					<!-- 不加这句代码，会出现空白 -->
+				</select>
+			</div>
+			<!--  <div class="form-group">
+      <label for="">经销商：</label>
+      <select class="form-control blue_bg">
+      </select> 
+    </div>-->
+			<div class="form-group">
+				<label for="">项目省区域：</label> <select class="form-control blue_bg"
+					ng-model="selected" ng-options="s.name for s in division"
+					ng-change="c()">
+					<option value="">请选择</option>
+					<!-- <option>天津</option>
+        <option>北京</option>
+        <option>上海</option>
+        <option>深圳</option>
+        <option>杭州</option> -->
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="">项目地市区域：</label> <select class="form-control blue_bg"
+					ng-model="selected2" ng-options="sh.name for sh in selected.child"
+					ng-change="c2()">
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="">项目县/区：</label> <select class="form-control blue_bg"
+					ng-model="selected3" ng-options="x.value for x in selected2.child"
+					ng-change="c3()">
+					<option value="">请选择</option>
+				</select>
+			</div>
+				<div class="form-group">
+				<label for="">项目名称：</label> <select class="form-control blue_bg" ng-model="projectName"
+					ng-options="x.projectName for x in projectss">
+					<option value="">全部</option>
+					<!-- 不加这句代码，会出现空白 -->
+				</select>
+			</div>
+			<button type='button' class='btn btn-primary' ng-click="initTable()">
+				<i class='glyphicon glyphicon-search'></i>
+			</button>
+		</form>
+		<div class="panel panel-default">
+	    <!-- <div class="panel-heading">
+	        <button class="btn m-b-xs w-xs btn-success btn-rounded hiddenEdit_add" ng-click="add()">新增</button>
+	        <button class="btn m-b-xs w-xs btn-danger btn-rounded hiddenEdit_del" ng-click="del()">删除</button>
+	    </div>-->
+	    <div class="row wrapper">
+	    <!--   <div class="col-sm-5 m-b-xs">
+	        <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
+	          <option value="5">5</option>
+	          <option value="10">10</option>
+	          <option value="20">20</option>
+	          <option value="50">50</option>
+	          <option value="100">100</option>
+	        </select>
+	      </div> -->
+	      <div class="col-sm-4"></div>
+			<!--  	<div class="col-sm-3">
+					<div class="input-group">
+						<input type="text" class="input-sm form-control"ng-change="search()" ng-model="searchText" placeholder="模糊查询">
+					</div>
+				</div>-->
+			</div>
+	    <div class="table-responsive">
+	      <table class="table table-striped b-t b-light" style="table-layout:fixed">
+	        <thead>
+	          <tr>
+	            
+	            <th style="width:20px;">
+	              <label class="i-checks m-b-none" id="checkLabel">
+	                <input type="checkbox" id="totalCheck"><i></i>
+	              </label>
+	            
+	            </th>
+	            <th>状态</th>
+	            <th>项目名称</th>
+	            <th>设备分类</th>
+	            <th>设备地址</th>
+	            <th>设备位置</th>
+	            <th>时间</th>
+	            <th width="90px">报警记录</th>
+	            <th width="30%">最新数据</th>
+	          </tr>
+	        </thead>
+	      </table>
+	      <div id='myTableBody'>
+	      	<table class="table table-striped b-t b-light" style="table-layout:fixed">
+		        <tbody id='myTableBody'>
+		          <tr ng-repeat="hiddenEdit in hiddenEdits">
+					<td width='20px'><label class="i-checks m-b-none"><input class="o-checks" data-id="{{hiddenEdit.id}}" type="checkbox" name="post[]" ng-disabled><i></i></label></td>
+		            <td ng-click="edit(hiddenEdit.id,hiddenEdit.statusText)" class='eventType'><span class='{{hiddenEdit.status}}'>{{hiddenEdit.statusText}}</span></td>
+		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.projectName}}</td>
+		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.eqCategoryName}}</td>
+		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentPosition}}</td>
+		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.equipmentRemarks}}</td>
+		            <td ng-click="edit(hiddenEdit.id)">{{hiddenEdit.newestTime}}</td>
+		            <td  width="90px"><button type='button'  ng-if="hiddenEdit.statusText!='离线'"  class='btn btn-primary' ng-click="faultRecord(hiddenEdit.deviceId,hiddenEdit.statusText)">查看</button></td>
+	              	<td width="30%">
+	             		 <span class='passageway' ng-repeat="i in hiddenEdit.eqChannelDataList">{{i.channelName}}:{{i.channelValue}}</span>
+	            	</td>
+		          </tr>
+		        </tbody>
+	      	</table>
+	      </div>  
+	        
+   
+	    </div>
+	    <footer class="panel-footer">
+	      <div class="row">
+					<div class="col-sm-3">
+	          <small class="text-muted inline m-t-sm m-b-sm">共 {{total}} 条数据</small>
+	        </div>
+	        <div class="col-sm-offset-3 col-sm-6 text-right text-center-xs" ng-if="pages.length>0">                
+	          <ul class="pagination pagination-sm m-t-none m-b-none">
+	            <li ng-if="!hasPrevious" class="disabled"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	            <li ng-if="hasPrevious"><a ng-click="lastPage()"><i class="fa fa-chevron-left"></i></a></li>
+	            <li ng-class="{true:'active'}[p==currentPage]" ng-repeat="p in pages"><a ng-click="pageTo({{p}})">{{p}}</a></li>
+	            <li ng-if="hasNext"><a ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	            <li ng-if="!hasNext" class="disabled"><a  ng-click="nextPage()"><i class="fa fa-chevron-right"></i></a></li>
+	          </ul>
+	        </div>
+	      </div>
+    </div> 
+	    </footer>
+	        <div class='row'>
+	    	    <div class="mPane hFull col-xs-6 col-sm-2">
+	    	      <div class="title">项目信息</div>
+	    	      <div class="body">
+	    	        <p>负责人：{{equipment.clientName}}</p>
+	    	        <p>负责人电话：{{equipment.clientPhone}}</p>
+	    	        <p>安全负责人：{{equipment.safeName}}</p>
+	    	        <p>安全负责人电话：{{equipment.safePhone}}</p>
+	    	      </div>
+	    	    </div>
+	    	    <div class="mPane col-xs-12 col-sm-8">
+	    	      <div class="title clearify">
+	    	        具体数据
+	    	        <div class='pull-right form-inline'>
+	    	          <div class="form-group">
+	    	            <label for="">通道选择:</label>
+	    	            <select name="" id="" class='form-control blue_bg' ng-change='changeLine()' ng-model="passageway" ng-options="x as y for (x, y) in equipmentCheckArr" style='max-width: 130px;'>
+	    	              <!-- <option value="1">1</option>
+	    	              <option value="2">2</option>
+	    	              <option value="3">3</option>
+	    	              <option value="4">4</option> -->
+	    	            </select>
+	    	            <label for="">登记时间:</label>
+	    	            <div class="input-group" ng-controller="DatepickerDemoCtrl">
+	    	              <input type="text"  id="startTime" class='form-control blue_bg' disabled datepicker-popup="{{format}}" ng-change='changeTime()' ng-model="startTime" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭">
+	    	              <div class="input-group-addon" ng-click="open($event)"><i class='glyphicon glyphicon-calendar'></i></div>
+	    	            </div>
+	    	            <label for="">-</label>
+	    	            <select name="" id="hour" class='form-control blue_bg'>
+	    	           	  <option value="0">0</option>
+	    	              <option value="1">1</option>
+	    	              <option value="2">2</option>
+	    	              <option value="3">3</option>
+	    	              <option value="4">4</option>
+	    	              <option value="5">5</option>
+	    	              <option value="6">6</option>
+	    	              <option value="7">7</option>
+	    	              <option value="8">8</option>
+	    	              <option value="9">9</option>
+	    	              <option value="10">10</option>
+	    	              <option value="11">11</option>
+	    	              <option value="12">12</option>
+	    	              <option value="13">13</option>
+	    	              <option value="14">14</option>
+	    	              <option value="15">15</option>
+	    	              <option value="16">16</option>
+	    	              <option value="17">17</option>
+	    	              <option value="18">18</option>
+	    	              <option value="19">19</option>
+	    	              <option value="20">20</option>
+	    	              <option value="21">21</option>
+	    	              <option value="22">22</option>
+	    	              <option value="23">23</option>
+	    	            </select>
+	    	          </div>
+	    	          <button type='button' class='btn btn-primary' ng-click='passagewayInit()'><i class='glyphicon glyphicon-search'></i></button>
+	    	        </div>
+	    	      </div>
+	    	      <div class="body" ng-show=chartsStatus>
+	    	        <div e-chart options="option"></div>
+	    	      </div>
+	    	    </div>
+	    	    <div class="mPane hFull col-xs-6 col-sm-2">
+	    	      <div class="title" >处理详情</div>
+	    	      <div class="body"  ng-if="statusText !='离线'">
+	    	        <textarea style="resize:none;" cols="30" rows="3" class='form-control mb-10' id='handleCon' placeholder="请输入处理内容"></textarea>
+	    	        <div class='text-right'>
+	    	          <button type='' class='btn btn-success' ng-click="dealEq()" >确定</button>
+	    	        </div>
+	    	      </div>
+	    	    </div>
+	        </div>
+	  </div>
+
+	</div>
+</div>
+<script>
+$("#checkLabel").click(function(){
+    if($("#totalCheck").prop("checked") == true){
+        $(".o-checks").prop("checked",true);
+    }else{
+        $(".o-checks").prop("checked",false);
+    }
+    
+})
+</script>

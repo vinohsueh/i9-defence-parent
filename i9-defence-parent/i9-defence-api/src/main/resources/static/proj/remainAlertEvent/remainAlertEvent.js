@@ -1,8 +1,8 @@
 /**
- * 事件查看js
+ * 第一次报警、隐患事件查看js
  */
-var eventModule=angular.module('eventModule',['ngAnimate','ui.bootstrap','app']);
-var eventService = eventModule.factory('eventService',
+var remainAlertEventModule=angular.module('remainAlertEventModule',['ngAnimate','ui.bootstrap','app']);
+var remainAlertEventService = remainAlertEventModule.factory('remainAlertEventService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -22,7 +22,7 @@ var eventService = eventModule.factory('eventService',
 			});
 			return resource;
 	}]);
-var eventControl=eventModule.controller('eventControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,eventService,httpService){
+var remainAlertEventControl=remainAlertEventModule.controller('remainAlertEventControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,remainAlertEventService,httpService){
 	// 接收传过来的id
 	$scope.projectId=$stateParams.id;
 	// alert($scope.projectId);
@@ -96,7 +96,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 				// orderByClause: 'warningCount desc'
 			};
 			// console.log(JSON.stringify(pageParam));
-		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit2',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./hiddenDangerEdit/pageHiddenDangerEdit3',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.hiddenEdits = data.data.data.pageList;
 			console.log($scope.hiddenEdits);
 			$scope.equipmentCategorys = data.data.equipmentCategory;
@@ -106,10 +106,10 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
 					$scope.hiddenEdits[i].status = 'lineOut'
 					$scope.hiddenEdits[i].statusText = '离线';
     			}else{
-    				if($scope.hiddenEdits[i].dataStatus==0){
+    				if($scope.hiddenEdits[i].remainAlert==0){
     					$scope.hiddenEdits[i].status = ''
     						$scope.hiddenEdits[i].statusText = '正常';
-        			}else if ($scope.hiddenEdits[i].dataStatus == 1){
+        			}else if ($scope.hiddenEdits[i].remainAlert == 1){
         				$scope.hiddenEdits[i].status = 'danger';
     					$scope.hiddenEdits[i].statusText = '报警';
         			}else{
@@ -400,7 +400,7 @@ var eventControl=eventModule.controller('eventControl',function($rootScope, $sco
     	})
     };
 
-    $scope.dealEq = function() {
+    $scope.dealEq = function() { 
        	$scope.delArray = [];
     	angular.forEach(angular.element.find(".o-checks"), function(dom){
     		if(angular.element(dom).prop("checked") == true){

@@ -137,6 +137,16 @@ public class EquipmentDaoImpl implements EquipmentDao{
         pageBounds.setPageList(list);
         return pageBounds;
 	}
+	
+	@Override
+    public PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage3(HiddenDangerSearchDto hiddenDangerSearchDto,
+            int currectPage, int pageSize) throws Exception {
+        final int totalSize = equipmentMapper.countHiddenDangerByExample2(hiddenDangerSearchDto);
+        PageBounds<HiddenDangerDto> pageBounds = new PageBounds<HiddenDangerDto>(currectPage, totalSize, pageSize);
+        List<HiddenDangerDto> list = equipmentMapper.selectHiddenDangerByLimitPage3(hiddenDangerSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
+        pageBounds.setPageList(list);
+        return pageBounds;
+    }
 
 	@Override
 	public List<HiddenDangerChannelDto> selectHiddenDangerChannelDtoBySid(String deviceId,int count) {
@@ -314,6 +324,11 @@ public class EquipmentDaoImpl implements EquipmentDao{
     @Override
     public List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto) throws Exception {
         return equipmentMapper.selectConnectLogMonthData(monthDataDto);
+    }
+
+    @Override
+    public void updateEquipmentAlertAndDataStatus(String deviceId,String alertTime) {
+        equipmentMapper.updateEquipmentAlertAndDataStatus(deviceId,alertTime);
     }
     
     

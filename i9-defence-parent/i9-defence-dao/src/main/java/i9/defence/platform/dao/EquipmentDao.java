@@ -145,7 +145,15 @@ public interface EquipmentDao {
     PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage2(HiddenDangerSearchDto hiddenDangerSearchDto,
             int currectPage, int pageSize) throws Exception;
     
-    
+    /**
+     * 分页查询隐患报警3
+     * @param hiddenDangerSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<HiddenDangerDto> selectHiddenDangerByLimitPage3(HiddenDangerSearchDto hiddenDangerSearchDto,
+            int currectPage, int pageSize) throws Exception;
     
     /**
      * 查询具体隐患报警--隐患
@@ -310,4 +318,6 @@ public interface EquipmentDao {
     List<String> selectCodename()throws Exception;
     
     List<MonthData> selectConnectLogMonthData(MonthDataDto monthDataDto)throws Exception;
+    
+    void updateEquipmentAlertAndDataStatus(String deviceId, String newsEventTime);
 }

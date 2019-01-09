@@ -567,6 +567,23 @@ angular.module('app')
                     }]
                   }
               }) 
+              .state('app.remainAlertEvent', {
+                  url: '/remainAlertEvent',
+                  templateUrl: 'proj/remainAlertEvent/remainAlertEvent.html',
+              	  controller : "remainAlertEventControl",
+              	  resolve: { 
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'remainAlertEventModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/remainAlertEvent/remainAlertEvent.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
               .state('app.warningInfo', {
                   url: '/warningInfo',
                   params: {'id': null},

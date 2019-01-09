@@ -187,12 +187,15 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
             
             
             // 如果遗留状态为正常
+            String alertTime=null;
             if (0 == equipmentRemainStatus) {
                 if (alertNum > 0) {
                     alertStatus = 1;
                 } else if (0 == alertNum && hiddenNum > 0) {
                     alertStatus = 2;
                 }
+                //增加第一次报警时间
+                alertTime=StringUtil.dateToString(new Date());
             } else if (1 == equipmentRemainStatus) {
                 // 如果遗留状态为报警
                 alertStatus = 1;
@@ -204,13 +207,15 @@ public class UpStreamDecodeServiceImpl implements UpStreamDecodeService {
                     alertStatus = 2;
                 }
             }
-            String newsEventTime =null; 
-            if(0 !=alertStatus) {
+            String newsEventTime =null;  
+            if(0 !=dataStatus) {
             	newsEventTime = StringUtil.dateToString(new Date());
             }
             // 更新设备的数据状态
+            if(StringUtils.isNotBlank(alertTime)) {
+                equipmentDao.updateEquipmentAlertAndDataStatus(deviceId,alertTime);
+            }
             equipmentDao.updateEquipmentDataStatus(deviceId, dataStatus, alertStatus,newsEventTime);
-
             // 插入设备问题记录
             if (0 != dataStatus) {
                 ErrorRecord errorRecord = new ErrorRecord();

@@ -110,7 +110,7 @@ public class Equipment {
      */
     private Date newEventTime;
 
-	public Date getNewEventTime() {
+    public Date getNewEventTime() {
 		return newEventTime;
 	}
 
