@@ -1538,10 +1538,11 @@
 	 where deviceId = #{deviceId}
 	</update>
 	<update id="updateEquipmentAlertAndDataStatus">
-	   update t_equipment_newest 
-        set 
-        remainAlertTime = #{alertTime}
-     where deviceId = #{deviceId}
+     INSERT INTO t_equipment_newest (eqDeviceId, remainAlertTime)
+    VALUES
+        (#{deviceId},#{alertTime}) 
+    ON DUPLICATE KEY UPDATE
+    remainAlertTime =VALUES(alertTime)
 	</update>
 	<update id="updateAllEquipmentStatus">
 		update t_equipment
