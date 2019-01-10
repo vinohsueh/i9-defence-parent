@@ -130,6 +130,63 @@ public class ErrHandleServiceImpl implements ErrHandleService{
 			throw new BusinessException("批量处理设备错误失败", e.getMessage());
 		}		
 	}
+	
+	 @Override
+	    public void handlingErrors2(ErrHandleUnifiedDto errHandleUnifiedDto) throws BusinessException {
+	     try {
+	            //当前登录人
+	            Manager manager = managerService .getLoginManager();
+	            //封装所有的历史记录
+	            List<ErrHandle> errHandles= new ArrayList<ErrHandle>();
+	            //封装所有的报警deviceId
+	            List<String> deviceIdsWarning=new ArrayList<String>(); 
+	            //封装所有的隐患deviceId
+	            List<String> deviceIdsHidden=new ArrayList<String>(); 
+	            //封装所有的离线deviceId
+	            List<Integer> EquipIdsOffLine=new ArrayList<Integer>(); 
+	            //根据ids获取到所有
+	            List<HiddenDangerDto> equipProblems = equipmentDao.selectHiddenDangerByIds(errHandleUnifiedDto.getEqIds());
+	            for(HiddenDangerDto hiddenDangerDto:equipProblems) {
+	                ErrHandle errHandle = new ErrHandle();
+	                errHandle.setHandleManagerId(manager.getId());
+	                errHandle.setHandleDate(new Date());
+	                errHandle.setHandleState(1);
+	                errHandle.setEqDeviceId(hiddenDangerDto.getDeviceId());
+	                errHandle.setEqAddRess(hiddenDangerDto.getEquipmentPosition());
+	                errHandle.setHandleCon(errHandleUnifiedDto.getHandleCon());
+	                //离线
+	                if(0 ==hiddenDangerDto.getStatus()) {
+	                    errHandle.setType(1); 
+	                    EquipIdsOffLine.add(hiddenDangerDto.getId());
+	                }else{
+	                    //报警
+	                    if(1 ==hiddenDangerDto.getRemainAlert()) {
+	                        errHandle.setType(2); 
+	                        deviceIdsWarning.add(hiddenDangerDto.getDeviceId());
+	                    //隐患
+	                    }else if(2 ==hiddenDangerDto.getRemainAlert()){
+	                        errHandle.setType(3); 
+	                        deviceIdsHidden.add(hiddenDangerDto.getDeviceId());
+	                    }
+	                }
+	                errHandles.add(errHandle);
+	            }
+	            errHandleDao.addErrHandle(errHandles);
+	            if(0 !=EquipIdsOffLine.size()) {
+	                equipmentDao.updateEquipStatusByIds(EquipIdsOffLine);
+	            }
+	            if(0!= deviceIdsWarning.size()) {
+	                errHandleDao.updateHandleFault(deviceIdsWarning);
+	                equipmentDao.updateEquipRemainAlertByDeviceIds2(deviceIdsWarning);
+	            }
+	            if(0!= deviceIdsHidden.size()) {
+	                errHandleDao.updateHandleHidden(deviceIdsHidden);
+	                equipmentDao.updateEquipRemainAlertByDeviceIds2(deviceIdsHidden);
+	            }
+	        } catch (Exception e) {
+	            throw new BusinessException("批量处理设备错误失败", e.getMessage());
+	        }
+	    }
 
 	@Override
 	public void deleteErrHandle(List<Integer> ids) throws BusinessException {
@@ -404,5 +461,4 @@ public class ErrHandleServiceImpl implements ErrHandleService{
                throw new BusinessException("Excel导出失败",e.getMessage());
            }
     }
-
 }

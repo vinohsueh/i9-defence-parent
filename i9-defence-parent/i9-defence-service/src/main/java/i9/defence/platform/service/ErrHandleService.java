@@ -48,4 +48,6 @@ public interface ErrHandleService {
 	void errHandleEdit(ErrHandleUnifiedDto errHandleUnifiedDto)throws BusinessException;
 
     XSSFWorkbook downLoadExportToExcel()throws BusinessException;
+
+    void handlingErrors2(ErrHandleUnifiedDto errHandleUnifiedDto)throws BusinessException;
 }

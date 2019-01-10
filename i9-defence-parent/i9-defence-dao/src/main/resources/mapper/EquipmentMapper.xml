@@ -707,7 +707,15 @@
 			#{item}
 		</foreach>
 	</update>
-
+    
+    <update id="updateEquipRemainAlertByDeviceIds2" parameterType="java.util.List">
+        update t_equipment set dataStatus = 0
+        where deviceId in
+        <foreach collection="items" item="item" separator="," open="("
+            close=")">
+            #{item}
+        </foreach>
+    </update>
 
 
 	<!-- ———————————— 批量添加设备———————————— -->

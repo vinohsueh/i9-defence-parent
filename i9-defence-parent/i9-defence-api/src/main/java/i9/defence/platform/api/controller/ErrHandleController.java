@@ -57,12 +57,22 @@ public class ErrHandleController {
     }
     
     /**
-     *批量处理 设备报警 type = 2 报警  或者 设备隐患 type = 3 隐患
+     *批量处理 设备报警 type = 2 报警  或者 设备隐患 type = 3 隐患(第一次报警事件)
      */
     @RequestMapping("/handlingErrors")
     public HashMap<String, Object> handlingErrors(@RequestBody ErrHandleUnifiedDto errHandleUnifiedDto) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         errHandleService.handlingErrors(errHandleUnifiedDto);
+        return result;
+    }
+    
+    /**
+     *批量处理 设备报警 type = 2 报警  或者 设备隐患 type = 3 隐患(实时报警事件)
+     */
+    @RequestMapping("/handlingErrors2")
+    public HashMap<String, Object> handlingErrors2(@RequestBody ErrHandleUnifiedDto errHandleUnifiedDto) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        errHandleService.handlingErrors2(errHandleUnifiedDto);
         return result;
     }
     

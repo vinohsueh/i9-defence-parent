@@ -198,6 +198,13 @@ public interface EquipmentMapper {
 	void updateEquipRemainAlertByDeviceIds(@Param("items") List<String> deviceIds);
 	
 	/**
+     * 更改设备旧状态
+    * @Title: updateEquipRemainAlertByDeviceIds 
+    * @Description: TODO
+    * @param ids
+     */
+    void updateEquipRemainAlertByDeviceIds2(@Param("items") List<String> deviceIds);
+	/**
 	 * 更改设备状态
 	* @Title: updateAllEquipmentStatus 
 	* @Description: TODO
