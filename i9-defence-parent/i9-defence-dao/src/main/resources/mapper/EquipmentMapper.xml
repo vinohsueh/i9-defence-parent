@@ -1542,7 +1542,7 @@
     VALUES
         (#{deviceId},#{alertTime}) 
     ON DUPLICATE KEY UPDATE
-    remainAlertTime =VALUES(alertTime)
+    remainAlertTime =VALUES(remainAlertTime)
 	</update>
 	<update id="updateAllEquipmentStatus">
 		update t_equipment
