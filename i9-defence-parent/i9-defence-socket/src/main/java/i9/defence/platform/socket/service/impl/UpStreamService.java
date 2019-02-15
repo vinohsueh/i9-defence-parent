@@ -84,7 +84,7 @@ public class UpStreamService implements ICoreService {
      */
     private void cleanUpStreamData(JSONObject jsonObject) {
         String systemType = jsonObject.getString("systemType");
-        if (!systemType.equalsIgnoreCase("0BBC")) {
+        if (!systemType.equalsIgnoreCase("0BBC") && !systemType.equalsIgnoreCase("3004")) {
             return;
         }
         logger.info("power, old : " + jsonObject.toJSONString());

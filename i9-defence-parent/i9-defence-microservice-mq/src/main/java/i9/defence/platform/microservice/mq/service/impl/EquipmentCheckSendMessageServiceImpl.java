@@ -114,7 +114,7 @@ public class EquipmentCheckSendMessageServiceImpl implements EquipmentCheckSendM
         List<ChannelData> channelDatas = new ArrayList<ChannelData>();
         JSONArray dataList = jsonObject.getJSONArray("dataList");
         // 如果当前设备为智慧用电设备，则进行特殊处理
-        if (systemType.equalsIgnoreCase("0BBC")) {
+        if (systemType.equalsIgnoreCase("0BBC") || systemType.equalsIgnoreCase("3004")) {
             for (int index = 0; index < dataList.size(); index++) {
                 JSONObject dataItem = dataList.getJSONObject(index);
                 int channel = dataItem.getIntValue("channel");
