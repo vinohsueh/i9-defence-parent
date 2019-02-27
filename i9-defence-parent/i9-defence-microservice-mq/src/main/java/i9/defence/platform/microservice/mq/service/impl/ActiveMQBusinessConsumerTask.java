@@ -9,11 +9,13 @@ import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.service.UpStreamDecodeService;
 import i9.defence.platform.utils.StringUtil;
 
+import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -26,9 +28,17 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
 
     @Override
     public void run() {
+        // 判断当前消息中是否有特定的数据通道（心跳，登录）
+        if (checkDataMessageHaveGivenChannel()) {
+            return;
+        }
+        ;
         UpStreamDecodeService upStreamDecodeService = getUpStreamDecodeService();
         try {
             int dataStatus = upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
+            if (dataStatus == -100) {
+                return;
+            }
             if (dataStatus != 0) {
                 JSONObject jsonObject = JSONObject.parseObject(textMessage.getText());
                 String systemId = jsonObject.getString("systemId");
@@ -56,6 +66,29 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
         } catch (Exception e) {
             logger.error("save up stream decode error, ex : ", e);
         }
+    }
+
+    /**
+     * 判断当前消息中是否有特定的数据通道（心跳，登录）
+     * 
+     * @return
+     */
+    public boolean checkDataMessageHaveGivenChannel() {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = JSONObject.parseObject(textMessage.getText());
+        } catch (JMSException e) {
+            return false;
+        }
+        JSONArray dataList0 = jsonObject.getJSONArray("dataList");
+        for (int index = 0; index < dataList0.size(); index++) {
+            JSONObject dataItem = dataList0.getJSONObject(index);
+            int channel = dataItem.getIntValue("channel");
+            if (channel == -1 || channel == -2) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQBusinessConsumerTask.class);
