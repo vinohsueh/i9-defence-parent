@@ -32,13 +32,9 @@ public class ActiveMQBusinessConsumerTask extends ActiveMQConsumerTask {
         if (checkDataMessageHaveGivenChannel()) {
             return;
         }
-        ;
         UpStreamDecodeService upStreamDecodeService = getUpStreamDecodeService();
         try {
             int dataStatus = upStreamDecodeService.saveUpStreamDecode(textMessage.getText());
-            if (dataStatus == -100) {
-                return;
-            }
             if (dataStatus != 0) {
                 JSONObject jsonObject = JSONObject.parseObject(textMessage.getText());
                 String systemId = jsonObject.getString("systemId");
