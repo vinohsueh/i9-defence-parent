@@ -1,14 +1,6 @@
 package i9.defence.platform.socket.service.impl;
 
-import java.math.BigDecimal;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.alibaba.fastjson.JSONObject;
-
 import i9.defence.platform.mq.libraries.destination.ActiveMQQueueEnum;
 import i9.defence.platform.mq.libraries.producer.ActiveMQProducerService;
 import i9.defence.platform.netty.libraries.DataParseUtil;
@@ -23,6 +15,12 @@ import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 import i9.defence.platform.socket.util.ChannelConnectedService;
 import i9.defence.platform.socket.util.DeviceAlarmSpecialEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class UpStreamService implements ICoreService {
@@ -79,7 +77,7 @@ public class UpStreamService implements ICoreService {
 
     /**
      * 清理上行数据
-     * 
+     *
      * @param reqMessage
      */
     private void cleanUpStreamData(JSONObject jsonObject) {
@@ -112,7 +110,7 @@ public class UpStreamService implements ICoreService {
                 item.put("value", this.setScaleFormat(value * 0.001f));
             } else if (channel == 32 || channel == 33 || channel == 34) {
                 Short value = EncryptUtils.parseUnsignedShort(item.getString("data"));
-                item.put("value", value);
+                item.put("value", this.setScaleFormat(value * 0.001f));
             }
         }
         for (int index = 0; index < jsonObject.getJSONArray("dataList").size(); index++) {

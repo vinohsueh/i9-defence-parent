@@ -6,7 +6,6 @@ import i9.defence.platform.socket.context.DeviceAttribute;
 import i9.defence.platform.socket.netty.Message;
 import i9.defence.platform.socket.service.ICoreService;
 import i9.defence.platform.socket.util.ChannelConnectedService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
