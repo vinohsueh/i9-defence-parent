@@ -64,6 +64,7 @@ public class DataMessage extends MessageDecodeConvert {
         if (buf.readableBytes() < this.len) {
             return true;
         }
+        logger.info("data message len : " + this.len);
         this.data = new byte[this.len];
         buf.readBytes(this.data);
         return false;
