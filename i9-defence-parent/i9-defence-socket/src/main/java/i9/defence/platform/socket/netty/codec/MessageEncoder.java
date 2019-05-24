@@ -15,8 +15,8 @@ public class MessageEncoder extends MessageToByteEncoder<ByteBuf> {
         // 处理通信编码
         byte[] data = msg.array();
         buf.writeBytes(data);
-        logger.info("发送数据, data : {}", EncryptUtils.bytesToHexString(data));
+        logger.error("发送数据, data : {}", EncryptUtils.bytesToHexString(data));
     }
     
-    private static final Logger logger = LoggerFactory.getLogger(MessageEncoder.class);
+    private static final Logger logger = LoggerFactory.getLogger("business");
 }

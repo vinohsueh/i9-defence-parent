@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
 
-    private static final Logger logger = LoggerFactory.getLogger(MessageDecoder.class);
+    private static final Logger logger = LoggerFactory.getLogger("business");
 
     @Override
     public void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> list) throws Exception {
@@ -62,7 +62,7 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         byte sumcheck = buf.readByte(); // 读取校验和
         byte end = buf.readByte();      // 读取结束符
         
-        logger.info(
+        logger.debug(
                 "解码, 起始符 : {}, 协议版本号 : {}, 消息类型 : {}, 消息索引 : {}, data : {}, 校验和 : {}, 结束符 : {}",
                 String.format("%02X", start),
                 String.format("%02X", version),
@@ -75,6 +75,8 @@ public class MessageDecoder extends MessageToMessageDecoder<ByteBuf> {
         ByteBuffer byteBuffer = ByteBuffer.allocate(1 + 1 + 1 + 4 + dst.length + 1 + 1);
         byteBuffer.put(start).put(version).put(type).putInt(index).put(dst).put(sumcheck).put(end);
         String decoderStr = EncryptUtils.bytesToHexString(byteBuffer.array());
+        
+        logger.error("接受数据, data : {}", decoderStr);
         
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("channelId", ctx.channel().id().asLongText());
