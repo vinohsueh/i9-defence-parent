@@ -7,5 +7,4 @@ public class ActiveMQDestination extends ActiveMQQueue {
     public ActiveMQDestination(ActiveMQQueueEnum activeMQQueueEnum) {
         super(activeMQQueueEnum.name());
     }
-
 }

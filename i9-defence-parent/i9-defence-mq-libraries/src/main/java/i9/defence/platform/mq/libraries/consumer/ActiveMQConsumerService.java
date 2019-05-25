@@ -31,14 +31,14 @@ public class ActiveMQConsumerService {
         }
         return textMessage;
     }
-    
+
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQConsumerService.class);
-    
+
     public TextMessage receive(ActiveMQQueueEnum activeMQQueueEnum) {
         ActiveMQDestination destination = this.activeMQDestinationHolder.getDestination(activeMQQueueEnum);
         return this.receive(destination);
     }
-    
+
     @Autowired
     private ActiveMQDestinationHolder activeMQDestinationHolder;
 }

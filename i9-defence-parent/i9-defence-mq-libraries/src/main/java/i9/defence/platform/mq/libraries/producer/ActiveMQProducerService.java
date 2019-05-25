@@ -18,27 +18,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ActiveMQProducerService {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(ActiveMQProducerService.class);
 
     @Autowired
     private JmsTemplate jmsTemplate;
-    
+
     @Autowired
     private ActiveMQDestinationHolder activeMQDestinationHolder;
-    
+
     public void sendMessage(ActiveMQQueueEnum activeMQQueueEnum, final String msg) {
         ActiveMQDestination destination = activeMQDestinationHolder.getDestination(activeMQQueueEnum);
         this.sendMessage(destination, msg);
     }
 
     public void sendMessage(Destination destination, final String msg) {
-        logger.info("发送MQ数据, text : {}, destination :{}", msg, destination);
-        MessageCreator messageCreator = new MessageCreator() {
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(msg);
-            }
-        };
-        jmsTemplate.send(destination, messageCreator);
+        try {
+            logger.info("发送MQ数据, text : {}, destination :{}", msg, destination);
+            MessageCreator messageCreator = new MessageCreator() {
+                public Message createMessage(Session session) throws JMSException {
+                    return session.createTextMessage(msg);
+                }
+            };
+            jmsTemplate.send(destination, messageCreator);
+        } catch (Exception e) {
+            logger.error("发送MQ数据异常, text : " + msg + ", destination : " + destination, e);
+        }
     }
 }

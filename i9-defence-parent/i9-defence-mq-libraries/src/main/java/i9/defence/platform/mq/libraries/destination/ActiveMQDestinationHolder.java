@@ -18,9 +18,9 @@ public class ActiveMQDestinationHolder {
         }
         this.dataMap = dataMap;
     }
-    
+
     private HashMap<ActiveMQQueueEnum, ActiveMQDestination> dataMap = new HashMap<ActiveMQQueueEnum, ActiveMQDestination>();
-    
+
     public ActiveMQDestination getDestination(ActiveMQQueueEnum activeMQQueueEnum) {
         return this.dataMap.get(activeMQQueueEnum);
     }
